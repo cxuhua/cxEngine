@@ -64,11 +64,7 @@ private:
     cxHash *shaders;
     cxMatrixF modelproject;
     cxMatrixF modelview;
-    cxBool border;
 public:
-    
-    cxBool Border() const;
-    void SetBorder(cxBool v);
     
     void SetClearColor(const cxColor4F &clear);
     

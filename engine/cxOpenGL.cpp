@@ -207,18 +207,12 @@ cxOpenGL::cxOpenGL()
         currTexId[i] = -1;
     }
     currProg = -1;
-    border = true;
 }
 
 cxOpenGL::~cxOpenGL()
 {
     shaders->Release();
     kmGLClearCurrentContext();
-}
-
-cxBool cxOpenGL::Border() const
-{
-    return border;
 }
 
 void cxOpenGL::Set3DProject(const cxSize2F &winsiz)
@@ -245,11 +239,6 @@ void cxOpenGL::Set3DProject(const cxSize2F &winsiz)
     
     kmGLMatrixMode(KM_GL_MODELVIEW);
     kmGLLoadIdentity();
-}
-
-void cxOpenGL::SetBorder(cxBool v)
-{
-    border = v;
 }
 
 void cxOpenGL::MatrixMode(kmGLEnum mode)

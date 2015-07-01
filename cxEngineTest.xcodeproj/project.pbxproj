@@ -24,7 +24,6 @@
 		83E6F64D1B0C97B5006839C8 /* App.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83E6F64C1B0C97B5006839C8 /* App.mm */; };
 		83E6F6551B0C97B5006839C8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E6F6541B0C97B5006839C8 /* Images.xcassets */; };
 		83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E6F6561B0C97B5006839C8 /* LaunchScreen.xib */; };
-		83E6F6641B0C97B5006839C8 /* cxEngine2DTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E6F6631B0C97B5006839C8 /* cxEngine2DTests.m */; };
 		83E6F66F1B0C97F7006839C8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66D1B0C97F7006839C8 /* GLKit.framework */; };
 		83E6F6701B0C97F7006839C8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */; };
 /* End PBXBuildFile section */
@@ -44,13 +43,6 @@
 			remoteGlobalIDString = 83BBF3E31B109452003CB004;
 			remoteInfo = cxEngineCoreTests;
 		};
-		83E6F65E1B0C97B5006839C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83E6F63C1B0C97B5006839C8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83E6F6431B0C97B5006839C8;
-			remoteInfo = cxEngine2D;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -69,15 +61,12 @@
 		83D92D211B314ECF00F061D6 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		83D92D261B315E7200F061D6 /* animate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animate.json; sourceTree = "<group>"; };
 		83D92D271B315E7200F061D6 /* animate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = animate.png; sourceTree = "<group>"; };
-		83E6F6441B0C97B5006839C8 /* cxEngine2D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cxEngine2D.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83E6F6441B0C97B5006839C8 /* cxEngineTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cxEngineTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E6F6481B0C97B5006839C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83E6F64B1B0C97B5006839C8 /* App.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
 		83E6F64C1B0C97B5006839C8 /* App.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = App.mm; sourceTree = "<group>"; };
 		83E6F6541B0C97B5006839C8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		83E6F6571B0C97B5006839C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		83E6F65D1B0C97B5006839C8 /* cxEngine2DTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cxEngine2DTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		83E6F6621B0C97B5006839C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		83E6F6631B0C97B5006839C8 /* cxEngine2DTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cxEngine2DTests.m; sourceTree = "<group>"; };
 		83E6F66D1B0C97F7006839C8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -96,13 +85,6 @@
 				839836BF1B109793002B7C20 /* libcxEngineCore.a in Frameworks */,
 				83E6F66F1B0C97F7006839C8 /* GLKit.framework in Frameworks */,
 				83E6F6701B0C97F7006839C8 /* OpenGLES.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83E6F65A1B0C97B5006839C8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +120,7 @@
 			children = (
 				839836B61B10978A002B7C20 /* cxEngineCore.xcodeproj */,
 				839836CB1B10B021002B7C20 /* libs */,
-				83E6F6461B0C97B5006839C8 /* cxEngine2D */,
-				83E6F6601B0C97B5006839C8 /* cxEngine2DTests */,
+				83E6F6461B0C97B5006839C8 /* cxEngineTest */,
 				83E6F6451B0C97B5006839C8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -147,13 +128,12 @@
 		83E6F6451B0C97B5006839C8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				83E6F6441B0C97B5006839C8 /* cxEngine2D.app */,
-				83E6F65D1B0C97B5006839C8 /* cxEngine2DTests.xctest */,
+				83E6F6441B0C97B5006839C8 /* cxEngineTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		83E6F6461B0C97B5006839C8 /* cxEngine2D */ = {
+		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
 				83BE63741B311E0A0028B6E7 /* main.m */,
@@ -164,6 +144,7 @@
 				83546A451B3127F700FFE1E7 /* IOSEngine.cpp */,
 				83546A461B3127F700FFE1E7 /* IOSEngine.h */,
 			);
+			name = cxEngineTest;
 			path = cxEngine2D;
 			sourceTree = "<group>";
 		};
@@ -181,29 +162,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		83E6F6601B0C97B5006839C8 /* cxEngine2DTests */ = {
-			isa = PBXGroup;
-			children = (
-				83E6F6631B0C97B5006839C8 /* cxEngine2DTests.m */,
-				83E6F6611B0C97B5006839C8 /* Supporting Files */,
-			);
-			path = cxEngine2DTests;
-			sourceTree = "<group>";
-		};
-		83E6F6611B0C97B5006839C8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				83E6F6621B0C97B5006839C8 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		83E6F6431B0C97B5006839C8 /* cxEngine2D */ = {
+		83E6F6431B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 83E6F6671B0C97B5006839C8 /* Build configuration list for PBXNativeTarget "cxEngine2D" */;
+			buildConfigurationList = 83E6F6671B0C97B5006839C8 /* Build configuration list for PBXNativeTarget "cxEngineTest" */;
 			buildPhases = (
 				83E6F6401B0C97B5006839C8 /* Sources */,
 				83E6F6411B0C97B5006839C8 /* Frameworks */,
@@ -213,28 +177,10 @@
 			);
 			dependencies = (
 			);
-			name = cxEngine2D;
+			name = cxEngineTest;
 			productName = cxEngine2D;
-			productReference = 83E6F6441B0C97B5006839C8 /* cxEngine2D.app */;
+			productReference = 83E6F6441B0C97B5006839C8 /* cxEngineTest.app */;
 			productType = "com.apple.product-type.application";
-		};
-		83E6F65C1B0C97B5006839C8 /* cxEngine2DTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 83E6F66A1B0C97B5006839C8 /* Build configuration list for PBXNativeTarget "cxEngine2DTests" */;
-			buildPhases = (
-				83E6F6591B0C97B5006839C8 /* Sources */,
-				83E6F65A1B0C97B5006839C8 /* Frameworks */,
-				83E6F65B1B0C97B5006839C8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				83E6F65F1B0C97B5006839C8 /* PBXTargetDependency */,
-			);
-			name = cxEngine2DTests;
-			productName = cxEngine2DTests;
-			productReference = 83E6F65D1B0C97B5006839C8 /* cxEngine2DTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -249,13 +195,9 @@
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = Q9F35643QK;
 					};
-					83E6F65C1B0C97B5006839C8 = {
-						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = 83E6F6431B0C97B5006839C8;
-					};
 				};
 			};
-			buildConfigurationList = 83E6F63F1B0C97B5006839C8 /* Build configuration list for PBXProject "cxEngine2D" */;
+			buildConfigurationList = 83E6F63F1B0C97B5006839C8 /* Build configuration list for PBXProject "cxEngineTest" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -274,8 +216,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				83E6F6431B0C97B5006839C8 /* cxEngine2D */,
-				83E6F65C1B0C97B5006839C8 /* cxEngine2DTests */,
+				83E6F6431B0C97B5006839C8 /* cxEngineTest */,
 			);
 		};
 /* End PBXProject section */
@@ -312,13 +253,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83E6F65B1B0C97B5006839C8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -332,23 +266,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83E6F6591B0C97B5006839C8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83E6F6641B0C97B5006839C8 /* cxEngine2DTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		83E6F65F1B0C97B5006839C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83E6F6431B0C97B5006839C8 /* cxEngine2D */;
-			targetProxy = 83E6F65E1B0C97B5006839C8 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		83E6F6561B0C97B5006839C8 /* LaunchScreen.xib */ = {
@@ -467,7 +385,7 @@
 				INFOPLIST_FILE = cxEngine2D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/libs/osx/lib";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = cxEngineTest;
 			};
 			name = Debug;
 		};
@@ -494,48 +412,14 @@
 				INFOPLIST_FILE = cxEngine2D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/libs/osx/lib";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		83E6F66B1B0C97B5006839C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = cxEngine2DTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cxEngine2D.app/cxEngine2D";
-			};
-			name = Debug;
-		};
-		83E6F66C1B0C97B5006839C8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = cxEngine2DTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cxEngine2D.app/cxEngine2D";
+				PRODUCT_NAME = cxEngineTest;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		83E6F63F1B0C97B5006839C8 /* Build configuration list for PBXProject "cxEngine2D" */ = {
+		83E6F63F1B0C97B5006839C8 /* Build configuration list for PBXProject "cxEngineTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83E6F6651B0C97B5006839C8 /* Debug */,
@@ -544,20 +428,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83E6F6671B0C97B5006839C8 /* Build configuration list for PBXNativeTarget "cxEngine2D" */ = {
+		83E6F6671B0C97B5006839C8 /* Build configuration list for PBXNativeTarget "cxEngineTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83E6F6681B0C97B5006839C8 /* Debug */,
 				83E6F6691B0C97B5006839C8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83E6F66A1B0C97B5006839C8 /* Build configuration list for PBXNativeTarget "cxEngine2DTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83E6F66B1B0C97B5006839C8 /* Debug */,
-				83E6F66C1B0C97B5006839C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

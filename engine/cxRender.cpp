@@ -95,24 +95,15 @@ void cxRender::Draw()
         if(type == cxRenderState::ClipOn){
             DrawRenders(prev);
             gl->Scissor(draw.clipbox);
-            continue;
-        }
-        if(type == cxRenderState::ClipOff){
+        }else if(type == cxRenderState::ClipOff){
             DrawRenders(prev);
             gl->Scissor();
-            continue;
+        }else if(type == cxRenderState::Render){
+            cxUInt64 id = draw.ID();
+            if(cid != id){cid = id;DrawRenders(prev);}
+            prev = &draw;
+            renders.Append(draw.render);
         }
-        if(type != cxRenderState::Render){
-            CX_WARN("render type %d not process",type);
-            continue;
-        }
-        cxUInt64 id = draw.ID();
-        if(cid != id){
-            cid = id;
-            DrawRenders(prev);
-        }
-        prev = &draw;
-        renders.Append(draw.render);
     }
     DrawRenders(prev);
     #ifndef NDEBUG

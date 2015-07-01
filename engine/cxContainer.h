@@ -21,9 +21,13 @@ public:
     CX_DECLARE(cxContainer);
 public:
     typedef cxUInt SlidingType;
-    static const SlidingType SlidingTypeNone          = 0;
-    static const SlidingType SlidingTypeHorizontal    = 1 << 0;
-    static const SlidingType SlidingTypeVertical      = 1 << 1;
+    static const SlidingType None        = 0;
+    static const SlidingType Horizontal  = 1 << 0;
+    static const SlidingType Vertical    = 1 << 1;
+    static const SlidingType Left        = 1 << 2;
+    static const SlidingType Right       = 1 << 3;
+    static const SlidingType Top         = 1 << 4;
+    static const SlidingType Bottom      = 1 << 5;
 protected:
     explicit cxContainer();
     virtual ~cxContainer();
@@ -42,6 +46,7 @@ private:
     cxBool issliding;
     cxFloat slidingspeed;
     cxFloat slidingtime;
+    cxPoint2F bodyanchor;
 protected:
     cxView *Body();
     cxContainer *FixPosition();

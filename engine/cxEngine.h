@@ -33,10 +33,11 @@ protected:
     virtual ~cxEngine();
     
     virtual void OnMain();
-    virtual void OnFree();
+    
     virtual void OnPause();
     virtual void OnResume();
     virtual void OnMemory();
+    
     virtual void OnUpdate(cxFloat dt);
 private:
     cxRender *render;

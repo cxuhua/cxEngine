@@ -36,6 +36,18 @@ cxContainer *cxContainer::EnableSliding(cxBool v)
 cxContainer *cxContainer::SetSlidingType(SlidingType v)
 {
     slidingtype = v;
+    if(slidingtype & Left){
+        bodyanchor.x = -0.5f;
+    }
+    if(slidingtype & Right){
+        bodyanchor.x = +0.5f;
+    }
+    if(slidingtype & Top){
+        bodyanchor.y = +0.5f;
+    }
+    if(slidingtype & Bottom){
+        bodyanchor.y = -0.5f;
+    }
     return this;
 }
 
@@ -53,12 +65,13 @@ cxContainer *cxContainer::SetSlidingTime(cxFloat v)
 
 cxContainer::cxContainer()
 {
+    bodyanchor = 0.0f;
     scaleinc = 0.3f;
     scalerange = cxRange2F(0.9f,2.0f);
     scaling = 0.05f;
     isscaling = true;
     issliding = true;
-    slidingtype = SlidingTypeHorizontal|SlidingTypeVertical;
+    slidingtype = Horizontal|Vertical;
     slidingtime = 1.0f;
     slidingspeed = 0.1f;
 }
@@ -79,6 +92,7 @@ cxContainer *cxContainer::FixPosition()
 void cxContainer::OnAppend(cxView *nview)
 {
     if(nview == Body()){
+        Body()->SetAnchor(bodyanchor);
         FixPosition();
     }
 }
@@ -151,10 +165,10 @@ cxBool cxContainer::OnDispatch(const cxTouchable *e)
     }
     if(ep->IsMoved()){
         cxPoint2F pos = Body()->Position();
-        if(slidingtype & SlidingTypeHorizontal){
+        if(slidingtype & Horizontal){
             pos.x += ep->delta.x;
         }
-        if(slidingtype & SlidingTypeVertical){
+        if(slidingtype & Vertical){
             pos.y += ep->delta.y;
         }
         pos = fixPosition(pos);
@@ -167,10 +181,10 @@ cxBool cxContainer::OnDispatch(const cxTouchable *e)
             return false;
         }
         cxPoint2F pos = Body()->Position();
-        if(slidingtype & SlidingTypeHorizontal){
+        if(slidingtype & Horizontal){
             pos.x += slidingspeed * sp.x;
         }
-        if(slidingtype & SlidingTypeVertical){
+        if(slidingtype & Vertical){
             pos.y += slidingspeed * sp.y;
         }
         pos = fixPosition(pos);

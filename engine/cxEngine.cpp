@@ -62,7 +62,6 @@ cxEngine::~cxEngine()
 {
     render->Release();
     window->Release();
-    OnFree();
     uv_loop_close(&looper);
 }
 
@@ -231,11 +230,6 @@ void cxEngine::Memory()
 }
 
 void cxEngine::OnMain()
-{
-    
-}
-
-void cxEngine::OnFree()
 {
     
 }

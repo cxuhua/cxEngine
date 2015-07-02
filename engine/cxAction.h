@@ -55,6 +55,7 @@ public:
     
     cxAction *SetTime(cxFloat v);
     cxFloat Time() const;
+    cxFloat Elapsed() const;
     
     cxBool IsPause() const;
     
@@ -69,7 +70,7 @@ public:
     cxEvent<cxAction> onExit;
 public:
     cxFloat Progress() const;
-    void Exit(cxBool v);
+    void SetExit(cxBool v);
     void Reset();
     void Pause();
     void Resume();

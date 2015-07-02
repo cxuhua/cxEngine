@@ -19,7 +19,7 @@ cxEmitter::cxEmitter()
     systemtime = 0;
     axisspin = cxPoint3F::AxisX;
     emitcounter = 0;
-    rate = 100;
+    rate = 1;
     todir = false;
     units = nullptr;
     type = cxEmitterGravity;
@@ -226,7 +226,7 @@ void cxEmitter::unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F &vq)
 
 void cxEmitter::OnUpdate(cxFloat dt)
 {
-    CX_ASSERT(systemtime != 0, "system time must set");
+    CX_ASSERT(systemtime != 0 && rate != 0, "system time must set");
     if(Capacity() == 0 || Texture() == nullptr){
         return;
     }

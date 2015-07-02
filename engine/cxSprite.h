@@ -30,21 +30,25 @@ private:
     cxBool flipy;
     cxTexture *texture;
 protected:
-    virtual void OnDirty();
-    virtual void OnRender(cxRender *render,const cxMatrixF &model);
+    void OnDirty();
+    void OnRender(cxRender *render,const cxMatrixF &model);
 public:
     
     static cxSprite *Create(cchars fkey);
     
     cxSprite *SetTexKey(cchars fmt,...);
     cxSprite *SetTexCoord(cxTexCoord *v);
+    
     cxSprite *SetFlipX(cxBool v);
     cxSprite *SetFlipY(cxBool v);
     cxSprite *SetFlip(cxBool x,cxBool y);
     cxSprite *SetPixel(const cxBox4F &v);
+    
     cxTexture *Texture() const;
+    
     cxSprite *SetTexture(cchars key);
     cxSprite *SetTexture(cxTexture *ptex);
+    
     cxTexCoord *TexCoord() const;
     const cxBoxCoord2F *BoxCoord() const;
 };

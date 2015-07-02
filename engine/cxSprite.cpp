@@ -31,16 +31,15 @@ cxSprite::~cxSprite()
 
 void cxSprite::OnDirty()
 {
-    if(IsDirtyMode(DirtyModePosition|DirtyModeSize|DirtyModeTexture)){
+    if(IsDirtyMode(DirtyModeSize|DirtyModeTexture)){
         cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), flipx, flipy);
         box.SetVertices(bp);
+        
+        const cxBoxCoord2F *bt = BoxCoord();
+        box.SetCoords(*bt);
     }
     if(IsDirtyMode(DirtyModeColor)) {
         box.SetColor(BoxColor());
-    }
-    if(IsDirtyMode(DirtyModeTexture)){
-        const cxBoxCoord2F *bt = BoxCoord();
-        box.SetCoords(*bt);
     }
 }
 

@@ -56,7 +56,7 @@ void cxAction::Reset()
     OnReset();
 }
 
-void cxAction::Exit(cxBool v)
+void cxAction::SetExit(cxBool v)
 {
     isexit = v;
 }
@@ -190,6 +190,11 @@ cxFloat cxAction::Progress() const
 cxFloat cxAction::Time() const
 {
     return time;
+}
+
+cxFloat cxAction::Elapsed() const
+{
+    return elapsed;
 }
 
 cxAction *cxAction::SetSpeed(cxFloat v)

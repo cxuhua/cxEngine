@@ -17,6 +17,7 @@
 #include <engine/cxButton.h>
 #include <engine/cxContainer.h>
 #include <engine/cxEmitter.h>
+#include <engine/cxTimeLine.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -59,24 +60,35 @@ void IOSEngine::OnMain()
     cxTexture::Create()->From("animate.png")->Atlas("animate.json")->gcpush<cxTexture>("animate");
     cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
-    
 
     
-    cxContainer *c = cxContainer::Create();
-    c->SetResizeFlags(cxView::ResizeFill);
+//    cxContainer *c = cxContainer::Create();
+//    c->SetResizeFlags(cxView::ResizeFill);
+//    
+//    cxSprite *body = cxSprite::Create("bg");
+//    body->SetAnchor(cxPoint2F(-0.0f, 0.0f));//left
+//    body->SetSize(cxSize2F(2560, 1920));
+//    c->Append(body);
+//    
+//    cxEmitter *v = cxEmitter::Create(250);
+//    v->SetSystemTime(-1);
+//    v->SetSize(60.0f);
+//    v->SetTexture("t.png");
+//    c->Append(v);
     
-    cxSprite *body = cxSprite::Create("bg");
-    body->SetAnchor(cxPoint2F(-0.0f, 0.0f));//left
-    body->SetSize(cxSize2F(2560, 1920));
-    c->Append(body);
+    cxTimeLine *ani = cxTimeLine::Create();
+    ani->Push(1);
+    ani->Push(2);
+    ani->Push(3);
+    ani->Push(4);
+    ani->onStop += [](cxAction *s){
+        CX_LOGGER("stop");
+    };
+    ani->onTime +=[](cxTimeLine *pav){
+        CX_LOGGER("%d",pav->Index());
+    };
     
-    cxEmitter *v = cxEmitter::Create(250);
-    v->SetSystemTime(-1);
-    v->SetSize(60.0f);
-    v->SetTexture("t.png");
-    c->Append(v);
-    
-    Window()->Append(c);
+    Window()->Append(ani);
 //
 //
 //    cxView *layer = cxView::Create();

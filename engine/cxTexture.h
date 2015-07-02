@@ -72,7 +72,7 @@ protected:
     virtual ~cxTexture();
 private:
     cxBool success;
-    cxHash *atlas;
+    cxHash *coords;
     cxTextureId texId;
     cxSize2F size;
 public:

@@ -170,12 +170,12 @@ cxTexture::cxTexture()
     success = true;
     texId = 0;
     size = cxSize2F(0, 0);
-    atlas = cxHash::Alloc();
+    coords = cxHash::Alloc();
 }
 
 cxTexture::~cxTexture()
 {
-    atlas->Release();
+    coords->Release();
     cxOpenGL::Instance()->DeleteTexture(texId);
 }
 
@@ -224,7 +224,7 @@ cxTexture *cxTexture::Atlas(cchars file)
 
 cxTexCoord *cxTexture::At(cchars key) const
 {
-    return static_cast<cxTexCoord *>(this->atlas->Get(key));
+    return static_cast<cxTexCoord *>(coords->Get(key));
 }
 
 cxTexCoord *cxTexture::At(const cxStr *key) const
@@ -300,7 +300,7 @@ cxTexture *cxTexture::Atlas(const cxStr *data)
         coord->frame = cxRect4F(item->At("frame"));
         coord->sourceSize = cxSize2F(item->At("sourceSize"));
         coord->spriteSourceSize = cxRect4F(item->At("spriteSourceSize"));
-        this->atlas->Set(key, coord);
+        coords->Set(key, coord);
         coord->Release();
         item->Release();
     }

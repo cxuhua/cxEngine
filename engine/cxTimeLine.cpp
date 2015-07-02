@@ -11,16 +11,34 @@
 
 CX_CPP_BEGIN
 
+#define FIDX(from,to,idx)       ((from<to)?(from+idx):(from-idx))
+
 CX_IMPLEMENT(cxTimePoint);
 
 cxTimePoint::cxTimePoint()
 {
+    object = nullptr;
     time = 0;
 }
 
 cxTimePoint::~cxTimePoint()
 {
-    
+    cxObject::release(&object);
+}
+
+cxFloat cxTimePoint::Time() const
+{
+    return time;
+}
+
+cxObject *cxTimePoint::Object()
+{
+    return object;
+}
+
+void cxTimePoint::SetObject(cxObject *pobj)
+{
+    cxObject::swap(&object, pobj);
 }
 
 cxTimePoint *cxTimePoint::Init(cxFloat at)
@@ -39,15 +57,36 @@ void cxTimeLine::OnInit()
         from = 0;
     }
     if(to < 0){
-        to = frames->Size() - 1;
+        to = points->Size() - 1;
     }
     elapsedTime = 0;
+    UpdateTime();
+}
+
+cxAction *cxTimeLine::Reverse()
+{
+    cxTimeLine *rv = cxTimeLine::Create();
+    rv->from = to;
+    rv->to = from;
+    cxObject::swap(&rv->points, points);
+    return rv;
+}
+cxAction *cxTimeLine::Clone()
+{
+    cxTimeLine *rv = cxTimeLine::Create();
+    rv->from = from;
+    rv->to = to;
+    cxObject::swap(&rv->points, points);
+    return rv;
+}
+
+void cxTimeLine::UpdateTime()
+{
     times.clear();
     cxFloat time = 0;
-    for(cxInt i = from;i < Size();i++){
-        cxTimePoint *frame = At(i);
+    for(cxInt i = 0;i < Size();i++){
         times.push_back(time);
-        time += frame->time;
+        time +=  At(i)->Time();
     }
     SetTime(time);
 }
@@ -57,21 +96,21 @@ cxInt cxTimeLine::Index() const
     return idx;
 }
 
-cxTimePoint *cxTimeLine::At(cxInt idx)
+cxTimePoint *cxTimeLine::At(cxInt i)
 {
-    return frames->At<cxTimePoint>(from + idx);
+    return points->At<cxTimePoint>(FIDX(from, to, i));
 }
 
 cxTimePoint *cxTimeLine::Push(cxFloat time)
 {
     cxTimePoint *p = cxTimePoint::Create()->Init(time);
-    frames->Append(p);
+    points->Append(p);
     return p;
 }
 
 cxTimeLine *cxTimeLine::SetRange(cxInt afrom,cxInt ato)
 {
-    CX_ASSERT(afrom < Size() && to < Size(), "range error");
+    CX_ASSERT(afrom < points->Size() && to < points->Size(), "range error");
     from = afrom;
     to = ato;
     idx = 0;
@@ -80,7 +119,7 @@ cxTimeLine *cxTimeLine::SetRange(cxInt afrom,cxInt ato)
 
 cxInt cxTimeLine::Size() const
 {
-    return abs(to - from + 1);
+    return abs(to - from) + 1;
 }
 
 cxTimeLine::cxTimeLine()
@@ -88,12 +127,12 @@ cxTimeLine::cxTimeLine()
     idx = 0;
     from = -1;
     to = -1;
-    frames = cxArray::Alloc();
+    points = cxArray::Alloc();
 }
 
 cxTimeLine::~cxTimeLine()
 {
-    frames->Release();
+    points->Release();
 }
 
 void cxTimeLine::OnStep(cxFloat dt)

@@ -147,7 +147,7 @@ cxBool cxAction::Update(cxFloat dt)
     if(!isexit) {
         dt *= speed;
         elapsed += dt;
-        dt = deltaTimeFix(dt);
+        deltaTimeFix(dt);
         //curve delta
         cxFloat curr = timing(Progress()) * time;
         dt = curr - prev;

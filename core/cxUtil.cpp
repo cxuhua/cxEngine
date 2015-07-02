@@ -96,7 +96,7 @@ cxDouble cxUtil::Timestamp()
 
 void cxUtil::SetRandSeed()
 {
-    srandom(time(nullptr));
+    srandom((unsigned int)time(nullptr));
 }
 
 cxFloat cxUtil::Rand()

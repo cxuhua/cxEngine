@@ -34,5 +34,10 @@ const cxFloat cxFloatRange::ToValue() const
     return v + r * CX_RAND_11f();
 }
 
+const cxFloat cxFloatRange::ToRadians() const
+{
+    return cxDegreesToRadians(ToValue());
+}
+
 CX_CPP_END
 

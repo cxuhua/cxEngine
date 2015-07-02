@@ -102,6 +102,7 @@ public:
     cxEmitter *SetEndSpin(const cxFloatRange &v);
     cxEmitter *SetAxisSpin(const cxPoint3F &v);
     cxEmitter *SetSystemTime(cxFloat v);
+    cxEmitter *SetToDir(cxBool v);
 };
 
 CX_CPP_END

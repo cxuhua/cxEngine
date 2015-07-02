@@ -16,7 +16,7 @@ CX_IMPLEMENT(cxEmitter);
 cxEmitter::cxEmitter()
 {
     runtime = 0;
-    systemtime = 10;
+    systemtime = 0;
     axisspin = cxPoint3F::AxisX;
     emitcounter = 0;
     rate = 100;
@@ -35,6 +35,10 @@ cxEmitter::cxEmitter()
     startcolor = cxColor4F::WHITE;
     endcolor = cxColor4F(1, 1, 1, 0.3);
     todir = true;
+    
+    startradius = cxFloatRange(0, 0);
+    endradius = cxFloatRange(1000, 0);
+    rotatepers = cxFloatRange(0, 360);
 }
 
 cxEmitter::~cxEmitter()
@@ -47,6 +51,13 @@ cxEmitter *cxEmitter::SetSystemTime(cxFloat v)
     runtime = 0;
     systemtime = v;
     emitcounter = 0;
+    Clear();
+    return this;
+}
+
+cxEmitter *cxEmitter::SetToDir(cxBool v)
+{
+    todir = v;
     return this;
 }
 
@@ -133,10 +144,10 @@ cxEmitter *cxEmitter::Create(cxInt max)
 
 void cxEmitter::initEmitterUnit(cxEmitterUnit *unit)
 {
-    unit->position = position.ToValue();
-    unit->life = life.ToValue();
-    cxFloat speedv = speed.ToValue();
-    cxFloat anglev = cxDegreesToRadians(angle.ToValue());
+    unit->position      = position.ToValue();
+    unit->life          = life.ToValue();
+    cxFloat speedv      = speed.ToValue();
+    cxFloat anglev      = angle.ToRadians();
     cxColor4F scolor    = startcolor.ToValue();
     cxColor4F ecolor    = endcolor.ToValue();
     unit->color         = scolor;
@@ -147,16 +158,18 @@ void cxEmitter::initEmitterUnit(cxEmitterUnit *unit)
     unit->size          = ssize;
     unit->deltasize     = (esize - ssize) / unit->life;
     
-    cxFloat sspin = cxDegreesToRadians(startspin.ToValue());
-    cxFloat espin = cxDegreesToRadians(endspin.ToValue());
-    unit->rotation = sspin;
+    cxFloat sspin       = startspin.ToRadians();
+    cxFloat espin       = endspin.ToRadians();
+    unit->rotation      = sspin;
     unit->deltarotation = (espin - sspin) / unit->life;
+    unit->dir           = cxPoint2F(cosf(anglev),sinf(anglev)) * speedv;
     
     if(type == cxEmitterGravity){
-        unit->dir = cxPoint2F(cosf(anglev),sinf(anglev)) * speedv;
         unit->radaccel = radaccel.ToValue();
         unit->tanaccel = tanaccel.ToValue();
-        if(todir)unit->rotation = -unit->dir.Angle();
+        if(todir){
+            unit->rotation = -unit->dir.Angle();
+        }
     }else if(type == cxEmitterRadial){
         cxFloat sradius = startradius.ToValue();
         cxFloat eradius = endradius.ToValue();
@@ -167,7 +180,7 @@ void cxEmitter::initEmitterUnit(cxEmitterUnit *unit)
             unit->deltaradius = (eradius - sradius) / unit->life;
         }
         unit->angle = anglev;
-        unit->degreespers = cxDegreesToRadians(rotatepers.ToValue());
+        unit->degreespers = rotatepers.ToRadians();
     }
 }
 
@@ -188,7 +201,7 @@ void cxEmitter::unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F &vq)
     cxFloat b = -sizeh;
     cxFloat r = +sizeh;
     cxFloat t = +sizeh;
-    if(this->todir){
+    if(todir){
         cxPoint3F axis =  cxPoint3F(unit->dir.x, unit->dir.y, 0);
         axisspin = axis.Normalize();
     }
@@ -213,11 +226,12 @@ void cxEmitter::unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F &vq)
 
 void cxEmitter::OnUpdate(cxFloat dt)
 {
+    CX_ASSERT(systemtime != 0, "system time must set");
     if(Capacity() == 0 || Texture() == nullptr){
         return;
     }
     runtime += dt;
-    if(runtime < systemtime){
+    if(runtime < systemtime || systemtime < 0){
         cxFloat ratev = 1.0f/rate;
         if(Number() < Capacity()){
             emitcounter += dt;
@@ -248,15 +262,15 @@ void cxEmitter::OnUpdate(cxFloat dt)
                 radial = p->position;
                 radial.Normalize();
             }
-            cxPoint2F tangential = radial;
+            cxPoint2F tgv = radial;
             radial *= p->radaccel;
             //compute tangential
-            cxFloat newy = tangential.x;
-            tangential.x = -tangential.y;
-            tangential.y = newy;
-            tangential *= p->tanaccel;
+            cxFloat newy = tgv.x;
+            tgv.x = -tgv.y;
+            tgv.y = newy;
+            tgv *= p->tanaccel;
             //compute position
-            tmp = radial + tangential;
+            tmp = radial + tgv;
             tmp += gravity;
             tmp *= dt;
             p->dir +=  tmp;
@@ -283,11 +297,10 @@ void cxEmitter::OnUpdate(cxFloat dt)
         
         const cxBoxCoord2F *bt = BoxCoord();
         box.SetCoords(*bt);
-        
         index ++;
     }
     //auto remove emitter system
-    if(runtime >= systemtime && Number() == 0){
+    if(systemtime > 0 && runtime >= systemtime && Number() == 0){
         Remove();
     }
 }

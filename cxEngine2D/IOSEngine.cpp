@@ -71,6 +71,7 @@ void IOSEngine::OnMain()
     c->Append(body);
     
     cxEmitter *v = cxEmitter::Create(250);
+    v->SetSystemTime(-1);
     v->SetSize(60.0f);
     v->SetTexture("t.png");
     c->Append(v);

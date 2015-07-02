@@ -43,6 +43,7 @@ struct cxFloatRange
     cxFloatRange(const cxFloatRange &av);
     cxFloatRange(cxFloat av,cxFloat ar);
     const cxFloat ToValue() const;
+    const cxFloat ToRadians() const;
 };
 
 CX_INLINE cxFloat cxDegreesToRadians(cxFloat degrees)

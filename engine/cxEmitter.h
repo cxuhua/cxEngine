@@ -51,12 +51,15 @@ private:
     
     void initEmitterUnit(cxEmitterUnit *unit);
     void addEmitterUnit();
-    void unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F *vq);
-    void unitSetBox(cxEmitterUnit *unit,cxInt idx);
+    void unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F &vq);
+    
+    cxBoxPoint3F vbp;
+    
+    cxFloat systemtime;
+    cxFloat runtime;
     
     cxEmitterType type;
     cxEmitterUnit *units;
-    cxBool isActive;
     cxFloat emitcounter;
     cxFloat rate;
     
@@ -98,6 +101,7 @@ public:
     cxEmitter *SetStartSpin(const cxFloatRange &v);
     cxEmitter *SetEndSpin(const cxFloatRange &v);
     cxEmitter *SetAxisSpin(const cxPoint3F &v);
+    cxEmitter *SetSystemTime(cxFloat v);
 };
 
 CX_CPP_END

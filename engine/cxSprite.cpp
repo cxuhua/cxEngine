@@ -39,7 +39,7 @@ void cxSprite::OnDirty()
         box.SetColor(BoxColor());
     }
     if(IsDirtyMode(DirtyModeTexture)){
-        const cxBoxCoord2F *bt = coord->BoxCoord(pixel, flipx, flipy);
+        const cxBoxCoord2F *bt = BoxCoord();
         box.SetCoords(*bt);
     }
 }
@@ -113,6 +113,11 @@ cxSprite *cxSprite::SetTexKey(cchars fmt,...)
 cxTexCoord *cxSprite::TexCoord() const
 {
     return coord;
+}
+
+const cxBoxCoord2F *cxSprite::BoxCoord() const
+{
+    return coord->BoxCoord(pixel, flipx, flipy);
 }
 
 cxTexture *cxSprite::Texture() const

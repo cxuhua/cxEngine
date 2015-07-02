@@ -15,9 +15,10 @@ CX_IMPLEMENT(cxEmitter);
 
 cxEmitter::cxEmitter()
 {
+    runtime = 0;
+    systemtime = 10;
     axisspin = cxPoint3F::AxisX;
     emitcounter = 0;
-    isActive = true;
     rate = 100;
     todir = false;
     units = nullptr;
@@ -27,7 +28,7 @@ cxEmitter::cxEmitter()
     startsize = cxFloatRange(50, 0);
     endsize = startsize;
     angle = cxFloatRange(0, 360);
-    gravity = cxPoint2F(0, 1000);
+    gravity = cxPoint2F(0, -1000);
     speed = cxFloatRange(0, 1000);
     startspin = cxFloatRange(2000, 0);
     endspin = cxFloatRange(0, 0);
@@ -39,6 +40,14 @@ cxEmitter::cxEmitter()
 cxEmitter::~cxEmitter()
 {
     delete []units;
+}
+
+cxEmitter *cxEmitter::SetSystemTime(cxFloat v)
+{
+    runtime = 0;
+    systemtime = v;
+    emitcounter = 0;
+    return this;
 }
 
 cxEmitter *cxEmitter::SetRate(cxFloat v)
@@ -171,7 +180,7 @@ void cxEmitter::addEmitterUnit()
     }
 }
 
-void cxEmitter::unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F *vq)
+void cxEmitter::unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F &vq)
 {
     cxFloat sizeh = unit->size/2;
     cxPoint3F pos = cxPoint3F(unit->position.x,unit->position.y,0.0f);
@@ -186,43 +195,29 @@ void cxEmitter::unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F *vq)
     if (unit->rotation){
         cxMatrixF mat4;
         mat4.InitRotation(axisspin, -unit->rotation);
-        vq->lb = cxPoint3F(l, b, 0) * mat4 + pos;
-        vq->rb = cxPoint3F(r, b, 0) * mat4 + pos;
-        vq->rt = cxPoint3F(r, t, 0) * mat4 + pos;
-        vq->lt = cxPoint3F(l, t, 0) * mat4 + pos;
+        vq.lb = cxPoint3F(l, b, 0) * mat4 + pos;
+        vq.rb = cxPoint3F(r, b, 0) * mat4 + pos;
+        vq.rt = cxPoint3F(r, t, 0) * mat4 + pos;
+        vq.lt = cxPoint3F(l, t, 0) * mat4 + pos;
     }else{
-        vq->lb.x = pos.x + l;
-        vq->lb.y = pos.y + b;
-        vq->rb.x = pos.x + r;
-        vq->rb.y = pos.y + b;
-        vq->lt.x = pos.x + l;
-        vq->lt.y = pos.y + t;
-        vq->rt.x = pos.x + r;
-        vq->rt.y = pos.y + t;
+        vq.lb.x = pos.x + l;
+        vq.lb.y = pos.y + b;
+        vq.rb.x = pos.x + r;
+        vq.rb.y = pos.y + b;
+        vq.lt.x = pos.x + l;
+        vq.lt.y = pos.y + t;
+        vq.rt.x = pos.x + r;
+        vq.rt.y = pos.y + t;
     }
-}
-
-void cxEmitter::unitSetBox(cxEmitterUnit *unit,cxInt idx)
-{
-    cxBoxRender &box = At(idx);
-    box.SetColor(unit->color);
-    
-    cxBoxPoint3F vbp;
-    unitToBoxPoint3F(unit, &vbp);
-    box.SetVertices(vbp);
-    
-    cxTexCoord *coord = TexCoord();
-    const cxBoxCoord2F *bt = coord->BoxCoord(0.0f, false, false);
-    box.SetCoords(*bt);
 }
 
 void cxEmitter::OnUpdate(cxFloat dt)
 {
-    if(Capacity() == 0){
+    if(Capacity() == 0 || Texture() == nullptr){
         return;
     }
-    //active add item
-    if(isActive){
+    runtime += dt;
+    if(runtime < systemtime){
         cxFloat ratev = 1.0f/rate;
         if(Number() < Capacity()){
             emitcounter += dt;
@@ -279,8 +274,21 @@ void cxEmitter::OnUpdate(cxFloat dt)
         p->size = CX_MAX(0, p->size + p->deltasize * dt);
         //angle
         p->rotation += (p->deltarotation * dt);
-        unitSetBox(p, index);
+
+        cxBoxRender &box = At(index);
+        box.SetColor(p->color);
+
+        unitToBoxPoint3F(p, vbp);
+        box.SetVertices(vbp);
+        
+        const cxBoxCoord2F *bt = BoxCoord();
+        box.SetCoords(*bt);
+        
         index ++;
+    }
+    //auto remove emitter system
+    if(runtime >= systemtime && Number() == 0){
+        Remove();
     }
 }
 

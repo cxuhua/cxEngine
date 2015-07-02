@@ -26,11 +26,20 @@ private:
     void updateScale9();
     cxBoxRenderArray renders;
 protected:
-    virtual void OnDirty();
-    virtual void OnRender(cxRender *render,const cxMatrixF &model);
+    void OnDirty();
+    void OnRender(cxRender *render,const cxMatrixF &model);
 public:
+    cxAtlas *SetCapacity(cxInt cap);
+    cxInt Capacity() const;
+    
+    cxInt Number() const;
+    
     cxBoxRender &Inc();
+    cxInt Inc(cxInt inc);
+    cxBoxRender &At(cxInt idx);
+    
     cxAtlas *SetScale9(const cxBox4F &sb);
+    
     cxAtlas *Clear();
 };
 

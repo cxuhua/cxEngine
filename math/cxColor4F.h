@@ -83,6 +83,17 @@ struct cxColor4F
     static const cxColor4F PURPLE;
 };
 
+struct cxColor4FRange
+{
+    cxColor4F v;
+    cxColor4F r;
+    cxColor4FRange();
+    cxColor4FRange(const cxColor4FRange &av);
+    cxColor4FRange(const cxColor4F &av);
+    cxColor4FRange(const cxColor4F &av,const cxColor4F &ar);
+    const cxColor4F ToValue() const;
+};
+
 CX_CPP_END
 
 #endif

@@ -68,6 +68,13 @@ void cxMatrixF::Rotation(const cxPoint2F &axis,cxFloat radians)
     Rotation(axis.x, axis.y, 0.0f, radians);
 }
 
+void cxMatrixF::InitRotation(const cxPoint3F &axis,cxFloat radians)
+{
+    kmVec3 ap;
+    kmVec3Fill(&ap, axis.x, axis.y, axis.z);
+    kmMat4RotationAxisAngle(&mat4, &ap, radians);
+}
+
 void cxMatrixF::Rotation(cxFloat x,cxFloat y,cxFloat z,cxFloat radians)
 {
     kmMat4 out;

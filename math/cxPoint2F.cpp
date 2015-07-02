@@ -85,11 +85,12 @@ cxPoint2F::cxPoint2F(const cxPoint2F &v)
     y = v.y;
 }
 
-void cxPoint2F::Normalize()
+cxPoint2F &cxPoint2F::Normalize()
 {
     cxFloat factor = 1.0f / Length();
     x *= factor;
     y *= factor;
+    return *this;
 }
 
 cxBool cxPoint2F::IsINF() const
@@ -120,6 +121,11 @@ cxFloat cxPoint2F::Angle(const cxPoint2F &d) const
 {
     cxPoint2F sub = d - *this;
     return atan2f(sub.y, sub.x);
+}
+
+cxFloat cxPoint2F::Angle() const
+{
+    return atan2f(y, x);
 }
 
 cxBool cxPoint2F::operator==(const cxPoint2F &v) const
@@ -258,6 +264,32 @@ cxPoint2F &cxPoint2F::operator/=(const cxPoint2F &v)
 cxPoint2F cxPoint2F::operator-() const
 {
     return cxPoint2F(-x,-y);
+}
+
+cxPoint2FRange::cxPoint2FRange()
+{
+    v = 0.0f;
+    r = 0.0f;
+}
+
+cxPoint2FRange::cxPoint2FRange(const cxPoint2FRange &av)
+{
+    v = av.v;
+    r = av.r;
+}
+
+cxPoint2FRange::cxPoint2FRange(const cxPoint2F &av,const cxPoint2F &ar)
+{
+    v = av;
+    r = ar;
+}
+
+const cxPoint2F cxPoint2FRange::ToValue() const
+{
+    cxPoint2F pos;
+    pos.x = v.x + r.x * CX_RAND_11f();
+    pos.y = v.y + r.y * CX_RAND_11f();
+    return pos;
 }
 
 cxPoint2FArray::cxPoint2FArray()

@@ -11,6 +11,28 @@
 
 CX_CPP_BEGIN
 
+cxFloatRange::cxFloatRange()
+{
+    v = 0;
+    r = 0;
+}
+
+cxFloatRange::cxFloatRange(const cxFloatRange &av)
+{
+    v = av.v;
+    r = av.r;
+}
+
+cxFloatRange::cxFloatRange(cxFloat av,cxFloat ar)
+{
+    v = av;
+    r = ar;
+}
+
+const cxFloat cxFloatRange::ToValue() const
+{
+    return v + r * CX_RAND_11f();
+}
 
 CX_CPP_END
 

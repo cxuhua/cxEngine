@@ -99,9 +99,36 @@ cxAtlas *cxAtlas::Clear()
     return this;
 }
 
+cxInt cxAtlas::Inc(cxInt inc)
+{
+    return renders.Inc(inc);
+}
+
 cxBoxRender &cxAtlas::Inc()
 {
     return renders.Inc();
+}
+
+cxInt cxAtlas::Number() const
+{
+    return renders.Size();
+}
+
+cxInt cxAtlas::Capacity() const
+{
+    return renders.Capacity();
+}
+
+cxBoxRender &cxAtlas::At(cxInt idx)
+{
+    return renders.At(idx);
+}
+
+cxAtlas *cxAtlas::SetCapacity(cxInt cap)
+{
+    renders.Append(cap);
+    renders.Clear();
+    return this;
 }
 
 void cxAtlas::OnDirty()

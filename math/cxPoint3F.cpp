@@ -66,6 +66,11 @@ cxPoint3F &cxPoint3F::operator*=(const cxMatrixF &mat)
     return *this;
 }
 
+cxPoint3F cxPoint3F::operator+(const cxPoint3F &v) const
+{
+    return cxPoint3F(x+v.x, y+v.y, z+v.z);
+}
+
 cxFloat cxPoint3F::Distance(const cxPoint3F &p1,const cxPoint3F &p2)
 {
     cxPoint3F v = p1 - p2;
@@ -74,7 +79,16 @@ cxFloat cxPoint3F::Distance(const cxPoint3F &p1,const cxPoint3F &p2)
 
 cxFloat cxPoint3F::Length() const
 {
-    return sqrtf(x*x + y*y);
+    return sqrtf(x*x + y*y + z*z);
+}
+
+cxPoint3F &cxPoint3F::Normalize()
+{
+    cxFloat factor = 1.0f / Length();
+    x *= factor;
+    y *= factor;
+    z *= factor;
+    return *this;
 }
 
 cxPoint2F cxPoint3F::ToPoint2F() const

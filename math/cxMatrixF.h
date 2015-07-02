@@ -41,6 +41,7 @@ struct cxMatrixF
     void Translation(const cxPoint2F &v);
     void Translation(const cxPoint3F &v);
     void Translation(cxFloat x,cxFloat y,cxFloat z);
+    void InitRotation(const cxPoint3F &axis,cxFloat radians);
     void Rotation(const cxPoint3F &axis,cxFloat radians);
     void Rotation(const cxPoint2F &axis,cxFloat radians);
     void Rotation(cxFloat x,cxFloat y,cxFloat z,cxFloat radians);

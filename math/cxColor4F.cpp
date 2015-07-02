@@ -12,6 +12,40 @@
 
 CX_CPP_BEGIN
 
+cxColor4FRange::cxColor4FRange()
+{
+    v = cxColor4F::WHITE;
+    r = cxColor4F(0, 0, 0, 0);
+}
+
+cxColor4FRange::cxColor4FRange(const cxColor4FRange &av)
+{
+    v = av.v;
+    r = av.r;
+}
+
+cxColor4FRange::cxColor4FRange(const cxColor4F &av,const cxColor4F &ar)
+{
+    v = av;
+    r = ar;
+}
+
+cxColor4FRange::cxColor4FRange(const cxColor4F &av)
+{
+    v = av;
+    r = cxColor4F(0,0,0,0);
+}
+
+const cxColor4F cxColor4FRange::ToValue() const
+{
+    cxColor4F color;
+    color.r = v.r + r.r * CX_RAND_11f();
+    color.g = v.g + r.g * CX_RAND_11f();
+    color.b = v.b + r.b * CX_RAND_11f();
+    color.a = v.a + r.a * CX_RAND_11f();
+    return color;
+}
+
 cxColor4B::cxColor4B()
 {
     r = 255;

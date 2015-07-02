@@ -149,6 +149,11 @@ cxInt cxEngine::FPS() const
     return 1.0f/dt;
 }
 
+cxFloat cxEngine::Delta() const
+{
+    return dt;
+}
+
 void cxEngine::Run()
 {
     cxAutoPool::Start();

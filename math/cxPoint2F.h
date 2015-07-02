@@ -34,9 +34,10 @@ struct cxPoint2F
     cxBool IsNAN() const;
     cxBool IsZero() const;
     cxFloat Length() const;
+    cxFloat Angle() const;
     cxFloat Angle(const cxPoint2F &d) const;
     cxFloat Distance(const cxPoint2F &d) const;
-    void Normalize();
+    cxPoint2F &Normalize();
     
     static cxPoint2F Center(const cxPoint2F &p1,const cxPoint2F &p2);
     static cxPoint2F Lerp(const cxPoint2F &from,const cxPoint2F &to,cxFloat t);
@@ -76,6 +77,16 @@ struct cxPoint2F
     cxPoint2F &operator/=(const cxFloat v);
     
     cxPoint2F operator-() const;
+};
+
+struct cxPoint2FRange
+{
+    cxPoint2F v;
+    cxPoint2F r;
+    cxPoint2FRange();
+    cxPoint2FRange(const cxPoint2FRange &av);
+    cxPoint2FRange(const cxPoint2F &av,const cxPoint2F &ar);
+    const cxPoint2F ToValue() const;
 };
 
 class cxPoint2FArray : private std::vector<cxPoint2F>

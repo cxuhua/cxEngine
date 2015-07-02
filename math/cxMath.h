@@ -27,7 +27,23 @@ CX_CPP_BEGIN
 #define MATH_PIX2 6.28318530717958647693f
 #endif
 
+// -1.0f <-> 1.0f
+#define CX_RAND_11f() ((2.0f*((cxFloat)(rand()%RAND_MAX)/(cxFloat)RAND_MAX))-1.0f)
+
+// 0.0f <-> 1.0f
+#define CX_RAND_01f() ((cxFloat)(rand()%RAND_MAX)/(cxFloat)RAND_MAX)
+
 const cxFloat cxEqualFloat = cxFloat(0.0001f);
+
+struct cxFloatRange
+{
+    cxFloat v;
+    cxFloat r;
+    cxFloatRange();
+    cxFloatRange(const cxFloatRange &av);
+    cxFloatRange(cxFloat av,cxFloat ar);
+    const cxFloat ToValue() const;
+};
 
 CX_INLINE cxFloat cxDegreesToRadians(cxFloat degrees)
 {

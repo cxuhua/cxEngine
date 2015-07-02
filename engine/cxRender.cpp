@@ -17,6 +17,7 @@ CX_IMPLEMENT(cxRender);
 
 cxRender::cxRender()
 {
+    fpsTime = 0;
     Init();
     max = MAX_TRIANGLES;
     indices = new cxUInt16[max*6];
@@ -112,7 +113,13 @@ void cxRender::Draw()
     }
     DrawRenders(prev);
     #ifndef NDEBUG
-    cxEngine::Instance()->Window()->DebugLabel()->SetText("%d,%d",vdc,vsc);
+    fpsTime += cxEngine::Instance()->Delta();
+    if(fpsTime > 1.0f){
+        cxLabel *label = cxEngine::Instance()->Window()->DebugLabel();
+        cxInt fps = cxEngine::Instance()->FPS();
+        label->SetText("%d,%d,%d",vdc,vsc,fps);
+        fpsTime = 0.0f;
+    }
     #endif
 }
 

@@ -16,6 +16,7 @@
 #include <engine/cxScale.h>
 #include <engine/cxButton.h>
 #include <engine/cxContainer.h>
+#include <engine/cxEmitter.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -24,7 +25,7 @@ CX_IMPLEMENT(IOSEngine);
 
 IOSEngine::IOSEngine()
 {
-    cxOpenGL::Instance()->SetBorder(true);
+    
 }
 
 IOSEngine::~IOSEngine()
@@ -59,6 +60,8 @@ void IOSEngine::OnMain()
     cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
     
+
+    
     cxContainer *c = cxContainer::Create();
     c->SetResizeFlags(cxView::ResizeFill);
     
@@ -67,10 +70,17 @@ void IOSEngine::OnMain()
     body->SetSize(cxSize2F(2560, 1920));
     c->Append(body);
     
-
-    cxView *layer = cxView::Create();
-    layer->SetResizeFlags(cxView::ResizeFill);
-    body->Append(layer);
+    cxEmitter *v = cxEmitter::Create(250);
+    v->SetSize(60.0f);
+    v->SetTexture("t.png");
+    c->Append(v);
+    
+    Window()->Append(c);
+//
+//
+//    cxView *layer = cxView::Create();
+//    layer->SetResizeFlags(cxView::ResizeFill);
+//    body->Append(layer);
     
 //    cxAtlas *a = cxAtlas::Create();
 //    a->SetSize(cxSize2F(500, 300));
@@ -87,12 +97,12 @@ void IOSEngine::OnMain()
 //    btn->onTap += cxBindEvent(this,IOSEngine::test);
 //    body->Append(btn);
     
-    Window()->Append(c);
-    
-    cxSprite *sp1 = cxSprite::Create();
-    sp1->SetTexture("t.png");
-    sp1->SetSize(30.f);
-    layer->Append(sp1);
+//    Window()->Append(c);
+//    
+//    cxSprite *sp1 = cxSprite::Create();
+//    sp1->SetTexture("t.png");
+//    sp1->SetSize(30.f);
+//    layer->Append(sp1);
     
 //    cxSprite *sp1 = cxSprite::Create();
 //    sp1->SetTexture("t.png");
@@ -205,17 +215,17 @@ void IOSEngine::OnMain()
 //        Window()->Append(x);
 //        x1 = x;
 //    }
-    for(cxInt i=0; i < 1000; i++){
-        cxSprite *sp = cxSprite::Create();
-        sp->SetTexture("animate");
-        sp->SetTexKey("1201100.0.png");
-        sp->SetSize(cxSize2F(400, 400));
-        sp->SetPosition(cxPoint2F(cxUtil::Rand(-1024, 1024),cxUtil::Rand(-1024, 1024)));
-        sp->SetAnchor(-0.5f);
-        Window()->Append(sp);
-        cxRotateBy *by = cxRotateBy::Create(cxDegreesToRadians(60), 1000);
-        sp->Append(by);
-    }
+//    for(cxInt i=0; i < 1000; i++){
+//        cxSprite *sp = cxSprite::Create();
+//        sp->SetTexture("animate");
+//        sp->SetTexKey("1201100.0.png");
+//        sp->SetSize(cxSize2F(400, 400));
+//        sp->SetPosition(cxPoint2F(cxUtil::Rand(-1024, 1024),cxUtil::Rand(-1024, 1024)));
+//        sp->SetAnchor(-0.5f);
+//        Window()->Append(sp);
+//        cxRotateBy *by = cxRotateBy::Create(cxDegreesToRadians(60), 1000);
+//        sp->Append(by);
+//    }
 //    {
 //        cxSprite *x = cxSprite::Create();
 //        x->SetTexture("t.png");

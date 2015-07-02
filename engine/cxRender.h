@@ -34,6 +34,7 @@ private:
     cxUInt16 *indices;
     cxBoxRenderArray renders;
     cxDrawArray draws;
+    cxFloat fpsTime;
 public:
     void Draw();
     void Init();

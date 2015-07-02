@@ -69,6 +69,7 @@ public:
     cxWindow *Window() const;
     
     cxInt FPS() const;
+    cxFloat Delta() const;
     
     const cxPoint2F &PlanScale() const;
     void SetPlanSize(const cxSize2F &v);

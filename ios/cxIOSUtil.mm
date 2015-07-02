@@ -25,13 +25,13 @@ void cxIOSUtil::Logger(const char* type,const char*file,int line,const char* for
     free(buffer);
 }
 
-const cxStr *cxIOSUtil::DocumentPath(const cxStr *file)
+const cxStr *cxIOSUtil::DocumentPath(cchars file)
 {
     cxStr *rv = cxStr::Create();
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *path = [paths objectAtIndex:0];
     if(file != NULL){
-        return rv->AppFmt("%s/%s", [path UTF8String],file->Data());
+        return rv->AppFmt("%s/%s", [path UTF8String],file);
     }else{
         return rv->Init([path UTF8String]);
     }
@@ -43,12 +43,12 @@ const cxFloat cxIOSUtil::ScaleFactor() const
     return (cxFloat)[UIScreen mainScreen].scale;
 }
 
-const cxStr *cxIOSUtil::AssetsPath(const cxStr *file)
+const cxStr *cxIOSUtil::AssetsPath(cchars file)
 {
     cxStr *rv = cxStr::Create();
     NSString *path = [[NSBundle mainBundle] resourcePath];
     if(file != NULL){
-        return rv->AppFmt("%s/%s", [path UTF8String],file->Data());
+        return rv->AppFmt("%s/%s", [path UTF8String],file);
     }else{
         return rv->Init([path UTF8String]);
     }

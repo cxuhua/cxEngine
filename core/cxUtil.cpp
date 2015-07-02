@@ -60,13 +60,13 @@ cxUtil *cxUtil::Instance()
 const cxStr *cxUtil::Assets(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "args error");
-    return Instance()->AssetsData(cxStr::UTF8(file));
+    return Instance()->AssetsData(file);
 }
 
 const cxStr *cxUtil::Document(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "args error");
-    return Instance()->DocumentData(cxStr::UTF8(file));
+    return Instance()->DocumentData(file);
 }
 
 const cxStr *cxUtil::Content(cchars file)
@@ -158,12 +158,12 @@ cxBool cxUtil::FileExists(const cxStr *path,cxInt *length) const
     return rv;
 }
 
-const cxStr *cxUtil::AssetsPath(const cxStr *file)
+const cxStr *cxUtil::AssetsPath(cchars file)
 {
-    return file;
+    return cxStr::UTF8(file);
 }
 
-const cxStr *cxUtil::AssetsData(const cxStr *file)
+const cxStr *cxUtil::AssetsData(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "path error");
     const cxStr *path = AssetsPath(file);
@@ -173,19 +173,19 @@ const cxStr *cxUtil::AssetsData(const cxStr *file)
     return ReadFileData(path);
 }
 
-const cxStr *cxUtil::DocumentPath(const cxStr *file)
+const cxStr *cxUtil::DocumentPath(cchars file)
 {
-    return file;
+    return cxStr::UTF8(file);
 }
 
-cxBool cxUtil::DeleteDocument(const cxStr *file)
+cxBool cxUtil::DeleteDocument(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "path or data error");
     const cxStr *path = DocumentPath(file);
     return remove(path->Data()) == 0;
 }
 
-cxBool cxUtil::WriteDocument(const cxStr *file,const cxStr *data,cxBool replace)
+cxBool cxUtil::WriteDocument(cchars file,const cxStr *data,cxBool replace)
 {
     CX_ASSERT(cxStr::IsOK(file) && cxStr::IsOK(data), "path or data error");
     const cxStr *path = DocumentPath(file);
@@ -195,7 +195,7 @@ cxBool cxUtil::WriteDocument(const cxStr *file,const cxStr *data,cxBool replace)
     return WriteFileData(path, data, replace);
 }
 
-const cxStr *cxUtil::DocumentData(const cxStr *file)
+const cxStr *cxUtil::DocumentData(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "path error");
     const cxStr *path = DocumentPath(file);

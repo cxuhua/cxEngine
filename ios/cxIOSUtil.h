@@ -20,8 +20,8 @@ public:
 public:
     const cxFloat ScaleFactor() const;
     
-    const cxStr *DocumentPath(const cxStr *file);
-    const cxStr *AssetsPath(const cxStr *file);
+    const cxStr *DocumentPath(cchars file);
+    const cxStr *AssetsPath(cchars file);
     
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
 };

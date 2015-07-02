@@ -42,17 +42,17 @@ public:
     static const cxStr *Document(cchars file);
     static const cxStr *Content(cchars file);//优先从document目录获取数据
     //获取资源目录
-    virtual const cxStr *AssetsPath(const cxStr *file);
+    virtual const cxStr *AssetsPath(cchars file);
     //获取资源文件数据
-    virtual const cxStr *AssetsData(const cxStr *file);
+    virtual const cxStr *AssetsData(cchars file);
     //获取文档路径
-    virtual const cxStr *DocumentPath(const cxStr *file);
+    virtual const cxStr *DocumentPath(cchars file);
     //向文档目录写文件
-    virtual cxBool WriteDocument(const cxStr *file,const cxStr *data,cxBool replace);
+    virtual cxBool WriteDocument(cchars file,const cxStr *data,cxBool replace);
     //获取目录文件数据
-    virtual const cxStr *DocumentData(const cxStr *file);
+    virtual const cxStr *DocumentData(cchars file);
     //删除文档
-    virtual cxBool DeleteDocument(const cxStr *file);
+    virtual cxBool DeleteDocument(cchars file);
     //打印日志
     virtual void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
     //内容缩放

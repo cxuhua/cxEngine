@@ -406,6 +406,16 @@ cxBool cxStr::HasSuffix(const cxStr *str) const
     return HasSuffix(str->Data());
 }
 
+cxBool cxStr::WriteToFile(cchars file,cxBool replace)
+{
+    return cxUtil::Instance()->WriteDocument(file, this, replace);
+}
+
+const cxStr *cxStr::ReadFromFile(cchars file)
+{
+    return cxUtil::Instance()->DocumentData(file);
+}
+
 chars cxStr::Buffer() const
 {
     return (chars)data();

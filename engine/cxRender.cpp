@@ -95,14 +95,19 @@ void cxRender::Draw()
         if(type == cxRenderState::ClipOn){
             DrawRenders(prev);
             gl->Scissor(draw.clipbox);
-        }else if(type == cxRenderState::ClipOff){
+            continue;
+        }
+        if(type == cxRenderState::ClipOff){
             DrawRenders(prev);
             gl->Scissor();
-        }else if(type == cxRenderState::Render){
+            continue;
+        }
+        if(type == cxRenderState::Render){
             cxUInt64 id = draw.ID();
             if(cid != id){cid = id;DrawRenders(prev);}
             prev = &draw;
             renders.Append(draw.render);
+            continue;
         }
     }
     DrawRenders(prev);

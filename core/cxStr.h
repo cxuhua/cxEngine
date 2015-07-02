@@ -55,6 +55,9 @@ public:
     
     const cxStr *MD5();
     
+    cxBool WriteToFile(cchars file,cxBool replace);
+    static const cxStr *ReadFromFile(cchars file);
+    
     cxStr *AppFmt(cchars fmt,va_list ap);
     cxStr *AppFmt(cchars fmt,...);
     cxStr *Append(cchars data);

@@ -30,6 +30,25 @@ using namespace cxengine;
     [super tearDown];
 }
 
+-(void)testAES
+{
+    cxStr *s = cxStr::Alloc()->Init("12345678901234567890123456789012345678901234567890123456789012345678901234567890");
+    const cxStr *l = s->AESEncode(cxStr::UTF8("1234567"));
+    const cxStr *r = l->AESDecode(cxStr::UTF8("1234567"));
+    XCTAssertTrue(s->IsEqu(r),"test failed");
+    const cxStr *r2 = l->AESDecode(cxStr::UTF8("12345678"));
+    XCTAssertTrue(!s->IsEqu(r2),"test failed");
+    s->Release();
+}
+
+-(void)testUTF8
+{
+    cxStr *s = cxStr::Alloc()->Init("我和123");
+    XCTAssertTrue(s->Size() == 9,"test failed");
+    XCTAssertTrue(s->UTF8Size() == 5,"test failed");
+    s->Release();
+}
+
 -(void)testTEA
 {
     cxStr *s = cxStr::Alloc()->Init("12345678901234567890123456789012345678901234567890123456789012345678901234567890");

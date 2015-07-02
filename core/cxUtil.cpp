@@ -94,6 +94,11 @@ cxDouble cxUtil::Timestamp()
     return val.tv_sec + (cxDouble)val.tv_usec/(cxDouble)1000000.0;
 }
 
+void cxUtil::SetRandSeed()
+{
+    srandom(time(nullptr));
+}
+
 cxFloat cxUtil::Rand()
 {
     return ((2.0f*((cxFloat)(rand()%RAND_MAX)/(cxFloat)RAND_MAX))-1.0f);

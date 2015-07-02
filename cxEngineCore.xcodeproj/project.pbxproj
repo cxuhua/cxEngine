@@ -90,6 +90,14 @@
 		839836DE1B10E3EF002B7C20 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839836D91B10E3EF002B7C20 /* libpng.a */; };
 		839836DF1B10E3EF002B7C20 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839836DA1B10E3EF002B7C20 /* libuv.a */; };
 		839836E61B117475002B7C20 /* cxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836E41B117475002B7C20 /* cxObject.cpp */; };
+		83A943A41B44DC3200F70FBA /* aes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439B1B44DC3200F70FBA /* aes_cbc.c */; };
+		83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439C1B44DC3200F70FBA /* aes_cfb.c */; };
+		83A943A61B44DC3200F70FBA /* aes_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439D1B44DC3200F70FBA /* aes_core.c */; };
+		83A943A71B44DC3200F70FBA /* aes_ctr.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439E1B44DC3200F70FBA /* aes_ctr.c */; };
+		83A943A81B44DC3200F70FBA /* aes_ecb.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439F1B44DC3200F70FBA /* aes_ecb.c */; };
+		83A943A91B44DC3200F70FBA /* aes_ige.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A943A01B44DC3200F70FBA /* aes_ige.c */; };
+		83A943AA1B44DC3200F70FBA /* aes_ofb.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A943A21B44DC3200F70FBA /* aes_ofb.c */; };
+		83A943AE1B44E57600F70FBA /* utf8.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A943AC1B44E57600F70FBA /* utf8.c */; };
 		83B23B4F1B17E0E9000D770A /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 83B23B4D1B17E0E9000D770A /* xxhash.c */; };
 		83B23B521B17E14E000D770A /* atomic.c in Sources */ = {isa = PBXBuildFile; fileRef = 83B23B501B17E14E000D770A /* atomic.c */; };
 		83BBF3E41B109452003CB004 /* libcxEngineCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BBF3D81B109452003CB004 /* libcxEngineCore.a */; };
@@ -284,6 +292,17 @@
 		839836DA1B10E3EF002B7C20 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = libs/osx/lib/libuv.a; sourceTree = "<group>"; };
 		839836E41B117475002B7C20 /* cxObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxObject.cpp; sourceTree = "<group>"; };
 		839836E51B117475002B7C20 /* cxObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxObject.h; sourceTree = "<group>"; };
+		83A9439B1B44DC3200F70FBA /* aes_cbc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cbc.c; sourceTree = "<group>"; };
+		83A9439C1B44DC3200F70FBA /* aes_cfb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cfb.c; sourceTree = "<group>"; };
+		83A9439D1B44DC3200F70FBA /* aes_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_core.c; sourceTree = "<group>"; };
+		83A9439E1B44DC3200F70FBA /* aes_ctr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_ctr.c; sourceTree = "<group>"; };
+		83A9439F1B44DC3200F70FBA /* aes_ecb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_ecb.c; sourceTree = "<group>"; };
+		83A943A01B44DC3200F70FBA /* aes_ige.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_ige.c; sourceTree = "<group>"; };
+		83A943A11B44DC3200F70FBA /* aes_locl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes_locl.h; sourceTree = "<group>"; };
+		83A943A21B44DC3200F70FBA /* aes_ofb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_ofb.c; sourceTree = "<group>"; };
+		83A943A31B44DC3200F70FBA /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
+		83A943AC1B44E57600F70FBA /* utf8.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf8.c; sourceTree = "<group>"; };
+		83A943AD1B44E57600F70FBA /* utf8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf8.h; sourceTree = "<group>"; };
 		83B23B4D1B17E0E9000D770A /* xxhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxhash.c; sourceTree = "<group>"; };
 		83B23B4E1B17E0E9000D770A /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
 		83B23B501B17E14E000D770A /* atomic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atomic.c; sourceTree = "<group>"; };
@@ -510,6 +529,17 @@
 		83B23B4C1B17E0E9000D770A /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				83A943AC1B44E57600F70FBA /* utf8.c */,
+				83A943AD1B44E57600F70FBA /* utf8.h */,
+				83A9439B1B44DC3200F70FBA /* aes_cbc.c */,
+				83A9439C1B44DC3200F70FBA /* aes_cfb.c */,
+				83A9439D1B44DC3200F70FBA /* aes_core.c */,
+				83A9439E1B44DC3200F70FBA /* aes_ctr.c */,
+				83A9439F1B44DC3200F70FBA /* aes_ecb.c */,
+				83A943A01B44DC3200F70FBA /* aes_ige.c */,
+				83A943A11B44DC3200F70FBA /* aes_locl.h */,
+				83A943A21B44DC3200F70FBA /* aes_ofb.c */,
+				83A943A31B44DC3200F70FBA /* aes.h */,
 				836F3F041B1B70FA00E3E82C /* md5.c */,
 				836F3F051B1B70FA00E3E82C /* md5.h */,
 				836A2F3C1B19869D009B427B /* LzFind.c */,
@@ -729,10 +759,13 @@
 				83610B0D1B1CB68000BD06B1 /* cxPoint2I.cpp in Sources */,
 				836A2F521B1987B7009B427B /* cxUtil.cpp in Sources */,
 				831189D21B2D728000C930B5 /* ray3.c in Sources */,
+				83A943A81B44DC3200F70FBA /* aes_ecb.c in Sources */,
 				83D2666B1B345D6000077DB8 /* cxStack.cpp in Sources */,
 				831189D31B2D728000C930B5 /* utility.c in Sources */,
+				83A943A41B44DC3200F70FBA /* aes_cbc.c in Sources */,
 				830ECB2F1B3FEE1C002EBE56 /* cxEngine.mm in Sources */,
 				830157DF1B3B931900ED46A8 /* cxDraw.cpp in Sources */,
+				83A943A71B44DC3200F70FBA /* aes_ctr.c in Sources */,
 				831189D11B2D728000C930B5 /* ray2.c in Sources */,
 				831189C91B2D728000C930B5 /* aabb2.c in Sources */,
 				833043C11B40FBE900636928 /* cxTiming.cpp in Sources */,
@@ -769,6 +802,7 @@
 				836A2F4C1B19869D009B427B /* LzmaLib.c in Sources */,
 				831B9EBD1B291F2700B7A06B /* cxSize2F.cpp in Sources */,
 				831189D01B2D728000C930B5 /* quaternion.c in Sources */,
+				83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */,
 				831189CE1B2D728000C930B5 /* mat4.c in Sources */,
 				839836CE1B10B3F7002B7C20 /* cxAutoPool.cpp in Sources */,
 				831189CF1B2D728000C930B5 /* plane.c in Sources */,
@@ -783,13 +817,17 @@
 				833043BC1B40254600636928 /* cxMove.cpp in Sources */,
 				836DD1061B29BBDF0094F5EF /* cxBox4F.cpp in Sources */,
 				830157DC1B3B006400ED46A8 /* cxRender.cpp in Sources */,
+				83A943A61B44DC3200F70FBA /* aes_core.c in Sources */,
 				83EA27E31B15540600370757 /* cxHash.cpp in Sources */,
 				833B40691B31AF2800920A06 /* cxBoxColor4F.cpp in Sources */,
+				83A943A91B44DC3200F70FBA /* aes_ige.c in Sources */,
+				83A943AA1B44DC3200F70FBA /* aes_ofb.c in Sources */,
 				836A2F491B19869D009B427B /* lzma.c in Sources */,
 				831189DC1B2D779C00C930B5 /* cxPoint3F.cpp in Sources */,
 				83B23B521B17E14E000D770A /* atomic.c in Sources */,
 				83FB15A81B293C1000E5ECFE /* cxOpenGL.cpp in Sources */,
 				8354C3071B3C620C00AC9F3C /* cxTouch.cpp in Sources */,
+				83A943AE1B44E57600F70FBA /* utf8.c in Sources */,
 				83726FDA1B29458500DF4BFD /* cxColor4F.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

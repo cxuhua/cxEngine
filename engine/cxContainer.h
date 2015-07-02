@@ -24,6 +24,7 @@ public:
     static const SlidingType None        = 0;
     static const SlidingType Horizontal  = 1 << 0;
     static const SlidingType Vertical    = 1 << 1;
+    static const SlidingType FreeSliding = Horizontal|Vertical;
     static const SlidingType Left        = 1 << 2;
     static const SlidingType Right       = 1 << 3;
     static const SlidingType Top         = 1 << 4;

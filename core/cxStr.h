@@ -14,6 +14,8 @@
 
 CX_CPP_BEGIN
 
+#define AES_KEY_LENGTH  16
+
 class cxStr : public cxObject,private std::string
 {
 public:
@@ -36,6 +38,7 @@ public:
     cxUInt32 HashValue() const;
     
     cxBool IsEmpty() const;
+    cxInt UTF8Size() const;
     cxInt Size() const;
     char At(cxInt n) const;
     cchars Data() const;
@@ -43,6 +46,9 @@ public:
     
     const cxStr *TeaEncode(const cxStr *key) const;
     const cxStr *TeaDecode(const cxStr *key) const;
+    
+    const cxStr *AESEncode(const cxStr *key) const;
+    const cxStr *AESDecode(const cxStr *key) const;
     
     const cxStr *LzmaCompress() const;
     const cxStr *LzmaUncompress() const;

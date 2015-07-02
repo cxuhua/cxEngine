@@ -9,7 +9,10 @@
 #include <ext/md5.h>
 #include <ext/xxtea.h>
 #include <ext/lzma.h>
+#include <ext/aes.h>
+#include <ext/utf8.h>
 #include "cxStr.h"
+#include "cxUtil.h"
 
 CX_CPP_BEGIN
 
@@ -54,23 +57,90 @@ cxStr::~cxStr()
 
 cxStr *cxStr::Init(cxInt size,char c)
 {
-    clear();
-    append(size, c);    
+    assign(size,c);
     return this;
 }
 
 cxStr *cxStr::Init(cxAny data,cxInt size)
 {
-    clear();
-    append((char *)data,size);
+    assign((char *)data,size);
     return this;
 }
 
 cxStr *cxStr::Init(cchars str)
 {
-    clear();
-    append(str);
+    assign(str);
     return this;
+}
+
+const cxStr *cxStr::AESEncode(const cxStr *key) const
+{
+    cxUtil::SetRandSeed();
+    cxUChar iv[AES_KEY_LENGTH]={0};
+    cxUChar ik[AES_KEY_LENGTH]={0};
+    for(cxInt i=0; i < AES_KEY_LENGTH; i++){
+        iv[i] = cxUtil::Rand(0, 255);
+    }
+    cxInt keylen = key->Size();
+    if(keylen > AES_KEY_LENGTH){
+        memcpy(ik, key->Data(), AES_KEY_LENGTH);
+    }else {
+        memcpy(ik, key->Data(), keylen);
+    }
+    AES_KEY eKey;
+    if(AES_set_encrypt_key((const cxUInt8 *)ik, AES_KEY_LENGTH * 8, &eKey) != 0){
+        return NULL;
+    }
+    cxInt length = Size();
+    cchars dataptr = Data();
+    cxInt newsize = 0;
+    if(length % AES_KEY_LENGTH == 0){
+        newsize = length;
+    }else{
+        newsize = length + AES_KEY_LENGTH - (length % AES_KEY_LENGTH);
+    }
+    cxInt bc = newsize - length;
+    cxInt bytessize = newsize + AES_KEY_LENGTH;
+    cxStr *rv = cxStr::Create()->Init(bytessize);
+    chars bytes = rv->Buffer();
+    memcpy(bytes, iv, AES_KEY_LENGTH);
+    chars ptr = bytes + AES_KEY_LENGTH;
+    memcpy(ptr, dataptr, length);
+    if(bc > 0){
+        memset(ptr + length, bc, bc);
+    }
+    AES_cbc_encrypt((const cxUInt8 *)ptr, (cxUInt8 *)ptr, newsize, &eKey, iv, AES_ENCRYPT);
+    return rv;
+}
+
+const cxStr *cxStr::AESDecode(const cxStr *key) const
+{
+    cxUChar iv[AES_KEY_LENGTH]={0};
+    cxUChar ik[AES_KEY_LENGTH]={0};
+    if(key->Size() > AES_KEY_LENGTH){
+        memcpy(ik, key->Data(), AES_KEY_LENGTH);
+    }else {
+        memcpy(ik, key->Data(), key->Size());
+    }
+    AES_KEY dKey;
+    if(AES_set_decrypt_key((const cxUInt8 *)ik, AES_KEY_LENGTH*8, &dKey) != 0){
+        return NULL;
+    }
+    cchars dataptr = Data();
+    cxInt length = Size();
+    memcpy(iv, dataptr, AES_KEY_LENGTH);
+    cxInt bytessize = length - AES_KEY_LENGTH;
+    cxStr *rv = cxStr::Create()->Init(bytessize);
+    chars bytes = rv->Buffer();
+    AES_cbc_encrypt((const cxUInt8 *)(dataptr + AES_KEY_LENGTH), (cxUInt8 *)bytes, bytessize, &dKey, iv, AES_DECRYPT);
+    char bc = bytes[bytessize - 1];
+    if(bc > 0 && bc < AES_KEY_LENGTH){
+        char bv[bc];memset(bv, bc, bc);
+        if(memcmp(bv,bytes+bytessize-bc,bc)==0){
+            rv->Erase(bytessize - bc, bc);
+        }
+    }
+    return rv;
 }
 
 const cxStr *cxStr::TeaEncode(const cxStr *key) const
@@ -157,6 +227,7 @@ cxBool cxStr::IsCaseEqu(const cxStr *str) const
 
 cxStr *cxStr::Erase(cxInt p,cxInt n)
 {
+    if(n == 0)return this;
     erase(begin() + p, begin() + p + n);
     return this;
 }
@@ -353,6 +424,11 @@ char cxStr::At(int n) const
 cxBool cxStr::IsEmpty() const
 {
     return empty();
+}
+
+cxInt cxStr::UTF8Size() const
+{
+    return getUTF8StrLength((unsigned char *)Buffer());
 }
 
 cxInt cxStr::Size() const

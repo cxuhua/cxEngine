@@ -129,6 +129,8 @@ typedef char *          chars;
 typedef float           cxFloat;
 typedef double          cxDouble;
 
+typedef unsigned char   cxUChar;
+
 typedef int             cxInt;
 typedef long            cxLong;
 typedef unsigned int    cxUInt;

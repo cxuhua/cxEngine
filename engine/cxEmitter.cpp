@@ -15,25 +15,25 @@ CX_IMPLEMENT(cxEmitter);
 
 cxEmitter::cxEmitter()
 {
-    axisspin = cxPoint3F::AxisZ;
+    axisspin = cxPoint3F::AxisX;
     emitcounter = 0;
     isActive = true;
     rate = 100;
     todir = false;
     units = nullptr;
     type = cxEmitterGravity;
+    
     life = cxFloatRange(3, 3);
     startsize = cxFloatRange(50, 0);
     endsize = startsize;
     angle = cxFloatRange(0, 360);
     gravity = cxPoint2F(0, 1000);
     speed = cxFloatRange(0, 1000);
-    
-    startspin = cxFloatRange(2000, 2000);
+    startspin = cxFloatRange(2000, 0);
     endspin = cxFloatRange(0, 0);
-    
     startcolor = cxColor4F::WHITE;
     endcolor = cxColor4F(1, 1, 1, 0.3);
+    todir = true;
 }
 
 cxEmitter::~cxEmitter()
@@ -148,10 +148,7 @@ void cxEmitter::initEmitterUnit(cxEmitterUnit *unit)
         unit->radaccel = radaccel.ToValue();
         unit->tanaccel = tanaccel.ToValue();
         if(todir)unit->rotation = -unit->dir.Angle();
-        return;
-    }
-    
-    if(type == cxEmitterRadial){
+    }else if(type == cxEmitterRadial){
         cxFloat sradius = startradius.ToValue();
         cxFloat eradius = endradius.ToValue();
         unit->radius = sradius;
@@ -162,7 +159,6 @@ void cxEmitter::initEmitterUnit(cxEmitterUnit *unit)
         }
         unit->angle = anglev;
         unit->degreespers = cxDegreesToRadians(rotatepers.ToValue());
-        return;
     }
 }
 

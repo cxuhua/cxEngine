@@ -143,6 +143,12 @@ void cxEngine::SetPlanSize(const cxSize2F &v)
     planscale.y = size.h/plansize.h;
 }
 
+cxInt cxEngine::FPS() const
+{
+    if(dt == 0)return 0;
+    return 1.0f/dt;
+}
+
 void cxEngine::Run()
 {
     cxAutoPool::Start();

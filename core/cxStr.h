@@ -35,7 +35,7 @@ public:
 
     void Print() const;
     
-    cxUInt32 HashValue() const;
+    cxULong Hash() const;
     
     cxBool IsEmpty() const;
     cxInt UTF8Size() const;

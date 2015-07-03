@@ -64,10 +64,9 @@ public:
     T *gcpush(cchars key);
     
     //for remove global cache
-    void gcremove(cchars key);
+    static void gcremove(cchars key);
 public:
-    //for cxUnique
-    virtual cxULong UniqueId() const;
+    virtual cxULong Hash() const;
     
     cxLong Tag() const;
     void SetTag(cxLong value);

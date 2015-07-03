@@ -198,7 +198,7 @@ void cxStr::Print() const
     CX_LOGGER("%s",Data());
 }
 
-cxUInt32 cxStr::HashValue() const
+cxULong cxStr::Hash() const
 {
     return XXH32(Data(), Size(), 0);
 }

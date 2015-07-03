@@ -31,7 +31,7 @@ cxLong cxObject::Tag() const
     return tag;
 }
 
-cxULong cxObject::UniqueId() const
+cxULong cxObject::Hash() const
 {
     return (cxULong)this;
 }

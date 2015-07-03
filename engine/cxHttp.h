@@ -45,24 +45,21 @@ private:
     cxInt offset;
     cxStr *host;
     cxInt port;
-    
     static int onBodyFunc(http_parser *parser, const char *at, size_t length);
     static int onHeadField(http_parser *parser, const char *at, size_t length);
     static int onHeadValue(http_parser *parser, const char *at, size_t length);
     static int messageBegin(http_parser *parser);
     static int headCompleted(http_parser *parser);
     static int messageCompleted(http_parser *parser);
-    
     void connect(const char *url);
 public:
+    cxHash *ReqHeads();
+    cxHash *ResHeads();
     const cxStr *Body() const;
-    
+    cxEvent<cxHttp> onCompleted;
+    const cxBool Success() const;
     static cxHttp *Post(cchars url,cxStr *post);
     static cxHttp *Get(cchars url);
-    
-    cxEvent<cxHttp> onCompleted;
-    
-    const cxBool Success() const;
 };
 
 CX_CPP_END

@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
+#include <vector>
 #include <algorithm>
 #include "cxArray.h"
 

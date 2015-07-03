@@ -110,7 +110,7 @@ void cxHttp::OnConnected()
 {
     offset = 0;
     reqHeads->Set("Host", host);
-    cxStr *s = cxStr::Create();
+    cxStr *s = cxStr::Alloc();
     if(method == HTTP_GET){
         s->AppFmt("GET %s HTTP/1.1\r\n",path->Data());
     }else if(method == HTTP_POST){
@@ -129,6 +129,7 @@ void cxHttp::OnConnected()
     if(method == HTTP_POST && cxStr::IsOK(post)){
         Write(post);
     }
+    s->Release();
 }
 
 void cxHttp::connect(const char *url)
@@ -180,6 +181,16 @@ const cxBool cxHttp::Success() const
 const cxStr *cxHttp::Body() const
 {
     return body;
+}
+
+cxHash *cxHttp::ReqHeads()
+{
+    return reqHeads;
+}
+
+cxHash *cxHttp::ResHeads()
+{
+    return resHeads;
 }
 
 void cxHttp::OnCompleted()

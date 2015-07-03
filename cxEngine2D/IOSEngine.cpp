@@ -100,14 +100,12 @@ void IOSEngine::OnMain()
     for(cxInt i=0;i<5;i++){
         animate->AppFmt(0.5f, "120110%d.0.png",i+2);
     }
-    animate->SetSpeed(2);
-    animate->SetRepeat(INT_MAX);
     
     cxSprite *sp = cxSprite::Create();
     sp->SetSize(cxSize2F(300, 300));
     Window()->Append(sp);
     
-    sp->Append(animate);
+    sp->Append(animate->SetRepeat(INT_MAX));
     
 //    cxTimer *timer = cxTimer::Forever(1.0f);
 //    timer->SetSpeed(2);

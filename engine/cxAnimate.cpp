@@ -38,6 +38,26 @@ void cxAnimate::OnTime()
     View()->To<cxSprite>()->SetTexCoord(coord);
 }
 
+cxAction *cxAnimate::Reverse()
+{
+    cxAnimate *rv = cxAnimate::Create();
+    rv->from = to;
+    rv->to = from;
+    cxObject::swap(&rv->points, points);
+    cxObject::swap(&rv->ptex, ptex);
+    return rv;
+}
+
+cxAction *cxAnimate::Clone()
+{
+    cxAnimate *rv = cxAnimate::Create();
+    rv->from = from;
+    rv->to = to;
+    cxObject::swap(&rv->points, points);
+    cxObject::swap(&rv->ptex, ptex);
+    return rv;
+}
+
 cxAnimate *cxAnimate::AppFmt(cxFloat time,cchars fmt,...)
 {
     CX_ASSERT(ptex != nullptr && cxStr::IsOK(fmt), "must set texture");
@@ -58,12 +78,18 @@ cxAnimate *cxAnimate::Append(cxFloat time,cchars key)
     return this;
 }
 
+cxAnimate *cxAnimate::SetTexture(cxTexture *texture)
+{
+    CX_ASSERT(texture != nullptr, "texture error");
+    cxObject::swap(&ptex, texture);
+    return this;
+}
+
 cxAnimate *cxAnimate::SetTexture(cchars key)
 {
     CX_ASSERT(cxStr::IsOK(key), "key error");
     cxTexture *ctex = cxObject::gcpull<cxTexture>(key);
-    CX_ASSERT(ctex != nullptr, "texture error %s",key);
-    cxObject::swap(&ptex, ctex);
+    SetTexture(ctex);
     return this;
 }
 

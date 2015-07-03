@@ -46,7 +46,6 @@ protected:
     virtual void OnTime();
     void OnStep(cxFloat dt);
     void OnInit();
-private:
     std::vector<cxFloat> times;
     cxArray *points;
     cxFloat elapsedTime;

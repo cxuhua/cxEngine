@@ -173,5 +173,17 @@ cxPoint2I cxPoint2I::operator-() const
     return cxPoint2I(-x,-y);
 }
 
+cxRange2I::cxRange2I()
+{
+    min = 0;
+    max = 0;
+}
+
+cxRange2I::cxRange2I(cxInt amin,cxInt amax)
+{
+    min = amin;
+    max = amax;
+}
+
 CX_CPP_END
 

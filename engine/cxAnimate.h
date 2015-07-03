@@ -9,6 +9,7 @@
 #ifndef cxEngineCore_cxAnimate_h
 #define cxEngineCore_cxAnimate_h
 
+#include <math/cxPoint2I.h>
 #include "cxTimeLine.h"
 
 CX_CPP_BEGIN
@@ -27,8 +28,11 @@ private:
     cxTexture *ptex;
 public:
     cxAnimate *SetTexture(cchars key);
+    cxAnimate *SetTexture(cxTexture *texture);
     cxAnimate *Append(cxFloat time,cchars key);
     cxAnimate *AppFmt(cxFloat time,cchars fmt,...);
+    cxAction *Reverse();
+    cxAction *Clone();
 };
 
 CX_CPP_END

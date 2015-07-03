@@ -61,6 +61,14 @@ struct cxPoint2I
     cxPoint2I operator-() const;
 };
 
+struct cxRange2I
+{
+    cxInt min;
+    cxInt max;
+    cxRange2I();
+    cxRange2I(cxInt amin,cxInt amax);
+};
+
 CX_CPP_END
 
 #endif

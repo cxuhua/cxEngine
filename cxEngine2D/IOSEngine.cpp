@@ -19,6 +19,7 @@
 #include <engine/cxEmitter.h>
 #include <engine/cxTimeLine.h>
 #include <engine/cxTimer.h>
+#include <engine/cxAnimate.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -77,23 +78,36 @@ void IOSEngine::OnMain()
 //    v->SetTexture("t.png");
 //    c->Append(v);
     
-    cxTimeLine *ani = cxTimeLine::Create();
-    ani->Push(1);//0
-    ani->Push(2);//1
-    ani->Push(3);//2
-    ani->Push(4);//3
-    ani->Push(1);//4
-    ani->Push(1);//5
-    ani->SetRange(3, 1);
-    ani->onStop += [](cxAction *s){
-        CX_LOGGER("stop");
-    };
-    ani->onTime += [](cxTimeLine *pav){
-        CX_LOGGER("%d",pav->Index());
-    };
+//    cxTimeLine *ani = cxTimeLine::Create();
+//    ani->Push(1);//0
+//    ani->Push(2);//1
+//    ani->Push(3);//2
+//    ani->Push(4);//3
+//    ani->Push(1);//4
+//    ani->Push(1);//5
+//    ani->SetRange(3, 1);
+//    ani->onStop += [](cxAction *s){
+//        CX_LOGGER("stop");
+//    };
+//    ani->onTime += [](cxTimeLine *pav){
+//        CX_LOGGER("%d",pav->Index());
+//    };
+//    
+//    Window()->Append(ani);
     
-    Window()->Append(ani);
+    cxAnimate *animate = cxAnimate::Create();
+    animate->SetTexture("animate");
+    for(cxInt i=0;i<5;i++){
+        animate->AppFmt(0.5f, "120110%d.0.png",i+2);
+    }
+    animate->SetSpeed(2);
+    animate->SetRepeat(INT_MAX);
     
+    cxSprite *sp = cxSprite::Create();
+    sp->SetSize(cxSize2F(300, 300));
+    Window()->Append(sp);
+    
+    sp->Append(animate);
     
 //    cxTimer *timer = cxTimer::Forever(1.0f);
 //    timer->SetSpeed(2);

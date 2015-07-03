@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
-
+#include "cxView.h"
 #include "cxAction.h"
 
 CX_CPP_BEGIN
@@ -20,6 +20,7 @@ cxFloat defaultTimingFunc(cxFloat time)
 
 cxAction::cxAction()
 {
+    repeat = 1;
     actionId = 0;
     timing = defaultTimingFunc;
     pview = nullptr;
@@ -42,6 +43,12 @@ cxAction *cxAction::SetID(cxULong aid)
     return this;
 }
 
+cxAction *cxAction::SetRepeat(cxInt v)
+{
+    repeat = v;
+    return this;
+}
+
 cxULong cxAction::ID() const
 {
     return actionId == 0 ? (cxULong)this : actionId;
@@ -59,6 +66,7 @@ void cxAction::Reset()
 void cxAction::SetExit(cxBool v)
 {
     isexit = v;
+    repeat = 0;
 }
 
 void cxAction::OnReset()
@@ -112,6 +120,12 @@ cxFloat cxAction::deltaTimeFix(cxFloat dt)
     return dt;
 }
 
+cxAction *cxAction::Attach(cxView *pview)
+{
+    pview->Append(this);
+    return this;
+}
+
 cxAction *cxAction::Reverse()
 {
     CX_ASSERT(false, "this action have not imp reversed method");
@@ -148,20 +162,19 @@ cxBool cxAction::Update(cxFloat dt)
         dt *= speed;
         elapsed += dt;
         deltaTimeFix(dt);
-        //curve delta
-        cxFloat curr = timing(Progress()) * time;
+        cxDouble curr = timing(Progress()) * time;
         dt = curr - prev;
         prev = curr;
-        //step
         OnStep(dt);
     }
     if(elapsed >= time){
         isexit = true;
         OnStop();
         onStop.Fire(this);
+        if(--repeat > 0)Reset();
     }
 exit:
-    if(isexit){
+    if(isexit || repeat <= 0){
         OnExit();
         onExit.Fire(this);
     }

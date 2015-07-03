@@ -64,6 +64,7 @@
 		83610B0D1B1CB68000BD06B1 /* cxPoint2I.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83610B0B1B1CB68000BD06B1 /* cxPoint2I.cpp */; };
 		83639F6F1B30270E006A61B7 /* cxAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83639F6D1B30270E006A61B7 /* cxAction.cpp */; };
 		83639F721B302E16006A61B7 /* cxWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83639F701B302E16006A61B7 /* cxWindow.cpp */; };
+		836730AE1B465A6A00E333D9 /* cxAnimate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836730AC1B465A6A00E333D9 /* cxAnimate.cpp */; };
 		836A2F361B18C2B3009B427B /* cxJsonTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F351B18C2B3009B427B /* cxJsonTest.mm */; };
 		836A2F3B1B198662009B427B /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F391B198662009B427B /* xxtea.c */; };
 		836A2F481B19869D009B427B /* LzFind.c in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F3C1B19869D009B427B /* LzFind.c */; };
@@ -247,6 +248,8 @@
 		83639F6E1B30270E006A61B7 /* cxAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAction.h; sourceTree = "<group>"; };
 		83639F701B302E16006A61B7 /* cxWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxWindow.cpp; sourceTree = "<group>"; };
 		83639F711B302E16006A61B7 /* cxWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxWindow.h; sourceTree = "<group>"; };
+		836730AC1B465A6A00E333D9 /* cxAnimate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAnimate.cpp; sourceTree = "<group>"; };
+		836730AD1B465A6A00E333D9 /* cxAnimate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAnimate.h; sourceTree = "<group>"; };
 		836A2F351B18C2B3009B427B /* cxJsonTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxJsonTest.mm; sourceTree = "<group>"; };
 		836A2F391B198662009B427B /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
 		836A2F3A1B198662009B427B /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
@@ -415,6 +418,8 @@
 				8302541D1B453E8B0070D2E5 /* cxTimeLine.h */,
 				83AABB261B45910F0035A9F0 /* cxTimer.cpp */,
 				83AABB271B45910F0035A9F0 /* cxTimer.h */,
+				836730AC1B465A6A00E333D9 /* cxAnimate.cpp */,
+				836730AD1B465A6A00E333D9 /* cxAnimate.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -770,6 +775,7 @@
 				83A943A41B44DC3200F70FBA /* aes_cbc.c in Sources */,
 				830ECB2F1B3FEE1C002EBE56 /* cxEngine.mm in Sources */,
 				830157DF1B3B931900ED46A8 /* cxDraw.cpp in Sources */,
+				836730AE1B465A6A00E333D9 /* cxAnimate.cpp in Sources */,
 				83A943A71B44DC3200F70FBA /* aes_ctr.c in Sources */,
 				831189D11B2D728000C930B5 /* ray2.c in Sources */,
 				831189C91B2D728000C930B5 /* aabb2.c in Sources */,

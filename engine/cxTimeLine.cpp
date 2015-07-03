@@ -61,6 +61,11 @@ void cxTimeLine::OnInit()
     UpdateTime();
 }
 
+void cxTimeLine::OnTime()
+{
+    onTime.Fire(this);
+}
+
 cxAction *cxTimeLine::Reverse()
 {
     cxTimeLine *rv = cxTimeLine::Create();
@@ -96,7 +101,7 @@ cxInt cxTimeLine::Index() const
 
 cxTimePoint *cxTimeLine::At(cxInt i)
 {
-    cxInt idx = ((from<to)?(from+i):(from-i));
+    cxInt idx = (from < to) ? (from + i) : (from - i);
     return points->At(idx)->To<cxTimePoint>();
 }
 
@@ -145,7 +150,7 @@ void cxTimeLine::OnStep(cxFloat dt)
         }
         idx = i;
         prev = i;
-        onTime.Fire(this);
+        OnTime();
     }
 }
 

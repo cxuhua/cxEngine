@@ -43,6 +43,7 @@ protected:
     explicit cxTimeLine();
     virtual ~cxTimeLine();
 protected:
+    virtual void OnTime();
     void OnStep(cxFloat dt);
     void OnInit();
 private:

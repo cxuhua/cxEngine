@@ -24,8 +24,6 @@ protected:
     void OnStep(cxFloat dt);
     void OnInit();
     void OnStop();
-private:
-    cxUInt repeat;
 public:
     cxEvent<cxTimer> onArrive;
     static cxTimer *Create(cxInt repeat,cxFloat time);

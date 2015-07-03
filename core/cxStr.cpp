@@ -426,7 +426,7 @@ cchars cxStr::Data() const
     return data();
 }
 
-char cxStr::At(int n) const
+char cxStr::At(cxInt n) const
 {
     return at(n);
 }

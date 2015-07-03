@@ -41,14 +41,17 @@ private:
     cxFloat speed;
     cxFloat elapsed;
     cxFloat time;
-    cxFloat prev;
+    cxDouble prev;
     cxBool ispause;
     cxBool isinit;
     cxBool isexit;
     cxFloat deltaTimeFix(cxFloat dt);
+    cxInt repeat;
 public:
     cxAction *SetID(cxULong aid);
     cxULong ID() const;
+    
+    cxAction *SetRepeat(cxInt v);
     
     cxTimingFunc Timing() const;
     cxAction *SetTiming(cxTimingFunc f);
@@ -75,6 +78,7 @@ public:
     void Pause();
     void Resume();
     void Stop();
+    cxAction *Attach(cxView *pview);
     virtual cxAction *Clone();
     virtual cxAction *Reverse();
 };

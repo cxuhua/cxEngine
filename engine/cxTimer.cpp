@@ -15,7 +15,7 @@ CX_IMPLEMENT(cxTimer);
 
 cxTimer::cxTimer()
 {
-    repeat = 1;
+    
 }
 
 cxTimer::~cxTimer()
@@ -36,16 +36,12 @@ void cxTimer::OnInit()
 void cxTimer::OnStop()
 {
     onArrive.Fire(this);
-    repeat --;
-    if(repeat > 0){
-        Reset();
-    }
 }
 
 cxTimer *cxTimer::Forever(cxFloat time)
 {
     cxTimer *rv = cxTimer::Create();
-    rv->repeat = UINT_MAX;
+    rv->SetRepeat(INT_MAX);
     rv->SetTime(time);
     return rv;
 }
@@ -53,7 +49,7 @@ cxTimer *cxTimer::Forever(cxFloat time)
 cxTimer *cxTimer::Create(cxInt repeat,cxFloat time)
 {
     cxTimer *rv = cxTimer::Create();
-    rv->repeat = repeat;
+    rv->SetRepeat(repeat);
     rv->SetTime(time);
     return rv;
 }

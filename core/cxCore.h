@@ -40,12 +40,6 @@ public:
     cxObject *Pull(cchars key);
 };
 
-class TSerialize
-{
-public:
-    virtual cxJson *Serialize() = 0;
-};
-
 CX_CPP_END
 
 #endif /* defined(__cxEngineCore__cxCore__) */

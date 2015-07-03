@@ -20,6 +20,8 @@
 #include <engine/cxTimeLine.h>
 #include <engine/cxTimer.h>
 #include <engine/cxAnimate.h>
+#include <engine/cxTcp.h>
+#include <engine/cxHttp.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -62,6 +64,14 @@ void IOSEngine::OnMain()
     cxTexture::Create()->From("animate.png")->Atlas("animate.json")->gcpush<cxTexture>("animate");
     cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
+    
+    
+    cxHttp::Get("http://www.sina.com.cn")->onCompleted += [](cxHttp *http){
+        CX_LOGGER("%s",http->Body()->Data());
+    };
+    
+//    cxTcp *tcp = cxTcp::Alloc();
+//    tcp->Connect("www.sina.com.cn", 80);
 
     
 //    cxContainer *c = cxContainer::Create();
@@ -95,17 +105,17 @@ void IOSEngine::OnMain()
 //    
 //    Window()->Append(ani);
     
-    cxAnimate *animate = cxAnimate::Create();
-    animate->SetTexture("animate");
-    for(cxInt i=0;i<5;i++){
-        animate->AppFmt(0.5f, "120110%d.0.png",i+2);
-    }
-    
-    cxSprite *sp = cxSprite::Create();
-    sp->SetSize(cxSize2F(300, 300));
-    Window()->Append(sp);
-    
-    sp->Append(animate->SetRepeat(INT_MAX));
+//    cxAnimate *animate = cxAnimate::Create();
+//    animate->SetTexture("animate");
+//    for(cxInt i=0;i<5;i++){
+//        animate->AppFmt(0.5f, "120110%d.0.png",i+2);
+//    }
+//    
+//    cxSprite *sp = cxSprite::Create();
+//    sp->SetSize(cxSize2F(300, 300));
+//    Window()->Append(sp);
+//    
+//    sp->Append(animate->SetRepeat(INT_MAX));
     
 //    cxTimer *timer = cxTimer::Forever(1.0f);
 //    timer->SetSpeed(2);

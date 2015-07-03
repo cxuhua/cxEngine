@@ -48,6 +48,8 @@
 		833043C41B41109600636928 /* cxRotate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043C21B41109600636928 /* cxRotate.cpp */; };
 		833043C71B41149000636928 /* cxScale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043C51B41149000636928 /* cxScale.cpp */; };
 		833043D51B427C4600636928 /* cxRange2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043D31B427C4600636928 /* cxRange2F.cpp */; };
+		8338FD771B467AAE00C84032 /* cxHttp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD751B467AAE00C84032 /* cxHttp.cpp */; };
+		8338FD7A1B467B2A00C84032 /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD781B467B2A00C84032 /* http_parser.c */; };
 		833B40631B31ABD900920A06 /* cxSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B40611B31ABD900920A06 /* cxSprite.cpp */; };
 		833B40691B31AF2800920A06 /* cxBoxColor4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B40671B31AF2800920A06 /* cxBoxColor4F.cpp */; };
 		833B406E1B31B71400920A06 /* cxBoxRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B406C1B31B71400920A06 /* cxBoxRender.cpp */; };
@@ -65,6 +67,7 @@
 		83639F6F1B30270E006A61B7 /* cxAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83639F6D1B30270E006A61B7 /* cxAction.cpp */; };
 		83639F721B302E16006A61B7 /* cxWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83639F701B302E16006A61B7 /* cxWindow.cpp */; };
 		836730AE1B465A6A00E333D9 /* cxAnimate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836730AC1B465A6A00E333D9 /* cxAnimate.cpp */; };
+		836730B51B4671AA00E333D9 /* cxTcp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836730B31B4671AA00E333D9 /* cxTcp.cpp */; };
 		836A2F361B18C2B3009B427B /* cxJsonTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F351B18C2B3009B427B /* cxJsonTest.mm */; };
 		836A2F3B1B198662009B427B /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F391B198662009B427B /* xxtea.c */; };
 		836A2F481B19869D009B427B /* LzFind.c in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F3C1B19869D009B427B /* LzFind.c */; };
@@ -218,6 +221,10 @@
 		833043C61B41149000636928 /* cxScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxScale.h; sourceTree = "<group>"; };
 		833043D31B427C4600636928 /* cxRange2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRange2F.cpp; sourceTree = "<group>"; };
 		833043D41B427C4600636928 /* cxRange2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRange2F.h; sourceTree = "<group>"; };
+		8338FD751B467AAE00C84032 /* cxHttp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxHttp.cpp; sourceTree = "<group>"; };
+		8338FD761B467AAE00C84032 /* cxHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxHttp.h; sourceTree = "<group>"; };
+		8338FD781B467B2A00C84032 /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
+		8338FD791B467B2A00C84032 /* http_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_parser.h; sourceTree = "<group>"; };
 		833B40611B31ABD900920A06 /* cxSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSprite.cpp; sourceTree = "<group>"; };
 		833B40621B31ABD900920A06 /* cxSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSprite.h; sourceTree = "<group>"; };
 		833B40671B31AF2800920A06 /* cxBoxColor4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxColor4F.cpp; sourceTree = "<group>"; };
@@ -250,6 +257,8 @@
 		83639F711B302E16006A61B7 /* cxWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxWindow.h; sourceTree = "<group>"; };
 		836730AC1B465A6A00E333D9 /* cxAnimate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAnimate.cpp; sourceTree = "<group>"; };
 		836730AD1B465A6A00E333D9 /* cxAnimate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAnimate.h; sourceTree = "<group>"; };
+		836730B31B4671AA00E333D9 /* cxTcp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxTcp.cpp; sourceTree = "<group>"; };
+		836730B41B4671AA00E333D9 /* cxTcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTcp.h; sourceTree = "<group>"; };
 		836A2F351B18C2B3009B427B /* cxJsonTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxJsonTest.mm; sourceTree = "<group>"; };
 		836A2F391B198662009B427B /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
 		836A2F3A1B198662009B427B /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
@@ -373,6 +382,8 @@
 		83079B5D1B292F1B00275F1F /* engine */ = {
 			isa = PBXGroup;
 			children = (
+				836730B31B4671AA00E333D9 /* cxTcp.cpp */,
+				836730B41B4671AA00E333D9 /* cxTcp.h */,
 				83639F6D1B30270E006A61B7 /* cxAction.cpp */,
 				83639F6E1B30270E006A61B7 /* cxAction.h */,
 				830ECB271B3EF54F002EBE56 /* cxAtlas.cpp */,
@@ -420,6 +431,8 @@
 				83AABB271B45910F0035A9F0 /* cxTimer.h */,
 				836730AC1B465A6A00E333D9 /* cxAnimate.cpp */,
 				836730AD1B465A6A00E333D9 /* cxAnimate.h */,
+				8338FD751B467AAE00C84032 /* cxHttp.cpp */,
+				8338FD761B467AAE00C84032 /* cxHttp.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -541,6 +554,8 @@
 		83B23B4C1B17E0E9000D770A /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				8338FD781B467B2A00C84032 /* http_parser.c */,
+				8338FD791B467B2A00C84032 /* http_parser.h */,
 				83A943AC1B44E57600F70FBA /* utf8.c */,
 				83A943AD1B44E57600F70FBA /* utf8.h */,
 				83A9439B1B44DC3200F70FBA /* aes_cbc.c */,
@@ -756,6 +771,7 @@
 				836A2F651B19F644009B427B /* cxIOSUtil.mm in Sources */,
 				831189D61B2D728000C930B5 /* vec4.c in Sources */,
 				83610B051B1CA6F700BD06B1 /* cxPoint2F.cpp in Sources */,
+				836730B51B4671AA00E333D9 /* cxTcp.cpp in Sources */,
 				831B9EC01B29255500B7A06B /* cxRect4F.cpp in Sources */,
 				83D92D251B3151D200F061D6 /* cxBoxCoord2F.cpp in Sources */,
 				833B40711B31B89600920A06 /* cxBoxPoint3F.cpp in Sources */,
@@ -793,6 +809,7 @@
 				839836D11B10B59C002B7C20 /* cxArray.cpp in Sources */,
 				83BE636F1B3117270028B6E7 /* cxGLView.mm in Sources */,
 				831189E41B2D82A200C930B5 /* cxNotice.cpp in Sources */,
+				8338FD7A1B467B2A00C84032 /* http_parser.c in Sources */,
 				833043B61B4024AE00636928 /* cxButton.cpp in Sources */,
 				836A2F4A1B19869D009B427B /* LzmaDec.c in Sources */,
 				83D92D391B317E5900F061D6 /* cxRenderF.cpp in Sources */,
@@ -812,6 +829,7 @@
 				839836E61B117475002B7C20 /* cxObject.cpp in Sources */,
 				836A2F4C1B19869D009B427B /* LzmaLib.c in Sources */,
 				831B9EBD1B291F2700B7A06B /* cxSize2F.cpp in Sources */,
+				8338FD771B467AAE00C84032 /* cxHttp.cpp in Sources */,
 				831189D01B2D728000C930B5 /* quaternion.c in Sources */,
 				83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */,
 				831189CE1B2D728000C930B5 /* mat4.c in Sources */,

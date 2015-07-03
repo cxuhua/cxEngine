@@ -78,6 +78,8 @@ public:
     void Retain();
     cxObject *AutoRelease();
     void Release();
+    
+    virtual cxJson *Serialize();
 };
 
 template<class T>

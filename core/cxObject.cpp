@@ -26,6 +26,11 @@ cxObject::cxObject():refcount(1),tag(0)
     
 }
 
+cxJson *cxObject::Serialize()
+{
+    return nullptr;
+}
+
 cxLong cxObject::Tag() const
 {
     return tag;

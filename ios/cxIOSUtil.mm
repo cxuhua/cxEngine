@@ -19,9 +19,9 @@ CX_IMPLEMENT(cxIOSUtil);
 void cxIOSUtil::Logger(const char* type,const char*file,int line,const char* format,va_list ap)
 {
     char *buffer = nullptr;
-    vasprintf(&buffer, format, ap);
+    int bytes = vasprintf(&buffer, format, ap);
     NSString *txt = [NSString stringWithUTF8String:buffer];
-    NSLog(@"[%s:%d] %s:%@\n",file,line,type,txt);
+    NSLog(@"[%s:%d] %s:%s[%d]\n",file,line,type,[txt UTF8String],bytes);
     free(buffer);
 }
 

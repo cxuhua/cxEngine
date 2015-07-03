@@ -95,6 +95,7 @@ public:
     explicit cxPoint2FArray();
     virtual ~cxPoint2FArray();
 public:
+    void Clear();
     void Append(cxInt n);
     void Append(const cxPoint2F &v);
     void Remove(cxInt idx);

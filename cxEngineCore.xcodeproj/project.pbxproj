@@ -50,6 +50,7 @@
 		833043D51B427C4600636928 /* cxRange2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043D31B427C4600636928 /* cxRange2F.cpp */; };
 		8338FD771B467AAE00C84032 /* cxHttp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD751B467AAE00C84032 /* cxHttp.cpp */; };
 		8338FD7A1B467B2A00C84032 /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD781B467B2A00C84032 /* http_parser.c */; };
+		8338FD7D1B4695F300C84032 /* cxSpline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD7B1B4695F300C84032 /* cxSpline.cpp */; };
 		833B40631B31ABD900920A06 /* cxSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B40611B31ABD900920A06 /* cxSprite.cpp */; };
 		833B40691B31AF2800920A06 /* cxBoxColor4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B40671B31AF2800920A06 /* cxBoxColor4F.cpp */; };
 		833B406E1B31B71400920A06 /* cxBoxRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B406C1B31B71400920A06 /* cxBoxRender.cpp */; };
@@ -225,6 +226,8 @@
 		8338FD761B467AAE00C84032 /* cxHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxHttp.h; sourceTree = "<group>"; };
 		8338FD781B467B2A00C84032 /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
 		8338FD791B467B2A00C84032 /* http_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_parser.h; sourceTree = "<group>"; };
+		8338FD7B1B4695F300C84032 /* cxSpline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSpline.cpp; sourceTree = "<group>"; };
+		8338FD7C1B4695F300C84032 /* cxSpline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSpline.h; sourceTree = "<group>"; };
 		833B40611B31ABD900920A06 /* cxSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSprite.cpp; sourceTree = "<group>"; };
 		833B40621B31ABD900920A06 /* cxSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSprite.h; sourceTree = "<group>"; };
 		833B40671B31AF2800920A06 /* cxBoxColor4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxColor4F.cpp; sourceTree = "<group>"; };
@@ -433,6 +436,8 @@
 				836730AD1B465A6A00E333D9 /* cxAnimate.h */,
 				8338FD751B467AAE00C84032 /* cxHttp.cpp */,
 				8338FD761B467AAE00C84032 /* cxHttp.h */,
+				8338FD7B1B4695F300C84032 /* cxSpline.cpp */,
+				8338FD7C1B4695F300C84032 /* cxSpline.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -779,6 +784,7 @@
 				83639F6F1B30270E006A61B7 /* cxAction.cpp in Sources */,
 				83BBF3FF1B10954E003CB004 /* cxCore.cpp in Sources */,
 				8357CB951B11FDC80085E600 /* cxJson.cpp in Sources */,
+				8338FD7D1B4695F300C84032 /* cxSpline.cpp in Sources */,
 				833B406E1B31B71400920A06 /* cxBoxRender.cpp in Sources */,
 				83AABB281B45910F0035A9F0 /* cxTimer.cpp in Sources */,
 				831189CA1B2D728000C930B5 /* aabb3.c in Sources */,

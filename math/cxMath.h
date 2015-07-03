@@ -33,6 +33,8 @@ CX_CPP_BEGIN
 // 0.0f <-> 1.0f
 #define CX_RAND_01f() ((cxFloat)(rand()%RAND_MAX)/(cxFloat)RAND_MAX)
 
+struct cxPoint2F;
+
 const cxFloat cxEqualFloat = cxFloat(0.0001f);
 
 struct cxFloatRange
@@ -86,6 +88,8 @@ CX_INLINE cxFloat cxFloatClamp(cxFloat x, cxFloat min, cxFloat max)
 {
     return x < min ? min : (x > max ? max : x);
 }
+
+cxPoint2F cxCardinalSplineAt(const cxPoint2F &p0,const cxPoint2F &p1,const cxPoint2F &p2,const cxPoint2F &p3, cxFloat tension, cxFloat t);
 
 CX_INLINE cxFloat cxFloatLerp(cxFloat from, cxFloat to, cxFloat t )
 {

@@ -162,7 +162,7 @@ cxBool cxAction::Update(cxFloat dt)
         dt *= speed;
         elapsed += dt;
         deltaTimeFix(dt);
-        cxDouble curr = timing(Progress()) * time;
+        cxDouble curr = Progress() * time;
         dt = curr - prev;
         prev = curr;
         OnStep(dt);
@@ -197,7 +197,7 @@ cxFloat cxAction::Progress() const
     if(cxFloatIsEqual(time, 0)){
         return 0;
     }
-    return elapsed/time;
+    return timing(elapsed/time);
 }
 
 cxFloat cxAction::Time() const

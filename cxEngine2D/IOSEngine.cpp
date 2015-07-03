@@ -22,6 +22,7 @@
 #include <engine/cxAnimate.h>
 #include <engine/cxTcp.h>
 #include <engine/cxHttp.h>
+#include <engine/cxSpline.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -65,10 +66,26 @@ void IOSEngine::OnMain()
     cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
     
+    cxSpline *x = cxSpline::Create();
+    x->Append(cxPoint2F(300, 0));
+    x->Append(cxPoint2F(300, 300));
+    x->Append(cxPoint2F(0, 300));
+    x->Append(cxPoint2F(-300, 300));
+    x->Append(cxPoint2F(-300, 0));
+    x->Append(cxPoint2F(-300, -300));
+    x->Append(cxPoint2F(0, -300));
+    x->Append(0.0f);
+    x->SetTime(10);
     
-    cxHttp::Get("http://www.sina.com.cn")->onCompleted += [](cxHttp *http){
-        CX_LOGGER("%s",http->Body()->Data());
-    };
+    cxSprite *sp = cxSprite::Create()->SetTexture("t.png");
+    sp->SetFrame(0, 0, 100, 100);
+    sp->Append(x);
+    
+    Window()->Append(sp);
+    
+//    cxHttp::Get("http://www.sina.com.cn")->onCompleted += [](cxHttp *http){
+//        CX_LOGGER("%s",http->Body()->Data());
+//    };
     
 //    cxTcp *tcp = cxTcp::Alloc();
 //    tcp->Connect("www.sina.com.cn", 80);

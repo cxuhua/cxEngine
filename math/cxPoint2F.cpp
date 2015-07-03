@@ -324,6 +324,11 @@ void cxPoint2FArray::Remove(cxInt idx,cxInt n)
     erase(begin() + idx, begin() + idx + n);
 }
 
+void cxPoint2FArray::Clear()
+{
+    clear();
+}
+
 const cxPoint2F *cxPoint2FArray::Buffer() const
 {
     return data();

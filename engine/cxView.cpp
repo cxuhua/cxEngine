@@ -296,6 +296,9 @@ const cxFloat cxView::Angle() const
 
 cxView *cxView::SetAngle(const cxFloat &v)
 {
+    if(cxFloatIsINF(v) || cxFloatIsNAN(v)){
+        return this;
+    }
     if(!cxFloatIsEqual(angle, v)){
         angle = v;
         SetDirty(DirtyModeAngle);

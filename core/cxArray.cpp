@@ -33,6 +33,11 @@ cxInt cxArray::Size() const
     return (cxInt)mv.size();
 }
 
+cxObject *cxArray::At(cxInt idx) const
+{
+    return mv.at(idx);
+}
+
 cxArray *cxArray::Clear()
 {
     for(FIter it = FBegin(); it != FEnd(); it++){
@@ -58,7 +63,7 @@ cxObject **cxArray::Buffer()
 cxArray *cxArray::Replace(cxInt idx,cxObject *obj)
 {
     CX_ASSERT(idx >= 0 && idx < Size(), "index out");
-    const cxObject *op = At<cxObject>(idx);
+    const cxObject *op = At(idx);
     if(obj == op){
         return this;
     }
@@ -69,7 +74,7 @@ cxArray *cxArray::Replace(cxInt idx,cxObject *obj)
 
 cxArray *cxArray::Remove(cxInt idx)
 {
-    cxObject *srcObj = At<cxObject>(idx);
+    cxObject *srcObj = At(idx);
     srcObj->Release();
     mv.erase(mv.begin() + idx);
     return this;

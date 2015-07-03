@@ -38,8 +38,7 @@ public:
     RIter Remove(RIter &iter);
 public:
     cxObject **Buffer();
-    template<class T>
-    T *At(cxInt idx) const;
+    cxObject *At(cxInt idx) const;
     cxBool IsEmpty() const;
     cxInt Size() const;
     cxArray *Replace(cxInt idx,cxObject *obj);
@@ -49,13 +48,6 @@ public:
     cxArray *Sort(cxCmpFunc func);
     cxArray *Clear();
 };
-
-template<class T>
-CX_INLINE T *cxArray::At(cxInt idx) const
-{
-    CX_ASSERT(idx >= 0 && idx < Size(), "index out");
-    return static_cast<T *>(mv.at(idx));
-}
 
 CX_CPP_END
 #endif /* defined(__cxEngineCore__cxArray__) */

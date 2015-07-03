@@ -168,6 +168,8 @@ public:
     cxShader *Shader();
     cxView *SetShader(cchars key);
     cxView *SetShader(cxShader *ps);
+    
+    cxView *SetFrame(cxFloat x,cxFloat y,cxFloat w,cxFloat h);
    
     cxUInt Flags() const;
     cxView *SetFlags(cxUInt f);
@@ -179,17 +181,17 @@ public:
     cxView *SetParent(cxView *v);
     cxView *Parent() const;
     
-    cxBool HideTop() const;
+    cxBool EnableHideTop() const;
     cxView *EnableHideTop(cxBool v);
     
-    cxBool IsVisible() const;
+    cxBool EnableVisible() const;
     cxView *EnableVisible(cxBool v);
     
     DirtyMode GetDirtyMode() const;
     
     cxBool IsRemoved() const;
     
-    cxBool IsSleep() const;
+    cxBool EnableSleep() const;
     cxView *EnableSleep(cxBool v);
     
     cxView *SetColor(const cxColor4F &v);
@@ -226,7 +228,7 @@ public:
     const cxSize2F &Size() const;
     cxView *SetSize(const cxSize2F &v);
     
-    cxBool IsTouch() const;
+    cxBool EnableTouch() const;
     cxView *EnableTouch(cxBool v);
     
     cxArray *Subviews() const;

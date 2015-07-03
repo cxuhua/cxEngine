@@ -317,7 +317,7 @@ const cxColor4F &cxView::Color() const
     return cc.Color();
 }
 
-cxBool cxView::IsSleep() const
+cxBool cxView::EnableSleep() const
 {
     return issleep;
 }
@@ -333,7 +333,7 @@ cxView *cxView::EnableSleep(cxBool v)
     return this;
 }
 
-cxBool cxView::HideTop() const
+cxBool cxView::EnableHideTop() const
 {
     return hideTop;
 }
@@ -344,7 +344,7 @@ cxView *cxView::EnableHideTop(cxBool v)
     return this;
 }
 
-cxBool cxView::IsVisible() const
+cxBool cxView::EnableVisible() const
 {
     return isvisible;
 }
@@ -480,6 +480,13 @@ cxBoxPoint3F &cxView::BoxPoint()
     return bp;
 }
 
+cxView *cxView::SetFrame(cxFloat x,cxFloat y,cxFloat w,cxFloat h)
+{
+    SetPosition(cxPoint2F(x,y));
+    SetSize(cxSize2F(w, h));
+    return this;
+}
+
 void cxView::runAppends(cxFloat dt)
 {
     for(cxArray::FIter it=viewapps->FBegin();it!=viewapps->FEnd();it++){
@@ -508,7 +515,7 @@ void cxView::runRemoves(cxFloat dt)
     }
 }
 
-cxBool cxView::IsTouch() const
+cxBool cxView::EnableTouch() const
 {
     return istouch;
 }
@@ -535,7 +542,7 @@ cxBool cxView::OnDispatch(const cxTouchable *e)
 
 cxBool cxView::Dispatch(const cxTouchable *e)
 {
-    if(!IsTouch()){
+    if(!EnableTouch()){
         return OnDispatch(e);
     }
     for(cxArray::RIter it=subviews->RBegin();it!=subviews->REnd();it++){
@@ -569,7 +576,7 @@ void cxView::transform()
 void cxView::Update(cxFloat dt)
 {
     flags = 0;
-    if(IsRemoved() || IsSleep()){
+    if(IsRemoved() || EnableSleep()){
         return;
     }
     if(!islayout){
@@ -678,7 +685,7 @@ void cxView::Render(cxRender *render,const cxMatrixF &mv)
 {
     CX_ASSERT(!size.IsZero(), "view size not set");
     
-    if(!IsVisible() || IsSleep() || IsRemoved()){
+    if(!EnableVisible() || EnableSleep() || IsRemoved()){
         return;
     }
     gl->Push();

@@ -222,7 +222,7 @@ cxPoint2F cxContainer::fixPosition(const cxPoint2F &pos)
 cxView *cxContainer::Body()
 {
     CX_ASSERT(Subviews()->Size() > 0, "first subview use body");
-    return Subviews()->At<cxView>(0);
+    return Subviews()->At(0)->To<cxView>();
 }
 
 CX_CPP_END

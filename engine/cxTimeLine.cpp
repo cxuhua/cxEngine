@@ -11,8 +11,6 @@
 
 CX_CPP_BEGIN
 
-#define FIDX(from,to,idx)       ((from<to)?(from+idx):(from-idx))
-
 CX_IMPLEMENT(cxTimePoint);
 
 cxTimePoint::cxTimePoint()
@@ -51,7 +49,7 @@ CX_IMPLEMENT(cxTimeLine);
 
 void cxTimeLine::OnInit()
 {
-    previdx = -1;
+    prev = -1;
     idx = 0;
     if(from < 0){
         from = 0;
@@ -98,7 +96,8 @@ cxInt cxTimeLine::Index() const
 
 cxTimePoint *cxTimeLine::At(cxInt i)
 {
-    return points->At<cxTimePoint>(FIDX(from, to, i));
+    cxInt idx = ((from<to)?(from+i):(from-i));
+    return points->At(idx)->To<cxTimePoint>();
 }
 
 cxTimePoint *cxTimeLine::Push(cxFloat time)
@@ -113,7 +112,6 @@ cxTimeLine *cxTimeLine::SetRange(cxInt afrom,cxInt ato)
     CX_ASSERT(afrom < points->Size() && to < points->Size(), "range error");
     from = afrom;
     to = ato;
-    idx = 0;
     return this;
 }
 
@@ -124,7 +122,7 @@ cxInt cxTimeLine::Size() const
 
 cxTimeLine::cxTimeLine()
 {
-    idx = 0;
+    idx = -1;
     from = -1;
     to = -1;
     points = cxArray::Alloc();
@@ -142,11 +140,11 @@ void cxTimeLine::OnStep(cxFloat dt)
         if(elapsedTime < times.at(i)){
             break;
         }
-        if(previdx == i){
+        if(prev == i){
             continue;
         }
         idx = i;
-        previdx = i;
+        prev = i;
         onTime.Fire(this);
     }
 }

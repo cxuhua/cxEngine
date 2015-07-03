@@ -77,24 +77,22 @@ void IOSEngine::OnMain()
 //    v->SetTexture("t.png");
 //    c->Append(v);
     
-//    cxTimeLine *ani = cxTimeLine::Create();
-//    ani->Push(1);//0
-//    ani->Push(2);//1
-//    ani->Push(3);//2
-//    ani->Push(4);//3
-//    ani->Push(1);//4
-//    ani->Push(1);//5
-//    ani->SetRange(3, 1);
-//    ani->onStop += [](cxAction *s){
-//        CX_LOGGER("stop");
-//    };
-//    ani->onTime +=[](cxTimeLine *pav){
-//        CX_LOGGER("%d",pav->Index());
-//    };
-//    
-//    ani->SetSpeed(2);
-//    
-//    Window()->Append(ani);
+    cxTimeLine *ani = cxTimeLine::Create();
+    ani->Push(1);//0
+    ani->Push(2);//1
+    ani->Push(3);//2
+    ani->Push(4);//3
+    ani->Push(1);//4
+    ani->Push(1);//5
+    ani->SetRange(3, 1);
+    ani->onStop += [](cxAction *s){
+        CX_LOGGER("stop");
+    };
+    ani->onTime += [](cxTimeLine *pav){
+        CX_LOGGER("%d",pav->Index());
+    };
+    
+    Window()->Append(ani);
     
     
 //    cxTimer *timer = cxTimer::Forever(1.0f);

@@ -28,8 +28,10 @@ private:
     cxFloat time;
 public:
     cxTimePoint *Init(cxFloat at);
+    
     cxObject *Object();
     void SetObject(cxObject *pobj);
+    
     cxFloat Time() const;
 };
 
@@ -47,7 +49,7 @@ private:
     std::vector<cxFloat> times;
     cxArray *points;
     cxFloat elapsedTime;
-    cxInt previdx;
+    cxInt prev;  //
     cxInt idx;      //0-n
     cxInt from;     //0-(size-1);
     cxInt to;       //0-(size-1)

@@ -50,7 +50,7 @@ cxLabel *cxWindow::DebugLabel()
 void cxWindow::Push(cxView *view)
 {
     cxView *top = Top();
-    if(top != nullptr && view->HideTop()){
+    if(top != nullptr && view->EnableHideTop()){
         top->EnableSleep(true);
     }
     Append(view);

@@ -36,6 +36,8 @@ public:
     void Clear();
     cxFloat Angle();
     cxEvent<cxSpline> onAngle;
+    cxAction *Reverse();
+    cxAction *Clone();
 };
 
 CX_CPP_END

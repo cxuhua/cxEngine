@@ -39,6 +39,7 @@ void cxSpline::OnInit()
     }
     delta = 1.0f/((cxFloat)num - 1.0f);
     prev = View()->Position();
+    angle = INFINITY;
 }
 
 void cxSpline::OnAngle()
@@ -73,6 +74,26 @@ void cxSpline::OnStep(cxFloat dt)
         OnAngle();
     }
     View()->SetPosition(npos);
+}
+
+cxAction *cxSpline::Reverse()
+{
+    cxSpline *rv = cxSpline::Create();
+    for(cxInt i=points.Size()-1; i >= 0;i--){
+        rv->points.Append(points.At(i));
+    }
+    rv->SetTime(Time());
+    return rv;
+}
+
+cxAction *cxSpline::Clone()
+{
+    cxSpline *rv = cxSpline::Create();
+    for(cxInt i=0; i < points.Size();i++){
+        rv->points.Append(points.At(i));
+    }
+    rv->SetTime(Time());
+    return rv;
 }
 
 cxFloat cxSpline::Angle()

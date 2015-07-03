@@ -77,6 +77,10 @@ void IOSEngine::OnMain()
     x->Append(0.0f);
     x->SetTime(10);
     
+    x->onAngle += [](cxSpline *pav){
+        pav->View()->SetAngle(pav->Angle());
+    };
+    
     cxSprite *sp = cxSprite::Create()->SetTexture("t.png");
     sp->SetFrame(0, 0, 100, 100);
     sp->Append(x);

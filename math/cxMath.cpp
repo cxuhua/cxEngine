@@ -12,6 +12,23 @@
 
 CX_CPP_BEGIN
 
+cxInt AngleToIndex(cxFloat angle,cxInt split,cxFloat *off)
+{
+    CX_ASSERT(index != NULL, "args error");
+    cxFloat avalue = cxRadiansToDegrees(angle);
+    avalue = fmodf(avalue,360.0f);
+    avalue = fmodf(avalue+360.0f,360.0f);
+    cxFloat v = (cxFloat)split/2.0f;
+    cxInt max = 360/split;
+    cxInt idx = avalue/v;
+    cxInt m = (idx/2) + (idx%2);
+    cxInt ret = m>=max?0:m;
+    if(off != NULL){
+        *off = cxDegreesToRadians(avalue - ret * 10);
+    }
+    return ret;
+}
+
 cxPoint2F cxCardinalSplineAt(const cxPoint2F &p0,const cxPoint2F &p1,const cxPoint2F &p2,const cxPoint2F &p3, cxFloat tension, cxFloat t)
 {
     cxFloat t2 = t * t;

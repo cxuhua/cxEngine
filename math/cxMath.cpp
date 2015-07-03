@@ -7,14 +7,47 @@
 //
 
 
+#include "cxSize2F.h"
 #include "cxPoint2F.h"
 #include "cxMath.h"
 
 CX_CPP_BEGIN
 
-cxInt AngleToIndex(cxFloat angle,cxInt split,cxFloat *off)
+cxPoint2F cxTileIdxToPos(const cxPoint2F &idx,const cxSize2F &size)
 {
-    CX_ASSERT(index != NULL, "args error");
+    cxFloat w2 = size.w / 2;
+    cxFloat h2 = size.h / 2;
+    cxFloat aa = atan2f(h2, w2);
+    cxFloat sa = sinf(aa);
+    cxFloat ca = cosf(aa);
+    cxFloat m = sqrtf(w2*w2 + h2*h2);
+    
+    cxFloat dx = m * idx.x;
+    cxFloat dy = m * idx.y;
+    cxPoint2F p1 = cxPoint2F(0, 0);
+    p1.x = ca * dx;
+    p1.y = sa * dx;
+    cxPoint2F p2 = cxPoint2F(0, 0);
+    p2.x = ca * dy;
+    p2.y = sa * dy;
+    return cxPoint2F(p1.x - p2.x,p1.y + p2.y);
+}
+
+cxPoint2F cxTilePosToIdx(const cxPoint2F &pos,const cxSize2F &size)
+{
+    cxFloat w2 = size.w / 2;
+    cxFloat h2 = size.h / 2;
+    cxFloat aa = atan2f(h2, w2);
+    cxFloat sa = sinf(aa);
+    cxFloat ca = cosf(aa);
+    cxFloat m = sqrtf(w2*w2 + h2*h2);
+    cxFloat dx = (pos.y / sa + pos.x / ca) / 2.0f;
+    cxFloat dy = dx - pos.x / ca;
+    return cxPoint2F(dx/m, dy/m);
+}
+
+cxInt cxAngleToIndex(cxFloat angle,cxInt split,cxFloat *off)
+{
     cxFloat avalue = cxRadiansToDegrees(angle);
     avalue = fmodf(avalue,360.0f);
     avalue = fmodf(avalue+360.0f,360.0f);

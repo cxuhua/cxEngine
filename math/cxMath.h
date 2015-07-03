@@ -34,6 +34,7 @@ CX_CPP_BEGIN
 #define CX_RAND_01f() ((cxFloat)(rand()%RAND_MAX)/(cxFloat)RAND_MAX)
 
 struct cxPoint2F;
+struct cxSize2F;
 
 const cxFloat cxEqualFloat = cxFloat(0.0001f);
 
@@ -47,6 +48,14 @@ struct cxFloatRange
     const cxFloat ToValue() const;
     const cxFloat ToRadians() const;
 };
+
+cxPoint2F cxTileIdxToPos(const cxPoint2F &idx,const cxSize2F &size);
+
+cxPoint2F cxTilePosToIdx(const cxPoint2F &pos,const cxSize2F &size);
+
+cxInt cxAngleToIndex(cxFloat angle,cxInt split,cxFloat *off);
+
+cxPoint2F cxCardinalSplineAt(const cxPoint2F &p0,const cxPoint2F &p1,const cxPoint2F &p2,const cxPoint2F &p3, cxFloat tension, cxFloat t);
 
 CX_INLINE cxFloat cxDegreesToRadians(cxFloat degrees)
 {
@@ -88,10 +97,6 @@ CX_INLINE cxFloat cxFloatClamp(cxFloat x, cxFloat min, cxFloat max)
 {
     return x < min ? min : (x > max ? max : x);
 }
-
-cxInt AngleToIndex(cxFloat angle,cxInt split,cxFloat *off);
-
-cxPoint2F cxCardinalSplineAt(const cxPoint2F &p0,const cxPoint2F &p1,const cxPoint2F &p2,const cxPoint2F &p3, cxFloat tension, cxFloat t);
 
 CX_INLINE cxFloat cxFloatLerp(cxFloat from, cxFloat to, cxFloat t )
 {

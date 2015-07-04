@@ -202,6 +202,7 @@ public:
     
     cxView *SetColor(const cxColor4F &v);
     cxView *SetAlpha(const cxFloat a);
+    const cxFloat Alpha() const;
     const cxColor4F &Color() const;
     
     cxBool IsDirtyMode(DirtyMode v) const;

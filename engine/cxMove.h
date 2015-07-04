@@ -27,7 +27,7 @@ private:
 public:
     cxAction *Reverse();
     cxAction *Clone();
-    static cxMoveBy *Create(const cxPoint2F &d,cxFloat time);
+    static cxMoveBy *Create(const cxPoint2F &delta,cxFloat time);
 };
 
 class cxMoveTo : public cxMoveBy

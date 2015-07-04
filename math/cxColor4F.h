@@ -71,6 +71,8 @@ struct cxColor4F
     cxColor4F &operator/=(const cxColor4F &v);
     cxColor4F &operator/=(const cxFloat v);
     
+    cxColor4F operator-() const;
+    
     static const cxColor4F WHITE;
     static const cxColor4F YELLOW;
     static const cxColor4F BLUE;

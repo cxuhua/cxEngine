@@ -114,6 +114,8 @@
 		83BE636F1B3117270028B6E7 /* cxGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83BE636D1B3117270028B6E7 /* cxGLView.mm */; };
 		83C9D1121B47C63600EC244C /* cxFollow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C9D1101B47C63600EC244C /* cxFollow.cpp */; };
 		83C9D1151B47DA8000EC244C /* cxBezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C9D1131B47DA8000EC244C /* cxBezier.cpp */; };
+		83C9D1181B47E24D00EC244C /* cxFade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C9D1161B47E24C00EC244C /* cxFade.cpp */; };
+		83C9D11B1B47E26100EC244C /* cxTint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C9D1191B47E26100EC244C /* cxTint.cpp */; };
 		83D2666B1B345D6000077DB8 /* cxStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D266691B345D6000077DB8 /* cxStack.cpp */; };
 		83D92D251B3151D200F061D6 /* cxBoxCoord2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D231B3151D200F061D6 /* cxBoxCoord2F.cpp */; };
 		83D92D331B31781600F061D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D92D321B31781600F061D6 /* UIKit.framework */; };
@@ -347,6 +349,10 @@
 		83C9D1111B47C63600EC244C /* cxFollow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxFollow.h; sourceTree = "<group>"; };
 		83C9D1131B47DA8000EC244C /* cxBezier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBezier.cpp; sourceTree = "<group>"; };
 		83C9D1141B47DA8000EC244C /* cxBezier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxBezier.h; sourceTree = "<group>"; };
+		83C9D1161B47E24C00EC244C /* cxFade.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxFade.cpp; sourceTree = "<group>"; };
+		83C9D1171B47E24C00EC244C /* cxFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxFade.h; sourceTree = "<group>"; };
+		83C9D1191B47E26100EC244C /* cxTint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxTint.cpp; sourceTree = "<group>"; };
+		83C9D11A1B47E26100EC244C /* cxTint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTint.h; sourceTree = "<group>"; };
 		83D266691B345D6000077DB8 /* cxStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxStack.cpp; sourceTree = "<group>"; };
 		83D2666A1B345D6000077DB8 /* cxStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxStack.h; sourceTree = "<group>"; };
 		83D92D231B3151D200F061D6 /* cxBoxCoord2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxCoord2F.cpp; sourceTree = "<group>"; };
@@ -398,12 +404,16 @@
 		83079B5D1B292F1B00275F1F /* engine */ = {
 			isa = PBXGroup;
 			children = (
-				836730B31B4671AA00E333D9 /* cxTcp.cpp */,
-				836730B41B4671AA00E333D9 /* cxTcp.h */,
 				83639F6D1B30270E006A61B7 /* cxAction.cpp */,
 				83639F6E1B30270E006A61B7 /* cxAction.h */,
+				836730AC1B465A6A00E333D9 /* cxAnimate.cpp */,
+				836730AD1B465A6A00E333D9 /* cxAnimate.h */,
+				8338FD811B47712D00C84032 /* cxAstar.cpp */,
+				8338FD821B47712D00C84032 /* cxAstar.h */,
 				830ECB271B3EF54F002EBE56 /* cxAtlas.cpp */,
 				830ECB281B3EF54F002EBE56 /* cxAtlas.h */,
+				83C9D1131B47DA8000EC244C /* cxBezier.cpp */,
+				83C9D1141B47DA8000EC244C /* cxBezier.h */,
 				833043B41B4024AE00636928 /* cxButton.cpp */,
 				833043B51B4024AE00636928 /* cxButton.h */,
 				833043B71B4024E900636928 /* cxContainer.cpp */,
@@ -414,8 +424,12 @@
 				833043B21B40246E00636928 /* cxEmitter.h */,
 				83079B641B29300C00275F1F /* cxEngine.cpp */,
 				83079B651B29300C00275F1F /* cxEngine.h */,
-				830ECB2C1B3FEB0F002EBE56 /* cxLabel.h */,
+				83C9D1101B47C63600EC244C /* cxFollow.cpp */,
+				83C9D1111B47C63600EC244C /* cxFollow.h */,
+				8338FD751B467AAE00C84032 /* cxHttp.cpp */,
+				8338FD761B467AAE00C84032 /* cxHttp.h */,
 				83F7BAD91B42D9E900C644B9 /* cxLabel.cpp */,
+				830ECB2C1B3FEB0F002EBE56 /* cxLabel.h */,
 				833043BA1B40254600636928 /* cxMove.cpp */,
 				833043BB1B40254600636928 /* cxMove.h */,
 				83FB15A61B293C1000E5ECFE /* cxOpenGL.cpp */,
@@ -428,10 +442,18 @@
 				833043C61B41149000636928 /* cxScale.h */,
 				836DD10D1B2AC72A0094F5EF /* cxShader.cpp */,
 				836DD10E1B2AC72A0094F5EF /* cxShader.h */,
+				8338FD7B1B4695F300C84032 /* cxSpline.cpp */,
+				8338FD7C1B4695F300C84032 /* cxSpline.h */,
 				833B40611B31ABD900920A06 /* cxSprite.cpp */,
 				833B40621B31ABD900920A06 /* cxSprite.h */,
+				836730B31B4671AA00E333D9 /* cxTcp.cpp */,
+				836730B41B4671AA00E333D9 /* cxTcp.h */,
 				836DD1081B2AAF160094F5EF /* cxTexture.cpp */,
 				836DD1091B2AAF160094F5EF /* cxTexture.h */,
+				8302541C1B453E8B0070D2E5 /* cxTimeLine.cpp */,
+				8302541D1B453E8B0070D2E5 /* cxTimeLine.h */,
+				83AABB261B45910F0035A9F0 /* cxTimer.cpp */,
+				83AABB271B45910F0035A9F0 /* cxTimer.h */,
 				833043BF1B40FBE900636928 /* cxTiming.cpp */,
 				833043C01B40FBE900636928 /* cxTiming.h */,
 				8354C3051B3C620C00AC9F3C /* cxTouch.cpp */,
@@ -441,22 +463,10 @@
 				83639F701B302E16006A61B7 /* cxWindow.cpp */,
 				83639F711B302E16006A61B7 /* cxWindow.h */,
 				836DD10C1B2AC6560094F5EF /* OpenGL.h */,
-				8302541C1B453E8B0070D2E5 /* cxTimeLine.cpp */,
-				8302541D1B453E8B0070D2E5 /* cxTimeLine.h */,
-				83AABB261B45910F0035A9F0 /* cxTimer.cpp */,
-				83AABB271B45910F0035A9F0 /* cxTimer.h */,
-				836730AC1B465A6A00E333D9 /* cxAnimate.cpp */,
-				836730AD1B465A6A00E333D9 /* cxAnimate.h */,
-				8338FD751B467AAE00C84032 /* cxHttp.cpp */,
-				8338FD761B467AAE00C84032 /* cxHttp.h */,
-				8338FD7B1B4695F300C84032 /* cxSpline.cpp */,
-				8338FD7C1B4695F300C84032 /* cxSpline.h */,
-				8338FD811B47712D00C84032 /* cxAstar.cpp */,
-				8338FD821B47712D00C84032 /* cxAstar.h */,
-				83C9D1101B47C63600EC244C /* cxFollow.cpp */,
-				83C9D1111B47C63600EC244C /* cxFollow.h */,
-				83C9D1131B47DA8000EC244C /* cxBezier.cpp */,
-				83C9D1141B47DA8000EC244C /* cxBezier.h */,
+				83C9D1161B47E24C00EC244C /* cxFade.cpp */,
+				83C9D1171B47E24C00EC244C /* cxFade.h */,
+				83C9D1191B47E26100EC244C /* cxTint.cpp */,
+				83C9D11A1B47E26100EC244C /* cxTint.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -795,6 +805,7 @@
 			files = (
 				83610B0A1B1CA8EA00BD06B1 /* cxMath.cpp in Sources */,
 				836DD10A1B2AAF160094F5EF /* cxTexture.cpp in Sources */,
+				83C9D11B1B47E26100EC244C /* cxTint.cpp in Sources */,
 				836A2F651B19F644009B427B /* cxIOSUtil.mm in Sources */,
 				831189D61B2D728000C930B5 /* vec4.c in Sources */,
 				83610B051B1CA6F700BD06B1 /* cxPoint2F.cpp in Sources */,
@@ -859,6 +870,7 @@
 				839836E61B117475002B7C20 /* cxObject.cpp in Sources */,
 				836A2F4C1B19869D009B427B /* LzmaLib.c in Sources */,
 				831B9EBD1B291F2700B7A06B /* cxSize2F.cpp in Sources */,
+				83C9D1181B47E24D00EC244C /* cxFade.cpp in Sources */,
 				8338FD771B467AAE00C84032 /* cxHttp.cpp in Sources */,
 				831189D01B2D728000C930B5 /* quaternion.c in Sources */,
 				83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */,

@@ -40,11 +40,11 @@ cxAction *cxMoveBy::Clone()
     return cxMoveBy::Create(delta, Time());
 }
 
-cxMoveBy *cxMoveBy::Create(const cxPoint2F &d,cxFloat time)
+cxMoveBy *cxMoveBy::Create(const cxPoint2F &delta,cxFloat time)
 {
     cxMoveBy *v = cxMoveBy::Create();
     v->SetTime(time);
-    v->delta = d;
+    v->delta = delta;
     return v;
 }
 

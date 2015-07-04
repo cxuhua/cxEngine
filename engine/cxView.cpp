@@ -353,6 +353,11 @@ cxView *cxView::SetAlpha(const cxFloat a)
     return this;
 }
 
+const cxFloat cxView::Alpha() const
+{
+    return cc.Alpha();
+}
+
 const cxColor4F &cxView::Color() const
 {
     return cc.Color();

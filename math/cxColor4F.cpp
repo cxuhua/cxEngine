@@ -186,6 +186,11 @@ cxBool cxColor4F::operator!=(const cxColor4F &v) const
     return false;
 }
 
+cxColor4F cxColor4F::operator-() const
+{
+    return cxColor4F(-r, -g, -b, -a);
+}
+
 cxColor4F::cxColor4F()
 {
     r = 1.0f;

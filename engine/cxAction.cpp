@@ -120,7 +120,7 @@ cxFloat cxAction::deltaTimeFix(cxFloat dt)
     return dt;
 }
 
-cxAction *cxAction::Attach(cxView *pview)
+cxAction *cxAction::AttachTo(cxView *pview)
 {
     pview->Append(this);
     return this;

@@ -78,7 +78,7 @@ public:
     void Pause();
     void Resume();
     void Stop();
-    cxAction *Attach(cxView *pview);
+    cxAction *AttachTo(cxView *pview);
     virtual cxAction *Clone();
     virtual cxAction *Reverse();
 };

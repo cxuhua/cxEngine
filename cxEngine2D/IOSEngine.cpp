@@ -23,6 +23,7 @@
 #include <engine/cxTcp.h>
 #include <engine/cxHttp.h>
 #include <engine/cxSpline.h>
+#include <engine/cxFollow.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -76,17 +77,27 @@ void IOSEngine::OnMain()
     x->Append(cxPoint2F(0, -300));
     x->Append(0.0f);
     x->SetTime(10);
-//    x->SetSpeed(400);
-    
-    x->onAngle += [](cxSpline *pav){
-        pav->View()->SetAngle(pav->Angle());
-    };
     
     cxSprite *sp = cxSprite::Create()->SetTexture("t.png");
+    sp->EnableDir(true);
     sp->SetFrame(0, 0, 100, 100);
     sp->Append(x);
     
     Window()->Append(sp);
+    
+    
+    cxSprite *fp = cxSprite::Create()->SetTexture("t.png");
+    fp->EnableDir(true);
+    fp->SetColor(cxColor4F::RED);
+    fp->SetFrame(500, 500, 100, 100);
+    
+    cxFollow *fa = cxFollow::Create(sp, 100);
+    fa->onCollide += [](cxFollow *pav){
+        pav->SetExit(true);
+    };
+    fa->AttachTo(fp);
+    
+    Window()->Append(fp);
     
 //    cxHttp::Get("http://www.sina.com.cn")->onCompleted += [](cxHttp *http){
 //        CX_LOGGER("%s",http->Body()->Data());

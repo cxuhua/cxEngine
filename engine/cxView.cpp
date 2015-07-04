@@ -16,6 +16,8 @@ CX_IMPLEMENT(cxView);
 
 cxView::cxView()
 {
+    direction = INFINITY;
+    isdir = false;
     islayout = false;
     alignflags = ResizeNone;
     alignbox = 0.0f;
@@ -183,12 +185,39 @@ const cxPoint2F &cxView::Position() const
     return position;
 }
 
+const cxBool cxView::EnableDir() const
+{
+    return isdir;
+}
+
+cxView *cxView::EnableDir(cxBool v)
+{
+    isdir = v;
+    return this;
+}
+
+const cxFloat cxView::MotionDir() const
+{
+    return direction;
+}
+
+void cxView::OnAngle()
+{
+    
+}
+
 cxView *cxView::SetPosition(const cxPoint2F &v)
 {
-    if(position != v){
-        position = v;
-        SetDirty(DirtyModePosition);
+    if(position == v){
+        return this;
     }
+    cxFloat tmp = position.Angle(v);
+    if(direction != tmp && cxFloatIsOK(tmp)){
+        direction = tmp;
+        OnAngle();
+    }
+    position = v;
+    SetDirty(DirtyModePosition);
     return this;
 }
 
@@ -402,6 +431,7 @@ cxView *cxView::Append(cxView *view)
 cxView *cxView::Append(cxAction *action)
 {
     CX_ASSERT(action != nullptr, "args error");
+    CX_ASSERT(action->View() == nullptr, "action repeat apped");
     action->SetView(this);
     actapps->Append(action);
     return this;
@@ -570,6 +600,7 @@ void cxView::transform()
         Layout();
     }
     if(IsDirtyMode(DirtyModeNormal)){
+        if(isdir && cxFloatIsOK(direction))angle = MotionDir();
         normalMatrix.InitTrans(position.x+offset.x,position.y+offset.y,0.0f);
         normalMatrix.Rotation(axis.x,axis.y,axis.z, angle);
         normalMatrix.Scaling(TransScale());

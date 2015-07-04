@@ -104,6 +104,11 @@ CX_INLINE cxBool cxFloatIsINF(cxFloat a)
     return isinf(a);
 }
 
+CX_INLINE cxBool cxFloatIsOK(cxFloat a)
+{
+    return !isinf(a) && !isnan(a);
+}
+
 CX_INLINE cxBool cxFloatIsNAN(cxFloat a)
 {
     return isnan(a);

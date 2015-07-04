@@ -232,6 +232,12 @@ cxView *cxAction::View()
     return pview;
 }
 
+cxAction *cxAction::Forever()
+{
+    time = INT_MAX;
+    return this;
+}
+
 cxAction *cxAction::SetTime(cxFloat v)
 {
     time = v;

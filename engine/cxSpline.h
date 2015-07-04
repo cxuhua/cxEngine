@@ -23,14 +23,12 @@ protected:
     virtual ~cxSpline();
     void OnStep(cxFloat dt);
     void OnInit();
-    virtual void OnAngle();
 private:
     cxPoint2FArray points;
     cxPoint2F prev;
     const cxPoint2F &at(cxInt idx);
     cxFloat delta;
     cxFloat tension;
-    cxFloat angle;
     cxFloat speed;
     void computeTime();
 public:
@@ -38,12 +36,8 @@ public:
     cxSpline *SetTension(cxFloat v);
     cxSpline *Append(const cxPoint2F &v);
     cxSpline *Clear();
-    cxFloat Angle();
-    cxInt Angle(cxFloat split,cxFloat *off);
     cxAction *Reverse();
     cxAction *Clone();
-public:
-    cxEvent<cxSpline> onAngle;
 };
 
 CX_CPP_END

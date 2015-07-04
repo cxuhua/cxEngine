@@ -72,6 +72,7 @@ public:
     cxEvent<cxAction> onStop;
     cxEvent<cxAction> onExit;
 public:
+    cxAction *Forever();
     cxFloat Progress() const;
     void SetExit(cxBool v);
     void Reset();

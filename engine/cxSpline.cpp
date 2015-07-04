@@ -16,7 +16,6 @@ CX_IMPLEMENT(cxSpline);
 cxSpline::cxSpline()
 {
     speed = 0;
-    angle = INFINITY;
     tension = 0;
 }
 
@@ -47,15 +46,9 @@ void cxSpline::OnInit()
     }
     delta = 1.0f/((cxFloat)num - 1.0f);
     prev = View()->Position();
-    angle = INFINITY;
     if(speed > 0){
         computeTime();
     }
-}
-
-void cxSpline::OnAngle()
-{
-    onAngle.Fire(this);
 }
 
 void cxSpline::OnStep(cxFloat dt)
@@ -79,11 +72,6 @@ void cxSpline::OnStep(cxFloat dt)
     cxPoint2F cpos = View()->Position();
     npos = cpos + diff;
     prev = npos;
-    cxFloat tmp = diff.Angle();
-    if(angle != tmp){
-        angle = tmp;
-        OnAngle();
-    }
     View()->SetPosition(npos);
 }
 
@@ -105,16 +93,6 @@ cxAction *cxSpline::Clone()
     }
     rv->SetTime(Time());
     return rv;
-}
-
-cxFloat cxSpline::Angle()
-{
-    return angle;
-}
-
-cxInt cxSpline::Angle(cxFloat split,cxFloat *off)
-{
-    return cxAngleToIndex(angle, split, off);
 }
 
 cxSpline *cxSpline::SetSpeed(cxFloat v)

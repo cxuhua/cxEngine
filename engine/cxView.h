@@ -82,7 +82,7 @@ protected:
 protected:
     cxRenderState state;
 private:
-    
+    cxFloat direction;
     std::set<cxLong> bindes;
     std::set<cxLong> binded;
     
@@ -136,9 +136,15 @@ private:
     void transform();
     cxBox4F clipbox;
     
-     cxUInt flags;           //update and render flags
+    cxUInt flags;           //update and render flags
     cxBool islayout;
+    cxBool isdir;
 public:
+    
+    const cxBool EnableDir() const;
+    cxView *EnableDir(cxBool v);
+    
+    const cxFloat MotionDir() const;
     
     cxView *SetResizeFlags(Resize flags);
     cxView *SetResizeBox(const cxBox4F &box);
@@ -240,6 +246,7 @@ protected:
     virtual void OnDirty();
     virtual void OnLayout();
     virtual void OnSort();
+    virtual void OnAngle();
     virtual void OnAppend(cxView *nview);
     virtual void OnRemove(cxView *oview);
     virtual cxBool OnDispatch(const cxTouchable *e);
@@ -272,15 +279,15 @@ public:
     cxInt BindesSize() const;
     cxInt BindedSize() const;
     //
-    void EachBindes(std::function<void(cxView *obj)> func);
-    void EachBinded(std::function<void(cxView *obj)> func);
+    void EachBindes(std::function<void(cxView *pview)> func);
+    void EachBinded(std::function<void(cxView *pview)> func);
     //if this bind obj
-    cxBool HasBindes(cxView *obj);
+    cxBool HasBindes(cxView *pview);
     //if this binded obj
-    cxBool HasBinded(cxView *obj);
+    cxBool HasBinded(cxView *pview);
     //
-    void Bind(cxView *obj);
-    void UnBind(cxView *obj);
+    void Bind(cxView *pview);
+    void UnBind(cxView *pview);
     void UnBind();
 };
 

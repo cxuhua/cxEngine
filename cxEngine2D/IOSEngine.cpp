@@ -24,6 +24,7 @@
 #include <engine/cxHttp.h>
 #include <engine/cxSpline.h>
 #include <engine/cxFollow.h>
+#include <engine/cxBezier.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -67,16 +68,18 @@ void IOSEngine::OnMain()
     cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
     
-    cxSpline *x = cxSpline::Create();
-    x->Append(cxPoint2F(300, 0));
-    x->Append(cxPoint2F(300, 300));
-    x->Append(cxPoint2F(0, 300));
-    x->Append(cxPoint2F(-300, 300));
-    x->Append(cxPoint2F(-300, 0));
-    x->Append(cxPoint2F(-300, -300));
-    x->Append(cxPoint2F(0, -300));
-    x->Append(0.0f);
-    x->SetTime(10);
+//    cxSpline *x = cxSpline::Create();
+//    x->Append(cxPoint2F(300, 0));
+//    x->Append(cxPoint2F(300, 300));
+//    x->Append(cxPoint2F(0, 300));
+//    x->Append(cxPoint2F(-300, 300));
+//    x->Append(cxPoint2F(-300, 0));
+//    x->Append(cxPoint2F(-300, -300));
+//    x->Append(cxPoint2F(0, -300));
+//    x->Append(0.0f);
+//    x->SetTime(10);
+    
+    cxBezier *x = cxBezier::Create(cxPoint2F(300,300), cxPoint2F(600,0), 4.0f);
     
     cxSprite *sp = cxSprite::Create()->SetTexture("t.png");
     sp->EnableDir(true);
@@ -85,19 +88,18 @@ void IOSEngine::OnMain()
     
     Window()->Append(sp);
     
-    
-    cxSprite *fp = cxSprite::Create()->SetTexture("t.png");
-    fp->EnableDir(true);
-    fp->SetColor(cxColor4F::RED);
-    fp->SetFrame(500, 500, 100, 100);
-    
-    cxFollow *fa = cxFollow::Create(sp, 100);
-    fa->onCollide += [](cxFollow *pav){
-        pav->SetExit(true);
-    };
-    fa->AttachTo(fp);
-    
-    Window()->Append(fp);
+//    cxSprite *fp = cxSprite::Create()->SetTexture("t.png");
+//    fp->EnableDir(true);
+//    fp->SetColor(cxColor4F::RED);
+//    fp->SetFrame(500, 500, 100, 100);
+//    
+//    cxFollow *fa = cxFollow::Create(sp, 100);
+//    fa->onCollide += [](cxFollow *pav){
+//        pav->SetExit(true);
+//    };
+//    fa->AttachTo(fp);
+//    
+//    Window()->Append(fp);
     
 //    cxHttp::Get("http://www.sina.com.cn")->onCompleted += [](cxHttp *http){
 //        CX_LOGGER("%s",http->Body()->Data());

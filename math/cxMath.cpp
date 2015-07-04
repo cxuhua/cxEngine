@@ -48,6 +48,20 @@ cxPoint2F cxTile::ToIdx(const cxPoint2F &pos)
     return cxPoint2F(dx/m, dy/m);
 }
 
+cxPoint2F cxBezier2(cxPoint2F a, cxPoint2F b, cxPoint2F c, cxFloat t)
+{
+    cxFloat x = cxBezier2(a.x, b.x, c.x, t);
+    cxFloat y = cxBezier2(a.y, b.y, c.y, t);
+    return cxPoint2F(x, y);
+}
+
+cxPoint2F cxBezier3(cxPoint2F a, cxPoint2F b, cxPoint2F c, cxPoint2F d, cxFloat t)
+{
+    cxFloat x = cxBezier3(a.x, b.x, c.x, d.x, t);
+    cxFloat y = cxBezier3(a.y, b.y, c.y, d.y, t);
+    return cxPoint2F(x, y);
+}
+
 cxInt cxAngleToIndex(cxFloat angle,cxInt split,cxFloat *off)
 {
     cxFloat avalue = cxRadiansToDegrees(angle);

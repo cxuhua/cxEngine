@@ -57,7 +57,7 @@ cxInt cxAngleToIndex(cxFloat angle,cxInt split,cxFloat *off)
     cxInt max = 360/split;
     cxInt idx = avalue/v;
     cxInt m = (idx/2) + (idx%2);
-    cxInt ret = m>=max?0:m;
+    cxInt ret = (m>=max?0:m);
     if(off != NULL){
         *off = cxDegreesToRadians(avalue - ret * 10);
     }

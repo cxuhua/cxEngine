@@ -112,6 +112,11 @@ cxFloat cxSpline::Angle()
     return angle;
 }
 
+cxInt cxSpline::Angle(cxFloat split,cxFloat *off)
+{
+    return cxAngleToIndex(angle, split, off);
+}
+
 cxSpline *cxSpline::SetSpeed(cxFloat v)
 {
     speed = v;

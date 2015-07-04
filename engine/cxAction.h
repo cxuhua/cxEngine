@@ -57,8 +57,8 @@ public:
     cxAction *SetTiming(cxTimingFunc f);
     
     cxAction *SetTime(cxFloat v);
-    cxFloat Time() const;
-    cxFloat Elapsed() const;
+    const cxFloat Time() const;
+    const cxFloat Elapsed() const;
     
     cxBool IsPause() const;
     

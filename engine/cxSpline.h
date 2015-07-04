@@ -39,9 +39,11 @@ public:
     cxSpline *Append(const cxPoint2F &v);
     cxSpline *Clear();
     cxFloat Angle();
-    cxEvent<cxSpline> onAngle;
+    cxInt Angle(cxFloat split,cxFloat *off);
     cxAction *Reverse();
     cxAction *Clone();
+public:
+    cxEvent<cxSpline> onAngle;
 };
 
 CX_CPP_END

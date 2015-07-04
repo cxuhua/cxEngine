@@ -200,12 +200,12 @@ cxFloat cxAction::Progress() const
     return timing(elapsed/time);
 }
 
-cxFloat cxAction::Time() const
+const cxFloat cxAction::Time() const
 {
     return time;
 }
 
-cxFloat cxAction::Elapsed() const
+const cxFloat cxAction::Elapsed() const
 {
     return elapsed;
 }

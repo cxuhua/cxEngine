@@ -36,6 +36,22 @@ CX_CPP_BEGIN
 struct cxPoint2F;
 struct cxSize2F;
 
+class cxTile
+{
+private:
+    cxFloat w2;
+    cxFloat h2;
+    cxFloat aa;
+    cxFloat sa;
+    cxFloat ca;
+    cxFloat m;
+public:
+    cxTile();
+    cxTile(const cxSize2F &size);
+    cxPoint2F ToPos(const cxPoint2F &idx);
+    cxPoint2F ToIdx(const cxPoint2F &pos);
+};
+
 const cxFloat cxEqualFloat = cxFloat(0.0001f);
 
 struct cxFloatRange

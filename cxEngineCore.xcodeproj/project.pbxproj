@@ -51,6 +51,8 @@
 		8338FD771B467AAE00C84032 /* cxHttp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD751B467AAE00C84032 /* cxHttp.cpp */; };
 		8338FD7A1B467B2A00C84032 /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD781B467B2A00C84032 /* http_parser.c */; };
 		8338FD7D1B4695F300C84032 /* cxSpline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD7B1B4695F300C84032 /* cxSpline.cpp */; };
+		8338FD831B47712D00C84032 /* cxAstar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD811B47712D00C84032 /* cxAstar.cpp */; };
+		8338FD871B478B9C00C84032 /* cxAstarTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD861B478B9C00C84032 /* cxAstarTest.mm */; };
 		833B40631B31ABD900920A06 /* cxSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B40611B31ABD900920A06 /* cxSprite.cpp */; };
 		833B40691B31AF2800920A06 /* cxBoxColor4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B40671B31AF2800920A06 /* cxBoxColor4F.cpp */; };
 		833B406E1B31B71400920A06 /* cxBoxRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B406C1B31B71400920A06 /* cxBoxRender.cpp */; };
@@ -228,6 +230,11 @@
 		8338FD791B467B2A00C84032 /* http_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_parser.h; sourceTree = "<group>"; };
 		8338FD7B1B4695F300C84032 /* cxSpline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSpline.cpp; sourceTree = "<group>"; };
 		8338FD7C1B4695F300C84032 /* cxSpline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSpline.h; sourceTree = "<group>"; };
+		8338FD811B47712D00C84032 /* cxAstar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAstar.cpp; sourceTree = "<group>"; };
+		8338FD821B47712D00C84032 /* cxAstar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAstar.h; sourceTree = "<group>"; };
+		8338FD841B477B7200C84032 /* stlastar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stlastar.h; sourceTree = "<group>"; };
+		8338FD851B477BD200C84032 /* fsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fsa.h; sourceTree = "<group>"; };
+		8338FD861B478B9C00C84032 /* cxAstarTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxAstarTest.mm; sourceTree = "<group>"; };
 		833B40611B31ABD900920A06 /* cxSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSprite.cpp; sourceTree = "<group>"; };
 		833B40621B31ABD900920A06 /* cxSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSprite.h; sourceTree = "<group>"; };
 		833B40671B31AF2800920A06 /* cxBoxColor4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxColor4F.cpp; sourceTree = "<group>"; };
@@ -438,6 +445,8 @@
 				8338FD761B467AAE00C84032 /* cxHttp.h */,
 				8338FD7B1B4695F300C84032 /* cxSpline.cpp */,
 				8338FD7C1B4695F300C84032 /* cxSpline.h */,
+				8338FD811B47712D00C84032 /* cxAstar.cpp */,
+				8338FD821B47712D00C84032 /* cxAstar.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -559,6 +568,8 @@
 		83B23B4C1B17E0E9000D770A /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				8338FD851B477BD200C84032 /* fsa.h */,
+				8338FD841B477B7200C84032 /* stlastar.h */,
 				8338FD781B467B2A00C84032 /* http_parser.c */,
 				8338FD791B467B2A00C84032 /* http_parser.h */,
 				83A943AC1B44E57600F70FBA /* utf8.c */,
@@ -635,6 +646,7 @@
 				839836D41B10C631002B7C20 /* cxArrayTest.mm */,
 				8357CBA21B120B9F0085E600 /* cxStrTest.mm */,
 				831D02631B4390EB00A5EFA7 /* cxViewTest.mm */,
+				8338FD861B478B9C00C84032 /* cxAstarTest.mm */,
 			);
 			path = cxEngineCoreTests;
 			sourceTree = "<group>";
@@ -780,6 +792,7 @@
 				831B9EC01B29255500B7A06B /* cxRect4F.cpp in Sources */,
 				83D92D251B3151D200F061D6 /* cxBoxCoord2F.cpp in Sources */,
 				833B40711B31B89600920A06 /* cxBoxPoint3F.cpp in Sources */,
+				8338FD831B47712D00C84032 /* cxAstar.cpp in Sources */,
 				831189E11B2D7D3600C930B5 /* cxView.cpp in Sources */,
 				83639F6F1B30270E006A61B7 /* cxAction.cpp in Sources */,
 				83BBF3FF1B10954E003CB004 /* cxCore.cpp in Sources */,
@@ -878,6 +891,7 @@
 				831D02641B4390EB00A5EFA7 /* cxViewTest.mm in Sources */,
 				839836D31B10B61C002B7C20 /* cxCoreTest.mm in Sources */,
 				83610B071B1CA7D600BD06B1 /* cxMathTest.mm in Sources */,
+				8338FD871B478B9C00C84032 /* cxAstarTest.mm in Sources */,
 				836A2F611B19CE23009B427B /* cxUtilTest.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

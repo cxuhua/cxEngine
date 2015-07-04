@@ -11,7 +11,6 @@
 #include <core/cxHash.h>
 #include <core/cxQueue.h>
 #include <core/cxList.h>
-#include <core/cxUnique.h>
 #import <XCTest/XCTest.h>
 
 using namespace cxengine;
@@ -48,20 +47,6 @@ static cxInt sortFunc(const void *lp,const void *rp)
     [super tearDown];
 }
 
--(void)testUnique
-{
-    cxUnique *u = cxUnique::Alloc();
-    Test *t = Test::Alloc();
-    
-    u->Append(t);
-    u->Append(t);
-    
-    XCTAssertEqual(u->Size(), 1,"count test");
-    
-    t->Release();
-    u->Release();
-}
-
 -(void)testList
 {
     cxList *l = cxList::Alloc();
@@ -87,7 +72,7 @@ static cxInt sortFunc(const void *lp,const void *rp)
     }
     list->Sort(sortFunc);
     for(int i=0; i < 100; i++){
-        cxObject *obj = list->At<cxObject>(i);
+        cxObject *obj = list->At(i);
         XCTAssertEqual(obj->Tag(), 99-i,"test replace");
     }
     list->Release();
@@ -114,7 +99,7 @@ static cxInt sortFunc(const void *lp,const void *rp)
     cxObject *obj = cxObject::Create();
     obj->SetTag(1024);
     list->Replace(50, obj);
-    XCTAssertEqual(list->At<cxObject>(50)->Tag(), 1024,"test replace");
+    XCTAssertEqual(list->At(50)->Tag(), 1024,"test replace");
     list->Clear();
     list->Release();
 }

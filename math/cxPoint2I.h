@@ -26,6 +26,15 @@ struct cxPoint2I
     cxPoint2I(cxInt ax,cxInt ay);
     cxPoint2I(const cxPoint2I &v);
     
+    cxPoint2I LV() const;
+    cxPoint2I RV() const;
+    cxPoint2I TV() const;
+    cxPoint2I BV() const;
+    cxPoint2I LT() const;
+    cxPoint2I LB() const;
+    cxPoint2I RT() const;
+    cxPoint2I RB() const;
+    
     cxJson *ToJson();
     
     cxBool IsZero() const;
@@ -67,6 +76,23 @@ struct cxRange2I
     cxInt max;
     cxRange2I();
     cxRange2I(cxInt amin,cxInt amax);
+};
+
+class cxPoint2IArray : private std::vector<cxPoint2I>
+{
+public:
+    explicit cxPoint2IArray();
+    virtual ~cxPoint2IArray();
+public:
+    void Clear();
+    void Append(cxInt n);
+    void Append(const cxPoint2I &v);
+    void Remove(cxInt idx);
+    void Remove(cxInt idx,cxInt n);
+    const cxPoint2I *Buffer()const ;
+    cxPoint2I &At(cxInt idx);
+    const cxInt Size() const;
+    cxBool IsEmpty() const;
 };
 
 CX_CPP_END

@@ -30,15 +30,15 @@ using namespace cxengine;
 
 -(void)testWriteData{
     cxUtil *util = cxIOSUtil::Instance();
-    util->WriteDocument(cxStr::UTF8("test.dat"), cxStr::UTF8("123456"), true);
-    const cxStr *data = util->DocumentData(cxStr::UTF8("test.dat"));
+    util->WriteDocument("test.dat", cxStr::UTF8("123456"), true);
+    const cxStr *data = util->DocumentData("test.dat");
     XCTAssertTrue(data->IsEqu("123456"),"write field error");
-    XCTAssertTrue(util->DeleteDocument(cxStr::UTF8("test.dat")),"write field error");
+    XCTAssertTrue(util->DeleteDocument("test.dat"),"write field error");
 }
 
 - (void)testAssertData {
     cxUtil *util = cxIOSUtil::Instance();
-    const cxStr *path = util->AssetsPath(cxStr::UTF8("test.json"));
+    const cxStr *path = util->AssetsPath("test.json");
     XCTAssertTrue(path->HasSuffix("test.json"),"test path error");
 }
 

@@ -221,9 +221,10 @@ cxFloat cxAction::Speed() const
     return speed;
 }
 
-void cxAction::SetView(cxView *view)
+cxAction *cxAction::SetView(cxView *view)
 {
     pview = view;
+    return this;
 }
 
 cxView *cxAction::View()

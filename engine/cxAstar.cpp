@@ -28,7 +28,7 @@ float SearchNode::GoalDistanceEstimate(SearchNode &nodeGoal)
 
 bool SearchNode::IsGoal(SearchNode &nodeGoal)
 {
-    return star->IsGoal(point,nodeGoal.Point());
+    return point == nodeGoal.Point();
 }
 
 bool SearchNode::GetSuccessors(AStarSearch<SearchNode> *astarsearch, SearchNode *parent_node)
@@ -93,11 +93,6 @@ void cxAstar::OnSearching()
 const cxPoint2IArray &cxAstar::Points() const
 {
     return points;
-}
-
-cxBool cxAstar::IsGoal(const cxPoint2I &c,const cxPoint2I &p)
-{
-    return p == c;
 }
 
 void cxAstar::Step(cxInt iter)

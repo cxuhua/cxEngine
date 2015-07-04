@@ -65,7 +65,7 @@ public:
     cxAction *SetSpeed(cxFloat v);
     cxFloat Speed() const;
     
-    void SetView(cxView *view);
+    cxAction *SetView(cxView *view);
     cxView *View();
 public:
     cxEvent<cxAction> onInit;

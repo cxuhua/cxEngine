@@ -72,12 +72,17 @@ void cxAstar::AddSuccessNode(const cxPoint2I &p)
 
 void cxAstar::OnSuccess()
 {
-    
+    isSuccess = true;
 }
 
 void cxAstar::OnFailed()
 {
-    
+    isSuccess = false;
+}
+
+const cxBool cxAstar::IsSuccess() const
+{
+    return isSuccess;
 }
 
 void cxAstar::OnSearching()
@@ -97,7 +102,7 @@ cxBool cxAstar::IsGoal(const cxPoint2I &c,const cxPoint2I &p)
 
 void cxAstar::Step(cxInt iter)
 {
-    while(iter > 0){
+    while(!isSuccess && iter > 0){
         cxUInt state = astar.SearchStep();
         if(state == AStarSearch<SearchNode>::SEARCH_STATE_SEARCHING){
             OnSearching();
@@ -128,10 +133,9 @@ cxFloat cxAstar::GetCost(const cxPoint2I &p)
     return 1.0f;
 }
 
-void cxAstar::Init(const cxPoint2I &afrom,const cxPoint2I &ato)
+void cxAstar::Init(const cxPoint2I &from,const cxPoint2I &to)
 {
-    from = afrom;
-    to = ato;
+    isSuccess = false;
     SearchNode start(this,from);
     SearchNode end(this,to);
     points.Clear();

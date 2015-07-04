@@ -40,22 +40,22 @@ protected:
     explicit cxAstar();
     virtual ~cxAstar();
 private:
-    cxPoint2I from;
-    cxPoint2I to;
     cxPoint2IArray points;
     AStarSearch<SearchNode> astar;
-    void AddSuccessNode(const cxPoint2I &p);
+    cxBool isSuccess;
 protected:
+    void AddSuccessNode(const cxPoint2I &p);
     virtual cxBool IsAppend(const cxPoint2I &point);
     virtual void OnSuccess();
     virtual void OnFailed();
     virtual void OnSearching();
 public:
+    const cxBool IsSuccess() const;
     void Step(cxInt iter=INT_MAX);
     virtual cxBool GetSuccessors(const cxPoint2I &point,const cxPoint2I &parent);
     virtual cxBool IsGoal(const cxPoint2I &c,const cxPoint2I &p);
     virtual cxFloat GetCost(const cxPoint2I &p);
-    void Init(const cxPoint2I &afrom,const cxPoint2I &ato);
+    void Init(const cxPoint2I &from,const cxPoint2I &to);
     const cxPoint2IArray &Points() const;
 };
 

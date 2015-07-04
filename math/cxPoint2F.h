@@ -100,6 +100,7 @@ public:
     void Append(const cxPoint2F &v);
     void Remove(cxInt idx);
     void Remove(cxInt idx,cxInt n);
+    cxFloat Distance(const cxPoint2F &start);
     const cxPoint2F *Buffer()const ;
     cxPoint2F &At(cxInt idx);
     const cxInt Size() const;

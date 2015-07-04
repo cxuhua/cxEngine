@@ -31,9 +31,13 @@ private:
     cxFloat delta;
     cxFloat tension;
     cxFloat angle;
+    cxFloat speed;
+    void computeTime();
 public:
-    void Append(const cxPoint2F &v);
-    void Clear();
+    cxSpline *SetSpeed(cxFloat v);
+    cxSpline *SetTension(cxFloat v);
+    cxSpline *Append(const cxPoint2F &v);
+    cxSpline *Clear();
     cxFloat Angle();
     cxEvent<cxSpline> onAngle;
     cxAction *Reverse();

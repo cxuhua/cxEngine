@@ -15,6 +15,7 @@ CX_IMPLEMENT(cxSpline);
 
 cxSpline::cxSpline()
 {
+    speed = 0;
     angle = INFINITY;
     tension = 0;
 }
@@ -30,6 +31,13 @@ const cxPoint2F &cxSpline::at(cxInt idx)
     return points.At(idx);
 }
 
+void cxSpline::computeTime()
+{
+    cxPoint2F cpos = View()->Position();
+    cxFloat d = points.Distance(cpos);
+    SetTime(d/speed);
+}
+
 void cxSpline::OnInit()
 {
     cxFloat num = points.Size();
@@ -40,6 +48,9 @@ void cxSpline::OnInit()
     delta = 1.0f/((cxFloat)num - 1.0f);
     prev = View()->Position();
     angle = INFINITY;
+    if(speed > 0){
+        computeTime();
+    }
 }
 
 void cxSpline::OnAngle()
@@ -101,14 +112,28 @@ cxFloat cxSpline::Angle()
     return angle;
 }
 
-void cxSpline::Append(const cxPoint2F &v)
+cxSpline *cxSpline::SetSpeed(cxFloat v)
 {
-    points.Append(v);
+    speed = v;
+    return this;
 }
 
-void cxSpline::Clear()
+cxSpline *cxSpline::SetTension(cxFloat v)
+{
+    tension = v;
+    return this;
+}
+
+cxSpline *cxSpline::Append(const cxPoint2F &v)
+{
+    points.Append(v);
+    return this;
+}
+
+cxSpline *cxSpline::Clear()
 {
     points.Clear();
+    return this;
 }
 
 CX_CPP_END

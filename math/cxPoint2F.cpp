@@ -309,6 +309,17 @@ void cxPoint2FArray::Append(cxInt n)
     }
 }
 
+cxFloat cxPoint2FArray::Distance(const cxPoint2F &start)
+{
+    cxFloat d = 0;
+    cxPoint2F s = start;
+    for(iterator it=begin();it != end();it++){
+        d += s.Distance(*it);
+        s = *it;
+    }
+    return d;
+}
+
 void cxPoint2FArray::Append(const cxPoint2F &v)
 {
     push_back(v);

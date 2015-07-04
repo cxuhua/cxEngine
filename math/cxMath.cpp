@@ -73,7 +73,7 @@ cxPoint2F cxCardinalSplineAt(const cxPoint2F &p0,const cxPoint2F &p1,const cxPoi
     cxFloat b2 = s * (-t3 + t2) + (2.0f * t3 - 3.0f * t2 + 1.0f);
     cxFloat b3 = s * (t3 - 2.0f * t2 + t) + (-2.0f * t3 + 3.0f * t2);
     cxFloat b4 = s * (t3 - t2);
-    return p0 * b1 + p1 * b2 + p2 * b3 + p3 * b4;
+    return cxPoint2F(p0.x*b1+p1.x*b2+p2.x*b3+p3.x*b4,p0.y*b1+p1.y*b2+p2.y*b3+p3.y*b4);
 }
 
 cxFloatRange::cxFloatRange()

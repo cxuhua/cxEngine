@@ -76,6 +76,7 @@ void IOSEngine::OnMain()
     x->Append(cxPoint2F(0, -300));
     x->Append(0.0f);
     x->SetTime(10);
+//    x->SetSpeed(400);
     
     x->onAngle += [](cxSpline *pav){
         pav->View()->SetAngle(pav->Angle());

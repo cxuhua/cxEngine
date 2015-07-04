@@ -8,6 +8,7 @@ precision highp float;
 attribute highp vec3 aPosition;
 attribute mediump vec2 aTexcoord;
 attribute mediump vec4 aColor;
+attribute highp mat4 aMat;
 varying mediump vec4 vFragmentColor;
 varying mediump vec2 vTexCoord;
 uniform highp mat4 uMP;

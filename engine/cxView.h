@@ -195,6 +195,7 @@ public:
     cxView *EnableSleep(cxBool v);
     
     cxView *SetColor(const cxColor4F &v);
+    cxView *SetAlpha(const cxFloat a);
     const cxColor4F &Color() const;
     
     cxBool IsDirtyMode(DirtyMode v) const;

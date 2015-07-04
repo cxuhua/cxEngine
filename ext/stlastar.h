@@ -52,7 +52,7 @@ using namespace std;
 #pragma warning( disable : 4786 )
 #endif
 
-template <class T> class AStarState;
+template <class T> class x;
 
 // The AStar search class. UserState is the users state space type
 template <class UserState> class AStarSearch

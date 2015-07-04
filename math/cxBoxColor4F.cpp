@@ -61,6 +61,11 @@ void cxBoxColor4F::SetColor(const cxColor4F &color)
     rb = color;
 }
 
+const cxFloat cxBoxColor4F::Alpha() const
+{
+    return lt.a;
+}
+
 cxBool cxBoxColor4F::operator==(const cxColor4F &v) const
 {
     return lt == v;

@@ -315,6 +315,15 @@ cxView *cxView::SetColor(const cxColor4F &v)
     return this;
 }
 
+cxView *cxView::SetAlpha(const cxFloat a)
+{
+    if(!cxFloatIsEqual(cc.Alpha(), a)){
+        cc.SetAlpha(a);
+        SetDirty(DirtyModeColor);
+    }
+    return this;
+}
+
 const cxColor4F &cxView::Color() const
 {
     return cc.Color();

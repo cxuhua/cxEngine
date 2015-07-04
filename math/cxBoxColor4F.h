@@ -26,6 +26,7 @@ struct cxBoxColor4F
     const cxBoxColor4F ToLoop() const;
     void SetAlpha(cxFloat alpha);
     void SetColor(const cxColor4F &color);
+    const cxFloat Alpha() const;
     cxBool operator==(const cxColor4F &v) const;
     cxBool operator!=(const cxColor4F &v) const;
     const cxColor4F &Color() const;

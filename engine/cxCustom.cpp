@@ -25,7 +25,7 @@ cxCustom::~cxCustom()
 
 void cxCustom::OnStep(cxFloat dt)
 {
-    onStep.Fire(this);
+    onStep.Fire(this,dt);
 }
 
 cxCustom *cxCustom::Create(cxFloat time)

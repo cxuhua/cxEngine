@@ -49,8 +49,8 @@ public:
     void Close(cxInt err);
     cxBool Write(cxStr *data);
 public:
-    cxEvent<cxTcp,cxArgs> onConnected;
-    cxEvent<cxTcp,cxArgs> onClose;
+    cxEvent<cxTcp> onConnected;
+    cxEvent<cxTcp> onClose;
 };
 
 CX_CPP_END

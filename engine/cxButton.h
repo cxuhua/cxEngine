@@ -28,10 +28,10 @@ protected:
     cxBool OnDispatch(const cxTouchable *e);
 public:
     
-    cxEvent<cxButton,cxArgs> onTap;
-    cxEvent<cxButton,cxArgs> onPress;
-    cxEvent<cxButton,cxArgs> onRelease;
-    cxEvent<cxButton,cxArgs> onMove;
+    cxEvent<cxButton> onTap;
+    cxEvent<cxButton> onPress;
+    cxEvent<cxButton> onRelease;
+    cxEvent<cxButton> onMove;
     
     void SetIsPass(cxBool v);
     void SetIsEnable(cxBool v);

@@ -26,7 +26,7 @@ private:
     cxView *target;
     cxFloat speed;
 public:
-    cxEvent<cxFollow,cxArgs> onCollide;
+    cxEvent<cxFollow> onCollide;
     static cxFollow *Create(cxView *target,cxFloat speed);
 };
 

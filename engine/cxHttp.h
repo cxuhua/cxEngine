@@ -54,7 +54,7 @@ private:
     static int messageCompleted(http_parser *parser);
     void connect(const char *url);
 public:
-    cxEvent<cxHttp,cxArgs> onCompleted;
+    cxEvent<cxHttp> onCompleted;
 public:
     cxHash *ReqHeads();
     cxHash *ResHeads();

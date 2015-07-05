@@ -64,12 +64,6 @@ void IOSEngine::test(cxButton *sender)
 {
     CX_LOGGER("jhaha");
 }
-class aaa : public cxArgs
-{
-public:
-    explicit aaa(){}
-    virtual ~aaa(){}
-};
 
 void IOSEngine::OnMain()
 {
@@ -94,14 +88,14 @@ void IOSEngine::OnMain()
 //    };
 //    func->AttachTo(Window());
     
-    cxBezier *xx1 = cxBezier::Create(cxPoint2F(300,600), cxPoint2F(600,-600), 4.0f);
-    cxTintTo *to1 = cxTintTo::Create(0.0f, 3.0f);
-    cxTintTo *to2 = cxTintTo::Create(1.0f, 3.0f);
+    cxBezier *xx1 = cxBezier::Create(cxPoint2F(300,600), cxPoint2F(500,1000),cxPoint2F(600,-600), 4.0f);
+//    xx1->SetTiming(cxTiming::CubicIn);
+//    cxTintTo *to1 = cxTintTo::Create(0.0f, 3.0f);
+//    cxTintTo *to2 = cxTintTo::Create(1.0f, 3.0f);
     cxSequence *run = cxSequence::Create();
-    run->Append(xx1)->Append(to1)->Append(to2);
+    run->Append(xx1)->Append(xx1->Reverse());
     
-    run->onStop += [](cxAction *pav,const cxArgs &args){
-        const aaa &a=args.To<aaa>();
+    run->onStop += [](cxAction *pav){
         CX_LOGGER("run action stop");
     };
     
@@ -156,14 +150,14 @@ void IOSEngine::OnMain()
     ani->Append(1);//4
     ani->Append(1);//5
     ani->SetRange(3, 1);
-    ani->onStop += [](cxAction *s,const cxArgs &args){
+    ani->onStop += [](cxAction *s){
         CX_LOGGER("stop");
     };
-    ani->onTime += [](cxTimeLine *pav,const onTimeArgs &args){
+    ani->onTime += [](cxTimeLine *pav,const cxTimePoint *tp){
         CX_LOGGER("%d",pav->Index());
     };
-//
-    Window()->Append(ani);
+////
+//    Window()->Append(ani);
     
 //    cxAnimate *animate = cxAnimate::Create();
 //    animate->SetTexture("animate");

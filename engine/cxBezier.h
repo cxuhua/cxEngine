@@ -25,14 +25,19 @@ protected:
     void OnStep(cxFloat dt);
 private:
     cxPoint2F prev;
-    cxPoint2F a;
-    cxPoint2F b;
-    cxPoint2F c;
+    cxPoint2F a;    //start pos
+    cxPoint2F b;    //ctrl pos
+    cxPoint2F c;    //end pos
+    cxPoint2F d;    //
 public:
     cxBezier *SetA(const cxPoint2F &aa);
     cxBezier *SetB(const cxPoint2F &ab);
     cxBezier *SetC(const cxPoint2F &ac);
+    cxBezier *SetD(const cxPoint2F &ad);
     static cxBezier *Create(const cxPoint2F &b,const cxPoint2F &c,cxFloat time);
+    static cxBezier *Create(const cxPoint2F &b,const cxPoint2F &c,const cxPoint2F &d,cxFloat time);
+    cxAction *Reverse();
+    cxAction *Clone();
 };
 
 CX_CPP_END

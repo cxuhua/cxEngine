@@ -62,9 +62,9 @@ cxObject *cxObject::AutoRelease()
     return cxAutoPool::Append(this);
 }
 
-cxInt cxObject::Init(const cxJson *json)
+void cxObject::Init(const cxJson *json)
 {
-    return 0;
+    
 }
 
 cxObject *cxObject::alloc(cchars name)

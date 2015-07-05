@@ -135,11 +135,8 @@ cxJson &cxJson::operator<<(T v)
         CX_ASSERT(key.size() > 0, "key not set");
         Set(key.data(), v);
         key.clear();
-        return *this;
-    }
-    if(IsArray()){
+    }else if(IsArray()){
         Append(v);
-        return *this;
     }
     return *this;
 }

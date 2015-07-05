@@ -28,7 +28,9 @@ void cxNotice::Remove(cxObject *dst)
     CX_ASSERT(dst != nullptr, "args error");
     Keys::iterator kt = instance.keys.begin();
     while (kt != instance.keys.end()) {
-        for(Notices::iterator it=kt->second.begin();it!=kt->second.end();){
+        Notices &vs = kt->second;
+        Notices::iterator it=vs.begin();
+        while(it != vs.end()){
             if((*it).dst == dst){
                 it = kt->second.erase(it);
             }else{

@@ -87,7 +87,7 @@ public:
     
     virtual cxJson *Serialize();
     
-    virtual cxInt Init(const cxJson *json);
+    virtual void Init(const cxJson *json);
 };
 
 template<class T>

@@ -64,6 +64,12 @@ void IOSEngine::test(cxButton *sender)
 {
     CX_LOGGER("jhaha");
 }
+class aaa : public cxArgs
+{
+public:
+    explicit aaa(){}
+    virtual ~aaa(){}
+};
 
 void IOSEngine::OnMain()
 {
@@ -94,7 +100,8 @@ void IOSEngine::OnMain()
     cxSequence *run = cxSequence::Create();
     run->Append(xx1)->Append(to1)->Append(to2);
     
-    run->onStop += [](cxAction *pav){
+    run->onStop += [](cxAction *pav,const cxArgs &args){
+        const aaa &a=args.To<aaa>();
         CX_LOGGER("run action stop");
     };
     
@@ -141,22 +148,22 @@ void IOSEngine::OnMain()
 //    v->SetTexture("t.png");
 //    c->Append(v);
     
-//    cxTimeLine *ani = cxTimeLine::Create();
-//    ani->Push(1);//0
-//    ani->Push(2);//1
-//    ani->Push(3);//2
-//    ani->Push(4);//3
-//    ani->Push(1);//4
-//    ani->Push(1);//5
-//    ani->SetRange(3, 1);
-//    ani->onStop += [](cxAction *s){
-//        CX_LOGGER("stop");
-//    };
-//    ani->onTime += [](cxTimeLine *pav){
-//        CX_LOGGER("%d",pav->Index());
-//    };
-//    
-//    Window()->Append(ani);
+    cxTimeLine *ani = cxTimeLine::Create();
+    ani->Append(1);//0
+    ani->Append(2);//1
+    ani->Append(3);//2
+    ani->Append(4);//3
+    ani->Append(1);//4
+    ani->Append(1);//5
+    ani->SetRange(3, 1);
+    ani->onStop += [](cxAction *s,const cxArgs &args){
+        CX_LOGGER("stop");
+    };
+    ani->onTime += [](cxTimeLine *pav,const onTimeArgs &args){
+        CX_LOGGER("%d",pav->Index());
+    };
+//
+    Window()->Append(ani);
     
 //    cxAnimate *animate = cxAnimate::Create();
 //    animate->SetTexture("animate");

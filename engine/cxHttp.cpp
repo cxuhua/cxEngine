@@ -55,7 +55,8 @@ int cxHttp::headCompleted(http_parser *parser)
 int cxHttp::messageCompleted(http_parser *parser)
 {
     cxHttp *http = static_cast<cxHttp *>(parser->data);
-    http->success = parser->status_code == 200;
+    http->status = parser->status_code;
+    http->success = (http->status == 200);
     http->OnCompleted();
     return 0;
 }
@@ -63,6 +64,7 @@ int cxHttp::messageCompleted(http_parser *parser)
 void cxHttp::OnData(char *buffer,cxInt size)
 {
     data->Append(buffer, size);
+    
     chars buf = data->Buffer() + offset;
     cxInt siz = data->Size() - offset;
     offset = (cxInt)http_parser_execute(&parser, &settings, buf, (size_t)siz);
@@ -82,13 +84,14 @@ cxHttp::cxHttp()
     
     method = HTTP_GET;
     path = nullptr;
-    body = cxStr::Alloc();
     post = nullptr;
+    host = nullptr;
+    
+    body = cxStr::Alloc();
     reqHeads = cxHash::Alloc();
     resHeads = cxHash::Alloc();
     data = cxStr::Alloc();
     field = cxStr::Alloc();
-    host = nullptr;
 
     reqHeads->Set("User-Agent", cxStr::UTF8("Mozilla/4.0(compatible;MSIE6.0;Windows NT 5.0)"));
     reqHeads->Set("Connection", cxStr::UTF8("close"));
@@ -116,7 +119,7 @@ void cxHttp::OnConnected()
     }else if(method == HTTP_POST){
         s->AppFmt("POST %s HTTP/1.1\r\n",path->Data());
     }
-    if(cxStr::IsOK(post)){
+    if(method == HTTP_POST && cxStr::IsOK(post)){
         reqHeads->Set("Content-Length", cxStr::Create()->AppFmt("%d", post->Size()));
     }
     for(cxHash::Iter it=reqHeads->Begin();it!=reqHeads->End();it++){

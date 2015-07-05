@@ -31,6 +31,7 @@ protected:
     void OnConnected();
     void OnData(char *buffer,cxInt size);
 private:
+    cxUInt16 status;
     cxBool success;
     cxHttpMethod method;
     http_parser parser;
@@ -53,10 +54,12 @@ private:
     static int messageCompleted(http_parser *parser);
     void connect(const char *url);
 public:
+    cxEvent<cxHttp,cxArgs> onCompleted;
+public:
     cxHash *ReqHeads();
     cxHash *ResHeads();
     const cxStr *Body() const;
-    cxEvent<cxHttp> onCompleted;
+    
     const cxBool Success() const;
     static cxHttp *Post(cchars url,cxStr *post);
     static cxHttp *Get(cchars url);

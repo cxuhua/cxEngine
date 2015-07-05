@@ -75,7 +75,6 @@ using namespace cxengine;
     [context renderbufferStorage:GL_RENDERBUFFER fromDrawable:layer];
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &width);
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &height);
-    
     cxengine:cxEngine::Instance()->Layout(width, height);
 }
 

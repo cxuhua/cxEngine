@@ -265,8 +265,8 @@ public:
     const cxHitInfo HitTest(const cxPoint2F &wp);
     cxBool Dispatch(const cxTouchable *e);
 
-    cxEvent<cxView> onEnter;
-    cxEvent<cxView> onLeave;
+    cxEvent<cxView,cxArgs> onEnter;
+    cxEvent<cxView,cxArgs> onLeave;
     
     void Layout();
     

@@ -48,8 +48,9 @@ public:
     cxBool Connect(cchars host,cxInt port);
     void Close(cxInt err);
     cxBool Write(cxStr *data);
-    cxEvent<cxTcp> onConnected;
-    cxEvent<cxTcp> onClose;
+public:
+    cxEvent<cxTcp,cxArgs> onConnected;
+    cxEvent<cxTcp,cxArgs> onClose;
 };
 
 CX_CPP_END

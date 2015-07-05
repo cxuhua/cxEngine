@@ -72,10 +72,10 @@ public:
     cxAction *SetView(cxView *view);
     cxView *View();
 public:
-    cxEvent<cxAction> onInit;
-    cxEvent<cxAction> onStop;
-    cxEvent<cxAction> onExit;
-    cxEvent<cxAction> onReset;
+    cxEvent<cxAction,cxArgs> onInit;
+    cxEvent<cxAction,cxArgs> onStop;
+    cxEvent<cxAction,cxArgs> onExit;
+    cxEvent<cxAction,cxArgs> onReset;
 public:
     static cxAction *Create(cxFloat time);
     cxAction *Forever();

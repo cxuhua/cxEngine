@@ -15,18 +15,37 @@
 
 CX_CPP_BEGIN
 
+class cxArgs
+{
+public:
+    explicit cxArgs()
+    {
+        //
+    }
+    virtual ~cxArgs()
+    {
+        //
+    }
+    template<class T>
+    const T &To() const
+    {
+        return static_cast<const T&>(*this);
+    }
+};
+
 #define cxBindEvent(_o_,_f_)       std::bind(&_f_,_o_,std::placeholders::_1)
 
-template<class T>
+template<class T,class A>
 class cxEvent
 {
 public:
     explicit cxEvent(){}
     virtual ~cxEvent(){}
 public:
-    typedef std::function<void(T *sender)> Event;
+    typedef std::function<void(T *sender,const A &args)> Event;
 private:
     typedef std::vector<Event> Events;
+    
     Events es;
 public:
     cxEvent &operator+=(const Event &v)
@@ -42,7 +61,14 @@ public:
     {
         if(es.empty())return;
         typename Events::iterator it = es.begin();
-        while(it!=es.end()){(*it)(sender);it++;}
+        A args;
+        while(it!=es.end()){(*it)(sender,args);it++;}
+    }
+    void Fire(T *sender,const A &args)
+    {
+        if(es.empty())return;
+        typename Events::iterator it = es.begin();
+        while(it!=es.end()){(*it)(sender,args);it++;}
     }
 };
 

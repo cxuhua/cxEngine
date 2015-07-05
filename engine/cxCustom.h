@@ -24,7 +24,7 @@ protected:
     void OnStep(cxFloat dt);
 private:
 public:
-    cxEvent<cxCustom> onStep;
+    cxEvent<cxCustom,cxArgs> onStep;
     static cxCustom *Create(cxFloat time);
 };
 

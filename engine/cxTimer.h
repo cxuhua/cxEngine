@@ -25,7 +25,7 @@ protected:
     void OnInit();
     void OnStop();
 public:
-    cxEvent<cxTimer> onArrive;
+    cxEvent<cxTimer,cxArgs> onArrive;
     static cxTimer *Create(cxInt repeat,cxFloat time);
     static cxTimer *Forever(cxFloat time);
 };

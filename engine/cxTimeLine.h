@@ -35,6 +35,25 @@ public:
     cxFloat Time() const;
 };
 
+class onTimeArgs : public cxArgs
+{
+private:
+    const cxTimePoint *tp;
+public:
+    const cxTimePoint *TimePoint() const
+    {
+        return tp;
+    }
+    explicit onTimeArgs(const cxTimePoint *ctp)
+    {
+        tp = ctp;
+    };
+    virtual ~onTimeArgs()
+    {
+        
+    };
+};
+
 class cxTimeLine : public cxAction
 {
 public:
@@ -55,7 +74,7 @@ protected:
     cxInt from;     //0-(size-1);
     cxInt to;       //0-(size-1)
 public:
-    cxEvent<cxTimeLine> onTime;
+    cxEvent<cxTimeLine,onTimeArgs> onTime;
 public:
     cxTimeLine *SetRange(cxInt afrom,cxInt ato);
     cxInt Index() const;

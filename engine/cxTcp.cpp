@@ -108,9 +108,11 @@ void cxTcp::write_cb(uv_write_t* req, int status)
 cxBool cxTcp::Write(cxStr *data)
 {
     if(!connected){
+        CX_WARN("write data failed,tcp not connect");
         return false;
     }
     if(!uv_is_writable((uv_stream_t *)&handle)){
+        CX_WARN("write data failed,tcp not writable");
         return false;
     }
     uv_write_t *wreq = (uv_write_t *)malloc(sizeof(uv_write_t));

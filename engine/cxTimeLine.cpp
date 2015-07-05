@@ -62,7 +62,7 @@ void cxTimeLine::OnInit()
 
 void cxTimeLine::OnTime(const cxTimePoint *tp)
 {
-    onTime.Fire(this);
+    onTime.Fire(this,onTimeArgs(tp));
 }
 
 cxTimePoint *cxTimeLine::TimePoint()

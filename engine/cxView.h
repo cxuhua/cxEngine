@@ -220,6 +220,7 @@ public:
     cxView *SetOffset(const cxPoint2F &v);
     
     const cxPoint2F &Position() const;
+    cxView *AddPosition(const cxPoint2F &v);
     cxView *SetPosition(const cxPoint2F &v);
     
     const cxPoint2F &FixScale() const;

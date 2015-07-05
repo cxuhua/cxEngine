@@ -75,7 +75,6 @@ void cxBezier::OnInit()
 
 void cxBezier::OnStep(cxFloat dt)
 {
-    cxPoint2F cpos = View()->Position();
     cxPoint2F npos;
     if(d.IsINF()){
         npos = cxBezier2(a, b, c, Progress());
@@ -84,8 +83,7 @@ void cxBezier::OnStep(cxFloat dt)
     }
     cxPoint2F diff = npos - prev;
     prev = npos;
-    cpos += diff;
-    View()->SetPosition(cpos);
+    View()->AddPosition(diff);
 }
 
 cxBezier *cxBezier::SetA(const cxPoint2F &aa)

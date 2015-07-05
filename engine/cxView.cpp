@@ -180,6 +180,12 @@ cxView *cxView::SetOffset(const cxPoint2F &v)
     return this;
 }
 
+cxView *cxView::AddPosition(const cxPoint2F &v)
+{
+    SetPosition(position + v);
+    return this;
+}
+
 const cxPoint2F &cxView::Position() const
 {
     return position;

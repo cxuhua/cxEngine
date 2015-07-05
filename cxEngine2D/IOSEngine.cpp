@@ -28,6 +28,7 @@
 #include <engine/cxFade.h>
 #include <engine/cxTint.h>
 #include <engine/cxSequence.h>
+#include <engine/cxJump.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -88,22 +89,25 @@ void IOSEngine::OnMain()
 //    };
 //    func->AttachTo(Window());
     
-    cxBezier *xx1 = cxBezier::Create(cxPoint2F(300,600), cxPoint2F(500,1000),cxPoint2F(600,-600), 4.0f);
-//    xx1->SetTiming(cxTiming::CubicIn);
-//    cxTintTo *to1 = cxTintTo::Create(0.0f, 3.0f);
-//    cxTintTo *to2 = cxTintTo::Create(1.0f, 3.0f);
-    cxSequence *run = cxSequence::Create();
-    run->Append(xx1)->Append(xx1->Reverse());
-    
-    run->onStop += [](cxAction *pav){
-        CX_LOGGER("run action stop");
-    };
+//    cxBezier *xx1 = cxBezier::Create(cxPoint2F(300,600), cxPoint2F(500,1000),cxPoint2F(600,-600), 4.0f);
+////    xx1->SetTiming(cxTiming::CubicIn);
+////    cxTintTo *to1 = cxTintTo::Create(0.0f, 3.0f);
+////    cxTintTo *to2 = cxTintTo::Create(1.0f, 3.0f);
+//    cxSequence *run = cxSequence::Create();
+//    run->Append(xx1)->Append(xx1->Reverse());
+//    
+//    run->onStop += [](cxAction *pav){
+//        CX_LOGGER("run action stop");
+//    };
     
     cxSprite *sp = cxSprite::Create()->SetTexture("t.png");
     sp->EnableDir(true);
-    sp->SetFrame(0, 0, 100, 100);
-
-    run->AttachTo(sp);
+    sp->SetFrame(-800, 0, 100, 100);
+    
+    cxJump *j = cxJump::Create(cxPoint2F(800,0), 100, 6, 5);
+    j->AttachTo(sp);
+    
+//    run->AttachTo(sp);
     
     Window()->Append(sp);
     

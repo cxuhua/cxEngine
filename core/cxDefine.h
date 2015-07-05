@@ -228,9 +228,10 @@ static CX_INLINE  T *Create()                                       \
     return static_cast<T *>(T::Alloc()->AutoRelease());             \
 }                                                                   \
 public:                                                             \
-CX_INLINE T &Ref(){return *this;}
+static cxHelper Helper;
 
-#define CX_IMPLEMENT(T)
+#define CX_IMPLEMENT(T)                                             \
+cxHelper T::Helper = cxHelper(#T, (cxCore::AllocFunc)T::Alloc);
 
 #endif /* defined(__cxEngineCore__cxDefine__) */
 

@@ -320,17 +320,18 @@ void IOSEngine::OnMain()
 //        Window()->Append(x);
 //        x1 = x;
 //    }
-//    for(cxInt i=0; i < 1000; i++){
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetTexture("animate");
-//        sp->SetTexKey("1201100.0.png");
-//        sp->SetSize(cxSize2F(400, 400));
-//        sp->SetPosition(cxPoint2F(cxUtil::Rand(-1024, 1024),cxUtil::Rand(-1024, 1024)));
-//        sp->SetAnchor(-0.5f);
-//        Window()->Append(sp);
-//        cxRotateBy *by = cxRotateBy::Create(cxDegreesToRadians(60), 1000);
-//        sp->Append(by);
-//    }
+    for(cxInt i=0; i < 1000; i++){
+        cxSprite *sp = cxObject::create("cxSprite")->To<cxSprite>();
+        sp->SetTexture("animate");
+        sp->SetTexKey("1201100.0.png");
+        sp->SetSize(cxSize2F(400, 400));
+        sp->SetPosition(cxPoint2F(cxUtil::Rand(-1024, 1024),cxUtil::Rand(-1024, 1024)));
+        sp->SetAnchor(-0.5f);
+        Window()->Append(sp);
+        
+        cxRotateBy *by = cxRotateBy::Create(cxDegreesToRadians(60), 1000);
+        sp->Append(by);
+    }
 //    {
 //        cxSprite *x = cxSprite::Create();
 //        x->SetTexture("t.png");

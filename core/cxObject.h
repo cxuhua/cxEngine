@@ -65,6 +65,12 @@ public:
     
     //for remove global cache
     static void gcremove(cchars key);
+    
+    static void gcclear();
+    
+    //alloc or create name object
+    static cxObject *alloc(cchars name);
+    static cxObject *create(cchars name);
 public:
     virtual cxULong Hash() const;
     
@@ -80,6 +86,8 @@ public:
     void Release();
     
     virtual cxJson *Serialize();
+    
+    virtual cxInt Init(const cxJson *json);
 };
 
 template<class T>
@@ -105,6 +113,11 @@ template<class T>
 CX_INLINE T *cxObject::gcpull(cchars key)
 {
     return static_cast<T *>(cxCore::Instance()->Pull(key));
+}
+
+CX_INLINE void cxObject::gcclear()
+{
+    cxCore::Instance()->Clear();
 }
 
 CX_INLINE void cxObject::gcremove(cchars key)

@@ -11,8 +11,6 @@
 
 CX_CPP_BEGIN
 
-CX_IMPLEMENT(cxNotice);
-
 cxNotice cxNotice::instance = cxNotice();
 
 cxNotice::Notice::Notice():dst(nullptr),func(nullptr)

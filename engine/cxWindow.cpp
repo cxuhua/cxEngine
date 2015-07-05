@@ -15,7 +15,7 @@ CX_IMPLEMENT(cxWindow);
 
 cxWindow::cxWindow()
 {
-    debugLabel = nullptr;
+    label = nullptr;
     views = cxStack::Alloc();
 }
 
@@ -31,20 +31,20 @@ cxView *cxWindow::Top() const
 
 void cxWindow::InitDebugLabel()
 {
-    debugLabel = cxLabel::CreateUTF8("0000000");
-    debugLabel->SetZ(INT_MAX);
-    debugLabel->SetFontSize(40);
-    debugLabel->SetResizeBox(10.0f);
-    debugLabel->SetColor(cxColor4F::RED);
-    debugLabel->SetResizeFlags(cxView::ResizeRightBottom);
-    debugLabel->SetStroke(1, cxColor4F::BLACK, 0.5f);
-    Append(debugLabel);
+    label = cxLabel::CreateUTF8("0000000");
+    label->SetZ(INT_MAX);
+    label->SetFontSize(40);
+    label->SetResizeBox(10.0f);
+    label->SetColor(cxColor4F::RED);
+    label->SetResizeFlags(cxView::ResizeRightBottom);
+    label->SetStroke(1, cxColor4F::BLACK, 0.5f);
+    Append(label);
 }
 
 cxLabel *cxWindow::DebugLabel()
 {
-    CX_ASSERT(debugLabel != nullptr, "debug not init");
-    return debugLabel;
+    CX_ASSERT(label != nullptr, "debug label not init");
+    return label;
 }
 
 void cxWindow::Push(cxView *view)

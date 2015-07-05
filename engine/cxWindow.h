@@ -24,7 +24,7 @@ protected:
     virtual ~cxWindow();
 private:
     cxStack *views;
-    cxLabel *debugLabel;
+    cxLabel *label;         //debug label
 public:
     void InitDebugLabel();
     cxLabel *DebugLabel();

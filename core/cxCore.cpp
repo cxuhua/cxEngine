@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
+#include <ext/xxhash.h>
 #include "cxHash.h"
 #include "cxAutoPool.h"
 #include "cxCore.h"
@@ -46,6 +47,31 @@ void cxUtilAssert(cchars  file,int line,cchars  format, ...)
     va_end(ap);
 }
 
+size_t cxCore::cxCoreHasher::operator()(const std::string &k) const
+{
+    return (size_t)XXH32(k.data(), (int)k.size(), 0);
+}
+
+bool cxCore::cxCoreHasher::operator()(const std::string &lhs, const std::string &rhs) const
+{
+    return lhs == rhs;
+}
+
+cxObject *cxHelper::Alloc()
+{
+    return func();
+}
+
+cxHelper::cxHelper(cchars name,cxCore::AllocFunc f)
+{
+    func = f;
+    cxCore::registerType(name, *this);
+}
+cxHelper::~cxHelper()
+{
+    
+}
+
 cxCore *cxCore::gCore = nullptr;
 
 cxCore *cxCore::Instance()
@@ -55,6 +81,20 @@ cxCore *cxCore::Instance()
         atexit(cxCore::Destroy);
     }
     return cxCore::gCore;
+}
+
+void cxCore::registerType(cchars name,cxHelper &helper)
+{
+    CX_ASSERT(cxStr::IsOK(name), "name or func error");
+    cxCore::Instance()->classes.emplace(name,helper);
+}
+
+cxObject *cxCore::alloc(cchars name)
+{
+    CX_ASSERT(cxStr::IsOK(name), "name error");
+    cxTypes::iterator it = cxCore::Instance()->classes.find(name);
+    CX_ASSERT(it != cxCore::Instance()->classes.end(), "class %s not register",name);
+    return it->second.Alloc();
 }
 
 void cxCore::Destroy()
@@ -74,13 +114,11 @@ cxCore::cxCore()
 cxCore::~cxCore()
 {
     caches->Release();
-    
     cxObject::release(&cxUtil::instance);
-    
     cxObject *obj = static_cast<cxObject *>(uv_key_get(&autoKey));
     cxObject::release(&obj);
-    
     uv_key_delete(&autoKey);
+    classes.clear();
 }
 
 void cxCore::Clear()

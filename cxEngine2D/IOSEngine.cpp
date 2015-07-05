@@ -146,20 +146,20 @@ void IOSEngine::OnMain()
 //    v->SetTexture("t.png");
 //    c->Append(v);
     
-    cxTimeLine *ani = cxTimeLine::Create();
-    ani->Append(1);//0
-    ani->Append(2);//1
-    ani->Append(3);//2
-    ani->Append(4);//3
-    ani->Append(1);//4
-    ani->Append(1);//5
-    ani->SetRange(3, 1);
-    ani->onStop += [](cxAction *s){
-        CX_LOGGER("stop");
-    };
-    ani->onTime += [](cxTimeLine *pav,const cxTimePoint *tp){
-        CX_LOGGER("%d",pav->Index());
-    };
+//    cxTimeLine *ani = cxTimeLine::Create();
+//    ani->Append(1);//0
+//    ani->Append(2);//1
+//    ani->Append(3);//2
+//    ani->Append(4);//3
+//    ani->Append(1);//4
+//    ani->Append(1);//5
+//    ani->SetRange(3, 1);
+//    ani->onStop += [](cxAction *s){
+//        CX_LOGGER("stop");
+//    };
+//    ani->onTime += [](cxTimeLine *pav,const cxTimePoint *tp){
+//        CX_LOGGER("%d",pav->Index());
+//    };
 ////
 //    Window()->Append(ani);
     
@@ -320,18 +320,19 @@ void IOSEngine::OnMain()
 //        Window()->Append(x);
 //        x1 = x;
 //    }
-    for(cxInt i=0; i < 1000; i++){
-        cxSprite *sp = cxObject::create("cxSprite")->To<cxSprite>();
-        sp->SetTexture("animate");
-        sp->SetTexKey("1201100.0.png");
-        sp->SetSize(cxSize2F(400, 400));
-        sp->SetPosition(cxPoint2F(cxUtil::Rand(-1024, 1024),cxUtil::Rand(-1024, 1024)));
-        sp->SetAnchor(-0.5f);
-        Window()->Append(sp);
-        
-        cxRotateBy *by = cxRotateBy::Create(cxDegreesToRadians(60), 1000);
-        sp->Append(by);
-    }
+//    for(cxInt i=0; i < 1000; i++){
+//        cxSprite *sp = cxObject::create("cxSprite")->To<cxSprite>();
+//        sp->SetTexture("animate");
+//        sp->SetFixScale(0.2f);
+//        sp->SetTexKey("1201100.0.png");
+//        sp->SetSize(cxSize2F(400, 400));
+//        sp->SetPosition(cxPoint2F(cxUtil::Rand(-1024, 1024),cxUtil::Rand(-1024, 1024)));
+//        sp->SetAnchor(-0.5f);
+//        Window()->Append(sp);
+//        
+//        cxRotateBy *by = cxRotateBy::Create(cxDegreesToRadians(60), 1000);
+//        sp->Append(by);
+//    }
 //    {
 //        cxSprite *x = cxSprite::Create();
 //        x->SetTexture("t.png");

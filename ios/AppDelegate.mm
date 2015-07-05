@@ -39,11 +39,13 @@ using namespace cxengine;
     [self cxDisableDocumentBackup];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.contentScaleFactor = [UIScreen mainScreen].scale;
+    
     IOSViewController *glController = [[IOSViewController alloc] init];
     self.rootViewController = glController;
     [self.window setRootViewController:glController];
-    [self.window makeKeyAndVisible];
     [glController release];
+    
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

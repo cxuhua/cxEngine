@@ -67,7 +67,7 @@ cxEngine::~cxEngine()
 
 const cxSize2F &cxEngine::WinSize() const
 {
-    return size;
+    return winsize;
 }
 
 const cxRect4F &cxEngine::WinBound() const
@@ -137,10 +137,10 @@ const cxPoint2F &cxEngine::PlanScale() const
 
 void cxEngine::SetPlanSize(const cxSize2F &v)
 {
-    CX_ASSERT(!size.IsZero(), "win size not set");
+    CX_ASSERT(!winsize.IsZero(), "win size not set");
     plansize = v;
-    planscale.x = size.w/plansize.w;
-    planscale.y = size.h/plansize.h;
+    planscale.x = winsize.w/plansize.w;
+    planscale.y = winsize.h/plansize.h;
 }
 
 cxInt cxEngine::FPS() const
@@ -158,8 +158,8 @@ void cxEngine::Run()
 {
     cxAutoPool::Start();
     if(layout){
-        CX_LOGGER("opengl screen size:W=%f H=%f",size.w,size.h);
-        cxOpenGL::Instance()->Set3DProject(size);
+        CX_LOGGER("opengl screen size:W=%f H=%f",winsize.w,winsize.h);
+        cxOpenGL::Instance()->Set3DProject(winsize);
         if(!init){
             cxOpenGL::Instance()->Init();
             OnMain();
@@ -169,7 +169,7 @@ void cxEngine::Run()
             init = true;
         }
         cxOpenGL::Instance()->SetViewport(bound);
-        window->SetSize(size);
+        window->SetSize(winsize);
         window->Layout();
         layout = false;
     }
@@ -208,8 +208,8 @@ void cxEngine::Run()
 void cxEngine::Layout(cxFloat w,cxFloat h)
 {
     cxSize2F csize = cxSize2F(w, h);
-    if(size != csize){
-        size = csize;
+    if(winsize != csize){
+        winsize = csize;
         layout = true;
     }
     bound = cxRect4F(0, 0, w, h);

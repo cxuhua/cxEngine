@@ -44,7 +44,7 @@ private:
     cxBool layout;
     cxRect4F bound;
     cxBox4F box;
-    cxSize2F size;
+    cxSize2F winsize;
     cxSize2F plansize;
     cxPoint2F planscale;
     cxInt nextIter;

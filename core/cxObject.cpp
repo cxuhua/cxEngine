@@ -64,6 +64,19 @@ cxObject *cxObject::AutoRelease()
 
 void cxObject::Init(const cxJson *json)
 {
+    cxJson::Iter it = json->Begin();
+    while(it != json->End()){
+        cxJson *value = cxJson::Alloc();
+        if(it.Value(value)){
+            SetProperty(it.Key(), value);
+        }
+        value->Release();
+        it++;
+    }
+}
+
+void cxObject::SetProperty(cchars key,const cxJson *json)
+{
     
 }
 

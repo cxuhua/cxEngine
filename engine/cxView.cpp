@@ -410,7 +410,7 @@ cxView *cxView::EnableVisible(cxBool v)
 cxView *cxView::RemoveSubviews()
 {
     for(cxArray::FIter it = subviews->FBegin();it != subviews->FEnd();it++){
-        cxView *pview = static_cast<cxView *>(*it);
+        cxView *pview = (*it)->To<cxView>();
         OnRemove(pview);
     }
     subviews->Clear();
@@ -474,7 +474,7 @@ const cxMatrixF &cxView::ModelView() const
 cxBool cxView::HasAction(cxULong aid) const
 {
     for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();it++){
-        cxAction *action = static_cast<cxAction *>(*it);
+        cxAction *action = (*it)->To<cxAction>();
         if(action->ID() == aid){
             return true;
         }
@@ -485,7 +485,7 @@ cxBool cxView::HasAction(cxULong aid) const
 cxView *cxView::StopAction(cxULong aid)
 {
     for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();it++){
-        cxAction *action = static_cast<cxAction *>(*it);
+        cxAction *action = (*it)->To<cxAction>();
         if(action->ID() == aid || aid == 0){
             action->Stop();
         }
@@ -500,7 +500,7 @@ void cxView::updateActions(cxFloat dt)
     }
     actapps->Clear();
     for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();){
-        cxAction *action = static_cast<cxAction *>(*it);
+        cxAction *action = (*it)->To<cxAction>();
         if(action->Update(dt)){
             it = actions->Remove(it);
         }else{
@@ -543,7 +543,7 @@ cxView *cxView::SetFrame(cxFloat x,cxFloat y,cxFloat w,cxFloat h)
 void cxView::runAppends(cxFloat dt)
 {
     for(cxArray::FIter it=viewapps->FBegin();it!=viewapps->FEnd();it++){
-        cxView *view = static_cast<cxView *>(*it);
+        cxView *view = (*it)->To<cxView>();
         subviews->Append(view);
         view->onEnter.Fire(view);
         OnAppend(view);
@@ -554,7 +554,7 @@ void cxView::runAppends(cxFloat dt)
 void cxView::runRemoves(cxFloat dt)
 {
     for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();){
-        cxView *view = static_cast<cxView *>(*it);
+        cxView *view = (*it)->To<cxView>();
         if(!view->IsRemoved()){
             view->Update(dt);
         }
@@ -599,7 +599,7 @@ cxBool cxView::Dispatch(const cxTouchable *e)
         return OnDispatch(e);
     }
     for(cxArray::RIter it=subviews->RBegin();it!=subviews->REnd();it++){
-        cxView *view = static_cast<cxView *>(*it);
+        cxView *view = (*it)->To<cxView>();
         if(view->Dispatch(e))return true;
     }
     return OnDispatch(e);
@@ -659,11 +659,12 @@ cxInt cxView::Z() const
 
 cxView *cxView::SetZ(cxInt v)
 {
-    if(z != v){
-        z = v;
-        if(parent!=nullptr){
-            parent->Sort();
-        }
+    if(z == v){
+        return this;
+    }
+    z = v;
+    if(parent!=nullptr){
+        parent->Sort();
     }
     return this;
 }
@@ -689,7 +690,7 @@ void cxView::Layout()
 {
     islayout = false;
     for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
-        cxView *view = static_cast<cxView *>(*it);
+        cxView *view = (*it)->To<cxView>();
         view->Layout();
     }
 }
@@ -756,7 +757,7 @@ void cxView::Render(cxRender *render,const cxMatrixF &mv)
         issort = false;
     }
     for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
-        cxView *view = static_cast<cxView *>(*it);
+        cxView *view = (*it)->To<cxView>();
         view->Render(render,modelview);
     }
     if(isclip){

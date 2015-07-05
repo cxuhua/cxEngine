@@ -33,8 +33,6 @@ public:
     }
 };
 
-#define cxBindEvent(_o_,_f_)       std::bind(&_f_,_o_,std::placeholders::_1)
-
 template<class T,class A>
 class cxEvent
 {
@@ -45,7 +43,6 @@ public:
     typedef std::function<void(T *sender,const A &args)> Event;
 private:
     typedef std::vector<Event> Events;
-    
     Events es;
 public:
     cxEvent &operator+=(const Event &v)
@@ -59,9 +56,9 @@ public:
     }
     void Fire(T *sender)
     {
+        A args;
         if(es.empty())return;
         typename Events::iterator it = es.begin();
-        A args;
         while(it!=es.end()){(*it)(sender,args);it++;}
     }
     void Fire(T *sender,const A &args)

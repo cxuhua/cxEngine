@@ -71,10 +71,12 @@ public:
     cxEvent<cxAction> onInit;
     cxEvent<cxAction> onStop;
     cxEvent<cxAction> onExit;
+    cxEvent<cxAction> onReset;
 public:
+    static cxAction *Create(cxFloat time);
     cxAction *Forever();
     cxFloat Progress() const;
-    void SetExit(cxBool v);
+    void Exit(cxBool v);
     void Reset();
     void Pause();
     void Resume();

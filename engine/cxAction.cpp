@@ -37,6 +37,13 @@ cxAction::~cxAction()
     
 }
 
+cxAction *cxAction::Create(cxFloat time)
+{
+    cxAction *rv = cxAction::Create();
+    rv->SetTime(time);
+    return rv;
+}
+
 cxAction *cxAction::SetID(cxULong aid)
 {
     actionId = aid;
@@ -63,7 +70,7 @@ void cxAction::Reset()
     OnReset();
 }
 
-void cxAction::SetExit(cxBool v)
+void cxAction::Exit(cxBool v)
 {
     isexit = v;
     repeat = 0;
@@ -71,12 +78,12 @@ void cxAction::SetExit(cxBool v)
 
 void cxAction::OnReset()
 {
-    
+    onReset.Fire(this);
 }
 
 void cxAction::OnInit()
 {
-    
+    onInit.Fire(this);
 }
 
 void cxAction::OnStep(cxFloat dt)
@@ -86,12 +93,12 @@ void cxAction::OnStep(cxFloat dt)
 
 void cxAction::OnExit()
 {
-    
+    onExit.Fire(this);
 }
 
 void cxAction::OnStop()
 {
-    
+    onStop.Fire(this);
 }
 
 void cxAction::Stop()
@@ -152,7 +159,6 @@ cxBool cxAction::Update(cxFloat dt)
     if(!isinit){
         prev = timing(0.0f) * time;
         OnInit();
-        onInit.Fire(this);
         isinit = true;
     }
     if(time <= 0 || isexit){
@@ -170,13 +176,11 @@ cxBool cxAction::Update(cxFloat dt)
     if(elapsed >= time){
         isexit = true;
         OnStop();
-        onStop.Fire(this);
         if(--repeat > 0)Reset();
     }
 exit:
     if(isexit || repeat <= 0){
         OnExit();
-        onExit.Fire(this);
     }
     return isexit;
 }

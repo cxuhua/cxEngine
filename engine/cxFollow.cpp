@@ -28,7 +28,7 @@ void cxFollow::OnStep(cxFloat dt)
 {
     CX_ASSERT(target != nullptr, "not set target position");
     if(cxFloatIsEqual(speed, 0)){
-        SetExit(true);
+        Exit(true);
         return;
     }
     cxPoint2F cpos = View()->Position();

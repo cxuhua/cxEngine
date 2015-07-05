@@ -41,7 +41,7 @@ void cxSpline::OnInit()
 {
     cxFloat num = points.Size();
     if(num < 2){
-        SetExit(true);
+        Exit(true);
         return;
     }
     delta = 1.0f/((cxFloat)num - 1.0f);

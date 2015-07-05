@@ -70,31 +70,37 @@ void IOSEngine::OnMain()
     cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
     
-    cxSpline *x = cxSpline::Create();
-    x->Append(cxPoint2F(300, 0));
-    x->Append(cxPoint2F(300, 300));
-    x->Append(cxPoint2F(0, 300));
-    x->Append(cxPoint2F(-300, 300));
-    x->Append(cxPoint2F(-300, 0));
-    x->Append(cxPoint2F(-300, -300));
-    x->Append(cxPoint2F(0, -300));
-    x->Append(0.0f);
-    x->SetTime(10);
+//    cxSpline *x = cxSpline::Create();
+//    x->Append(cxPoint2F(300, 0));
+//    x->Append(cxPoint2F(300, 300));
+//    x->Append(cxPoint2F(0, 300));
+//    x->Append(cxPoint2F(-300, 300));
+//    x->Append(cxPoint2F(-300, 0));
+//    x->Append(cxPoint2F(-300, -300));
+//    x->Append(cxPoint2F(0, -300));
+//    x->Append(0.0f);
+//    x->SetTime(10);
+//    
+//    cxAction *func = cxAction::Create(0.4f);
+//    func->onStop +=[](cxAction *pav){
+//        CX_LOGGER("run event");
+//    };
+//    func->AttachTo(Window());
     
 //    cxBezier *x = cxBezier::Create(cxPoint2F(300,600), cxPoint2F(600,-600), 4.0f);
     
-    cxTintBy *by = cxTintBy::Create(-0.5f, 3.0f);
-    cxTintTo *to = cxTintTo::Create(0.2f, 3.0f);
-    cxSprite *sp = cxSprite::Create()->SetTexture("t.png");
-    sp->EnableDir(true);
-    sp->SetFrame(0, 0, 100, 100);
-    sp->Append(to);
-    to->onStop += [](cxAction *pav){
-        pav->Reverse()->AttachTo(pav->View());
-    };
-    x->AttachTo(sp);
-    
-    Window()->Append(sp);
+//    cxTintBy *by = cxTintBy::Create(-0.5f, 3.0f);
+//    cxTintTo *to = cxTintTo::Create(0.2f, 3.0f);
+//    cxSprite *sp = cxSprite::Create()->SetTexture("t.png");
+//    sp->EnableDir(true);
+//    sp->SetFrame(0, 0, 100, 100);
+//    sp->Append(to);
+//    to->onStop += [](cxAction *pav){
+//        pav->Reverse()->AttachTo(pav->View());
+//    };
+//    x->AttachTo(sp);
+//    
+//    Window()->Append(sp);
     
 //    cxSprite *fp = cxSprite::Create()->SetTexture("t.png");
 //    fp->EnableDir(true);

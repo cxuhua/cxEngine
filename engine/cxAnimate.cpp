@@ -30,10 +30,8 @@ void cxAnimate::OnInit()
     View()->To<cxSprite>()->SetTexture(ptex);
 }
 
-void cxAnimate::OnTime()
+void cxAnimate::OnTime(const cxTimePoint *tp)
 {
-    cxInt idx = Index();
-    cxTimePoint *tp = At(idx);
     cxTexCoord *coord = tp->Object()->To<cxTexCoord>();
     View()->To<cxSprite>()->SetTexCoord(coord);
 }
@@ -73,7 +71,7 @@ cxAnimate *cxAnimate::Append(cxFloat time,cchars key)
 {
     CX_ASSERT(ptex != nullptr && cxStr::IsOK(key), "must set texture");
     cxTexCoord *coord = ptex->At(key);
-    cxTimePoint *tp = Push(time);
+    cxTimePoint *tp = cxTimeLine::Append(time);
     tp->SetObject(coord);
     return this;
 }

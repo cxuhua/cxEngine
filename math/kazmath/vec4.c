@@ -31,6 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "utility.h"
 #include "vec4.h"
 #include "mat4.h"
+#include "tools.h"
 
 
 kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w)
@@ -144,6 +145,11 @@ kmVec4* kmVec4MultiplyMat4(kmVec4* pOut, const kmVec4* pV, const struct kmMat4* 
     pOut->w = pV->x * pM->mat[3] + pV->y * pM->mat[7] + pV->z * pM->mat[11] + pV->w * pM->mat[15];
     return pOut;
 }
+
+//kmVec4* kmVec4MultiplyMat4(kmVec4* pOut, const kmVec4* pV, const struct kmMat4* pM) {
+//    Vec4_X_Mat4(pM->mat, pV->x, pV->y, pV->z, pV->w, (float *)pOut);
+//    return pOut;
+//}
 
 kmVec4* kmVec4Transform(kmVec4* pOut, const kmVec4* pV, const kmMat4* pM) {
     return kmVec4MultiplyMat4(pOut, pV, pM);

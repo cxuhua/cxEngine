@@ -29,7 +29,7 @@ cxFloat cxTimePoint::Time() const
     return time;
 }
 
-cxObject *cxTimePoint::Object()
+cxObject *cxTimePoint::Object() const
 {
     return object;
 }
@@ -57,16 +57,15 @@ void cxTimeLine::OnInit()
     if(to < 0){
         to = points->Size() - 1;
     }
-    elapsedTime = 0;
     UpdateTime();
 }
 
-void cxTimeLine::OnTime()
+void cxTimeLine::OnTime(const cxTimePoint *tp)
 {
     onTime.Fire(this);
 }
 
-cxTimePoint *cxTimeLine::CurrPoint()
+cxTimePoint *cxTimeLine::TimePoint()
 {
     return At(idx);
 }
@@ -110,7 +109,7 @@ cxTimePoint *cxTimeLine::At(cxInt i)
     return points->At(idx)->To<cxTimePoint>();
 }
 
-cxTimePoint *cxTimeLine::Push(cxFloat time)
+cxTimePoint *cxTimeLine::Append(cxFloat time)
 {
     cxTimePoint *p = cxTimePoint::Create()->Init(time);
     points->Append(p);
@@ -136,6 +135,7 @@ cxTimeLine::cxTimeLine()
     from = -1;
     to = -1;
     points = cxArray::Alloc();
+    Forever();
 }
 
 cxTimeLine::~cxTimeLine()
@@ -145,9 +145,9 @@ cxTimeLine::~cxTimeLine()
 
 void cxTimeLine::OnStep(cxFloat dt)
 {
-    elapsedTime += dt;
+    cxFloat elapsed = Elapsed();
     for(cxInt i = idx;i<Size();i++){
-        if(elapsedTime < times.at(i)){
+        if(elapsed < times.at(i)){
             break;
         }
         if(prev == i){
@@ -155,7 +155,7 @@ void cxTimeLine::OnStep(cxFloat dt)
         }
         idx = i;
         prev = i;
-        OnTime();
+        OnTime(At(idx));
     }
 }
 

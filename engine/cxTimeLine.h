@@ -29,7 +29,7 @@ private:
 public:
     cxTimePoint *Init(cxFloat at);
     
-    cxObject *Object();
+    cxObject *Object() const;
     void SetObject(cxObject *pobj);
     
     cxFloat Time() const;
@@ -43,25 +43,30 @@ protected:
     explicit cxTimeLine();
     virtual ~cxTimeLine();
 protected:
-    virtual void OnTime();
+    virtual void OnTime(const cxTimePoint *tp);
     void OnStep(cxFloat dt);
     void OnInit();
+    
     std::vector<cxFloat> times;
     cxArray *points;
-    cxFloat elapsedTime;
+    
     cxInt prev;  //
     cxInt idx;      //0-n
     cxInt from;     //0-(size-1);
     cxInt to;       //0-(size-1)
 public:
     cxEvent<cxTimeLine> onTime;
+public:
     cxTimeLine *SetRange(cxInt afrom,cxInt ato);
     cxInt Index() const;
     void UpdateTime();
-    cxTimePoint *CurrPoint(); //at OnTime invoke
+    
+    cxTimePoint *TimePoint(); //at OnTime invoke
     cxTimePoint *At(cxInt i);
-    cxTimePoint *Push(cxFloat time);
+    
+    cxTimePoint *Append(cxFloat time);
     cxInt Size() const;
+    
     cxAction *Reverse();
     cxAction *Clone();
 };

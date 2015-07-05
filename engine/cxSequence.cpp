@@ -23,20 +23,17 @@ cxSequence::~cxSequence()
     
 }
 
-void cxSequence::OnTime()
+void cxSequence::OnTime(const cxTimePoint *tp)
 {
-    CX_LOGGER("run action:%d",Index());
-    cxTimePoint *tp = CurrPoint();
     cxAction *pav = tp->Object()->To<cxAction>();
     View()->Append(pav);
-    
-    cxTimeLine::OnTime();
+    cxTimeLine::OnTime(tp);
 }
 
 cxSequence *cxSequence::Append(cxAction *pav)
 {
     CX_ASSERT(pav != nullptr, "args error");
-    cxTimePoint *tp = Push(pav->Time());
+    cxTimePoint *tp = cxTimeLine::Append(pav->Time());
     tp->SetObject(pav);
     return this;
 }

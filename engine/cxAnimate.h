@@ -22,7 +22,7 @@ protected:
     explicit cxAnimate();
     virtual ~cxAnimate();
 protected:
-    void OnTime();
+    void OnTime(const cxTimePoint *tp);
     void OnInit();
 private:
     cxTexture *ptex;

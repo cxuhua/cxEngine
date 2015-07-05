@@ -40,7 +40,10 @@ private:
     cxView *pview;
     cxFloat speed;
     cxFloat elapsed;
+    cxFloat elapsedvar;
     cxFloat time;
+    cxFloat delta;
+    cxDouble curr;
     cxDouble prev;
     cxBool ispause;
     cxBool isinit;
@@ -57,6 +60,7 @@ public:
     cxAction *SetTiming(cxTimingFunc f);
     
     cxAction *SetTime(cxFloat v);
+    const cxFloat Delta() const;
     const cxFloat Time() const;
     const cxFloat Elapsed() const;
     

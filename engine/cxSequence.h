@@ -22,7 +22,7 @@ protected:
     explicit cxSequence();
     virtual ~cxSequence();
 protected:
-    void OnTime();
+    void OnTime(const cxTimePoint *tp);
 public:
     cxSequence *Append(cxAction *pav);
 };

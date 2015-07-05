@@ -71,8 +71,8 @@ public:
     cxLong Tag() const;
     void SetTag(cxLong value);
 
-    template<class T>
-    T *To();
+    template<class T> const T *To() const;
+    template<class T> T *To();
     
     cxInt Refcount() const;
     void Retain();
@@ -84,6 +84,12 @@ public:
 
 template<class T>
 CX_INLINE T *cxObject::To()
+{
+    return static_cast<T *>(this);
+}
+
+template<class T>
+CX_INLINE const T *cxObject::To() const
 {
     return static_cast<T *>(this);
 }

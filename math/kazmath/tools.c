@@ -208,7 +208,7 @@ void Mat4_X_Mat4(const float* m1, const float* m2, float* dst)
 #elif defined (USE_NEON64)
     neon64_Mat4_X_Mat4(m1,m2,dst);
 #elif defined (INCLUDE_NEON32)
-    if(isNeon32Enabled()) neon32_Mat4_X_Mat4(m1,m2,dst);
+    if(isNeon32Enabled())neon32_Mat4_X_Mat4(m1,m2,dst);
     else ansic_Mat4_X_Mat4(m1,m2,dst);
 #else
     ansic_Mat4_X_Mat4(m1,m2,dst);
@@ -222,7 +222,7 @@ void Vec4_X_Mat4(const float *m, float x, float y, float z, float w, float *dst)
 #elif defined (USE_NEON64)
     neon64_Vec4_X_Mat4(m, x, y, z, w, dst);
 #elif defined (INCLUDE_NEON32)
-    if(isNeon32Enabled()) neon32_Vec4_X_Mat4(m, x, y, z, w, dst);
+    if(isNeon32Enabled())neon32_Vec4_X_Mat4(m, x, y, z, w, dst);
     else ansic_Vec4_X_Mat4(m, x, y, z, w, dst);
 #else
     ansic_Vec4_X_Mat4(m, x, y, z, w, dst);

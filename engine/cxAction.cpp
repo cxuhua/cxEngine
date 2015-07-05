@@ -63,7 +63,6 @@ cxULong cxAction::ID() const
 
 void cxAction::Reset()
 {
-    elapsed = 0;
     isinit = false;
     isexit = false;
     ispause = false;
@@ -157,7 +156,9 @@ cxBool cxAction::Update(cxFloat dt)
         return false;
     }
     if(!isinit){
-        prev = timing(0.0f) * time;
+        elapsed = 0.0f;
+        elapsedvar = 0.0f;
+        prev = Progress() * time;
         OnInit();
         isinit = true;
     }
@@ -168,10 +169,13 @@ cxBool cxAction::Update(cxFloat dt)
         dt *= speed;
         elapsed += dt;
         deltaTimeFix(dt);
-        cxDouble curr = Progress() * time;
-        dt = curr - prev;
+        
+        curr = Progress() * time;
+        delta = curr - prev;
         prev = curr;
-        OnStep(dt);
+        elapsedvar += delta;
+        
+        OnStep(delta);
     }
     if(elapsed >= time){
         isexit = true;
@@ -198,10 +202,13 @@ cxAction *cxAction::SetTiming(cxTimingFunc f)
 
 cxFloat cxAction::Progress() const
 {
-    if(cxFloatIsEqual(time, 0)){
-        return 0;
-    }
+    CX_ASSERT(time > 0, "action time errpr");
     return timing(elapsed/time);
+}
+
+const cxFloat cxAction::Delta() const
+{
+    return delta;
 }
 
 const cxFloat cxAction::Time() const
@@ -211,7 +218,7 @@ const cxFloat cxAction::Time() const
 
 const cxFloat cxAction::Elapsed() const
 {
-    return elapsed;
+    return elapsedvar;
 }
 
 cxAction *cxAction::SetSpeed(cxFloat v)

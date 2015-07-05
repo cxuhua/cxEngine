@@ -26,13 +26,14 @@ CX_C_BEGIN
         #define INCLUDE_NEON32
     #endif
 #elif (CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID)
-#if defined (__arm64__) || defined (__aarch64__)
+    #if defined (__arm64__) || defined (__aarch64__)
         #define USE_NEON64
         #define INCLUDE_NEON64
     #elif defined (__ARM_NEON__)
         #define INCLUDE_NEON32
     #endif
 #endif
+
 #if defined (__SSE__)
     #define USE_SSE
     #define INCLUDE_SSE

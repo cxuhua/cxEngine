@@ -58,6 +58,7 @@ public:
     cxTimeLine *SetRange(cxInt afrom,cxInt ato);
     cxInt Index() const;
     void UpdateTime();
+    cxTimePoint *CurrPoint(); //at OnTime invoke
     cxTimePoint *At(cxInt i);
     cxTimePoint *Push(cxFloat time);
     cxInt Size() const;

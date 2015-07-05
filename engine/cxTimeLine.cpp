@@ -66,6 +66,11 @@ void cxTimeLine::OnTime()
     onTime.Fire(this);
 }
 
+cxTimePoint *cxTimeLine::CurrPoint()
+{
+    return At(idx);
+}
+
 cxAction *cxTimeLine::Reverse()
 {
     cxTimeLine *rv = cxTimeLine::Create();

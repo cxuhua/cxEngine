@@ -22,7 +22,7 @@ public:
     explicit cxEvent(){}
     virtual ~cxEvent(){}
 private:
-    typedef std::function<void(T *sender,A...)> Event;
+    typedef std::function<void(T *,A...)> Event;
     typedef std::vector<Event> Events;
     Events es;
 public:

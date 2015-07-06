@@ -61,8 +61,8 @@ public:
     cxInt Index() const;
     void UpdateTime();
     
-    cxTimePoint *TimePoint(); //at OnTime invoke
-    cxTimePoint *At(cxInt i);
+    cxTimePoint *TimePoint();   //at OnTime invoke
+    cxTimePoint *At(cxInt i);   //
     
     cxTimePoint *Append(cxFloat time);
     cxInt Size() const;

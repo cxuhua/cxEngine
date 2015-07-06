@@ -35,6 +35,7 @@ private:
     cxBoxRenderArray renders;
     cxDrawArray draws;
     cxFloat fpsTime;
+    void debug();
 public:
     void Draw();
     void Init();

@@ -625,11 +625,10 @@ cxJson *cxJson::From(const cxStr *str)
 
 cxJson *cxJson::From(cchars str)
 {
-    json_decref(json);
-    if(str == nullptr){
-        json = json_null();
-        return this;
+    if(!cxStr::IsOK(str)){
+        return nullptr;
     }
+    json_decref(json);
     json_error_t error = {0};
     json = json_loads(str,JSON_DECODE_ANY, &error);
     if(json == nullptr){

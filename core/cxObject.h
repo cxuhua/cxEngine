@@ -38,6 +38,7 @@ protected:
 private:
     cxInt refcount;
     cxLong tag;
+    cxObject *initFromJson(const cxJson *json);
 public:
     //swap object,src release,dst retain
     template<class T1,class T2>
@@ -71,6 +72,7 @@ public:
     //alloc or create name object
     static cxObject *alloc(cchars name);
     static cxObject *create(cchars name);
+    static cxObject *create(const cxStr *data);
 public:
     virtual cxULong Hash() const;
     
@@ -87,8 +89,8 @@ public:
     
     virtual cxJson *Serialize();
     
-    void Init(const cxJson *json);
     virtual void SetProperty(cchars key, const cxJson *json);
+    virtual const cxJson *GetProperty(cchars key);
 };
 
 template<class T>

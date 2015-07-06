@@ -28,6 +28,7 @@ protected:
 public:
     typedef cxObject *(*AllocFunc)();
 private:
+    static cxCore *gCore;
     struct cxCoreHasher
     {
         size_t operator()(const std::string &k) const;
@@ -35,8 +36,9 @@ private:
     };
     typedef std::unordered_map<std::string,cxHelper&,cxCoreHasher,cxCoreHasher> cxTypes;
     cxTypes classes;
+    
     cxHash *caches;
-    static cxCore *gCore;
+    
     uv_key_t autoKey;
 public:
     static cxObject *alloc(cchars name);

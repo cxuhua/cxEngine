@@ -88,6 +88,17 @@ void cxRender::Init()
     cid = 0;
 }
 
+void cxRender::debug()
+{
+    fpsTime += cxEngine::Instance()->Delta();
+    if(fpsTime >= 1.0f){
+        cxLabel *label = cxEngine::Instance()->Window()->DebugLabel();
+        cxInt fps = cxEngine::Instance()->FPS();
+        label->SetText("%d,%d,%d",vdc,vsc,fps);
+        fpsTime = 0.0f;
+    }
+}
+
 void cxRender::Draw()
 {
     for(cxInt i=0; i < draws.Size();i++){
@@ -113,13 +124,7 @@ void cxRender::Draw()
     }
     DrawRenders(prev);
     #ifndef NDEBUG
-    fpsTime += cxEngine::Instance()->Delta();
-    if(fpsTime > 1.0f){
-        cxLabel *label = cxEngine::Instance()->Window()->DebugLabel();
-        cxInt fps = cxEngine::Instance()->FPS();
-        label->SetText("%d,%d,%d",vdc,vsc,fps);
-        fpsTime = 0.0f;
-    }
+    debug();
     #endif
 }
 

@@ -62,7 +62,7 @@ cxObject *cxObject::AutoRelease()
     return cxAutoPool::Append(this);
 }
 
-void cxObject::Init(const cxJson *json)
+cxObject *cxObject::initFromJson(const cxJson *json)
 {
     cxJson::Iter it = json->Begin();
     while(it != json->End()){
@@ -73,16 +73,47 @@ void cxObject::Init(const cxJson *json)
         value->Release();
         it++;
     }
+    return this;
 }
 
 void cxObject::SetProperty(cchars key,const cxJson *json)
 {
-    
+    if(cxStr::IsEqu(key, "tag")){
+        SetTag(json->ToInt());
+    }
+}
+
+const cxJson *cxObject::GetProperty(cchars key)
+{
+    if(cxStr::IsEqu(key, "tag")){
+        return cxJson::Create()->From((cxInt)Tag());
+    }
+    return nullptr;
 }
 
 cxObject *cxObject::alloc(cchars name)
 {
     return cxCore::alloc(name);
+}
+
+cxObject *cxObject::create(const cxStr *data)
+{
+    cxJson *json = cxJson::Create()->From(data);
+    if(json == nullptr){
+        CX_ERROR("json data error");
+        return nullptr;
+    }
+    const cxJson *cxtype = json->At("cxType");
+    if(cxtype == nullptr || !cxtype->IsString()){
+        CX_ERROR("cxType node miss");
+        return nullptr;
+    }
+    cxObject *pobj = cxObject::create(cxtype->ToString());
+    if(pobj == nullptr){
+        CX_ERROR("create object error");
+        return nullptr;
+    }
+    return pobj->initFromJson(json);
 }
 
 cxObject *cxObject::create(cchars name)

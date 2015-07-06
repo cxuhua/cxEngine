@@ -55,6 +55,26 @@ cxStr::~cxStr()
     
 }
 
+const cxBool cxStr::ToBool() const
+{
+    return IsCaseEqu("true")?true:false;
+}
+
+const cxInt cxStr::ToInt() const
+{
+    return atoi(ToString());
+}
+
+const cxFloat cxStr::ToFloat() const
+{
+    return atof(ToString());
+}
+
+cchars cxStr::ToString() const
+{
+    return Data();
+}
+
 cxStr *cxStr::Init(cxInt size,char c)
 {
     assign(size,c);

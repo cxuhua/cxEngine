@@ -66,9 +66,9 @@ cxContainer *cxContainer::SetSlidingTime(cxFloat v)
 cxContainer::cxContainer()
 {
     bodyanchor = 0.0f;
-    scaleinc = 0.3f;
+    scaleinc = 0.2f;
     scalerange = cxRange2F(0.9f,2.0f);
-    scaling = 0.05f;
+    scaling = 0.03f;
     isscaling = true;
     issliding = true;
     slidingtype = Horizontal|Vertical;
@@ -175,7 +175,7 @@ cxBool cxContainer::OnDispatch(const cxTouchable *e)
         Body()->SetPosition(pos);
         return true;
     }
-    if(ep->IsEnded()){
+    if(ep->IsEnded() && ep->tap == 0){
         cxPoint2F sp = ep->Speed();
         if(sp.Length() < 1300){
             return false;

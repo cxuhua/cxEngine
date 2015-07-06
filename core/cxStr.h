@@ -44,6 +44,11 @@ public:
     cchars Data() const;
     chars Buffer() const;
     
+    const cxBool ToBool() const;
+    const cxInt ToInt() const;
+    const cxFloat ToFloat() const;
+    cchars ToString() const;
+    
     const cxStr *TeaEncode(const cxStr *key) const;
     const cxStr *TeaDecode(const cxStr *key) const;
     

@@ -97,7 +97,7 @@ void cxAction::OnExit()
 
 void cxAction::OnStop()
 {
-    onStop.Fire(this);
+    
 }
 
 void cxAction::Stop()
@@ -160,6 +160,7 @@ cxBool cxAction::Update(cxFloat dt)
         elapsedvar = 0.0f;
         prev = Progress() * time;
         OnInit();
+        onStart.Fire(this);
         isinit = true;
     }
     if(time <= 0 || isexit){
@@ -179,6 +180,7 @@ cxBool cxAction::Update(cxFloat dt)
     }
     if(elapsed >= time){
         isexit = true;
+        onStop.Fire(this);
         OnStop();
         if(--repeat > 0)Reset();
     }

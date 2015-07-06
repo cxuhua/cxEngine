@@ -73,6 +73,7 @@ public:
     cxView *View();
 public:
     cxEvent<cxAction> onInit;
+    cxEvent<cxAction> onStart;
     cxEvent<cxAction> onStop;
     cxEvent<cxAction> onExit;
     cxEvent<cxAction> onReset;

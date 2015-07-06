@@ -93,6 +93,11 @@ cxPoint2F &cxPoint2F::Normalize()
     return *this;
 }
 
+cxPoint2I cxPoint2F::ToInt()
+{
+    return cxPoint2I(x+cxEqualFloat, y+cxEqualFloat);
+}
+
 cxBool cxPoint2F::IsINF() const
 {
     return cxFloatIsINF(x) || cxFloatIsINF(y);

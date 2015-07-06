@@ -85,8 +85,8 @@ public:
     const cxSize2F &Size() const;
     
     cxTexture *GenTexture();
-    const cxTexture *Bind() const;
-    const cxTexture *SetParams(const cxTextureParams &params) const;
+    cxTexture *Bind();
+    cxTexture *SetParams(const cxTextureParams &params);
 public:
     cxTexture *Atlas(const cxStr *data);
     cxTexture *FromPNG(const cxStr *data);

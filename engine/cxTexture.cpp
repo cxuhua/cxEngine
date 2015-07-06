@@ -184,7 +184,7 @@ const cxSize2F &cxTexture::Size() const
     return size;
 }
 
-const cxTexture *cxTexture::Bind() const
+cxTexture *cxTexture::Bind()
 {
     cxOpenGL::Instance()->BindTexture(texId);
     return this;
@@ -196,7 +196,7 @@ cxTexture *cxTexture::GenTexture()
     return this;
 }
 
-const cxTexture *cxTexture::SetParams(const cxTextureParams &params) const
+cxTexture *cxTexture::SetParams(const cxTextureParams &params)
 {
     cxOpenGL::Instance()->SetTextureParams(params);
     return this;

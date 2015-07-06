@@ -93,6 +93,11 @@ cxSprite *cxSprite::SetTexCoord(cxTexCoord *v)
     return this;
 }
 
+cxBoxRender &cxSprite::BoxRender()
+{
+    return box;
+}
+
 cxSprite *cxSprite::SetTexKey(cchars fmt,...)
 {
     CX_ASSERT(texture != nullptr, "texture not set");

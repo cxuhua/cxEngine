@@ -23,22 +23,22 @@ cxEmitter::cxEmitter()
     todir = false;
     units = nullptr;
     type = cxEmitterGravity;
-    
-    life = cxFloatRange(3, 3);
-    startsize = cxFloatRange(50, 0);
-    endsize = startsize;
-    angle = cxFloatRange(0, 360);
-    gravity = cxPoint2F(0, -1000);
-    speed = cxFloatRange(0, 1000);
-    startspin = cxFloatRange(2000, 0);
-    endspin = cxFloatRange(0, 0);
-    startcolor = cxColor4F::WHITE;
-    endcolor = cxColor4F(1, 1, 1, 0.3);
-    todir = true;
-    
-    startradius = cxFloatRange(0, 0);
-    endradius = cxFloatRange(1000, 0);
-    rotatepers = cxFloatRange(0, 360);
+//    
+//    life = cxFloatRange(3, 3);
+//    startsize = cxFloatRange(50, 0);
+//    endsize = startsize;
+//    angle = cxFloatRange(0, 360);
+//    gravity = cxPoint2F(0, -1000);
+//    speed = cxFloatRange(0, 1000);
+//    startspin = cxFloatRange(2000, 0);
+//    endspin = cxFloatRange(0, 0);
+//    startcolor = cxColor4F::WHITE;
+//    endcolor = cxColor4F(1, 1, 1, 0.3);
+//    todir = true;
+//    
+//    startradius = cxFloatRange(0, 0);
+//    endradius = cxFloatRange(1000, 0);
+//    rotatepers = cxFloatRange(0, 360);
 }
 
 cxEmitter::~cxEmitter()

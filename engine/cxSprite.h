@@ -36,6 +36,8 @@ public:
     
     static cxSprite *Create(cchars fkey);
     
+    cxBoxRender &BoxRender();
+    
     cxSprite *SetTexKey(cchars fmt,...);
     cxSprite *SetTexCoord(cxTexCoord *v);
     

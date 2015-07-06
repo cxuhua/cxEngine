@@ -419,12 +419,12 @@ cxView *cxView::RemoveSubviews()
 
 void cxView::OnAppend(cxView *nview)
 {
-    
+    onAppend.Fire(this, nview);
 }
 
 void cxView::OnRemove(cxView *oview)
 {
-    
+    onRemove.Fire(this, oview);
 }
 
 cxView *cxView::Append(cxView *view)

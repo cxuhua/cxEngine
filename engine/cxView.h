@@ -253,6 +253,9 @@ protected:
     virtual void OnRemove(cxView *oview);
     virtual cxBool OnDispatch(const cxTouchable *e);
 public:
+    cxEvent<cxView, cxView *> onAppend;
+    cxEvent<cxView, cxView *> onRemove;
+public:
     cxView *Sort();
     
     cxBool IsEmpty() const;

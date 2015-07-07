@@ -102,7 +102,7 @@ void IOSEngine::OnMain()
 //    };
     
     cxSprite *sp = cxSprite::Create()->SetTexture("t.png");
-    sp->EnableDir(true);
+//    sp->EnableDir(true);
     sp->SetFrame(-800, 0, 100, 100);
     
 //    cxJump *j = cxJump::Create(cxPoint2F(800,0), 100, 6, 5);
@@ -110,11 +110,11 @@ void IOSEngine::OnMain()
     
 //    run->AttachTo(sp);
     
-    cxResizeTo *to = cxResizeTo::Create(300.0f, 2.0f);
-    to->AttachTo(sp);
-    to->onStop += [](cxAction *pav){
-        pav->View()->Append(pav->Reverse());
-    };
+//    cxResizeTo *to = cxResizeTo::Create(300.0f, 2.0f);
+//    to->AttachTo(sp);
+//    to->onStop += [](cxAction *pav){
+//        pav->View()->Append(pav->Reverse());
+//    };
     
     Window()->Append(sp);
     

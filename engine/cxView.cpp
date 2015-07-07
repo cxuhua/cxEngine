@@ -202,7 +202,7 @@ cxView *cxView::EnableDir(cxBool v)
     return this;
 }
 
-const cxFloat cxView::MotionDir() const
+const cxFloat cxView::Direction() const
 {
     return direction;
 }
@@ -331,7 +331,7 @@ const cxFloat cxView::Angle() const
 
 cxView *cxView::SetAngle(const cxFloat &v)
 {
-    if(cxFloatIsINF(v) || cxFloatIsNAN(v)){
+    if(!cxFloatIsOK(v)){
         return this;
     }
     if(!cxFloatIsEqual(angle, v)){
@@ -430,10 +430,7 @@ void cxView::OnRemove(cxView *oview)
 cxView *cxView::Append(cxView *view)
 {
     CX_ASSERT(view != nullptr, "args error");
-    if(view->parent != nullptr){
-        CX_WARN("pview has parent,append failed");
-        return this;
-    }
+    CX_ASSERT(view->parent == nullptr, "view repeat append");
     view->SetParent(this);
     viewapps->Append(view);
     return this;
@@ -442,7 +439,7 @@ cxView *cxView::Append(cxView *view)
 cxView *cxView::Append(cxAction *action)
 {
     CX_ASSERT(action != nullptr, "args error");
-    CX_ASSERT(action->View() == nullptr, "action repeat apped");
+    CX_ASSERT(action->View() == nullptr, "action repeat append");
     action->SetView(this);
     actapps->Append(action);
     return this;
@@ -610,8 +607,10 @@ void cxView::transform()
     if(IsDirtyMode(DirtyModeLayout)){
         Layout();
     }
+    if(EnableDir() && cxFloatIsOK(direction)){
+        SetAngle(Direction());
+    }
     if(IsDirtyMode(DirtyModeNormal)){
-        if(isdir && cxFloatIsOK(direction))angle = MotionDir();
         normalMatrix.InitTrans(position.x+offset.x,position.y+offset.y,0.0f);
         normalMatrix.Rotation(axis.x,axis.y,axis.z, angle);
         normalMatrix.Scaling(TransScale());

@@ -144,7 +144,7 @@ public:
     const cxBool EnableDir() const;
     cxView *EnableDir(cxBool v);
     
-    const cxFloat MotionDir() const;
+    const cxFloat Direction() const;
     
     cxView *SetResizeFlags(Resize flags);
     cxView *SetResizeBox(const cxBox4F &box);

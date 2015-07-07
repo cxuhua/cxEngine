@@ -55,6 +55,11 @@ cxResizeTo::cxResizeTo()
     
 }
 
+cxResizeTo::~cxResizeTo()
+{
+    
+}
+
 void cxResizeTo::OnInit()
 {
     from = View()->Size();
@@ -66,11 +71,6 @@ void cxResizeTo::OnStep(cxFloat dt)
     cxSize2F size = View()->Size();
     size += delta *dt;
     View()->SetSize(size);
-}
-
-cxResizeTo::~cxResizeTo()
-{
-    
 }
 
 cxResizeTo *cxResizeTo::Create(const cxSize2F &to,cxFloat time)

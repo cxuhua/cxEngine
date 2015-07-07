@@ -215,6 +215,7 @@ const cxFloat cxAction::Delta() const
 
 const cxFloat cxAction::Time() const
 {
+    CX_ASSERT(time != 0, "time zero");
     return time;
 }
 

@@ -30,6 +30,12 @@ void cxAnimate::OnInit()
     View()->To<cxSprite>()->SetTexture(ptex);
 }
 
+cxAnimate *cxAnimate::SetLoop(cxBool v)
+{
+    SetRepeat(v?INT_MAX:1);
+    return this;
+}
+
 void cxAnimate::OnTime(const cxTimePoint *tp)
 {
     cxTexCoord *coord = tp->Object()->To<cxTexCoord>();

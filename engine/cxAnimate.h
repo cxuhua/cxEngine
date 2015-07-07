@@ -31,6 +31,7 @@ public:
     cxAnimate *SetTexture(cxTexture *texture);
     cxAnimate *Append(cxFloat time,cchars key);
     cxAnimate *AppFmt(cxFloat time,cchars fmt,...);
+    cxAnimate *SetLoop(cxBool v);
     cxAction *Reverse();
     cxAction *Clone();
 };

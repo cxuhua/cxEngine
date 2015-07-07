@@ -36,16 +36,10 @@ const cxInt cxCSV::Col(cxInt row) const
 
 const cxStr *cxCSV::At(cxInt row,cxInt col) const
 {
-    if(row >= Row()){
-        CX_WARN("%d:%d data miss",row,col);
-        return nullptr;
-    }
-    if(col >= Col(row)){
-        CX_WARN("%d:%d data miss",row,col);
-        return nullptr;
-    }
+    CX_ASSERT(row < Row(), "row out");
+    CX_ASSERT(col < Col(row), "row out");
     const std::vector<std::string> &r = datas.at(row);
-    const std::string &s=r.at(col);
+    const std::string &s = r.at(col);
     return cxStr::Create()->Init(s.data());
 }
 
@@ -70,6 +64,7 @@ cxCSV *cxCSV::Create(const cxStr *data)
 {
     cxCSV *rv = cxCSV::Create();
     csv_parse(&rv->parser, data->Data(), data->Size(), colcbfunc, rowcbfunc, rv);
+    rv->datas.push_back(rv->row);
     return rv;
 }
 

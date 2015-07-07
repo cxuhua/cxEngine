@@ -29,6 +29,7 @@
 #include <engine/cxTint.h>
 #include <engine/cxSequence.h>
 #include <engine/cxJump.h>
+#include <engine/cxResize.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -104,10 +105,16 @@ void IOSEngine::OnMain()
     sp->EnableDir(true);
     sp->SetFrame(-800, 0, 100, 100);
     
-    cxJump *j = cxJump::Create(cxPoint2F(800,0), 100, 6, 5);
-    j->AttachTo(sp);
+//    cxJump *j = cxJump::Create(cxPoint2F(800,0), 100, 6, 5);
+//    j->AttachTo(sp);
     
 //    run->AttachTo(sp);
+    
+    cxResizeTo *to = cxResizeTo::Create(300.0f, 2.0f);
+    to->AttachTo(sp);
+    to->onStop += [](cxAction *pav){
+        pav->View()->Append(pav->Reverse());
+    };
     
     Window()->Append(sp);
     

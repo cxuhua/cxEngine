@@ -35,6 +35,7 @@
 		831189E41B2D82A200C930B5 /* cxNotice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831189E21B2D82A200C930B5 /* cxNotice.cpp */; };
 		831B93EF1B4A923200511A63 /* csv.c in Sources */ = {isa = PBXBuildFile; fileRef = 831B93ED1B4A923200511A63 /* csv.c */; };
 		831B93F41B4A970600511A63 /* cxCSV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B93F21B4A970600511A63 /* cxCSV.cpp */; };
+		831B93FA1B4B833700511A63 /* cxResize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B93F81B4B833700511A63 /* cxResize.cpp */; };
 		831B9EBD1B291F2700B7A06B /* cxSize2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B9EBB1B291F2700B7A06B /* cxSize2F.cpp */; };
 		831B9EC01B29255500B7A06B /* cxRect4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B9EBE1B29255500B7A06B /* cxRect4F.cpp */; };
 		831D02641B4390EB00A5EFA7 /* cxViewTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 831D02631B4390EB00A5EFA7 /* cxViewTest.mm */; };
@@ -212,6 +213,8 @@
 		831B93EE1B4A923200511A63 /* csv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csv.h; sourceTree = "<group>"; };
 		831B93F21B4A970600511A63 /* cxCSV.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxCSV.cpp; sourceTree = "<group>"; };
 		831B93F31B4A970600511A63 /* cxCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxCSV.h; sourceTree = "<group>"; };
+		831B93F81B4B833700511A63 /* cxResize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxResize.cpp; sourceTree = "<group>"; };
+		831B93F91B4B833700511A63 /* cxResize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxResize.h; sourceTree = "<group>"; };
 		831B9EBB1B291F2700B7A06B /* cxSize2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSize2F.cpp; sourceTree = "<group>"; };
 		831B9EBC1B291F2700B7A06B /* cxSize2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSize2F.h; sourceTree = "<group>"; };
 		831B9EBE1B29255500B7A06B /* cxRect4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRect4F.cpp; sourceTree = "<group>"; };
@@ -488,6 +491,8 @@
 				83C9D1261B48CC1E00EC244C /* cxSequence.h */,
 				83C9D1301B492A2300EC244C /* cxJump.cpp */,
 				83C9D1311B492A2300EC244C /* cxJump.h */,
+				831B93F81B4B833700511A63 /* cxResize.cpp */,
+				831B93F91B4B833700511A63 /* cxResize.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -865,6 +870,7 @@
 				83F7BAD81B42D97F00C644B9 /* cxEvent.cpp in Sources */,
 				830ECB1D1B3DA38F002EBE56 /* tools.c in Sources */,
 				836A2F3B1B198662009B427B /* xxtea.c in Sources */,
+				831B93FA1B4B833700511A63 /* cxResize.cpp in Sources */,
 				830ECB261B3EAD52002EBE56 /* cxLineF.cpp in Sources */,
 				836A2F5F1B19CDD2009B427B /* cxNumber.cpp in Sources */,
 				836A2F481B19869D009B427B /* LzFind.c in Sources */,

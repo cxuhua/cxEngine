@@ -198,6 +198,7 @@ cxTexture *cxTexture::GenTexture()
 
 cxTexture *cxTexture::SetParams(const cxTextureParams &params)
 {
+    cxOpenGL::Instance()->BindTexture(texId);
     cxOpenGL::Instance()->SetTextureParams(params);
     return this;
 }

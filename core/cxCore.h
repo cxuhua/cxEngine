@@ -9,6 +9,7 @@
 #ifndef __cxEngineCore__cxCore__
 #define __cxEngineCore__cxCore__
 
+#include <string>
 #include <unordered_map>
 #include "cxDefine.h"
 
@@ -59,11 +60,13 @@ public:
 class cxHelper
 {
 private:
+    std::string name;
     cxCore::AllocFunc func;
 public:
     cxObject *Alloc();
-    explicit cxHelper(cchars name,cxCore::AllocFunc f);
+    explicit cxHelper(cchars aname,cxCore::AllocFunc f);
     virtual ~cxHelper();
+    cchars Name() const;
 };
 
 CX_CPP_END

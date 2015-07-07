@@ -228,10 +228,15 @@ static CX_INLINE  T *Create()                                       \
     return static_cast<T *>(T::Alloc()->AutoRelease());             \
 }                                                                   \
 public:                                                             \
+virtual const cxHelper &GetHelper() const;                          \
 static cxHelper Helper;
 
 #define CX_IMPLEMENT(T)                                             \
-cxHelper T::Helper = cxHelper(#T, (cxCore::AllocFunc)T::Alloc);
+cxHelper T::Helper=cxHelper(#T,(cxCore::AllocFunc)T::Alloc);        \
+const cxHelper &T::GetHelper() const                                \
+{                                                                   \
+    return T::Helper;                                               \
+}
 
 #endif /* defined(__cxEngineCore__cxDefine__) */
 

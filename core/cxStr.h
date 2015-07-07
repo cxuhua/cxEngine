@@ -16,6 +16,7 @@ CX_CPP_BEGIN
 
 #define AES_KEY_LENGTH  16
 
+class cxArray;
 class cxStr : public cxObject,private std::string
 {
 public:
@@ -34,6 +35,8 @@ public:
     cxStr *Init(cxAny data,cxInt size);
 
     void Print() const;
+    
+    const cxArray *Split(cxInt c) const;
     
     cxULong Hash() const;
     

@@ -109,6 +109,18 @@ public:
     cxPoint2FArray &operator=(const cxPoint2FArray &v) const;
 };
 
+struct cxRange2F
+{
+    cxFloat min;
+    cxFloat max;
+    
+    cxRange2F();
+    cxRange2F(cxFloat amin,cxFloat amax);
+    cxRange2F(const cxRange2F &v);
+    
+    static cxRange2F Clamp(const cxRange2F &min,const cxRange2F &max,const cxRange2F &v);
+};
+
 CX_CPP_END
 
 #endif

@@ -62,10 +62,16 @@ cxObject *cxHelper::Alloc()
     return func();
 }
 
-cxHelper::cxHelper(cchars name,cxCore::AllocFunc f)
+cchars cxHelper::Name() const
 {
+    return name.data();
+}
+
+cxHelper::cxHelper(cchars aname,cxCore::AllocFunc f)
+{
+    name = std::string(aname);
     func = f;
-    cxCore::registerType(name, *this);
+    cxCore::registerType(aname, *this);
 }
 cxHelper::~cxHelper()
 {

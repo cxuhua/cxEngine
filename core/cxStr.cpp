@@ -13,6 +13,7 @@
 #include <ext/utf8.h>
 #include "cxStr.h"
 #include "cxUtil.h"
+#include "cxArray.h"
 
 CX_CPP_BEGIN
 
@@ -63,6 +64,24 @@ const cxBool cxStr::ToBool() const
 const cxInt cxStr::ToInt() const
 {
     return atoi(ToString());
+}
+
+const cxArray *cxStr::Split(cxInt c) const
+{
+    cxArray *rv = cxArray::Create();
+    cchars data = Data();
+    cxInt len = Size();
+    cxInt b = 0;
+    cxInt i = 0;
+    for(;i<len;i++){
+        if(data[i] != c)continue;
+        rv->Append(cxStr::Create()->Append(data + b, i-b));
+        b = i+1;
+    }
+    if(len > b){
+        rv->Append(cxStr::Create()->Append(data + b, len - b));
+    }
+    return rv;
 }
 
 const cxFloat cxStr::ToFloat() const

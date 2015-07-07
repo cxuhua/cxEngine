@@ -19,7 +19,6 @@
 #include <math/cxColor4F.h>
 #include <math/cxMatrixF.h>
 #include <math/cxBox4F.h>
-#include <math/cxRange2F.h>
 #include <math/cxBoxPoint3F.h>
 #include <math/cxboxColor4F.h>
 #include "cxOpenGL.h"

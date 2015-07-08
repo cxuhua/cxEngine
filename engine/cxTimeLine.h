@@ -63,8 +63,8 @@ public:
     
     cxTimeLine *SetPoints(const cxArray *ps);
     
-    cxTimePoint *TimePoint();   //at OnTime invoke
-    cxTimePoint *At(cxInt i);   //
+    const cxTimePoint *TimePoint() const;   //at OnTime invoke
+    const cxTimePoint *At(cxInt i) const;   //
     
     cxTimePoint *Append(cxFloat time);
     const cxArray *Points() const;

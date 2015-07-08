@@ -143,6 +143,7 @@ public:
     const cxBool EnableDir() const;
     cxView *EnableDir(cxBool v);
     
+    cxView *SetDirection(cxFloat v);
     const cxFloat Direction() const;
     
     cxView *SetResizeFlags(Resize flags);

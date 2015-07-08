@@ -65,7 +65,7 @@ void cxTimeLine::OnTime(const cxTimePoint *tp)
     onTime.Fire(this,tp);
 }
 
-cxTimePoint *cxTimeLine::TimePoint()
+const cxTimePoint *cxTimeLine::TimePoint() const
 {
     return At(idx);
 }
@@ -103,7 +103,7 @@ cxInt cxTimeLine::Index() const
     return idx;
 }
 
-cxTimePoint *cxTimeLine::At(cxInt i)
+const cxTimePoint *cxTimeLine::At(cxInt i) const
 {
     cxInt idx = (from < to) ? (from + i) : (from - i);
     return points->At(idx)->To<cxTimePoint>();

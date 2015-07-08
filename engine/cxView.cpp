@@ -202,6 +202,15 @@ cxView *cxView::EnableDir(cxBool v)
     return this;
 }
 
+cxView *cxView::SetDirection(cxFloat v)
+{
+    if(!cxFloatIsEqual(direction, v) && cxFloatIsOK(v)){
+        direction = v;
+        OnAngle();
+    }
+    return this;
+}
+
 const cxFloat cxView::Direction() const
 {
     return direction;
@@ -218,7 +227,7 @@ cxView *cxView::SetPosition(const cxPoint2F &v)
         return this;
     }
     cxFloat tmp = position.Angle(v);
-    if(direction != tmp && cxFloatIsOK(tmp)){
+    if(!cxFloatIsEqual(direction,tmp) && cxFloatIsOK(tmp)){
         direction = tmp;
         OnAngle();
     }

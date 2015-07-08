@@ -39,6 +39,7 @@ private:
     cxInt group;
     cxFrames *frames;       //has mul layer
     cxActionAttr attr;
+    cxBool iskeyframe;
 public:
     
     cxAnimate *SetAction(const cxActionAttr *pattr,cxInt agroup);
@@ -47,6 +48,10 @@ public:
     
     cxAction *Reverse();
     cxAction *Clone();
+public:
+    cxEvent<cxAnimate, cxInt> onFrame;
+    const cxActionAttr &ActionAttr() const;
+    const cxBool IsKeyFrame() const;
 };
 
 CX_CPP_END

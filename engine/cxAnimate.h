@@ -19,7 +19,7 @@ struct cxActionAttr
     cxInt   from;
     cxInt   to;
     cxInt   key;
-    cxFloat time;
+    cxFloat speed;
     cxBool  loop;
     cxActionAttr();
 };
@@ -36,6 +36,7 @@ protected:
     void OnTime(const cxTimePoint *tp);
     void OnInit();
 private:
+    cxInt group;
     cxFrames *frames;       //has mul layer
     cxActionAttr attr;
 public:

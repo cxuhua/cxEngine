@@ -89,6 +89,9 @@ cxAction *cxTimeLine::Clone()
 
 void cxTimeLine::UpdateTime()
 {
+    if(!isdirty){
+        return;
+    }
     times.clear();
     cxFloat time = 0;
     for(cxInt i = 0;i < Length();i++){
@@ -96,6 +99,7 @@ void cxTimeLine::UpdateTime()
         time +=  At(i)->Time();
     }
     SetTime(time);
+    isdirty = false;
 }
 
 cxInt cxTimeLine::Index() const
@@ -131,8 +135,14 @@ const cxArray *cxTimeLine::Points() const
 cxTimeLine *cxTimeLine::SetRange(cxInt afrom,cxInt ato)
 {
     CX_ASSERT(afrom < points->Size() && to < points->Size(), "range error");
-    from = afrom;
-    to = ato;
+    if(from != afrom){
+        from = afrom;
+        isdirty = true;
+    }
+    if(to != ato){
+        to = ato;
+        isdirty = true;
+    }
     Reset();
     return this;
 }
@@ -144,6 +154,7 @@ cxInt cxTimeLine::Length() const
 
 cxTimeLine::cxTimeLine()
 {
+    isdirty = false;
     idx = -1;
     from = -1;
     to = -1;

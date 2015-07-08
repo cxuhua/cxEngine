@@ -50,6 +50,7 @@ protected:
     std::vector<cxFloat> times;
     cxArray *points;
     
+    cxBool isdirty;
     cxInt prev;  //
     cxInt idx;      //0-n
     cxInt from;     //0-(size-1);

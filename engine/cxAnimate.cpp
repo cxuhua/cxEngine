@@ -19,7 +19,7 @@ cxActionAttr::cxActionAttr()
     to = 0;
     key = 0;
     speed = 1.0f;
-    loop = false;
+    repeat = 0;
 }
 
 CX_IMPLEMENT(cxAnimate);
@@ -34,17 +34,21 @@ cxAnimate::~cxAnimate()
     cxObject::release(&frames);
 }
 
-cxAnimate *cxAnimate::SetAttr(const cxActionAttr *pattr,cxInt agroup)
+cxAnimate *cxAnimate::SetAction(const cxActionAttr *pattr,cxInt agroup)
 {
     CX_ASSERT(pattr->speed > 0 && frames != nullptr, "time or frames not set");
     group = agroup;
     attr = *pattr;
+    
     SetSpeed(attr.speed);
-    SetRepeat(attr.loop ? INT_MAX : 1);
+    SetRepeat((attr.repeat == 0)?INT_MAX:attr.repeat);
+    
     cxInt from  = agroup * frames->Count() + attr.from;
     CX_ASSERT(from >= 0 && from < Points()->Size(), "from out");
+    
     cxInt to    = agroup * frames->Count() + attr.to;
     CX_ASSERT(to >= 0 && to < Points()->Size(), "to out");
+    
     SetRange(from, to);
     return this;
 }
@@ -68,7 +72,7 @@ cxAction *cxAnimate::Reverse()
     cxAnimate *rv = cxAnimate::Create();
     rv->from = to;
     rv->to = from;
-    rv->SetAttr(&attr, group);
+    rv->SetAction(&attr, group);
     rv->SetFrames(frames);
     return rv;
 }
@@ -78,7 +82,7 @@ cxAction *cxAnimate::Clone()
     cxAnimate *rv = cxAnimate::Create();
     rv->from = from;
     rv->to = to;
-    rv->SetAttr(&attr, group);
+    rv->SetAction(&attr, group);
     rv->SetFrames(frames);
     return rv;
 }

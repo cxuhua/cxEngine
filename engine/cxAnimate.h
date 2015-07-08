@@ -20,7 +20,7 @@ struct cxActionAttr
     cxInt   to;
     cxInt   key;
     cxFloat speed;
-    cxBool  loop;
+    cxInt   repeat;
     cxActionAttr();
 };
 
@@ -41,7 +41,7 @@ private:
     cxActionAttr attr;
 public:
     
-    cxAnimate *SetAttr(const cxActionAttr *pattr,cxInt agroup);
+    cxAnimate *SetAction(const cxActionAttr *pattr,cxInt agroup);
     cxAnimate *SetFrames(const cxFrames *aframes);
     
     cxAction *Reverse();

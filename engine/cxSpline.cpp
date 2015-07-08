@@ -113,6 +113,12 @@ cxSpline *cxSpline::Append(const cxPoint2F &v)
     return this;
 }
 
+cxSpline *cxSpline::SetPoints(const cxPoint2FArray &v)
+{
+    points = v;
+    return this;
+}
+
 cxSpline *cxSpline::Clear()
 {
     points.Clear();

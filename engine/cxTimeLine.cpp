@@ -133,6 +133,7 @@ cxTimeLine *cxTimeLine::SetRange(cxInt afrom,cxInt ato)
     CX_ASSERT(afrom < points->Size() && to < points->Size(), "range error");
     from = afrom;
     to = ato;
+    Reset();
     return this;
 }
 

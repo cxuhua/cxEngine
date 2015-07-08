@@ -37,11 +37,16 @@ cxAnimate::~cxAnimate()
 cxAnimate *cxAnimate::SetAction(const cxActionAttr *pattr,cxInt agroup)
 {
     CX_ASSERT(pattr->speed > 0 && frames != nullptr, "time or frames not set");
-    group = agroup;
     attr = *pattr;
-    
     SetSpeed(attr.speed);
     SetRepeat((attr.repeat == 0)?INT_MAX:attr.repeat);
+    SetGroup(agroup);
+    return this;
+}
+
+cxAnimate *cxAnimate::SetGroup(cxInt agroup)
+{
+    group = agroup;
     
     cxInt from  = agroup * frames->Count() + attr.from;
     CX_ASSERT(from >= 0 && from < Points()->Size(), "from out");

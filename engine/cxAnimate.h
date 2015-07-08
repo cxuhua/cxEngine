@@ -42,6 +42,7 @@ private:
 public:
     
     cxAnimate *SetAction(const cxActionAttr *pattr,cxInt agroup);
+    cxAnimate *SetGroup(cxInt agroup);
     cxAnimate *SetFrames(const cxFrames *aframes);
     
     cxAction *Reverse();

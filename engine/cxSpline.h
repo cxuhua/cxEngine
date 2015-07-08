@@ -35,6 +35,7 @@ public:
     cxSpline *SetSpeed(cxFloat v);
     cxSpline *SetTension(cxFloat v);
     cxSpline *Append(const cxPoint2F &v);
+    cxSpline *SetPoints(const cxPoint2FArray &v);
     cxSpline *Clear();
     cxAction *Reverse();
     cxAction *Clone();

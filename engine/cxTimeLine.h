@@ -67,7 +67,8 @@ public:
     cxTimePoint *At(cxInt i);   //
     
     cxTimePoint *Append(cxFloat time);
-    cxInt Size() const;
+    const cxArray *Points() const;
+    cxInt Length() const;
     
     cxAction *Reverse();
     cxAction *Clone();

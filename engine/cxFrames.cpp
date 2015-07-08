@@ -84,12 +84,20 @@ const cxInt cxFrames::Count() const
 
 cxFrames *cxFrames::SetTime(cxFloat v)
 {
+    time = v;
     return this;
 }
 
 const cxFloat cxFrames::Time() const
 {
     return time;
+}
+
+cxTimePoint *cxFrames::Append(cxFloat time)
+{
+    cxTimePoint *tp = cxTimePoint::Create()->Init(time);
+    points->Append(tp);
+    return tp;
 }
 
 const cxArray *cxFrames::Points() const

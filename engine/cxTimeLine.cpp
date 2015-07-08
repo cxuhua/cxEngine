@@ -91,7 +91,7 @@ void cxTimeLine::UpdateTime()
 {
     times.clear();
     cxFloat time = 0;
-    for(cxInt i = 0;i < Size();i++){
+    for(cxInt i = 0;i < Length();i++){
         times.push_back(time);
         time +=  At(i)->Time();
     }
@@ -123,6 +123,11 @@ cxTimePoint *cxTimeLine::Append(cxFloat time)
     return p;
 }
 
+const cxArray *cxTimeLine::Points() const
+{
+    return points;
+}
+
 cxTimeLine *cxTimeLine::SetRange(cxInt afrom,cxInt ato)
 {
     CX_ASSERT(afrom < points->Size() && to < points->Size(), "range error");
@@ -131,7 +136,7 @@ cxTimeLine *cxTimeLine::SetRange(cxInt afrom,cxInt ato)
     return this;
 }
 
-cxInt cxTimeLine::Size() const
+cxInt cxTimeLine::Length() const
 {
     return abs(to - from) + 1;
 }
@@ -153,7 +158,7 @@ cxTimeLine::~cxTimeLine()
 void cxTimeLine::OnStep(cxFloat dt)
 {
     cxFloat elapsed = Elapsed();
-    for(cxInt i = idx;i<Size();i++){
+    for(cxInt i = idx;i<Length();i++){
         if(elapsed < times.at(i)){
             break;
         }

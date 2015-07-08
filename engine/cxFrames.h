@@ -48,6 +48,8 @@ public:
     cxFrames *SetTime(cxFloat v);
     const cxFloat Time() const;
     
+    cxTimePoint *Append(cxFloat time);
+    
     const cxArray *Points() const;
 };
 

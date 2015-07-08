@@ -45,7 +45,9 @@ cxAnimate *cxAnimate::SetAttr(const cxActionAttr *pattr,cxInt acount,cxInt agrou
     SetSpeed(1.0f/t);
     SetLoop(attr.loop);
     cxInt from  = agroup * count + attr.from;
+    CX_ASSERT(from >= 0 && from < Points()->Size(), "from out");
     cxInt to    = agroup * count + attr.to;
+    CX_ASSERT(to >= 0 && to < Points()->Size(), "to out");
     SetRange(from, to);
     return this;
 }
@@ -77,7 +79,9 @@ cxAnimate *cxAnimate::SetLoop(cxBool v)
 void cxAnimate::OnTime(const cxTimePoint *tp)
 {
     cxTexCoord *coord = tp->Object()->To<cxTexCoord>();
+    CX_LOGGER("%s",View()->GetHelper().Name());
     View()->To<cxSprite>()->SetTexCoord(coord);
+    onTime.Fire(this, tp);
 }
 
 cxAction *cxAnimate::Reverse()
@@ -113,7 +117,9 @@ cxAnimate *cxAnimate::AppFmt(cxFloat time,cchars fmt,...)
 
 cxAnimate *cxAnimate::SetFrames(const cxFrames *aframes)
 {
+    CX_ASSERT(aframes != nullptr, "set frames error");
     cxObject::swap(&frames, aframes);
+    SetTexture(aframes->Texture());
     SetPoints(frames->Points());
     return this;
 }
@@ -127,7 +133,7 @@ cxAnimate *cxAnimate::Append(cxFloat time,cchars key)
     return this;
 }
 
-cxAnimate *cxAnimate::SetTexture(cxTexture *texture)
+cxAnimate *cxAnimate::SetTexture(const cxTexture *texture)
 {
     CX_ASSERT(texture != nullptr, "texture error");
     cxObject::swap(&ptex, texture);

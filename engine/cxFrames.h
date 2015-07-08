@@ -23,9 +23,9 @@ protected:
     virtual ~cxFrames();
 private:
     cxTexture *ptex;
+    cxInt layer;
     cxInt offset;
     cxInt group;
-    cxInt layer;
     cxInt count;
     cxFloat time;
     cxArray *points;
@@ -49,7 +49,6 @@ public:
     const cxFloat Time() const;
     
     cxTimePoint *Append(cxFloat time);
-    
     const cxArray *Points() const;
 };
 

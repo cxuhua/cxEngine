@@ -102,7 +102,7 @@ CX_INLINE T *cxObject::To()
 template<class T>
 CX_INLINE const T *cxObject::To() const
 {
-    return static_cast<T *>(this);
+    return static_cast<const T *>(this);
 }
 
 template<class T>
@@ -132,7 +132,9 @@ template<class T1,class T2>
 CX_INLINE void cxObject::swap(T1 **ptr,T2 *dst)
 {
     CX_ASSERT(ptr != nullptr, " ptr error");
-    CX_ASSERT(*ptr == nullptr || *ptr != dst, "self swap self disable");
+    if(*ptr == dst){
+        return;
+    }
     if(*ptr != nullptr){
         (*ptr)->Release();
     }

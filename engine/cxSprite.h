@@ -39,8 +39,11 @@ public:
     cxBoxRender &BoxRender();
     
     cxSprite *SetTexKey(cchars fmt,...);
-    cxSprite *SetTexCoord(cxTexCoord *v);
+    cxSprite *SetTexCoord(const cxTexCoord *v);
     
+    const cxBool FlipX() const;
+    const cxBool FlipY() const;
+    const cxBox4F Pixel() const;
     cxSprite *SetFlipX(cxBool v);
     cxSprite *SetFlipY(cxBool v);
     cxSprite *SetFlip(cxBool x,cxBool y);
@@ -49,7 +52,7 @@ public:
     cxTexture *Texture() const;
     
     cxSprite *SetTexture(cchars key);
-    cxSprite *SetTexture(cxTexture *ptex);
+    cxSprite *SetTexture(const cxTexture *ptex);
     
     cxTexCoord *TexCoord() const;
     const cxBoxCoord2F *BoxCoord() const;

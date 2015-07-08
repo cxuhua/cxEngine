@@ -57,6 +57,21 @@ cxSprite *cxSprite::SetFlip(cxBool x,cxBool y)
     return this;
 }
 
+const cxBool cxSprite::FlipX() const
+{
+    return flipx;
+}
+
+const cxBool cxSprite::FlipY() const
+{
+    return flipy;
+}
+
+const cxBox4F cxSprite::Pixel() const
+{
+    return pixel;
+}
+
 cxSprite *cxSprite::SetFlipX(cxBool v)
 {
     if(flipx != v){
@@ -84,7 +99,7 @@ cxSprite *cxSprite::SetPixel(const cxBox4F &v)
     return this;
 }
 
-cxSprite *cxSprite::SetTexCoord(cxTexCoord *v)
+cxSprite *cxSprite::SetTexCoord(const cxTexCoord *v)
 {
     if(coord != v){
         cxObject::swap(&coord, v);
@@ -129,7 +144,7 @@ cxTexture *cxSprite::Texture() const
     return texture;
 }
 
-cxSprite *cxSprite::SetTexture(cxTexture *ptex)
+cxSprite *cxSprite::SetTexture(const cxTexture *ptex)
 {
     CX_ASSERT(ptex != nullptr, "ptex error");
     if(texture != ptex){

@@ -46,11 +46,13 @@ const cxStr *cxCSV::At(cxInt row,cxInt col) const
 void cxCSV::colcbfunc(void *data, size_t datasiz, void *ud)
 {
     cxCSV *csv = static_cast<cxCSV *>(ud);
+    std::string s;
     if(datasiz == 0){
-        csv->row.push_back(std::string(""));
+        s = "";
     }else{
-        csv->row.push_back(std::string((char *)data,datasiz));
+        s = std::string((char *)data,datasiz);
     }
+    csv->row.push_back(s);
 }
 
 void cxCSV::rowcbfunc(int c, void *ud)
@@ -63,8 +65,8 @@ void cxCSV::rowcbfunc(int c, void *ud)
 cxCSV *cxCSV::Create(const cxStr *data)
 {
     cxCSV *rv = cxCSV::Create();
-    csv_parse(&rv->parser, data->Data(), data->Size(), colcbfunc, rowcbfunc, rv);
-    rv->datas.push_back(rv->row);
+    csv_parse(&rv->parser, data->Data(), data->Size()+1, colcbfunc, rowcbfunc, rv);
+    csv_fini(&rv->parser, colcbfunc, rowcbfunc, rv);
     return rv;
 }
 

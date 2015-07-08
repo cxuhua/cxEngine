@@ -23,6 +23,24 @@ cxAtlas::~cxAtlas()
     
 }
 
+void cxAtlas::SetCoords(const cxArray *coords)
+{
+    cxInt size = coords->Size();
+    SetCapacity(size);
+    for(cxInt i = 0;i < size;i++){
+        cxBoxRender &render = renders.Inc();
+        cxTexCoord *coord = coords->At(i)->To<cxTexCoord>();
+        
+        cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
+        render.SetVertices(bp);
+        
+        render.SetColor(Color());
+        
+        const cxBoxCoord2F *tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
+        render.SetCoords(*tbox);
+    }
+}
+
 void cxAtlas::updateScale9()
 {
     cxTexCoord *coord = TexCoord();

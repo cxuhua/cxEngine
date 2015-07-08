@@ -38,6 +38,8 @@ public:
     cxInt Inc(cxInt inc);
     cxBoxRender &At(cxInt idx);
     
+    void SetCoords(const cxArray *coords);
+    
     cxAtlas *SetScale9(const cxBox4F &sb);
     
     cxAtlas *Clear();

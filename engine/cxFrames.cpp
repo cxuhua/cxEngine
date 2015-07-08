@@ -77,6 +77,7 @@ cxFrames *cxFrames::SetCount(cxInt v)
     count = v;
     return this;
 }
+
 const cxInt cxFrames::Count() const
 {
     return count;

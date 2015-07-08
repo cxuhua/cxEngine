@@ -36,20 +36,13 @@ protected:
     void OnTime(const cxTimePoint *tp);
     void OnInit();
 private:
-    cxFrames *frames;
+    cxFrames *frames;       //has mul layer
     cxActionAttr attr;
-    cxInt count;
-    cxInt group;
-    cxTexture *ptex;
 public:
-    cxAnimate *SetAttr(const cxActionAttr *pattr,cxInt acount,cxInt agroup);
+    
     cxAnimate *SetAttr(const cxActionAttr *pattr,cxInt agroup);
-    cxAnimate *SetTexture(cchars key);
-    cxAnimate *SetTexture(const cxTexture *texture);
     cxAnimate *SetFrames(const cxFrames *aframes);
-    cxAnimate *Append(cxFloat time,cchars key);
-    cxAnimate *AppFmt(cxFloat time,cchars fmt,...);
-    cxAnimate *SetLoop(cxBool v);
+    
     cxAction *Reverse();
     cxAction *Clone();
 };

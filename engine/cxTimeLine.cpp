@@ -109,6 +109,13 @@ cxTimePoint *cxTimeLine::At(cxInt i)
     return points->At(idx)->To<cxTimePoint>();
 }
 
+cxTimeLine *cxTimeLine::SetPoints(const cxArray *ps)
+{
+    CX_ASSERT(ps != nullptr && ps->Size() > 0, "points empty");
+    cxObject::swap(&points, ps);
+    return this;
+}
+
 cxTimePoint *cxTimeLine::Append(cxFloat time)
 {
     cxTimePoint *p = cxTimePoint::Create()->Init(time);

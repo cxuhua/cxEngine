@@ -8,26 +8,64 @@
 
 #include "cxSprite.h"
 #include "cxAnimate.h"
+#include "cxFrames.h"
 
 CX_CPP_BEGIN
+
+cxActionAttr::cxActionAttr()
+{
+    from = 0;
+    to = 0;
+    key = 0;
+    time = 0;
+    loop = false;
+}
 
 CX_IMPLEMENT(cxAnimate);
 
 cxAnimate::cxAnimate()
 {
+    frames = nullptr;
     ptex = nullptr;
 }
 
 cxAnimate::~cxAnimate()
 {
+    cxObject::release(&frames);
     cxObject::release(&ptex);
+}
+
+cxAnimate *cxAnimate::SetAttr(const cxActionAttr *pattr,cxInt acount,cxInt agroup)
+{
+    CX_ASSERT(pattr->time > 0 && acount > 0, "time or count not set");
+    attr = *pattr;
+    count = acount;
+    group = agroup;
+    cxFloat t = attr.time/1000.0f;
+    SetSpeed(1.0f/t);
+    SetLoop(attr.loop);
+    cxInt from  = agroup * count + attr.from;
+    cxInt to    = agroup * count + attr.to;
+    SetRange(from, to);
+    return this;
+}
+
+cxAnimate *cxAnimate::SetAttr(const cxActionAttr *pattr,cxInt agroup)
+{
+    CX_ASSERT(pattr->time > 0 && frames != nullptr, "time or frames not set");
+    SetAttr(pattr, frames->Count(), agroup);
+    return this;
 }
 
 void cxAnimate::OnInit()
 {
-    CX_ASSERT(ptex != nullptr, "tex not set");
+    cxSprite *sp = View()->To<cxSprite>();
+    if(ptex == nullptr){
+        SetTexture(sp->Texture());
+    }else{
+        View()->To<cxSprite>()->SetTexture(ptex);
+    }
     cxTimeLine::OnInit();
-    View()->To<cxSprite>()->SetTexture(ptex);
 }
 
 cxAnimate *cxAnimate::SetLoop(cxBool v)
@@ -71,6 +109,13 @@ cxAnimate *cxAnimate::AppFmt(cxFloat time,cchars fmt,...)
     vsnprintf(key, 256, fmt, ap);
     va_end(ap);
     return Append(time, key);
+}
+
+cxAnimate *cxAnimate::SetFrames(const cxFrames *aframes)
+{
+    cxObject::swap(&frames, aframes);
+    SetPoints(frames->Points());
+    return this;
 }
 
 cxAnimate *cxAnimate::Append(cxFloat time,cchars key)

@@ -43,6 +43,7 @@
 		831D02681B43914B00A5EFA7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831D02671B43914B00A5EFA7 /* CoreGraphics.framework */; };
 		831D026A1B43915200A5EFA7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 831D02691B43915200A5EFA7 /* libz.dylib */; };
 		831D026C1B43915B00A5EFA7 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831D026B1B43915B00A5EFA7 /* OpenGLES.framework */; };
+		832A886A1B4CCBAA008AA181 /* cxFrames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832A88681B4CCBAA008AA181 /* cxFrames.cpp */; };
 		833043B31B40246E00636928 /* cxEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043B11B40246E00636928 /* cxEmitter.cpp */; };
 		833043B61B4024AE00636928 /* cxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043B41B4024AE00636928 /* cxButton.cpp */; };
 		833043B91B4024E900636928 /* cxContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043B71B4024E900636928 /* cxContainer.cpp */; };
@@ -223,6 +224,8 @@
 		831D02671B43914B00A5EFA7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		831D02691B43915200A5EFA7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		831D026B1B43915B00A5EFA7 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		832A88681B4CCBAA008AA181 /* cxFrames.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxFrames.cpp; sourceTree = "<group>"; };
+		832A88691B4CCBAA008AA181 /* cxFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxFrames.h; sourceTree = "<group>"; };
 		833043B11B40246E00636928 /* cxEmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxEmitter.cpp; sourceTree = "<group>"; };
 		833043B21B40246E00636928 /* cxEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxEmitter.h; sourceTree = "<group>"; };
 		833043B41B4024AE00636928 /* cxButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxButton.cpp; sourceTree = "<group>"; };
@@ -423,6 +426,8 @@
 				83639F6E1B30270E006A61B7 /* cxAction.h */,
 				836730AC1B465A6A00E333D9 /* cxAnimate.cpp */,
 				836730AD1B465A6A00E333D9 /* cxAnimate.h */,
+				832A88681B4CCBAA008AA181 /* cxFrames.cpp */,
+				832A88691B4CCBAA008AA181 /* cxFrames.h */,
 				8338FD811B47712D00C84032 /* cxAstar.cpp */,
 				8338FD821B47712D00C84032 /* cxAstar.h */,
 				830ECB271B3EF54F002EBE56 /* cxAtlas.cpp */,
@@ -888,6 +893,7 @@
 				831189D41B2D728000C930B5 /* vec2.c in Sources */,
 				83C9D1271B48CC1E00EC244C /* cxSequence.cpp in Sources */,
 				833043B31B40246E00636928 /* cxEmitter.cpp in Sources */,
+				832A886A1B4CCBAA008AA181 /* cxFrames.cpp in Sources */,
 				83B23B4F1B17E0E9000D770A /* xxhash.c in Sources */,
 				833B40631B31ABD900920A06 /* cxSprite.cpp in Sources */,
 				833043C41B41109600636928 /* cxRotate.cpp in Sources */,

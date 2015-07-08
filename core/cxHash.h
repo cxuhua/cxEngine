@@ -26,6 +26,7 @@ struct cxHashKey
     cxHashKey(cchars key);
     cxHashKey(cxULong key);
     cxHashKey(const cxStr *key);
+    static cxHashKey Format(cchars fmt,...);
 };
 
 struct cxHasher

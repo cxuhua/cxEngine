@@ -40,6 +40,16 @@ cxHashKey::cxHashKey(cxULong key)
     memcpy(data, &key, length);
 }
 
+cxHashKey cxHashKey::Format(cchars fmt,...)
+{
+    cxHashKey key;
+    va_list ap;
+    va_start(ap, fmt);
+    key.length = vsnprintf((char *)key.data, CX_HASH_MAX_KEY, fmt, ap);
+    va_end(ap);
+    return key;
+}
+
 bool cxHasher::operator()(const cxHashKey& lhs, const cxHashKey& rhs) const
 {
     if(lhs.length != rhs.length){

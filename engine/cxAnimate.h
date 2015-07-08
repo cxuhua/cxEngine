@@ -14,6 +14,17 @@
 
 CX_CPP_BEGIN
 
+struct cxActionAttr
+{
+    cxInt   from;
+    cxInt   to;
+    cxInt   key;
+    cxFloat time;
+    cxBool  loop;
+    cxActionAttr();
+};
+
+class cxFrames;
 class cxAnimate : public cxTimeLine
 {
 public:
@@ -25,10 +36,17 @@ protected:
     void OnTime(const cxTimePoint *tp);
     void OnInit();
 private:
+    cxFrames *frames;
+    cxActionAttr attr;
+    cxInt count;
+    cxInt group;
     cxTexture *ptex;
 public:
+    cxAnimate *SetAttr(const cxActionAttr *pattr,cxInt acount,cxInt agroup);
+    cxAnimate *SetAttr(const cxActionAttr *pattr,cxInt agroup);
     cxAnimate *SetTexture(cchars key);
     cxAnimate *SetTexture(cxTexture *texture);
+    cxAnimate *SetFrames(const cxFrames *aframes);
     cxAnimate *Append(cxFloat time,cchars key);
     cxAnimate *AppFmt(cxFloat time,cchars fmt,...);
     cxAnimate *SetLoop(cxBool v);

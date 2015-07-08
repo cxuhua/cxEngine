@@ -61,6 +61,8 @@ public:
     cxInt Index() const;
     void UpdateTime();
     
+    cxTimeLine *SetPoints(const cxArray *ps);
+    
     cxTimePoint *TimePoint();   //at OnTime invoke
     cxTimePoint *At(cxInt i);   //
     

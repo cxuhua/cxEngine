@@ -36,6 +36,8 @@ struct cxPoint2I
     cxPoint2I RB() const;
     
     cxJson *ToJson();
+    const cxPoint2F ToFloat() const;
+    const cxPoint2F ToFloat(const cxFloat &add) const;
     
     cxBool IsZero() const;
     cxFloat Length() const;
@@ -91,6 +93,7 @@ public:
     void Remove(cxInt idx,cxInt n);
     const cxPoint2I *Buffer()const ;
     cxPoint2I &At(cxInt idx);
+    const cxPoint2I &At(cxInt idx) const;
     const cxInt Size() const;
     cxBool IsEmpty() const;
 };

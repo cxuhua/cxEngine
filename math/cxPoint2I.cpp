@@ -46,6 +46,16 @@ cxJson *cxPoint2I::ToJson()
     return json;
 }
 
+const cxPoint2F cxPoint2I::ToFloat(const cxFloat &add) const
+{
+    return cxPoint2F(x,y) + add;
+}
+
+const cxPoint2F cxPoint2I::ToFloat() const
+{
+    return cxPoint2F(x,y);
+}
+
 cxPoint2I cxPoint2I::LV() const
 {
     return cxPoint2I(x-1,y);
@@ -268,6 +278,11 @@ const cxPoint2I *cxPoint2IArray::Buffer() const
 }
 
 cxPoint2I &cxPoint2IArray::At(cxInt idx)
+{
+    return at(idx);
+}
+
+const cxPoint2I &cxPoint2IArray::At(cxInt idx) const
 {
     return at(idx);
 }

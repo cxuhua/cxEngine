@@ -199,6 +199,11 @@ cxBoxRender &cxBoxRenderArray::At(cxInt idx)
     return at(idx);
 }
 
+const cxBoxRender &cxBoxRenderArray::At(cxInt idx) const
+{
+    return at(idx);
+}
+
 
 CX_CPP_END
 

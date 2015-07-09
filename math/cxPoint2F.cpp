@@ -93,9 +93,15 @@ cxPoint2F &cxPoint2F::Normalize()
     return *this;
 }
 
-cxPoint2I cxPoint2F::ToInt()
+const cxPoint2I cxPoint2F::ToInt() const
 {
     return cxPoint2I(x+cxEqualFloat, y+cxEqualFloat);
+}
+
+const cxPoint2F cxPoint2F::ToInt(const cxPoint2F &add) const
+{
+    cxPoint2I ip = ToInt();
+    return cxPoint2F(ip) + add;
 }
 
 cxBool cxPoint2F::IsINF() const

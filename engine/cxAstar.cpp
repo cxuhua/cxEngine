@@ -56,12 +56,17 @@ CX_IMPLEMENT(cxAstar);
 
 cxAstar::cxAstar()
 {
-    
+    delegate = nullptr;
 }
 
 cxAstar::~cxAstar()
 {
     astar.EnsureMemoryFreed();
+}
+
+void cxAstar::SetDelegate(cxAstarDelegate *gate)
+{
+    delegate = gate;
 }
 
 void cxAstar::AddSuccessNode(const cxPoint2I &p)
@@ -73,11 +78,13 @@ void cxAstar::AddSuccessNode(const cxPoint2I &p)
 void cxAstar::OnSuccess()
 {
     isSuccess = true;
+    onSuccess.Fire(this);
 }
 
 void cxAstar::OnFailed()
 {
     isSuccess = false;
+    onFailed.Fire(this);
 }
 
 const cxBool cxAstar::IsSuccess() const
@@ -87,12 +94,17 @@ const cxBool cxAstar::IsSuccess() const
 
 void cxAstar::OnSearching()
 {
-    
+    onSearching.Fire(this);
 }
 
 const cxPoint2IArray &cxAstar::Points() const
 {
     return points;
+}
+
+void cxAstar::Cancel()
+{
+    astar.CancelSearch();
 }
 
 void cxAstar::Step(cxInt iter)
@@ -176,6 +188,9 @@ cxBool cxAstar::GetSuccessors(const cxPoint2I &point,const cxPoint2I &parent)
 
 cxBool cxAstar::IsAppend(const cxPoint2I &point)
 {
+    if(delegate != nullptr){
+        return delegate->IsAppend(point);
+    }
     return false;
 }
 

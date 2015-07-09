@@ -38,7 +38,8 @@ struct cxPoint2F
     cxFloat Angle(const cxPoint2F &d) const;
     cxFloat Distance(const cxPoint2F &d) const;
     cxPoint2F &Normalize();
-    cxPoint2I ToInt();
+    const cxPoint2I ToInt() const;
+    const cxPoint2F ToInt(const cxPoint2F &add) const;
     
     static cxPoint2F Center(const cxPoint2F &p1,const cxPoint2F &p2);
     static cxPoint2F Lerp(const cxPoint2F &from,const cxPoint2F &to,cxFloat t);

@@ -59,6 +59,7 @@ public:
     void SetAlpha(cxInt idx,cxInt n,cxFloat alpha);
     const cxBoxRender *Buffer() const;
     cxBoxRender &At(cxInt idx);
+    const cxBoxRender &At(cxInt idx) const;
     const cxInt Capacity() const;
     const cxInt Size() const;
     cxBool IsEmpty() const;

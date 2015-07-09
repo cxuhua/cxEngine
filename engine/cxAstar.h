@@ -32,6 +32,12 @@ public:
     bool IsSameState(SearchNode &rhs);
 };
 
+class cxAstarDelegate
+{
+public:
+    virtual cxBool IsAppend(const cxPoint2I &point) = 0;
+};
+
 class cxAstar : public cxObject
 {
 public:
@@ -43,6 +49,7 @@ private:
     cxPoint2IArray points;
     AStarSearch<SearchNode> astar;
     cxBool isSuccess;
+    cxAstarDelegate *delegate;
 protected:
     void AddSuccessNode(const cxPoint2I &p);
     virtual cxBool IsAppend(const cxPoint2I &point);
@@ -50,7 +57,13 @@ protected:
     virtual void OnFailed();
     virtual void OnSearching();
 public:
+    cxEvent<cxAstar> onSuccess;
+    cxEvent<cxAstar> onFailed;
+    cxEvent<cxAstar> onSearching;
+public:
+    void SetDelegate(cxAstarDelegate *gate);
     const cxBool IsSuccess() const;
+    void Cancel();
     void Step(cxInt iter=INT_MAX);
     virtual cxBool GetSuccessors(const cxPoint2I &point,const cxPoint2I &parent);
     virtual cxFloat GetCost(const cxPoint2I &p);

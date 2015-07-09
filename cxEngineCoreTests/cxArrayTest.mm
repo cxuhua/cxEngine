@@ -34,7 +34,7 @@ static cxInt sortFunc(const void *lp,const void *rp)
 {
     cxObject *lv = *(cxObject **)lp;
     cxObject *rv = *(cxObject **)rp;
-    return rv->Tag() - lv->Tag();
+    return (cxInt)rv->Tag() - (cxInt)lv->Tag();
 }
 
 @implementation cxArrayTest
@@ -47,11 +47,28 @@ static cxInt sortFunc(const void *lp,const void *rp)
     [super tearDown];
 }
 
+-(void)testSwap
+{
+    cxArray *list = cxArray::Create();
+    cxObject *o1 = cxObject::Create();
+    cxObject *o2 = cxObject::Create();
+    
+    list->Append(o1);//0
+    list->Append(o2);//1
+    
+    list->Swap(0, 1);
+    
+    XCTAssertEqual(list->At(0), o2,"swap test");
+    XCTAssertEqual(list->At(1), o1,"swap test");
+    XCTAssertEqual(o1->Refcount(), 2,"swap test");
+    XCTAssertEqual(o2->Refcount(), 2,"swap test");
+}
+
 -(void)testList
 {
     cxList *l = cxList::Alloc();
     cxObject *obj = cxObject::Alloc();
-    l->PushBack(obj);
+    l->Append(obj);
     XCTAssertEqual(l->Size(), 1,"count test");
     XCTAssertEqual(obj->Refcount(), 2,"refcount test");
     l->Remove(obj);

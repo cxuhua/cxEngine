@@ -41,6 +41,7 @@ public:
     cxObject *At(cxInt idx) const;
     cxBool IsEmpty() const;
     cxInt Size() const;
+    cxArray *Swap(cxInt src,cxInt dst);
     cxArray *Replace(cxInt idx,cxObject *obj);
     cxArray *Append(cxObject *obj);
     cxArray *Remove(cxObject *obj);

@@ -111,6 +111,7 @@ private:
     cxPoint3F axis;
     cxFloat angle;
     
+    cxInt maxz;
     cxInt z;
     
     cxBool isvisible;
@@ -243,7 +244,6 @@ public:
     cxArray *Subviews() const;
 protected:
     virtual void OnRender(cxRender *render,const cxMatrixF &model);
-    
     virtual void OnUpdate(cxFloat dt);
     virtual void OnDirty();
     virtual void OnLayout();
@@ -274,6 +274,8 @@ public:
     cxEvent<cxView> onLeave;
     
     void Layout();
+    
+    cxView *BringFront();
     
     cxView *Append(cxView *view);
     cxView *Append(cxAction *action);

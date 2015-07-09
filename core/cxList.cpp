@@ -43,14 +43,14 @@ cxObject *cxList::Back() const
     return IsEmpty()?nullptr:ml.back();
 }
 
-cxList *cxList::PushBack(cxObject *obj)
+cxList *cxList::Append(cxObject *obj)
 {
     ml.push_back(obj);
     obj->Retain();
     return this;
 }
 
-cxList *cxList::PushFront(cxObject *obj)
+cxList *cxList::Prepend(cxObject *obj)
 {
     ml.push_front(obj);
     obj->Retain();

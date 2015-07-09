@@ -61,7 +61,17 @@ cxAnimate *cxAnimate::SetGroup(cxInt agroup)
     CX_ASSERT(from >= 0 && from < Points()->Size(), "from out");
     cxInt to = agroup * frames->Count() + attr.to;
     CX_ASSERT(to >= 0 && to < Points()->Size(), "to out");
-    SetRange(from, to);
+    cxTimeLine::SetRange(from, to);
+    return this;
+}
+
+cxAnimate *cxAnimate::SetRange(cxInt afrom,cxInt ato)
+{
+    cxInt from = group * frames->Count() + afrom;
+    CX_ASSERT(from >= 0 && from < Points()->Size(), "from out");
+    cxInt to = group * frames->Count() + ato;
+    CX_ASSERT(to >= 0 && to < Points()->Size(), "to out");
+    cxTimeLine::SetRange(from, to);
     return this;
 }
 

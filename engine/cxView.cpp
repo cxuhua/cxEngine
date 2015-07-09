@@ -16,6 +16,7 @@ CX_IMPLEMENT(cxView);
 
 cxView::cxView()
 {
+    maxz = 0;
     direction = INFINITY;
     isdir = false;
     islayout = false;
@@ -32,23 +33,20 @@ cxView::cxView()
     issleep = false;
     isvisible = true;
     parent = nullptr;
-    
-    position = cxPoint2F(0, 0);
-    scale = cxPoint2F(1.0f, 1.0f);
-    fixscale = cxPoint2F(1.0f,1.0f);
-    anchor = cxPoint2F(0, 0);
-    size = cxSize2F(0, 0);
-    offset = cxPoint2F(0, 0);
+    position = 0.0f;
+    scale = 1.0f;
+    fixscale = 1.0f;
+    anchor = 0.0f;
+    size = 0.0f;
+    offset = 0.0f;
     angle = 0;
-    axis = cxPoint3F(0, 0, 1);
+    axis = cxPoint3F::AxisZ;
     dirtymode = DirtyModeNormal;
-    
     cc = cxColor4F::WHITE;
     subviews = cxArray::Alloc();
     viewapps = cxArray::Alloc();
-    
-    actions = cxArray::Alloc();
-    actapps = cxArray::Alloc();
+    actions  = cxArray::Alloc();
+    actapps  = cxArray::Alloc();
 }
 
 cxView::~cxView()
@@ -59,6 +57,16 @@ cxView::~cxView()
     actions->Release();
     subviews->Release();
     onFree.Fire(this);
+}
+
+cxView *cxView::BringFront()
+{
+    cxView *p = Parent();
+    if(p == nullptr){
+        return this;
+    }
+    SetZ(p->maxz + 1);
+    return this;
 }
 
 cxView *cxView::SetResizeFlags(Resize flags)
@@ -672,9 +680,13 @@ cxView *cxView::SetZ(cxInt v)
         return this;
     }
     z = v;
-    if(parent!=nullptr){
-        parent->Sort();
+    if(parent == nullptr){
+        return this;
     }
+    if(z > parent->maxz){
+        parent->maxz = z;
+    }
+    parent->Sort();
     return this;
 }
 

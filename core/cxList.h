@@ -38,8 +38,8 @@ public:
     cxInt Size() const;
     cxObject *Front() const;
     cxObject *Back() const;
-    cxList *PushBack(cxObject *obj);
-    cxList *PushFront(cxObject *obj);
+    cxList *Append(cxObject *obj);
+    cxList *Prepend(cxObject *obj);
     cxList *Remove(cxObject *obj);
     cxObject *PopFront();
     cxObject *PopBack();

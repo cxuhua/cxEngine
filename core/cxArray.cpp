@@ -81,6 +81,13 @@ cxArray *cxArray::Remove(cxInt idx)
     return this;
 }
 
+cxArray *cxArray::Swap(cxInt src,cxInt dst)
+{
+    cxObject **ptr = (cxObject **)mv.data();
+    CX_SWAP(ptr[src], ptr[dst]);
+    return this;
+}
+
 cxArray *cxArray::Remove(cxObject *obj)
 {
     for(FIter it=FBegin();it!=FEnd();){

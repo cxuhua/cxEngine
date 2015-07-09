@@ -171,11 +171,13 @@ typedef unsigned char   cxByte;
 
 #define CX_WARN(format,...)             cxUtilWarn(__FILE__,__LINE__,format, ##__VA_ARGS__)
 
+#define CX_TEST(cond,format,...)        if(!(cond))cxUtilInfo(__FILE__,__LINE__,format, ##__VA_ARGS__)
+
 #if !defined(NDEBUG)
 #define CX_LOGGER(format,...)           cxUtilInfo(__FILE__,__LINE__,format, ##__VA_ARGS__)
 #define CX_ASSERT(cond,format,...)                              \
 do{                                                             \
-    cxBool _ret_= (cond);                                         \
+    cxBool _ret_= (cond);                                       \
     if(!_ret_)                                                  \
     cxUtilAssert(__FILE__,__LINE__,format, ##__VA_ARGS__);      \
     assert(_ret_);                                              \

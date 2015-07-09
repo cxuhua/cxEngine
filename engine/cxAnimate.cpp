@@ -47,13 +47,10 @@ cxAnimate *cxAnimate::SetAction(const cxActionAttr *pattr,cxInt agroup)
 cxAnimate *cxAnimate::SetGroup(cxInt agroup)
 {
     group = agroup;
-    
-    cxInt from  = agroup * frames->Count() + attr.from;
+    cxInt from = agroup * frames->Count() + attr.from;
     CX_ASSERT(from >= 0 && from < Points()->Size(), "from out");
-    
-    cxInt to    = agroup * frames->Count() + attr.to;
+    cxInt to = agroup * frames->Count() + attr.to;
     CX_ASSERT(to >= 0 && to < Points()->Size(), "to out");
-    
     SetRange(from, to);
     return this;
 }

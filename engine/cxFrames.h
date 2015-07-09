@@ -49,6 +49,7 @@ public:
     const cxFloat Time() const;
     
     cxTimePoint *Append(cxFloat time);
+    const cxTimePoint *At(cxInt idx) const;
     const cxArray *Points() const;
 };
 

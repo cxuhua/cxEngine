@@ -94,6 +94,11 @@ const cxFloat cxFrames::Time() const
     return time;
 }
 
+const cxTimePoint *cxFrames::At(cxInt idx) const
+{
+    return points->At(idx)->To<cxTimePoint>();
+}
+
 cxTimePoint *cxFrames::Append(cxFloat time)
 {
     cxTimePoint *tp = cxTimePoint::Create()->Init(time);

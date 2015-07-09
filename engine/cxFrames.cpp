@@ -15,6 +15,9 @@ CX_IMPLEMENT(cxFrames);
 
 cxFrames::cxFrames()
 {
+    mapnum = 0;
+    layer = 0;
+    group = 0;
     offset = 0;
     time = 0;
     count = 0;
@@ -26,6 +29,27 @@ cxFrames::~cxFrames()
 {
     cxObject::release(&ptex);
     points->Release();
+}
+
+const cxInt cxFrames::MapNum() const
+{
+    return mapnum;
+}
+
+const cxInt *cxFrames::Map() const
+{
+    return map;
+}
+
+void cxFrames::InitMaps(const cxStr *str)
+{
+    const cxArray *maps = str->Split(',');
+    CX_ASSERT(maps->Size() > 0, "map set error");
+    mapnum = maps->Size();
+    for(cxInt i=0;i<mapnum;i++){
+        map[i] = maps->At(i)->To<cxStr>()->ToInt();
+        CX_ASSERT(map[i] < layer, "map value error");
+    }
 }
 
 cxFrames *cxFrames::SetTexture(const cxTexture *atex)

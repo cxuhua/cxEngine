@@ -65,7 +65,7 @@ void cxAnimate::OnInit()
 
 void cxAnimate::OnTime(const cxTimePoint *tp)
 {
-    View()->To<cxAtlas>()->SetCoords(tp->Object()->To<cxArray>());
+    View()->To<cxAtlas>()->SetCoords(tp->Object()->To<cxArray>(),frames);
     cxInt idx = Index() + attr.from;
     iskeyframe = (idx == attr.key);
     onFrame.Fire(this, idx);

@@ -29,7 +29,13 @@ private:
     cxInt count;
     cxFloat time;
     cxArray *points;
+    cxInt mapnum;           //层数量，最大10
+    cxInt map[10];          //层映射
 public:
+    const cxInt MapNum() const;
+    const cxInt *Map() const;
+    void InitMaps(const cxStr *str);
+    
     cxFrames *SetTexture(const cxTexture *atex);
     const cxTexture *Texture() const;
     

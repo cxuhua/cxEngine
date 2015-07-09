@@ -13,6 +13,7 @@
 
 CX_CPP_BEGIN
 
+class cxFrames;
 class cxAtlas : public cxSprite
 {
 public:
@@ -39,6 +40,7 @@ public:
     cxBoxRender &At(cxInt idx);
     
     void SetCoords(const cxArray *coords);
+    void SetCoords(const cxArray *coords,const cxFrames *frames);
     
     cxAtlas *SetScale9(const cxBox4F &sb);
     

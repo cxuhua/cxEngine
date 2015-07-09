@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
-
+#include "cxFrames.h"
 #include "cxAtlas.h"
 
 CX_CPP_BEGIN
@@ -21,6 +21,25 @@ cxAtlas::cxAtlas()
 cxAtlas::~cxAtlas()
 {
     
+}
+
+void cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
+{
+    cxInt size = frames->MapNum();
+    SetCapacity(size);
+    const cxInt *map = frames->Map();
+    for(cxInt i = 0;i < size;i++){
+        cxBoxRender &render = renders.Inc();
+        cxTexCoord *coord = coords->At(map[i])->To<cxTexCoord>();
+        
+        cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
+        render.SetVertices(bp);
+        
+        render.SetColor(Color());
+        
+        const cxBoxCoord2F *tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
+        render.SetCoords(*tbox);
+    }
 }
 
 void cxAtlas::SetCoords(const cxArray *coords)

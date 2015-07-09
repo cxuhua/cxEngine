@@ -15,11 +15,20 @@ CX_CPP_BEGIN
 
 cxActionAttr::cxActionAttr()
 {
+    group = 0;
     from = 0;
     to = 0;
     key = 0;
     speed = 1.0f;
     repeat = 0;
+}
+
+cxActionAttr cxActionAttr::Reverse()
+{
+    cxActionAttr attr = *this;
+    attr.from = to;
+    attr.to = from;
+    return attr;
 }
 
 CX_IMPLEMENT(cxAnimate);
@@ -46,6 +55,7 @@ cxAnimate *cxAnimate::SetAction(const cxActionAttr *pattr,cxInt agroup)
 
 cxAnimate *cxAnimate::SetGroup(cxInt agroup)
 {
+    CX_ASSERT(agroup < frames->Group(), "group set error");
     group = agroup;
     cxInt from = agroup * frames->Count() + attr.from;
     CX_ASSERT(from >= 0 && from < Points()->Size(), "from out");
@@ -84,9 +94,8 @@ const cxActionAttr &cxAnimate::ActionAttr() const
 cxAction *cxAnimate::Reverse()
 {
     cxAnimate *rv = cxAnimate::Create();
-    rv->from = to;
-    rv->to = from;
-    rv->SetAction(&attr, group);
+    cxActionAttr vattr = attr.Reverse();
+    rv->SetAction(&vattr, group);
     rv->SetFrames(frames);
     return rv;
 }
@@ -94,8 +103,6 @@ cxAction *cxAnimate::Reverse()
 cxAction *cxAnimate::Clone()
 {
     cxAnimate *rv = cxAnimate::Create();
-    rv->from = from;
-    rv->to = to;
     rv->SetAction(&attr, group);
     rv->SetFrames(frames);
     return rv;

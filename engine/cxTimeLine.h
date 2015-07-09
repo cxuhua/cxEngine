@@ -46,10 +46,9 @@ protected:
     virtual void OnTime(const cxTimePoint *tp);
     void OnStep(cxFloat dt);
     void OnInit();
-    
+private:
     std::vector<cxFloat> times;
     cxArray *points;
-    
     cxBool isdirty;
     cxInt prev;  //
     cxInt idx;      //0-n
@@ -64,8 +63,8 @@ public:
     
     cxTimeLine *SetPoints(const cxArray *ps);
     
-    const cxTimePoint *TimePoint() const;   //at OnTime invoke
-    const cxTimePoint *At(cxInt i) const;   //
+    const cxTimePoint *TimePoint() const;
+    const cxTimePoint *At(cxInt i) const;
     
     cxTimePoint *Append(cxFloat time);
     const cxArray *Points() const;

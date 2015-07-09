@@ -58,6 +58,7 @@ cxView::~cxView()
     viewapps->Release();
     actions->Release();
     subviews->Release();
+    onFree.Fire(this);
 }
 
 cxView *cxView::SetResizeFlags(Resize flags)

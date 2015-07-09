@@ -255,6 +255,7 @@ protected:
 public:
     cxEvent<cxView, cxView *> onAppend;
     cxEvent<cxView, cxView *> onRemove;
+    cxEvent<cxView> onFree;
 public:
     cxView *Sort();
     

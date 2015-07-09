@@ -34,7 +34,7 @@ cxAction::cxAction()
 
 cxAction::~cxAction()
 {
-    
+    onFree.Fire(this);
 }
 
 cxAction *cxAction::Create(cxFloat time)

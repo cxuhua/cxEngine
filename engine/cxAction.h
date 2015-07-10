@@ -78,6 +78,7 @@ public:
     cxEvent<cxAction> onExit;
     cxEvent<cxAction> onReset;
     cxEvent<cxAction> onFree;
+    cxEvent<cxAction,cxFloat> onStep;
 public:
     static cxAction *Create(cxFloat time);
     cxAction *Forever();

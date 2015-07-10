@@ -31,6 +31,11 @@ public:
         es.push_back(v);
         return *this;
     }
+    cxEvent &operator=(const cxEvent &v)
+    {
+        es = v.es;
+        return *this;
+    }
     void Clear()
     {
         es.clear();

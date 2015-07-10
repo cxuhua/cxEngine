@@ -67,6 +67,7 @@ void cxAction::Reset()
     isexit = false;
     ispause = false;
     OnReset();
+    onReset.Fire(this);
 }
 
 void cxAction::Exit(cxBool v)
@@ -77,7 +78,7 @@ void cxAction::Exit(cxBool v)
 
 void cxAction::OnReset()
 {
-    onReset.Fire(this);
+    
 }
 
 void cxAction::OnInit()
@@ -92,7 +93,7 @@ void cxAction::OnStep(cxFloat dt)
 
 void cxAction::OnExit()
 {
-    onExit.Fire(this);
+    
 }
 
 void cxAction::OnStop()
@@ -175,18 +176,19 @@ cxBool cxAction::Update(cxFloat dt)
         delta = curr - prev;
         prev = curr;
         elapsedvar += delta;
-        
         OnStep(delta);
+        onStep.Fire(this, delta);
     }
     if(elapsed >= time){
         isexit = true;
-        onStop.Fire(this);
         OnStop();
+        onStop.Fire(this);
         if(--repeat > 0)Reset();
     }
 exit:
     if(isexit || repeat <= 0){
         OnExit();
+        onExit.Fire(this);
     }
     return isexit;
 }

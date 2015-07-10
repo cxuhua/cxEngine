@@ -2,7 +2,5 @@ gen
 bin
 obj
 .DS_Store
-xcuserdata
-xcshareddata
 android/libs
 godcity

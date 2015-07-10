@@ -894,12 +894,12 @@ void cxView::OnUpdate(cxFloat dt)
     
 }
 
-cxInt cxView::BindesSize() const
+const cxInt cxView::BindesSize() const
 {
     return (cxInt)bindes.size();
 }
 
-cxInt cxView::BindedSize() const
+const cxInt cxView::BindedSize() const
 {
     return (cxInt)binded.size();
 }
@@ -914,16 +914,14 @@ void cxView::Bind(cxView *obj)
     obj->binded.insert(i);
 }
 
-cxBool cxView::HasBindes(cxView *pview)
+const cxBool cxView::HasBindes(cxView *pview) const
 {
-    cxLong m = (cxLong)pview;
-    return bindes.find(m) != bindes.end();
+    return bindes.find((cxLong)pview) != bindes.end();
 }
 
-cxBool cxView::HasBinded(cxView *pview)
+const cxBool cxView::HasBinded(cxView *pview) const
 {
-    cxLong m = (cxLong)pview;
-    return binded.find(m) != binded.end();
+    return binded.find((cxLong)pview) != binded.end();
 }
 
 void cxView::EachBindes(std::function<void(cxView *pview)> func)

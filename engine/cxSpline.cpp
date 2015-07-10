@@ -88,9 +88,7 @@ cxAction *cxSpline::Reverse()
 cxAction *cxSpline::Clone()
 {
     cxSpline *rv = cxSpline::Create();
-    for(cxInt i=0; i < points.Size();i++){
-        rv->points.Append(points.At(i));
-    }
+    rv->points = points;
     rv->SetTime(Time());
     return rv;
 }

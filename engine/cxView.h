@@ -284,15 +284,15 @@ public:
     cxView *Remove();
     
     //bind support
-    cxInt BindesSize() const;
-    cxInt BindedSize() const;
+    const cxInt BindesSize() const;
+    const cxInt BindedSize() const;
     //
     void EachBindes(std::function<void(cxView *pview)> func);
     void EachBinded(std::function<void(cxView *pview)> func);
     //if this bind obj
-    cxBool HasBindes(cxView *pview);
+    const cxBool HasBindes(cxView *pview) const ;
     //if this binded obj
-    cxBool HasBinded(cxView *pview);
+    const cxBool HasBinded(cxView *pview) const ;
     //
     void Bind(cxView *pview);
     void UnBind(cxView *pview);

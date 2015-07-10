@@ -135,14 +135,12 @@ const cxArray *cxTimeLine::Points() const
 cxTimeLine *cxTimeLine::SetRange(cxInt afrom,cxInt ato)
 {
     CX_ASSERT(afrom < points->Size() && to < points->Size(), "range error");
-    if(from != afrom){
-        from = afrom;
-        isdirty = true;
+    if(from == afrom && to == ato){
+        return this;
     }
-    if(to != ato){
-        to = ato;
-        isdirty = true;
-    }
+    isdirty = true;
+    from = afrom;
+    to = ato;
     Reset();
     return this;
 }

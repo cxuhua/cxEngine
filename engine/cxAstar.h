@@ -64,7 +64,7 @@ public:
     void SetDelegate(cxAstarDelegate *gate);
     const cxBool IsSuccess() const;
     void Cancel();
-    void Step(cxInt iter=INT_MAX);
+    cxBool Step(cxInt iter=INT_MAX);
     virtual cxBool GetSuccessors(const cxPoint2I &point,const cxPoint2I &parent);
     virtual cxFloat GetCost(const cxPoint2I &p);
     void Init(const cxPoint2I &from,const cxPoint2I &to);

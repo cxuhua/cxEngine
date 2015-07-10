@@ -107,8 +107,9 @@ void cxAstar::Cancel()
     astar.CancelSearch();
 }
 
-void cxAstar::Step(cxInt iter)
+cxBool cxAstar::Step(cxInt iter)
 {
+    cxBool rv = true;
     while(!isSuccess && iter > 0){
         cxUInt state = astar.SearchStep();
         if(state == AStarSearch<SearchNode>::SEARCH_STATE_SEARCHING){
@@ -121,10 +122,12 @@ void cxAstar::Step(cxInt iter)
                 node = astar.GetSolutionNext();
             }
             astar.FreeSolutionNodes();
+            rv = true;
             OnSuccess();
             break;
         }else if(state == AStarSearch<SearchNode>::SEARCH_STATE_FAILED){
             points.Clear();
+            rv = false;
             OnFailed();
             break;
         }else{
@@ -133,6 +136,7 @@ void cxAstar::Step(cxInt iter)
         }
         iter --;
     }
+    return rv;
 }
 
 cxFloat cxAstar::GetCost(const cxPoint2I &p)

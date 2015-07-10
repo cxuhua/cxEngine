@@ -107,7 +107,6 @@ public:
     cxPoint2F &At(cxInt idx);
     const cxInt Size() const;
     cxBool IsEmpty() const;
-    cxPoint2FArray &operator=(const cxPoint2FArray &v) const;
 };
 
 struct cxRange2F

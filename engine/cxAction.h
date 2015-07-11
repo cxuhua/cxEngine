@@ -51,6 +51,8 @@ private:
     cxFloat deltaTimeFix(cxFloat dt);
     cxInt repeat;
 public:
+    const cxInt Repeat() const;
+    
     cxAction *SetID(cxULong aid);
     cxULong ID() const;
     

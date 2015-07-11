@@ -37,6 +37,11 @@ cxAction::~cxAction()
     onFree.Fire(this);
 }
 
+const cxInt cxAction::Repeat() const
+{
+    return repeat;
+}
+
 cxAction *cxAction::Create(cxFloat time)
 {
     cxAction *rv = cxAction::Create();

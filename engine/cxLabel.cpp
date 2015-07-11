@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
-
+#include <core/cxLocalized.h>
 #include "cxLabel.h"
 
 CX_CPP_BEGIN
@@ -27,7 +27,23 @@ cxLabel::~cxLabel()
     txt->Release();
 }
 
-cxLabel *cxLabel::CreateUTF8(cchars fmt,...)
+cxLabel *cxLabel::Localized(cchars fmt,...)
+{
+    cxLabel *rv = cxLabel::Create();
+    va_list ap;
+    va_start(ap, fmt);
+    const cxStr *key = cxStr::Create()->AppFmt(fmt, ap);
+    const cxStr *text = cxLocalized::Text(key->Data());
+    if(cxStr::IsOK(text)){
+        rv->SetText(text);
+    }else{
+        rv->SetText(key);
+    }
+    va_end(ap);
+    return rv;
+}
+
+cxLabel *cxLabel::FromUTF8(cchars fmt,...)
 {
     cxLabel *rv = cxLabel::Create();
     va_list ap;

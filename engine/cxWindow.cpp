@@ -31,7 +31,7 @@ cxView *cxWindow::Top() const
 
 void cxWindow::InitDebugLabel()
 {
-    label = cxLabel::CreateUTF8("0000000");
+    label = cxLabel::FromUTF8("0000000");
     label->SetZ(INT_MAX);
     label->SetFontSize(40);
     label->SetResizeBox(10.0f);

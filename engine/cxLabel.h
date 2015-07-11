@@ -63,7 +63,8 @@ public:
     cxLabel *SetFixWidth(cxFloat fix);
     cxLabel *SetNumFormat(const cxTextNumFormat &fmt);
 public:
-    static cxLabel *CreateUTF8(cchars fmt,...);
+    static cxLabel *FromUTF8(cchars fmt,...);
+    static cxLabel *Localized(cchars fmt,...);
 };
 
 CX_CPP_END

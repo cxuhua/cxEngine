@@ -24,7 +24,6 @@ private:
     static cxLocalized *instance;
     cxHash *texts;
 public:
-    //lng::CN EN JP
     static void Load(cchars file);
     static const cxStr *Text(cchars key);
     static cxLocalized *Instance();

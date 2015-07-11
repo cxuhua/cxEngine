@@ -36,10 +36,9 @@ private:
         bool operator()(const std::string &lhs, const std::string &rhs) const;
     };
     typedef std::unordered_map<std::string,cxHelper&,cxCoreHasher,cxCoreHasher> cxTypes;
+    
     cxTypes classes;
-    
     cxHash *caches;
-    
     uv_key_t autoKey;
 public:
     static cxObject *alloc(cchars name);

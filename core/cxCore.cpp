@@ -12,6 +12,7 @@
 #include "cxCore.h"
 #include "cxUtil.h"
 #include "cxNotice.h"
+#include "cxLocalized.h"
 
 CX_CPP_BEGIN
 
@@ -69,7 +70,7 @@ cchars cxHelper::Name() const
 
 cxHelper::cxHelper(cchars aname,cxCore::AllocFunc f)
 {
-    name = std::string(aname);
+    name.assign(aname);
     func = f;
     cxCore::registerType(aname, *this);
 }
@@ -119,6 +120,7 @@ cxCore::cxCore()
 
 cxCore::~cxCore()
 {
+    cxLocalized::Instance()->Release();
     caches->Release();
     cxObject::release(&cxUtil::instance);
     cxObject *obj = static_cast<cxObject *>(uv_key_get(&autoKey));

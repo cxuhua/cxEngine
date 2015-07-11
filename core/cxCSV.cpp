@@ -43,6 +43,15 @@ const cxStr *cxCSV::At(cxInt row,cxInt col) const
     return cxStr::Create()->Init(s.data());
 }
 
+cxStr *cxCSV::At(cxInt row,cxInt col)
+{
+    CX_ASSERT(row < Row(), "row out");
+    CX_ASSERT(col < Col(row), "row out");
+    const std::vector<std::string> &r = datas.at(row);
+    const std::string &s = r.at(col);
+    return cxStr::Create()->Init(s.data());
+}
+
 void cxCSV::colcbfunc(void *data, size_t datasiz, void *ud)
 {
     cxCSV *csv = static_cast<cxCSV *>(ud);

@@ -41,6 +41,12 @@ public:
     static const cxStr *Assets(cchars file);
     static const cxStr *Document(cchars file);
     static const cxStr *Content(cchars file);//优先从document目录获取数据
+    //获取语言代码
+    virtual const cxStr *GetLang() const;       //zh en
+    //获取国家代码
+    virtual const cxStr *GetCountry() const;    //CN TW
+    //国家语言代码
+    virtual const cxStr *LocalizedKey() const;
     //获取资源目录
     virtual const cxStr *AssetsPath(cchars file);
     //获取资源文件数据

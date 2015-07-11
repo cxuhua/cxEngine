@@ -20,6 +20,9 @@ public:
 public:
     const cxFloat ScaleFactor() const;
     
+    const cxStr *GetLang() const;
+    const cxStr *GetCountry() const;
+    
     const cxStr *DocumentPath(cchars file);
     const cxStr *AssetsPath(cchars file);
     

@@ -33,6 +33,7 @@ public:
     const cxInt Row() const;
     const cxInt Col(cxInt row=0) const;
     const cxStr *At(cxInt row,cxInt col) const;
+    cxStr *At(cxInt row,cxInt col);
     static cxCSV *Create(const cxStr *data);
 };
 

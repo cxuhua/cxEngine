@@ -16,6 +16,18 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxIOSUtil);
 
+const cxStr *cxIOSUtil::GetLang() const
+{
+    NSLocale *locale = [NSLocale currentLocale];
+    return cxStr::UTF8([[locale objectForKey:NSLocaleLanguageCode] UTF8String]);
+}
+
+const cxStr *cxIOSUtil::GetCountry() const
+{
+    NSLocale *locale = [NSLocale currentLocale];
+    return cxStr::UTF8([[locale objectForKey:NSLocaleCountryCode] UTF8String]);
+}
+
 void cxIOSUtil::Logger(const char* type,const char*file,int line,const char* format,va_list ap)
 {
     char *buffer = nullptr;

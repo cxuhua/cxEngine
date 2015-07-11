@@ -57,6 +57,21 @@ cxUtil *cxUtil::Instance()
 }
 #endif
 
+const cxStr *cxUtil::GetLang() const
+{
+    return cxStr::UTF8("zh");
+}
+
+const cxStr *cxUtil::GetCountry() const
+{
+    return cxStr::UTF8("CN");
+}
+
+const cxStr *cxUtil::LocalizedKey() const
+{
+    return cxStr::UTF8("%s-%s",GetLang()->Data(),GetCountry()->Data());
+}
+
 const cxStr *cxUtil::Assets(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "args error");

@@ -13,6 +13,8 @@
 #include <vector>
 #include <core/cxArray.h>
 #include <core/cxHash.h>
+#include <core/cxLocalized.h>
+
 #include <math/cxPoint2F.h>
 #include <math/cxPoint3F.h>
 #include <math/cxSize2F.h>
@@ -21,6 +23,7 @@
 #include <math/cxBox4F.h>
 #include <math/cxBoxPoint3F.h>
 #include <math/cxboxColor4F.h>
+
 #include "cxOpenGL.h"
 #include "cxAction.h"
 #include "cxShader.h"

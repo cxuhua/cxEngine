@@ -33,12 +33,7 @@ cxLabel *cxLabel::Localized(cchars fmt,...)
     va_list ap;
     va_start(ap, fmt);
     const cxStr *key = cxStr::Create()->AppFmt(fmt, ap);
-    const cxStr *text = cxLocalized::Text(key->Data());
-    if(cxStr::IsOK(text)){
-        rv->SetText(text);
-    }else{
-        rv->SetText(key);
-    }
+    rv->SetText(cxLocalized::Text(key->Data()));
     va_end(ap);
     return rv;
 }

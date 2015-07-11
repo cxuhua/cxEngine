@@ -11,10 +11,11 @@
 
 #include <uv/uv.h>
 #include <core/cxStr.h>
+#include "cxAction.h"
 
 CX_CPP_BEGIN
 
-class cxTcp : public cxObject
+class cxTcp : public cxAction
 {
 public:
     CX_DECLARE(cxTcp);
@@ -22,6 +23,7 @@ protected:
     explicit cxTcp();
     virtual ~cxTcp();
 private:
+    uv_loop_t looper;
     cxInt error;
     uv_tcp_t handle;
     uv_connect_t connreq;
@@ -44,13 +46,18 @@ protected:
     virtual void OnConnected();
     virtual void OnClose();
     virtual void OnIpAddr(cchars ip);
+    virtual void OnStep(cxFloat dt);
 public:
     cxBool Connect(cchars host,cxInt port);
     void Close(cxInt err);
     cxBool Write(cxStr *data);
 public:
+    cxEvent<cxTcp, cchars, cxInt> onData;
+    cxEvent<cxTcp, cchars> onIpAddr;
     cxEvent<cxTcp> onConnected;
     cxEvent<cxTcp> onClose;
+public:
+    static cxTcp *Create(cchars host,cxInt port);
 };
 
 CX_CPP_END

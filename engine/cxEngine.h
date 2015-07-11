@@ -53,7 +53,6 @@ private:
     cxDouble time;
     cxBool init;
     cxBool pause;
-    uv_loop_t looper;
     cxWindow *window;
     cxBool istouch;
 public:
@@ -63,9 +62,7 @@ public:
     static void Init(cxEngine *engine);
     static void Destroy();
     static cxEngine *Instance();
-    
-    uv_loop_t *Looper();
-    
+
     cxWindow *Window() const;
     
     cxInt FPS() const;

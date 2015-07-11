@@ -16,10 +16,10 @@ CX_IMPLEMENT(cxTcp);
 
 cxTcp::cxTcp()
 {
+    uv_loop_init(&looper);
     shutdown = false;
     connected = false;
-    uv_loop_t *loop = cxEngine::Instance()->Looper();
-    uv_tcp_init(loop, &handle);
+    uv_tcp_init(&looper, &handle);
     handle.data = this;
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
@@ -31,17 +31,32 @@ cxTcp::cxTcp()
 
 cxTcp::~cxTcp()
 {
+    uv_loop_close(&looper);
     free(buffer);
+}
+
+cxTcp *cxTcp::Create(cchars host,cxInt port)
+{
+    cxTcp *rv = cxTcp::Create();
+    rv->Connect(host, port);
+    rv->Forever();
+    return rv;
+}
+
+void cxTcp::OnStep(cxFloat dt)
+{
+    uv_run(&looper, UV_RUN_NOWAIT);
 }
 
 void cxTcp::OnClose()
 {
     onClose.Fire(this);
+    Stop();
 }
 
 void cxTcp::OnData(char *buffer,cxInt size)
 {
-    
+    onData.Fire(this, buffer, size);
 }
 
 void cxTcp::OnConnected()
@@ -51,7 +66,7 @@ void cxTcp::OnConnected()
 
 void cxTcp::OnIpAddr(cchars ip)
 {
-    
+    onIpAddr.Fire(this, ip);
 }
 
 void cxTcp::shutdown_cb(uv_shutdown_t* req, int status)
@@ -65,8 +80,6 @@ void cxTcp::close_cb(uv_handle_t* handle)
     cxTcp *tcp = static_cast<cxTcp *>(handle->data);
     tcp->connected = false;
     tcp->OnClose();
-    //PS:at close release tcp instance
-    tcp->Release();
 }
 
 void cxTcp::alloc_cb(uv_handle_t* handle,size_t suggested,uv_buf_t* buf)
@@ -163,11 +176,10 @@ void cxTcp::resolved_cb(uv_getaddrinfo_t *resolver, int status, struct addrinfo 
 
 cxBool cxTcp::Connect(cchars host,cxInt port)
 {
-    uv_loop_t *loop = cxEngine::Instance()->Looper();
     resolver.data = this;
     char ports[16]={0};
     snprintf(ports, 16, "%d",port);
-    cxInt ret = uv_getaddrinfo(loop,&resolver,resolved_cb,host,ports,&hints);
+    cxInt ret = uv_getaddrinfo(&looper,&resolver,resolved_cb,host,ports,&hints);
     if(ret != 0){
         Close(ret);
     }

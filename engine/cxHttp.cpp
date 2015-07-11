@@ -161,18 +161,20 @@ void cxHttp::connect(const char *url)
 cxHttp *cxHttp::Post(cchars url,cxStr *post)
 {
     CX_ASSERT(cxStr::IsOK(url), "args error");
-    cxHttp *rv = cxHttp::Alloc();
+    cxHttp *rv = cxHttp::Create();
     cxObject::swap(&rv->post, post);
     rv->method = HTTP_POST;
     rv->connect(url);
+    rv->Forever();
     return rv;
 }
 
 cxHttp *cxHttp::Get(cchars url)
 {
     CX_ASSERT(cxStr::IsOK(url), "args error");
-    cxHttp *rv = cxHttp::Alloc();
+    cxHttp *rv = cxHttp::Create();
     rv->connect(url);
+    rv->Forever();
     return rv;
 }
 

@@ -53,7 +53,6 @@ cxEngine::cxEngine()
     time = 0;
     dt = 0;
     init = false;
-    uv_loop_init(&looper);
     window = cxWindow::Alloc();
     render = cxRender::Alloc();
 }
@@ -62,7 +61,6 @@ cxEngine::~cxEngine()
 {
     render->Release();
     window->Release();
-    uv_loop_close(&looper);
 }
 
 const cxSize2F &cxEngine::WinSize() const
@@ -118,11 +116,6 @@ void cxEngine::SetIter(cxInt aiter)
 cxInt cxEngine::Iter() const
 {
     return iter;
-}
-
-uv_loop_t *cxEngine::Looper()
-{
-    return &looper;
 }
 
 void cxEngine::OnUpdate(cxFloat dt)
@@ -191,7 +184,6 @@ void cxEngine::Run()
             iter = nextIter;
         }
         for(cxInt i=0;i<iter;i++){
-            uv_run(Looper(), UV_RUN_NOWAIT);
             OnUpdate(dt);
             window->Update(dt);
         }

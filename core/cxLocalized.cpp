@@ -40,7 +40,8 @@ const cxStr *cxLocalized::Text(cchars key)
     cxLocalized *local = cxLocalized::Instance();
     cxObject *pobj = local->texts->Get(key);
     if(pobj == nullptr){
-        return nullptr;
+        CX_WARN("%s key localize text miss",key);
+        return cxStr::UTF8(key);
     }
     return pobj->To<cxStr>();
 }

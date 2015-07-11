@@ -59,8 +59,8 @@ public:
     cxHash *ReqHeads();
     cxHash *ResHeads();
     const cxStr *Body() const;
-    
     const cxBool Success() const;
+    
     static cxHttp *Post(cchars url,cxStr *post);
     static cxHttp *Get(cchars url);
 };

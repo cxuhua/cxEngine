@@ -39,7 +39,9 @@ const cxStr *cxLocalized::Text(cchars key)
 {
     cxLocalized *local = cxLocalized::Instance();
     cxObject *pobj = local->texts->Get(key);
-    CX_ASSERT(pobj != nullptr, "text key:%s not found",key);
+    if(pobj == nullptr){
+        return nullptr;
+    }
     return pobj->To<cxStr>();
 }
 

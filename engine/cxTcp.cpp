@@ -50,8 +50,8 @@ void cxTcp::OnStep(cxFloat dt)
 
 void cxTcp::OnClose()
 {
-    onClose.Fire(this);
     Stop();
+    onClose.Fire(this);
 }
 
 void cxTcp::OnData(char *buffer,cxInt size)

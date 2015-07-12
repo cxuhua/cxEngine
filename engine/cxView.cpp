@@ -51,12 +51,12 @@ cxView::cxView()
 
 cxView::~cxView()
 {
+    onFree.Fire(this);
     cxObject::release(&shader);
     actapps->Release();
     viewapps->Release();
     actions->Release();
     subviews->Release();
-    onFree.Fire(this);
 }
 
 cxView *cxView::BringFront()

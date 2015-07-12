@@ -188,9 +188,9 @@ void cxEngine::Run()
             window->Update(dt);
         }
         gl->Clear();
+        
         render->Init();
         window->Render(render,gl->ModelView());
-        
         render->Draw();
         break;
     };

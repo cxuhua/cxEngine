@@ -3671,71 +3671,71 @@ RakPeer::RemoteSystemStruct * RakPeer::AssignSystemAddressToRemoteSystemList( co
 						break;
 					}
 				}
-
 				// 06/26/09 Unconfirmed report that Vista firewall blocks the reply if we force a binding
 				// For now use the incoming socket only
 				// Originally this code was to force a machine with multiple IP addresses to reply back on the IP
 				// that the datagram came in on
-				if (1 || foundIndex==(unsigned int)-1)
-				{
-					// Must not be an internal LAN address. Just use whatever socket it came in on
-					remoteSystem->rakNetSocket=incomingRakNetSocket;
-				}
-				else
-				{
-					/*
-					// Force binding
-					unsigned int socketListIndex;
-					for (socketListIndex=0; socketListIndex < socketList.Size(); socketListIndex++)
-					{
-						if (socketList[socketListIndex]->GetBoundAddress()==bindingAddress)
-						{
-							// Force binding with existing socket
-							remoteSystem->rakNetSocket=socketList[socketListIndex];
-							break;
-						}
-					}
-
-					if (socketListIndex==socketList.Size())
-					{
-						char ipListFoundIndexStr[128];
-						ipList[foundIndex].ToString(false,str);
-
-						// Force binding with new socket
-						RakNetSocket* rns(RakNet::OP_NEW<RakNetSocket>(_FILE_AND_LINE_));
-						if (incomingRakNetSocket->GetRemotePortRakNetWasStartedOn()==0)
-							rns = SocketLayer::CreateBoundSocket( this, bindingAddress.GetPort(), incomingRakNetSocket->GetBlockingSocket(), ipListFoundIndexStr, 0, incomingRakNetSocket->GetExtraSocketOptions(), incomingRakNetSocket->GetSocketFamily(), incomingRakNetSocket->GetChromeInstance() );
-						else
-							rns = SocketLayer::CreateBoundSocket_PS3Lobby( bindingAddress.GetPort(), incomingRakNetSocket->GetBlockingSocket(), ipListFoundIndexStr, incomingRakNetSocket->GetSocketFamily() );
-
-
-						if (rns==0)
-						{
-							// Can't bind. Just use whatever socket it came in on
-							remoteSystem->rakNetSocket=incomingRakNetSocket;
-						}
-						else
-						{
-							rns->GetBoundAddress()=bindingAddress;
-							rns->SetUserConnectionSocketIndex((unsigned int)-1);
-							socketList.Push(rns, _FILE_AND_LINE_ );
-							remoteSystem->rakNetSocket=rns;
-
-
-#ifdef _WIN32
-							int highPriority=THREAD_PRIORITY_ABOVE_NORMAL;
-#else
-							int highPriority=-10;
-#endif
-
-							highPriority=0;
-
-
-						}
-					}
-
-					*/
-				}
+//				if (1 || foundIndex==(unsigned int)-1)
+//				{
+//					// Must not be an internal LAN address. Just use whatever socket it came in on
+//					remoteSystem->rakNetSocket=incomingRakNetSocket;
+//				}
+//				else
+//				{
+//					/*
+//					// Force binding
+//					unsigned int socketListIndex;
+//					for (socketListIndex=0; socketListIndex < socketList.Size(); socketListIndex++)
+//					{
+//						if (socketList[socketListIndex]->GetBoundAddress()==bindingAddress)
+//						{
+//							// Force binding with existing socket
+//							remoteSystem->rakNetSocket=socketList[socketListIndex];
+//							break;
+//						}
+//					}
+//
+//					if (socketListIndex==socketList.Size())
+//					{
+//						char ipListFoundIndexStr[128];
+//						ipList[foundIndex].ToString(false,str);
+//
+//						// Force binding with new socket
+//						RakNetSocket* rns(RakNet::OP_NEW<RakNetSocket>(_FILE_AND_LINE_));
+//						if (incomingRakNetSocket->GetRemotePortRakNetWasStartedOn()==0)
+//							rns = SocketLayer::CreateBoundSocket( this, bindingAddress.GetPort(), incomingRakNetSocket->GetBlockingSocket(), ipListFoundIndexStr, 0, incomingRakNetSocket->GetExtraSocketOptions(), incomingRakNetSocket->GetSocketFamily(), incomingRakNetSocket->GetChromeInstance() );
+//						else
+//							rns = SocketLayer::CreateBoundSocket_PS3Lobby( bindingAddress.GetPort(), incomingRakNetSocket->GetBlockingSocket(), ipListFoundIndexStr, incomingRakNetSocket->GetSocketFamily() );
+//
+//
+//						if (rns==0)
+//						{
+//							// Can't bind. Just use whatever socket it came in on
+//							remoteSystem->rakNetSocket=incomingRakNetSocket;
+//						}
+//						else
+//						{
+//							rns->GetBoundAddress()=bindingAddress;
+//							rns->SetUserConnectionSocketIndex((unsigned int)-1);
+//							socketList.Push(rns, _FILE_AND_LINE_ );
+//							remoteSystem->rakNetSocket=rns;
+//
+//
+//#ifdef _WIN32
+//							int highPriority=THREAD_PRIORITY_ABOVE_NORMAL;
+//#else
+//							int highPriority=-10;
+//#endif
+//
+//							highPriority=0;
+//
+//
+//						}
+//					}
+//
+//					*/
+//				}
+                remoteSystem->rakNetSocket=incomingRakNetSocket;
 			}
 
 			for ( j = 0; j < (unsigned) PING_TIMES_ARRAY_SIZE; j++ )

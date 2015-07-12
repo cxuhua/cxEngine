@@ -55,6 +55,14 @@ cxUtil *cxUtil::Instance()
     }
     return instance;
 }
+#else
+cxUtil *cxUtil::Instance()
+{
+    if(instance == nullptr){
+        instance = cxUtil::Alloc();
+    }
+    return instance;
+}
 #endif
 
 const cxStr *cxUtil::GetLang() const

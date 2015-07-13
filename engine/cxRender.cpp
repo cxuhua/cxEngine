@@ -114,7 +114,7 @@ void cxRender::Draw()
             gl->Scissor();
             continue;
         }
-        if(type == cxRenderState::Render){
+        if(type == cxRenderState::BoxRender){
             cxUInt64 id = draw.ID();
             if(cid != id){cid = id;DrawRenders(prev);}
             prev = &draw;

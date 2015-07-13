@@ -624,7 +624,7 @@ void cxView::transform()
         SetAngle(Direction());
     }
     if(IsDirtyMode(DirtyModeNormal)){
-        normalMatrix.InitTrans(position.x+offset.x,position.y+offset.y,0.0f);
+        normalMatrix.InitTrans(Position() + Offset());
         normalMatrix.Rotation(axis.x,axis.y,axis.z, angle);
         normalMatrix.Scaling(TransScale());
     }
@@ -726,7 +726,7 @@ cxInt cxView::sortFunc(const void *lp,const void *rp)
 cxRenderState &cxView::State()
 {
     state.shader = Shader();
-    state.Set(cxRenderState::Render);
+    state.Set(cxRenderState::BoxRender);
     return state;
 }
 

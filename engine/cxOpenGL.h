@@ -132,7 +132,7 @@ struct cxRenderState
     
     cxUInt64 ID() const;
     
-    static const cxStateType Render     = 0;
+    static const cxStateType BoxRender  = 0;
     static const cxStateType ClipOn     = 1;
     static const cxStateType ClipOff    = 2;
 };

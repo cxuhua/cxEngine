@@ -396,5 +396,15 @@ cxRange2F cxRange2F::Clamp(const cxRange2F &min,const cxRange2F &max,const cxRan
     return rv;
 }
 
+cxBool cxRange2F::operator==(const cxRange2F &v) const
+{
+    return cxFloatIsEqual(min, v.min) && cxFloatIsEqual(max, v.max);
+}
+
+cxBool cxRange2F::operator!=(const cxRange2F &v) const
+{
+    return !cxFloatIsEqual(min, v.min) || !cxFloatIsEqual(max, v.max);
+}
+
 CX_CPP_END
 

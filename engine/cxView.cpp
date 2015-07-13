@@ -41,7 +41,7 @@ cxView::cxView()
     offset = 0.0f;
     angle = 0;
     axis = cxPoint3F::AxisZ;
-    dirtymode = DirtyModeNormal;
+    dirtymode = 0xFFFFFFFF;
     cc = cxColor4F::WHITE;
     subviews = cxArray::Alloc();
     viewapps = cxArray::Alloc();
@@ -162,12 +162,7 @@ cxView *cxView::SetDirty(DirtyMode mode)
 
 cxBool cxView::IsDirtyMode(DirtyMode v) const
 {
-    return GetDirtyMode() & v;
-}
-
-DirtyMode cxView::GetDirtyMode() const
-{
-    return dirtymode;
+    return dirtymode & v;
 }
 
 void cxView::ClearDirty()

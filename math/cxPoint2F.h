@@ -117,7 +117,8 @@ struct cxRange2F
     cxRange2F();
     cxRange2F(cxFloat amin,cxFloat amax);
     cxRange2F(const cxRange2F &v);
-    
+    cxBool operator==(const cxRange2F &v) const;
+    cxBool operator!=(const cxRange2F &v) const;
     static cxRange2F Clamp(const cxRange2F &min,const cxRange2F &max,const cxRange2F &v);
 };
 

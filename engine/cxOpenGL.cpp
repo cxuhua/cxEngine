@@ -71,7 +71,7 @@ void cxOpenGL::Init()
     cxShader::Create()->Init()->gcpush<cxShader>(DefaultShader);
     cxColorShader::Create()->Init()->gcpush<cxShader>(ColorShader);
     //
-    SetClearColor(cxColor4F::WHITE);
+    SetClearColor(cxColor4F::BLACK);
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_SCISSOR_TEST);
     glDisable(GL_STENCIL_TEST);

@@ -30,11 +30,13 @@
 #include <engine/cxSequence.h>
 #include <engine/cxJump.h>
 #include <engine/cxResize.h>
+#include <engine/cxProgress.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
 
 CX_IMPLEMENT(IOSEngine);
+
 
 IOSEngine::IOSEngine()
 {
@@ -72,6 +74,15 @@ void IOSEngine::OnMain()
     cxTexture::Create()->From("animate.png")->Atlas("animate.json")->gcpush<cxTexture>("animate");
     cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
+    cxTexture::Create()->From("grid.png")->gcpush<cxTexture>("grid");
+    
+    cxSprite *bg = cxSprite::Create()->SetTexture("grid");
+    cxSprite *vv = cxSprite::Create()->SetTexture("grid");
+    
+    cxProgress *v = cxProgress::Create(bg, vv, 0.5f);
+    v->SetSize(cxSize2F(300,50));
+    
+    Window()->Append(v);
     
 //    cxSpline *x = cxSpline::Create();
 //    x->Append(cxPoint2F(300, 0));
@@ -101,9 +112,9 @@ void IOSEngine::OnMain()
 //        CX_LOGGER("run action stop");
 //    };
     
-    cxSprite *sp = cxSprite::Create()->SetTexture("t.png");
+//    cxSprite *sp = cxSprite::Create()->SetTexture("t.png");
 //    sp->EnableDir(true);
-    sp->SetFrame(-800, 0, 100, 100);
+//    sp->SetFrame(-800, 0, 100, 100);
     
 //    cxJump *j = cxJump::Create(cxPoint2F(800,0), 100, 6, 5);
 //    j->AttachTo(sp);
@@ -116,7 +127,7 @@ void IOSEngine::OnMain()
 //        pav->View()->Append(pav->Reverse());
 //    };
     
-    Window()->Append(sp);
+//    Window()->Append(sp);
     
 //    cxSprite *fp = cxSprite::Create()->SetTexture("t.png");
 //    fp->EnableDir(true);

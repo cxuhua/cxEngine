@@ -74,6 +74,7 @@ public:
     static const DirtyMode DirtyModeTexture     = 1 << 5;
     static const DirtyMode DirtyModeLayout      = 1 << 6;
     static const DirtyMode DirtyModeAnchor      = 1 << 7;
+    static const DirtyMode DirtyModeForce       = 1 << 8;
     static const DirtyMode DirtyModeNormal      = DirtyModePosition|DirtyModeAngle|DirtyModeScale;
     
     static const cxUInt FlagsDirty              = 1 << 0;
@@ -196,8 +197,6 @@ public:
     
     cxBool EnableVisible() const;
     cxView *EnableVisible(cxBool v);
-    
-    DirtyMode GetDirtyMode() const;
     
     cxBool IsRemoved() const;
     

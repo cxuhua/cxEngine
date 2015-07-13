@@ -12,6 +12,7 @@
 		8302541E1B453E8B0070D2E5 /* cxTimeLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8302541C1B453E8B0070D2E5 /* cxTimeLine.cpp */; };
 		8302A3751B51078500C7209C /* cxLocalized.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8302A3731B51078500C7209C /* cxLocalized.cpp */; };
 		8302A5831B535E3A00C7209C /* cxProgress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8302A5811B535E3A00C7209C /* cxProgress.cpp */; };
+		8302A6F51B53A77100C7209C /* cxSpatial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8302A6F31B53A77100C7209C /* cxSpatial.cpp */; };
 		83079B661B29300C00275F1F /* cxEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83079B641B29300C00275F1F /* cxEngine.cpp */; };
 		830ECB1D1B3DA38F002EBE56 /* tools.c in Sources */ = {isa = PBXBuildFile; fileRef = 830ECB1B1B3DA38F002EBE56 /* tools.c */; };
 		830ECB261B3EAD52002EBE56 /* cxLineF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 830ECB241B3EAD52002EBE56 /* cxLineF.cpp */; };
@@ -168,6 +169,57 @@
 		8302A3741B51078500C7209C /* cxLocalized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxLocalized.h; sourceTree = "<group>"; };
 		8302A5811B535E3A00C7209C /* cxProgress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxProgress.cpp; sourceTree = "<group>"; };
 		8302A5821B535E3A00C7209C /* cxProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxProgress.h; sourceTree = "<group>"; };
+		8302A6C11B539AF100C7209C /* algorithm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = algorithm.hpp; sourceTree = "<group>"; };
+		8302A6C31B539AF100C7209C /* spatial_assert.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_assert.hpp; sourceTree = "<group>"; };
+		8302A6C41B539AF100C7209C /* spatial_assign.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_assign.hpp; sourceTree = "<group>"; };
+		8302A6C51B539AF100C7209C /* spatial_bidirectional.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_bidirectional.hpp; sourceTree = "<group>"; };
+		8302A6C61B539AF100C7209C /* spatial_builtin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_builtin.hpp; sourceTree = "<group>"; };
+		8302A6C71B539AF100C7209C /* spatial_check_concept.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_check_concept.hpp; sourceTree = "<group>"; };
+		8302A6C81B539AF100C7209C /* spatial_closed_region.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_closed_region.hpp; sourceTree = "<group>"; };
+		8302A6C91B539AF100C7209C /* spatial_compress.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_compress.hpp; sourceTree = "<group>"; };
+		8302A6CA1B539AF100C7209C /* spatial_condition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_condition.hpp; sourceTree = "<group>"; };
+		8302A6CB1B539AF100C7209C /* spatial_enclosed_region.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_enclosed_region.hpp; sourceTree = "<group>"; };
+		8302A6CC1B539AF100C7209C /* spatial_equal.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_equal.hpp; sourceTree = "<group>"; };
+		8302A6CD1B539AF100C7209C /* spatial_euclidian_neighbor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_euclidian_neighbor.hpp; sourceTree = "<group>"; };
+		8302A6CE1B539AF100C7209C /* spatial_except.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_except.hpp; sourceTree = "<group>"; };
+		8302A6CF1B539AF100C7209C /* spatial_import_type_traits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_import_type_traits.hpp; sourceTree = "<group>"; };
+		8302A6D01B539AF100C7209C /* spatial_kdtree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_kdtree.hpp; sourceTree = "<group>"; };
+		8302A6D11B539AF100C7209C /* spatial_manhattan_neighbor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_manhattan_neighbor.hpp; sourceTree = "<group>"; };
+		8302A6D21B539AF100C7209C /* spatial_mapping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_mapping.hpp; sourceTree = "<group>"; };
+		8302A6D31B539AF100C7209C /* spatial_math.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_math.hpp; sourceTree = "<group>"; };
+		8302A6D41B539AF100C7209C /* spatial_mutate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_mutate.hpp; sourceTree = "<group>"; };
+		8302A6D51B539AF100C7209C /* spatial_neighbor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_neighbor.hpp; sourceTree = "<group>"; };
+		8302A6D61B539AF100C7209C /* spatial_node.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_node.hpp; sourceTree = "<group>"; };
+		8302A6D71B539AF100C7209C /* spatial_open_region.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_open_region.hpp; sourceTree = "<group>"; };
+		8302A6D81B539AF100C7209C /* spatial_ordered.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_ordered.hpp; sourceTree = "<group>"; };
+		8302A6D91B539AF100C7209C /* spatial_overlap_region.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_overlap_region.hpp; sourceTree = "<group>"; };
+		8302A6DA1B539AF100C7209C /* spatial_preorder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_preorder.hpp; sourceTree = "<group>"; };
+		8302A6DB1B539AF100C7209C /* spatial_quadrance_neighbor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_quadrance_neighbor.hpp; sourceTree = "<group>"; };
+		8302A6DC1B539AF100C7209C /* spatial_rank.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_rank.hpp; sourceTree = "<group>"; };
+		8302A6DD1B539AF100C7209C /* spatial_region.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_region.hpp; sourceTree = "<group>"; };
+		8302A6DE1B539AF100C7209C /* spatial_relaxed_kdtree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_relaxed_kdtree.hpp; sourceTree = "<group>"; };
+		8302A6DF1B539AF100C7209C /* spatial_template_member_swap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_template_member_swap.hpp; sourceTree = "<group>"; };
+		8302A6E01B539AF100C7209C /* spatial_value_compare.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial_value_compare.hpp; sourceTree = "<group>"; };
+		8302A6E11B539AF100C7209C /* box_multimap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = box_multimap.hpp; sourceTree = "<group>"; };
+		8302A6E21B539AF100C7209C /* box_multiset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = box_multiset.hpp; sourceTree = "<group>"; };
+		8302A6E31B539AF100C7209C /* equal_iterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = equal_iterator.hpp; sourceTree = "<group>"; };
+		8302A6E41B539AF100C7209C /* exception.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = exception.hpp; sourceTree = "<group>"; };
+		8302A6E51B539AF100C7209C /* function.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = function.hpp; sourceTree = "<group>"; };
+		8302A6E61B539AF100C7209C /* idle_box_multimap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = idle_box_multimap.hpp; sourceTree = "<group>"; };
+		8302A6E71B539AF100C7209C /* idle_box_multiset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = idle_box_multiset.hpp; sourceTree = "<group>"; };
+		8302A6E81B539AF100C7209C /* idle_point_multimap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = idle_point_multimap.hpp; sourceTree = "<group>"; };
+		8302A6E91B539AF100C7209C /* idle_point_multiset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = idle_point_multiset.hpp; sourceTree = "<group>"; };
+		8302A6EA1B539AF100C7209C /* mapping_iterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mapping_iterator.hpp; sourceTree = "<group>"; };
+		8302A6EB1B539AF100C7209C /* metric.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metric.hpp; sourceTree = "<group>"; };
+		8302A6EC1B539AF100C7209C /* neighbor_iterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = neighbor_iterator.hpp; sourceTree = "<group>"; };
+		8302A6ED1B539AF100C7209C /* ordered_iterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ordered_iterator.hpp; sourceTree = "<group>"; };
+		8302A6EE1B539AF100C7209C /* point_multimap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = point_multimap.hpp; sourceTree = "<group>"; };
+		8302A6EF1B539AF100C7209C /* point_multiset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = point_multiset.hpp; sourceTree = "<group>"; };
+		8302A6F01B539AF100C7209C /* region_iterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = region_iterator.hpp; sourceTree = "<group>"; };
+		8302A6F11B539AF100C7209C /* spatial.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial.hpp; sourceTree = "<group>"; };
+		8302A6F21B539AF100C7209C /* traits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traits.hpp; sourceTree = "<group>"; };
+		8302A6F31B53A77100C7209C /* cxSpatial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSpatial.cpp; sourceTree = "<group>"; };
+		8302A6F41B53A77100C7209C /* cxSpatial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSpatial.h; sourceTree = "<group>"; };
 		83079B641B29300C00275F1F /* cxEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxEngine.cpp; sourceTree = "<group>"; };
 		83079B651B29300C00275F1F /* cxEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxEngine.h; sourceTree = "<group>"; };
 		830ECB1B1B3DA38F002EBE56 /* tools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tools.c; sourceTree = "<group>"; };
@@ -425,6 +477,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8302A6C01B539AF100C7209C /* spatial */ = {
+			isa = PBXGroup;
+			children = (
+				8302A6C11B539AF100C7209C /* algorithm.hpp */,
+				8302A6C21B539AF100C7209C /* bits */,
+				8302A6E11B539AF100C7209C /* box_multimap.hpp */,
+				8302A6E21B539AF100C7209C /* box_multiset.hpp */,
+				8302A6E31B539AF100C7209C /* equal_iterator.hpp */,
+				8302A6E41B539AF100C7209C /* exception.hpp */,
+				8302A6E51B539AF100C7209C /* function.hpp */,
+				8302A6E61B539AF100C7209C /* idle_box_multimap.hpp */,
+				8302A6E71B539AF100C7209C /* idle_box_multiset.hpp */,
+				8302A6E81B539AF100C7209C /* idle_point_multimap.hpp */,
+				8302A6E91B539AF100C7209C /* idle_point_multiset.hpp */,
+				8302A6EA1B539AF100C7209C /* mapping_iterator.hpp */,
+				8302A6EB1B539AF100C7209C /* metric.hpp */,
+				8302A6EC1B539AF100C7209C /* neighbor_iterator.hpp */,
+				8302A6ED1B539AF100C7209C /* ordered_iterator.hpp */,
+				8302A6EE1B539AF100C7209C /* point_multimap.hpp */,
+				8302A6EF1B539AF100C7209C /* point_multiset.hpp */,
+				8302A6F01B539AF100C7209C /* region_iterator.hpp */,
+				8302A6F11B539AF100C7209C /* spatial.hpp */,
+				8302A6F21B539AF100C7209C /* traits.hpp */,
+			);
+			path = spatial;
+			sourceTree = "<group>";
+		};
+		8302A6C21B539AF100C7209C /* bits */ = {
+			isa = PBXGroup;
+			children = (
+				8302A6C31B539AF100C7209C /* spatial_assert.hpp */,
+				8302A6C41B539AF100C7209C /* spatial_assign.hpp */,
+				8302A6C51B539AF100C7209C /* spatial_bidirectional.hpp */,
+				8302A6C61B539AF100C7209C /* spatial_builtin.hpp */,
+				8302A6C71B539AF100C7209C /* spatial_check_concept.hpp */,
+				8302A6C81B539AF100C7209C /* spatial_closed_region.hpp */,
+				8302A6C91B539AF100C7209C /* spatial_compress.hpp */,
+				8302A6CA1B539AF100C7209C /* spatial_condition.hpp */,
+				8302A6CB1B539AF100C7209C /* spatial_enclosed_region.hpp */,
+				8302A6CC1B539AF100C7209C /* spatial_equal.hpp */,
+				8302A6CD1B539AF100C7209C /* spatial_euclidian_neighbor.hpp */,
+				8302A6CE1B539AF100C7209C /* spatial_except.hpp */,
+				8302A6CF1B539AF100C7209C /* spatial_import_type_traits.hpp */,
+				8302A6D01B539AF100C7209C /* spatial_kdtree.hpp */,
+				8302A6D11B539AF100C7209C /* spatial_manhattan_neighbor.hpp */,
+				8302A6D21B539AF100C7209C /* spatial_mapping.hpp */,
+				8302A6D31B539AF100C7209C /* spatial_math.hpp */,
+				8302A6D41B539AF100C7209C /* spatial_mutate.hpp */,
+				8302A6D51B539AF100C7209C /* spatial_neighbor.hpp */,
+				8302A6D61B539AF100C7209C /* spatial_node.hpp */,
+				8302A6D71B539AF100C7209C /* spatial_open_region.hpp */,
+				8302A6D81B539AF100C7209C /* spatial_ordered.hpp */,
+				8302A6D91B539AF100C7209C /* spatial_overlap_region.hpp */,
+				8302A6DA1B539AF100C7209C /* spatial_preorder.hpp */,
+				8302A6DB1B539AF100C7209C /* spatial_quadrance_neighbor.hpp */,
+				8302A6DC1B539AF100C7209C /* spatial_rank.hpp */,
+				8302A6DD1B539AF100C7209C /* spatial_region.hpp */,
+				8302A6DE1B539AF100C7209C /* spatial_relaxed_kdtree.hpp */,
+				8302A6DF1B539AF100C7209C /* spatial_template_member_swap.hpp */,
+				8302A6E01B539AF100C7209C /* spatial_value_compare.hpp */,
+			);
+			path = bits;
+			sourceTree = "<group>";
+		};
 		83079B5D1B292F1B00275F1F /* engine */ = {
 			isa = PBXGroup;
 			children = (
@@ -666,6 +782,7 @@
 		83BBF3CF1B109452003CB004 = {
 			isa = PBXGroup;
 			children = (
+				8302A6C01B539AF100C7209C /* spatial */,
 				83079B5D1B292F1B00275F1F /* engine */,
 				836F3F0A1B1B89A000E3E82C /* math */,
 				836A2F621B19F636009B427B /* ios */,
@@ -751,6 +868,8 @@
 				831B93F31B4A970600511A63 /* cxCSV.h */,
 				8302A3731B51078500C7209C /* cxLocalized.cpp */,
 				8302A3741B51078500C7209C /* cxLocalized.h */,
+				8302A6F31B53A77100C7209C /* cxSpatial.cpp */,
+				8302A6F41B53A77100C7209C /* cxSpatial.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -862,6 +981,7 @@
 				8338FD7D1B4695F300C84032 /* cxSpline.cpp in Sources */,
 				833B406E1B31B71400920A06 /* cxBoxRender.cpp in Sources */,
 				83AABB281B45910F0035A9F0 /* cxTimer.cpp in Sources */,
+				8302A6F51B53A77100C7209C /* cxSpatial.cpp in Sources */,
 				831189CA1B2D728000C930B5 /* aabb3.c in Sources */,
 				83610B0D1B1CB68000BD06B1 /* cxPoint2I.cpp in Sources */,
 				836A2F521B1987B7009B427B /* cxUtil.cpp in Sources */,

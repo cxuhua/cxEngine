@@ -112,6 +112,12 @@ cxFloat cxPoint2I::Length() const
     return sqrtf(x*x + y*y);
 }
 
+cxInt cxPoint2I::operator[] (cxInt index) const
+{
+    CX_ASSERT(index >= 0 && index <= 1, "index error");
+    return ((cxInt *)this)[index];
+}
+
 cxBool cxPoint2I::operator==(const cxPoint2I &v) const
 {
     return x == v.x && y == v.y;

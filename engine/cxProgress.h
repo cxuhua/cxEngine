@@ -36,6 +36,7 @@ private:
     cxRange2F range;
     cxFloat value;
 public:
+    cxProgress *SetDir(const DirType &v);
     cxProgress *SetValue(cxFloat v);
     cxProgress *SetRange(const cxRange2F &v);
     static cxProgress *Create(cxView *pbg,cxView *pvv,cxFloat v);

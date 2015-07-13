@@ -58,6 +58,12 @@ void cxProgress::OnDirty()
     vv->SetSize(vvsiz);
 }
 
+cxProgress *cxProgress::SetDir(const DirType &v)
+{
+    dir = v;
+    return this;
+}
+
 cxProgress *cxProgress::SetRange(const cxRange2F &v)
 {
     if(range != v){

@@ -42,6 +42,8 @@ struct cxPoint2I
     cxBool IsZero() const;
     cxFloat Length() const;
     
+    cxInt operator[](cxInt index) const;
+    
     cxBool operator==(const cxPoint2I &v) const;
     cxBool operator!=(const cxPoint2I &v) const;
     

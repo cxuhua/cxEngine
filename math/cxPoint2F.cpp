@@ -139,6 +139,13 @@ cxFloat cxPoint2F::Angle() const
     return atan2f(y, x);
 }
 
+cxFloat cxPoint2F::operator[] (cxInt index) const
+{
+    CX_ASSERT(index >= 0 && index < 2, "index out bound");
+    cxFloat *ptr = (cxFloat *)this;
+    return ptr[index];
+}
+
 cxBool cxPoint2F::operator==(const cxPoint2F &v) const
 {
     return cxFloatIsEqual(x,v.x) && cxFloatIsEqual(y,v.y);

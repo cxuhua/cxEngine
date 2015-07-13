@@ -46,6 +46,8 @@ struct cxPoint2F
     static cxPoint2F Clamp(const cxPoint2F &min,const cxPoint2F &max,const cxPoint2F &v);
     static cxFloat Distance(const cxPoint2F &p1,const cxPoint2F &p2);
     
+    cxFloat operator[] (cxInt index) const;
+    
     cxBool operator==(const cxPoint2F &v) const;
     cxBool operator!=(const cxPoint2F &v) const;
     

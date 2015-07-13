@@ -41,6 +41,7 @@ cxBool cxButton::OnDispatch(const cxTouchable *e)
         return false;
     }
     const cxTouchPoint *ep = e->TouchPoint(0);
+    
     cxHitInfo hit = HitTest(ep->wp);
     if(!hit.hited && ispress){
         onRelease.Fire(this);
@@ -61,9 +62,11 @@ cxBool cxButton::OnDispatch(const cxTouchable *e)
         onMove.Fire(this);
         return !ispass;
     }
+    if(ep->IsEnded() && ep->IsTap()){
+        onTap.Fire(this);
+    }
     if(ep->IsEnded()){
         onRelease.Fire(this);
-        if(ep->IsTap())onTap.Fire(this);
         ispress = false;
         return !ispass;
     }

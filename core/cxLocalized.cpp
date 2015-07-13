@@ -28,19 +28,40 @@ cxLocalized *cxLocalized::Instance()
 cxLocalized::cxLocalized()
 {
     texts = cxHash::Alloc();
+    lang = nullptr;
 }
 
 cxLocalized::~cxLocalized()
 {
+    cxObject::release(&lang);
     texts->Release();
+}
+
+void cxLocalized::SetLang(const cxStr *lng)
+{
+    cxLocalized *instance = Instance();
+    cxObject::swap(&instance->lang, lng);
+}
+
+const cxStr *cxLocalized::GetLang()
+{
+    cxLocalized *instance = Instance();
+    if(instance->lang == nullptr){
+        return cxUtil::Instance()->LocalizedKey();
+    }
+    return instance->lang;
 }
 
 const cxStr *cxLocalized::Text(cchars key)
 {
-    cxLocalized *local = cxLocalized::Instance();
-    cxObject *pobj = local->texts->Get(key);
+    cxLocalized *instance = Instance();
+    cxObject *tobj = instance->texts->Get(GetLang()->Data());
+    if(tobj == nullptr){
+        return cxStr::UTF8(key);
+    }
+    cxHash *texts = tobj->To<cxHash>();
+    cxObject *pobj = texts->Get(key);
     if(pobj == nullptr){
-        CX_WARN("%s key localize text miss",key);
         return cxStr::UTF8(key);
     }
     return pobj->To<cxStr>();
@@ -48,26 +69,23 @@ const cxStr *cxLocalized::Text(cchars key)
 
 void cxLocalized::Load(cchars file)
 {
-    const cxStr *keycode = cxUtil::Instance()->LocalizedKey();
     cxLocalized *local = cxLocalized::Instance();
     local->texts->Clear();
     const cxStr *data = cxUtil::Content(file);
     CX_ASSERT(cxStr::IsOK(data), "get %s file data error",file);
     cxCSV *csv = cxCSV::Create(data);
-    cxInt col = 1;
-    for(cxInt j=1;j<csv->Col();j++){
+    for(cxInt j = 1;j < csv->Col();j++){
         const cxStr *text = csv->At(0, j);
-        if(text->IsCaseEqu(keycode->Data())){
-            col = j;
-            break;
+        cxHash *lngtxt = cxHash::Alloc();
+        for(cxInt i = 2; i < csv->Row(); i++){
+            const cxStr *key  = csv->At(i, 0);
+            if(!cxStr::IsOK(key)){
+                continue;
+            }
+            lngtxt->Set(key->Data(), csv->At(i, j));
         }
-    }
-    for(cxInt i=2; i < csv->Row(); i++){
-        const cxStr *key  = csv->At(i, 0);
-        if(!cxStr::IsOK(key)){
-            continue;
-        }
-        local->texts->Set(key->Data(), csv->At(i, col));
+        local->texts->Set(text->Data(), lngtxt);
+        lngtxt->Release();
     }
 }
 

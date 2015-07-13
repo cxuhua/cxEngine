@@ -77,7 +77,7 @@ const cxStr *cxUtil::GetCountry() const
 
 const cxStr *cxUtil::LocalizedKey() const
 {
-    return cxStr::UTF8("%s-%s",GetLang()->Data(),GetCountry()->Data());
+    return GetCountry();
 }
 
 const cxStr *cxUtil::Assets(cchars file)

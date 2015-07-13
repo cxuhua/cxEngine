@@ -65,6 +65,7 @@ cxContainer *cxContainer::SetSlidingTime(cxFloat v)
 
 cxContainer::cxContainer()
 {
+    bodyidx = 0;
     bodyanchor = 0.0f;
     scaleinc = 0.2f;
     scalerange = cxRange2F(0.9f,2.0f);
@@ -219,10 +220,16 @@ cxPoint2F cxContainer::fixPosition(const cxPoint2F &pos)
     return rv;
 }
 
+cxContainer *cxContainer::SetBodyIdx(cxInt idx)
+{
+    bodyidx = idx;
+    return this;
+}
+
 cxView *cxContainer::Body()
 {
-    CX_ASSERT(Subviews()->Size() > 0, "first subview use body");
-    return Subviews()->At(0)->To<cxView>();
+    CX_ASSERT(Subviews()->Size() > bodyidx, "bodyidx view miss");
+    return Subviews()->At(bodyidx)->To<cxView>();
 }
 
 CX_CPP_END

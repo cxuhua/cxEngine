@@ -55,7 +55,7 @@ public:
     cxSprite *SetTexture(const cxTexture *ptex);
     
     cxTexCoord *TexCoord() const;
-    const cxBoxCoord2F *BoxCoord() const;
+    const cxBoxCoord2F &BoxCoord() const;
 };
 
 CX_CPP_END

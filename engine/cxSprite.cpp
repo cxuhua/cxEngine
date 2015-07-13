@@ -35,8 +35,7 @@ void cxSprite::OnDirty()
         cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), flipx, flipy);
         box.SetVertices(bp);
         
-        const cxBoxCoord2F *bt = BoxCoord();
-        box.SetCoords(*bt);
+        box.SetCoords(BoxCoord());
     }
     if(IsDirtyMode(DirtyModeColor)) {
         box.SetColor(BoxColor());
@@ -134,7 +133,7 @@ cxTexCoord *cxSprite::TexCoord() const
     return coord;
 }
 
-const cxBoxCoord2F *cxSprite::BoxCoord() const
+const cxBoxCoord2F &cxSprite::BoxCoord() const
 {
     return coord->BoxCoord(pixel, flipx, flipy);
 }

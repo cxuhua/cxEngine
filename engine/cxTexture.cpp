@@ -128,10 +128,10 @@ cxBox4F &cxTexCoord::Trimmed(cxBox4F &vbox,const cxSize2F &size,cxBool flipx,cxB
     return vbox;
 }
 
-const cxBoxCoord2F *cxTexCoord::BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy)
+const cxBoxCoord2F &cxTexCoord::BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy)
 {
     if(texture == nullptr){
-        return &cxBoxCoord2F::Default;
+        return cxBoxCoord2F::Default;
     }
     cxSize2F size = texture->Size();
     if(rotated){
@@ -157,7 +157,7 @@ const cxBoxCoord2F *cxTexCoord::BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBoo
         coord.rt = cxCoord2F(r,t);
         coord.lt = cxCoord2F(l,t);
     }
-    return &coord;
+    return coord;
 }
 
 CX_IMPLEMENT(cxTexture);

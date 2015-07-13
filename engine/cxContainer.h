@@ -36,6 +36,7 @@ protected:
     cxBool OnDispatch(const cxTouchable *e);
     void OnAppend(cxView *nview);
 private:
+    cxInt bodyidx;
     SlidingType slidingtype;
     cxPoint2F fixPosition(const cxPoint2F &pos);
     cxBool scale(const cxTouchable *e);
@@ -52,6 +53,7 @@ protected:
     cxView *Body();
     cxContainer *FixPosition();
 public:
+    cxContainer *SetBodyIdx(cxInt idx);
     cxContainer *SetScaleRange(const cxRange2F &v);
     cxContainer *EnableScale(cxBool v);
     cxContainer *EnableSliding(cxBool v);

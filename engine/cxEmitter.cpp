@@ -295,8 +295,7 @@ void cxEmitter::OnUpdate(cxFloat dt)
         unitToBoxPoint3F(p, vbp);
         box.SetVertices(vbp);
         
-        const cxBoxCoord2F *bt = BoxCoord();
-        box.SetCoords(*bt);
+        box.SetCoords(BoxCoord());
         index ++;
     }
     //auto remove emitter system

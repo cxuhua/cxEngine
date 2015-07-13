@@ -45,7 +45,7 @@ public:
     const cxSize2F &Size() const;
     cxBox4F Trimmed(const cxBoxPoint3F &box,const cxSize2F &size,cxBool flipx,cxBool flipy) const;
     cxBox4F &Trimmed(cxBox4F &vbox,const cxSize2F &size,cxBool flipx,cxBool flipy) const;
-    const cxBoxCoord2F *BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy);
+    const cxBoxCoord2F &BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy);
 };
 
 struct cxTextureParams

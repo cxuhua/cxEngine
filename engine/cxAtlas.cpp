@@ -37,8 +37,8 @@ void cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
         
         render.SetColor(Color());
         
-        const cxBoxCoord2F *tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
-        render.SetCoords(*tbox);
+        const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
+        render.SetCoords(tbox);
     }
 }
 
@@ -55,8 +55,8 @@ void cxAtlas::SetCoords(const cxArray *coords)
         
         render.SetColor(Color());
         
-        const cxBoxCoord2F *tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
-        render.SetCoords(*tbox);
+        const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
+        render.SetCoords(tbox);
     }
 }
 

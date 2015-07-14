@@ -10,11 +10,11 @@
 #define cxEngineCore_cxSequence_h
 
 #include <core/cxArray.h>
-#include "cxTimeLine.h"
+#include "cxAction.h"
 
 CX_CPP_BEGIN
 
-class cxSequence : public cxTimeLine
+class cxSequence : public cxAction
 {
 public:
     CX_DECLARE(cxSequence);
@@ -22,9 +22,16 @@ protected:
     explicit cxSequence();
     virtual ~cxSequence();
 protected:
-    void OnTime(const cxTimePoint *tp);
+    void OnStep(cxFloat dt);
+    void OnInit();
+private:
+    cxInt index;
+    cxArray *actions;
 public:
+    const cxInt Size() const;
+    const cxInt Index() const;
     cxSequence *Append(cxAction *pav);
+    cxEvent<cxSequence> onAction;
 };
 
 CX_CPP_END

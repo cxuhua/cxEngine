@@ -33,7 +33,6 @@ protected:
     virtual void OnStop();
     virtual void OnReset();
     virtual void OnStep(cxFloat dt);
-    virtual cxBool Update(cxFloat dt);
 private:
     cxULong actionId;
     cxTimingFunc timing;
@@ -93,6 +92,7 @@ public:
     cxAction *AttachTo(cxView *pview);
     virtual cxAction *Clone();
     virtual cxAction *Reverse();
+    virtual cxBool Update(cxFloat dt);
 };
 
 CX_CPP_END

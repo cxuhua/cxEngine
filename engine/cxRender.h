@@ -45,6 +45,7 @@ public:
     void Render(cxBoxRenderArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
     //clip subviews
     void Clip(cxStateType type,const cxBox4F &box);
+    //
     void DrawRenders(cxDraw *draw);
 };
 

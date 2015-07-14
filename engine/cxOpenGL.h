@@ -148,12 +148,9 @@ public:
     static void UseBlend(BlendFunc &b);
     static BlendFunc &Blend();
 protected:
-    
     cxOpenGL *gl;
-    
     void DrawBoxRender(const cxBoxRenderArray &renders,const cxUInt16 *indices);
     void DrawBoxRender(const cxBoxRender &render,const cxUInt16 *indices);
-    
     void DrawBoxLine(const cxBoxPoint3F &vs,const cxBoxColor4F &cs);
     void DrawBoxShape(const cxBoxPoint3F &vs,const cxBoxColor4F &cs);
 };

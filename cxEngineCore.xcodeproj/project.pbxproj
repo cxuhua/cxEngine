@@ -12,7 +12,6 @@
 		8302541E1B453E8B0070D2E5 /* cxTimeLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8302541C1B453E8B0070D2E5 /* cxTimeLine.cpp */; };
 		8302A3751B51078500C7209C /* cxLocalized.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8302A3731B51078500C7209C /* cxLocalized.cpp */; };
 		8302A5831B535E3A00C7209C /* cxProgress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8302A5811B535E3A00C7209C /* cxProgress.cpp */; };
-		8302A6F51B53A77100C7209C /* cxSpatial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8302A6F31B53A77100C7209C /* cxSpatial.cpp */; };
 		83079B661B29300C00275F1F /* cxEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83079B641B29300C00275F1F /* cxEngine.cpp */; };
 		830ECB1D1B3DA38F002EBE56 /* tools.c in Sources */ = {isa = PBXBuildFile; fileRef = 830ECB1B1B3DA38F002EBE56 /* tools.c */; };
 		830ECB261B3EAD52002EBE56 /* cxLineF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 830ECB241B3EAD52002EBE56 /* cxLineF.cpp */; };
@@ -131,6 +130,7 @@
 		83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D341B317C2000F061D6 /* cxBoxPoint2F.cpp */; };
 		83D92D391B317E5900F061D6 /* cxRenderF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D371B317E5800F061D6 /* cxRenderF.cpp */; };
 		83EA27E31B15540600370757 /* cxHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EA27E11B15540600370757 /* cxHash.cpp */; };
+		83F54B5F1B54BD5700AC5844 /* cxAsync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F54B5D1B54BD5700AC5844 /* cxAsync.cpp */; };
 		83F7BAD81B42D97F00C644B9 /* cxEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F7BAD61B42D97F00C644B9 /* cxEvent.cpp */; };
 		83F7BADA1B42D9E900C644B9 /* cxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F7BAD91B42D9E900C644B9 /* cxLabel.cpp */; };
 		83FB15A81B293C1000E5ECFE /* cxOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83FB15A61B293C1000E5ECFE /* cxOpenGL.cpp */; };
@@ -218,8 +218,6 @@
 		8302A6F01B539AF100C7209C /* region_iterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = region_iterator.hpp; sourceTree = "<group>"; };
 		8302A6F11B539AF100C7209C /* spatial.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = spatial.hpp; sourceTree = "<group>"; };
 		8302A6F21B539AF100C7209C /* traits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = traits.hpp; sourceTree = "<group>"; };
-		8302A6F31B53A77100C7209C /* cxSpatial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSpatial.cpp; sourceTree = "<group>"; };
-		8302A6F41B53A77100C7209C /* cxSpatial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSpatial.h; sourceTree = "<group>"; };
 		83079B641B29300C00275F1F /* cxEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxEngine.cpp; sourceTree = "<group>"; };
 		83079B651B29300C00275F1F /* cxEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxEngine.h; sourceTree = "<group>"; };
 		830ECB1B1B3DA38F002EBE56 /* tools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tools.c; sourceTree = "<group>"; };
@@ -441,6 +439,8 @@
 		83EA27D91B14C3DF00370757 /* cxDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxDefine.h; sourceTree = "<group>"; };
 		83EA27E11B15540600370757 /* cxHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxHash.cpp; sourceTree = "<group>"; };
 		83EA27E21B15540600370757 /* cxHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxHash.h; sourceTree = "<group>"; };
+		83F54B5D1B54BD5700AC5844 /* cxAsync.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAsync.cpp; sourceTree = "<group>"; };
+		83F54B5E1B54BD5700AC5844 /* cxAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAsync.h; sourceTree = "<group>"; };
 		83F7BAD61B42D97F00C644B9 /* cxEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxEvent.cpp; sourceTree = "<group>"; };
 		83F7BAD71B42D97F00C644B9 /* cxEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxEvent.h; sourceTree = "<group>"; };
 		83F7BAD91B42D9E900C644B9 /* cxLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLabel.cpp; sourceTree = "<group>"; };
@@ -619,6 +619,8 @@
 				836DD10C1B2AC6560094F5EF /* OpenGL.h */,
 				8302A5811B535E3A00C7209C /* cxProgress.cpp */,
 				8302A5821B535E3A00C7209C /* cxProgress.h */,
+				83F54B5D1B54BD5700AC5844 /* cxAsync.cpp */,
+				83F54B5E1B54BD5700AC5844 /* cxAsync.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -868,8 +870,6 @@
 				831B93F31B4A970600511A63 /* cxCSV.h */,
 				8302A3731B51078500C7209C /* cxLocalized.cpp */,
 				8302A3741B51078500C7209C /* cxLocalized.h */,
-				8302A6F31B53A77100C7209C /* cxSpatial.cpp */,
-				8302A6F41B53A77100C7209C /* cxSpatial.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -981,13 +981,13 @@
 				8338FD7D1B4695F300C84032 /* cxSpline.cpp in Sources */,
 				833B406E1B31B71400920A06 /* cxBoxRender.cpp in Sources */,
 				83AABB281B45910F0035A9F0 /* cxTimer.cpp in Sources */,
-				8302A6F51B53A77100C7209C /* cxSpatial.cpp in Sources */,
 				831189CA1B2D728000C930B5 /* aabb3.c in Sources */,
 				83610B0D1B1CB68000BD06B1 /* cxPoint2I.cpp in Sources */,
 				836A2F521B1987B7009B427B /* cxUtil.cpp in Sources */,
 				831189D21B2D728000C930B5 /* ray3.c in Sources */,
 				83A943A81B44DC3200F70FBA /* aes_ecb.c in Sources */,
 				83D2666B1B345D6000077DB8 /* cxStack.cpp in Sources */,
+				83F54B5F1B54BD5700AC5844 /* cxAsync.cpp in Sources */,
 				831189D31B2D728000C930B5 /* utility.c in Sources */,
 				83A943A41B44DC3200F70FBA /* aes_cbc.c in Sources */,
 				830ECB2F1B3FEE1C002EBE56 /* cxEngine.mm in Sources */,

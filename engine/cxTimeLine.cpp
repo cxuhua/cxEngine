@@ -152,7 +152,7 @@ cxInt cxTimeLine::Length() const
 
 cxTimeLine::cxTimeLine()
 {
-    isdirty = false;
+    isdirty = true;
     idx = -1;
     from = -1;
     to = -1;

@@ -211,7 +211,7 @@ cxAction *cxAction::SetTiming(cxTimingFunc f)
 
 cxFloat cxAction::Progress() const
 {
-    CX_ASSERT(time > 0, "action time errpr");
+    CX_ASSERT(time > 0, "action time error");
     return timing(elapsed/time);
 }
 

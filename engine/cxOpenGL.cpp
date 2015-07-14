@@ -288,34 +288,34 @@ void cxShader::BindAttrib(glUint idx,cchars name)
     glBindAttribLocation(program, idx, name);
 }
 
-void cxShader::SetUniform(glUint location, const cxMatrixF &value) const
+void cxShader::SetUniform(glUint loc, const cxMatrixF &value) const
 {
-    glUniformMatrix4fv(location, 1, GL_FALSE, (const GLfloat *)value.mat4.mat);
+    glUniformMatrix4fv(loc, 1, GL_FALSE, (const GLfloat *)value.mat4.mat);
 }
 
-void cxShader::SetUniform(glUint location,cxFloat value) const
+void cxShader::SetUniform(glUint loc,cxFloat value) const
 {
-    glUniform1f(location, value);
+    glUniform1f(loc, value);
 }
 
-void cxShader::SetUniform(glUint location,const cxPoint2F &value) const
+void cxShader::SetUniform(glUint loc,const cxPoint2F &value) const
 {
-    glUniform2f(location, value.x, value.y);
+    glUniform2f(loc, value.x, value.y);
 }
 
-void cxShader::SetUniform(glUint location,const cxPoint3F &value) const
+void cxShader::SetUniform(glUint loc,const cxPoint3F &value) const
 {
-    glUniform3f(location, value.x, value.y, value.z);
+    glUniform3f(loc, value.x, value.y, value.z);
 }
 
-void cxShader::SetUniform(glUint location,const cxSize2F &value) const
+void cxShader::SetUniform(glUint loc,const cxSize2F &value) const
 {
-    glUniform2f(location, value.w, value.h);
+    glUniform2f(loc, value.w, value.h);
 }
 
-void cxShader::SetUniform(glUint location,const cxColor4F &value) const
+void cxShader::SetUniform(glUint loc,const cxColor4F &value) const
 {
-    glUniform4f(location, value.r, value.g, value.b, value.a);
+    glUniform4f(loc, value.r, value.g, value.b, value.a);
 }
 
 const glUint cxShader::ID() const

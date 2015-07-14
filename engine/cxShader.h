@@ -62,12 +62,12 @@ public:
     void SetModelProject(const cxMatrixF &value) const;
     void SetModelView(const cxMatrixF &value) const;
     
-    void SetUniform(glUint location,cxFloat value) const;
-    void SetUniform(glUint location,const cxSize2F &value) const;
-    void SetUniform(glUint location,const cxPoint2F &value) const;
-    void SetUniform(glUint location,const cxPoint3F &value) const;
-    void SetUniform(glUint location,const cxColor4F &value) const;
-    void SetUniform(glUint location, const cxMatrixF &value) const;
+    void SetUniform(glUint loc,cxFloat value) const;
+    void SetUniform(glUint loc,const cxSize2F &value) const;
+    void SetUniform(glUint loc,const cxPoint2F &value) const;
+    void SetUniform(glUint loc,const cxPoint3F &value) const;
+    void SetUniform(glUint loc,const cxColor4F &value) const;
+    void SetUniform(glUint loc, const cxMatrixF &value) const;
     
     const glUint GetUniform(cchars name)  const;
     

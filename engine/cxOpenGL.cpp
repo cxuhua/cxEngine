@@ -68,8 +68,8 @@ void cxOpenGL::Init()
     glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &maxVertexTextureUnits);
     CX_LOGGER("GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS: %d",maxVertexTextureUnits);
     //init shader
-    cxShader::Create()->Init()->gcpush<cxShader>(DefaultShader);
-    cxColorShader::Create()->Init()->gcpush<cxShader>(ColorShader);
+    cxShader::Create()->Init("shader/default.vsh","shader/default.fsh")->gcpush<cxShader>(DefaultShader);
+    cxColorShader::Create()->Init("shader/color.vsh","shader/color.fsh")->gcpush<cxShader>(ColorShader);
     //
     SetClearColor(cxColor4F::BLACK);
     glDisable(GL_DEPTH_TEST);
@@ -378,11 +378,13 @@ glUint cxShader::CompileFSHShader(const cxStr *source)
     return shader;
 }
 
-cxShader *cxShader::Init()
+cxShader *cxShader::Init(cchars vsf,cchars fsf)
 {
+    Vertex(vsf);
+    Fragment(fsf);
     GLint status;
-    vsh = CompileVSHShader(Vertex());
-    fsh = CompileFSHShader(Fragment());
+    vsh = CompileVSHShader(vs);
+    fsh = CompileFSHShader(fs);
     program = glCreateProgram();
     glAttachShader(program, vsh);
     glAttachShader(program, fsh);

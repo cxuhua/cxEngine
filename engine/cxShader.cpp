@@ -23,6 +23,18 @@ void cxShader::Free()
     cxOpenGL::Instance()->DelProgram(program);
 }
 
+cxShader *cxShader::Vertex(cchars file)
+{
+    cxObject::swap(&vs, cxUtil::Assets(file));
+    return this;
+}
+
+cxShader *cxShader::Fragment(cchars file)
+{
+    cxObject::swap(&fs, cxUtil::Assets(file));
+    return this;
+}
+
 void cxShader::SetModelProject(const cxMatrixF &value) const
 {
     SetUniform(ump, value);
@@ -42,30 +54,21 @@ void cxShader::Using() const
 
 cxShader::cxShader()
 {
+    vs = nullptr;
+    fs = nullptr;
     program = 0;
 }
 
 cxShader::~cxShader()
 {
+    cxObject::release(&vs);
+    cxObject::release(&fs);
     Free();
 }
 
 cxBool cxShader::InitUniform()
 {
     return true;
-}
-
-const cxStr *cxShader::Vertex() const
-{
-    const cxStr *data = cxUtil::Assets("shader/default.vsh");
-    CX_ASSERT(cxStr::IsOK(data), "shader/default.vsh miss");
-    return data;
-}
-const cxStr *cxShader::Fragment() const
-{
-    const cxStr *data = cxUtil::Assets("shader/default.fsh");
-    CX_ASSERT(cxStr::IsOK(data), "shader/default.fsh miss");
-    return data;
 }
 
 cxBool cxShader::InitAttrib()
@@ -102,20 +105,6 @@ cxBool cxColorShader::InitAttrib()
     BindAttrib(cxVertexAttribPosition, CX_ATTR_POSITION);
     BindAttrib(cxVertexAttribColor, CX_ATTR_COLOR);
     return true;
-}
-
-const cxStr *cxColorShader::Vertex() const
-{
-    const cxStr *data = cxUtil::Assets("shader/color.vsh");
-    CX_ASSERT(cxStr::IsOK(data), "shader/color.vsh miss");
-    return data;
-}
-
-const cxStr *cxColorShader::Fragment() const
-{
-    const cxStr *data = cxUtil::Assets("shader/color.fsh");
-    CX_ASSERT(cxStr::IsOK(data), "shader/color.fsh miss");
-    return data;
 }
 
 CX_CPP_END

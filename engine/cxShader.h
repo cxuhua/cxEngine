@@ -42,8 +42,6 @@ protected:
     explicit cxShader();
     virtual ~cxShader();
     
-    virtual const cxStr *Vertex() const;
-    virtual const cxStr *Fragment() const;
     virtual cxBool InitUniform();
     virtual cxBool InitAttrib();
     
@@ -55,6 +53,8 @@ protected:
 private:
     glUint CompileVSHShader(const cxStr *source);
     glUint CompileFSHShader(const cxStr *source);
+    cxStr *vs;
+    cxStr *fs;
 public:
     
     void BindAttrib(glUint idx,cchars name);
@@ -74,8 +74,11 @@ public:
     const glUint ID() const;
     
     void Free();
-    cxShader *Init();
+    cxShader *Init(cchars vsf,cchars fsf);
     virtual void Using() const;
+    
+    cxShader *Vertex(cchars file);
+    cxShader *Fragment(cchars file);
 };
 //
 class cxColorShader : public cxShader
@@ -85,8 +88,6 @@ public:
 protected:
     explicit cxColorShader();
     virtual ~cxColorShader();
-    virtual const cxStr *Vertex() const;
-    virtual const cxStr *Fragment() const;
     virtual cxBool InitAttrib();
     void Using() const;
 };

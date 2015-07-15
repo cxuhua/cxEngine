@@ -16,8 +16,8 @@ CX_IMPLEMENT(cxTable);
 cxTable::cxTable()
 {
     rownum = INT_MAX;
-    outter = 1.0f;//view outter
-    inner = 1.0f;//table inner
+    outter = 1.0f;      //view outter
+    inner = 1.0f;       //table inner
 }
 
 cxTable::~cxTable()

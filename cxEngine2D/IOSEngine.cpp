@@ -81,38 +81,44 @@ void IOSEngine::OnMain()
     table->SetColor(cxColor4F::RED);
     table->SetTexture("grid");
     table->SetSize(cxSize2F(1200, 1200));
+    table->SetPixel(4.0f);
     table->SetOutter(10);
+    table->SetInner(30);
     
     {
         cxSprite *item = cxSprite::Create()->SetTexture("t.png");
-        item->SetSize(100);
+        item->SetSize(400);
         item->SetScale(0.0f);
         cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
+        scale->SetTiming(cxTiming::CubicOut);
         scale->AttachTo(item);
         table->Append(item);
     }
     {
         cxSprite *item = cxSprite::Create()->SetTexture("t.png");
-        item->SetSize(100);
+        item->SetSize(400);
         item->SetScale(0.0f);
         cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
         scale->AttachTo(item);
+        scale->SetTiming(cxTiming::CubicOut);
         table->Append(item);
     }
     {
         cxSprite *item = cxSprite::Create()->SetTexture("t.png");
-        item->SetSize(100);
+        item->SetSize(400);
         item->SetScale(0.0f);
         cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
         scale->AttachTo(item);
+        scale->SetTiming(cxTiming::CubicOut);
         table->Append(item);
     }
     {
         cxSprite *item = cxSprite::Create()->SetTexture("t.png");
-        item->SetSize(100);
+        item->SetSize(400);
         item->SetScale(0.0f);
         cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
         scale->AttachTo(item);
+        scale->SetTiming(cxTiming::CubicOut);
         table->Append(item);
     }
     

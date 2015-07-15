@@ -34,7 +34,6 @@ void cxSprite::OnDirty()
     if(IsDirtyMode(DirtyModeSize|DirtyModeTexture)){
         cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), flipx, flipy);
         box.SetVertices(bp);
-        
         box.SetCoords(BoxCoord());
     }
     if(IsDirtyMode(DirtyModeColor)) {

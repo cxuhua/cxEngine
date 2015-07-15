@@ -43,14 +43,16 @@ public:
     
     const cxBool FlipX() const;
     const cxBool FlipY() const;
+    
     const cxBox4F Pixel() const;
+    
     cxSprite *SetFlipX(cxBool v);
     cxSprite *SetFlipY(cxBool v);
     cxSprite *SetFlip(cxBool x,cxBool y);
+    
     cxSprite *SetPixel(const cxBox4F &v);
     
     cxTexture *Texture() const;
-    
     cxSprite *SetTexture(cchars key);
     cxSprite *SetTexture(const cxTexture *ptex);
     

@@ -61,6 +61,10 @@ struct cxBox4F
     cxBox4F operator*(const cxFloat v);
     cxBox4F operator*(const cxPoint2F &v) const;
     cxBox4F operator*(const cxPoint2F &v);
+    
+    cxBox4F operator/(const cxFloat v);
+    cxBox4F operator/(const cxPoint2F &v) const;
+    cxBox4F operator/(const cxPoint2F &v);
 };
 
 CX_CPP_END

@@ -143,6 +143,22 @@ cxBox4F cxBox4F::operator*(const cxPoint2F &v)
     return cxBox4F(l*v.x, r*v.x, t*v.y, b*v.y);
 }
 
+cxBox4F cxBox4F::operator/(const cxFloat v)
+{
+    return cxBox4F(l/v, r/v, t/v, b/v);
+}
+
+cxBox4F cxBox4F::operator/(const cxPoint2F &v) const
+{
+    return cxBox4F(l/v.x, r/v.x, t/v.y, b/v.y);
+}
+
+cxBox4F cxBox4F::operator/(const cxPoint2F &v)
+{
+    return cxBox4F(l/v.x, r/v.x, t/v.y, b/v.y);
+}
+
+
 cxBool cxBox4F::operator==(const cxBox4F &v) const
 {
     if(!cxFloatIsEqual(l, v.l)){

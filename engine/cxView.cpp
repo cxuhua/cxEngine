@@ -805,12 +805,9 @@ void cxView::OnLayout()
     if(parent == nullptr || alignflags == ResizeNone){
         return;
     }
-    
     cxBox4F pbox = Parent()->BoxPoint().ToBox4F();
     cxBox4F vbox = BoxPoint().ToBox4F();
-    
-    cxEngine *engine = cxEngine::Instance();
-    cxBox4F box = alignbox * engine->ScaleFactor();
+    cxBox4F box = alignbox;
     
     cxSize2F    psiz = Parent()->Size();
     cxPoint2F   panchor = Parent()->Anchor();

@@ -50,7 +50,7 @@ const cxStr *cxCSV::At(cxInt row,cxInt col) const
 cxStr *cxCSV::At(cxInt row,cxInt col)
 {
     CX_ASSERT(row < Row(), "row out");
-    CX_ASSERT(col < Col(row), "row out");
+    CX_ASSERT(col < Col(row), "col out");
     cxArray *rs = rows->At(row)->To<cxArray>();
     return rs->At(col)->To<cxStr>();
 }

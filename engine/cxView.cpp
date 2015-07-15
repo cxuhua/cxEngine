@@ -628,6 +628,7 @@ cxBool cxView::Dispatch(const cxTouchable *e)
 
 void cxView::transform()
 {
+    OnDirty();
     if(IsDirtyMode(DirtyModeLayout)){
         Layout();
     }
@@ -645,7 +646,6 @@ void cxView::transform()
     if(isclip){
         SetFlags(FlagsClip);
     }
-    OnDirty();
     ClearDirty();
     SetFlags(FlagsDirty);
 }
@@ -664,11 +664,11 @@ void cxView::Update(cxFloat dt)
     if(!actions->IsEmpty() || !actapps->IsEmpty()){
         updateActions(dt);
     }
-    if(dirtymode != DirtyModeNone){
-        transform();
-    }
     if(!viewapps->IsEmpty()){
         runAppends(dt);
+    }
+    if(dirtymode != DirtyModeNone){
+        transform();
     }
     if(!subviews->IsEmpty()){
         runRemoves(dt);
@@ -766,7 +766,6 @@ cxView *cxView::SetFlags(cxUInt f)
 void cxView::Render(cxRender *render,const cxMatrixF &mv)
 {
     CX_ASSERT(!size.IsZero(), "view size not set");
-    
     if(!EnableVisible() || EnableSleep() || IsRemoved()){
         return;
     }

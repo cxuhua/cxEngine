@@ -31,6 +31,7 @@
 #include <engine/cxJump.h>
 #include <engine/cxResize.h>
 #include <engine/cxProgress.h>
+#include <engine/cxTable.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -76,13 +77,53 @@ void IOSEngine::OnMain()
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
     cxTexture::Create()->From("grid.png")->gcpush<cxTexture>("grid");
     
-    cxSprite *bg = cxSprite::Create()->SetTexture("grid");
-    cxSprite *vv = cxSprite::Create()->SetTexture("grid");
+    cxTable *table = cxTable::Create();
+    table->SetColor(cxColor4F::RED);
+    table->SetTexture("grid");
+    table->SetSize(cxSize2F(1200, 1200));
+    table->SetOutter(10);
     
-    cxProgress *v = cxProgress::Create(bg, vv, 0.5f);
-    v->SetSize(cxSize2F(300,50));
+    {
+        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
+        item->SetSize(100);
+        item->SetScale(0.0f);
+        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
+        scale->AttachTo(item);
+        table->Append(item);
+    }
+    {
+        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
+        item->SetSize(100);
+        item->SetScale(0.0f);
+        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
+        scale->AttachTo(item);
+        table->Append(item);
+    }
+    {
+        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
+        item->SetSize(100);
+        item->SetScale(0.0f);
+        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
+        scale->AttachTo(item);
+        table->Append(item);
+    }
+    {
+        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
+        item->SetSize(100);
+        item->SetScale(0.0f);
+        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
+        scale->AttachTo(item);
+        table->Append(item);
+    }
     
-    Window()->Append(v);
+    Window()->Append(table);
+    
+//    cxSprite *vv = cxSprite::Create()->SetTexture("grid");
+//    
+//    cxProgress *v = cxProgress::Create(bg, vv, 0.5f);
+//    v->SetSize(cxSize2F(300,50));
+//    
+//    Window()->Append(v);
     
 //    cxSpline *x = cxSpline::Create();
 //    x->Append(cxPoint2F(300, 0));

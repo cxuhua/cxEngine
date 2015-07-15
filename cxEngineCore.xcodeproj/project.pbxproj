@@ -92,6 +92,7 @@
 		836DD10F1B2AC72A0094F5EF /* cxShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836DD10D1B2AC72A0094F5EF /* cxShader.cpp */; };
 		836F3F061B1B70FA00E3E82C /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 836F3F041B1B70FA00E3E82C /* md5.c */; };
 		83726FDA1B29458500DF4BFD /* cxColor4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83726FD81B29458500DF4BFD /* cxColor4F.cpp */; };
+		838073C91B564FDB00A1098A /* cxTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838073C71B564FDB00A1098A /* cxTable.cpp */; };
 		839836CE1B10B3F7002B7C20 /* cxAutoPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CC1B10B3F7002B7C20 /* cxAutoPool.cpp */; };
 		839836D11B10B59C002B7C20 /* cxArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CF1B10B59C002B7C20 /* cxArray.cpp */; };
 		839836D31B10B61C002B7C20 /* cxCoreTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 839836D21B10B61C002B7C20 /* cxCoreTest.mm */; };
@@ -374,6 +375,8 @@
 		836F3F051B1B70FA00E3E82C /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
 		83726FD81B29458500DF4BFD /* cxColor4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxColor4F.cpp; sourceTree = "<group>"; };
 		83726FD91B29458500DF4BFD /* cxColor4F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxColor4F.h; sourceTree = "<group>"; };
+		838073C71B564FDB00A1098A /* cxTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxTable.cpp; sourceTree = "<group>"; };
+		838073C81B564FDB00A1098A /* cxTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTable.h; sourceTree = "<group>"; };
 		839836CC1B10B3F7002B7C20 /* cxAutoPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAutoPool.cpp; sourceTree = "<group>"; };
 		839836CD1B10B3F7002B7C20 /* cxAutoPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAutoPool.h; sourceTree = "<group>"; };
 		839836CF1B10B59C002B7C20 /* cxArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxArray.cpp; sourceTree = "<group>"; };
@@ -621,6 +624,8 @@
 				8302A5821B535E3A00C7209C /* cxProgress.h */,
 				83F54B5D1B54BD5700AC5844 /* cxAsync.cpp */,
 				83F54B5E1B54BD5700AC5844 /* cxAsync.h */,
+				838073C71B564FDB00A1098A /* cxTable.cpp */,
+				838073C81B564FDB00A1098A /* cxTable.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -1005,6 +1010,7 @@
 				830ECB261B3EAD52002EBE56 /* cxLineF.cpp in Sources */,
 				836A2F5F1B19CDD2009B427B /* cxNumber.cpp in Sources */,
 				836A2F481B19869D009B427B /* LzFind.c in Sources */,
+				838073C91B564FDB00A1098A /* cxTable.cpp in Sources */,
 				836F3F061B1B70FA00E3E82C /* md5.c in Sources */,
 				831B93F41B4A970600511A63 /* cxCSV.cpp in Sources */,
 				831189D91B2D72F100C930B5 /* cxMatrixF.cpp in Sources */,

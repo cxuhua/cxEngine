@@ -21,7 +21,7 @@ CX_IMPLEMENT(cxStr);
 
 cxBool cxStr::IsOK(const cxStr *str)
 {
-    return str != nullptr && str->Size() > 0;
+    return str!=nullptr && str->Size() > 0;
 }
 
 cxBool cxStr::IsOK(cchars str)
@@ -48,7 +48,7 @@ cxStr *cxStr::UTF8(cchars fmt,...)
 
 cxStr::cxStr()
 {
-    
+    clear();
 }
 
 cxStr::~cxStr()
@@ -102,7 +102,9 @@ cxStr *cxStr::Init(cxInt size,char c)
 
 cxStr *cxStr::Init(cxAny data,cxInt size)
 {
+    cxInt asize = Size();
     assign((char *)data,size);
+    asize = Size();
     return this;
 }
 

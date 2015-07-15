@@ -92,6 +92,8 @@ public:
     
     cxEvent<cxEmitter> onFinished;
     
+    cxView *Clone();
+    
     cxEmitter *Stop();
     
     cxEmitter *SetRate(cxFloat v);

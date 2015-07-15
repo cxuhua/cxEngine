@@ -32,7 +32,7 @@ public:
     cxObject *Object() const;
     void SetObject(cxObject *pobj);
     
-    void SetTime(cxFloat v);
+    cxBool SetTime(cxFloat v);
     cxFloat Time() const;
 };
 

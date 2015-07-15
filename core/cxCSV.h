@@ -15,6 +15,7 @@
 
 CX_CPP_BEGIN
 
+class cxArray;
 class cxStr;
 class cxCSV : public cxObject
 {
@@ -24,11 +25,11 @@ protected:
     explicit cxCSV();
     virtual ~cxCSV();
 private:
-    std::vector<std::vector<std::string>> datas;
+    cxArray *rows;
+    cxArray *row;
     struct csv_parser parser;
     static void colcbfunc(void *data, size_t datasiz, void *ud);
     static void rowcbfunc(int c, void *ud);
-    std::vector<std::string> row;
 public:
     const cxInt Row() const;
     const cxInt Col(cxInt row=0) const;

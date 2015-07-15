@@ -24,9 +24,11 @@ cxTimePoint::~cxTimePoint()
     cxObject::release(&object);
 }
 
-void cxTimePoint::SetTime(cxFloat v)
+cxBool cxTimePoint::SetTime(cxFloat v)
 {
+    cxBool equ = !cxFloatIsEqual(time, v);
     time = v;
+    return equ;
 }
 
 cxFloat cxTimePoint::Time() const
@@ -154,9 +156,8 @@ cxTimeLine *cxTimeLine::SetTimes(cxInt afrom,cxInt ato,const Times &v)
     len = CX_MIN(len, siz);
     for(cxInt i = 0;i < len;i++){
         cxInt idx = (afrom < ato) ? (afrom + i) : (afrom - i);
-        At(idx)->SetTime(v.at(i));
+        isdirty = At(idx)->SetTime(v.at(i));
     }
-    isdirty = true;
     return this;
 }
 

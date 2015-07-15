@@ -279,6 +279,8 @@ public:
     
     cxView *BringFront();
     
+    virtual cxView *Clone();
+    
     cxView *Append(cxView *view);
     cxView *Append(cxAction *action);
 

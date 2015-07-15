@@ -130,9 +130,7 @@ cxInt cxBoxRenderArray::Inc(cxInt inc)
 
 cxBoxRender &cxBoxRenderArray::Inc()
 {
-    cxBoxRender &rv = At(number);
-    number++;
-    return rv;
+    return At(number++);
 }
 
 void cxBoxRenderArray::Append(const cxBoxRender &v)

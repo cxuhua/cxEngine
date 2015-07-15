@@ -458,6 +458,17 @@ cxView *cxView::Append(cxAction *action)
     return this;
 }
 
+cxView *cxView::Clone()
+{
+    cxView *rv = cxView::Create();
+    rv->SetSize(size);
+    rv->SetPosition(position);
+    rv->SetScale(scale);
+    rv->SetFixScale(fixscale);
+    rv->SetColor(Color());
+    return rv;
+}
+
 cxView *cxView::Remove()
 {
     isremoved = true;

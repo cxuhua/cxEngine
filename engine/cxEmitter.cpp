@@ -30,6 +30,39 @@ cxEmitter::~cxEmitter()
     delete []units;
 }
 
+cxView *cxEmitter::Clone()
+{
+    cxEmitter *rv = cxEmitter::Create();
+    rv->systemtime = systemtime;
+    rv->type = type;
+    rv->rate = rate;
+    rv->position = position;
+    rv->life = life;
+    rv->angle = angle;
+    
+    rv->startsize = startsize;
+    rv->endsize = endsize;
+    
+    rv->startcolor = startcolor;
+    rv->endcolor = endcolor;
+    
+    rv->startspin = startspin;
+    rv->endspin =endspin;
+    
+    rv->axisspin = axisspin;
+    //gravity mode
+    rv->gravity = gravity;
+    rv->todir = todir;
+    rv->speed = speed;
+    rv->tanaccel = tanaccel;
+    rv->radaccel = radaccel;
+    //radial mode
+    rv->startradius = startradius;
+    rv->endradius = endradius;
+    rv->rotatepers = rotatepers;
+    return rv;
+}
+
 cxEmitter *cxEmitter::SetSystemTime(cxFloat v)
 {
     runtime = 0;

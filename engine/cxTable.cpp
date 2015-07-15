@@ -16,8 +16,8 @@ CX_IMPLEMENT(cxTable);
 cxTable::cxTable()
 {
     rownum = INT_MAX;
-    outter = 1.0f;      //view outter
-    inner = 1.0f;       //table inner
+    padding = 1.0f;      //view outter
+    margin = 1.0f;       //table inner
 }
 
 cxTable::~cxTable()
@@ -33,15 +33,15 @@ void cxTable::OnDirty()
     cxSprite::OnDirty();
 }
 
-cxTable *cxTable::SetOutter(const cxBox4F &v)
+cxTable *cxTable::SetPadding(const cxBox4F &v)
 {
-    outter = v;
+    padding = v;
     return this;
 }
 
-cxTable *cxTable::SetInner(const cxBox4F &v)
+cxTable *cxTable::SetMargin(const cxBox4F &v)
 {
-    inner = v;
+    margin = v;
     return this;
 }
 
@@ -65,8 +65,8 @@ cxTable *cxTable::UpdateViews()
             continue;
         }
         cxSize2F siz = pv->Size();
-        w += (siz.w + outter.l + outter.r);
-        cxFloat th = siz.h + outter.t + outter.b;
+        w += (siz.w + margin.l + margin.r);
+        cxFloat th = siz.h + margin.t + margin.b;
         if(th > h){
             h = th;
         }
@@ -80,13 +80,13 @@ cxTable *cxTable::UpdateViews()
         w = 0;
         h = 0;
     }
-    maxw += (inner.l + inner.r + w);
-    maxh += (inner.r + inner.b + h);
+    maxw += (padding.l + padding.r + w);
+    maxh += (padding.r + padding.b + h);
     SetSize(cxSize2F(maxw, maxh));
     
     cxInt i = 0;
-    cxFloat offx = inner.l - maxw/2.0f;
-    cxFloat offy = inner.b - maxh/2.0f;
+    cxFloat offx = padding.l - maxw/2.0f;
+    cxFloat offy = padding.b - maxh/2.0f;
     
     maxh = 0;
     for(cxArray::FIter it=vs->FBegin();it!=vs->FEnd();it++){
@@ -98,14 +98,14 @@ cxTable *cxTable::UpdateViews()
         if(siz.h > maxh){
             maxh = siz.h;
         }
-        offx += (siz.w/2.0f + outter.l);
-        pv->SetPosition(cxPoint2F(offx, offy + outter.b + siz.h/2.0f));
-        offx += (siz.w/2.0f + outter.r);
+        offx += (siz.w/2.0f + margin.l);
+        pv->SetPosition(cxPoint2F(offx, offy + margin.b + siz.h/2.0f));
+        offx += (siz.w/2.0f + margin.r);
         if(++i % rownum != 0){
             continue;
         }
-        offx = inner.l - maxw/2.0f;
-        offy += (maxh + outter.t + outter.b);
+        offx = padding.l - maxw/2.0f;
+        offy += (maxh + margin.t + margin.b);
     }
     return this;
 }

@@ -26,12 +26,14 @@ protected:
     void OnDirty();
 private:
     cxInt rownum;
-    cxBox4F outter;
-    cxBox4F inner;
+    cxBox4F padding;
+    cxBox4F margin;
 public:
     cxTable *UpdateViews();
-    cxTable *SetOutter(const cxBox4F &v);
-    cxTable *SetInner(const cxBox4F &v);
+    //内边距
+    cxTable *SetPadding(const cxBox4F &v);
+    //外边距
+    cxTable *SetMargin(const cxBox4F &v);
     cxTable *SetRowNum(cxInt v);
 };
 

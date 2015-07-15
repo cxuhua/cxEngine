@@ -82,8 +82,8 @@ void IOSEngine::OnMain()
     table->SetTexture("grid");
     table->SetSize(cxSize2F(1200, 1200));
     table->SetPixel(4.0f);
-    table->SetOutter(10);
-    table->SetInner(30);
+    table->SetPadding(10);
+    table->SetMargin(30);
     
     {
         cxSprite *item = cxSprite::Create()->SetTexture("t.png");

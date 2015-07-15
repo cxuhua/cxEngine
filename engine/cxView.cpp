@@ -815,11 +815,12 @@ void cxView::OnLayout()
     cxSize2F    psiz = Parent()->Size();
     cxPoint2F   panchor = Parent()->Anchor();
     
-    cxSize2F    vsiz = Size() * TransScale();
+    cxSize2F    vsiz = ContentSize();
     cxPoint2F   vanchor = Anchor();
+    
     cxPoint2F   vpos = Position();
-    cxPoint2F   vscale = scale;
-    cxPoint2F   vfixscale = fixscale;
+    cxPoint2F   vscale = Scale();
+    cxPoint2F   vfixscale = FixScale();
     
     //auto mask
     if(alignflags & ResizeLeftSide){
@@ -845,6 +846,7 @@ void cxView::OnLayout()
         if(alignflags & ResizeLeftSide){
             vpos.x -= (box.l * 2 + vsiz.w);
         }
+        vsiz.w = size.w;
     }else if(alignflags & ResizeRight){
         vbox.r = pbox.r - box.r;
         vbox.l = vbox.r - vsiz.w;
@@ -853,8 +855,8 @@ void cxView::OnLayout()
         if(alignflags & ResizeRightSide){
             vpos.x += (box.r * 2 + vsiz.w);
         }
+        vsiz.w = size.w;
     }
-    
     //auto mask
     if(alignflags & ResizeTopSide){
         alignflags |= ResizeTop;
@@ -879,6 +881,7 @@ void cxView::OnLayout()
         if(alignflags & ResizeBottomSide){
             vpos.y -= (box.b * 2 + vsiz.h);
         }
+        vsiz.h = size.h;
     }else if(alignflags & ResizeTop){
         vbox.t = pbox.t - box.t;
         vbox.b = vbox.t - vsiz.h;
@@ -887,9 +890,10 @@ void cxView::OnLayout()
         if(alignflags & ResizeTop){
             vpos.y += (box.t * 2 + vsiz.h);
         }
+        vsiz.h = size.h;
     }
-    SetScale(vscale);
     SetFixScale(vfixscale);
+    SetScale(vscale);
     SetSize(vsiz);
     SetPosition(vpos);
 }

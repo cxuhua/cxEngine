@@ -16,6 +16,7 @@ CX_CPP_BEGIN
 
 struct cxActionAttr
 {
+    cxTimeLine::Times times;
     cxInt   group;//>0fix group
     cxInt   from;
     cxInt   to;
@@ -23,6 +24,9 @@ struct cxActionAttr
     cxFloat speed;
     cxInt   repeat;
     cxActionAttr();
+    const cxBool HasTimes() const;
+    cxBool IsValid();
+    void ParseTimes(const cxStr *s);
     cxActionAttr Reverse();
 };
 

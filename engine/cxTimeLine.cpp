@@ -16,12 +16,17 @@ CX_IMPLEMENT(cxTimePoint);
 cxTimePoint::cxTimePoint()
 {
     object = nullptr;
-    time = 0;
+    time = 0.1f;
 }
 
 cxTimePoint::~cxTimePoint()
 {
     cxObject::release(&object);
+}
+
+void cxTimePoint::SetTime(cxFloat v)
+{
+    time = v;
 }
 
 cxFloat cxTimePoint::Time() const
@@ -113,6 +118,12 @@ const cxTimePoint *cxTimeLine::At(cxInt i) const
     return points->At(idx)->To<cxTimePoint>();
 }
 
+cxTimePoint *cxTimeLine::At(cxInt i)
+{
+    cxInt idx = (from < to) ? (from + i) : (from - i);
+    return points->At(idx)->To<cxTimePoint>();
+}
+
 cxTimeLine *cxTimeLine::SetPoints(const cxArray *ps)
 {
     CX_ASSERT(ps != nullptr && ps->Size() > 0, "points empty");
@@ -125,6 +136,28 @@ cxTimePoint *cxTimeLine::Append(cxFloat time)
     cxTimePoint *p = cxTimePoint::Create()->Init(time);
     points->Append(p);
     return p;
+}
+
+cxTimeLine *cxTimeLine::SetTimes(const Times &v)
+{
+    SetTimes(from, to, v);
+    return this;
+}
+
+cxTimeLine *cxTimeLine::SetTimes(cxInt afrom,cxInt ato,const Times &v)
+{
+    if(v.empty()){
+        return this;
+    }
+    cxInt siz = (cxInt)v.size();
+    cxInt len = abs(ato - afrom) + 1;
+    len = CX_MIN(len, siz);
+    for(cxInt i = 0;i < len;i++){
+        cxInt idx = (afrom < ato) ? (afrom + i) : (afrom - i);
+        At(idx)->SetTime(v.at(i));
+    }
+    isdirty = true;
+    return this;
 }
 
 const cxArray *cxTimeLine::Points() const

@@ -32,9 +32,8 @@ public:
     bool IsSameState(SearchNode &rhs);
 };
 
-class cxAstarDelegate
+struct cxAstarDelegate
 {
-public:
     virtual cxBool IsAppend(const cxPoint2I &point) = 0;
 };
 

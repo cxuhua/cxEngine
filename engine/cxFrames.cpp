@@ -19,7 +19,7 @@ cxFrames::cxFrames()
     layer = 0;
     group = 0;
     offset = 0;
-    time = 0;
+    time = 0.1f;
     count = 0;
     ptex = nullptr;
     points = cxArray::Alloc();

@@ -23,6 +23,34 @@ cxActionAttr::cxActionAttr()
     repeat = 0;
 }
 
+const cxBool cxActionAttr::HasTimes() const
+{
+    return !times.empty();
+}
+
+cxBool cxActionAttr::IsValid()
+{
+    cxInt len = abs(to - from) + 1;
+    if(times.size() >0 && times.size() != len){
+        CX_WARN("Times has not enough time");
+        return false;
+    }
+    return true;
+}
+
+void cxActionAttr::ParseTimes(const cxStr *s)
+{
+    times.clear();
+    if(!cxStr::IsOK(s)){
+        return;
+    }
+    const cxArray *ts = s->Split(',');
+    for(cxInt i=0;i<ts->Size();i++){
+        cxFloat tv = ts->At(i)->To<cxStr>()->ToFloat();
+        times.push_back(tv/1000.0f);
+    }
+}
+
 cxActionAttr cxActionAttr::Reverse()
 {
     cxActionAttr attr = *this;
@@ -50,6 +78,7 @@ cxAnimate *cxAnimate::SetAction(const cxActionAttr *pattr,cxInt agroup)
     SetSpeed(attr.speed);
     SetRepeat((attr.repeat == 0)?INT_MAX:attr.repeat);
     SetGroup(agroup);
+    SetTimes(pattr->times);
     return this;
 }
 

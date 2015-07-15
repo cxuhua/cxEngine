@@ -32,6 +32,7 @@ public:
     cxObject *Object() const;
     void SetObject(cxObject *pobj);
     
+    void SetTime(cxFloat v);
     cxFloat Time() const;
 };
 
@@ -39,6 +40,7 @@ class cxTimeLine : public cxAction
 {
 public:
     CX_DECLARE(cxTimeLine);
+    typedef std::vector<cxFloat> Times;
 protected:
     explicit cxTimeLine();
     virtual ~cxTimeLine();
@@ -47,16 +49,18 @@ protected:
     void OnStep(cxFloat dt);
     void OnInit();
 private:
-    std::vector<cxFloat> times;
-    cxArray *points;
-    cxBool isdirty;
-    cxInt prev;  //
+    Times times;    //
+    cxArray *points;//
+    cxBool isdirty; //
+    cxInt prev;     //
     cxInt idx;      //0-n
     cxInt from;     //0-(size-1);
     cxInt to;       //0-(size-1)
 public:
     cxEvent<cxTimeLine,const cxTimePoint *> onTime;
 public:
+    cxTimeLine *SetTimes(const Times &v);
+    cxTimeLine *SetTimes(cxInt afrom,cxInt ato,const Times &v);
     cxTimeLine *SetRange(cxInt afrom,cxInt ato);
     cxInt Index() const;
     void UpdateTime();
@@ -65,6 +69,7 @@ public:
     
     const cxTimePoint *TimePoint() const;
     const cxTimePoint *At(cxInt i) const;
+    cxTimePoint *At(cxInt i);
     
     cxTimePoint *Append(cxFloat time);
     const cxArray *Points() const;

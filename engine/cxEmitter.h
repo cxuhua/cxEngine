@@ -89,19 +89,34 @@ private:
     cxFloatRange rotatepers;
 public:
     static cxEmitter *Create(cxInt max);
+    
+    cxEvent<cxEmitter> onFinished;
+    
+    cxEmitter *Stop();
+    
     cxEmitter *SetRate(cxFloat v);
+    
     cxEmitter *SetType(cxEmitterType v);
+    
     cxEmitter *SetPosRange(const cxPoint2FRange &v);
+    
     cxEmitter *SetLifeRange(const cxFloatRange &v);
+    
     cxEmitter *SetAngleRange(const cxFloatRange &v);
+    
     cxEmitter *SetStartSize(const cxFloatRange &v);
     cxEmitter *SetEndSize(const cxFloatRange &v);
+    
     cxEmitter *SetStartColor(const cxColor4FRange &v);
     cxEmitter *SetEndColor(const cxColor4FRange &v);
+    
     cxEmitter *SetStartSpin(const cxFloatRange &v);
     cxEmitter *SetEndSpin(const cxFloatRange &v);
+    
     cxEmitter *SetAxisSpin(const cxPoint3F &v);
+    
     cxEmitter *SetSystemTime(cxFloat v);
+    
     cxEmitter *SetToDir(cxBool v);
 };
 

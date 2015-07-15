@@ -17,28 +17,12 @@ cxEmitter::cxEmitter()
 {
     runtime = 0;
     systemtime = 0;
-    axisspin = cxPoint3F::AxisX;
+    axisspin = cxPoint3F::AxisZ;
     emitcounter = 0;
     rate = 1;
     todir = false;
     units = nullptr;
     type = cxEmitterGravity;
-//    
-//    life = cxFloatRange(3, 3);
-//    startsize = cxFloatRange(50, 0);
-//    endsize = startsize;
-//    angle = cxFloatRange(0, 360);
-//    gravity = cxPoint2F(0, -1000);
-//    speed = cxFloatRange(0, 1000);
-//    startspin = cxFloatRange(2000, 0);
-//    endspin = cxFloatRange(0, 0);
-//    startcolor = cxColor4F::WHITE;
-//    endcolor = cxColor4F(1, 1, 1, 0.3);
-//    todir = true;
-//    
-//    startradius = cxFloatRange(0, 0);
-//    endradius = cxFloatRange(1000, 0);
-//    rotatepers = cxFloatRange(0, 360);
 }
 
 cxEmitter::~cxEmitter()
@@ -224,6 +208,12 @@ void cxEmitter::unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F &vq)
     }
 }
 
+cxEmitter *cxEmitter::Stop()
+{
+    runtime+=systemtime;
+    return this;
+}
+
 void cxEmitter::OnUpdate(cxFloat dt)
 {
     CX_ASSERT(systemtime != 0 && rate != 0, "system time must set");
@@ -298,9 +288,8 @@ void cxEmitter::OnUpdate(cxFloat dt)
         box.SetCoords(BoxCoord());
         index ++;
     }
-    //auto remove emitter system
     if(systemtime > 0 && runtime >= systemtime && Number() == 0){
-        Remove();
+        onFinished.Fire(this);
     }
 }
 

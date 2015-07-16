@@ -89,8 +89,8 @@ private:
     std::set<cxLong> bindes;
     std::set<cxLong> binded;
     
-    Resize alignflags;
-    cxBox4F alignbox;
+    Resize resizeflags;
+    cxBox4F resizebox;
     
     cxArray *actapps;
     cxArray *actions;

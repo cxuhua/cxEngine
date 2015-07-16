@@ -20,8 +20,8 @@ cxView::cxView()
     direction = INFINITY;
     isdir = false;
     islayout = false;
-    alignflags = ResizeNone;
-    alignbox = 0.0f;
+    resizeflags = ResizeNone;
+    resizebox = 0.0f;
     z = 0;
     flags = 0;
     isclip = false;
@@ -71,8 +71,8 @@ cxView *cxView::BringFront()
 
 cxView *cxView::SetResizeFlags(Resize flags)
 {
-    if(alignflags != flags){
-        alignflags = flags;
+    if(resizeflags != flags){
+        resizeflags = flags;
         SetDirty(DirtyModeLayout);
     }
     return this;
@@ -80,8 +80,8 @@ cxView *cxView::SetResizeFlags(Resize flags)
 
 cxView *cxView::SetResizeBox(const cxBox4F &box)
 {
-    if(alignbox != box){
-        alignbox = box;
+    if(resizebox != box){
+        resizebox = box;
         SetDirty(DirtyModeLayout);
     }
     return this;
@@ -802,12 +802,11 @@ void cxView::OnSort()
 void cxView::OnLayout()
 {
     cxView *parent = Parent();
-    if(parent == nullptr || alignflags == ResizeNone){
+    if(parent == nullptr || resizeflags == ResizeNone){
         return;
     }
     cxBox4F pbox = Parent()->BoxPoint().ToBox4F();
     cxBox4F vbox = BoxPoint().ToBox4F();
-    cxBox4F box = alignbox;
     
     cxSize2F    psiz = Parent()->Size();
     cxPoint2F   panchor = Parent()->Anchor();
@@ -820,72 +819,72 @@ void cxView::OnLayout()
     cxPoint2F   vfixscale = FixScale();
     
     //auto mask
-    if(alignflags & ResizeLeftSide){
-        alignflags |= ResizeLeft;
+    if(resizeflags & ResizeLeftSide){
+        resizeflags |= ResizeLeft;
     }
-    if(alignflags & ResizeRightSide){
-        alignflags |= ResizeRight;
+    if(resizeflags & ResizeRightSide){
+        resizeflags |= ResizeRight;
     }
     //left right
-    if((alignflags & ResizeLeft) && (alignflags & ResizeRight)){
+    if((resizeflags & ResizeLeft) && (resizeflags & ResizeRight)){
         vscale.x = 1.0f;
         vfixscale.x = 1.0f;
-        vbox.l = pbox.l + box.l;
-        vbox.r = pbox.r - box.r;
+        vbox.l = pbox.l + resizebox.l;
+        vbox.r = pbox.r - resizebox.r;
         vsiz.w = vbox.r - vbox.l;
         vpos.x -= panchor.x * psiz.w;
         vpos.x += vanchor.x * vsiz.w;
-    }else if(alignflags & ResizeLeft){
-        vbox.l = pbox.l + box.l;
+    }else if(resizeflags & ResizeLeft){
+        vbox.l = pbox.l + resizebox.l;
         vbox.r = vbox.l + vsiz.w;
         vpos.x = vbox.l + vsiz.w/2.0f;
         vpos.x += vanchor.x * vsiz.w;
-        if(alignflags & ResizeLeftSide){
-            vpos.x -= (box.l * 2 + vsiz.w);
+        if(resizeflags & ResizeLeftSide){
+            vpos.x -= (resizebox.l * 2 + vsiz.w);
         }
         vsiz.w = size.w;
-    }else if(alignflags & ResizeRight){
-        vbox.r = pbox.r - box.r;
+    }else if(resizeflags & ResizeRight){
+        vbox.r = pbox.r - resizebox.r;
         vbox.l = vbox.r - vsiz.w;
         vpos.x = vbox.l + vsiz.w/2.0f;
         vpos.x += vanchor.x * vsiz.w;
-        if(alignflags & ResizeRightSide){
-            vpos.x += (box.r * 2 + vsiz.w);
+        if(resizeflags & ResizeRightSide){
+            vpos.x += (resizebox.r * 2 + vsiz.w);
         }
         vsiz.w = size.w;
     }
     //auto mask
-    if(alignflags & ResizeTopSide){
-        alignflags |= ResizeTop;
+    if(resizeflags & ResizeTopSide){
+        resizeflags |= ResizeTop;
     }
-    if(alignflags & ResizeBottomSide){
-        alignflags |= ResizeBottom;
+    if(resizeflags & ResizeBottomSide){
+        resizeflags |= ResizeBottom;
     }
     //top bottom
-    if((alignflags & ResizeTop) && (alignflags & ResizeBottom)){
+    if((resizeflags & ResizeTop) && (resizeflags & ResizeBottom)){
         vscale.y = 1.0f;
         vfixscale.y = 1.0f;
-        vbox.b = pbox.b + box.b;
-        vbox.t = pbox.t - box.t;
+        vbox.b = pbox.b + resizebox.b;
+        vbox.t = pbox.t - resizebox.t;
         vsiz.h = vbox.t - vbox.b;
         vpos.y -= panchor.y * psiz.h;
         vpos.y += vanchor.y * vsiz.h;
-    }else if(alignflags & ResizeBottom){
-        vbox.b = pbox.b + box.b;
+    }else if(resizeflags & ResizeBottom){
+        vbox.b = pbox.b + resizebox.b;
         vbox.t = vbox.b + vsiz.h;
         vpos.y = vbox.b + vsiz.h/2.0f;
         vpos.y += vanchor.y * vsiz.h;
-        if(alignflags & ResizeBottomSide){
-            vpos.y -= (box.b * 2 + vsiz.h);
+        if(resizeflags & ResizeBottomSide){
+            vpos.y -= (resizebox.b * 2 + vsiz.h);
         }
         vsiz.h = size.h;
-    }else if(alignflags & ResizeTop){
-        vbox.t = pbox.t - box.t;
+    }else if(resizeflags & ResizeTop){
+        vbox.t = pbox.t - resizebox.t;
         vbox.b = vbox.t - vsiz.h;
         vpos.y = vbox.b + vsiz.h/2.0f;
         vpos.y += vanchor.y * vsiz.h;
-        if(alignflags & ResizeTop){
-            vpos.y += (box.t * 2 + vsiz.h);
+        if(resizeflags & ResizeTopSide){
+            vpos.y += (resizebox.t * 2 + vsiz.h);
         }
         vsiz.h = size.h;
     }

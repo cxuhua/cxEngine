@@ -59,8 +59,6 @@ private:
 public:
     cxEvent<cxTimeLine,const cxTimePoint *> onTime;
 public:
-    cxTimeLine *SetTimes(const Times &v);
-    cxTimeLine *SetTimes(cxInt afrom,cxInt ato,const Times &v);
     cxTimeLine *SetRange(cxInt afrom,cxInt ato);
     cxInt Index() const;
     void UpdateTime();

@@ -42,6 +42,17 @@ cxBool cxDraw::Render(cxBoxRenderArray &rs,const cxMatrixF &m,const cxRenderStat
     return render.Size() > 0;
 }
 
+cxBool cxDraw::Render(cxRenderFArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags)
+{
+    state = s;
+    triangles.Clear();
+    for(cxInt i=0; i < rs.Size(); i++){
+        cxRenderF p = rs.At(i) * m;
+        triangles.Append(p);
+    }
+    return triangles.Size() > 0;
+}
+
 cxBool cxDraw::Clip(cxStateType type,const cxBox4F &box)
 {
     CX_ASSERT(type == cxRenderState::ClipOn || type == cxRenderState::ClipOff, "type error");

@@ -32,6 +32,7 @@
 #include <engine/cxResize.h>
 #include <engine/cxProgress.h>
 #include <engine/cxTable.h>
+#include <engine/cxTriangles.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -72,57 +73,80 @@ void IOSEngine::test(cxButton *sender)
 
 void IOSEngine::OnMain()
 {
+    SetPlanSize(cxSize2F(2048, 1536));
     cxTexture::Create()->From("animate.png")->Atlas("animate.json")->gcpush<cxTexture>("animate");
     cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
     cxTexture::Create()->From("grid.png")->gcpush<cxTexture>("grid");
     
-    cxTable *table = cxTable::Create();
-    table->SetColor(cxColor4F::RED);
-    table->SetTexture("grid");
-    table->SetSize(cxSize2F(1200, 1200));
-    table->SetPixel(4.0f);
-    table->SetPadding(10);
-    table->SetMargin(30);
+    cxTriangles *ts = cxTriangles::Create();
+    ts->SetTexture("t.png");
+    ts->SetSize(cxSize2F(300, 300));
     
-    {
-        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
-        item->SetSize(400);
-        item->SetScale(0.0f);
-        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
-        scale->SetTiming(cxTiming::CubicOut);
-        scale->AttachTo(item);
-        table->Append(item);
-    }
-    {
-        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
-        item->SetSize(400);
-        item->SetScale(0.0f);
-        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
-        scale->AttachTo(item);
-        scale->SetTiming(cxTiming::CubicOut);
-        table->Append(item);
-    }
-    {
-        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
-        item->SetSize(400);
-        item->SetScale(0.0f);
-        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
-        scale->AttachTo(item);
-        scale->SetTiming(cxTiming::CubicOut);
-        table->Append(item);
-    }
-    {
-        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
-        item->SetSize(400);
-        item->SetScale(0.0f);
-        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
-        scale->AttachTo(item);
-        scale->SetTiming(cxTiming::CubicOut);
-        table->Append(item);
-    }
+    cxRenderF p1;
+    p1.colors = cxColor4F::WHITE;
+    p1.vertices = cxPoint3F(0, 0, 0);
+    p1.coords = cxCoord2F(0.5, 0.5);
+    ts->Append(p1);
     
-    Window()->Append(table);
+    p1.colors = cxColor4F::WHITE;
+    p1.vertices = cxPoint3F(400, 0, 0);
+    p1.coords = cxCoord2F(1.0, 0.5);
+    ts->Append(p1);
+    
+    p1.colors = cxColor4F::WHITE;
+    p1.vertices = cxPoint3F(0, 400, 0);
+    p1.coords = cxCoord2F(0.5, 0.0);
+    ts->Append(p1);
+    
+    Window()->Append(ts);
+    
+//    cxTable *table = cxTable::Create();
+//    table->SetColor(cxColor4F::RED);
+//    table->SetTexture("grid");
+//    table->SetSize(cxSize2F(1200, 1200));
+//    table->SetPixel(4.0f);
+//    table->SetPadding(10);
+//    table->SetMargin(30);
+//    
+//    {
+//        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
+//        item->SetSize(400);
+//        item->SetScale(0.0f);
+//        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
+//        scale->SetTiming(cxTiming::CubicOut);
+//        scale->AttachTo(item);
+//        table->Append(item);
+//    }
+//    {
+//        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
+//        item->SetSize(400);
+//        item->SetScale(0.0f);
+//        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
+//        scale->AttachTo(item);
+//        scale->SetTiming(cxTiming::CubicOut);
+//        table->Append(item);
+//    }
+//    {
+//        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
+//        item->SetSize(400);
+//        item->SetScale(0.0f);
+//        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
+//        scale->AttachTo(item);
+//        scale->SetTiming(cxTiming::CubicOut);
+//        table->Append(item);
+//    }
+//    {
+//        cxSprite *item = cxSprite::Create()->SetTexture("t.png");
+//        item->SetSize(400);
+//        item->SetScale(0.0f);
+//        cxScaleTo *scale = cxScaleTo::Create(1.0f, 0.5f);
+//        scale->AttachTo(item);
+//        scale->SetTiming(cxTiming::CubicOut);
+//        table->Append(item);
+//    }
+//    
+//    Window()->Append(table);
     
 //    cxSprite *vv = cxSprite::Create()->SetTexture("grid");
 //    

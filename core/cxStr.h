@@ -47,6 +47,7 @@ public:
     cchars Data() const;
     chars Buffer() const;
     
+    const cxBool IsNumber() const;
     const cxBool ToBool() const;
     const cxInt ToInt() const;
     const cxFloat ToFloat() const;

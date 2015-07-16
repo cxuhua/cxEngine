@@ -29,6 +29,7 @@ cxRender::cxRender()
         indices[i*6+4]=i*4+2;
         indices[i*6+5]=i*4+1;
     }
+    triangles.Append(max);
     renders.Append(max);
     draws.Append(max);
 }
@@ -56,16 +57,31 @@ void cxRender::Render(cxBoxRenderArray &rs,const cxMatrixF &m,const cxRenderStat
     }
 }
 
-void cxRender::DrawRenders(cxDraw *draw)
+void cxRender::Render(cxRenderFArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags)
+{
+    cxInt num = draws.Size();
+    cxDraw &draw = draws.At(num);
+    if(draw.Render(rs, m, s, flags)){
+        draws.Inc(1);
+    }
+}
+
+void cxRender::DrawAllRenders(cxDraw *draw)
 {
     if(draw == nullptr){
         return;
     }
     draw->Using();
-    vsc += renders.Size();
     vdc ++;
-    DrawBoxRender(renders, indices);
-    renders.Clear();
+    if(draw->Type() == cxRenderState::BoxRender){
+        vsc += renders.Size();
+        DrawBoxRender(renders, indices);
+        renders.Clear();
+    }else if(draw->Type() == cxRenderState::Triangles){
+        vsc += triangles.Size();
+        DrawTriangles(triangles);
+        triangles.Clear();
+    }
     prev = nullptr;
 }
 
@@ -82,6 +98,7 @@ void cxRender::Init()
 {
     draws.Clear();
     renders.Clear();
+    triangles.Clear();
     vsc = 0;
     vdc = 0;
     prev= nullptr;
@@ -91,12 +108,13 @@ void cxRender::Init()
 void cxRender::debug()
 {
     fpsTime += cxEngine::Instance()->Delta();
-    if(fpsTime >= 1.0f){
-        cxLabel *label = cxEngine::Instance()->Window()->DebugLabel();
-        cxInt fps = cxEngine::Instance()->FPS();
-        label->SetText("%d,%d,%d",vdc,vsc,fps);
-        fpsTime = 0.0f;
+    if(fpsTime < 1.0f){
+        return;
     }
+    cxLabel *label = cxEngine::Instance()->Window()->DebugLabel();
+    cxInt fps = cxEngine::Instance()->FPS();
+    label->SetText("%d,%d,%d",vdc,vsc,fps);
+    fpsTime = 0.0f;
 }
 
 void cxRender::Draw()
@@ -105,24 +123,31 @@ void cxRender::Draw()
         cxDraw &draw = draws.At(i);
         cxStateType type = draw.Type();
         if(type == cxRenderState::ClipOn){
-            DrawRenders(prev);
+            DrawAllRenders(prev);
             gl->Scissor(draw.clipbox);
             continue;
         }
         if(type == cxRenderState::ClipOff){
-            DrawRenders(prev);
+            DrawAllRenders(prev);
             gl->Scissor();
             continue;
         }
+        cxUInt64 id = draw.ID();
+        if(cid != id){
+            cid = id;
+            DrawAllRenders(prev);
+        }
+        prev = &draw;
         if(type == cxRenderState::BoxRender){
-            cxUInt64 id = draw.ID();
-            if(cid != id){cid = id;DrawRenders(prev);}
-            prev = &draw;
             renders.Append(draw.render);
             continue;
         }
+        if(type == cxRenderState::Triangles){
+            triangles.Append(draw.triangles);
+            continue;
+        }
     }
-    DrawRenders(prev);
+    DrawAllRenders(prev);
     #ifndef NDEBUG
     debug();
     #endif

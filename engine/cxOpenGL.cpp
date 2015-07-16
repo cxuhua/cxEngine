@@ -459,6 +459,27 @@ void TDrawBuffer::InitDrawBuffer(const cxBoxRenderArray &renders,const cxUInt16 
     }
 }
 
+void TDrawBuffer::DrawTriangles(const cxRenderFArray &renders)
+{
+    cxInt num = renders.Size();
+    if(num == 0){
+        return;
+    }
+    cxULong start = (cxULong)renders.Buffer();
+    glEnableVertexAttribArray(cxVertexAttribPosition);
+    GLvoid *poff = (GLvoid *)(start + offsetof(cxRenderF, vertices));
+    glVertexAttribPointer(cxVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), poff);
+    
+    glEnableVertexAttribArray(cxVertexAttribColor);
+    GLvoid *coff = (GLvoid *)(start + offsetof(cxRenderF, colors));
+    glVertexAttribPointer(cxVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), coff);
+    
+    glEnableVertexAttribArray(cxVertexAttribTexcoord);
+    GLvoid *toff = (GLvoid *)(start + offsetof(cxRenderF, coords));
+    glVertexAttribPointer(cxVertexAttribTexcoord, 2, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), toff);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, num);
+}
+
 void TDrawBuffer::DrawBoxRender(const cxBoxRenderArray &renders,const cxUInt16 *indices)
 {
     if(!isinit){

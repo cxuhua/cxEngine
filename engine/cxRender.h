@@ -33,6 +33,7 @@ private:
     cxInt max;
     cxUInt16 *indices;
     cxBoxRenderArray renders;
+    cxRenderFArray triangles;
     cxDrawArray draws;
     cxFloat fpsTime;
     void debug();
@@ -45,8 +46,10 @@ public:
     void Render(cxBoxRenderArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
     //clip subviews
     void Clip(cxStateType type,const cxBox4F &box);
+    //cxTrangles
+    void Render(cxRenderFArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
     //
-    void DrawRenders(cxDraw *draw);
+    void DrawAllRenders(cxDraw *draw);
 };
 
 CX_CPP_END

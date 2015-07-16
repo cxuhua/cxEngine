@@ -28,6 +28,26 @@ cxCoord2F::cxCoord2F(const cxCoord2F &av)
     v = av.v;
 }
 
+const cxFloat cxBoxCoord2F::X() const
+{
+    return lt.u;
+}
+
+const cxFloat cxBoxCoord2F::Y() const
+{
+    return lt.v;
+}
+
+const cxFloat cxBoxCoord2F::W() const
+{
+    return rt.u - lt.u;
+}
+
+const cxFloat cxBoxCoord2F::H() const
+{
+    return lb.v - lt.v;
+}
+
 cxBoxCoord2F cxBoxCoord2F::Default = cxBoxCoord2F(cxCoord2F(0.0f,0.0f),cxCoord2F(0.0f,1.0f),cxCoord2F(1.0f,0.0f),cxCoord2F(1.0f,1.0f));
 
 cxBoxCoord2F::cxBoxCoord2F(const cxBoxCoord2F &v)

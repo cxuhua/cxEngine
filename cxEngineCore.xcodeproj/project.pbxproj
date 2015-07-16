@@ -93,6 +93,7 @@
 		836F3F061B1B70FA00E3E82C /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 836F3F041B1B70FA00E3E82C /* md5.c */; };
 		83726FDA1B29458500DF4BFD /* cxColor4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83726FD81B29458500DF4BFD /* cxColor4F.cpp */; };
 		838073C91B564FDB00A1098A /* cxTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838073C71B564FDB00A1098A /* cxTable.cpp */; };
+		839361791B57906D00DC7036 /* cxTriangles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839361771B57906D00DC7036 /* cxTriangles.cpp */; };
 		839836CE1B10B3F7002B7C20 /* cxAutoPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CC1B10B3F7002B7C20 /* cxAutoPool.cpp */; };
 		839836D11B10B59C002B7C20 /* cxArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CF1B10B59C002B7C20 /* cxArray.cpp */; };
 		839836D31B10B61C002B7C20 /* cxCoreTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 839836D21B10B61C002B7C20 /* cxCoreTest.mm */; };
@@ -377,6 +378,8 @@
 		83726FD91B29458500DF4BFD /* cxColor4F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxColor4F.h; sourceTree = "<group>"; };
 		838073C71B564FDB00A1098A /* cxTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxTable.cpp; sourceTree = "<group>"; };
 		838073C81B564FDB00A1098A /* cxTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTable.h; sourceTree = "<group>"; };
+		839361771B57906D00DC7036 /* cxTriangles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxTriangles.cpp; sourceTree = "<group>"; };
+		839361781B57906D00DC7036 /* cxTriangles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTriangles.h; sourceTree = "<group>"; };
 		839836CC1B10B3F7002B7C20 /* cxAutoPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAutoPool.cpp; sourceTree = "<group>"; };
 		839836CD1B10B3F7002B7C20 /* cxAutoPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAutoPool.h; sourceTree = "<group>"; };
 		839836CF1B10B59C002B7C20 /* cxArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxArray.cpp; sourceTree = "<group>"; };
@@ -626,6 +629,8 @@
 				83F54B5E1B54BD5700AC5844 /* cxAsync.h */,
 				838073C71B564FDB00A1098A /* cxTable.cpp */,
 				838073C81B564FDB00A1098A /* cxTable.h */,
+				839361771B57906D00DC7036 /* cxTriangles.cpp */,
+				839361781B57906D00DC7036 /* cxTriangles.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -1053,6 +1058,7 @@
 				831189CF1B2D728000C930B5 /* plane.c in Sources */,
 				831189CB1B2D728000C930B5 /* mat4stack.c in Sources */,
 				8345E1621B37138200A46A47 /* cxList.cpp in Sources */,
+				839361791B57906D00DC7036 /* cxTriangles.cpp in Sources */,
 				8302541E1B453E8B0070D2E5 /* cxTimeLine.cpp in Sources */,
 				83BE636E1B3117270028B6E7 /* AppDelegate.mm in Sources */,
 				83C9D1121B47C63600EC244C /* cxFollow.cpp in Sources */,

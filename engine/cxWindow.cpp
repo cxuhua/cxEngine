@@ -31,6 +31,7 @@ cxView *cxWindow::Top() const
 
 void cxWindow::InitDebugLabel()
 {
+    cxEngine *engine = cxEngine::Instance();
     label = cxLabel::FromUTF8("0000000");
     label->SetZ(INT_MAX);
     label->SetFontSize(40);
@@ -38,6 +39,7 @@ void cxWindow::InitDebugLabel()
     label->SetColor(cxColor4F::RED);
     label->SetResizeFlags(cxView::ResizeRightBottom);
     label->SetStroke(1, cxColor4F::BLACK, 0.5f);
+    label->SetFixScale(engine->PlanScale().x);
     Append(label);
 }
 

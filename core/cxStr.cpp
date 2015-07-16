@@ -84,6 +84,24 @@ const cxArray *cxStr::Split(cxInt c) const
     return rv;
 }
 
+const cxBool cxStr::IsNumber() const
+{
+    for(cxInt i=0;i<Size();i++){
+        char c = At(i);
+        if(c >= '0' && c <= '9'){
+            continue;
+        }
+        if(c == '.' || c == 'e'){
+            continue;
+        }
+        if(c == '+' || c == '-'){
+            continue;
+        }
+        return false;
+    }
+    return true;
+}
+
 const cxFloat cxStr::ToFloat() const
 {
     return atof(ToString());

@@ -32,6 +32,10 @@ struct cxBoxCoord2F
     cxBoxCoord2F();
     cxBoxCoord2F(const cxBoxCoord2F &v);
     cxBoxCoord2F(const cxCoord2F &alt,const cxCoord2F &alb,const cxCoord2F &art,const cxCoord2F &arb);
+    const cxFloat X() const;
+    const cxFloat Y() const;
+    const cxFloat W() const;
+    const cxFloat H() const;
 };
 
 CX_CPP_END

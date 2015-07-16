@@ -40,7 +40,7 @@ void cxProgress::OnDirty()
         vv->SetSize(vsiz);
     }
     cxFloat p = value / (range.max - range.min);
-    cxSize2F vvsiz = vsiz;
+    cxSize2F vvsiz = vv->Size();
     cxPoint2F vvpos = 0.0f;
     if(dir & LeftToRight){
         vvsiz.w = p * vsiz.w;

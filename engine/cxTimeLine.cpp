@@ -140,27 +140,6 @@ cxTimePoint *cxTimeLine::Append(cxFloat time)
     return p;
 }
 
-cxTimeLine *cxTimeLine::SetTimes(const Times &v)
-{
-    SetTimes(from, to, v);
-    return this;
-}
-
-cxTimeLine *cxTimeLine::SetTimes(cxInt afrom,cxInt ato,const Times &v)
-{
-    if(v.empty()){
-        return this;
-    }
-    cxInt siz = (cxInt)v.size();
-    cxInt len = abs(ato - afrom) + 1;
-    len = CX_MIN(len, siz);
-    for(cxInt i = 0;i < len;i++){
-        cxInt idx = (afrom < ato) ? (afrom + i) : (afrom - i);
-        isdirty = At(idx)->SetTime(v.at(i));
-    }
-    return this;
-}
-
 const cxArray *cxTimeLine::Points() const
 {
     return points;

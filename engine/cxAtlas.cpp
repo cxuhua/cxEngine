@@ -180,6 +180,7 @@ void cxAtlas::OnRender(cxRender *render,const cxMatrixF &model)
     if(renders.Size() == 0 || Texture() == nullptr){
         return;
     }
+    state.Set(cxRenderState::BoxRender);
     state.Set(Texture());
     state.Set(Blend());
     render->Render(renders, model, State(), Flags());

@@ -23,6 +23,36 @@ struct cxRenderF
     cxCoord2F coords;
     cxRenderF();
     cxRenderF(const cxRenderF &v);
+    cxRenderF &operator*=(const cxMatrixF &v);
+    cxRenderF operator*(const cxMatrixF &v);
+};
+
+class cxRenderFArray : private std::vector<cxRenderF>
+{
+public:
+    explicit cxRenderFArray();
+    virtual ~cxRenderFArray();
+private:
+    cxInt number;
+public:
+    
+    void Append(cxInt n);
+    void Append(cxRenderFArray &v);
+    void Append(const cxRenderF &v);
+    
+    void Remove(cxInt idx);
+    void Remove(cxInt idx,cxInt n);
+    
+    cxInt Inc(cxInt inc);
+    cxRenderF &Inc();
+    void Clear();
+
+    const cxRenderF *Buffer() const;
+    cxRenderF &At(cxInt idx);
+    const cxRenderF &At(cxInt idx) const;
+    const cxInt Capacity() const;
+    const cxInt Size() const;
+    cxBool IsEmpty() const;
 };
 
 CX_CPP_END

@@ -135,6 +135,7 @@ struct cxRenderState
     static const cxStateType BoxRender  = 0;
     static const cxStateType ClipOn     = 1;
     static const cxStateType ClipOff    = 2;
+    static const cxStateType Triangles  = 3;
 };
 
 class TDrawable
@@ -167,6 +168,7 @@ protected:
     virtual ~TDrawBuffer();
     void InitDrawBuffer(const cxBoxRenderArray &renders,const cxUInt16 *indices);
     void DrawBoxRender(const cxBoxRenderArray &renders,const cxUInt16 *indices);
+    void DrawTriangles(const cxRenderFArray &renders);
 };
 
 CX_CPP_END

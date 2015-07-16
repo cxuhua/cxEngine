@@ -170,6 +170,7 @@ void cxSprite::OnRender(cxRender *render,const cxMatrixF &model)
         CX_WARN("cxSprite texture miss");
         return;
     }
+    state.Set(cxRenderState::BoxRender);
     state.Set(Texture());
     state.Set(Blend());
     render->Render(box,model,State(), Flags());

@@ -804,6 +804,8 @@ void cxView::OnLayout()
     if(parent == nullptr || resizeflags == ResizeNone){
         return;
     }
+    CX_ASSERT(!cxEngine::Instance()->PlanScale().IsZero(), "not set plansize");
+    
     cxBox4F pbox = Parent()->BoxPoint().ToBox4F();
     cxBox4F vbox = BoxPoint().ToBox4F();
     
@@ -908,14 +910,14 @@ const cxInt cxView::BindedSize() const
     return (cxInt)binded.size();
 }
 
-void cxView::Bind(cxView *obj)
+void cxView::Bind(cxView *obj,cxLong tag)
 {
     CX_ASSERT(obj != nullptr, "obj error");
     CX_ASSERT(obj != this, "self can't bind self");
     cxLong i = (cxLong)this;
     cxLong m = (cxLong)obj;
-    bindes.insert(m);
-    obj->binded.insert(i);
+    bindes.insert(std::pair<cxLong, cxLong>(m,tag));
+    obj->binded.insert(std::pair<cxLong, cxLong>(i,tag));
 }
 
 const cxBool cxView::HasBindes(cxView *pview) const
@@ -928,22 +930,22 @@ const cxBool cxView::HasBinded(cxView *pview) const
     return binded.find((cxLong)pview) != binded.end();
 }
 
-void cxView::EachBindes(std::function<void(cxView *pview)> func)
+void cxView::EachBindes(std::function<void(cxView *pview,cxLong tag)> func)
 {
-    std::set<cxLong>::iterator it = bindes.begin();
+    BindMap::iterator it = bindes.begin();
     while(it != bindes.end()){
-        cxView *pview = (cxView *)(*it);
-        func(pview);
+        cxView *pview = (cxView *)it->first;
+        func(pview,it->second);
         it++;
     }
 }
 
-void cxView::EachBinded(std::function<void(cxView *pview)> func)
+void cxView::EachBinded(std::function<void(cxView *pview,cxLong tag)> func)
 {
-    std::set<cxLong>::iterator it = binded.begin();
+    BindMap::iterator it = binded.begin();
     while(it != binded.end()){
-        cxView *pview = (cxView *)(*it);
-        func(pview);
+        cxView *pview = (cxView *)it->first;
+        func(pview,it->second);
         it++;
     }
 }
@@ -960,16 +962,16 @@ void cxView::UnBind(cxView *pview)
 void cxView::UnBind()
 {
     cxLong i = (cxLong)this;
-    std::set<cxLong>::iterator it = bindes.begin();
+    BindMap::iterator it = bindes.begin();
     while(it != bindes.end()){
-        cxView *pview = (cxView *)(*it);
+        cxView *pview = (cxView *)it->first;
         pview->binded.erase(i);
         it++;
     }
     bindes.clear();
     it = binded.begin();
     while(it != binded.end()){
-        cxView *pview = (cxView *)(*it);
+        cxView *pview = (cxView *)it->first;
         pview->bindes.erase(i);
         it++;
     }

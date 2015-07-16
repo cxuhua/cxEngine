@@ -75,6 +75,7 @@ void IOSEngine::test(cxButton *sender)
 void IOSEngine::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
+    
     cxTexture::Create()->From("animate.png")->Atlas("animate.json")->gcpush<cxTexture>("animate");
     cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
@@ -83,6 +84,7 @@ void IOSEngine::OnMain()
     cxCircle *c = cxCircle::Create();
     c->SetTexture("t.png");
     c->SetSize(cxSize2F(500, 500));
+    c->SetPercent(0.7);
     Window()->Append(c);
     
 //    cxTriangles *ts = cxTriangles::Create();

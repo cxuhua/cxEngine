@@ -9,7 +9,7 @@
 #ifndef cxEngineCore_cxView_h
 #define cxEngineCore_cxView_h
 
-#include <set>
+#include <map>
 #include <vector>
 #include <core/cxArray.h>
 #include <core/cxHash.h>
@@ -84,9 +84,10 @@ protected:
 protected:
     cxRenderState state;
 private:
+    typedef std::map<cxLong,cxLong> BindMap;
     cxFloat direction;
-    std::set<cxLong> bindes;
-    std::set<cxLong> binded;
+    BindMap bindes;
+    BindMap binded;
     
     Resize resizeflags;
     cxBox4F resizebox;
@@ -290,14 +291,14 @@ public:
     const cxInt BindesSize() const;
     const cxInt BindedSize() const;
     //
-    void EachBindes(std::function<void(cxView *pview)> func);
-    void EachBinded(std::function<void(cxView *pview)> func);
+    void EachBindes(std::function<void(cxView *pview,cxLong tag)> func);
+    void EachBinded(std::function<void(cxView *pview,cxLong tag)> func);
     //if this bind obj
     const cxBool HasBindes(cxView *pview) const ;
     //if this binded obj
     const cxBool HasBinded(cxView *pview) const ;
     //
-    void Bind(cxView *pview);
+    void Bind(cxView *pview,cxLong tag=0);
     void UnBind(cxView *pview);
     void UnBind();
 };

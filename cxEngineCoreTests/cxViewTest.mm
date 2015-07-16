@@ -33,7 +33,7 @@ using namespace cxengine;
     cxView *v2 = cxView::Alloc();
     v2->SetTag(10010);
     
-    v1->Bind(v2);
+    v1->Bind(v2,1);
     
     //v1 bind v2
     XCTAssertTrue(v1->HasBindes(v2),"bind error");
@@ -41,12 +41,12 @@ using namespace cxengine;
     //v2 被 v1 bind
     XCTAssertTrue(v2->HasBinded(v1),"bind error");
     
-    v1->EachBindes([v2,self](cxObject *obj){
-        XCTAssertTrue(v2 == obj,"bind error");
+    v1->EachBindes([v2,self](cxView *obj,cxLong tag){
+        XCTAssertTrue(v2 == obj && tag == 1,"bind error");
     });
     
-    v2->EachBinded([v1,self](cxObject *obj){
-        XCTAssertTrue(v1 == obj,"bind error");
+    v2->EachBinded([v1,self](cxView *obj,cxLong tag){
+        XCTAssertTrue(v1 == obj && tag == 1,"bind error");
     });
     
     v1->Release();

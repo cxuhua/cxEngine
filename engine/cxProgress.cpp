@@ -33,8 +33,12 @@ void cxProgress::OnDirty()
         return;
     }
     cxSize2F vsiz = Size();
-    bg->SetSize(vsiz);
-    vv->SetSize(vsiz);
+    if(bg->Size().IsZero()){
+        bg->SetSize(vsiz);
+    }
+    if(vv->Size().IsZero()){
+        vv->SetSize(vsiz);
+    }
     cxFloat p = value / (range.max - range.min);
     cxSize2F vvsiz = vsiz;
     cxPoint2F vvpos = 0.0f;
@@ -58,7 +62,7 @@ void cxProgress::OnDirty()
     vv->SetSize(vvsiz);
 }
 
-cxProgress *cxProgress::SetDir(const DirType &v)
+cxProgress *cxProgress::SetDir(DirType v)
 {
     dir = v;
     return this;

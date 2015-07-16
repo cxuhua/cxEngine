@@ -11,7 +11,6 @@
 #include <core/cxHash.h>
 #include <core/cxQueue.h>
 #include <core/cxList.h>
-#include <core/cxSpatial.h>
 #import <XCTest/XCTest.h>
 
 using namespace cxengine;

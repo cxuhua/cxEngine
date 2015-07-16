@@ -33,16 +33,15 @@
 
 CX_CPP_BEGIN
 
-typedef cxULong Resize;
-
-typedef cxUInt DirtyMode;
-
 class cxEngine;
 class cxView : public cxObject,public TDrawable
 {
 public:
     CX_DECLARE(cxView);
 public:
+    typedef cxULong Resize;
+    typedef cxUInt DirtyMode;
+    
     static const Resize ResizeNone              = 0;
     static const Resize ResizeLeft              = 1 << 0;
     static const Resize ResizeRight             = 1 << 1;

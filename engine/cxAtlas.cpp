@@ -30,14 +30,15 @@ void cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
     const cxInt *map = frames->Map();
     for(cxInt i = 0;i < size;i++){
         cxBoxRender &render = renders.Inc();
-        cxTexCoord *coord = coords->At(map[i])->To<cxTexCoord>();
         
+        cxInt mapIdx = map[i];
+        CX_ASSERT(mapIdx < coords->Size(), "map idx error");
+        cxTexCoord *coord = coords->At(mapIdx)->To<cxTexCoord>();
         cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
-        render.SetVertices(bp);
-        
-        render.SetColor(Color());
-        
         const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
+        
+        render.SetVertices(bp);
+        render.SetColor(Color());
         render.SetCoords(tbox);
     }
 }
@@ -48,14 +49,13 @@ void cxAtlas::SetCoords(const cxArray *coords)
     SetCapacity(size);
     for(cxInt i = 0;i < size;i++){
         cxBoxRender &render = renders.Inc();
+        
         cxTexCoord *coord = coords->At(i)->To<cxTexCoord>();
-        
         cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
-        render.SetVertices(bp);
-        
-        render.SetColor(Color());
-        
         const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
+        
+        render.SetVertices(bp);
+        render.SetColor(Color());
         render.SetCoords(tbox);
     }
 }
@@ -163,7 +163,9 @@ cxBoxRender &cxAtlas::At(cxInt idx)
 
 cxAtlas *cxAtlas::SetCapacity(cxInt cap)
 {
-    renders.Append(cap);
+    if(renders.Capacity() < cap){
+        renders.Append(cap - renders.Capacity());
+    }
     renders.Clear();
     return this;
 }
@@ -191,7 +193,7 @@ cxAtlas *cxAtlas::SetScale9(const cxBox4F &sb)
     if(scalebox != sb){
         isscale9 = true;
         scalebox = sb;
-        renders.Append(9);
+        SetCapacity(9);
         SetDirty(DirtyModeTexture);
     }
     return this;

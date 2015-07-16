@@ -25,6 +25,13 @@ cxPoint3F::cxPoint3F()
     z = 0;
 }
 
+cxPoint3F::cxPoint3F(const cxFloat v)
+{
+    x = v;
+    y = v;
+    z = v;
+}
+
 cxPoint3F::cxPoint3F(const cxPoint3F &v)
 {
     x = v.x;

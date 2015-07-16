@@ -21,6 +21,7 @@ struct cxPoint3F
     cxFloat y;
     cxFloat z;
     cxPoint3F();
+    cxPoint3F(const cxFloat v);
     cxPoint3F(const cxJson *json);
     cxPoint3F(const cxPoint3F &v);
     cxPoint3F(cxFloat ax,cxFloat ay,cxFloat az);

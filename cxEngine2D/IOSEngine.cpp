@@ -33,6 +33,7 @@
 #include <engine/cxProgress.h>
 #include <engine/cxTable.h>
 #include <engine/cxTriangles.h>
+#include <engine/cxCircle.h>
 #include "IOSEngine.h"
 
 CX_CPP_BEGIN
@@ -79,27 +80,48 @@ void IOSEngine::OnMain()
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
     cxTexture::Create()->From("grid.png")->gcpush<cxTexture>("grid");
     
-    cxTriangles *ts = cxTriangles::Create();
-    ts->SetTexture("t.png");
-    ts->SetSize(cxSize2F(300, 300));
+    cxCircle *c = cxCircle::Create();
+    c->SetTexture("t.png");
+    c->SetSize(cxSize2F(500, 500));
+    Window()->Append(c);
     
-    cxRenderF p1;
-    p1.colors = cxColor4F::WHITE;
-    p1.vertices = cxPoint3F(0, 0, 0);
-    p1.coords = cxCoord2F(0.5, 0.5);
-    ts->Append(p1);
-    
-    p1.colors = cxColor4F::WHITE;
-    p1.vertices = cxPoint3F(400, 0, 0);
-    p1.coords = cxCoord2F(1.0, 0.5);
-    ts->Append(p1);
-    
-    p1.colors = cxColor4F::WHITE;
-    p1.vertices = cxPoint3F(0, 400, 0);
-    p1.coords = cxCoord2F(0.5, 0.0);
-    ts->Append(p1);
-    
-    Window()->Append(ts);
+//    cxTriangles *ts = cxTriangles::Create();
+//    ts->SetTexture("t.png");
+//    ts->SetSize(cxSize2F(300, 300));
+//    
+//    cxRenderF p1;
+//    p1.colors = cxColor4F::WHITE;
+//    p1.vertices = cxPoint3F(0, 0, 0);
+//    p1.coords = cxCoord2F(0.5, 0.5);
+//    ts->Append(p1);
+//    
+//    p1.colors = cxColor4F::WHITE;
+//    p1.vertices = cxPoint3F(400, 0, 0);
+//    p1.coords = cxCoord2F(1.0, 0.5);
+//    ts->Append(p1);
+//    
+//    p1.colors = cxColor4F::WHITE;
+//    p1.vertices = cxPoint3F(0, 400, 0);
+//    p1.coords = cxCoord2F(0.5, 0.0);
+//    ts->Append(p1);
+//    
+//
+//    p1.colors = cxColor4F::WHITE;
+//    p1.vertices = cxPoint3F(-400, 0, 0);
+//    p1.coords = cxCoord2F(0.0, 0.5);
+//    ts->Append(p1);
+//    
+//    p1.colors = cxColor4F::WHITE;
+//    p1.vertices = cxPoint3F(0, -400, 0);
+//    p1.coords = cxCoord2F(0.5, 1.0);
+//    ts->Append(p1);
+//    
+//    p1.colors = cxColor4F::WHITE;
+//    p1.vertices = cxPoint3F(400, 0, 0);
+//    p1.coords = cxCoord2F(1.0, 0.5);
+//    ts->Append(p1);
+//    
+//    Window()->Append(ts);
     
 //    cxTable *table = cxTable::Create();
 //    table->SetColor(cxColor4F::RED);

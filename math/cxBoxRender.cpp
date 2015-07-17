@@ -111,6 +111,12 @@ void cxBoxRenderArray::Clear()
 
 void cxBoxRenderArray::Append(cxInt n)
 {
+    if(size() >= n){
+        return;
+    }
+    if(size() < n){
+        n = n - (cxInt)size();
+    }
     for(cxInt i=0;i < n;i++){
         Append(cxBoxRender());
     }

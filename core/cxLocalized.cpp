@@ -76,6 +76,9 @@ void cxLocalized::Load(cchars file)
     cxCSV *csv = cxCSV::Create(data);
     for(cxInt j = 1;j < csv->Col();j++){
         const cxStr *text = csv->At(0, j);
+        if(!cxStr::IsOK(text)){
+            continue;
+        }
         cxHash *lngtxt = cxHash::Alloc();
         for(cxInt i = 2; i < csv->Row(); i++){
             const cxStr *key  = csv->At(i, 0);

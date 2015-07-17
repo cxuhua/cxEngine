@@ -23,14 +23,13 @@ cxAtlas::~cxAtlas()
     
 }
 
-void cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
+cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
 {
     cxInt size = frames->MapNum();
     SetCapacity(size);
     const cxInt *map = frames->Map();
     for(cxInt i = 0;i < size;i++){
         cxBoxRender &render = renders.Inc();
-        
         cxInt mapIdx = map[i];
         CX_ASSERT(mapIdx < coords->Size(), "map idx error");
         cxTexCoord *coord = coords->At(mapIdx)->To<cxTexCoord>();
@@ -40,23 +39,31 @@ void cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
         render.SetColor(Color());
         render.SetCoords(tbox);
     }
+    return this;
 }
 
-void cxAtlas::SetCoords(const cxArray *coords)
+cxAtlas *cxAtlas::SetFrames(const cxFrames *frames,cxInt idx)
+{
+    const cxTimePoint *tp = frames->At(idx);
+    const cxArray *coords = tp->Object()->To<cxArray>();
+    SetCoords(coords, frames);
+    return this;
+}
+
+cxAtlas *cxAtlas::SetCoords(const cxArray *coords)
 {
     cxInt size = coords->Size();
     SetCapacity(size);
     for(cxInt i = 0;i < size;i++){
         cxBoxRender &render = renders.Inc();
-        
         cxTexCoord *coord = coords->At(i)->To<cxTexCoord>();
         cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
         const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
-        
         render.SetVertices(bp);
         render.SetColor(Color());
         render.SetCoords(tbox);
     }
+    return this;
 }
 
 void cxAtlas::updateScale9()

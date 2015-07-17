@@ -39,8 +39,10 @@ public:
     cxInt Inc(cxInt inc);
     cxBoxRender &At(cxInt idx);
     
-    void SetCoords(const cxArray *coords);
-    void SetCoords(const cxArray *coords,const cxFrames *frames);
+    cxAtlas *SetCoords(const cxArray *coords);
+    cxAtlas *SetCoords(const cxArray *coords,const cxFrames *frames);
+    
+    cxAtlas *SetFrames(const cxFrames *frames,cxInt idx);
     
     cxAtlas *SetScale9(const cxBox4F &sb);
     

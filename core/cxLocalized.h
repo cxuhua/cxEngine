@@ -27,8 +27,11 @@ private:
 public:
     static const cxStr *GetLang();
     static void SetLang(const cxStr *lng);
+    
     static void Load(cchars file);
+    
     static const cxStr *Text(cchars key);
+    
     static cxLocalized *Instance();
 };
 

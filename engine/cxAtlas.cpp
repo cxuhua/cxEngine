@@ -15,7 +15,7 @@ CX_IMPLEMENT(cxAtlas);
 
 cxAtlas::cxAtlas()
 {
-    
+    isscale9 = false;
 }
 
 cxAtlas::~cxAtlas()
@@ -36,7 +36,6 @@ void cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
         cxTexCoord *coord = coords->At(mapIdx)->To<cxTexCoord>();
         cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
         const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
-        
         render.SetVertices(bp);
         render.SetColor(Color());
         render.SetCoords(tbox);

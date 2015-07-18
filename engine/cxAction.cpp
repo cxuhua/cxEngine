@@ -108,7 +108,7 @@ void cxAction::OnStop()
 
 void cxAction::Stop()
 {
-    isexit = true;
+    elapsed = time;
 }
 
 void cxAction::Pause()

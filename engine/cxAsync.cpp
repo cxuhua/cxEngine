@@ -43,11 +43,11 @@ void cxAsync::OnStep(cxFloat dt)
 {
     onUpdate.Fire(this);
     if(isfinished){
-        Stop();
+        Exit(true);
     }
     if(timeout > 0 && Elapsed() > timeout){
         onTimeout.Fire(this);
-        Stop();
+        Exit(true);
     }
 }
 

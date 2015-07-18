@@ -50,7 +50,7 @@ void cxTcp::OnStep(cxFloat dt)
 
 void cxTcp::OnClose()
 {
-    Stop();
+    Exit(true);
     onClose.Fire(this);
 }
 

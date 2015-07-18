@@ -28,7 +28,7 @@ cxSequence::~cxSequence()
 void cxSequence::OnInit()
 {
     if(actions->Size() == 0){
-        Stop();
+        Exit(true);
         return;
     }
     for(cxInt i=0;i<actions->Size();i++){
@@ -45,7 +45,7 @@ void cxSequence::OnStep(cxFloat dt)
         index ++;
     }
     if(index >= actions->Size()){
-        Stop();
+        Exit(true);
     }
 }
 

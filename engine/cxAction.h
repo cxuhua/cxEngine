@@ -84,10 +84,12 @@ public:
     static cxAction *Create(cxFloat time);
     cxAction *Forever();
     cxFloat Progress() const;
+    //v = true,not invoke onStop
     void Exit(cxBool v);
     void Reset();
     void Pause();
     void Resume();
+    //invoke stop
     void Stop();
     cxAction *AttachTo(cxView *pview);
     virtual cxAction *Clone();

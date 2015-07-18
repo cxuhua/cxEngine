@@ -267,6 +267,7 @@ public:
     cxView *StopAction(cxULong aid=0);
 
     virtual void Render(cxRender *render,const cxMatrixF &mv);
+    
     void Update(cxFloat dt);
     
     const cxHitInfo HitTest(const cxPoint2F &wp);

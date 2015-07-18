@@ -35,6 +35,8 @@
 #include <engine/cxTriangles.h>
 #include <engine/cxCircle.h>
 #include "IOSEngine.h"
+#include <core/cxKDTree.h>
+
 
 CX_CPP_BEGIN
 
@@ -51,7 +53,7 @@ IOSEngine::~IOSEngine()
     
 }
 
-cxView *v;
+cxKDTree *tree;
 
 void IOSEngine::OnUpdate(cxFloat dt)
 {
@@ -64,7 +66,44 @@ void IOSEngine::OnUpdate(cxFloat dt)
 //    v->SetAxis(cxPoint3F::AxisY);
 //    v->SetAngle(a);
 //    a+=0.01f;
-    cxEngine::OnUpdate(dt);
+    
+    cxArray *subviews = Window()->Subviews();
+    for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
+        cxView *v = (*it)->To<cxView>();
+        cxPoint2F pos = v->Position();
+        v->SetColor(cxColor4F::WHITE);
+    }
+//
+//    ofx::KDTree<Vec2f>::SearchResults res;
+//    ofx::KDTree<Vec2f> points(ps);
+//    
+//    cxEngine::OnUpdate(dt);
+//    
+//    points.buildIndex();
+//    
+//    res.clear();
+//    
+//    points.findPointsWithinRadius(Vec2f(rp.x, rp.y), 200, res);
+//    
+//    ofx::KDTree<Vec2f>::SearchResults::iterator it = res.begin();
+//    while(it != res.end()){
+//        Vec2f p = ps[(*it).first];
+////        cxSprite *sp = (cxSprite *)p.tag;
+////        sp->SetColor(cxColor4F::RED);
+//        it++;
+//    }
+    
+//    tree->Build();
+//    if(tree->Nearst(cxPoint2F(rp.x, rp.y), 200) > 0){
+//        const cxKDTree::Results &res = tree->GetResults();
+//        cxKDTree::Results::const_iterator it = res.begin();
+//        while(it != res.end()){
+//            const KDTreeNode &node = tree->GetTreeNode(it);
+//            cxSprite *sp = (cxSprite *)node.tag;
+//            sp->SetColor(cxColor4F::RED);
+//            it ++;
+//        }
+//    }
 }
 
 void IOSEngine::test(cxButton *sender)
@@ -81,11 +120,39 @@ void IOSEngine::OnMain()
     cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
     cxTexture::Create()->From("grid.png")->gcpush<cxTexture>("grid");
     
-    cxCircle *c = cxCircle::Create();
-    c->SetTexture("t.png");
-    c->SetSize(cxSize2F(500, 500));
-    c->SetPercent(0.7);
-    Window()->Append(c);
+//    tree = cxKDTree::Alloc();
+//    
+//    for(cxInt j=0;j<20;j++)
+//    for(cxInt i=0;i<20;i++){
+//        cxFloat x = i * 50 - 500;
+//        cxFloat y = j * 50 - 500;
+//        
+//        cxSprite *sp= cxSprite::Create()->SetTexture("grid");
+//        sp->SetSize(cxSize2F(50, 50));
+//        sp->SetPosition(cxPoint2F(x, y));
+//        Window()->Append(sp);
+//        
+//        tree->Append(cxPoint2F(x, y), (cxLong)sp);
+//    }
+//    
+//    
+//    cxSprite *tmp= cxSprite::Create()->SetTexture("t.png");
+//    tmp->SetSize(cxSize2F(20, 20));
+//    Window()->Append(tmp);
+//    
+//    cxTimer * timer = cxTimer::Forever(1.0f);
+//    timer->onArrive += [this,tmp](cxTimer *pav){
+//        rp.x = cxUtil::Rand(-500, +500);
+//        rp.y = cxUtil::Rand(-500, +500);
+//        tmp->SetPosition(rp);
+//    };
+//    timer->AttachTo(Window());
+    
+//    cxCircle *c = cxCircle::Create();
+//    c->SetTexture("t.png");
+//    c->SetSize(cxSize2F(500, 500));
+//    c->SetPercent(0.7);
+//    Window()->Append(c);
     
 //    cxTriangles *ts = cxTriangles::Create();
 //    ts->SetTexture("t.png");

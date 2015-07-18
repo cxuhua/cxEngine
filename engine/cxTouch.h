@@ -59,8 +59,10 @@ protected:
     explicit cxTouchable();
     virtual ~cxTouchable();
 private:
+    
     std::map<cxTouchId,cxTouchPoint> events;
     std::vector<cxTouchPoint *> items;
+    
     void updateEvent(const cxTouchPoint &e);
     void removeEvent(const cxTouchPoint &e);
 public:

@@ -29,6 +29,11 @@ cxView *cxWindow::Top() const
     return static_cast<cxView *>(views->Top());
 }
 
+cxBool cxWindow::OnDispatch(const cxTouchable *e)
+{
+    return false;
+}
+
 void cxWindow::InitDebugLabel()
 {
     cxEngine *engine = cxEngine::Instance();

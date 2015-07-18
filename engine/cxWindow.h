@@ -22,6 +22,8 @@ public:
 protected:
     explicit cxWindow();
     virtual ~cxWindow();
+protected:
+    cxBool OnDispatch(const cxTouchable *e);
 private:
     cxStack *views;
     cxLabel *label;         //debug label

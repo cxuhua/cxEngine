@@ -17,6 +17,7 @@ struct cxPoint2F;
 struct cxMatrixF;
 struct cxPoint3F
 {
+    static const cxInt DIM = 3;
     cxFloat x;
     cxFloat y;
     cxFloat z;

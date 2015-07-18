@@ -93,6 +93,7 @@
 		836F3F061B1B70FA00E3E82C /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 836F3F041B1B70FA00E3E82C /* md5.c */; };
 		83726FDA1B29458500DF4BFD /* cxColor4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83726FD81B29458500DF4BFD /* cxColor4F.cpp */; };
 		838073C91B564FDB00A1098A /* cxTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838073C71B564FDB00A1098A /* cxTable.cpp */; };
+		8383456B1B5A45B300921BE8 /* cxKDTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838345691B5A45B300921BE8 /* cxKDTree.cpp */; };
 		839361791B57906D00DC7036 /* cxTriangles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839361771B57906D00DC7036 /* cxTriangles.cpp */; };
 		839836CE1B10B3F7002B7C20 /* cxAutoPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CC1B10B3F7002B7C20 /* cxAutoPool.cpp */; };
 		839836D11B10B59C002B7C20 /* cxArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CF1B10B59C002B7C20 /* cxArray.cpp */; };
@@ -330,6 +331,9 @@
 		83726FD91B29458500DF4BFD /* cxColor4F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxColor4F.h; sourceTree = "<group>"; };
 		838073C71B564FDB00A1098A /* cxTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxTable.cpp; sourceTree = "<group>"; };
 		838073C81B564FDB00A1098A /* cxTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTable.h; sourceTree = "<group>"; };
+		838345681B5A457B00921BE8 /* KDTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KDTree.h; sourceTree = "<group>"; };
+		838345691B5A45B300921BE8 /* cxKDTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxKDTree.cpp; sourceTree = "<group>"; };
+		8383456A1B5A45B300921BE8 /* cxKDTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxKDTree.h; sourceTree = "<group>"; };
 		839361771B57906D00DC7036 /* cxTriangles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxTriangles.cpp; sourceTree = "<group>"; };
 		839361781B57906D00DC7036 /* cxTriangles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTriangles.h; sourceTree = "<group>"; };
 		839836CC1B10B3F7002B7C20 /* cxAutoPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAutoPool.cpp; sourceTree = "<group>"; };
@@ -642,6 +646,7 @@
 		83B23B4C1B17E0E9000D770A /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				838345681B5A457B00921BE8 /* KDTree.h */,
 				831B93ED1B4A923200511A63 /* csv.c */,
 				831B93EE1B4A923200511A63 /* csv.h */,
 				8338FD851B477BD200C84032 /* fsa.h */,
@@ -771,6 +776,8 @@
 				831B93F31B4A970600511A63 /* cxCSV.h */,
 				8302A3731B51078500C7209C /* cxLocalized.cpp */,
 				8302A3741B51078500C7209C /* cxLocalized.h */,
+				838345691B5A45B300921BE8 /* cxKDTree.cpp */,
+				8383456A1B5A45B300921BE8 /* cxKDTree.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -886,6 +893,7 @@
 				83610B0D1B1CB68000BD06B1 /* cxPoint2I.cpp in Sources */,
 				836A2F521B1987B7009B427B /* cxUtil.cpp in Sources */,
 				831189D21B2D728000C930B5 /* ray3.c in Sources */,
+				8383456B1B5A45B300921BE8 /* cxKDTree.cpp in Sources */,
 				83A943A81B44DC3200F70FBA /* aes_ecb.c in Sources */,
 				83D2666B1B345D6000077DB8 /* cxStack.cpp in Sources */,
 				83F54B5F1B54BD5700AC5844 /* cxAsync.cpp in Sources */,

@@ -19,9 +19,11 @@ struct cxSize2F;
 struct cxPoint2I;
 struct cxPoint2F
 {
+    static const cxInt DIM = 2;
+    
     cxFloat x;
     cxFloat y;
-    
+
     cxPoint2F();
     cxPoint2F(const cxJson *json);
     cxPoint2F(cxFloat ax,cxFloat ay);

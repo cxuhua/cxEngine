@@ -492,7 +492,18 @@ const cxMatrixF &cxView::ModelView() const
     return modelview;
 }
 
-cxBool cxView::HasAction(cxULong aid) const
+cxAction *cxView::GetAction(cxActionId aid)
+{
+    for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();it++){
+        cxAction *action = (*it)->To<cxAction>();
+        if(action->ID() == aid){
+            return action;
+        }
+    }
+    return nullptr;
+}
+
+cxBool cxView::HasAction(cxActionId aid) const
 {
     for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();it++){
         cxAction *action = (*it)->To<cxAction>();
@@ -503,7 +514,7 @@ cxBool cxView::HasAction(cxULong aid) const
     return false;
 }
 
-cxView *cxView::StopAction(cxULong aid)
+cxView *cxView::StopAction(cxActionId aid)
 {
     for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();it++){
         cxAction *action = (*it)->To<cxAction>();
@@ -514,10 +525,23 @@ cxView *cxView::StopAction(cxULong aid)
     return this;
 }
 
+cxView *cxView::ExitAction(cxActionId aid)
+{
+    for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();it++){
+        cxAction *action = (*it)->To<cxAction>();
+        if(action->ID() == aid || aid == 0){
+            action->Exit(true);
+        }
+    }
+    return this;
+}
+
 void cxView::updateActions(cxFloat dt)
 {
     for(cxArray::FIter it=actapps->FBegin();it!=actapps->FEnd();it++){
-        actions->Append(*it);
+        cxAction *action = (*it)->To<cxAction>();
+        ExitAction(action->ID());
+        actions->Append(action);
     }
     actapps->Clear();
     for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();){

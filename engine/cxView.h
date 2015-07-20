@@ -122,7 +122,6 @@ private:
     cxBool issleep;
     cxBool hideTop;
     cxBool isremoved;
-    
     cxBool isclip;
     
     cxShader *shader;
@@ -144,7 +143,6 @@ private:
     cxBool islayout;
     cxBool isdir;
 public:
-    
     const cxBool EnableDir() const;
     cxView *EnableDir(cxBool v);
     
@@ -263,8 +261,10 @@ public:
     
     cxBool IsEmpty() const;
     
-    cxBool HasAction(cxULong aid) const;
-    cxView *StopAction(cxULong aid=0);
+    cxBool HasAction(cxActionId aid) const;
+    cxAction *GetAction(cxActionId aid);
+    cxView *StopAction(cxActionId aid=0);
+    cxView *ExitAction(cxActionId aid=0);
 
     virtual void Render(cxRender *render,const cxMatrixF &mv);
     

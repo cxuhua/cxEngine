@@ -185,10 +185,11 @@ cxBool cxAction::Update(cxFloat dt)
         onStep.Fire(this, delta);
     }
     if(elapsed >= time){
+        repeat --;
         isexit = true;
         OnStop();
         onStop.Fire(this);
-        if(--repeat > 0)Reset();
+        if(repeat > 0)Reset();
     }
 exit:
     if(isexit || repeat <= 0){

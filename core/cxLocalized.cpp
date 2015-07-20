@@ -47,7 +47,7 @@ const cxStr *cxLocalized::GetLang()
 {
     cxLocalized *instance = Instance();
     if(instance->lang == nullptr){
-        return cxUtil::Instance()->LocalizedKey();
+        cxObject::swap(&instance->lang, cxUtil::Instance()->LocalizedKey());
     }
     return instance->lang;
 }

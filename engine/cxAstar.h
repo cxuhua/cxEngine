@@ -34,7 +34,7 @@ public:
 
 struct cxAstarDelegate
 {
-    virtual cxBool IsAppend(const cxPoint2I &point) = 0;
+    virtual cxBool IsAppend(cxAstar *star,const cxPoint2I &point) = 0;
 };
 
 class cxAstar : public cxObject
@@ -51,7 +51,7 @@ private:
     cxAstarDelegate *delegate;
 protected:
     void AddSuccessNode(const cxPoint2I &p);
-    virtual cxBool IsAppend(const cxPoint2I &point);
+    virtual cxBool IsAppend(cxAstar *star,const cxPoint2I &point);
     virtual void OnSuccess();
     virtual void OnFailed();
     virtual void OnSearching();
@@ -60,6 +60,8 @@ public:
     cxEvent<cxAstar> onFailed;
     cxEvent<cxAstar> onSearching;
 public:
+    cxPoint2I GetStart();
+    cxPoint2I GetEnd();
     void SetDelegate(cxAstarDelegate *gate);
     const cxBool IsSuccess() const;
     void Cancel();

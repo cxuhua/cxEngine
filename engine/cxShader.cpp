@@ -7,6 +7,7 @@
 //
 
 #include <core/cxUtil.h>
+#include "cxEngine.h"
 #include "cxOpenGL.h"
 #include "cxShader.h"
 #include "cxView.h"
@@ -105,6 +106,31 @@ cxBool cxColorShader::InitAttrib()
     BindAttrib(cxVertexAttribPosition, CX_ATTR_POSITION);
     BindAttrib(cxVertexAttribColor, CX_ATTR_COLOR);
     return true;
+}
+//
+CX_IMPLEMENT(cxEffectShader);
+
+cxEffectShader::cxEffectShader()
+{
+    
+}
+
+cxEffectShader::~cxEffectShader()
+{
+    
+}
+
+cxBool cxEffectShader::InitUniform()
+{
+    time = GetUniform("time");
+    return true;
+}
+
+void cxEffectShader::Using() const
+{
+    cxShader::Using();
+    cxEngine *engine = cxEngine::Instance();
+    SetUniform(time, engine->Time());
 }
 
 CX_CPP_END

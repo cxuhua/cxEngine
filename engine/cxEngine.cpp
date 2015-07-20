@@ -45,6 +45,7 @@ cxBool cxEngine::IsTouch() const
 
 cxEngine::cxEngine()
 {
+    timevar = 0;
     istouch = true;
     layout = false;
     pause = false;
@@ -182,6 +183,7 @@ void cxEngine::Run()
         if(dt > DTM){
             dt = DTM;
         }
+        timevar += dt;
         if(iter != nextIter){
             iter = nextIter;
         }
@@ -197,6 +199,11 @@ void cxEngine::Run()
         break;
     };
     cxAutoPool::Clear();
+}
+
+const cxFloat cxEngine::Time() const
+{
+    return timevar;
 }
 
 void cxEngine::Layout(cxFloat w,cxFloat h)

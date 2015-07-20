@@ -75,6 +75,7 @@ private:
     cxHash *coords;
     cxTextureId texId;
     cxSize2F size;
+//    cxTextureParams
 public:
     cxTexCoord *At(cchars key) const;
     cxTexCoord *At(const cxStr *key) const;

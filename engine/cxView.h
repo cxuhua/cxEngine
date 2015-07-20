@@ -292,8 +292,8 @@ public:
     const cxInt BindesSize() const;
     const cxInt BindedSize() const;
     //
-    void EachBindes(std::function<void(cxView *pview,cxLong tag)> func);
-    void EachBinded(std::function<void(cxView *pview,cxLong tag)> func);
+    const cxArray *GetBindes();
+    const cxArray *GetBinded();
     //if this bind obj
     const cxBool HasBindes(cxView *pview) const ;
     //if this binded obj

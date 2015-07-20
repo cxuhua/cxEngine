@@ -40,6 +40,7 @@ protected:
     
     virtual void OnUpdate(cxFloat dt);
 private:
+    cxFloat timevar;
     cxRender *render;
     cxBool layout;
     cxRect4F bound;
@@ -57,6 +58,7 @@ private:
     cxBool istouch;
 public:
     
+    const cxFloat Time() const;
     cxStr *TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size);
     
     static void Init(cxEngine *engine);

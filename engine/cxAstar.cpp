@@ -153,47 +153,59 @@ void cxAstar::Init(const cxPoint2I &from,const cxPoint2I &to)
     astar.SetStartAndGoalStates(start, end);
 }
 
+cxPoint2I cxAstar::GetStart()
+{
+    SearchNode *node = astar.GetSolutionStart();
+    return node->Point();
+}
+
+cxPoint2I cxAstar::GetEnd()
+{
+    SearchNode *node = astar.GetSolutionEnd();
+    return node->Point();
+}
+
 cxBool cxAstar::GetSuccessors(const cxPoint2I &point,const cxPoint2I &parent)
 {
     cxPoint2I lv = point.LV();
-    if(IsAppend(lv) && lv != parent){
+    if(IsAppend(this,lv) && lv != parent){
         AddSuccessNode(lv);
     }
     cxPoint2I rv = point.RV();
-    if(IsAppend(rv) && rv != parent){
+    if(IsAppend(this,rv) && rv != parent){
         AddSuccessNode(rv);
     }
     cxPoint2I tv = point.TV();
-    if(IsAppend(tv) && tv != parent){
+    if(IsAppend(this,tv) && tv != parent){
         AddSuccessNode(tv);
     }
     cxPoint2I bv = point.BV();
-    if(IsAppend(bv) && bv != parent){
+    if(IsAppend(this,bv) && bv != parent){
         AddSuccessNode(bv);
     }
     cxPoint2I lt = point.LT();
-    if(IsAppend(lt) && lt != parent){
+    if(IsAppend(this,lt) && lt != parent){
         AddSuccessNode(lt);
     }
     cxPoint2I lb = point.LB();
-    if(IsAppend(lb) && lb != parent){
+    if(IsAppend(this,lb) && lb != parent){
         AddSuccessNode(lb);
     }
     cxPoint2I rt = point.RT();
-    if(IsAppend(rt) && rt != parent){
+    if(IsAppend(this,rt) && rt != parent){
         AddSuccessNode(rt);
     }
     cxPoint2I rb = point.RB();
-    if(IsAppend(rb) && rb != parent){
+    if(IsAppend(this,rb) && rb != parent){
         AddSuccessNode(rb);
     }
     return true;
 }
 
-cxBool cxAstar::IsAppend(const cxPoint2I &point)
+cxBool cxAstar::IsAppend(cxAstar *star,const cxPoint2I &point)
 {
     if(delegate != nullptr){
-        return delegate->IsAppend(point);
+        return delegate->IsAppend(star,point);
     }
     return false;
 }

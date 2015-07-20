@@ -660,7 +660,6 @@ void cxView::Update(cxFloat dt)
         OnLayout();
         islayout = true;
     }
-    OnUpdate(dt);
     if(!actions->IsEmpty() || !actapps->IsEmpty()){
         updateActions(dt);
     }
@@ -673,6 +672,7 @@ void cxView::Update(cxFloat dt)
     if(!subviews->IsEmpty()){
         runRemoves(dt);
     }
+    OnUpdate(dt);
 }
 
 cxInt cxView::Z() const
@@ -902,12 +902,12 @@ void cxView::OnUpdate(cxFloat dt)
 
 const cxInt cxView::BindesSize() const
 {
-    return (cxInt)bindes.size();
+    return bindes.empty()?0:(cxInt)bindes.size();
 }
 
 const cxInt cxView::BindedSize() const
 {
-    return (cxInt)binded.size();
+    return binded.empty()?0:(cxInt)binded.size();
 }
 
 void cxView::Bind(cxView *obj,cxLong tag)
@@ -930,24 +930,34 @@ const cxBool cxView::HasBinded(cxView *pview) const
     return binded.find((cxLong)pview) != binded.end();
 }
 
-void cxView::EachBindes(std::function<void(cxView *pview,cxLong tag)> func)
+const cxArray *cxView::GetBindes()
 {
+    cxArray *views = cxArray::Create();
+    if(bindes.empty()){
+        return views;
+    }
     BindMap::iterator it = bindes.begin();
     while(it != bindes.end()){
         cxView *pview = (cxView *)it->first;
-        func(pview,it->second);
+        views->Append(pview);
         it++;
     }
+    return views;
 }
 
-void cxView::EachBinded(std::function<void(cxView *pview,cxLong tag)> func)
+const cxArray *cxView::GetBinded()
 {
+    cxArray *views = cxArray::Create();
+    if(binded.empty()){
+        return views;
+    }
     BindMap::iterator it = binded.begin();
     while(it != binded.end()){
         cxView *pview = (cxView *)it->first;
-        func(pview,it->second);
+        views->Append(pview);
         it++;
     }
+    return views;
 }
 
 void cxView::UnBind(cxView *pview)

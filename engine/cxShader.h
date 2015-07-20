@@ -91,6 +91,19 @@ protected:
     virtual cxBool InitAttrib();
     void Using() const;
 };
+//
+class cxEffectShader : public cxShader
+{
+public:
+    CX_DECLARE(cxEffectShader);
+private:
+    glUint time;
+protected:
+    explicit cxEffectShader();
+    virtual ~cxEffectShader();
+    void Using() const;
+    cxBool InitUniform();
+};
 
 CX_CPP_END
 

@@ -56,6 +56,7 @@ CX_IMPLEMENT(cxAstar);
 
 cxAstar::cxAstar()
 {
+    object = nullptr;
     delegate = nullptr;
 }
 
@@ -200,6 +201,16 @@ cxBool cxAstar::GetSuccessors(const cxPoint2I &point,const cxPoint2I &parent)
         AddSuccessNode(rb);
     }
     return true;
+}
+
+void cxAstar::SetObject(cxObject *pobj)
+{
+    object = pobj;
+}
+
+cxObject *cxAstar::GetObject()
+{
+    return object;
 }
 
 cxBool cxAstar::IsAppend(cxAstar *star,const cxPoint2I &point)

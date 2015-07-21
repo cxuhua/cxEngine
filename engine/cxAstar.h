@@ -49,6 +49,7 @@ private:
     AStarSearch<SearchNode> astar;
     cxBool isSuccess;
     cxAstarDelegate *delegate;
+    cxObject *object;
 protected:
     void AddSuccessNode(const cxPoint2I &p);
     virtual cxBool IsAppend(cxAstar *star,const cxPoint2I &point);
@@ -60,15 +61,24 @@ public:
     cxEvent<cxAstar> onFailed;
     cxEvent<cxAstar> onSearching;
 public:
+    
+    void SetObject(cxObject *pobj);
+    cxObject *GetObject();
+    
     cxPoint2I GetStart();
     cxPoint2I GetEnd();
+    
     void SetDelegate(cxAstarDelegate *gate);
+    
     const cxBool IsSuccess() const;
     void Cancel();
     cxBool Step(cxInt iter=INT_MAX);
+    
     virtual cxBool GetSuccessors(const cxPoint2I &point,const cxPoint2I &parent);
     virtual cxFloat GetCost(const cxPoint2I &p);
+    
     void Init(const cxPoint2I &from,const cxPoint2I &to);
+    
     const cxPoint2IArray &Points() const;
 };
 

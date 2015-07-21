@@ -30,6 +30,7 @@ protected:
 private:
     std::vector<cxObject *> mv;
 public:
+    static cxBool IsOK(cxArray *v);
     RIter RBegin();
     RIter REnd();
     FIter FBegin();

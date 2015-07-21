@@ -24,6 +24,16 @@ cxSpline::~cxSpline()
     
 }
 
+const cxPoint2F &cxSpline::From() const
+{
+    return from;
+}
+
+const cxPoint2F &cxSpline::To() const
+{
+    return to;
+}
+
 const cxPoint2F &cxSpline::at(cxInt idx)
 {
     idx = CX_MIN(points.Size() - 1, CX_MAX(idx, 0));
@@ -49,6 +59,7 @@ void cxSpline::OnInit()
     if(speed > 0){
         computeTime();
     }
+    from = View()->Position();
 }
 
 void cxSpline::OnStep(cxFloat dt)
@@ -108,6 +119,7 @@ cxSpline *cxSpline::SetTension(cxFloat v)
 cxSpline *cxSpline::Append(const cxPoint2F &v)
 {
     points.Append(v);
+    to = v;
     return this;
 }
 

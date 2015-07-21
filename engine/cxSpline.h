@@ -31,7 +31,11 @@ private:
     cxFloat tension;
     cxFloat speed;
     void computeTime();
+    cxPoint2F from;
+    cxPoint2F to;
 public:
+    const cxPoint2F &From() const;
+    const cxPoint2F &To() const;
     cxSpline *SetSpeed(cxFloat v);
     cxSpline *SetTension(cxFloat v);
     cxSpline *Append(const cxPoint2F &v);

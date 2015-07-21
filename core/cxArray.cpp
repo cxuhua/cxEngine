@@ -39,6 +39,11 @@ cxObject *cxArray::At(cxInt idx) const
     return mv.at(idx);
 }
 
+cxBool cxArray::IsOK(cxArray *v)
+{
+    return v != nullptr && !v->IsEmpty();
+}
+
 cxArray *cxArray::Clear()
 {
     for(FIter it = FBegin(); it != FEnd(); it++){

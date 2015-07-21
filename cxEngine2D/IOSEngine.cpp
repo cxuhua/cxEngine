@@ -33,6 +33,7 @@
 #include <engine/cxProgress.h>
 #include <engine/cxTable.h>
 #include <engine/cxTriangles.h>
+#include <engine/cxPath.h>
 #include <engine/cxCircle.h>
 #include "IOSEngine.h"
 #include <core/cxKDTree.h>
@@ -116,21 +117,57 @@ void IOSEngine::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     
-    cxShader *ws = Sea::Create()->Init("water.vsh","water.fsh");
-    cxTexture *wt = cxTexture::Create()->From("water.png");
-    wt->SetParams(cxTextureParams::Repeat);
-
-    cxSprite *sp = cxSprite::Create();
-    sp->SetColor(cxColor4F(0, 0, 0, 0));
-    sp->SetSize(cxSize2F(512, 512));
-    sp->SetTexture(wt);
-    sp->SetShader(ws);
+//    cxShader *ws = Sea::Create()->Init("water.vsh","water.fsh");
+//    cxTexture *wt = cxTexture::Create()->From("water.png");
+//    wt->SetParams(cxTextureParams::Repeat);
+//
+//    cxSprite *sp = cxSprite::Create();
+//    sp->SetColor(cxColor4F(0, 0, 0, 0));
+//    sp->SetSize(cxSize2F(512, 512));
+//    sp->SetTexture(wt);
+//    sp->SetShader(ws);
+//    Window()->Append(sp);
+    
+    cxTexture::Create()->From("animate.png")->Atlas("animate.json")->gcpush<cxTexture>("animate");
+    cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
+    cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
+    cxTexture::Create()->From("grid.png")->gcpush<cxTexture>("grid");
+    
+    cxPath *a = cxPath::Create(200);
+    a->Append(100);
+    a->Append(200);
+    a->Append(cxPoint2F(300, 0));
+    a->Append(cxPoint2F(-600, 0));
+    {
+        cxSprite *sp= cxSprite::Create()->SetTexture("t.png");
+        sp->SetSize(cxSize2F(10, 10));
+        sp->SetPosition(100);
+        Window()->Append(sp);
+    }
+    {
+        cxSprite *sp= cxSprite::Create()->SetTexture("t.png");
+        sp->SetSize(cxSize2F(10, 10));
+        sp->SetPosition(200);
+        Window()->Append(sp);
+    }
+    {
+        cxSprite *sp= cxSprite::Create()->SetTexture("t.png");
+        sp->SetSize(cxSize2F(10, 10));
+        sp->SetPosition(cxPoint2F(300, 0));
+        Window()->Append(sp);
+    }
+    {
+        cxSprite *sp= cxSprite::Create()->SetTexture("t.png");
+        sp->SetSize(cxSize2F(10, 10));
+        sp->SetPosition(cxPoint2F(-600, 0));
+        Window()->Append(sp);
+    }
+    
+    cxSprite *sp= cxSprite::Create()->SetTexture("t.png");
+    sp->SetSize(cxSize2F(50, 50));
     Window()->Append(sp);
     
-//    cxTexture::Create()->From("animate.png")->Atlas("animate.json")->gcpush<cxTexture>("animate");
-//    cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
-//    cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
-//    cxTexture::Create()->From("grid.png")->gcpush<cxTexture>("grid");
+    sp->Append(a);
     
 //    tree = cxKDTree::Alloc();
 //    

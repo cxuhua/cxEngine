@@ -41,6 +41,11 @@ public:
 public:
     typedef cxULong Resize;
     typedef cxUInt DirtyMode;
+    typedef cxUInt Relative;
+    
+    static const Relative RelativeNone          = 0;
+    static const Relative RelativeParent        = 1;
+    static const Relative RelativeGlobal        = 2;
     
     static const Resize ResizeNone              = 0;
     static const Resize ResizeLeft              = 1 << 0;
@@ -142,7 +147,11 @@ private:
     cxUInt flags;           //update and render flags
     cxBool islayout;
     cxBool isdir;
+    
+    Relative relative;
 public:
+    cxView *SetRelative(Relative v);
+    
     const cxBool EnableDir() const;
     cxView *EnableDir(cxBool v);
     

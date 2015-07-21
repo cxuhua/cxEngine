@@ -16,6 +16,7 @@ CX_IMPLEMENT(cxView);
 
 cxView::cxView()
 {
+    relative = RelativeNone;
     maxz = 0;
     direction = INFINITY;
     isdir = false;
@@ -223,6 +224,12 @@ const cxFloat cxView::Direction() const
 void cxView::OnAngle()
 {
     
+}
+
+cxView *cxView::SetRelative(Relative v)
+{
+    relative = v;
+    return this;
 }
 
 cxView *cxView::SetPosition(const cxPoint2F &v)
@@ -795,7 +802,13 @@ void cxView::Render(cxRender *render,const cxMatrixF &mv)
     gl->Push();
     gl->MultMatrix(normalMatrix);
     gl->MultMatrix(anchorMatrix);
-    modelview = gl->ModelView();
+    if(relative == RelativeParent && Parent() != nullptr){
+        modelview = Parent()->ModelView();
+    }else if(relative == RelativeGlobal){
+        modelview = cxEngine::Instance()->Window()->ModelView();
+    }else{
+        modelview = gl->ModelView();
+    }
     if(isclip){
         if(flags & FlagsClip)clipbox = ToMaxBox();
         render->Clip(cxRenderState::ClipOn,clipbox);

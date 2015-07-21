@@ -109,6 +109,7 @@ void cxAction::OnStop()
 void cxAction::Stop()
 {
     elapsed = time;
+    repeat = 0;
 }
 
 void cxAction::Pause()

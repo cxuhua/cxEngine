@@ -147,7 +147,6 @@ private:
     cxUInt flags;           //update and render flags
     cxBool islayout;
     cxBool isdir;
-    
     Relative relative;
 public:
     cxView *SetRelative(Relative v);

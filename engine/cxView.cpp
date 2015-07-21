@@ -947,14 +947,16 @@ const cxInt cxView::BindedSize() const
     return binded.empty()?0:(cxInt)binded.size();
 }
 
-void cxView::Bind(cxView *obj,cxLong tag)
+void cxView::Bind(cxView *pview,cxLong tag)
 {
-    CX_ASSERT(obj != nullptr, "obj error");
-    CX_ASSERT(obj != this, "self can't bind self");
+    if(pview == nullptr){
+        return;
+    }
+    CX_ASSERT(pview != this, "self can't bind self");
     cxLong i = (cxLong)this;
-    cxLong m = (cxLong)obj;
+    cxLong m = (cxLong)pview;
     bindes.insert(std::pair<cxLong, cxLong>(m,tag));
-    obj->binded.insert(std::pair<cxLong, cxLong>(i,tag));
+    pview->binded.insert(std::pair<cxLong, cxLong>(i,tag));
 }
 
 const cxBool cxView::HasBindes(cxView *pview) const
@@ -999,7 +1001,9 @@ const cxArray *cxView::GetBinded()
 
 void cxView::UnBind(cxView *pview)
 {
-    CX_ASSERT(pview != nullptr, "obj error");
+    if(pview == nullptr){
+        return;
+    }
     cxLong i = (cxLong)this;
     cxLong m = (cxLong)pview;
     bindes.erase(m);

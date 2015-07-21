@@ -36,6 +36,7 @@
 #include <engine/cxCircle.h>
 #include "IOSEngine.h"
 #include <core/cxKDTree.h>
+#include "Sea.h"
 
 
 CX_CPP_BEGIN
@@ -67,12 +68,12 @@ void IOSEngine::OnUpdate(cxFloat dt)
 //    v->SetAngle(a);
 //    a+=0.01f;
     
-    cxArray *subviews = Window()->Subviews();
-    for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
-        cxView *v = (*it)->To<cxView>();
-        cxPoint2F pos = v->Position();
-        v->SetColor(cxColor4F::WHITE);
-    }
+//    cxArray *subviews = Window()->Subviews();
+//    for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
+//        cxView *v = (*it)->To<cxView>();
+//        cxPoint2F pos = v->Position();
+//        v->SetColor(cxColor4F::WHITE);
+//    }
 //
 //    ofx::KDTree<Vec2f>::SearchResults res;
 //    ofx::KDTree<Vec2f> points(ps);
@@ -115,10 +116,21 @@ void IOSEngine::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     
-    cxTexture::Create()->From("animate.png")->Atlas("animate.json")->gcpush<cxTexture>("animate");
-    cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
-    cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
-    cxTexture::Create()->From("grid.png")->gcpush<cxTexture>("grid");
+    cxShader *ws = Sea::Create()->Init("water.vsh","water.fsh");
+    cxTexture *wt = cxTexture::Create()->From("water.png");
+    wt->SetParams(cxTextureParams::Repeat);
+
+    cxSprite *sp = cxSprite::Create();
+    sp->SetColor(cxColor4F(0, 0, 0, 0));
+    sp->SetSize(cxSize2F(512, 512));
+    sp->SetTexture(wt);
+    sp->SetShader(ws);
+    Window()->Append(sp);
+    
+//    cxTexture::Create()->From("animate.png")->Atlas("animate.json")->gcpush<cxTexture>("animate");
+//    cxTexture::Create()->From("t.png")->gcpush<cxTexture>("t.png");
+//    cxTexture::Create()->From("bg.jpg")->gcpush<cxTexture>("bg");
+//    cxTexture::Create()->From("grid.png")->gcpush<cxTexture>("grid");
     
 //    tree = cxKDTree::Alloc();
 //    

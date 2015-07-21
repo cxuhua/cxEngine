@@ -11,6 +11,7 @@
 
 #include <core/cxObject.h>
 #include <math/cxSize2F.h>
+#include "cxOpenGL.h"
 
 CX_CPP_BEGIN
 

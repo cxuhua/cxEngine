@@ -177,6 +177,13 @@ void cxBoxRenderArray::SetAlpha(cxInt idx,cxInt n,cxFloat alpha)
     }
 }
 
+void cxBoxRenderArray::SetColor(const cxColor4F &v)
+{
+    for(cxInt i=0;i < Size();i++){
+        At(i).SetColor(v);
+    }
+}
+
 const cxInt cxBoxRenderArray::Capacity() const
 {
     return (cxInt)size();

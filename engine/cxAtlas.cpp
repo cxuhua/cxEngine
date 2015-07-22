@@ -180,6 +180,10 @@ void cxAtlas::OnDirty()
 {
     if(isscale9){
         updateScale9();
+        return;
+    }
+    if(IsDirtyMode(DirtyModeColor)){
+        renders.SetColor(Color());
     }
 }
 

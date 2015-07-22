@@ -57,6 +57,9 @@ public:
     
     void SetAlpha(cxInt idx,cxFloat alpha);
     void SetAlpha(cxInt idx,cxInt n,cxFloat alpha);
+    
+    void SetColor(const cxColor4F &v);
+    
     const cxBoxRender *Buffer() const;
     cxBoxRender &At(cxInt idx);
     const cxBoxRender &At(cxInt idx) const;

@@ -35,8 +35,6 @@ private:
     cxBoxRenderArray renders;
     cxRenderFArray triangles;
     cxDrawArray draws;
-    cxFloat fpsTime;
-    void debug();
 public:
     void Draw();
     void Init();

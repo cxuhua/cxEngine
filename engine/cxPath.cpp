@@ -51,7 +51,7 @@ void cxPath::OnTime(const cxTimePoint *tp)
 {
     cxInt idx = Index();
     if(idx == points.Size() - 1){
-        Stop();
+        Exit(true);
         return;
     }
     next = points.At(idx+1);

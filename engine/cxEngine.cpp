@@ -159,9 +159,6 @@ void cxEngine::Run()
         if(!init){
             cxOpenGL::Instance()->Init();
             OnMain();
-            #ifndef NDEBUG
-            Window()->InitDebugLabel();
-            #endif
             init = true;
         }
         cxOpenGL::Instance()->SetViewport(bound);

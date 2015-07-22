@@ -15,7 +15,6 @@ CX_IMPLEMENT(cxWindow);
 
 cxWindow::cxWindow()
 {
-    label = nullptr;
     views = cxStack::Alloc();
 }
 
@@ -32,26 +31,6 @@ cxView *cxWindow::Top() const
 cxBool cxWindow::OnDispatch(const cxTouchable *e)
 {
     return false;
-}
-
-void cxWindow::InitDebugLabel()
-{
-    cxEngine *engine = cxEngine::Instance();
-    label = cxLabel::FromUTF8("0000000");
-    label->SetZ(INT_MAX);
-    label->SetFontSize(40);
-    label->SetResizeBox(10.0f);
-    label->SetColor(cxColor4F::RED);
-    label->SetResizeFlags(cxView::ResizeRightBottom);
-    label->SetStroke(1, cxColor4F::BLACK, 0.5f);
-    label->SetFixScale(engine->PlanScale().x);
-    Append(label);
-}
-
-cxLabel *cxWindow::DebugLabel()
-{
-    CX_ASSERT(label != nullptr, "debug label not init");
-    return label;
 }
 
 void cxWindow::Push(cxView *view)

@@ -26,10 +26,7 @@ protected:
     cxBool OnDispatch(const cxTouchable *e);
 private:
     cxStack *views;
-    cxLabel *label;         //debug label
 public:
-    void InitDebugLabel();
-    cxLabel *DebugLabel();
     void Push(cxView *view);
     void Replace(cxView *view);
     void Pop();

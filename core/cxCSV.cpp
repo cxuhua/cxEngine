@@ -41,16 +41,18 @@ const cxInt cxCSV::Col(cxInt row) const
 
 const cxStr *cxCSV::At(cxInt row,cxInt col) const
 {
-    CX_ASSERT(row < Row(), "row out");
-    CX_ASSERT(col < Col(row), "row out");
+    if(row >= Row() || col >= Col(row)){
+        return nullptr;
+    }
     cxArray *rs = rows->At(row)->To<cxArray>();
     return rs->At(col)->To<cxStr>();
 }
 
 cxStr *cxCSV::At(cxInt row,cxInt col)
 {
-    CX_ASSERT(row < Row(), "row out");
-    CX_ASSERT(col < Col(row), "col out");
+    if(row >= Row() || col >= Col(row)){
+        return nullptr;
+    }
     cxArray *rs = rows->At(row)->To<cxArray>();
     return rs->At(col)->To<cxStr>();
 }

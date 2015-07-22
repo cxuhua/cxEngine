@@ -30,16 +30,20 @@ void cxPath::OnInit()
         return;
     }
     cxTimeLine::OnInit();
-    View()->SetPosition(points.At(0));
+    next = points.At(0);
+    View()->SetPosition(next);
 }
 
 void cxPath::OnStep(cxFloat dt)
 {
     cxTimeLine::OnStep(dt);
+    
     cxPoint2F cpos = View()->Position();
     cxFloat a = cpos.Angle(next);
-    cpos.x += cosf(a) * dt * speed;
-    cpos.y += sinf(a) * dt * speed;
+    if(!cxFloatIsOK(a)){
+        return;
+    }
+    cpos += cxPoint2F(cosf(a), sinf(a)) * dt * speed;
     View()->SetPosition(cpos);
 }
 

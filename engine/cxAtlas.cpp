@@ -29,12 +29,15 @@ cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
     SetCapacity(size);
     const cxInt *map = frames->Map();
     for(cxInt i = 0;i < size;i++){
-        cxBoxRender &render = renders.Inc();
         cxInt mapIdx = map[i];
         CX_ASSERT(mapIdx < coords->Size(), "map idx error");
         cxTexCoord *coord = coords->At(mapIdx)->To<cxTexCoord>();
+        if(coord->IsEmpty()){
+            continue;
+        }
         cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
         const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
+        cxBoxRender &render = renders.Inc();
         render.SetVertices(bp);
         render.SetColor(Color());
         render.SetCoords(tbox);

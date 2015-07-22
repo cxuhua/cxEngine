@@ -180,11 +180,11 @@ void cxEngine::Run()
         if(dt > DTM){
             dt = DTM;
         }
-        timevar += dt;
         if(iter != nextIter){
             iter = nextIter;
         }
         for(cxInt i=0;i<iter;i++){
+            timevar += dt;
             OnUpdate(dt);
             window->Update(dt);
         }

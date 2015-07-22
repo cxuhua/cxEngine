@@ -41,7 +41,7 @@ public:
 public:
     void SetTexture(cxTexture *v);
     cxTexture *Texture();
-    
+    const cxBool IsEmpty() const;
     const cxSize2F &Size() const;
     cxBox4F Trimmed(const cxBoxPoint3F &box,const cxSize2F &size,cxBool flipx,cxBool flipy) const;
     cxBox4F &Trimmed(cxBox4F &vbox,const cxSize2F &size,cxBool flipx,cxBool flipy) const;

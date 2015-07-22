@@ -95,6 +95,15 @@ const cxSize2F &cxTexCoord::Size() const
     return sourceSize;
 }
 
+const cxBool cxTexCoord::IsEmpty() const
+{
+    cxBool bx = cxFloatIsZero(spriteSourceSize.x);
+    cxBool by = cxFloatIsZero(spriteSourceSize.y);
+    cxBool bw = cxFloatIsEqual(spriteSourceSize.w, 1.0f);
+    cxBool bh = cxFloatIsEqual(spriteSourceSize.h, 1.0f);
+    return bx && by && bw && bh;
+}
+
 cxBox4F cxTexCoord::Trimmed(const cxBoxPoint3F &box,const cxSize2F &size,cxBool flipx,cxBool flipy) const
 {
     cxBox4F b = box.ToBox4F();

@@ -11,6 +11,7 @@
 
 #include "cxTexture.h"
 #include "cxTimeLine.h"
+#include "cxOpenGL.h"
 
 CX_CPP_BEGIN
 
@@ -22,6 +23,8 @@ protected:
     explicit cxFrames();
     virtual ~cxFrames();
 private:
+    BlendFunc blend;
+    cxFloat scale;
     cxTexture *ptex;
     cxInt layer;
     cxInt offset;
@@ -31,10 +34,22 @@ private:
     cxArray *points;
     cxInt mapnum;           //层数量，最大16
     cxInt map[16];          //层映射
+private:
+    cxTexCoord *layerEnd(cxInt group,cxInt count,cxInt layer);
 public:
+    cxBool Init();
+    
+    cxFrames *SetBlend(const BlendFunc &func);
+    cxFrames *SetBlend(const cxStr *name);
+    const BlendFunc Blend() const;
+    
     const cxInt  Num() const;
     const cxInt *Map() const;
     void InitMaps(const cxStr *str);
+    void InitMaps(cchars maps);
+    
+    cxFrames *SetScale(cxFloat v);
+    const cxFloat Scale() const;
     
     cxFrames *SetTexture(const cxTexture *atex);
     const cxTexture *Texture() const;

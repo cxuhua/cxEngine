@@ -39,7 +39,7 @@ cxObject *cxArray::At(cxInt idx) const
     return mv.at(idx);
 }
 
-cxBool cxArray::IsOK(cxArray *v)
+cxBool cxArray::IsOK(const cxArray *v)
 {
     return v != nullptr && !v->IsEmpty();
 }

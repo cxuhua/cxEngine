@@ -31,7 +31,7 @@ cxFrames::~cxFrames()
     points->Release();
 }
 
-const cxInt cxFrames::MapNum() const
+const cxInt cxFrames::Num() const
 {
     return mapnum;
 }
@@ -43,10 +43,19 @@ const cxInt *cxFrames::Map() const
 
 void cxFrames::InitMaps(const cxStr *str)
 {
+    if(!cxStr::IsOK(str)){
+        mapnum = 1;
+        map[0] = 0;
+        return;
+    }
     const cxArray *maps = str->Split(',');
-    CX_ASSERT(maps->Size() > 0, "map set error");
+    if(!cxArray::IsOK(maps)){
+        mapnum = 1;
+        map[0] = 0;
+        return;
+    }
     mapnum = maps->Size();
-    for(cxInt i=0;i<mapnum;i++){
+    for(cxInt i = 0;i < mapnum;i++){
         map[i] = maps->At(i)->To<cxStr>()->ToInt();
         CX_ASSERT(map[i] < layer, "map value error");
     }

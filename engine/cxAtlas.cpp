@@ -25,18 +25,24 @@ cxAtlas::~cxAtlas()
 
 cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
 {
-    cxInt size = frames->MapNum();
+    cxInt size = frames->Num();
     SetCapacity(size);
     const cxInt *map = frames->Map();
     for(cxInt i = 0;i < size;i++){
         cxInt mapIdx = map[i];
         CX_ASSERT(mapIdx < coords->Size(), "map idx error");
+        
         cxTexCoord *coord = coords->At(mapIdx)->To<cxTexCoord>();
         if(coord->IsEmpty()){
             continue;
         }
-        cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
         const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
+        //
+        cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
+        if(bp.Size().IsZero()){
+            continue;
+        }
+        //add render
         cxBoxRender &render = renders.Inc();
         render.SetVertices(bp);
         render.SetColor(Color());
@@ -49,6 +55,7 @@ cxAtlas *cxAtlas::SetFrames(const cxFrames *frames,cxInt idx)
 {
     const cxTimePoint *tp = frames->At(idx);
     const cxArray *coords = tp->Object()->To<cxArray>();
+    CX_ASSERT(coords != nullptr, "frames null");
     SetCoords(coords, frames);
     return this;
 }

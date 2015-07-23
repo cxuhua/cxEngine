@@ -29,10 +29,10 @@ private:
     cxInt count;
     cxFloat time;
     cxArray *points;
-    cxInt mapnum;           //层数量，最大10
-    cxInt map[10];          //层映射
+    cxInt mapnum;           //层数量，最大16
+    cxInt map[16];          //层映射
 public:
-    const cxInt MapNum() const;
+    const cxInt  Num() const;
     const cxInt *Map() const;
     void InitMaps(const cxStr *str);
     

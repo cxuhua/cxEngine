@@ -60,6 +60,11 @@ cxPoint3F::cxPoint3F(cxFloat ax,cxFloat ay,cxFloat az)
     z = az;
 }
 
+const cxBool cxPoint3F::IsZero() const
+{
+    return cxFloatIsZero(x) && cxFloatIsZero(y) && cxFloatIsZero(z);
+}
+
 cxPoint3F cxPoint3F::operator*(const cxMatrixF &mat)
 {
     cxPoint3F out;

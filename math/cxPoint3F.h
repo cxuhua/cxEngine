@@ -28,6 +28,7 @@ struct cxPoint3F
     cxPoint3F(cxFloat ax,cxFloat ay,cxFloat az);
     cxPoint2F ToPoint2F() const;
     cxFloat Length() const;
+    const cxBool IsZero() const;
     cxPoint3F &Normalize();
     cxBool operator==(const cxPoint3F &v) const;
     cxBool operator!=(const cxPoint3F &v) const;

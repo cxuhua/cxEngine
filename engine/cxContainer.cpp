@@ -161,7 +161,7 @@ cxBool cxContainer::OnDispatch(const cxTouchable *e)
         return false;
     }
     if(ep->IsBegan()){
-        Body()->StopAction(CX_CONTAINER_MOVE_ID);
+        Body()->ExitAction(CX_CONTAINER_MOVE_ID);
         return true;
     }
     if(ep->IsMoved()){

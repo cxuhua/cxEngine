@@ -100,6 +100,18 @@ cxBool cxEngine::Contain(const cxBoxPoint3F &b)
     if(vb.l <= box.l && vb.r >= box.r){
         return true;
     }
+    if(box.Contain(cxPoint2F(vb.l,vb.t))){
+        return true;
+    }
+    if(box.Contain(cxPoint2F(vb.l,vb.b))){
+        return true;
+    }
+    if(box.Contain(cxPoint2F(vb.r,vb.t))){
+        return true;
+    }
+    if(box.Contain(cxPoint2F(vb.r,vb.b))){
+        return true;
+    }
     return false;
 }
 

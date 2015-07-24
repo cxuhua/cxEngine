@@ -35,6 +35,8 @@ CX_IMPLEMENT(cxAnimate);
 
 cxAnimate::cxAnimate()
 {
+    iskeyframe = false;
+    group = 0;
     frames = nullptr;
 }
 
@@ -105,16 +107,16 @@ cxAction *cxAnimate::Reverse()
 {
     cxAnimate *rv = cxAnimate::Create();
     cxActionAttr vattr = attr.Reverse();
-    rv->SetAction(&vattr, group);
     rv->SetFrames(frames);
+    rv->SetAction(&vattr, group);
     return rv;
 }
 
 cxAction *cxAnimate::Clone()
 {
     cxAnimate *rv = cxAnimate::Create();
-    rv->SetAction(&attr, group);
     rv->SetFrames(frames);
+    rv->SetAction(&attr, group);
     return rv;
 }
 
@@ -123,6 +125,9 @@ cxAnimate *cxAnimate::SetFrames(const cxFrames *aframes)
     CX_ASSERT(aframes != nullptr, "set frames error");
     cxObject::swap(&frames, aframes);
     SetPoints(frames->Points());
+    attr.group = 0;
+    attr.from = 0;
+    attr.to = aframes->Points()->Size() - 1;
     return this;
 }
 

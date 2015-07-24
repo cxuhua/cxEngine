@@ -167,9 +167,19 @@ void cxTimeLine::SetLapTime(cxFloat v)
     laptime = v;
 }
 
-cxInt cxTimeLine::Length() const
+const cxInt cxTimeLine::Length() const
 {
     return abs(to - from) + 1;
+}
+
+const cxInt cxTimeLine::From() const
+{
+    return from;
+}
+
+const cxInt cxTimeLine::To() const
+{
+    return to;
 }
 
 cxTimeLine::cxTimeLine()

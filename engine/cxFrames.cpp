@@ -15,6 +15,7 @@ CX_IMPLEMENT(cxFrames);
 
 cxFrames::cxFrames()
 {
+    repeat = 1;
     blend = BlendFunc::ALPHA;
     scale = 1.0f;
     mapnum = 1;
@@ -136,6 +137,32 @@ cxFrames *cxFrames::SetBlend(const cxStr *name)
 const BlendFunc cxFrames::Blend() const
 {
     return blend;
+}
+
+cxFrames *cxFrames::SetRepeat(cxInt v)
+{
+    repeat = v;
+    return this;
+}
+
+const cxInt cxFrames::Repeat() const
+{
+    //forever loop play
+    if(repeat == 0){
+        return INT32_MAX;
+    }
+    return repeat;
+}
+
+cxFrames *cxFrames::SetSize(const cxSize2F &v)
+{
+    size = v;
+    return this;
+}
+
+const cxSize2F &cxFrames::Size() const
+{
+    return size;
 }
 
 cxFrames *cxFrames::SetScale(cxFloat v)

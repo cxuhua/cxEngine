@@ -15,6 +15,7 @@ CX_IMPLEMENT(cxFollow);
 
 cxFollow::cxFollow()
 {
+    offset = 0.0f;
     target = nullptr;
     speed = 0;
 }
@@ -22,6 +23,12 @@ cxFollow::cxFollow()
 cxFollow::~cxFollow()
 {
     cxObject::release(&target);
+}
+
+cxFollow *cxFollow::SetOffset(const cxPoint2F &off)
+{
+    offset = off;
+    return this;
 }
 
 void cxFollow::OnStep(cxFloat dt)
@@ -32,7 +39,7 @@ void cxFollow::OnStep(cxFloat dt)
         return;
     }
     cxPoint2F cpos = View()->Position();
-    cxPoint2F tpos = target->Position();
+    cxPoint2F tpos = target->Position() + offset;
     cxFloat angle = cpos.Angle(tpos);
     if(!cxFloatIsOK(angle)){
         return;
@@ -41,9 +48,7 @@ void cxFollow::OnStep(cxFloat dt)
     cpos.x += cosf(angle) * dv;
     cpos.y += sinf(angle) * dv;
     View()->SetPosition(cpos);
-    if(cpos.Distance(tpos) < dv){
-        onCollide.Fire(this);
-    }
+    onDistance.Fire(this, cpos.Distance(tpos));
 }
 
 cxFollow *cxFollow::Create(cxView *target,cxFloat speed)

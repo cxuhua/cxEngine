@@ -23,10 +23,12 @@ protected:
 protected:
     void OnStep(cxFloat dt);
 private:
+    cxPoint2F offset;
     cxView *target;
     cxFloat speed;
 public:
-    cxEvent<cxFollow> onCollide;
+    cxFollow *SetOffset(const cxPoint2F &off);
+    cxEvent<cxFollow,cxFloat> onDistance;
     static cxFollow *Create(cxView *target,cxFloat speed);
 };
 

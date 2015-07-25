@@ -23,6 +23,8 @@ protected:
     explicit cxFrames();
     virtual ~cxFrames();
 private:
+    cxSize2F size;
+    cxInt repeat;
     BlendFunc blend;
     cxFloat scale;
     cxTexture *ptex;
@@ -47,6 +49,12 @@ public:
     const cxInt *Map() const;
     void InitMaps(const cxStr *str);
     void InitMaps(cchars maps);
+    
+    cxFrames *SetSize(const cxSize2F &size);
+    const cxSize2F &Size() const;
+    
+    cxFrames *SetRepeat(cxInt v);
+    const cxInt Repeat() const;
     
     cxFrames *SetScale(cxFloat v);
     const cxFloat Scale() const;

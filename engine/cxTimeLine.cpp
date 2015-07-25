@@ -103,8 +103,8 @@ void cxTimeLine::UpdateTime()
     cxFloat time = 0;
     for(cxInt i = 0;i < Length();i++){
         times.push_back(time);
-        if(laptime > 0){
-            time += laptime/(cxFloat)Length();
+        if(looptime > 0){
+            time += looptime/(cxFloat)Length();
         }else{
             time +=  At(i)->Time();
         }
@@ -162,9 +162,9 @@ cxTimeLine *cxTimeLine::SetRange(cxInt afrom,cxInt ato)
     return this;
 }
 
-void cxTimeLine::SetLapTime(cxFloat v)
+void cxTimeLine::SetLoopTime(cxFloat v)
 {
-    laptime = v;
+    looptime = v;
 }
 
 const cxInt cxTimeLine::Length() const
@@ -184,7 +184,7 @@ const cxInt cxTimeLine::To() const
 
 cxTimeLine::cxTimeLine()
 {
-    laptime = 0;
+    looptime = 0;
     isdirty = true;
     idx = -1;
     from = -1;

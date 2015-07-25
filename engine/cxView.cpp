@@ -460,6 +460,7 @@ cxView *cxView::Append(cxAction *action)
 {
     CX_ASSERT(action != nullptr, "args error");
     CX_ASSERT(action->View() == nullptr, "action repeat append");
+    ExitAction(action->ID());
     action->SetView(this);
     actapps->Append(action);
     return this;
@@ -547,7 +548,6 @@ void cxView::updateActions(cxFloat dt)
 {
     for(cxArray::FIter it=actapps->FBegin();it!=actapps->FEnd();it++){
         cxAction *action = (*it)->To<cxAction>();
-        ExitAction(action->ID());
         actions->Append(action);
     }
     actapps->Clear();

@@ -49,7 +49,7 @@ protected:
     void OnStep(cxFloat dt);
     void OnInit();
 private:
-    cxFloat laptime;
+    cxFloat looptime;
     Times times;    //
     cxArray *points;//
     cxBool isdirty; //
@@ -64,7 +64,7 @@ public:
     cxInt Index() const;
     void UpdateTime();
     
-    void SetLapTime(cxFloat v);
+    void SetLoopTime(cxFloat v);
     
     cxTimeLine *SetPoints(const cxArray *ps);
     

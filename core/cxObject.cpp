@@ -96,9 +96,13 @@ cxObject *cxObject::alloc(cchars name)
     return cxCore::alloc(name);
 }
 
-cxObject *cxObject::create(const cxStr *data)
+cxObject *cxObject::create(const cxStr *name)
 {
-    cxJson *json = cxJson::Create()->From(data);
+    return create(name->ToString());
+}
+
+cxObject *cxObject::fromJson(const cxJson *json)
+{
     if(json == nullptr){
         CX_ERROR("json data error");
         return nullptr;

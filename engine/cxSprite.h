@@ -34,7 +34,7 @@ protected:
     void OnRender(cxRender *render,const cxMatrixF &model);
 public:
     
-    static cxSprite *Create(cchars fkey);
+    static cxSprite *Create(cchars fkey,...);
     
     cxBoxRender &BoxRender();
     

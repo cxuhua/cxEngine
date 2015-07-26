@@ -41,10 +41,17 @@ void cxSprite::OnDirty()
     }
 }
 
-cxSprite *cxSprite::Create(cchars fkey)
+cxSprite *cxSprite::Create(cchars fkey,...)
 {
+    va_list ap;
+    va_start(ap, fkey);
+    char file[256]={0};
+    vsnprintf(file, 256, fkey, ap);
+    va_end(ap);
+    cxTexture *ptex = cxTexture::Create()->From(file);
+    CX_ASSERT(ptex != nullptr, "textue %s miss",file);
     cxSprite *pv = cxSprite::Create();
-    pv->SetTexture(fkey);
+    pv->SetTexture(ptex);
     return pv;
 }
 

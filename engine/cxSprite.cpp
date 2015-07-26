@@ -174,7 +174,6 @@ cxSprite *cxSprite::SetTexture(cchars key)
 void cxSprite::OnRender(cxRender *render,const cxMatrixF &model)
 {
     if(Texture() == nullptr){
-        CX_WARN("cxSprite texture miss");
         return;
     }
     state.Set(cxRenderState::BoxRender);

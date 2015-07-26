@@ -36,18 +36,6 @@ cxContainer *cxContainer::EnableSliding(cxBool v)
 cxContainer *cxContainer::SetSlidingType(SlidingType v)
 {
     slidingtype = v;
-    if(slidingtype & Left){
-        bodyanchor.x = -0.5f;
-    }
-    if(slidingtype & Right){
-        bodyanchor.x = +0.5f;
-    }
-    if(slidingtype & Top){
-        bodyanchor.y = +0.5f;
-    }
-    if(slidingtype & Bottom){
-        bodyanchor.y = -0.5f;
-    }
     return this;
 }
 
@@ -66,7 +54,6 @@ cxContainer *cxContainer::SetSlidingTime(cxFloat v)
 cxContainer::cxContainer()
 {
     bodyidx = 0;
-    bodyanchor = 0.0f;
     scaleinc = 0.2f;
     scalerange = cxRange2F(0.9f,2.0f);
     scaling = 0.03f;
@@ -88,14 +75,6 @@ cxContainer *cxContainer::FixPosition()
     pos = fixPosition(pos);
     Body()->SetPosition(pos);
     return this;
-}
-
-void cxContainer::OnAppend(cxView *nview)
-{
-    if(nview == Body()){
-        Body()->SetAnchor(bodyanchor);
-        FixPosition();
-    }
 }
 
 cxBool cxContainer::scale(const cxengine::cxTouchable *e)

@@ -58,6 +58,12 @@ private:
     cxBool istouch;
 public:
     
+    cxPoint2F FixWidth();
+    cxPoint2F FixHeight();
+    
+    cxFloat PlanWidth();
+    cxFloat PlanHeight();
+    
     const cxFloat Time() const;
     cxStr *TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size);
     

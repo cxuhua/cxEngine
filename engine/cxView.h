@@ -301,7 +301,10 @@ public:
     const cxInt BindedSize() const;
     //
     const cxArray *GetBindes();
+    cxView *GetBindes(cxLong tag);
+    
     const cxArray *GetBinded();
+    cxView *GetBinded(cxLong tag);
     //if this bind obj
     const cxBool HasBindes(cxView *pview) const ;
     //if this binded obj

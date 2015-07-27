@@ -79,6 +79,26 @@ const cxBox4F &cxEngine::WinBox() const
     return box;
 }
 
+cxPoint2F cxEngine::FixWidth()
+{
+    return PlanScale().x;
+}
+
+cxPoint2F cxEngine::FixHeight()
+{
+    return PlanScale().y;
+}
+
+cxFloat cxEngine::PlanWidth()
+{
+    return plansize.w;
+}
+
+cxFloat cxEngine::PlanHeight()
+{
+    return plansize.h;
+}
+
 cxBool cxEngine::Contain(const cxBoxPoint3F &b)
 {
     if(box.Contain(b.lt)){

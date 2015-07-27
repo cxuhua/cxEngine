@@ -984,6 +984,21 @@ const cxArray *cxView::GetBindes()
     return views;
 }
 
+cxView *cxView::GetBindes(cxLong tag)
+{
+    if(bindes.empty()){
+        return nullptr;
+    }
+    BindMap::iterator it = bindes.begin();
+    while(it != bindes.end()){
+        if(it->second == tag){
+            return (cxView *)it->first;
+        }
+        it++;
+    }
+    return nullptr;
+}
+
 const cxArray *cxView::GetBinded()
 {
     cxArray *views = cxArray::Create();
@@ -997,6 +1012,21 @@ const cxArray *cxView::GetBinded()
         it++;
     }
     return views;
+}
+
+cxView *cxView::GetBinded(cxLong tag)
+{
+    if(binded.empty()){
+        return nullptr;
+    }
+    BindMap::iterator it = binded.begin();
+    while(it != binded.end()){
+        if(it->second == tag){
+            return (cxView *)it->first;
+        }
+        it++;
+    }
+    return nullptr;
 }
 
 void cxView::UnBind(cxView *pview)

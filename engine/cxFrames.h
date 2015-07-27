@@ -47,8 +47,9 @@ public:
     
     const cxInt  Num() const;
     const cxInt *Map() const;
-    void InitMaps(const cxStr *str);
-    void InitMaps(cchars maps);
+    void SetMaps(const cxStr *str);
+    void SetMaps(cchars maps);
+    void SetMaps(cxInt count,...);    //first = mapnum end SetMaps(2,0,1)
     
     cxFrames *SetSize(const cxSize2F &size);
     const cxSize2F &Size() const;

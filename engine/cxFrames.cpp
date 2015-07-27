@@ -45,12 +45,27 @@ const cxInt *cxFrames::Map() const
     return map;
 }
 
-void cxFrames::InitMaps(const cxStr *str)
+void cxFrames::SetMaps(cxInt count,...)
 {
-    InitMaps(str->Data());
+    if(count == 0){
+        return;
+    }
+    mapnum = count;
+    va_list ap;
+    va_start(ap, count);
+    cxInt i = 0;
+    do{
+        map[i++] = va_arg(ap, cxInt);
+    }while(--count > 0);
+    va_end(ap);
 }
 
-void cxFrames::InitMaps(cchars maps)
+void cxFrames::SetMaps(const cxStr *str)
+{
+    SetMaps(str->Data());
+}
+
+void cxFrames::SetMaps(cchars maps)
 {
     if(!cxStr::IsOK(maps)){
         return;

@@ -176,6 +176,7 @@ const cxTextureParams cxTextureParams::Repeat   = {GL_LINEAR,GL_LINEAR,GL_REPEAT
 
 cxTexture::cxTexture()
 {
+    IsRGBA4444 = false;
     success = true;
     texId = 0;
     size = cxSize2F(0, 0);
@@ -379,6 +380,15 @@ cxTexture *cxTexture::FromJPG(const cxStr *data)
     return this;
 }
 
+void cxTexture::pixelRGBA8888ToRGBA4444(cxAny pdata, cxInt dataLen, cxAny outData)
+{
+    cxUChar *data = (cxUChar *)pdata;
+    cxUInt16 *out16 = (cxUInt16 *)outData;
+    for(cxInt i=0,l=dataLen-3; i<l;i+=4){
+        *out16++ = (data[i]&0xF0)<<8|(data[i+1]&0xF0)<<4|(data[i+2] & 0xF0)|(data[i+3]&0xF0)>>4;
+    }
+}
+
 cxTexture *cxTexture::FromPNG(const cxStr *data)
 {
     CX_ASSERT(cxStr::IsOK(data), "data error");
@@ -388,11 +398,11 @@ cxTexture *cxTexture::FromPNG(const cxStr *data)
         success = false;
         return this;
     }
-    image.format = PNG_FORMAT_RGBA;
     size = cxSize2F(image.width,image.height);
     cxInt bufsiz = PNG_IMAGE_SIZE(image);
     cxAny buffer = malloc(bufsiz);
     if(png_image_finish_read(&image, NULL, buffer, 0, NULL)){
+        pixelRGBA8888ToRGBA4444(buffer, bufsiz, buffer);
         GenTexture()->Bind()->SetParams(cxTextureParams::Default);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
     }

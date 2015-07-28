@@ -1684,7 +1684,7 @@ namespace ofx {
         enum
         {
             /// \brief The default maximum leaf size.
-            DEFAULT_MAX_LEAF_SIZE = 1000,
+            DEFAULT_MAX_LEAF_SIZE = 1024,
         };
         
         

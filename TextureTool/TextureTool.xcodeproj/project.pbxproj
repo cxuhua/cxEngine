@@ -51,6 +51,8 @@
 		83D5D3111B6735100051D99D /* utf8.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D2EA1B6735100051D99D /* utf8.c */; };
 		83D5D3121B6735100051D99D /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D2EC1B6735100051D99D /* xxhash.c */; };
 		83D5D3131B6735100051D99D /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D2EE1B6735100051D99D /* xxtea.c */; };
+		83D5D3191B6756D70051D99D /* cxLQT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D3171B6756D70051D99D /* cxLQT.cpp */; };
+		83D5D31B1B675A6C0051D99D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D31A1B675A6C0051D99D /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -148,6 +150,9 @@
 		83D5D2ED1B6735100051D99D /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
 		83D5D2EE1B6735100051D99D /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
 		83D5D2EF1B6735100051D99D /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
+		83D5D3171B6756D70051D99D /* cxLQT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLQT.cpp; sourceTree = "<group>"; };
+		83D5D3181B6756D70051D99D /* cxLQT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxLQT.h; sourceTree = "<group>"; };
+		83D5D31A1B675A6C0051D99D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83D5D31B1B675A6C0051D99D /* libz.dylib in Frameworks */,
 				83D5D29B1B6734D60051D99D /* libfreetype.a in Frameworks */,
 				83D5D29C1B6734D60051D99D /* libjansson.a in Frameworks */,
 				83D5D29D1B6734D60051D99D /* libjpeg.a in Frameworks */,
@@ -171,6 +177,7 @@
 		83D5D2811B6734BB0051D99D = {
 			isa = PBXGroup;
 			children = (
+				83D5D31A1B675A6C0051D99D /* libz.dylib */,
 				83D5D2A51B6735100051D99D /* core */,
 				83D5D2C91B6735100051D99D /* ext */,
 				83D5D2A21B6734DB0051D99D /* libs */,
@@ -247,6 +254,8 @@
 				83D5D2C61B6735100051D99D /* cxStr.h */,
 				83D5D2C71B6735100051D99D /* cxUtil.cpp */,
 				83D5D2C81B6735100051D99D /* cxUtil.h */,
+				83D5D3171B6756D70051D99D /* cxLQT.cpp */,
+				83D5D3181B6756D70051D99D /* cxLQT.h */,
 			);
 			name = core;
 			path = ../core;
@@ -360,6 +369,7 @@
 				83D5D30D1B6735100051D99D /* LzmaDec.c in Sources */,
 				83D5D30E1B6735100051D99D /* LzmaEnc.c in Sources */,
 				83D5D3111B6735100051D99D /* utf8.c in Sources */,
+				83D5D3191B6756D70051D99D /* cxLQT.cpp in Sources */,
 				83D5D3091B6735100051D99D /* csv.c in Sources */,
 				83D5D3041B6735100051D99D /* aes_ctr.c in Sources */,
 				83D5D30C1B6735100051D99D /* lzma.c in Sources */,
@@ -525,6 +535,7 @@
 				83D5D2931B6734BC0051D99D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -235,7 +235,7 @@ const cxStr *cxStr::LzmaCompress() const
         return nullptr;
     }
     if(desLen < Size()){
-        rv->Erase(desLen);
+        rv->Keep(desLen);
     }
     return rv;
 }
@@ -248,7 +248,7 @@ const cxStr *cxStr::LzmaUncompress() const
     if(cxLzmaUncompress(Data(), Size(), dst, &desLen) == nullptr){
         return nullptr;
     }
-    rv->Erase(desLen);
+    rv->Keep(desLen);
     return rv;
 }
 
@@ -288,6 +288,16 @@ cxStr *cxStr::Erase(cxInt p,cxInt n)
 {
     if(n == 0)return this;
     erase(begin() + p, begin() + p + n);
+    return this;
+}
+
+cxStr *cxStr::Keep(cxInt bytes)
+{
+    if(bytes == 0){
+        Clear();
+        return this;
+    }
+    erase(begin() + bytes, end());
     return this;
 }
 

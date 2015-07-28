@@ -92,11 +92,13 @@ public:
     cxTexture *SetParams(const cxTextureParams &params);
 public:
     cxTexture *Atlas(const cxStr *data);
+    cxTexture *FromLQT(const cxStr *data);
     cxTexture *FromPNG(const cxStr *data);
     cxTexture *FromJPG(const cxStr *data);
     cxTexture *FromPVR(const cxStr *data);
     cxTexture *FromPKM(const cxStr *data);
     cxTexture *Atlas(cchars file);
+    cxTexture *FromLQT(cchars file);
     cxTexture *FromPNG(cchars file);
     cxTexture *FromJPG(cchars file);
     cxTexture *FromPVR(cchars file);

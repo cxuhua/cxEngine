@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>7AED9341-FA6A-403E-AFA2-85EBB5BC5FF0</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>TextureTool</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>0A4B427C8F3DCD6335C1EB14379C4CA6DC16E8E3</key>
 		<string>https://github.com/cxuhua/cxengine.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>TextureTool/TextureTool.xcodeproj/project.xcworkspace</string>
+	<string>TextureTool/TextureTool.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>0A4B427C8F3DCD6335C1EB14379C4CA6DC16E8E3</key>

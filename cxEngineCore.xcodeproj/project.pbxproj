@@ -129,6 +129,7 @@
 		83C9D1271B48CC1E00EC244C /* cxSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C9D1251B48CC1E00EC244C /* cxSequence.cpp */; };
 		83C9D1321B492A2300EC244C /* cxJump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C9D1301B492A2300EC244C /* cxJump.cpp */; };
 		83D2666B1B345D6000077DB8 /* cxStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D266691B345D6000077DB8 /* cxStack.cpp */; };
+		83D5D31E1B6763B70051D99D /* cxLQT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D31C1B6763B70051D99D /* cxLQT.cpp */; };
 		83D92D251B3151D200F061D6 /* cxBoxCoord2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D231B3151D200F061D6 /* cxBoxCoord2F.cpp */; };
 		83D92D331B31781600F061D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D92D321B31781600F061D6 /* UIKit.framework */; };
 		83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D341B317C2000F061D6 /* cxBoxPoint2F.cpp */; };
@@ -394,6 +395,8 @@
 		83C9D1311B492A2300EC244C /* cxJump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxJump.h; sourceTree = "<group>"; };
 		83D266691B345D6000077DB8 /* cxStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxStack.cpp; sourceTree = "<group>"; };
 		83D2666A1B345D6000077DB8 /* cxStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxStack.h; sourceTree = "<group>"; };
+		83D5D31C1B6763B70051D99D /* cxLQT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLQT.cpp; sourceTree = "<group>"; };
+		83D5D31D1B6763B70051D99D /* cxLQT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxLQT.h; sourceTree = "<group>"; };
 		83D92D231B3151D200F061D6 /* cxBoxCoord2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxCoord2F.cpp; sourceTree = "<group>"; };
 		83D92D241B3151D200F061D6 /* cxBoxCoord2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxBoxCoord2F.h; sourceTree = "<group>"; };
 		83D92D321B31781600F061D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -748,6 +751,8 @@
 		83BBF3FC1B109531003CB004 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				83D5D31C1B6763B70051D99D /* cxLQT.cpp */,
+				83D5D31D1B6763B70051D99D /* cxLQT.h */,
 				83F7BAD61B42D97F00C644B9 /* cxEvent.cpp */,
 				83F7BAD71B42D97F00C644B9 /* cxEvent.h */,
 				839836CF1B10B59C002B7C20 /* cxArray.cpp */,
@@ -923,6 +928,7 @@
 				838073C91B564FDB00A1098A /* cxTable.cpp in Sources */,
 				836F3F061B1B70FA00E3E82C /* md5.c in Sources */,
 				831B93F41B4A970600511A63 /* cxCSV.cpp in Sources */,
+				83D5D31E1B6763B70051D99D /* cxLQT.cpp in Sources */,
 				831189D91B2D72F100C930B5 /* cxMatrixF.cpp in Sources */,
 				83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */,
 				836A2F4B1B19869D009B427B /* LzmaEnc.c in Sources */,

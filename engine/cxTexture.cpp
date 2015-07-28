@@ -10,6 +10,7 @@
 #include <libjpeg/jpeglib.h>
 #include <core/cxUtil.h>
 #include <core/cxJson.h>
+#include <core/cxLQT.h>
 #include "cxOpenGL.h"
 #include "OpenGL.h"
 #include "cxTexture.h"
@@ -261,6 +262,9 @@ cxTexture *cxTexture::From(cchars file)
     if(cxStr::IsEqu(ext, ".jpg")){
         return FromJPG(file);
     }
+    if(cxStr::IsEqu(ext, ".lqt")){
+        return FromLQT(file);
+    }
     return this;
 }
 
@@ -389,6 +393,77 @@ void cxTexture::pixelRGBA8888ToRGBA4444(cxAny pdata, cxInt dataLen, cxAny outDat
     }
 }
 
+//*.lqt
+cxTexture *cxTexture::FromLQT(const cxStr *data)
+{
+    cxInt hl = sizeof(LQT);
+    LQT *lqt=(LQT *)data->Buffer();
+    if(lqt->flag != CX_LQT_TAG){
+        CX_ERROR("lqt file tag error");
+        success = false;
+        return this;
+    }
+    if(lqt->filebytes != lqt->atlasbytes + lqt->databytes + hl){
+        CX_ERROR("lqt file length error");
+        success = false;
+        return this;
+    }
+    if(lqt->format == 0){
+        CX_ERROR("lqt file format error");
+        success = false;
+        return this;
+    }
+    if(lqt->databytes <= 0){
+        CX_ERROR("lqt file data miss");
+        success = false;
+        return this;
+    }
+    cxStr *tmp = cxStr::Create()->Init(data->Buffer() + hl + lqt->atlasbytes, lqt->databytes);
+    if(!cxStr::IsOK(tmp)){
+        CX_ERROR("lqt image data miss");
+        success = false;
+        return this;
+    }
+    const cxStr *imagedata = tmp->LzmaUncompress();
+    if(!cxStr::IsOK(imagedata)){
+        CX_ERROR("lqt image data unzip error");
+        success = false;
+        return this;
+    }
+    size = cxSize2F(lqt->width,lqt->height);
+    GLenum type = GL_UNSIGNED_BYTE;
+    if(lqt->format == LQT::FormatRGBA4444){
+        CX_ASSERT(imagedata->Size() == lqt->width * lqt->height * 2, "rgba4444 data error");
+        type = GL_UNSIGNED_SHORT_4_4_4_4;
+    }else if(lqt->format == LQT::FormatRGBA5551){
+        CX_ASSERT(imagedata->Size() == lqt->width * lqt->height * 2, "rgba5551 data error");
+        type = GL_UNSIGNED_SHORT_5_5_5_1;
+    }else if(lqt->format == LQT::FormatRGBA565){
+        CX_ASSERT(imagedata->Size() == lqt->width * lqt->height * 2, "rgba565 data error");
+        type = GL_UNSIGNED_SHORT_5_6_5;
+    }else{
+        CX_ASSERT(imagedata->Size() == lqt->width * lqt->height * 4, "rgba8888 data error");
+        type = GL_UNSIGNED_BYTE;
+    }
+    GenTexture()->Bind()->SetParams(cxTextureParams::Default);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, lqt->width, lqt->height, 0, GL_RGBA, type, imagedata->Buffer());
+    if(lqt->atlasbytes == 0){
+        return this;
+    }
+    tmp = cxStr::Create()->Init(data->Buffer() + hl,lqt->atlasbytes);
+    if(!cxStr::IsOK(tmp)){
+        CX_WARN("lqt atlas data miss");
+        success = false;
+        return this;
+    }
+    const cxStr *atlasdata = tmp->LzmaUncompress();
+    if(!cxStr::IsOK(atlasdata)){
+        CX_WARN("atlas data unzip error");
+        return this;
+    }
+    return Atlas(atlasdata);
+}
+
 cxTexture *cxTexture::FromPNG(const cxStr *data)
 {
     CX_ASSERT(cxStr::IsOK(data), "data error");
@@ -402,7 +477,6 @@ cxTexture *cxTexture::FromPNG(const cxStr *data)
     cxInt bufsiz = PNG_IMAGE_SIZE(image);
     cxAny buffer = malloc(bufsiz);
     if(png_image_finish_read(&image, NULL, buffer, 0, NULL)){
-        pixelRGBA8888ToRGBA4444(buffer, bufsiz, buffer);
         GenTexture()->Bind()->SetParams(cxTextureParams::Default);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
     }
@@ -513,6 +587,7 @@ cxTexture *cxTexture::FromPKM(cchars file)
     }
     const cxStr *data = cxUtil::Assets(file);
     if(!cxStr::IsOK(data)) {
+        CX_ERROR("texture file data miss:%s",file);
         success = false;
         return this;
     }
@@ -528,6 +603,7 @@ cxTexture *cxTexture::FromPVR(cchars file)
     }
     const cxStr *data = cxUtil::Assets(file);
     if(!cxStr::IsOK(data)) {
+        CX_ERROR("texture file data miss:%s",file);
         success = false;
         return this;
     }
@@ -543,10 +619,27 @@ cxTexture *cxTexture::FromJPG(cchars file)
     }
     const cxStr *data = cxUtil::Assets(file);
     if(!cxStr::IsOK(data)) {
+        CX_ERROR("texture file data miss:%s",file);
         success = false;
         return this;
     }
     return FromJPG(data);
+}
+
+cxTexture *cxTexture::FromLQT(cchars file)
+{
+    if(!cxOpenGL::Instance()->support_GL_OES_rgb8_rgba8){
+        CX_ERROR("platform not support rgb8 rgba8 format");
+        success = false;
+        return this;
+    }
+    const cxStr *data = cxUtil::Assets(file);
+    if(!cxStr::IsOK(data)) {
+        CX_ERROR("texture file data miss:%s",file);
+        success = false;
+        return this;
+    }
+    return FromLQT(data);
 }
 
 cxTexture *cxTexture::FromPNG(cchars file)
@@ -558,6 +651,7 @@ cxTexture *cxTexture::FromPNG(cchars file)
     }
     const cxStr *data = cxUtil::Assets(file);
     if(!cxStr::IsOK(data)) {
+        CX_ERROR("texture file data miss:%s",file);
         success = false;
         return this;
     }

@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
+#include <core/cxCSV.h>
 #include <core/cxUtil.h>
 #include <core/cxAutoPool.h>
 #include <math/cxMatrixF.h>
@@ -73,12 +74,39 @@ cxEngine::cxEngine()
     init = false;
     window = cxWindow::Alloc();
     render = cxRender::Alloc();
+    configs = cxHash::Alloc();
 }
 
 cxEngine::~cxEngine()
 {
+    configs->Release();
     render->Release();
     window->Release();
+}
+
+const cxStr *cxEngine::Config(cchars key) const
+{
+    return configs->Get(key)->To<cxStr>();
+}
+
+void cxEngine::LoadConfig(cchars file)
+{
+    const cxStr *data = cxUtil::Assets(file);
+    if(!cxStr::IsOK(data)){
+        return;
+    }
+    cxCSV *csv = cxCSV::Create(data);
+    for(cxInt i=2; i < csv->Row(); i++){
+        const cxStr *ks = csv->At(i, 0);
+        if(!cxStr::IsOK(ks)){
+            continue;
+        }
+        const cxStr *vs = csv->At(i, 1);
+        if(!cxStr::IsOK(vs)){
+            continue;
+        }
+        configs->Set(ks->Data(), (cxObject *)vs);
+    }
 }
 
 const cxSize2F &cxEngine::WinSize() const
@@ -137,16 +165,16 @@ cxBool cxEngine::Contain(const cxBoxPoint3F &b)
     if(vb.l <= box.l && vb.r >= box.r){
         return true;
     }
-    if(box.Contain(cxPoint2F(vb.l,vb.t))){
+    if(box.Contain(vb.LT())){
         return true;
     }
-    if(box.Contain(cxPoint2F(vb.l,vb.b))){
+    if(box.Contain(vb.LB())){
         return true;
     }
-    if(box.Contain(cxPoint2F(vb.r,vb.t))){
+    if(box.Contain(vb.RT())){
         return true;
     }
-    if(box.Contain(cxPoint2F(vb.r,vb.b))){
+    if(box.Contain(vb.RB())){
         return true;
     }
     return false;
@@ -159,7 +187,7 @@ cxFloat cxEngine::ScaleFactor() const
 
 void cxEngine::SetIter(cxInt aiter)
 {
-    CX_ASSERT(aiter > 0, "iter must >= 1");
+    CX_ASSERT(aiter > 0, "iter must > 0");
     nextIter = aiter;
 }
 

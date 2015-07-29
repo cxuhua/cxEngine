@@ -14,17 +14,15 @@
 CX_CPP_BEGIN
 
 class cxButton;
-class IOSEngine : public cxEngine
+class Game : public cxEngine
 {
 public:
-    CX_DECLARE(IOSEngine);
+    CX_DECLARE(Game);
 protected:
-    explicit IOSEngine();
-    virtual ~IOSEngine();
-    virtual void OnUpdate(cxFloat dt);
+    explicit Game();
+    virtual ~Game();
 public:
     void OnMain();
-    void test(cxButton *sender);
 };
 
 CX_CPP_END

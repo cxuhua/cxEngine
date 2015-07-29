@@ -9,9 +9,53 @@
 #ifndef cxEngineCore_cxOpenAL_h
 #define cxEngineCore_cxOpenAL_h
 
-#include "cxObject.h"
+#include <core/cxObject.h>
+#include "OpenAL.h"
 
 CX_CPP_BEGIN
+
+class cxALBuffer : public cxObject
+{
+public:
+    CX_DECLARE(cxALBuffer);
+protected:
+    explicit cxALBuffer();
+    virtual ~cxALBuffer();
+private:
+    cxUInt format;
+    ALuint handle;
+    cxUInt samplerate;
+    cxUInt numberOfSamples;
+    cxUInt bytesPerSample;
+    cxFloat duration;
+public:
+    cxBool Init(cchars file);
+    ALuint Handle();
+    static cxALBuffer *Create(cchars file);
+};
+
+class cxALSource : public cxObject
+{
+public:
+    CX_DECLARE(cxALSource);
+protected:
+    explicit cxALSource();
+    virtual ~cxALSource();
+private:
+    cxALBuffer *buffer;
+    ALuint handle;
+    cxBool loop;
+    cxFloat gain;
+    cxFloat pitch;
+public:
+    cxBool IsPlaying();
+    cxBool Init(cxALBuffer *ab);
+    void Play(cxBool loop=false);
+    void Stop();
+    void SetGain(cxFloat v);
+    void SetPitch(cxFloat v);
+    void SetLoop(cxBool v);
+};
 
 class cxOpenAL : public cxObject
 {
@@ -22,9 +66,14 @@ protected:
     explicit cxOpenAL();
     virtual ~cxOpenAL();
 private:
+    ALCdevice *device;
+    ALCcontext *context;
     static cxOpenAL *instance;
+    cxHash *files;
 public:
     static cxOpenAL *Instance();
+    cxALSource *Source(cchars key,cchars file);
+    cxALSource *Source(cchars key);
 };
 
 CX_CPP_END

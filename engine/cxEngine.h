@@ -58,7 +58,11 @@ private:
     cxWindow *window;
     cxBool istouch;
     cxBool isreset;
+    cxHash *configs;
 public:
+    
+    void LoadConfig(cchars file);
+    const cxStr *Config(cchars key) const;
     
     cxPoint2F FixWidth();
     cxPoint2F FixHeight();

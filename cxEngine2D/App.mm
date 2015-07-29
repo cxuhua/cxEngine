@@ -8,7 +8,7 @@
 
 #include <engine/cxEngine.h>
 #import "App.h"
-#include "IOSEngine.h"
+#include "Game.h"
 
 using namespace cxengine;
 
@@ -16,8 +16,7 @@ using namespace cxengine;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //must init engine class
-    cxEngine::Init(IOSEngine::Alloc());
-    
+    cxEngine::Startup(false);
     return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 @end

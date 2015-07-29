@@ -23,11 +23,17 @@ protected:
     virtual ~cxSound();
 protected:
     void OnInit();
-    void OnStep(cxFloat dt);
+    void OnExit();
 private:
     cxALSource *source;
+    static cxFloat Load(cchars file);
+    static void Play(cxFloat volume=1.0f,cxBool loop=true);
+    static void StopMusic();
 public:
     static cxSound *Create(cchars file);
+    static void SetVolume(cxFloat volume);
+    static void Pause();
+    static void Resume();
 };
 
 CX_CPP_END

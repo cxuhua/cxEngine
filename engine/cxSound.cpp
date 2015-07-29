@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
+#include "cxEngine.h"
+#include <core/cxStr.h>
 #include "cxSound.h"
 
 CX_CPP_BEGIN
@@ -24,18 +26,30 @@ cxSound::~cxSound()
 
 void cxSound::OnInit()
 {
-    CX_ASSERT(source != nullptr, "source miss");
-    source->Play();
+    if(source != nullptr){
+        source->Play();
+    }else{
+        CX_ASSERT(Time() > 0, "load time error");
+        cxSound::Play();
+    }
 }
 
-void cxSound::OnStep(cxFloat dt)
+void cxSound::OnExit()
 {
-    source->Update(dt);
+    if(source == nullptr){
+        cxSound::StopMusic();
+    }
 }
 
 cxSound *cxSound::Create(cchars file)
 {
     cxSound *ret = cxSound::Create();
+    cchars ext = strrchr(file, '.');
+    if(cxStr::IsCaseEqu(ext, ".mp3")){
+        ret->SetID(cxEngineIdMusic);
+        ret->SetTime(Load(file));
+        return ret;
+    }
     cxALSource *source = cxOpenAL::Instance()->Source(file, file);
     if(source == nullptr){
         return ret;

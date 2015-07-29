@@ -35,6 +35,8 @@
 		83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E6F6561B0C97B5006839C8 /* LaunchScreen.xib */; };
 		83E6F66F1B0C97F7006839C8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66D1B0C97F7006839C8 /* GLKit.framework */; };
 		83E6F6701B0C97F7006839C8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */; };
+		83E886D61B68F590001C0727 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E886D51B68F590001C0727 /* AVFoundation.framework */; };
+		83E886DC1B68F970001C0727 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83E886DB1B68F970001C0727 /* test.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,8 @@
 		83E6F6571B0C97B5006839C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		83E6F66D1B0C97F7006839C8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		83E886D51B68F590001C0727 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		83E886DB1B68F970001C0727 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = test.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83E886D61B68F590001C0727 /* AVFoundation.framework in Frameworks */,
 				839B8AEF1B68DC2B009E0CF7 /* OpenAL.framework in Frameworks */,
 				83D92D221B314ECF00F061D6 /* libz.dylib in Frameworks */,
 				839836C61B10B01B002B7C20 /* libjansson.a in Frameworks */,
@@ -123,6 +128,7 @@
 		839836CB1B10B021002B7C20 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				83E886D51B68F590001C0727 /* AVFoundation.framework */,
 				839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */,
 				83D92D211B314ECF00F061D6 /* libz.dylib */,
 				839836C11B10B01B002B7C20 /* libjansson.a */,
@@ -157,6 +163,7 @@
 		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
+				83E886DB1B68F970001C0727 /* test.mp3 */,
 				839B8AF01B68DD3A009E0CF7 /* o.wav */,
 				839B8AEA1B68D6EF009E0CF7 /* finch.wav */,
 				836E30481B5E2B4C00ED8BDC /* foam.png */,
@@ -284,6 +291,7 @@
 				836E304E1B5E2B4C00ED8BDC /* water.png in Resources */,
 				83D92D291B315E7200F061D6 /* animate.png in Resources */,
 				83D92D281B315E7200F061D6 /* animate.json in Resources */,
+				83E886DC1B68F970001C0727 /* test.mp3 in Resources */,
 				836E304F1B5E2B4C00ED8BDC /* water.vsh in Resources */,
 				839B8AF11B68DD3A009E0CF7 /* o.wav in Resources */,
 				839B8AEB1B68D6EF009E0CF7 /* finch.wav in Resources */,

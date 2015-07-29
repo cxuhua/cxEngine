@@ -20,6 +20,12 @@
 
 CX_CPP_BEGIN
 
+enum cxEngineId{
+    cxEngineIdMusic     = 1,
+    
+    cxEngineIdMax
+};
+
 struct cxTextAttr;
 class cxEngine : public cxObject,public cxTouchable
 {

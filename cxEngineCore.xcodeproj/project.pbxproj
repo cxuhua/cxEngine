@@ -137,6 +137,7 @@
 		83D92D331B31781600F061D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D92D321B31781600F061D6 /* UIKit.framework */; };
 		83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D341B317C2000F061D6 /* cxBoxPoint2F.cpp */; };
 		83D92D391B317E5900F061D6 /* cxRenderF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D371B317E5800F061D6 /* cxRenderF.cpp */; };
+		83E886DA1B68F59D001C0727 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E886D91B68F59D001C0727 /* AVFoundation.framework */; };
 		83EA27E31B15540600370757 /* cxHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EA27E11B15540600370757 /* cxHash.cpp */; };
 		83EA93CD1B57B62900169564 /* cxCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EA93CB1B57B62900169564 /* cxCircle.cpp */; };
 		83F54B5F1B54BD5700AC5844 /* cxAsync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F54B5D1B54BD5700AC5844 /* cxAsync.cpp */; };
@@ -413,6 +414,7 @@
 		83D92D351B317C2000F061D6 /* cxBoxPoint2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxBoxPoint2F.h; sourceTree = "<group>"; };
 		83D92D371B317E5800F061D6 /* cxRenderF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRenderF.cpp; sourceTree = "<group>"; };
 		83D92D381B317E5900F061D6 /* cxRenderF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRenderF.h; sourceTree = "<group>"; };
+		83E886D91B68F59D001C0727 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		83EA27D91B14C3DF00370757 /* cxDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxDefine.h; sourceTree = "<group>"; };
 		83EA27E11B15540600370757 /* cxHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxHash.cpp; sourceTree = "<group>"; };
 		83EA27E21B15540600370757 /* cxHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxHash.h; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83E886DA1B68F59D001C0727 /* AVFoundation.framework in Frameworks */,
 				839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -660,6 +663,7 @@
 				839B8AB51B687DA3009E0CF7 /* OpenAL.framework */,
 				839836D61B10E3EF002B7C20 /* libjansson.a */,
 				839836D71B10E3EF002B7C20 /* libjpeg.a */,
+				83E886D91B68F59D001C0727 /* AVFoundation.framework */,
 				839836D81B10E3EF002B7C20 /* libpcre.a */,
 				839836D91B10E3EF002B7C20 /* libpng.a */,
 				839836DA1B10E3EF002B7C20 /* libuv.a */,

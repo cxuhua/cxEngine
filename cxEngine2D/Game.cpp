@@ -60,6 +60,8 @@ void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     cxSound::Create("o.wav")->AttachTo(Window())->SetRepeat(3);
+    cxSound::Create("test.mp3")->AttachTo(Window())->SetRepeat(3);
+    
 }
 
 CX_CPP_END

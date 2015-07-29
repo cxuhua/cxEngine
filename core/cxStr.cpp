@@ -37,6 +37,14 @@ cxBool cxStr::IsEqu(cchars s1,cchars s2)
     return strcmp(s1, s2) == 0;
 }
 
+cxBool cxStr::IsCaseEqu(cchars s1,cchars s2)
+{
+    if(s1 == nullptr || s2 == nullptr){
+        return false;
+    }
+    return strcasecmp(s1, s2) == 0;
+}
+
 cxStr *cxStr::UTF8(cchars fmt,...)
 {
     va_list ap;

@@ -31,6 +31,7 @@ public:
     static cxBool IsOK(const cxStr *str);
     static cxBool IsOK(cchars str);
     static cxBool IsEqu(cchars s1,cchars s2);
+    static cxBool IsCaseEqu(cchars s1,cchars s2);
     
     cxStr *Init(cxInt size,char c=0);
     cxStr *Init(cchars str);

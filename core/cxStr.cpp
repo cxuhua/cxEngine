@@ -53,7 +53,7 @@ cxStr::cxStr()
 
 cxStr::~cxStr()
 {
-    
+    s.clear();
 }
 
 const cxBool cxStr::ToBool() const
@@ -246,7 +246,9 @@ const cxStr *cxStr::LzmaUncompress() const
     if(cxLzmaUncompress(Data(), Size(), dst, &desLen) == nullptr){
         return nullptr;
     }
-    rv->KeepBytes(desLen);
+    if(desLen > 0){
+        rv->KeepBytes(desLen);
+    }
     return rv;
 }
 

@@ -20,7 +20,7 @@ cxQueue::cxQueue()
 
 cxQueue::~cxQueue()
 {
-    
+    Clear();
 }
 
 cxQueue *cxQueue::Clear()

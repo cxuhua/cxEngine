@@ -58,16 +58,16 @@ public:
     
     //for global pull object
     template<class T>
-    static T *gcpull(cchars key);
+    static T *gcGet(cchars key);
     
     //for global push object
     template<class T>
-    T *gcpush(cchars key);
+    T *gcSet(cchars key);
     
     //for remove global cache
-    static void gcremove(cchars key);
+    static void gcDel(cchars key);
     
-    static void gcclear();
+    static void gcClear();
     
     //alloc or create name object
     static cxObject *alloc(cchars name);
@@ -107,24 +107,24 @@ CX_INLINE const T *cxObject::To() const
 }
 
 template<class T>
-CX_INLINE T *cxObject::gcpush(cchars key)
+CX_INLINE T *cxObject::gcSet(cchars key)
 {
     cxCore::Instance()->Push(key,this);
     return static_cast<T *>(this);
 }
 
 template<class T>
-CX_INLINE T *cxObject::gcpull(cchars key)
+CX_INLINE T *cxObject::gcGet(cchars key)
 {
     return static_cast<T *>(cxCore::Instance()->Pull(key));
 }
 
-CX_INLINE void cxObject::gcclear()
+CX_INLINE void cxObject::gcClear()
 {
     cxCore::Instance()->Clear();
 }
 
-CX_INLINE void cxObject::gcremove(cchars key)
+CX_INLINE void cxObject::gcDel(cchars key)
 {
     return cxCore::Instance()->Remove(key);
 }

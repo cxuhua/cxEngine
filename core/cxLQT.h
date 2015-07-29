@@ -19,7 +19,7 @@ struct LQT
     static const uint8_t FormatRGBA8888 = 1;
     static const uint8_t FormatRGBA4444 = 2;
     static const uint8_t FormatRGBA5551 = 3;
-    static const uint8_t FormatRGBA565  = 4;
+    static const uint8_t FormatRGB565   = 4;
     uint32_t flag;                              //LQT!
     uint8_t format;                             //LQTFormat
     uint32_t filebytes;                         // = headbytes + atlasbytes + databytes
@@ -35,7 +35,7 @@ struct LQT
 
 void pixelRGBA8888ToRGBA4444(cxAny pdata, cxInt dataLen, cxAny outData);
 void pixelRGBA8888ToRGBA5551(cxAny pdata, cxInt dataLen, cxAny outData);
-void pixelRGBA8888ToRGBA565(cxAny pdata, cxInt dataLen, cxAny outData);
+void pixelRGBA8888ToRGB565(cxAny pdata, cxInt dataLen, cxAny outData);
 
 CX_CPP_END
 

@@ -83,6 +83,7 @@ cxHttp::cxHttp()
     settings.on_message_complete = messageCompleted;
     
     method = HTTP_GET;
+    
     path = nullptr;
     post = nullptr;
     host = nullptr;

@@ -21,6 +21,13 @@ cxEngine *cxEngine::instance = nullptr;
 
 CX_IMPLEMENT(cxEngine);
 
+void cxEngine::Reset()
+{
+    if(!isreset){
+        isreset = true;
+    }
+}
+
 void cxEngine::Destroy()
 {
     cxObject::release(&instance);
@@ -32,10 +39,19 @@ cxEngine *cxEngine::Instance()
     return instance;
 }
 
-void cxEngine::Init(cxEngine *engine)
+void cxEngine::Startup(cxBool layout)
 {
-    CX_ASSERT(instance == nullptr, "instande repear set");
-    instance = static_cast<cxEngine *>(engine);
+    cxSize2F winsiz = 0.0f;
+    if(instance != nullptr){
+        winsiz = instance->WinSize();
+        cxEngine::Destroy();
+        cxCore::Instance()->Clear();
+    }
+    instance = cxObject::alloc("Game")->To<cxEngine>();
+    CX_ASSERT(instance != nullptr, "instance error");
+    if(layout && !winsiz.IsZero()){
+        instance->Layout(winsiz.w, winsiz.h);
+    }
 }
 
 cxBool cxEngine::IsTouch() const
@@ -45,6 +61,7 @@ cxBool cxEngine::IsTouch() const
 
 cxEngine::cxEngine()
 {
+    isreset = false;
     timevar = 0;
     istouch = true;
     layout = false;
@@ -228,6 +245,9 @@ void cxEngine::Run()
         break;
     };
     cxAutoPool::Clear();
+    if(isreset){
+        cxEngine::Startup(true);
+    }
 }
 
 const cxFloat cxEngine::Time() const

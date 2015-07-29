@@ -120,12 +120,6 @@ cxCore::cxCore()
 
 cxCore::~cxCore()
 {
-    //free all one object ptr
-    for(std::vector<cxAny>::iterator it=ones.begin();it!=ones.end();it++){
-        cxObject::release((cxObject **)*it);
-    }
-    ones.clear();
-    //
     caches->Release();
     cxObject *obj = static_cast<cxObject *>(uv_key_get(&autoKey));
     cxObject::release(&obj);
@@ -135,7 +129,16 @@ cxCore::~cxCore()
 
 void cxCore::Clear()
 {
+    //one object
+    for(std::vector<cxAny>::iterator it=ones.begin();it!=ones.end();it++){
+        cxObject::release((cxObject **)*it);
+    }
+    ones.clear();
+    //cache clear
     caches->Clear();
+    //
+    cxStack *pool = static_cast<cxStack *>(uv_key_get(&autoKey));
+    pool->Clear();
 }
 
 void cxCore::Push(cchars key,cxObject *pobj)

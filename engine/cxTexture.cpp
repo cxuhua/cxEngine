@@ -77,12 +77,11 @@ cxTexCoord::cxTexCoord()
 
 cxTexCoord::~cxTexCoord()
 {
-    cxObject::release(&texture);
+    
 }
 
 void cxTexCoord::SetTexture(cxTexture *v)
 {
-    cxObject::swap(&texture, v);
     texture = v;
 }
 
@@ -438,7 +437,7 @@ cxTexture *cxTexture::FromLQT(const cxStr *data)
     }else if(lqt->format == LQT::FormatRGBA5551){
         CX_ASSERT(imagedata->Size() == lqt->width * lqt->height * 2, "rgba5551 data error");
         type = GL_UNSIGNED_SHORT_5_5_5_1;
-    }else if(lqt->format == LQT::FormatRGBA565){
+    }else if(lqt->format == LQT::FormatRGB565){
         CX_ASSERT(imagedata->Size() == lqt->width * lqt->height * 2, "rgba565 data error");
         type = GL_UNSIGNED_SHORT_5_6_5;
     }else{
@@ -446,7 +445,11 @@ cxTexture *cxTexture::FromLQT(const cxStr *data)
         type = GL_UNSIGNED_BYTE;
     }
     GenTexture()->Bind()->SetParams(cxTextureParams::Default);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, lqt->width, lqt->height, 0, GL_RGBA, type, imagedata->Buffer());
+    if(lqt->format == LQT::FormatRGB565){
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, lqt->width, lqt->height, 0, GL_RGB, type, imagedata->Buffer());
+    }else{
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, lqt->width, lqt->height, 0, GL_RGBA, type, imagedata->Buffer());
+    }
     if(lqt->atlasbytes == 0){
         return this;
     }

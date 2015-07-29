@@ -33,7 +33,7 @@ void cxIOSUtil::Logger(const char* type,const char*file,int line,const char* for
     char *buffer = nullptr;
     int bytes = vasprintf(&buffer, format, ap);
     NSString *txt = [NSString stringWithUTF8String:buffer];
-    NSLog(@"[%s:%d] %s:%@[%d]\n",file,line,type,txt,bytes);
+    NSLog(@"[%s:%d] %s:%s[%d]\n",file,line,type,[txt UTF8String],bytes);
     free(buffer);
 }
 

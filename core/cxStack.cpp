@@ -20,7 +20,7 @@ cxStack::cxStack()
 
 cxStack::~cxStack()
 {
-    
+    Clear();
 }
 
 cxStack *cxStack::Clear()

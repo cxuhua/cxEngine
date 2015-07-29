@@ -20,7 +20,7 @@ cxList::cxList()
 
 cxList::~cxList()
 {
-    
+    Clear();
 }
 
 cxBool cxList::IsEmpty() const

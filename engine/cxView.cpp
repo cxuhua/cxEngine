@@ -127,7 +127,7 @@ cxShader *cxView::Shader()
 
 cxView *cxView::SetShader(cchars key)
 {
-    cxShader *s = cxObject::gcpull<cxShader>(key);
+    cxShader *s = cxObject::gcGet<cxShader>(key);
     SetShader(s);
     return this;
 }

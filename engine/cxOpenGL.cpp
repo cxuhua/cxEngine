@@ -68,8 +68,8 @@ void cxOpenGL::Init()
     glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &maxVertexTextureUnits);
     CX_LOGGER("GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS: %d",maxVertexTextureUnits);
     //init shader
-    cxShader::Create()->Init("shader/default.vsh","shader/default.fsh")->gcpush<cxShader>(DefaultShader);
-    cxColorShader::Create()->Init("shader/color.vsh","shader/color.fsh")->gcpush<cxShader>(ColorShader);
+    cxShader::Create()->Init("shader/default.vsh","shader/default.fsh")->gcSet<cxShader>(DefaultShader);
+    cxColorShader::Create()->Init("shader/color.vsh","shader/color.fsh")->gcSet<cxShader>(ColorShader);
     //
     SetClearColor(cxColor4F::BLACK);
     glDisable(GL_DEPTH_TEST);
@@ -92,11 +92,6 @@ void cxOpenGL::SetTextureParams(const cxTextureParams &params)
 
 cxBool cxOpenGL::DeleteTexture(cxTextureId texId)
 {
-    for(cxInt i=0; i < MAX_TEXTURES;i++){
-        if(currTexId[i] == texId){
-            currTexId[i] = -1;
-        }
-    }
     glDeleteTextures(1, (GLuint *)&texId);
     return glGetError() == GL_NO_ERROR;
 }
@@ -617,7 +612,7 @@ void TDrawable::UseBlend(BlendFunc &b)
 
 void TDrawable::DrawBoxShape(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)
 {
-    cxObject::gcpull<cxShader>(ColorShader)->Using();
+    cxObject::gcGet<cxShader>(ColorShader)->Using();
     
     glEnableVertexAttribArray(cxVertexAttribPosition);
     glVertexAttribPointer(cxVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(cxPoint3F), &vs);
@@ -630,7 +625,7 @@ void TDrawable::DrawBoxShape(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)
 
 void TDrawable::DrawBoxLine(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)
 {
-    cxObject::gcpull<cxShader>(ColorShader)->Using();
+    cxObject::gcGet<cxShader>(ColorShader)->Using();
     
     cxBoxPoint3F bp = vs.ToLoop();
     glEnableVertexAttribArray(cxVertexAttribPosition);

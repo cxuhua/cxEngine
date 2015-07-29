@@ -40,7 +40,7 @@ void pixelRGBA8888ToRGBA5551(cxAny pdata, cxInt dataLen, cxAny outData)
 }
 
 // RRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA -> RRRRRGGGGGGBBBBB
-void pixelRGBA8888ToRGBA565(cxAny pdata, cxInt dataLen, cxAny outData)
+void pixelRGBA8888ToRGB565(cxAny pdata, cxInt dataLen, cxAny outData)
 {
     cxUChar *data = (cxUChar *)pdata;
     cxUInt16 *out16 = (cxUInt16 *)outData;

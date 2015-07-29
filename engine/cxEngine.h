@@ -23,6 +23,7 @@ CX_CPP_BEGIN
 struct cxTextAttr;
 class cxEngine : public cxObject,public cxTouchable
 {
+    friend cxCore;
 private:
     CX_DECLARE(cxEngine);
 public:
@@ -56,6 +57,7 @@ private:
     cxBool pause;
     cxWindow *window;
     cxBool istouch;
+    cxBool isreset;
 public:
     
     cxPoint2F FixWidth();
@@ -67,9 +69,11 @@ public:
     const cxFloat Time() const;
     cxStr *TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size);
     
-    static void Init(cxEngine *engine);
     static void Destroy();
     static cxEngine *Instance();
+    static void Startup(cxBool layout);
+    
+    void Reset();
 
     cxWindow *Window() const;
     

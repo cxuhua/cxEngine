@@ -142,23 +142,18 @@ cxObject *cxHash::Get(const cxHashKey &key)
     return it->second;
 }
 
-cxHash *cxHash::Set(const cxHashKey &key,cxObject *obj)
+cxHash *cxHash::Set(const cxHashKey &key,cxObject *nobj)
 {
-    CX_ASSERT(obj != nullptr && obj != this, "obj error");
-    std::pair<Iter, bool> ret = mh.emplace(key,obj);
-    if(ret.second){
-        obj->Retain();
+    CX_ASSERT(nobj != nullptr && nobj != this, "obj error");
+    cxObject *oobj = Get(key);
+    if(oobj == nobj){
         return this;
     }
-    cxObject *pobj = ret.first->second;
-    if(pobj  == obj){
-        return this;
+    if(oobj != nullptr){
+        Del(key);
     }
-    pobj->Release();
-    ret = mh.emplace(key,obj);
-    if(ret.second){
-        obj->Retain();
-    }
+    mh.emplace(key,nobj);
+    nobj->Retain();
     return this;
 }
 

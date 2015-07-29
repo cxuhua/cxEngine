@@ -35,7 +35,7 @@
 #include <engine/cxTriangles.h>
 #include <engine/cxPath.h>
 #include <engine/cxCircle.h>
-#include <engine/cxOpenAL.h>
+#include <engine/cxSound.h>
 #include "Game.h"
 #include <core/cxKDTree.h>
 #include "Sea.h"
@@ -59,7 +59,7 @@ Game::~Game()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
-    cxOpenAL::Instance()->Source("a", "o.wav")->Play(true);
+    cxSound::Create("o.wav")->AttachTo(Window())->SetRepeat(3);
 }
 
 CX_CPP_END

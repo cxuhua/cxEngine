@@ -108,6 +108,7 @@
 		839836E61B117475002B7C20 /* cxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836E41B117475002B7C20 /* cxObject.cpp */; };
 		839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B8AB51B687DA3009E0CF7 /* OpenAL.framework */; };
 		839B8AB91B687DC8009E0CF7 /* cxOpenAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */; };
+		839B8AF41B68E877009E0CF7 /* cxSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AF21B68E877009E0CF7 /* cxSound.cpp */; };
 		83A943A41B44DC3200F70FBA /* aes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439B1B44DC3200F70FBA /* aes_cbc.c */; };
 		83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439C1B44DC3200F70FBA /* aes_cfb.c */; };
 		83A943A61B44DC3200F70FBA /* aes_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439D1B44DC3200F70FBA /* aes_core.c */; };
@@ -359,6 +360,8 @@
 		839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxOpenAL.cpp; sourceTree = "<group>"; };
 		839B8AB81B687DC8009E0CF7 /* cxOpenAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxOpenAL.h; sourceTree = "<group>"; };
 		839B8ABA1B687DFA009E0CF7 /* OpenAL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenAL.h; sourceTree = "<group>"; };
+		839B8AF21B68E877009E0CF7 /* cxSound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSound.cpp; sourceTree = "<group>"; };
+		839B8AF31B68E877009E0CF7 /* cxSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSound.h; sourceTree = "<group>"; };
 		83A9439B1B44DC3200F70FBA /* aes_cbc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cbc.c; sourceTree = "<group>"; };
 		83A9439C1B44DC3200F70FBA /* aes_cfb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cfb.c; sourceTree = "<group>"; };
 		83A9439D1B44DC3200F70FBA /* aes_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_core.c; sourceTree = "<group>"; };
@@ -545,6 +548,8 @@
 				839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */,
 				839B8AB81B687DC8009E0CF7 /* cxOpenAL.h */,
 				839B8ABA1B687DFA009E0CF7 /* OpenAL.h */,
+				839B8AF21B68E877009E0CF7 /* cxSound.cpp */,
+				839B8AF31B68E877009E0CF7 /* cxSound.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -903,6 +908,7 @@
 				833B40711B31B89600920A06 /* cxBoxPoint3F.cpp in Sources */,
 				8338FD831B47712D00C84032 /* cxAstar.cpp in Sources */,
 				831189E11B2D7D3600C930B5 /* cxView.cpp in Sources */,
+				839B8AF41B68E877009E0CF7 /* cxSound.cpp in Sources */,
 				83639F6F1B30270E006A61B7 /* cxAction.cpp in Sources */,
 				83BBF3FF1B10954E003CB004 /* cxCore.cpp in Sources */,
 				83C9D1151B47DA8000EC244C /* cxBezier.cpp in Sources */,

@@ -10,6 +10,8 @@
 #define cxEngineCore_cxOpenAL_h
 
 #include <core/cxObject.h>
+#include <math/cxPoint3F.h>
+#include <math/cxPoint2F.h>
 #include "OpenAL.h"
 
 CX_CPP_BEGIN
@@ -29,6 +31,7 @@ private:
     cxUInt bytesPerSample;
     cxFloat duration;
 public:
+    cxFloat Duration();
     cxBool Init(cchars file);
     ALuint Handle();
     static cxALBuffer *Create(cchars file);
@@ -55,6 +58,10 @@ public:
     void SetGain(cxFloat v);
     void SetPitch(cxFloat v);
     void SetLoop(cxBool v);
+    void SetPosition(const cxPoint3F &v);
+    void SetPosition(const cxPoint2F &v);
+    cxALBuffer *Buffer();
+    virtual void Update(cxFloat dt);
 };
 
 class cxOpenAL : public cxObject

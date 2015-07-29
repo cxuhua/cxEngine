@@ -136,6 +136,11 @@ cxBool cxALBuffer::Init(cchars file)
     return true;
 }
 
+cxFloat cxALBuffer::Duration()
+{
+    return duration;
+}
+
 ALuint cxALBuffer::Handle()
 {
     return handle;
@@ -192,6 +197,28 @@ cxBool cxALSource::Init(cxALBuffer *ab)
         return false;
     }
     return false;
+}
+
+void cxALSource::Update(cxFloat dt)
+{
+    
+}
+
+void cxALSource::SetPosition(const cxPoint3F &v)
+{
+    alSourcei(handle, AL_SOURCE_RELATIVE, AL_FALSE);
+    alSource3f(handle, AL_POSITION, v.x, v.y, v.z);
+}
+
+void cxALSource::SetPosition(const cxPoint2F &v)
+{
+    alSourcei(handle, AL_SOURCE_RELATIVE, AL_TRUE);
+    alSource3f(handle, AL_POSITION, v.x, v.y, 1.0f);
+}
+
+cxALBuffer *cxALSource::Buffer()
+{
+    return buffer;
 }
 
 void cxALSource::Play(cxBool loop)

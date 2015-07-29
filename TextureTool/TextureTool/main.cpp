@@ -60,6 +60,7 @@ int ToLQF(cchars png,cchars json,cchars out,cchars fmt)
     if(!png_image_begin_read_from_memory(&image, pngdata->Data(), pngdata->Size())){
         return 2;
     }
+    image.format = PNG_FORMAT_RGBA;
     lqt.width = image.width;
     lqt.height = image.height;
     cxStr *imagedata = cxStr::Create()->Init(PNG_IMAGE_SIZE(image));
@@ -73,7 +74,7 @@ int ToLQF(cchars png,cchars json,cchars out,cchars fmt)
     }
     dd = imagedata->LzmaCompress();
     CX_ASSERT(cxStr::IsOK(dd), "image compress error");
-    CX_LOGGER("Json data %d -> %d",imagedata->Size(),dd->Size());
+    CX_LOGGER("Image data %d -> %d",imagedata->Size(),dd->Size());
     
     lqt.databytes = dd->Size();
     lqt.filebytes = lqt.databytes + lqt.atlasbytes + sizeof(LQT);

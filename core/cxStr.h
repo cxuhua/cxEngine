@@ -17,13 +17,15 @@ CX_CPP_BEGIN
 #define AES_KEY_LENGTH  16
 
 class cxArray;
-class cxStr : public cxObject,private std::string
+class cxStr : public cxObject
 {
 public:
     CX_DECLARE(cxStr);
 protected:
     explicit cxStr();
     virtual ~cxStr();
+private:
+    std::string s;
 public:
     static cxStr *UTF8(cchars fmt,...);
     static cxBool IsOK(const cxStr *str);
@@ -79,10 +81,11 @@ public:
     cxStr *Insert(cxInt pos,cchars data,cxInt n);
     cxStr *Insert(cxInt pos,const cxStr *str);
     
+    cxInt EachUTF8(std::function<void(cchars ptr,cxInt bytes)> func) const;
+    
     cxStr *Clear();
     cxStr *Erase(cxInt p,cxInt n);
-    cxStr *Erase(cxInt p);
-    cxStr *Keep(cxInt bytes);
+    cxStr *KeepBytes(cxInt bytes);
     
     cxBool IsEqu(const cxStr *str) const;
     cxBool IsCaseEqu(const cxStr *str) const;

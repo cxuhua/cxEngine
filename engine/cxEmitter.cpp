@@ -322,7 +322,7 @@ void cxEmitter::OnUpdate(cxFloat dt)
         index ++;
     }
     if(systemtime > 0 && runtime >= systemtime && Number() == 0){
-        onFinished.Fire(this);
+        onExit.Fire(this);
     }
 }
 

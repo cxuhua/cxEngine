@@ -473,6 +473,7 @@ cxTexture *cxTexture::FromPNG(const cxStr *data)
         success = false;
         return this;
     }
+    image.format = PNG_FORMAT_RGBA;
     size = cxSize2F(image.width,image.height);
     cxInt bufsiz = PNG_IMAGE_SIZE(image);
     cxAny buffer = malloc(bufsiz);

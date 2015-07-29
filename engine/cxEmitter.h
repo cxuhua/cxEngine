@@ -90,7 +90,7 @@ private:
 public:
     static cxEmitter *Create(cxInt max);
     
-    cxEvent<cxEmitter> onFinished;
+    cxEvent<cxEmitter> onExit;
     
     cxView *Clone();
     

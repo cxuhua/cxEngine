@@ -48,7 +48,7 @@ cxStr *cxStr::UTF8(cchars fmt,...)
 
 cxStr::cxStr()
 {
-    clear();
+    s.clear();
 }
 
 cxStr::~cxStr()
@@ -114,21 +114,19 @@ cchars cxStr::ToString() const
 
 cxStr *cxStr::Init(cxInt size,char c)
 {
-    assign(size,c);
+    s = s.assign(size,c);
     return this;
 }
 
 cxStr *cxStr::Init(cxAny data,cxInt size)
 {
-    cxInt asize = Size();
-    assign((char *)data,size);
-    asize = Size();
+    s = s.assign((char *)data,size);
     return this;
 }
 
 cxStr *cxStr::Init(cchars str)
 {
-    assign(str);
+    s = s.assign(str);
     return this;
 }
 
@@ -235,7 +233,7 @@ const cxStr *cxStr::LzmaCompress() const
         return nullptr;
     }
     if(desLen < Size()){
-        rv->Keep(desLen);
+        rv->KeepBytes(desLen);
     }
     return rv;
 }
@@ -248,7 +246,7 @@ const cxStr *cxStr::LzmaUncompress() const
     if(cxLzmaUncompress(Data(), Size(), dst, &desLen) == nullptr){
         return nullptr;
     }
-    rv->Keep(desLen);
+    rv->KeepBytes(desLen);
     return rv;
 }
 
@@ -287,23 +285,17 @@ cxBool cxStr::IsCaseEqu(const cxStr *str) const
 cxStr *cxStr::Erase(cxInt p,cxInt n)
 {
     if(n == 0)return this;
-    erase(begin() + p, begin() + p + n);
+    s = s.erase(p, n);
     return this;
 }
 
-cxStr *cxStr::Keep(cxInt bytes)
+cxStr *cxStr::KeepBytes(cxInt bytes)
 {
     if(bytes == 0){
         Clear();
         return this;
     }
-    erase(begin() + bytes, end());
-    return this;
-}
-
-cxStr *cxStr::Erase(cxInt p)
-{
-    erase(begin() + p);
+    s.erase(s.begin() + bytes, s.end());
     return this;
 }
 
@@ -323,7 +315,7 @@ cxBool cxStr::IsEqu(cchars str) const
     if(str == nullptr){
         return false;
     }
-    int len = (int)size();
+    int len = (int)s.size();
     if(Size() != len){
         return false;
     }
@@ -332,15 +324,15 @@ cxBool cxStr::IsEqu(cchars str) const
 
 cxBool cxStr::IsCaseEqu(cchars str) const
 {
-    if(str == nullptr || size() == 0){
+    if(str == nullptr || s.size() == 0){
         return false;
     }
-    return strcasecmp(str, c_str()) == 0;
+    return strcasecmp(str, s.c_str()) == 0;
 }
 
 cxStr *cxStr::Clear()
 {
-    clear();
+    s.clear();
     return this;
 }
 
@@ -352,13 +344,13 @@ cxStr *cxStr::Append(const cxStr *str)
 
 cxStr *cxStr::Append(cchars data,cxInt n)
 {
-    append(data, n);
+    s = s.append(data, n);
     return this;
 }
 
 cxStr *cxStr::Append(cchars data)
 {
-    append(data);
+    s = s.append(data);
     return this;
 }
 
@@ -371,7 +363,7 @@ cxStr *cxStr::InsFmt(cxInt pos,cchars fmt,va_list ap)
     if(buffer == nullptr){
         return this;
     }
-    insert(pos, buffer,size);
+    s = s.insert(pos, buffer,size);
     free(buffer);
     return this;
 }
@@ -387,19 +379,19 @@ cxStr *cxStr::InsFmt(cxInt pos,cchars fmt,...)
 
 cxStr *cxStr::Insert(cxInt pos,cchars data)
 {
-    insert(pos,data);
+    s = s.insert(pos,data);
     return this;
 }
 
 cxStr *cxStr::Insert(cxInt pos,cchars data,cxInt n)
 {
-    insert(pos,data, n);
+    s = s.insert(pos,data, n);
     return this;
 }
 
 cxStr *cxStr::Insert(cxInt pos,const cxStr *str)
 {
-    insert(pos, str->Data(),str->Size());
+    s = s.insert(pos, str->Data(),str->Size());
     return this;
 }
 
@@ -411,7 +403,7 @@ cxStr *cxStr::AppFmt(cchars fmt,va_list ap)
     if(buffer == nullptr){
         return this;
     }
-    append(buffer,size);
+    s = s.append(buffer,size);
     free(buffer);
     return this;
 }
@@ -487,22 +479,36 @@ const cxStr *cxStr::ReadFromFile(cchars file)
 
 chars cxStr::Buffer() const
 {
-    return (chars)data();
+    return (chars)s.data();
 }
 
 cchars cxStr::Data() const
 {
-    return data();
+    return s.data();
 }
 
 char cxStr::At(cxInt n) const
 {
-    return at(n);
+    return s.at(n);
 }
 
 cxBool cxStr::IsEmpty() const
 {
-    return empty();
+    return s.empty();
+}
+
+cxInt cxStr::EachUTF8(std::function<void(cchars ptr,cxInt bytes)> func) const
+{
+    cxInt ret = 0;
+    cchars ptr = Data();
+    cxInt size = Size();
+    for(cxInt i=0;i<size;){
+        cxInt c = getNumBytesForUTF8(ptr[i]);
+        func(ptr+i,c);
+        i+=c;
+        ret++;
+    }
+    return ret;
 }
 
 cxInt cxStr::UTF8Size() const
@@ -512,7 +518,7 @@ cxInt cxStr::UTF8Size() const
 
 cxInt cxStr::Size() const
 {
-    return (cxInt)size();
+    return (cxInt)s.size();
 }
 
 CX_CPP_END

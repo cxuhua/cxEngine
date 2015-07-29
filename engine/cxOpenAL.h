@@ -16,6 +16,8 @@
 
 CX_CPP_BEGIN
 
+#define MAX_BUFFER  1
+
 class cxALBuffer : public cxObject
 {
 public:
@@ -23,17 +25,17 @@ public:
 protected:
     explicit cxALBuffer();
     virtual ~cxALBuffer();
-private:
+protected:
     cxUInt format;
-    ALuint handle;
+    ALuint handle[MAX_BUFFER];
     cxUInt samplerate;
     cxUInt numberOfSamples;
     cxUInt bytesPerSample;
     cxFloat duration;
 public:
     cxFloat Duration();
-    cxBool Init(cchars file);
-    ALuint Handle();
+    virtual cxBool Init(cchars file);
+    ALuint Handle(cxInt idx =0);
     static cxALBuffer *Create(cchars file);
 };
 
@@ -44,7 +46,7 @@ public:
 protected:
     explicit cxALSource();
     virtual ~cxALSource();
-private:
+protected:
     cxALBuffer *buffer;
     ALuint handle;
     cxBool loop;
@@ -52,9 +54,9 @@ private:
     cxFloat pitch;
 public:
     cxBool IsPlaying();
-    cxBool Init(cxALBuffer *ab);
-    void Play(cxBool loop=false);
-    void Stop();
+    virtual cxBool Init(cxALBuffer *ab);
+    virtual void Play(cxBool loop=false);
+    virtual void Stop();
     void SetGain(cxFloat v);
     void SetPitch(cxFloat v);
     void SetLoop(cxBool v);

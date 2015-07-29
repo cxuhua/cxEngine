@@ -422,7 +422,10 @@
 				);
 				INFOPLIST_FILE = cxEngine2D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/libs/osx/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/libs/osx/lib",
+					"$(PROJECT_DIR)/libs/osx/lib",
+				);
 				PRODUCT_NAME = cxEngineTest;
 			};
 			name = Debug;
@@ -449,7 +452,10 @@
 				);
 				INFOPLIST_FILE = cxEngine2D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/libs/osx/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/libs/osx/lib",
+					"$(PROJECT_DIR)/libs/osx/lib",
+				);
 				PRODUCT_NAME = cxEngineTest;
 			};
 			name = Release;

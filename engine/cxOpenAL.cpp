@@ -61,7 +61,7 @@ CX_IMPLEMENT(cxALBuffer);
 cxALBuffer::cxALBuffer()
 {
     format = 0;
-    handle = 0;
+    handle[0] = 0;
     samplerate = 0;
     numberOfSamples = 0;
     bytesPerSample = 0;
@@ -70,7 +70,7 @@ cxALBuffer::cxALBuffer()
 
 cxALBuffer::~cxALBuffer()
 {
-    alDeleteBuffers(1, &handle);
+    alDeleteBuffers(1, &handle[0]);
 }
 
 cxBool cxALBuffer::Init(cchars file)
@@ -123,12 +123,12 @@ cxBool cxALBuffer::Init(cchars file)
     numberOfSamples = size/(fmt.bitsPerSample/8);
     duration = (cxFloat)numberOfSamples/(cxFloat)samplerate;
     alClearError();
-    alGenBuffers(1, &handle);
+    alGenBuffers(1, &handle[0]);
     if(alGetError() != AL_NO_ERROR){
         CX_ERROR("gen al buffer error");
         return false;
     }
-    alBufferData(handle, format, dataptr, size, samplerate);
+    alBufferData(handle[0], format, dataptr, size, samplerate);
     if(alGetError() != AL_NO_ERROR){
         CX_ERROR("al buffer data error");
         return false;
@@ -141,9 +141,9 @@ cxFloat cxALBuffer::Duration()
     return duration;
 }
 
-ALuint cxALBuffer::Handle()
+ALuint cxALBuffer::Handle(cxInt idx)
 {
-    return handle;
+    return handle[idx];
 }
 
 cxALBuffer *cxALBuffer::Create(cchars file)

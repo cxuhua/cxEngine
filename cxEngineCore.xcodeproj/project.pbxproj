@@ -1134,7 +1134,10 @@
 					"$(SRCROOT)",
 					"$(SRCROOT)/libs/osx/include",
 				);
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/libs/osx/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/libs/osx/lib",
+					"$(PROJECT_DIR)/libs/osx/lib",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1156,7 +1159,10 @@
 					"$(SRCROOT)",
 					"$(SRCROOT)/libs/osx/include",
 				);
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/libs/osx/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/libs/osx/lib",
+					"$(PROJECT_DIR)/libs/osx/lib",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

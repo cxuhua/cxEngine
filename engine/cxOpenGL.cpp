@@ -193,10 +193,7 @@ void cxOpenGL::Clear()
 
 cxOpenGL *cxOpenGL::Instance()
 {
-    if(instance == nullptr){
-        instance = cxOpenGL::Alloc();
-    }
-    return instance;
+    return cxCore::One<cxOpenGL>(&instance);
 }
 
 cxOpenGL::cxOpenGL()

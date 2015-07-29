@@ -10,6 +10,7 @@
 #define __cxEngineCore__cxCore__
 
 #include <string>
+#include <vector>
 #include <unordered_map>
 #include "cxDefine.h"
 
@@ -20,6 +21,7 @@ class cxObject;
 class cxStr;
 class cxJson;
 class cxHelper;
+class cxArray;
 
 class cxCore
 {
@@ -29,7 +31,9 @@ protected:
 public:
     typedef cxObject *(*AllocFunc)();
 private:
+    
     static cxCore *gCore;
+    
     struct cxCoreHasher
     {
         size_t operator()(const std::string &k) const;
@@ -40,7 +44,18 @@ private:
     cxTypes classes;
     cxHash *caches;
     uv_key_t autoKey;
+    std::vector<cxAny> ones;
 public:
+    template<class T>
+    static T *One(cxAny gv)
+    {
+        T **ptr = (T **)gv;
+        if(*ptr == nullptr){
+            *ptr = T::Alloc();
+            gCore->ones.push_back(gv);
+        }
+        return *ptr;
+    }
     static cxObject *alloc(cchars name);
     static void registerType(cchars name,cxHelper &helper);
     //

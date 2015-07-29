@@ -39,6 +39,7 @@ struct cxSize2F;
 struct cxBoxRenderF;
 class cxOpenGL : public cxObject
 {
+    friend cxCore;
 private:
     CX_DECLARE(cxOpenGL);
 protected:

@@ -33,6 +33,10 @@ struct LQT
 
 #pragma pack()
 
+void pixelRGBA8888ToRGBA4444(cxAny pdata, cxInt dataLen, cxAny outData);
+void pixelRGBA8888ToRGBA5551(cxAny pdata, cxInt dataLen, cxAny outData);
+void pixelRGBA8888ToRGBA565(cxAny pdata, cxInt dataLen, cxAny outData);
+
 CX_CPP_END
 
 #endif

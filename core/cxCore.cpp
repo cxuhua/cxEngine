@@ -120,9 +120,13 @@ cxCore::cxCore()
 
 cxCore::~cxCore()
 {
-    cxLocalized::Instance()->Release();
+    //free all one object ptr
+    for(std::vector<cxAny>::iterator it=ones.begin();it!=ones.end();it++){
+        cxObject::release((cxObject **)*it);
+    }
+    ones.clear();
+    //
     caches->Release();
-    cxObject::release(&cxUtil::instance);
     cxObject *obj = static_cast<cxObject *>(uv_key_get(&autoKey));
     cxObject::release(&obj);
     uv_key_delete(&autoKey);

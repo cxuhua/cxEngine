@@ -106,6 +106,8 @@
 		839836DE1B10E3EF002B7C20 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839836D91B10E3EF002B7C20 /* libpng.a */; };
 		839836DF1B10E3EF002B7C20 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839836DA1B10E3EF002B7C20 /* libuv.a */; };
 		839836E61B117475002B7C20 /* cxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836E41B117475002B7C20 /* cxObject.cpp */; };
+		839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B8AB51B687DA3009E0CF7 /* OpenAL.framework */; };
+		839B8AB91B687DC8009E0CF7 /* cxOpenAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */; };
 		83A943A41B44DC3200F70FBA /* aes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439B1B44DC3200F70FBA /* aes_cbc.c */; };
 		83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439C1B44DC3200F70FBA /* aes_cfb.c */; };
 		83A943A61B44DC3200F70FBA /* aes_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439D1B44DC3200F70FBA /* aes_core.c */; };
@@ -353,6 +355,10 @@
 		839836DA1B10E3EF002B7C20 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = libs/osx/lib/libuv.a; sourceTree = "<group>"; };
 		839836E41B117475002B7C20 /* cxObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxObject.cpp; sourceTree = "<group>"; };
 		839836E51B117475002B7C20 /* cxObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxObject.h; sourceTree = "<group>"; };
+		839B8AB51B687DA3009E0CF7 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxOpenAL.cpp; sourceTree = "<group>"; };
+		839B8AB81B687DC8009E0CF7 /* cxOpenAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxOpenAL.h; sourceTree = "<group>"; };
+		839B8ABA1B687DFA009E0CF7 /* OpenAL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenAL.h; sourceTree = "<group>"; };
 		83A9439B1B44DC3200F70FBA /* aes_cbc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cbc.c; sourceTree = "<group>"; };
 		83A9439C1B44DC3200F70FBA /* aes_cfb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cfb.c; sourceTree = "<group>"; };
 		83A9439D1B44DC3200F70FBA /* aes_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_core.c; sourceTree = "<group>"; };
@@ -423,6 +429,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +542,9 @@
 				83EA93CC1B57B62900169564 /* cxCircle.h */,
 				836E30511B5E771600ED8BDC /* cxPath.cpp */,
 				836E30521B5E771600ED8BDC /* cxPath.h */,
+				839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */,
+				839B8AB81B687DC8009E0CF7 /* cxOpenAL.h */,
+				839B8ABA1B687DFA009E0CF7 /* OpenAL.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -642,6 +652,7 @@
 		839836E01B10E3F4002B7C20 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				839B8AB51B687DA3009E0CF7 /* OpenAL.framework */,
 				839836D61B10E3EF002B7C20 /* libjansson.a */,
 				839836D71B10E3EF002B7C20 /* libjpeg.a */,
 				839836D81B10E3EF002B7C20 /* libpcre.a */,
@@ -965,6 +976,7 @@
 				831189D01B2D728000C930B5 /* quaternion.c in Sources */,
 				83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */,
 				831189CE1B2D728000C930B5 /* mat4.c in Sources */,
+				839B8AB91B687DC8009E0CF7 /* cxOpenAL.cpp in Sources */,
 				839836CE1B10B3F7002B7C20 /* cxAutoPool.cpp in Sources */,
 				831189CF1B2D728000C930B5 /* plane.c in Sources */,
 				831189CB1B2D728000C930B5 /* mat4stack.c in Sources */,

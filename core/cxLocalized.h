@@ -15,6 +15,7 @@ CX_CPP_BEGIN
 
 class cxLocalized : public cxObject
 {
+    friend cxCore;
 private:
     CX_DECLARE(cxLocalized);
 protected:

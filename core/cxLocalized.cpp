@@ -19,10 +19,7 @@ cxLocalized *cxLocalized::instance = nullptr;
 
 cxLocalized *cxLocalized::Instance()
 {
-    if(instance == nullptr){
-        instance = cxLocalized::Alloc();
-    }
-    return instance;
+    return cxCore::One<cxLocalized>(&instance);
 }
 
 cxLocalized::cxLocalized()

@@ -48,21 +48,17 @@ protected:
 protected:
     void OnUpdate(cxFloat dt);
 private:
-    
     void initEmitterUnit(cxEmitterUnit *unit);
     void addEmitterUnit();
     void unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F &vq);
-    
     cxBoxPoint3F vbp;
-    
     cxFloat systemtime;
     cxFloat runtime;
-    
-    cxEmitterType type;
     cxEmitterUnit *units;
     cxFloat emitcounter;
-    cxFloat rate;
     
+    cxFloat rate;
+    cxEmitterType type;
     cxPoint2FRange position;
     cxFloatRange life;
     cxFloatRange angle;

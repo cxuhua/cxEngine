@@ -14,29 +14,18 @@
 
 using namespace cxengine;
 
-void pixelRGBA8888ToRGBA4444(cxAny pdata, cxInt dataLen, cxAny outData)
-{
-    cxUChar *data = (cxUChar *)pdata;
-    cxUInt16 *out16 = (cxUInt16 *)outData;
-    for(cxInt i=0,l=dataLen-3; i<l;i+=4){
-        *out16++ = (data[i]&0xF0)<<8|(data[i+1]&0xF0)<<4|(data[i+2] & 0xF0)|(data[i+3]&0xF0)>>4;
-    }
-}
-
 int ToLQF(cchars png,cchars json,cchars out,cchars fmt)
 {
     LQT lqt={0};
     lqt.flag = CX_LQT_TAG;
     if(strcasecmp(fmt, "rgba4444") == 0){
         lqt.format = LQT::FormatRGBA4444;
-    }else if(strcasecmp(fmt, "rgba8888") == 0){
-        lqt.format = LQT::FormatRGBA8888;
     }else if(strcasecmp(fmt, "rgba5551") == 0){
         lqt.format = LQT::FormatRGBA5551;
     }else if(strcasecmp(fmt, "rgba565") == 0){
         lqt.format = LQT::FormatRGBA565;
     }else{
-        CX_ASSERT(false, "format error");
+        lqt.format = LQT::FormatRGBA8888;
     }
     //json 数据
     const cxStr *jd = nullptr;
@@ -70,7 +59,13 @@ int ToLQF(cchars png,cchars json,cchars out,cchars fmt)
     png_image_free(&image);
     if(lqt.format == LQT::FormatRGBA4444){
         pixelRGBA8888ToRGBA4444(imagedata->Buffer(), imagedata->Size(), imagedata->Buffer());
-        imagedata->Keep(imagedata->Size()/2);
+        imagedata->KeepBytes(imagedata->Size()/2);
+    }else if(lqt.format == LQT::FormatRGBA5551){
+        pixelRGBA8888ToRGBA5551(imagedata->Buffer(), imagedata->Size(), imagedata->Buffer());
+        imagedata->KeepBytes(imagedata->Size()/2);
+    }else if(lqt.format == LQT::FormatRGBA565){
+        pixelRGBA8888ToRGBA565(imagedata->Buffer(), imagedata->Size(), imagedata->Buffer());
+        imagedata->KeepBytes(imagedata->Size()/2);
     }
     dd = imagedata->LzmaCompress();
     CX_ASSERT(cxStr::IsOK(dd), "image compress error");

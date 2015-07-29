@@ -42,26 +42,17 @@ const cxFloat cxUtil::ScaleFactor() const
 #if CX_TARGET_PLATFORM == CX_PLATFORM_IOS
 cxUtil *cxUtil::Instance()
 {
-    if(instance == nullptr){
-        instance = cxIOSUtil::Alloc();
-    }
-    return instance;
+    return cxCore::One<cxIOSUtil>(&instance);
 }
 #elif CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID
 cxUtil *cxUtil::Instance()
 {
-    if(instance == nullptr){
-        instance = cxAndroidUtil::Alloc();
-    }
-    return instance;
+    return cxCore::One<cxAndroidUtil>(&instance);
 }
 #else
 cxUtil *cxUtil::Instance()
 {
-    if(instance == nullptr){
-        instance = cxUtil::Alloc();
-    }
-    return instance;
+    return cxCore::One<cxUtil>(&instance);
 }
 #endif
 

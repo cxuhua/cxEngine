@@ -29,7 +29,6 @@ enum {
 #define CX_UNIFORM_UMP      "uMP"
 #define CX_UNIFORM_UMV      "uMV"
 
-class cxView;
 class cxStr;
 struct cxMatrixF;
 struct cxPoint2F;

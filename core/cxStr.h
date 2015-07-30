@@ -56,6 +56,8 @@ public:
     const cxFloat ToFloat() const;
     cchars ToString() const;
     
+    cxObject *ToObject();
+    
     const cxStr *TeaEncode(const cxStr *key) const;
     const cxStr *TeaDecode(const cxStr *key) const;
     

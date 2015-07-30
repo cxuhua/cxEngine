@@ -236,6 +236,7 @@ cxMP3Source::cxMP3Source()
 
 cxMP3Source::~cxMP3Source()
 {
+    Stop();
     alDeleteBuffers(MAX_BUFFER, albuf);
 }
 

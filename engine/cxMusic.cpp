@@ -26,6 +26,7 @@ cxMusic::~cxMusic()
 
 void cxMusic::OnInit()
 {
+    CX_ASSERT(source != nullptr, "source not set");
     source->Play();
 }
 

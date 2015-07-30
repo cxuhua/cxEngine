@@ -58,6 +58,10 @@ cxShader::cxShader()
     vs = nullptr;
     fs = nullptr;
     program = 0;
+    vsh = 0;
+    fsh = 0;
+    ump = 0;
+    umv = 0;
 }
 
 cxShader::~cxShader()

@@ -120,6 +120,11 @@ cchars cxStr::ToString() const
     return Data();
 }
 
+cxObject *cxStr::ToObject()
+{
+    return cxObject::create(ToString());
+}
+
 cxStr *cxStr::Init(cxInt size,char c)
 {
     s = s.assign(size,c);

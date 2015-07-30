@@ -286,7 +286,7 @@ cxBool cxMP3Source::Init(cxALBuffer *ab)
         CX_ERROR("al gen buffer error");
         return false;
     }
-    return false;
+    return true;
 }
 
 void cxMP3Source::Update(cxFloat dt)
@@ -402,6 +402,11 @@ ALuint cxALBuffer::Handle()
     return handle;
 }
 
+cxALBuffer::DataType cxALBuffer::Type()
+{
+    return datatype;
+}
+
 cxALBuffer *cxALBuffer::Create(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "args error");
@@ -413,8 +418,10 @@ cxALBuffer *cxALBuffer::Create(cchars file)
     }
     if(cxStr::IsCaseEqu(ext, ".wav")){
         b = cxALBuffer::Create();
+        b->datatype = DataTypeWAV;
     }else if(cxStr::IsCaseEqu(ext, ".mp3")){
         b = cxMP3Buffer::Create();
+        b->datatype = DataTypeMP3;
     }
     if(!b->Init(file)){
         return nullptr;
@@ -462,7 +469,7 @@ cxBool cxALSource::Init(cxALBuffer *ab)
         CX_ERROR("al source set buffer error");
         return false;
     }
-    return false;
+    return true;
 }
 
 void cxALSource::Update(cxFloat dt)
@@ -515,16 +522,22 @@ void cxALSource::SetPitch(cxFloat v)
 cxALSource *cxALSource::Create(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "args error");
+    cxALBuffer *b = cxALBuffer::Create(file);
+    if(b == nullptr){
+        return nullptr;
+    }
     cxALSource *s = nullptr;
     cchars ext = strrchr(file, '.');
     if(!cxStr::IsOK(ext)){
-        CX_ERROR("file %s name error",file);
         return nullptr;
     }
-    if(cxStr::IsCaseEqu(ext, ".wav")){
+    if(b->Type() == cxALBuffer::DataTypeWAV){
         s = cxALSource::Create();
-    }else if(cxStr::IsCaseEqu(ext, ".mp3")){
+    }else if(b->Type() == cxALBuffer::DataTypeMP3){
         s = cxMP3Source::Create();
+    }
+    if(!s->Init(b)){
+        return nullptr;
     }
     return s;
 }
@@ -540,7 +553,7 @@ cxOpenAL::cxOpenAL()
     context = alcCreateContext(device, nullptr);
     CX_ASSERT(context != nullptr, "alc create context error");
     alcMakeContextCurrent(context);
-    files = cxHash::Alloc();
+    sources = cxHash::Alloc();
     if(mpg123_init() != MPG123_OK){
         CX_ERROR("mpg123 Init failed");
     }
@@ -549,14 +562,14 @@ cxOpenAL::cxOpenAL()
 cxOpenAL::~cxOpenAL()
 {
     mpg123_exit();
-    files->Release();
+    sources->Release();
     alcMakeContextCurrent(nullptr);
     alcCloseDevice(device);
 }
 
 cxALSource *cxOpenAL::Source(cchars key)
 {
-    cxObject *obj = files->Get(key);
+    cxObject *obj = sources->Get(key);
     if(obj != nullptr){
         return obj->To<cxALSource>();
     }
@@ -569,15 +582,11 @@ cxALSource *cxOpenAL::Source(cchars key,cchars file)
     if(s != nullptr){
         return s;
     }
-    cxALBuffer *b = cxALBuffer::Create(file);
-    if(b == nullptr){
-        return nullptr;
-    }
     s = cxALSource::Create(file);
-    if(s->Init(b)){
+    if(s == nullptr){
         return nullptr;
     }
-    files->Set(key, s);
+    sources->Set(key, s);
     return s;
 }
 

@@ -23,6 +23,10 @@ class cxALBuffer : public cxObject
 {
 public:
     CX_DECLARE(cxALBuffer);
+public:
+    typedef cxUInt DataType;
+    static const DataType DataTypeWAV = 1;
+    static const DataType DataTypeMP3 = 2;
 protected:
     explicit cxALBuffer();
     virtual ~cxALBuffer();
@@ -33,7 +37,9 @@ protected:
     cxUInt numberOfSamples;
     cxUInt bytesPerSample;
     cxFloat duration;
+    DataType datatype;
 public:
+    DataType Type();
     virtual cxFloat Duration();
     virtual cxBool Init(cchars file);
     ALuint Handle();
@@ -128,7 +134,7 @@ private:
     ALCdevice *device;
     ALCcontext *context;
     static cxOpenAL *instance;
-    cxHash *files;
+    cxHash *sources;
 public:
     static cxOpenAL *Instance();
     cxALSource *Source(cchars key,cchars file);

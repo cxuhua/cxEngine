@@ -108,7 +108,7 @@
 		839836E61B117475002B7C20 /* cxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836E41B117475002B7C20 /* cxObject.cpp */; };
 		839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B8AB51B687DA3009E0CF7 /* OpenAL.framework */; };
 		839B8AB91B687DC8009E0CF7 /* cxOpenAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */; };
-		839B8AF41B68E877009E0CF7 /* cxSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AF21B68E877009E0CF7 /* cxSound.cpp */; };
+		839B8AF41B68E877009E0CF7 /* cxMusic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AF21B68E877009E0CF7 /* cxMusic.cpp */; };
 		83A943A41B44DC3200F70FBA /* aes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439B1B44DC3200F70FBA /* aes_cbc.c */; };
 		83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439C1B44DC3200F70FBA /* aes_cfb.c */; };
 		83A943A61B44DC3200F70FBA /* aes_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439D1B44DC3200F70FBA /* aes_core.c */; };
@@ -133,11 +133,11 @@
 		83C9D1321B492A2300EC244C /* cxJump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C9D1301B492A2300EC244C /* cxJump.cpp */; };
 		83D2666B1B345D6000077DB8 /* cxStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D266691B345D6000077DB8 /* cxStack.cpp */; };
 		83D5D31E1B6763B70051D99D /* cxLQT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D31C1B6763B70051D99D /* cxLQT.cpp */; };
+		83D8C3551B69C71200155990 /* libmpg123.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8C3541B69C71200155990 /* libmpg123.a */; };
 		83D92D251B3151D200F061D6 /* cxBoxCoord2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D231B3151D200F061D6 /* cxBoxCoord2F.cpp */; };
 		83D92D331B31781600F061D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D92D321B31781600F061D6 /* UIKit.framework */; };
 		83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D341B317C2000F061D6 /* cxBoxPoint2F.cpp */; };
 		83D92D391B317E5900F061D6 /* cxRenderF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D371B317E5800F061D6 /* cxRenderF.cpp */; };
-		83E886DA1B68F59D001C0727 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E886D91B68F59D001C0727 /* AVFoundation.framework */; };
 		83EA27E31B15540600370757 /* cxHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EA27E11B15540600370757 /* cxHash.cpp */; };
 		83EA93CD1B57B62900169564 /* cxCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EA93CB1B57B62900169564 /* cxCircle.cpp */; };
 		83F54B5F1B54BD5700AC5844 /* cxAsync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F54B5D1B54BD5700AC5844 /* cxAsync.cpp */; };
@@ -361,8 +361,8 @@
 		839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxOpenAL.cpp; sourceTree = "<group>"; };
 		839B8AB81B687DC8009E0CF7 /* cxOpenAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxOpenAL.h; sourceTree = "<group>"; };
 		839B8ABA1B687DFA009E0CF7 /* OpenAL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenAL.h; sourceTree = "<group>"; };
-		839B8AF21B68E877009E0CF7 /* cxSound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSound.cpp; sourceTree = "<group>"; };
-		839B8AF31B68E877009E0CF7 /* cxSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSound.h; sourceTree = "<group>"; };
+		839B8AF21B68E877009E0CF7 /* cxMusic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxMusic.cpp; sourceTree = "<group>"; };
+		839B8AF31B68E877009E0CF7 /* cxMusic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxMusic.h; sourceTree = "<group>"; };
 		83A9439B1B44DC3200F70FBA /* aes_cbc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cbc.c; sourceTree = "<group>"; };
 		83A9439C1B44DC3200F70FBA /* aes_cfb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cfb.c; sourceTree = "<group>"; };
 		83A9439D1B44DC3200F70FBA /* aes_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_core.c; sourceTree = "<group>"; };
@@ -407,6 +407,7 @@
 		83D2666A1B345D6000077DB8 /* cxStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxStack.h; sourceTree = "<group>"; };
 		83D5D31C1B6763B70051D99D /* cxLQT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLQT.cpp; sourceTree = "<group>"; };
 		83D5D31D1B6763B70051D99D /* cxLQT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxLQT.h; sourceTree = "<group>"; };
+		83D8C3541B69C71200155990 /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = libs/osx/lib/libmpg123.a; sourceTree = "<group>"; };
 		83D92D231B3151D200F061D6 /* cxBoxCoord2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxCoord2F.cpp; sourceTree = "<group>"; };
 		83D92D241B3151D200F061D6 /* cxBoxCoord2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxBoxCoord2F.h; sourceTree = "<group>"; };
 		83D92D321B31781600F061D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -414,7 +415,6 @@
 		83D92D351B317C2000F061D6 /* cxBoxPoint2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxBoxPoint2F.h; sourceTree = "<group>"; };
 		83D92D371B317E5800F061D6 /* cxRenderF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRenderF.cpp; sourceTree = "<group>"; };
 		83D92D381B317E5900F061D6 /* cxRenderF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRenderF.h; sourceTree = "<group>"; };
-		83E886D91B68F59D001C0727 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		83EA27D91B14C3DF00370757 /* cxDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxDefine.h; sourceTree = "<group>"; };
 		83EA27E11B15540600370757 /* cxHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxHash.cpp; sourceTree = "<group>"; };
 		83EA27E21B15540600370757 /* cxHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxHash.h; sourceTree = "<group>"; };
@@ -434,7 +434,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83E886DA1B68F59D001C0727 /* AVFoundation.framework in Frameworks */,
 				839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,6 +442,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83D8C3551B69C71200155990 /* libmpg123.a in Frameworks */,
 				831D026C1B43915B00A5EFA7 /* OpenGLES.framework in Frameworks */,
 				831D026A1B43915200A5EFA7 /* libz.dylib in Frameworks */,
 				831D02681B43914B00A5EFA7 /* CoreGraphics.framework in Frameworks */,
@@ -551,8 +551,8 @@
 				839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */,
 				839B8AB81B687DC8009E0CF7 /* cxOpenAL.h */,
 				839B8ABA1B687DFA009E0CF7 /* OpenAL.h */,
-				839B8AF21B68E877009E0CF7 /* cxSound.cpp */,
-				839B8AF31B68E877009E0CF7 /* cxSound.h */,
+				839B8AF21B68E877009E0CF7 /* cxMusic.cpp */,
+				839B8AF31B68E877009E0CF7 /* cxMusic.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -662,8 +662,8 @@
 			children = (
 				839B8AB51B687DA3009E0CF7 /* OpenAL.framework */,
 				839836D61B10E3EF002B7C20 /* libjansson.a */,
+				83D8C3541B69C71200155990 /* libmpg123.a */,
 				839836D71B10E3EF002B7C20 /* libjpeg.a */,
-				83E886D91B68F59D001C0727 /* AVFoundation.framework */,
 				839836D81B10E3EF002B7C20 /* libpcre.a */,
 				839836D91B10E3EF002B7C20 /* libpng.a */,
 				839836DA1B10E3EF002B7C20 /* libuv.a */,
@@ -912,7 +912,7 @@
 				833B40711B31B89600920A06 /* cxBoxPoint3F.cpp in Sources */,
 				8338FD831B47712D00C84032 /* cxAstar.cpp in Sources */,
 				831189E11B2D7D3600C930B5 /* cxView.cpp in Sources */,
-				839B8AF41B68E877009E0CF7 /* cxSound.cpp in Sources */,
+				839B8AF41B68E877009E0CF7 /* cxMusic.cpp in Sources */,
 				83639F6F1B30270E006A61B7 /* cxAction.cpp in Sources */,
 				83BBF3FF1B10954E003CB004 /* cxCore.cpp in Sources */,
 				83C9D1151B47DA8000EC244C /* cxBezier.cpp in Sources */,

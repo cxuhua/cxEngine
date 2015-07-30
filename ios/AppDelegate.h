@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
-#import <AVFoundation/AVAudioPlayer.h>
 #import <UIKit/UIKit.h>
 #import "cxGLView.h"
 
@@ -16,7 +15,7 @@
 }
 @end
 
-@interface IOSDelegate : UIResponder <UIApplicationDelegate,AVAudioPlayerDelegate>
+@interface IOSDelegate : UIResponder <UIApplicationDelegate>
 
 @property(retain,nonatomic)UIWindow *window;
 

@@ -67,7 +67,7 @@ private:
     mpg123_handle *mp3hand;
     cxStr *mp3data;
 
-    cxBool initFormat();
+    cxBool newformat();
     cxBool isopen;
 public:
     cxBool IsOpen();

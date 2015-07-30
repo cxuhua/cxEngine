@@ -127,7 +127,7 @@ void cxMP3Buffer::mp3Clear()
     mp3position = 0;
 }
 
-cxBool cxMP3Buffer::initFormat()
+cxBool cxMP3Buffer::newformat()
 {
     long rate;
     int channgles;
@@ -170,7 +170,7 @@ cxBool cxMP3Buffer::Open()
     off_t framenum = 0;
     int ret = mpg123_decode_frame(mp3hand, &framenum, (unsigned char **)&buf, (size_t *)&bytes);
     if(ret == MPG123_NEW_FORMAT){
-        initFormat();
+        newformat();
         return true;
     }
     CX_ERROR("mp3 buffer open error");
@@ -210,7 +210,7 @@ cxBool cxMP3Buffer::NextALBuffer(ALuint idx)
     off_t framenum = 0;
     int ret = mpg123_decode_frame(mp3hand, &framenum, (unsigned char **)&buf, (size_t *)&bytes);
     if(ret == MPG123_NEW_FORMAT){
-        initFormat();
+        newformat();
         ret = mpg123_decode_frame(mp3hand, &framenum, (unsigned char **)&buf, (size_t *)&bytes);
     }
     if(ret != MPG123_OK || bytes == 0){

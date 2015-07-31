@@ -23,7 +23,7 @@ int ToLQF(cchars png,cchars json,cchars out,cchars fmt)
     }else if(strcasecmp(fmt, "rgba5551") == 0){
         lqt.format = LQT::FormatRGBA5551;
     }else if(strcasecmp(fmt, "rgba565") == 0){
-        lqt.format = LQT::FormatRGBA565;
+        lqt.format = LQT::FormatRGB565;
     }else{
         lqt.format = LQT::FormatRGBA8888;
     }
@@ -63,8 +63,8 @@ int ToLQF(cchars png,cchars json,cchars out,cchars fmt)
     }else if(lqt.format == LQT::FormatRGBA5551){
         pixelRGBA8888ToRGBA5551(imagedata->Buffer(), imagedata->Size(), imagedata->Buffer());
         imagedata->KeepBytes(imagedata->Size()/2);
-    }else if(lqt.format == LQT::FormatRGBA565){
-        pixelRGBA8888ToRGBA565(imagedata->Buffer(), imagedata->Size(), imagedata->Buffer());
+    }else if(lqt.format == LQT::FormatRGB565){
+        pixelRGBA8888ToRGB565(imagedata->Buffer(), imagedata->Size(), imagedata->Buffer());
         imagedata->KeepBytes(imagedata->Size()/2);
     }
     dd = imagedata->LzmaCompress();

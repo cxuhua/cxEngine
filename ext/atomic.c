@@ -10,6 +10,7 @@
 #include "atomic.h"
 
 #if CX_TARGET_PLATFORM == CX_PLATFORM_IOS || CX_TARGET_PLATFORM == CX_PLATFORM_MAC
+
 #include <libkern/OSAtomic.h>
 int32_t cxAtomicAddInt32(int32_t *p, int32_t x)
 {
@@ -36,7 +37,9 @@ int scandir$INODE64(const char *a, struct dirent ***b,int (*c)(const struct dire
 {
     return scandir(a, b, c, d);
 }
+
 #elif CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID
+
 #include <sys/atomics.h>
 int32_t cxAtomicAddInt32(int32_t *p, int32_t x)
 {
@@ -46,13 +49,16 @@ int32_t cxAtomicSubInt32(int32_t *p, int32_t x)
 {
     return __sync_fetch_and_sub(p,x);
 }
+
 #elif CX_TARGET_PLATFORM == CX_PLATFORM_LINUX
+
 int32_t cxAtomicAddInt32(int32_t *p, int32_t x)
 {
     uint32_t t = x;
     asm volatile("lock; xaddl %0, %1;":"+r" (t),"=m"(*p):"m"(*p));
     return (t + x);
 }
+
 int32_t cxAtomicSubInt32(int32_t *p, int32_t x)
 {
     uint32_t t;

@@ -60,7 +60,6 @@ public:
     
     cxJson *Append(cxBool value);
     cxJson *Append(cxInt value);
-    cxJson *Append(cxLong value);
     cxJson *Append(cxInt64 value);
     cxJson *Append(cxFloat value);
     cxJson *Append(cchars value);
@@ -75,7 +74,6 @@ public:
     
     cxJson *Set(cchars key,cxBool value);
     cxJson *Set(cchars key,cxInt value);
-    cxJson *Set(cchars key,cxLong value);
     cxJson *Set(cchars key,cxInt64 value);
     cxJson *Set(cchars key,cxFloat value);
     cxJson *Set(cchars key,cchars value);

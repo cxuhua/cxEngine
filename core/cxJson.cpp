@@ -265,13 +265,6 @@ cxJson *cxJson::Set(cchars key,cxInt value)
     return this;
 }
 
-cxJson *cxJson::Set(cchars key,cxLong value)
-{
-    CX_ASSERT(IsObject() && key != nullptr, "json not object,set error");
-    json_object_set_new(json, key, json_integer(value));
-    return this;
-}
-
 cxJson *cxJson::Set(cchars key,cxInt64 value)
 {
     CX_ASSERT(IsObject() && key != nullptr, "json not object,set error");
@@ -411,13 +404,6 @@ cxJson *cxJson::Append(cxBool value)
 }
 
 cxJson *cxJson::Append(cxInt value)
-{
-    CX_ASSERT(IsArray(), "json not array,append error");
-    json_array_append_new(json, json_integer(value));
-    return this;
-}
-
-cxJson *cxJson::Append(cxLong value)
 {
     CX_ASSERT(IsArray(), "json not array,append error");
     json_array_append_new(json, json_integer(value));

@@ -26,7 +26,7 @@ char * EpochTimeToString(long long time)
 		textIndex=0;
 
 	struct tm * timeinfo;
-	time_t t = time;
+	time_t t = (time_t)time;
 	timeinfo = localtime ( &t );
 	strftime (text[textIndex],64,"%c.",timeinfo);
 

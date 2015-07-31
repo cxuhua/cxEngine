@@ -109,7 +109,7 @@ uint32_t SuperFastHashFile (const char * filename)
 uint32_t SuperFastHashFilePtr (FILE *fp)
 {
 	fseek(fp, 0, SEEK_END);
-	int length = ftell(fp);
+	int length = (int)ftell(fp);
 	fseek(fp, 0, SEEK_SET);
 	int bytesRemaining=length;
 	unsigned int lastHash = length;

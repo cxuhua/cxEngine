@@ -215,9 +215,9 @@ void UDPForwarder::RecvFrom(RakNet::TimeMS curTime, ForwardEntry *forwardEntry)
 	//unsigned short portnum=0;
 
 #if RAKNET_SUPPORT_IPV6==1
-	receivedDataLen = recvfrom__( forwardEntry->socket, data, MAXIMUM_MTU_SIZE, flag, sockAddrPtr, socketlenPtr );
+	receivedDataLen = (int)recvfrom__( forwardEntry->socket, data, MAXIMUM_MTU_SIZE, flag, sockAddrPtr, socketlenPtr );
 #else
-	receivedDataLen = recvfrom__( forwardEntry->socket, data, MAXIMUM_MTU_SIZE, flag, ( sockaddr* ) & sockAddrIn, ( socklen_t* ) & len2 );
+	receivedDataLen = (int)recvfrom__( forwardEntry->socket, data, MAXIMUM_MTU_SIZE, flag, ( sockaddr* ) & sockAddrIn, ( socklen_t* ) & len2 );
 #endif
 
 	if (receivedDataLen<0)
@@ -347,7 +347,7 @@ void UDPForwarder::RecvFrom(RakNet::TimeMS curTime, ForwardEntry *forwardEntry)
 #else
 		do
 		{
-			len = sendto__( forwardEntry->socket, data, receivedDataLen, 0, ( const sockaddr* ) & forwardTarget.address.addr4, sizeof( sockaddr_in ) );
+			len = (int)sendto__( forwardEntry->socket, data, receivedDataLen, 0, ( const sockaddr* ) & forwardTarget.address.addr4, sizeof( sockaddr_in ) );
 		}
 		while ( len == 0 );
 #endif

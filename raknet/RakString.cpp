@@ -662,7 +662,7 @@ void RakString::StartAfterLastCharacter(char c)
 			++i;
 			if (i < len)
 			{
-				*this = SubStr(i,GetLength()-i);
+				*this = SubStr(i,(int)GetLength()-i);
 			}
 			return;
 		}
@@ -693,7 +693,7 @@ void RakString::StartAfterFirstCharacter(char c)
 			++i;
 			if (i < len)
 			{
-				*this = SubStr(i,GetLength()-i);
+				*this = SubStr(i,(int)GetLength()-i);
 			}
 			return;
 		}

@@ -78,7 +78,7 @@ void ChaChaOutput::GenerateKeyStream(u32 *out_words)
 	// Update block counter
 	if (!++state[12]) state[13]++;
 
-	register u32 x[16];
+	u32 x[16];
 
 	// Copy state into work registers
 	for (int ii = 0; ii < 16; ++ii)

@@ -41,7 +41,7 @@ RNS2SendResult RNS2_Windows_Linux_360::Send_Windows_Linux_360NoVDP( RNS2Socket r
 
 		if (sendParameters->systemAddress.address.addr4.sin_family==AF_INET)
 		{
-			len = sendto__( rns2Socket, sendParameters->data, sendParameters->length, 0, ( const sockaddr* ) & sendParameters->systemAddress.address.addr4, sizeof( sockaddr_in ) );
+			len = (int)sendto__( rns2Socket, sendParameters->data, sendParameters->length, 0, ( const sockaddr* ) & sendParameters->systemAddress.address.addr4, sizeof( sockaddr_in ) );
 		}
 		else
 		{

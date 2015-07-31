@@ -60,7 +60,7 @@ void *Thread::ThreadWrapper(void *this_object)
 
 	thread_object->_thread_running = false;
 
-	return (void*)(success ? 0 : 1);
+	return (void*)(success ? (void *)0 : (void *)1);
 }
 
 #endif

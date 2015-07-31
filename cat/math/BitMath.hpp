@@ -161,7 +161,7 @@ u32 BSR32(u32 x)
 #else
 
 	// Adapted from the Stanford Bit Twiddling Hacks collection
-    register u32 shift, r;
+    u32 shift, r;
 
     r = (x > 0xFFFF) << 4; x >>= r;
     shift = (x > 0xFF) << 3; x >>= shift; r |= shift;

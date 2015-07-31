@@ -139,7 +139,7 @@ namespace DataStructures
 			{
 				// Delete last item
 				out=node->data;
-				ClearIndex(hashIndex,_FILE_AND_LINE_);
+				ClearIndex((int)hashIndex,_FILE_AND_LINE_);
 				return true;
 			}
 			else

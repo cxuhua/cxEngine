@@ -1419,7 +1419,7 @@ int RemoteClient::Send(const char *data, unsigned int length)
 #ifdef __native_client__
 	return -1;
 #else
-	return send__(socket, data, length, 0);
+	return (int)send__(socket, data, length, 0);
 #endif
 }
 int RemoteClient::Recv(char *data, const int dataSize)
@@ -1427,7 +1427,7 @@ int RemoteClient::Recv(char *data, const int dataSize)
 #ifdef __native_client__
 	return -1;
 #else
-	return recv__(socket, data, dataSize, 0);
+	return (int)recv__(socket, data, dataSize, 0);
 #endif
 }
 #endif

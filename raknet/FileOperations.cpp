@@ -165,7 +165,7 @@ unsigned int GetFileLength(const char *path)
 	FILE *fp = fopen(path, "rb");
 	if (fp==0) return 0;
 	fseek(fp, 0, SEEK_END);
-	unsigned int fileLength = ftell(fp);
+	unsigned int fileLength = (int)ftell(fp);
 	fclose(fp);
 	return fileLength;
 

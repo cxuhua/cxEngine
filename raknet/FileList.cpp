@@ -124,7 +124,7 @@ void FileList::AddFile(const char *filepath, const char *filename, FileListNodeC
 	if (fp==0)
 		return;
 	fseek(fp, 0, SEEK_END);
-	int length = ftell(fp);
+	int length = (int)ftell(fp);
 	fseek(fp, 0, SEEK_SET);
 
 	if (length > (int) ((unsigned int)-1 / 8))
@@ -300,7 +300,7 @@ void FileList::AddFilesFromDirectory(const char *applicationDirectory, const cha
 				fileData=0;
 
 				for (unsigned int flpcIndex=0; flpcIndex < fileListProgressCallbacks.Size(); flpcIndex++)
-					fileListProgressCallbacks[flpcIndex]->OnFile(this, dirSoFar, fileInfo.name, fileInfo.size);
+					fileListProgressCallbacks[flpcIndex]->OnFile(this, dirSoFar, fileInfo.name, (int)fileInfo.size);
 
 				if (writeData && writeHash)
 				{
@@ -312,7 +312,7 @@ void FileList::AddFilesFromDirectory(const char *applicationDirectory, const cha
 						fread(fileData+HASH_LENGTH, fileInfo.size, 1, fp);
 						fclose(fp);
 
-						unsigned int hash = SuperFastHash(fileData+HASH_LENGTH, fileInfo.size);
+						unsigned int hash = SuperFastHash(fileData+HASH_LENGTH, (int)fileInfo.size);
 						if (RakNet::BitStream::DoEndianSwap())
 							RakNet::BitStream::ReverseBytesInPlace((unsigned char*) &hash, sizeof(hash));
 						memcpy(fileData, &hash, HASH_LENGTH);
@@ -322,7 +322,7 @@ void FileList::AddFilesFromDirectory(const char *applicationDirectory, const cha
 						//					sha1.Final();
 						//					memcpy(fileData, sha1.GetHash(), HASH_LENGTH);
 						// File data and hash
-						AddFile((const char*)fullPath+rootLen, fullPath, fileData, fileInfo.size+HASH_LENGTH, fileInfo.size, context);
+						AddFile((const char*)fullPath+rootLen, fullPath, fileData, (int)fileInfo.size+HASH_LENGTH, (int)fileInfo.size, context);
 					}					
 				}
 				else if (writeHash)
@@ -337,7 +337,7 @@ void FileList::AddFilesFromDirectory(const char *applicationDirectory, const cha
 
 					// Hash only
 				//	AddFile((const char*)fullPath+rootLen, (const char*)sha1.GetHash(), HASH_LENGTH, fileInfo.size, context);
-					AddFile((const char*)fullPath+rootLen, fullPath, (const char*)&hash, HASH_LENGTH, fileInfo.size, context);
+					AddFile((const char*)fullPath+rootLen, fullPath, (const char*)&hash, HASH_LENGTH, (int)fileInfo.size, context);
 				}
 				else if (writeData)
 				{
@@ -348,12 +348,12 @@ void FileList::AddFilesFromDirectory(const char *applicationDirectory, const cha
 					fclose(fp);
 
 					// File data only
-					AddFile(fullPath+rootLen, fullPath, fileData, fileInfo.size, fileInfo.size, context);
+					AddFile(fullPath+rootLen, fullPath, fileData, (int)fileInfo.size, (int)fileInfo.size, context);
 				}
 				else
 				{
 					// Just the filename
-					AddFile(fullPath+rootLen, fullPath, 0, 0, fileInfo.size, context);
+					AddFile(fullPath+rootLen, fullPath, 0, 0, (int)fileInfo.size, context);
 				}
 
 				if (fileData)
@@ -563,7 +563,7 @@ void FileList::ListMissingOrChangedFiles(const char *applicationDirectory, FileL
 		else
 		{
 			fseek(fp, 0, SEEK_END);
-			fileLength = ftell(fp);
+			fileLength = (unsigned)ftell(fp);
 			fseek(fp, 0, SEEK_SET);
 
 			if (fileLength != fileList[i].fileLengthBytes && alwaysWriteHash==false)
@@ -620,7 +620,7 @@ void FileList::PopulateDataFromDisk(const char *applicationDirectory, bool write
 			if (writeFileHash || writeFileData)
 			{
 				fseek(fp, 0, SEEK_END);
-				fileList[i].fileLengthBytes = ftell(fp);
+				fileList[i].fileLengthBytes = (int)ftell(fp);
 				fseek(fp, 0, SEEK_SET);
 				if (writeFileHash)
 				{

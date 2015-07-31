@@ -31,7 +31,6 @@
 // #define RMO_NEW_UNDEF_ALLOCATING_QUEUE
 // #endif
 
-#include <uuid/uuid.h>
 #include <time.h>
 #include <ctype.h> // toupper
 #include <string.h>
@@ -4486,15 +4485,9 @@ uint64_t RakPeerInterface::Get64BitUniqueRandomNumber(void)
 	return g;
 
 #else
-    uuid_t uuid;
-    uuid_generate(uuid);
-    uint64_t g1,g2;
-    memcpy(&g1, uuid, sizeof(uint64_t));
-    memcpy(&g2, uuid + sizeof(uint64_t), sizeof(uint64_t));
-    return g1|g2;
-//	struct timeval tv;
-//	gettimeofday(&tv, NULL);
-//	uint64_t t = tv.tv_usec + tv.tv_sec * 1000000;
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv.tv_usec + tv.tv_sec * 1000000;
 #endif
 }
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -46,4 +46,20 @@ int32_t cxAtomicSubInt32(int32_t *p, int32_t x)
 {
     return __sync_fetch_and_sub(p,x);
 }
+#elif CX_TARGET_PLATFORM == CX_PLATFORM_LINUX
+int32_t cxAtomicAddInt32(int32_t *p, int32_t x)
+{
+    uint32_t t = x;
+    asm volatile("lock; xaddl %0, %1;":"+r" (t),"=m"(*p):"m"(*p));
+    return (t + x);
+}
+int32_t cxAtomicSubInt32(int32_t *p, int32_t x)
+{
+    uint32_t t;
+    x = (uint32_t)(-(int32_t)x);
+    t = x;
+    asm volatile("lock; xaddl %0, %1;":"+r"(t),"=m"(*p):"m"(*p));
+    return (t + x);
+}
+
 #endif

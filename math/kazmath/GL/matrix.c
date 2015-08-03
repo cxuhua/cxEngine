@@ -43,83 +43,18 @@ typedef struct km_mat4_stack_context {
     struct km_mat4_stack_context_list *entry;
 } km_mat4_stack_context;
 
-typedef struct km_mat4_stack_context_list {
-    km_mat4_stack_context context;
-    struct km_mat4_stack_context_list *prev;
-    struct km_mat4_stack_context_list *next;
-} km_mat4_stack_context_list;
-
 static km_mat4_stack_context *current_context = NULL;
-static km_mat4_stack_context_list *contexts = NULL;
 
-void lazyInitialize()
+void kmGLSetCurrentContext()
 {
-}
-
-km_mat4_stack_context *lookUpContext(void *contextRef)
-{
-    lazyInitialize();
-    
-    if (contexts) {
-        km_mat4_stack_context_list *entry = contexts;
-        do {
-            if (entry->context.contextRef == contextRef) {
-                return &entry->context;
-            }
-        } while ((entry = entry->next));
+    if (current_context == NULL) {
+        current_context = malloc(sizeof(km_mat4_stack_context));
+        memset(current_context, 0, sizeof(km_mat4_stack_context));
     }
-    
-    return NULL;
-}
-
-km_mat4_stack_context *registerContext(void *contextRef)
-{
-    lazyInitialize();
-    
-    km_mat4_stack_context *existingContext = lookUpContext(contextRef);
-    if (!existingContext) {
-        km_mat4_stack_context_list *entry = contexts;
-        km_mat4_stack_context_list *last = NULL;
-        if (entry) {
-            do {
-                last = entry;
-            } while((entry = entry->next));
-        }
-        km_mat4_stack_context_list *newEntry = (km_mat4_stack_context_list *)malloc(sizeof(km_mat4_stack_context_list));
-        memset(newEntry, 0, sizeof(km_mat4_stack_context_list));
-        newEntry->context.contextRef = contextRef;
-        newEntry->context.entry = newEntry;
-        newEntry->prev = last;
-        if (last) {
-            last->next = newEntry;
-        }
-        if (!contexts) {
-            contexts = newEntry;
-        }
-        return &newEntry->context;
-    }
-    
-    return existingContext;
-}
-
-void kmGLSetCurrentContext(void *contextRef)
-{
-    if(current_context == NULL){
-        current_context = registerContext(contextRef);
-    }
-}
-
-void *kmGLGetCurrentContext()
-{
-    return current_context->contextRef;
 }
 
 void kmGLClearContext(km_mat4_stack_context *context)
 {
-    /* Unlink current context from linked list*/
-    if (context->entry->prev)
-        context->entry->prev->next = context->entry->next;
-	
     /*Clear the matrix stacks*/
 	km_mat4_stack_release(&context->modelview_matrix_stack);
 	km_mat4_stack_release(&context->projection_matrix_stack);
@@ -133,6 +68,7 @@ void kmGLClearContext(km_mat4_stack_context *context)
     
     /* Free the list entry, including its stacks*/
     free(context->entry);
+    context->entry = NULL;
 }
 
 void kmGLClearCurrentContext()
@@ -143,13 +79,6 @@ void kmGLClearCurrentContext()
     }
 }
 
-void kmGLClearAllContexts()
-{
-    km_mat4_stack_context_list *entry = contexts;
-    do {
-        kmGLClearContext(&entry->context);
-    } while ((entry = entry->next));
-}
 
 /* End additions by Tobias Lensing for icedcoffee-framework.org
  * --- */

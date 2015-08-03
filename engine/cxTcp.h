@@ -51,6 +51,7 @@ public:
     cxBool Connect(cchars host,cxInt port);
     void Close(cxInt err);
     cxBool Write(cxStr *data);
+    cxBool IsConnected();
 public:
     cxEvent<cxTcp, cchars, cxInt> onData;
     cxEvent<cxTcp, cchars> onIpAddr;

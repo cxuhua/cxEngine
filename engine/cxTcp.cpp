@@ -27,6 +27,7 @@ cxTcp::cxTcp()
     hints.ai_flags = 0;
     buffer = (char *)malloc(4096);
     bufsiz = 4096;
+    Forever();
 }
 
 cxTcp::~cxTcp()
@@ -174,6 +175,11 @@ void cxTcp::resolved_cb(uv_getaddrinfo_t *resolver, int status, struct addrinfo 
     uv_freeaddrinfo(res);
 }
 
+cxBool cxTcp::IsConnected()
+{
+    return connected;
+}
+
 cxBool cxTcp::Connect(cchars host,cxInt port)
 {
     resolver.data = this;
@@ -185,7 +191,6 @@ cxBool cxTcp::Connect(cchars host,cxInt port)
     }
     return ret == 0;
 }
-
 
 CX_CPP_END
 

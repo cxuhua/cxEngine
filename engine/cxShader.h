@@ -75,7 +75,7 @@ public:
     
     void Free();
     cxShader *Init(cchars vsf,cchars fsf);
-    virtual void Using() const;
+    virtual void Using(cxView *pview) const;
     
     cxShader *Vertex(cchars file);
     cxShader *Fragment(cchars file);
@@ -89,7 +89,7 @@ protected:
     explicit cxColorShader();
     virtual ~cxColorShader();
     virtual cxBool InitAttrib();
-    void Using() const;
+    void Using(cxView *pview) const;
 };
 //
 class cxEffectShader : public cxShader
@@ -101,7 +101,7 @@ private:
 protected:
     explicit cxEffectShader();
     virtual ~cxEffectShader();
-    void Using() const;
+    void Using(cxView *pview) const;
     cxBool InitUniform();
 };
 

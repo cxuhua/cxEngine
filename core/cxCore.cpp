@@ -120,6 +120,7 @@ cxCore::cxCore()
 
 cxCore::~cxCore()
 {
+    Clear();
     caches->Release();
     cxObject *obj = static_cast<cxObject *>(uv_key_get(&autoKey));
     cxObject::release(&obj);

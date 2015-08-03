@@ -32,6 +32,7 @@ CX_CPP_BEGIN
 
 typedef uint32_t glUint;
 
+class cxView;
 class cxShader;
 struct cxBox4F;
 struct cxRect4F;
@@ -123,6 +124,7 @@ struct cxRenderState
     BlendFunc   blend;
     cxShader    *shader;
     cxTexture   *texture;
+    cxView      *view;
     
     cxRenderState();
     
@@ -130,6 +132,7 @@ struct cxRenderState
     void Set(cxShader *s);
     void Set(cxTexture *t);
     void Set(cxStateType f);
+    void Set(cxView *v);
     
     cxUInt64 ID() const;
     

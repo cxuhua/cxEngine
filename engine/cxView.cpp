@@ -767,7 +767,8 @@ cxInt cxView::sortFunc(const void *lp,const void *rp)
 
 cxRenderState &cxView::State()
 {
-    state.shader = Shader();
+    state.Set(Shader());
+    state.Set(this);
     return state;
 }
 

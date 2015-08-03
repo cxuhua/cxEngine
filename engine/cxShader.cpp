@@ -46,7 +46,7 @@ void cxShader::SetModelView(const cxMatrixF &value) const
     SetUniform(ump, value);
 }
 
-void cxShader::Using() const
+void cxShader::Using(cxView *pview) const
 {
     cxOpenGL *gl = cxOpenGL::Instance();
     gl->UseProgram(program);
@@ -97,7 +97,7 @@ cxColorShader::~cxColorShader()
     
 }
 
-void cxColorShader::Using() const
+void cxColorShader::Using(cxView *pview) const
 {
     cxOpenGL *gl = cxOpenGL::Instance();
     gl->UseProgram(program);
@@ -130,9 +130,9 @@ cxBool cxEffectShader::InitUniform()
     return true;
 }
 
-void cxEffectShader::Using() const
+void cxEffectShader::Using(cxView *pview) const
 {
-    cxShader::Using();
+    cxShader::Using(pview);
     cxEngine *engine = cxEngine::Instance();
     SetUniform(time, engine->Time());
 }

@@ -194,7 +194,7 @@ cxOpenGL *cxOpenGL::Instance()
 cxOpenGL::cxOpenGL()
 {
     shaders = cxHash::Alloc();
-    kmGLSetCurrentContext(this);
+    kmGLSetCurrentContext();
     for(cxInt i=0;i<MAX_TEXTURES;i++){
         currTexId[i] = -1;
     }
@@ -533,6 +533,11 @@ void cxRenderState::Set(cxStateType f)
     type = f;
 }
 
+void cxRenderState::Set(cxView *v)
+{
+    view = v;
+}
+
 void cxRenderState::Set(cxShader *s)
 {
     shader = s;
@@ -612,7 +617,7 @@ void TDrawable::UseBlend(BlendFunc &b)
 
 void TDrawable::DrawBoxShape(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)
 {
-    cxObject::gcGet<cxShader>(ColorShader)->Using();
+    cxObject::gcGet<cxShader>(ColorShader)->Using(nullptr);
     
     glEnableVertexAttribArray(cxVertexAttribPosition);
     glVertexAttribPointer(cxVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(cxPoint3F), &vs);
@@ -625,7 +630,7 @@ void TDrawable::DrawBoxShape(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)
 
 void TDrawable::DrawBoxLine(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)
 {
-    cxObject::gcGet<cxShader>(ColorShader)->Using();
+    cxObject::gcGet<cxShader>(ColorShader)->Using(nullptr);
     
     cxBoxPoint3F bp = vs.ToLoop();
     glEnableVertexAttribArray(cxVertexAttribPosition);

@@ -19,6 +19,7 @@ public:
     CX_DECLARE(cxIOSUtil);
 public:
     const cxFloat ScaleFactor() const;
+    const cxStr *UUID() const;
     
     const cxStr *GetLang() const;
     const cxStr *GetCountry() const;

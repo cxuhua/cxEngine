@@ -172,6 +172,12 @@ cxBool cxUtil::FileExists(const cxStr *path,cxInt *length) const
     return rv;
 }
 
+const cxStr *cxUtil::UUID() const
+{
+    CX_ASSERT(false, "uuid error");
+    return nullptr;
+}
+
 const cxStr *cxUtil::AssetsPath(cchars file)
 {
     return cxStr::UTF8(file);

@@ -67,7 +67,7 @@ public:
     const cxStr *LzmaCompress() const;
     const cxStr *LzmaUncompress() const;
     
-    const cxStr *MD5();
+    const cxStr *MD5() const;
     
     cxBool WriteToFile(cchars file,cxBool replace);
     static const cxStr *ReadFromFile(cchars file);

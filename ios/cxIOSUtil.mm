@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
+#include <uuid/uuid.h>
 #import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h>
 #include <engine/cxEngine.h>
@@ -48,6 +49,13 @@ const cxStr *cxIOSUtil::DocumentPath(cchars file)
         return rv->Init([path UTF8String]);
     }
     return rv;
+}
+
+const cxStr *cxIOSUtil::UUID() const
+{
+    uuid_t uuid;
+    uuid_generate(uuid);
+    return cxStr::Create()->Init(uuid, sizeof(uuid_t));
 }
 
 const cxFloat cxIOSUtil::ScaleFactor() const

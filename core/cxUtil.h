@@ -63,6 +63,8 @@ public:
     virtual void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
     //内容缩放
     virtual const cxFloat ScaleFactor() const;
+    //UUID
+    virtual const cxStr *UUID() const;
 };
 
 CX_CPP_END

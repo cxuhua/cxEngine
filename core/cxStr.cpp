@@ -347,7 +347,7 @@ cxStr *cxStr::Clear()
 
 cxStr *cxStr::Append(const cxStr *str)
 {
-    Append(str);
+    s = s.append(str->Data(), str->Size());
     return this;
 }
 
@@ -474,7 +474,19 @@ const cxStr *cxStr::ReadBytes(cxInt bytes)
 
 void cxStr::WriteBytes(const cxStr *bytes)
 {
-    Append(bytes);
+    s = s.append(bytes->Data(), bytes->Size());
+}
+
+cxByte cxStr::ReadByte()
+{
+    cxByte v = *(cxByte *)Buffer();
+    Erase(0, sizeof(cxByte));
+    return v;
+}
+
+void cxStr::WriteByte(cxByte v)
+{
+    Append((cchars)&v,sizeof(cxByte));
 }
 
 const cxStr *cxStr::MD5()

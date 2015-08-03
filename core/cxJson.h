@@ -23,12 +23,6 @@ protected:
     explicit cxJson();
     virtual ~cxJson();
 public:
-    class Key:public std::string
-    {
-    public:
-        Key(){clear();}
-        Key(cchars key){append(key);};
-    };
     struct Iter
     {
         cxInt number;
@@ -51,7 +45,6 @@ public:
     const Iter Begin() const;
     const Iter &End() const;
 private:
-    Key key;
     static cxInt jsonDumpFunc(cchars buffer, size_t size, void *data);
     json_t *json;
 public:
@@ -120,24 +113,7 @@ public:
     cxBool IsFloat() const;
     cxBool IsInt() const;
     cxBool IsNull() const;
-
-    cxJson &operator<<(const Key &akey);
-    template<class T>
-    cxJson &operator<<(T v);
 };
-
-template<class T>
-cxJson &cxJson::operator<<(T v)
-{
-    if(IsObject()){
-        CX_ASSERT(key.size() > 0, "key not set");
-        Set(key.data(), v);
-        key.clear();
-    }else if(IsArray()){
-        Append(v);
-    }
-    return *this;
-}
 
 CX_CPP_END
 

@@ -58,7 +58,7 @@ void cxNotice::Post(cxLong key,cxAny src)
     }
     Notices &vs = it->second;
     for(Notices::iterator vt=vs.begin();vt!=vs.end();vt++){
-        (*vt).func((*vt).dst,src);
+        (*vt).func(src);
     }
 }
 

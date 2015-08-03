@@ -624,10 +624,5 @@ cxJson *cxJson::From(cchars str)
     return this;
 }
 
-cxJson &cxJson::operator<<(const Key &akey)
-{
-    key = akey;
-    return *this;
-}
 
 CX_CPP_END

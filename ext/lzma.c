@@ -13,16 +13,9 @@
 typedef struct{
     int32_t dataLen;                //not include head  4bytes
     uint8_t props[LZMA_PROPS_SIZE]; //props   5 bytes
-    int8_t flags[7];                  //  7bytes
 }LzmaDataHead;
 
 #pragma pack()
-
-static char lzmaFlags[7]={0};
-void cxLzmaSetFlags(char *flags)
-{
-    memcpy(lzmaFlags, flags, 7);
-}
 
 int cxLzmaGetCompressLen(int srcLen)
 {
@@ -46,7 +39,6 @@ char *cxLzmaCompress(const char *psrc,int asrcLen,char *pdst,int *pdstLen)
     LzmaDataHead *head = (LzmaDataHead *)pdst;
     head->dataLen = (int32_t)srcLen;
     memcpy(head->props, outProps, outPropsLen);
-    memcpy(head->flags, lzmaFlags, 7);
     *pdstLen = (int)(dstLen + sizeof(LzmaDataHead));
     return (char *)pdst;
 }
@@ -63,9 +55,6 @@ char *cxLzmaUncompress(const char *psrc,int asrcLen,char *pdst,int *pdstLen)
     assert(psrc != NULL && asrcLen > 0 && pdstLen != NULL && pdst != NULL);
     const unsigned char *src = (const unsigned char *)psrc;
     LzmaDataHead *head = (LzmaDataHead *)src;
-    if(memcmp(head->flags, lzmaFlags, 7) != 0){
-        return NULL;
-    }
     size_t srcLen = asrcLen - sizeof(LzmaDataHead);
     assert(*pdstLen == head->dataLen);
     size_t dstLen = (size_t)head->dataLen;

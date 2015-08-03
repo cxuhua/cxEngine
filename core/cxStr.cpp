@@ -216,7 +216,7 @@ const cxStr *cxStr::AESDecode(const cxStr *key) const
 const cxStr *cxStr::TeaEncode(const cxStr *key) const
 {
     xxtea_long length = 0;
-    cxByte *rv = xxtea_encrypt((cxByte *)Data(), (xxtea_long)Size(), (cxByte *)key->Data(),(xxtea_long) key->Size(), &length);
+    cxByte *rv = xxtea_encrypt((cxByte *)Data(),(xxtea_long)Size(),(cxByte *)key->Data(),(xxtea_long)key->Size(),&length);
     if(rv == nullptr){
         return nullptr;
     }
@@ -228,7 +228,7 @@ const cxStr *cxStr::TeaEncode(const cxStr *key) const
 const cxStr *cxStr::TeaDecode(const cxStr *key) const
 {
     xxtea_long length = 0;
-    cxByte *rv = xxtea_decrypt((cxByte *)Data(), (xxtea_long)Size(), (cxByte *)key->Data(),(xxtea_long) key->Size(), &length);
+    cxByte *rv = xxtea_decrypt((cxByte *)Data(),(xxtea_long)Size(),(cxByte *)key->Data(),(xxtea_long)key->Size(),&length);
     if(rv == nullptr){
         return nullptr;
     }
@@ -245,10 +245,7 @@ const cxStr *cxStr::LzmaCompress() const
     if(cxLzmaCompress(Data(), Size(), dst, &desLen) == nullptr){
         return nullptr;
     }
-    if(desLen < Size()){
-        rv->KeepBytes(desLen);
-    }
-    return rv;
+    return rv->KeepBytes(desLen);
 }
 
 const cxStr *cxStr::LzmaUncompress() const
@@ -259,10 +256,7 @@ const cxStr *cxStr::LzmaUncompress() const
     if(cxLzmaUncompress(Data(), Size(), dst, &desLen) == nullptr){
         return nullptr;
     }
-    if(desLen > 0){
-        rv->KeepBytes(desLen);
-    }
-    return rv;
+    return rv->KeepBytes(desLen);
 }
 
 void cxStr::Print() const
@@ -454,6 +448,33 @@ cxBool cxStr::HasSuffix(cchars str) const
         return false;
     }
     return memcmp(Data() + Size() - len, str, len) == 0;
+}
+
+cxInt32 cxStr::ReadInt32()
+{
+    CX_ASSERT(Size() >= sizeof(cxInt32), "bytes not enough");
+    cxInt32 v = *(cxInt32 *)Buffer();
+    Erase(0, sizeof(cxInt32));
+    return v;
+}
+
+void cxStr::WriteInt32(cxInt32 v)
+{
+    Append((cchars)&v, sizeof(cxInt32));
+}
+
+const cxStr *cxStr::ReadBytes(cxInt bytes)
+{
+    CX_ASSERT(Size() >= bytes, "bytes not enough");
+    cxStr *v = cxStr::Create();
+    v->Append(Data(), bytes);
+    Erase(0, bytes);
+    return v;
+}
+
+void cxStr::WriteBytes(const cxStr *bytes)
+{
+    Append(bytes);
 }
 
 const cxStr *cxStr::MD5()

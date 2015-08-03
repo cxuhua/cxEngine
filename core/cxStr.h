@@ -72,6 +72,12 @@ public:
     cxBool WriteToFile(cchars file,cxBool replace);
     static const cxStr *ReadFromFile(cchars file);
     
+    cxInt32 ReadInt32();
+    void WriteInt32(cxInt32 v);
+    
+    const cxStr *ReadBytes(cxInt bytes);
+    void WriteBytes(const cxStr *bytes);
+    
     cxStr *AppFmt(cchars fmt,va_list ap);
     cxStr *AppFmt(cchars fmt,...);
     cxStr *Append(cchars data);

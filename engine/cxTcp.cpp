@@ -133,7 +133,7 @@ cxBool cxTcp::Write(cxStr *data)
     data->Retain();
     wreq->data = data;
     uv_buf_t buf = uv_buf_init(data->Buffer(),data->Size());
-    cxInt ret = uv_write(wreq, (uv_stream_t *)&this->handle, &buf, 1, write_cb);
+    cxInt ret = uv_write(wreq, (uv_stream_t *)&handle, &buf, 1, write_cb);
     if(ret == 0){
         return true;
     }

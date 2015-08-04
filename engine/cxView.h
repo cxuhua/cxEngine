@@ -266,7 +266,6 @@ public:
     cxEvent<cxView> onFree;
 public:
     cxView *Sort();
-    
     cxBool IsEmpty() const;
     
     cxBool HasAction(cxActionId aid) const;

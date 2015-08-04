@@ -171,6 +171,15 @@ cxSprite *cxSprite::SetTexture(cchars key)
     return this;
 }
 
+cxSprite *cxSprite::UseTextureSize()
+{
+    if(coord == nullptr){
+        return this;
+    }
+    SetSize(coord->Size());
+    return this;
+}
+
 void cxSprite::OnRender(cxRender *render,const cxMatrixF &model)
 {
     if(Texture() == nullptr){

@@ -36,6 +36,8 @@ public:
     
     static cxSprite *Create(cchars fkey,...);
     
+    cxSprite *UseTextureSize();
+    
     cxBoxRender &BoxRender();
     
     cxSprite *SetTexKey(cchars fmt,...);

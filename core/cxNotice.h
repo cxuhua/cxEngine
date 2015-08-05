@@ -22,7 +22,7 @@ protected:
     explicit cxNotice();
     virtual ~cxNotice();
 private:
-    typedef std::function<void(cxAny src)> NoticeFunc;
+    typedef std::function<void(cxAny data)> NoticeFunc;
     struct Notice
     {
         cxObject *dst;

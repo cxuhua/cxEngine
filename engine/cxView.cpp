@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
+#include <core/cxNotice.h>
 #include "cxEngine.h"
 #include "cxOpenGL.h"
 #include "cxView.h"

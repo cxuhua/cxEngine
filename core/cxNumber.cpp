@@ -23,7 +23,14 @@ cxNumber::~cxNumber()
     
 }
 
-cxNumber *cxNumber::Init(int value)
+cxNumber *cxNumber::IntInc(cxInt value)
+{
+    CX_ASSERT(type == Int, "type error");
+    v.i32 += value;
+    return this;
+}
+
+cxNumber *cxNumber::Init(cxInt value)
 {
     v.i32 = value;
     type = Int;
@@ -35,7 +42,7 @@ cxNumber *cxNumber::Init(cxBool value)
     type = Bool;
     return this;
 }
-cxNumber *cxNumber::Init(int64_t value)
+cxNumber *cxNumber::Init(cxInt64 value)
 {
     v.i64 = value;
     type = Int64;
@@ -54,12 +61,12 @@ cxNumber *cxNumber::Init(double value)
     return this;
 }
 
-int cxNumber::GetType() const
+cxInt cxNumber::GetType() const
 {
     return type;
 }
 
-int cxNumber::ToInt() const
+cxInt cxNumber::ToInt() const
 {
     CX_ASSERT(type == Int, "type error");
     return v.i32;
@@ -69,7 +76,7 @@ cxBool cxNumber::ToBool() const
     CX_ASSERT(type == Bool, "type error");
     return v.bv;
 }
-int64_t cxNumber::ToInt64() const
+cxInt64 cxNumber::ToInt64() const
 {
     CX_ASSERT(type == Int64, "type error");
     return v.i64;

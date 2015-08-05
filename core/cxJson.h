@@ -49,6 +49,9 @@ private:
     json_t *json;
 public:
     
+    static cxJson *CreateObject();
+    static cxJson *CreateArray();
+    
     const cxStr *Dumps(cxInt flags=0) const;
     
     cxJson *Append(cxBool value);
@@ -75,12 +78,14 @@ public:
     
     cxBool Get(cchars key,cxBool value) const;
     cxInt Get(cchars key,cxInt value) const;
+    cxInt64 Get(cchars key,cxInt64 value) const;
     cxFloat Get(cchars key,cxFloat value) const;
     cchars Get(cchars key,cchars value) const;
     const cxStr *Get(cchars key) const;
     
     cxBool Get(cxInt idx,cxBool value) const;
     cxInt Get(cxInt idx,cxInt value) const;
+    cxInt64 Get(cxInt idx,cxInt64 value) const;
     cxFloat Get(cxInt idx,cxFloat value) const;
     cchars Get(cxInt idx,cchars value) const;
     const cxStr *Get(cxInt idx) const;
@@ -93,6 +98,7 @@ public:
     cxJson *ToObject() const;
     cxBool ToBool() const;
     cxInt ToInt() const;
+    cxInt64 ToInt64() const;
     cxFloat ToFloat() const;
     cchars ToString() const;
     const cxStr *ToStr() const;

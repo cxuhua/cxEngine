@@ -161,6 +161,15 @@ cxInt cxJson::Get(cchars key,cxInt value) const
     return j->ToInt();
 }
 
+cxInt64 cxJson::Get(cchars key,cxInt64 value) const
+{
+    const cxJson *j = At(key);
+    if(j == nullptr){
+        return value;
+    }
+    return j->ToInt64();
+}
+
 cxFloat cxJson::Get(cchars key,cxFloat value) const
 {
     const cxJson *j = At(key);
@@ -204,6 +213,15 @@ cxInt cxJson::Get(cxInt idx,cxInt value) const
         return value;
     }
     return j->ToInt();
+}
+
+cxInt64 cxJson::Get(cxInt idx,cxInt64 value) const
+{
+    const cxJson *j = At(idx);
+    if(j == nullptr){
+        return value;
+    }
+    return j->ToInt64();
 }
 
 cxFloat cxJson::Get(cxInt idx,cxFloat value) const
@@ -512,6 +530,16 @@ cxJson *cxJson::Object()
     return this;
 }
 
+cxJson *cxJson::CreateObject()
+{
+    return cxJson::Create()->Object();
+}
+
+cxJson *cxJson::CreateArray()
+{
+    return cxJson::Create()->Array();
+}
+
 cxJson *cxJson::ToAny() const
 {
     return cxJson::Create()->From(json);
@@ -544,6 +572,12 @@ cxInt cxJson::ToInt() const
 {
     CX_ASSERT(IsInt(), "json not cxInt");
     return (cxInt)json_integer_value(json);
+}
+
+cxInt64 cxJson::ToInt64() const
+{
+    CX_ASSERT(IsInt(), "json not cxInt");
+    return (cxInt64)json_integer_value(json);
 }
 
 cxFloat cxJson::ToFloat() const

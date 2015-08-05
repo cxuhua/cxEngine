@@ -23,10 +23,10 @@ protected:
 private:
     union{
         cxBool bv;
-        int i32;
-        int64_t i64;
-        float fv;
-        double dv;
+        cxInt i32;
+        cxInt64 i64;
+        cxFloat fv;
+        cxDouble dv;
     }v;
     unsigned char type;
 public:
@@ -38,7 +38,7 @@ public:
         Float,
         Double
     };
-    int GetType() const;
+    cxInt GetType() const;
     //
     template<typename T>
     static cxNumber *Create(T value)
@@ -46,15 +46,17 @@ public:
         return cxNumber::Create()->Init(value);
     }
     //
-    cxNumber *Init(int value);
+    cxNumber *IntInc(cxInt value);
+    //
+    cxNumber *Init(cxInt value);
     cxNumber *Init(cxBool value);
-    cxNumber *Init(int64_t value);
+    cxNumber *Init(cxInt64 value);
     cxNumber *Init(float value);
     cxNumber *Init(double value);
     //
-    int ToInt() const;
+    cxInt ToInt() const;
     cxBool ToBool() const;
-    int64_t ToInt64() const;
+    cxInt64 ToInt64() const;
     float ToFloat() const;
     double ToDouble() const;
 };

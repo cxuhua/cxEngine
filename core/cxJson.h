@@ -49,6 +49,8 @@ private:
     json_t *json;
 public:
     
+    static cxBool IsOK(const cxJson *json);
+    
     static cxJson *CreateObject();
     static cxJson *CreateArray();
     

@@ -43,23 +43,17 @@ public:
 private:
     cxInt number;
 public:
-
     void Append(cxInt n);
     void Append(cxBoxRenderArray &v);
     void Append(const cxBoxRender &v);
-    
     void Remove(cxInt idx);
     void Remove(cxInt idx,cxInt n);
-    
     cxInt Inc(cxInt inc);
     cxBoxRender &Inc();
     void Clear();
-    
     void SetAlpha(cxInt idx,cxFloat alpha);
     void SetAlpha(cxInt idx,cxInt n,cxFloat alpha);
-    
     void SetColor(const cxColor4F &v);
-    
     const cxBoxRender *Buffer() const;
     cxBoxRender &At(cxInt idx);
     const cxBoxRender &At(cxInt idx) const;

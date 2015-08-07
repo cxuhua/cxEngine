@@ -132,6 +132,17 @@ cxJson::~cxJson()
     json_decref(json);
 }
 
+cxBool cxJson::IsOK(const cxJson *json)
+{
+    if(json == nullptr){
+        return false;
+    }
+    if(json->IsNull()){
+        return false;
+    }
+    return true;
+}
+
 cxInt cxJson::Size() const
 {
     if(IsObject()){

@@ -13,6 +13,12 @@
 
 CX_CPP_BEGIN
 
+cxPoint2I::cxPoint2I(cxInt v)
+{
+    x = v;
+    y = v;
+}
+
 cxPoint2I::cxPoint2I()
 {
     x = 0;

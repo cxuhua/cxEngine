@@ -146,6 +146,17 @@ cxView *cxView::SetParent(cxView *v)
     return this;
 }
 
+cxView *cxView::At(cxInt idx)
+{
+    if(subviews->Size() > idx){
+        return subviews->At(idx)->To<cxView>();
+    }
+    if(viewapps->Size() > idx){
+        return viewapps->At(idx)->To<cxView>();
+    }
+    return nullptr;
+}
+
 cxArray *cxView::Subviews() const
 {
     return subviews;
@@ -649,7 +660,10 @@ cxBool cxView::OnDispatch(const cxTouchable *e)
 cxBool cxView::Dispatch(const cxTouchable *e)
 {
     if(!EnableTouch()){
-        return OnDispatch(e);
+        return false;
+    }
+    if(!EnableVisible()){
+        return false;
     }
     for(cxArray::RIter it=subviews->RBegin();it!=subviews->REnd();it++){
         cxView *view = (*it)->To<cxView>();

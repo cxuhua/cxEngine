@@ -21,6 +21,7 @@ struct cxPoint2I
     cxInt y;
     
     cxPoint2I();
+    cxPoint2I(cxInt v);
     cxPoint2I(const cxJson *json);
     cxPoint2I(const cxPoint2F &v);
     cxPoint2I(cxInt ax,cxInt ay);

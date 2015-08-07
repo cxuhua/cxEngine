@@ -154,7 +154,6 @@ cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &siz
     cxInt bufsiz = (int)(dim.width * dim.height * 4);
     cxStr *rv = cxStr::Create()->Init(bufsiz);
     chars buffer = rv->Buffer();
-    
     CGBitmapInfo bitMapInfo = kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault;
     CGColorSpaceRef colorSpace  = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(buffer,dim.width,dim.height,8,(int)(dim.width * 4),colorSpace,bitMapInfo);
@@ -163,13 +162,10 @@ cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &siz
     CGContextTranslateCTM(context, 0.0f, dim.height);
     CGContextScaleCTM(context, 1.0f, -1.0f);
     UIGraphicsPushContext(context);
-    
     drawString(frameRef, CGRectMake(0, 0, dim.width, dim.height), font, attr);
-    
     UIGraphicsPopContext();
     CGContextRelease(context);
     CFRelease(frameRef);
-    
     size.w = dim.width;
     size.h = dim.height;
     return rv;

@@ -54,12 +54,12 @@ const cxStr *cxLocalized::Text(cchars key)
     cxLocalized *instance = Instance();
     cxObject *tobj = instance->texts->Get(GetLang()->Data());
     if(tobj == nullptr){
-        return cxStr::UTF8(key);
+        return cxStr::Create()->Init(key);
     }
     cxHash *texts = tobj->To<cxHash>();
     cxObject *pobj = texts->Get(key);
     if(pobj == nullptr){
-        return cxStr::UTF8(key);
+        return cxStr::Create()->Init(key);
     }
     return pobj->To<cxStr>();
 }

@@ -70,18 +70,21 @@ void cxRender::DrawAllRenders(cxDraw *draw)
     if(draw == nullptr){
         return;
     }
+    prev = nullptr;
     draw->Using();
     vdc ++;
     if(draw->Type() == cxRenderState::BoxRender){
         vsc += renders.Size();
         DrawBoxRender(renders, indices);
         renders.Clear();
-    }else if(draw->Type() == cxRenderState::Triangles){
+        return;
+    }
+    if(draw->Type() == cxRenderState::Triangles){
         vsc += triangles.Size();
         DrawTriangles(triangles);
         triangles.Clear();
+        return;
     }
-    prev = nullptr;
 }
 
 void cxRender::Clip(cxStateType type,const cxBox4F &box)

@@ -250,6 +250,7 @@ public:
     cxView *EnableTouch(cxBool v);
     
     cxArray *Subviews() const;
+    cxView *At(cxInt idx);
 protected:
     virtual void OnRender(cxRender *render,const cxMatrixF &model);
     virtual void OnUpdate(cxFloat dt);

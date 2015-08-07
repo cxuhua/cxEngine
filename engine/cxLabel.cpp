@@ -58,10 +58,11 @@ void cxLabel::OnDirty()
     }
     if(IsDirtyMode(DirtyModeTexture)){
         cxTexture *ptex = cxTexture::Create()->FromTXT(txt, attr);
-        if(ptex->IsSuccess()){
-            SetTexture(ptex);
-            SetSize(ptex->Size());
+        if(!ptex->IsSuccess()){
+            return;
         }
+        SetTexture(ptex);
+        SetSize(ptex->Size());
     }
     cxSprite::OnDirty();
 }

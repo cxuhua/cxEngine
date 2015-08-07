@@ -158,6 +158,7 @@ protected:
     void DrawBoxRender(const cxBoxRender &render,const cxUInt16 *indices);
     void DrawBoxLine(const cxBoxPoint3F &vs,const cxBoxColor4F &cs);
     void DrawBoxShape(const cxBoxPoint3F &vs,const cxBoxColor4F &cs);
+    void DrawTriangles(const cxRenderFArray &renders);
 };
 
 class TDrawBuffer

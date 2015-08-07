@@ -18,6 +18,11 @@ cxFloat defaultTimingFunc(cxFloat time)
     return time;
 }
 
+void cxAction::Remove(cxAction *pav)
+{
+    pav->View()->Remove();
+}
+
 cxAction::cxAction()
 {
     repeat = 1;

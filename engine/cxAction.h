@@ -81,6 +81,7 @@ public:
     cxEvent<cxAction> onFree;
     cxEvent<cxAction,cxFloat> onStep;
 public:
+    static void Remove(cxAction *pav);
     static cxAction *Create(cxFloat time);
     cxAction *Forever();
     cxFloat Progress() const;

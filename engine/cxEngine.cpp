@@ -198,9 +198,7 @@ cxInt cxEngine::Iter() const
 
 void cxEngine::OnUpdate(cxFloat dt)
 {
-    #ifndef NDEBUG
-    Window()->Sort();
-    #endif
+    
 }
 
 const cxPoint2F &cxEngine::PlanScale() const
@@ -266,7 +264,6 @@ void cxEngine::Run()
             window->Update(dt);
         }
         gl->Clear();
-        
         render->Init();
         window->Render(render,gl->ModelView());
         render->Draw();

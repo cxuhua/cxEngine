@@ -212,11 +212,9 @@ void cxOpenGL::Set3DProject(const cxSize2F &winsiz)
     cxFloat zeye = winsiz.h/1.1566f;
     kmGLMatrixMode(KM_GL_PROJECTION);
     kmGLLoadIdentity();
-    
     kmMat4 project;
     kmMat4PerspectiveProjection(&project, 60.0f, winsiz.w/winsiz.h, 10.0f, zeye+winsiz.h/2.0f);
     kmGLMultMatrix(&project);
-    
     kmMat4 lookAt;
     kmVec3 eye;
     kmVec3 center;
@@ -225,10 +223,8 @@ void cxOpenGL::Set3DProject(const cxSize2F &winsiz)
     kmVec3Fill(&center, 0.0f, 0.0f, 0.0f);
     kmVec3Fill(&up, 0.0f, 1.0f, 0.0f);
     kmMat4Identity(&lookAt);
-    
     kmMat4LookAt(&lookAt, &eye, &center, &up);
     kmGLMultMatrix(&lookAt);
-    
     kmGLMatrixMode(KM_GL_MODELVIEW);
     kmGLLoadIdentity();
 }
@@ -440,10 +436,10 @@ void TDrawBuffer::InitDrawBuffer(const cxBoxRenderArray &renders,const cxUInt16 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }else{
-        glBindBuffer(GL_ARRAY_BUFFER, this->vboid[0]);
+        glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
         glBufferData(GL_ARRAY_BUFFER, sizeof(cxBoxRender) * capacity, renders.Buffer(), GL_DYNAMIC_DRAW);
         
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vboid[1]);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cxUInt16)*6*capacity, indices, GL_STATIC_DRAW);
         
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -479,7 +475,9 @@ void TDrawBuffer::DrawBoxRender(const cxBoxRenderArray &renders,const cxUInt16 *
         isinit = true;
     }
     cxInt num = renders.Size();
-    if(num == 0)return;
+    if(num == 0){
+        return;
+    }
     glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(cxBoxRender) * num, renders.Buffer(), GL_DYNAMIC_DRAW);
     if(gl->support_GL_OES_vertex_array_object){
@@ -508,10 +506,10 @@ cxUInt64 cxRenderState::ID() const
 {
     cxUInt64 idd = 0;
     cxUInt16 *ptr = (cxUInt16 *)&idd;
-    ptr[0] = shader->ID();
-    ptr[1] = texture->ID();
-    ptr[2] = blend.ID();
-    ptr[3] = type;
+    ptr[0] = (cxUInt16)shader->ID();
+    ptr[1] = (cxUInt16)texture->ID();
+    ptr[2] = (cxUInt16)blend.ID();
+    ptr[3] = (cxUInt16)type;
     return idd;
 }
 
@@ -681,6 +679,27 @@ void TDrawable::DrawBoxRender(const cxBoxRenderArray &renders,const cxUInt16 *in
     glVertexAttribPointer(cxVertexAttribTexcoord, 2, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), toff);
     
     glDrawElements(GL_TRIANGLES, 6 * num, GL_UNSIGNED_SHORT, indices);
+}
+
+void TDrawable::DrawTriangles(const cxRenderFArray &renders)
+{
+    cxInt num = renders.Size();
+    if(num == 0){
+        return;
+    }
+    cxULong start = (cxULong)renders.Buffer();
+    glEnableVertexAttribArray(cxVertexAttribPosition);
+    GLvoid *poff = (GLvoid *)(start + offsetof(cxRenderF, vertices));
+    glVertexAttribPointer(cxVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), poff);
+    
+    glEnableVertexAttribArray(cxVertexAttribColor);
+    GLvoid *coff = (GLvoid *)(start + offsetof(cxRenderF, colors));
+    glVertexAttribPointer(cxVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), coff);
+    
+    glEnableVertexAttribArray(cxVertexAttribTexcoord);
+    GLvoid *toff = (GLvoid *)(start + offsetof(cxRenderF, coords));
+    glVertexAttribPointer(cxVertexAttribTexcoord, 2, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), toff);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, num);
 }
 
 CX_CPP_END

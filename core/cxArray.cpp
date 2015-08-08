@@ -61,6 +61,14 @@ cxArray *cxArray::Append(cxObject *obj)
     return this;
 }
 
+cxArray *cxArray::Appends(cxArray *vs)
+{
+    for(cxArray::FIter it=vs->FBegin();it!=vs->FEnd();it++){
+        Append(*it);
+    }
+    return this;
+}
+
 cxObject **cxArray::Buffer()
 {
     return (cxObject **)mv.data();

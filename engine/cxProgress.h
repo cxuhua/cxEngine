@@ -30,12 +30,14 @@ public:
 protected:
     void OnDirty();
 private:
+    cxBox4F inner;
     DirType dir;
     cxView *bg;
     cxView *vv;
     cxRange2F range;
     cxFloat value;
 public:
+    void SetInner(const cxBox4F &v);
     cxProgress *SetDir(DirType v);
     cxProgress *SetValue(cxFloat v);
     cxProgress *SetRange(const cxRange2F &v);

@@ -162,6 +162,14 @@ cxArray *cxView::Subviews() const
     return subviews;
 }
 
+cxArray *cxView::Allviews() const
+{
+    cxArray *vs = cxArray::Create();
+    vs->Appends(subviews);
+    vs->Appends(viewapps);
+    return vs;
+}
+
 cxView *cxView::Parent() const
 {
     return parent;

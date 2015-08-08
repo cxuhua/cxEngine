@@ -20,6 +20,7 @@ cxProgress::cxProgress()
     value = 0;
     range = cxRange2F(0.0f, 1.0f);
     dir = LeftToRight;
+    inner = 0.0f;
 }
 
 cxProgress::~cxProgress()
@@ -43,23 +44,33 @@ void cxProgress::OnDirty()
     cxSize2F vvsiz = vv->Size();
     cxPoint2F vvpos = 0.0f;
     if(dir & LeftToRight){
-        vvsiz.w = p * vsiz.w;
-        vvpos.x -= (vsiz.w - vvsiz.w)/2.0f;
+        vvsiz.w = p * vsiz.w - (inner.r +inner.l);
+        if(vvsiz.w < 0)vvsiz.w = 0;
+        vvpos.x -= ((vsiz.w - vvsiz.w)/2.0f + inner.l);
     }
     if(dir & RightToLeft){
-        vvsiz.w = p * vsiz.w;
-        vvpos.x += (vsiz.w - vvsiz.w)/2.0f;
+        vvsiz.w = p * vsiz.w - (inner.r +inner.l);
+        if(vvsiz.w < 0)vvsiz.w = 0;
+        vvpos.x += ((vsiz.w - vvsiz.w)/2.0f - inner.r);
     }
     if(dir & TopToBottom){
-        vvsiz.h = p * vsiz.h;
-        vvpos.y += (vsiz.h - vvsiz.h)/2.0f;
+        vvsiz.h = p * vsiz.h - (inner.t +inner.b);
+        if(vvsiz.h < 0)vvsiz.h = 0;
+        vvpos.y += ((vsiz.h - vvsiz.h)/2.0f - inner.t);
     }
     if(dir & BottomToTop){
-        vvsiz.h = p * vsiz.h;
-        vvpos.y -= (vsiz.h - vvsiz.h)/2.0f;
+        vvsiz.h = p * vsiz.h - (inner.t +inner.b);
+        if(vvsiz.h < 0)vvsiz.h = 0;
+        vvpos.y -= ((vsiz.h - vvsiz.h)/2.0f + inner.b);
     }
     vv->SetPosition(vvpos);
+    vv->EnableVisible(!vvsiz.IsZero());
     vv->SetSize(vvsiz);
+}
+
+void cxProgress::SetInner(const cxBox4F &v)
+{
+    inner = v;
 }
 
 cxProgress *cxProgress::SetDir(DirType v)

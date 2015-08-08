@@ -23,6 +23,19 @@ cxList::~cxList()
     Clear();
 }
 
+cxObject *cxList::At(cxInt idx)
+{
+    CX_ASSERT(idx >= 0 && idx < Size(), "idx range out");
+    cxInt i = 0;
+    for(FIter it=FBegin();it!=FEnd();it++){
+        if(i == idx){
+            return *it;
+        }
+        i++;
+    }
+    return nullptr;
+}
+
 cxBool cxList::IsEmpty() const
 {
     return ml.empty();

@@ -151,8 +151,8 @@ cxView *cxView::At(cxInt idx)
     if(subviews->Size() > idx){
         return subviews->At(idx)->To<cxView>();
     }
-    if(viewapps->Size() > idx){
-        return viewapps->At(idx)->To<cxView>();
+    if(viewapps->Size() > idx - subviews->Size()){
+        return viewapps->At(idx - subviews->Size())->To<cxView>();
     }
     return nullptr;
 }

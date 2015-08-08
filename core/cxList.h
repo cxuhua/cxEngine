@@ -33,6 +33,7 @@ public:
 private:
     std::list<cxObject *> ml;
 public:
+    cxObject *At(cxInt idx);
     cxList *Clear();
     cxBool IsEmpty() const;
     cxInt Size() const;

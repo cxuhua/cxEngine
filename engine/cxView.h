@@ -149,6 +149,7 @@ private:
     cxBool isdir;
     Relative relative;
 public:
+    
     cxView *SetRelative(Relative v);
     
     const cxBool EnableDir() const;
@@ -183,8 +184,8 @@ public:
     const cxMatrixF &ModelView() const;
     
     cxShader *Shader();
-    cxView *SetShader(cchars key);
-    cxView *SetShader(cxShader *ps);
+    cxView *SetShader(cchars key,cxBool deep=false);
+    cxView *SetShader(cxShader *ps,cxBool deep=false);
     
     cxView *SetFrame(cxFloat x,cxFloat y,cxFloat w,cxFloat h);
    
@@ -267,6 +268,9 @@ public:
     cxEvent<cxView, cxView *> onRemove;
     cxEvent<cxView> onFree;
 public:
+    
+    cxView *AttachTo(cxView *pview);
+    
     cxView *Sort();
     cxBool IsEmpty() const;
     

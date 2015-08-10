@@ -69,6 +69,7 @@ void cxOpenGL::Init()
     CX_LOGGER("GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS: %d",maxVertexTextureUnits);
     //init shader
     cxShader::Create()->Init("shader/default.vsh","shader/default.fsh")->gcSet<cxShader>(DefaultShader);
+    cxShader::Create()->Init("shader/gray.vsh","shader/gray.fsh")->gcSet<cxShader>(GrayShader);
     cxColorShader::Create()->Init("shader/color.vsh","shader/color.fsh")->gcSet<cxShader>(ColorShader);
     //
     SetClearColor(cxColor4F::BLACK);
@@ -282,6 +283,11 @@ void cxShader::SetUniform(glUint loc, const cxMatrixF &value) const
 }
 
 void cxShader::SetUniform(glUint loc,cxFloat value) const
+{
+    glUniform1f(loc, value);
+}
+
+void cxShader::SetUniform(glUint loc,cxInt value) const
 {
     glUniform1f(loc, value);
 }

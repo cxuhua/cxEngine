@@ -25,6 +25,8 @@ void cxAction::Remove(cxAction *pav)
 
 cxAction::cxAction()
 {
+    delay = 0;
+    delayvar = 0;
     repeat = 1;
     actionId = 0;
     timing = defaultTimingFunc;
@@ -73,11 +75,23 @@ cxULong cxAction::ID() const
 
 void cxAction::Reset()
 {
+    delayvar = delay;
     isinit = false;
     isexit = false;
     ispause = false;
     OnReset();
     onReset.Fire(this);
+}
+
+cxFloat cxAction::Delay() const
+{
+    return delay;
+}
+
+void cxAction::SetDelay(cxFloat v)
+{
+    delay = v;
+    delayvar = v;
 }
 
 void cxAction::Exit(cxBool v)
@@ -164,7 +178,14 @@ cxBool cxAction::IsPause() const
 cxBool cxAction::Update(cxFloat dt)
 {
     CX_ASSERT(pview != nullptr, "action view not set");
+    
+    dt *= speed;
+    
     if(ispause){
+        return false;
+    }
+    if(delayvar > 0){
+        delayvar -= dt;
         return false;
     }
     if(!isinit){
@@ -179,7 +200,6 @@ cxBool cxAction::Update(cxFloat dt)
         goto exit;
     }
     if(!isexit) {
-        dt *= speed;
         elapsed += dt;
         deltaTimeFix(dt);
         

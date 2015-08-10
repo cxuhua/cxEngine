@@ -28,6 +28,7 @@ enum {
 #define CX_ATTR_TEXCOORD    "aTexcoord"
 #define CX_UNIFORM_UMP      "uMP"
 #define CX_UNIFORM_UMV      "uMV"
+#define CX_UNIFORM_UFLAGS   "uFlags"
 
 class cxStr;
 struct cxMatrixF;
@@ -62,6 +63,7 @@ public:
     void SetModelProject(const cxMatrixF &value) const;
     void SetModelView(const cxMatrixF &value) const;
     
+    void SetUniform(glUint loc,cxInt value) const;
     void SetUniform(glUint loc,cxFloat value) const;
     void SetUniform(glUint loc,const cxSize2F &value) const;
     void SetUniform(glUint loc,const cxPoint2F &value) const;

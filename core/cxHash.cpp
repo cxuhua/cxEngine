@@ -11,6 +11,11 @@
 
 CX_CPP_BEGIN
 
+cchars cxHashKey::Key() const
+{
+    return (cchars)data;
+}
+
 cxHashKey::cxHashKey()
 {
     length = 0;
@@ -20,24 +25,28 @@ cxHashKey::cxHashKey(const cxStr *key)
 {
     length = key->Size();
     memcpy(data, key->Data(), length);
+    data[length] = 0;
 }
 
 cxHashKey::cxHashKey(cxInt key)
 {
     length = sizeof(cxInt);
     memcpy(data, &key, length);
+    data[length] = 0;
 }
 
 cxHashKey::cxHashKey(cchars key)
 {
     length = (cxInt)strlen(key);
     memcpy(data, key, length);
+    data[length] = 0;
 }
 
 cxHashKey::cxHashKey(cxULong key)
 {
     length = sizeof(cxULong);
     memcpy(data, &key, length);
+    data[length] = 0;
 }
 
 cxHashKey cxHashKey::Format(cchars fmt,...)
@@ -47,6 +56,7 @@ cxHashKey cxHashKey::Format(cchars fmt,...)
     va_start(ap, fmt);
     key.length = vsnprintf((char *)key.data, CX_HASH_MAX_KEY, fmt, ap);
     va_end(ap);
+    key.data[key.length] = 0;
     return key;
 }
 

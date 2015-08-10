@@ -34,6 +34,8 @@ protected:
     virtual void OnReset();
     virtual void OnStep(cxFloat dt);
 private:
+    cxFloat delay;
+    cxFloat delayvar;
     cxULong actionId;
     cxTimingFunc timing;
     cxView *pview;
@@ -50,6 +52,9 @@ private:
     cxFloat deltaTimeFix(cxFloat dt);
     cxInt repeat;
 public:
+    cxFloat Delay() const;
+    void SetDelay(cxFloat v);
+    
     const cxInt Repeat() const;
     
     cxAction *SetID(cxULong aid);

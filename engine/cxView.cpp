@@ -126,17 +126,33 @@ cxShader *cxView::Shader()
     return shader;
 }
 
-cxView *cxView::SetShader(cchars key)
+cxView *cxView::SetShader(cchars key,cxBool deep)
 {
     cxShader *s = cxObject::gcGet<cxShader>(key);
-    SetShader(s);
+    SetShader(s,deep);
     return this;
 }
 
-cxView *cxView::SetShader(cxShader *ps)
+cxView *cxView::SetShader(cxShader *ps,cxBool deep)
 {
     CX_ASSERT(ps != nullptr, "shader null");
     cxObject::swap(&shader, ps);
+    cxArray::FIter it = subviews->FBegin();
+    while(deep && it != subviews->FEnd()){
+        (*it)->To<cxView>()->SetShader(ps);
+        it++;
+    }
+    it = viewapps->FBegin();
+    while(deep && it != viewapps->FEnd()){
+        (*it)->To<cxView>()->SetShader(ps);
+        it++;
+    }
+    return this;
+}
+
+cxView *cxView::AttachTo(cxView *pview)
+{
+    pview->Append(this);
     return this;
 }
 

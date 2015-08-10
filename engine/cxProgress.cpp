@@ -98,15 +98,21 @@ cxProgress *cxProgress::SetValue(cxFloat v)
     return this;
 }
 
+cxProgress *cxProgress::Init(cxView *pbg,cxView *pvv,cxFloat v)
+{
+    bg = pbg;
+    Append(pbg);
+    vv = pvv;
+    Append(pvv);
+    value = v;
+    return this;
+}
+
 cxProgress *cxProgress::Create(cxView *pbg,cxView *pvv,cxFloat v)
 {
     CX_ASSERT(pbg != nullptr && pvv != nullptr, "args error");
     cxProgress *rv = cxProgress::Create();
-    rv->bg = pbg;
-    rv->Append(pbg);
-    rv->vv = pvv;
-    rv->Append(pvv);
-    rv->value = v;
+    rv->Init(pbg, pvv, v);
     return rv;
 }
 

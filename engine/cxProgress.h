@@ -41,6 +41,9 @@ public:
     cxProgress *SetDir(DirType v);
     cxProgress *SetValue(cxFloat v);
     cxProgress *SetRange(const cxRange2F &v);
+    
+    cxProgress *Init(cxView *pbg,cxView *pvv,cxFloat v);
+    
     static cxProgress *Create(cxView *pbg,cxView *pvv,cxFloat v);
 };
 

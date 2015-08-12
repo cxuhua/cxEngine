@@ -27,13 +27,13 @@ cxLabel::~cxLabel()
     txt->Release();
 }
 
-cxLabel *cxLabel::Localized(cchars fmt,...)
+cxLabel *cxLabel::Localized(cchars key,...)
 {
+    const cxStr *fmt = cxLocalized::Text(key);
     cxLabel *rv = cxLabel::Create();
     va_list ap;
-    va_start(ap, fmt);
-    const cxStr *key = cxStr::Create()->AppFmt(fmt, ap);
-    rv->SetText(cxLocalized::Text(key->Data()));
+    va_start(ap, key);
+    rv->SetText(cxStr::Create()->AppFmt(fmt->ToString(), ap));
     va_end(ap);
     return rv;
 }

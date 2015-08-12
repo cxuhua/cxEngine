@@ -64,7 +64,7 @@ public:
     cxLabel *SetNumFormat(const cxTextNumFormat &fmt);
 public:
     static cxLabel *FromUTF8(cchars fmt,...);
-    static cxLabel *Localized(cchars fmt,...);
+    static cxLabel *Localized(cchars key,...);
 };
 
 CX_CPP_END

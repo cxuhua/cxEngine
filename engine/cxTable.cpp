@@ -16,8 +16,8 @@ CX_IMPLEMENT(cxTable);
 cxTable::cxTable()
 {
     rownum = INT_MAX;
-    padding = 1.0f;      //view outter
-    margin = 1.0f;       //table inner
+    padding = 0.0f;      //view outter
+    margin = 0.0f;       //table inner
 }
 
 cxTable::~cxTable()
@@ -81,7 +81,7 @@ cxTable *cxTable::UpdateViews()
         h = 0;
     }
     maxw += (padding.l + padding.r + w);
-    maxh += (padding.r + padding.b + h);
+    maxh += (padding.t + padding.b + h);
     SetSize(cxSize2F(maxw, maxh));
     
     cxInt i = 0;

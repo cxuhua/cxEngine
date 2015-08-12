@@ -15,6 +15,8 @@
 
 CX_CPP_BEGIN
 
+#define CX_BIND_EVENT(_f_)  std::bind(&_f_,this,std::placeholders::_1)
+
 template<class T,typename...A>
 class cxEvent
 {
@@ -34,6 +36,12 @@ public:
     cxEvent &operator=(const cxEvent &v)
     {
         es = v.es;
+        return *this;
+    }
+    cxEvent &operator=(const Event &v)
+    {
+        es.clear();
+        es.push_back(v);
         return *this;
     }
     void Clear()

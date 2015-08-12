@@ -9,6 +9,7 @@
 #ifndef cxEngineCore_cxFrames_h
 #define cxEngineCore_cxFrames_h
 
+#include <vector>
 #include "cxTexture.h"
 #include "cxTimeLine.h"
 #include "cxOpenGL.h"
@@ -23,6 +24,7 @@ protected:
     explicit cxFrames();
     virtual ~cxFrames();
 private:
+    std::vector<int> repeats;
     cxSize2F size;
     cxInt repeat;
     BlendFunc blend;
@@ -38,6 +40,7 @@ private:
     cxInt map[16];          //层映射
 private:
     cxTexCoord *layerEnd(cxInt group,cxInt count,cxInt layer);
+    void loadlayers(cxArray *layers,cxInt c,cxInt g);
 public:
     cxBool Init();
     
@@ -50,6 +53,9 @@ public:
     void SetMaps(const cxStr *str);
     void SetMaps(cchars maps);
     void SetMaps(cxInt count,...);    //first = mapnum end SetMaps(2,0,1)
+    
+    void SetRepeat(const cxStr *str);
+    void SetRepeat(cchars str);
     
     cxFrames *SetSize(const cxSize2F &size);
     const cxSize2F &Size() const;

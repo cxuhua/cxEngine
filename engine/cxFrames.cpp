@@ -62,7 +62,10 @@ void cxFrames::SetMaps(cxInt count,...)
 
 void cxFrames::SetMaps(const cxStr *str)
 {
-    SetMaps(str->Data());
+    if(!cxStr::IsOK(str)){
+        return;
+    }
+    SetMaps(str->ToString());
 }
 
 void cxFrames::SetMaps(cchars maps)
@@ -88,6 +91,37 @@ void cxFrames::SetMaps(cchars maps)
     }
 }
 
+void cxFrames::SetRepeat(const cxStr *str)
+{
+    if(!cxStr::IsOK(str)){
+        return;
+    }
+    SetRepeat(str->ToString());
+}
+
+void cxFrames::SetRepeat(cchars str)
+{
+    if(!cxStr::IsOK(str)){
+        return;
+    }
+    char buffers[16]={0};
+    cxInt len = (cxInt)strlen(str);
+    cxInt b = 0;
+    repeats.clear();
+    for(cxInt i=0;i<len;i++){
+        if(str[i] != ',')continue;
+        memcpy(buffers, str + b, i-b);
+        buffers[i - b] = 0;
+        repeats.push_back(atoi(buffers));
+        b = i+1;
+    }
+    if(len > b){
+        memcpy(buffers, str + b, len-b);
+        buffers[len - b] = 0;
+        repeats.push_back(atoi(buffers));
+    }
+}
+
 cxTexCoord *cxFrames::layerEnd(cxInt group,cxInt count,cxInt layer)
 {
     cxInt idx = group * Count() + count - 1;
@@ -96,28 +130,35 @@ cxTexCoord *cxFrames::layerEnd(cxInt group,cxInt count,cxInt layer)
     return layers->At(layer)->To<cxTexCoord>();
 }
 
+void cxFrames::loadlayers(cxArray *layers,cxInt c,cxInt g)
+{
+    const cxTexture *texture = Texture();
+    for(cxInt l = 0;l < Layer();l++){
+        char key[128]={0};
+        snprintf(key, 128, "%d.%d.png",Offset()+g*100+c,l);
+        cxTexCoord *coord = texture->At(key);
+        if(coord == nullptr && c > 0){
+            coord = layerEnd(g, c, l);
+        }
+        CX_ASSERT(coord != nullptr, "%s texture key miss",key);
+        layers->Append(coord);
+    }
+}
+
 cxBool cxFrames::Init()
 {
     CX_ASSERT(Texture() != nullptr && Count() > 0 && Group() > 0 && Layer() > 0, "data format error");
-    const cxTexture *texture = Texture();
     for(cxInt g = 0;g < Group();g++){
         for(cxInt c = 0;c < Count();c++){
-            cxTimePoint *tp = Append(Time());
-            
+            cxFloat repeat = 1;
+            if(c < repeats.size()){
+                repeat = repeats.at(c);
+            }
+            cxTimePoint *tp = Append(Time() * repeat);
             cxArray *layers = cxArray::Alloc();
             tp->SetObject(layers);
             layers->Release();
-            
-            for(cxInt l = 0;l < Layer();l++){
-                char key[128]={0};
-                snprintf(key, 128, "%d.%d.png",Offset()+g*100+c,l);
-                cxTexCoord *coord = texture->At(key);
-                if(coord == nullptr && c > 0){
-                    coord = layerEnd(g, c, l);
-                }
-                CX_ASSERT(coord != nullptr, "%s texture key miss",key);
-                layers->Append(coord);
-            }
+            loadlayers(layers, c, g);
         }
     }
     return true;

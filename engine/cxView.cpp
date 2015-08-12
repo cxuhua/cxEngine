@@ -628,11 +628,22 @@ cxView *cxView::SetFrame(cxFloat x,cxFloat y,cxFloat w,cxFloat h)
     return this;
 }
 
+void cxView::OnEnter()
+{
+    
+}
+
+void cxView::OnLeave()
+{
+    
+}
+
 void cxView::runAppends(cxFloat dt)
 {
     for(cxArray::FIter it=viewapps->FBegin();it!=viewapps->FEnd();it++){
         cxView *view = (*it)->To<cxView>();
         subviews->Append(view);
+        view->OnEnter();
         view->onEnter.Fire(view);
         OnAppend(view);
     }
@@ -650,6 +661,7 @@ void cxView::runRemoves(cxFloat dt)
             it++;
             continue;
         }
+        view->OnLeave();
         view->onLeave.Fire(view);
         OnRemove(view);
         it = subviews->Remove(it);
@@ -794,7 +806,7 @@ void cxView::Layout()
 
 cxBool cxView::IsEmpty() const
 {
-    return subviews->IsEmpty();
+    return subviews->IsEmpty() && viewapps->IsEmpty();
 }
 
 cxInt cxView::sortFunc(const void *lp,const void *rp)

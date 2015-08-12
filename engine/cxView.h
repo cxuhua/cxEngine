@@ -263,6 +263,8 @@ protected:
     virtual void OnAppend(cxView *nview);
     virtual void OnRemove(cxView *oview);
     virtual cxBool OnDispatch(const cxTouchable *e);
+    virtual void OnEnter();
+    virtual void OnLeave();
 public:
     cxEvent<cxView, cxView *> onAppend;
     cxEvent<cxView, cxView *> onRemove;

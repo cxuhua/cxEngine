@@ -23,9 +23,14 @@ protected:
     virtual ~cxLocalized();
 private:
     static cxLocalized *instance;
+    cxStr *defaultlng;
     cxStr *lang;
     cxHash *texts;
 public:
+    
+    static const cxStr *GetDefault();
+    static void SetDefault(const cxStr *lng);
+    
     static const cxStr *GetLang();
     static void SetLang(const cxStr *lng);
     

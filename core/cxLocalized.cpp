@@ -25,13 +25,27 @@ cxLocalized *cxLocalized::Instance()
 cxLocalized::cxLocalized()
 {
     texts = cxHash::Alloc();
+    defaultlng = cxStr::Alloc()->Init("CN");
     lang = nullptr;
 }
 
 cxLocalized::~cxLocalized()
 {
+    cxObject::release(&defaultlng);
     cxObject::release(&lang);
     texts->Release();
+}
+
+const cxStr *cxLocalized::GetDefault()
+{
+    cxLocalized *instance = Instance();
+    return instance->defaultlng;
+}
+
+void cxLocalized::SetDefault(const cxStr *lng)
+{
+    cxLocalized *instance = Instance();
+    cxObject::swap(&instance->defaultlng, lng);
 }
 
 void cxLocalized::SetLang(const cxStr *lng)
@@ -53,6 +67,9 @@ const cxStr *cxLocalized::Text(cchars key)
 {
     cxLocalized *instance = Instance();
     cxObject *tobj = instance->texts->Get(GetLang()->Data());
+    if(tobj == nullptr){
+        tobj = instance->texts->Get(GetDefault()->Data());
+    }
     if(tobj == nullptr){
         return cxStr::Create()->Init(key);
     }

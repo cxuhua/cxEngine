@@ -64,7 +64,7 @@ void cxAlert::Hide()
 void cxAlert::OnEnter()
 {
     Body()->SetScale(0.95f);
-    cxScaleTo::Create(1.0f, 0.15f)->AttachTo(Body());
+    cxScaleTo::Create(1.0f, 0.6f)->AttachTo(Body())->SetTiming(cxTiming::ElasticOut);
     SetAlpha(0.0f);
     cxAction *fade = cxFadeTo::Create(0.5f, 0.15f)->AttachTo(this);
     fade->onExit = [this](cxAction *pav){

@@ -45,22 +45,22 @@ void cxProgress::OnDirty()
     cxPoint2F vvpos = 0.0f;
     if(dir & LeftToRight){
         vvsiz.w = p * vsiz.w - (inner.r +inner.l);
-        if(vvsiz.w < 0)vvsiz.w = 0;
-        vvpos.x -= ((vsiz.w - vvsiz.w)/2.0f + inner.l);
+        vvsiz.w = CX_MAX(vvsiz.w, 0);
+        vvpos.x -= ((vsiz.w - vvsiz.w)/2.0f - inner.l);
     }
     if(dir & RightToLeft){
         vvsiz.w = p * vsiz.w - (inner.r +inner.l);
-        if(vvsiz.w < 0)vvsiz.w = 0;
-        vvpos.x += ((vsiz.w - vvsiz.w)/2.0f - inner.r);
+        vvsiz.w = CX_MAX(vvsiz.w, 0);
+        vvpos.x += ((vsiz.w - vvsiz.w)/2.0f + inner.r);
     }
     if(dir & TopToBottom){
         vvsiz.h = p * vsiz.h - (inner.t +inner.b);
-        if(vvsiz.h < 0)vvsiz.h = 0;
+        vvsiz.h = CX_MAX(vvsiz.h, 0);
         vvpos.y += ((vsiz.h - vvsiz.h)/2.0f - inner.t);
     }
     if(dir & BottomToTop){
         vvsiz.h = p * vsiz.h - (inner.t +inner.b);
-        if(vvsiz.h < 0)vvsiz.h = 0;
+        vvsiz.h = CX_MAX(vvsiz.h, 0);
         vvpos.y -= ((vsiz.h - vvsiz.h)/2.0f + inner.b);
     }
     vv->SetPosition(vvpos);

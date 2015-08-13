@@ -10,6 +10,7 @@
 #include "cxFade.h"
 #include "cxScale.h"
 #include "cxAlert.h"
+#include "cxTimer.h"
 
 CX_CPP_BEGIN
 
@@ -17,6 +18,8 @@ CX_IMPLEMENT(cxAlert);
 
 cxAlert::cxAlert()
 {
+    timeoutclose = false;
+    isclose = true;
     SetResizeFlags(ResizeFill);
     SetAlpha(0.0f);
 }
@@ -24,6 +27,29 @@ cxAlert::cxAlert()
 cxAlert::~cxAlert()
 {
     
+}
+
+void cxAlert::SetTapOutsideClose(cxBool v)
+{
+    isclose = v;
+}
+
+void cxAlert::SetTimeout(cxFloat time)
+{
+    if(cxFloatIsEqual(time, 0)){
+        return;
+    }
+    cxTimer *timer = cxTimer::Create(1, time);
+    timer->onArrive +=[this](cxTimer *pav){
+        timeoutclose = true;
+        Hide();
+    };
+    timer->AttachTo(this);
+}
+
+cxBool cxAlert::IsTimeoutClose()
+{
+    return timeoutclose;
 }
 
 cxBool cxAlert::OnDispatch(const cxTouchable *e)
@@ -38,6 +64,9 @@ cxBool cxAlert::OnDispatch(const cxTouchable *e)
     }
     cxHitInfo info = body->HitTest(tp->wp);
     if(info.hited){
+        return true;
+    }
+    if(!isclose){
         return true;
     }
     if(tp->IsBegan() || tp->IsEnded()){

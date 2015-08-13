@@ -24,11 +24,15 @@ protected:
     void OnEnter();
     cxBool OnDispatch(const cxTouchable *e);
 private:
-
+    cxBool isclose;
+    cxBool timeoutclose;
 public:
     virtual void Show();
     virtual void Hide();
     cxView *Body();
+    cxBool IsTimeoutClose();
+    void SetTimeout(cxFloat time);
+    void SetTapOutsideClose(cxBool v);
 public:
     cxEvent<cxAlert> onShow;
     cxEvent<cxAlert> onHide;

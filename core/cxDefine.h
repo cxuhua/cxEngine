@@ -220,12 +220,11 @@ CX_C_BEGIN
 CX_C_END
 
 #define CX_DECLARE(T)                                               \
-static CX_INLINE  T *Alloc()                                        \
+static CX_INLINE T *Alloc()                                         \
 {                                                                   \
-    T *obj = new T();                                               \
-    return obj;                                                     \
+    return static_cast<T *>(new T());                               \
 }                                                                   \
-static CX_INLINE  T *Create()                                       \
+static CX_INLINE T *Create()                                        \
 {                                                                   \
     return static_cast<T *>(T::Alloc()->AutoRelease());             \
 }                                                                   \

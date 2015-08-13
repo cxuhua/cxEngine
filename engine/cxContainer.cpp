@@ -179,21 +179,27 @@ cxBool cxContainer::OnDispatch(const cxTouchable *e)
 
 cxPoint2F cxContainer::fixPosition(const cxPoint2F &pos)
 {
+    cxPoint2F opos = Body()->Position();
     cxPoint2F rv = pos;
+    
     cxView *body = Body();
     cxBox4F pbox = BoxPoint().ToBox4F();
+    
     cxBox4F vbox = body->ToBox4F() * body->TransScale();
     cxBox4F nbox = vbox + pos;
-    if(nbox.l > pbox.l){
+    
+    if(nbox.W() <= pbox.W()){
+        rv.x = opos.x;
+    }else if(nbox.l > pbox.l){
         rv.x -= (nbox.l - pbox.l);
-    }
-    if(nbox.r < pbox.r){
+    }else if(nbox.r < pbox.r){
         rv.x -= (nbox.r - pbox.r);
     }
-    if(nbox.t < pbox.t){
+    if(nbox.H() <= pbox.H()){
+        rv.y = opos.y;
+    }else if(nbox.t < pbox.t){
         rv.y -= (nbox.t - pbox.t);
-    }
-    if(nbox.b > pbox.b){
+    }else if(nbox.b > pbox.b){
         rv.y -= (nbox.b - pbox.b);
     }
     return rv;

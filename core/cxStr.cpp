@@ -14,6 +14,7 @@
 #include "cxStr.h"
 #include "cxUtil.h"
 #include "cxArray.h"
+#include "cxLocalized.h"
 
 CX_CPP_BEGIN
 
@@ -52,6 +53,16 @@ cxStr *cxStr::UTF8(cchars fmt,...)
     cxStr *rv = cxStr::Create()->AppFmt(fmt, ap);
     va_end(ap);
     return rv;
+}
+
+cxStr *cxStr::Localized(cchars key,...)
+{
+    const cxStr *fmt = cxLocalized::Text(key);
+    va_list ap;
+    va_start(ap, key);
+    cxStr *ret = cxStr::Create()->AppFmt(fmt->ToString(), ap);
+    va_end(ap);
+    return ret;
 }
 
 cxStr::cxStr()

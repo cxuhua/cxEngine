@@ -76,7 +76,7 @@ int ToLQF(cchars png,cchars json,cchars out,cchars fmt)
     
     CX_LOGGER("Write File:%s",out);
     FILE *fd = fopen(out, "wb");
-    CX_LOGGER("Write JQT Header %ld",sizeof(LQT));
+    CX_LOGGER("Write LQT Header %ld",sizeof(LQT));
     fwrite(&lqt, sizeof(LQT), 1, fd);
     
     CX_LOGGER("Write Json data %d",jd->Size());

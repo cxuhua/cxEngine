@@ -49,6 +49,7 @@ static CTFrameRef frameRefCreate(NSString *str,UIFont *font,const cxTextAttr &at
     //release
     CFRelease(framesetterRef);
     CGPathRelease(pathRef);
+    
     [attrsString release];
     [attrs release];
     [paraStyle release];
@@ -84,19 +85,16 @@ static CGImageRef strokeImageCreate(CGRect rect,CTFrameRef frameRef,CGFloat stro
     return image;
 }
 
-static void drawString(CTFrameRef frameRef,CGRect rect,UIFont *font,const cxTextAttr &attr)
+static void drawString(CGContextRef ctx,CTFrameRef frameRef,CGRect rect,UIFont *font,const cxTextAttr &attr)
 {
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextTranslateCTM(ctx, 0.0, CGRectGetHeight(rect));
     CGContextScaleCTM(ctx, 1.0, -1.0);
-    
     CGContextSaveGState(ctx);
     CGContextSetTextDrawingMode(ctx, kCGTextFill);
     CTFrameDraw(frameRef, ctx);
     CGContextRestoreGState(ctx);
-    
     if(attr.strokeWidth > 0){
+        UIGraphicsPushContext(ctx);
         CGRect srect = rect;
         srect.origin.x += attr.strokeOffset.x;
         srect.origin.y += attr.strokeOffset.y;
@@ -109,9 +107,9 @@ static void drawString(CTFrameRef frameRef,CGRect rect,UIFont *font,const cxText
         CGImageRelease(strokeImage);
         CGImageRelease(image);
         CGContextRestoreGState(ctx);
+        UIGraphicsPopContext();
     }
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
     [image drawInRect:rect];
 }
 //使用空格每三位数分离
@@ -157,15 +155,15 @@ cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &siz
     CGBitmapInfo bitMapInfo = kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault;
     CGColorSpaceRef colorSpace  = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(buffer,dim.width,dim.height,8,(int)(dim.width * 4),colorSpace,bitMapInfo);
-    CGColorSpaceRelease(colorSpace);
     CX_ASSERT(context != NULL, "CGBitmapContextCreate create error");
     CGContextTranslateCTM(context, 0.0f, dim.height);
     CGContextScaleCTM(context, 1.0f, -1.0f);
     UIGraphicsPushContext(context);
-    drawString(frameRef, CGRectMake(0, 0, dim.width, dim.height), font, attr);
+    drawString(context,frameRef, CGRectMake(0, 0, dim.width, dim.height), font, attr);
     UIGraphicsPopContext();
     CGContextRelease(context);
     CFRelease(frameRef);
+    CGColorSpaceRelease(colorSpace);
     size.w = dim.width;
     size.h = dim.height;
     return rv;

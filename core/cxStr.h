@@ -27,6 +27,7 @@ protected:
 private:
     std::string s;
 public:
+    static const cxStr *NewObjectId();
     static cxStr *Localized(cchars key,...);
     static cxStr *UTF8(cchars fmt,...);
     static cxBool IsOK(const cxStr *str);

@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
+#include <sys/time.h>
 #include <ext/md5.h>
 #include <ext/xxtea.h>
 #include <ext/lzma.h>
@@ -514,6 +515,27 @@ const cxStr *cxStr::MD5() const
         md5[2*i + 1] = hex[digest[i] & 0x0f];
     }
     return cxStr::UTF8(md5);
+}
+
+const cxStr *cxStr::NewObjectId()
+{
+    static const char hex[16] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+    struct timeval val = {0};
+    gettimeofday(&val, NULL);
+    srand((unsigned)val.tv_sec);
+    cxUInt32 vtime = (cxUInt32)val.tv_sec;
+    cxUInt32 vrand = (cxUInt32)rand();
+    cxUInt32 vlast = (cxUInt)val.tv_usec;
+    char buf[12]={0};
+    memcpy(buf + 0, &vtime, sizeof(cxUInt32));
+    memcpy(buf + 4, &vrand, sizeof(cxUInt32));
+    memcpy(buf + 8, &vlast, sizeof(cxUInt32));
+    char txt[25]={0};
+    for(cxInt i = 0; i < 12; i++){
+        txt[2*i] = hex[(buf[i] & 0xf0)>> 4];
+        txt[2*i + 1] = hex[buf[i] & 0x0f];
+    }
+    return cxStr::Create()->Init(txt);
 }
 
 cxBool cxStr::HasPrefix(const cxStr *str) const

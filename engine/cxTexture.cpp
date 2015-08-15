@@ -176,7 +176,6 @@ const cxTextureParams cxTextureParams::Repeat   = {GL_LINEAR,GL_LINEAR,GL_REPEAT
 
 cxTexture::cxTexture()
 {
-    IsRGBA4444 = false;
     success = true;
     texId = 0;
     size = cxSize2F(0, 0);
@@ -381,15 +380,6 @@ cxTexture *cxTexture::FromJPG(const cxStr *data)
     }while(0);
     jpeg_destroy_decompress(&cinfo);
     return this;
-}
-
-void cxTexture::pixelRGBA8888ToRGBA4444(cxAny pdata, cxInt dataLen, cxAny outData)
-{
-    cxUChar *data = (cxUChar *)pdata;
-    cxUInt16 *out16 = (cxUInt16 *)outData;
-    for(cxInt i=0,l=dataLen-3; i<l;i+=4){
-        *out16++ = (data[i]&0xF0)<<8|(data[i+1]&0xF0)<<4|(data[i+2] & 0xF0)|(data[i+3]&0xF0)>>4;
-    }
 }
 
 //*.lqt

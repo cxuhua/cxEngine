@@ -71,13 +71,10 @@ protected:
     explicit cxTexture();
     virtual ~cxTexture();
 private:
-    cxBool IsRGBA4444;
     cxBool success;
     cxHash *coords;
     cxTextureId texId;
     cxSize2F size;
-
-    void pixelRGBA8888ToRGBA4444(cxAny pdata, cxInt dataLen, cxAny outData);
 public:
     cxTexCoord *At(cchars key) const;
     cxTexCoord *At(const cxStr *key) const;

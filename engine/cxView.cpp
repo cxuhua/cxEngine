@@ -531,6 +531,18 @@ cxView *cxView::Sort()
     return this;
 }
 
+cxView *cxView::SetW(cxFloat w)
+{
+    CX_ASSERT(!size.IsZero(), "size not set");
+    return SetSize(cxSize2F(w, w * size.h/size.w));
+}
+
+cxView *cxView::SetH(cxFloat h)
+{
+    CX_ASSERT(!size.IsZero(), "size not set");
+    return SetSize(cxSize2F(h * size.w/size.h, h));
+}
+
 const cxMatrixF &cxView::ModelView() const
 {
     return modelview;
@@ -823,6 +835,58 @@ cxRenderState &cxView::State()
     return state;
 }
 
+const cxStr *cxView::ViewPath()
+{
+    cxStr *ret = cxStr::Create();
+    cxInt vc = 0;
+    cxView *vs[64]={0};
+    cxView *cp = this;
+    while (cp != NULL) {
+        vs[vc++] = cp;
+        cp = cp->Parent();
+    }
+    for(cxInt i = vc - 1; i >=0; i--){
+        cp = vs[i];
+        ret->AppFmt("%s.",cp->GetHelper().Name());
+    }
+    ret->KeepBytes(-1);
+    return ret;
+}
+
+//this.0.0
+cxView *cxView::Selector(cchars path)
+{
+    chars ckey = strdup(path);
+    cxInt num = 0;
+    chars ckeys[16];
+    chars src = ckey;
+    ckeys[num++] = src;
+    while (*src++ != '\0') {
+        if(*src != '.')continue;
+        CX_ASSERT(num < 16, ". opt too more");
+        ckeys[num++] = src + 1;
+        *src++ = '\0';
+    }
+    cxView *pv = this;
+    cxView *rv = NULL;
+    for(cxInt i=0; i < num;i ++){
+        cchars ckey = ckeys[i];
+        if(cxStr::IsEqu(ckey, "parent")){
+            rv = pv->Parent();
+        }else if(cxStr::IsEqu(ckey, "this")){
+            rv = pv;
+        }else{
+            rv = pv->At(atoi(ckey));
+        }
+        if(rv == NULL){
+            break;
+        }
+        pv = rv;
+    }
+    free(ckey);
+    return rv;
+}
+
 void cxView::OnRender(cxRender *render,const cxMatrixF &model)
 {
     
@@ -847,10 +911,10 @@ cxView *cxView::SetFlags(cxUInt f)
 
 void cxView::Render(cxRender *render,const cxMatrixF &mv)
 {
-    CX_ASSERT(!size.IsZero(), "view size not set");
     if(!EnableVisible() || EnableSleep() || IsRemoved()){
         return;
     }
+    CX_ASSERT(!size.IsZero(), "view size not set");
     gl->Push();
     gl->MultMatrix(normalMatrix);
     gl->MultMatrix(anchorMatrix);

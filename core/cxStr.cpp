@@ -312,6 +312,10 @@ cxStr *cxStr::Erase(cxInt p,cxInt n)
 
 cxStr *cxStr::KeepBytes(cxInt bytes)
 {
+    if(bytes < 0){
+        s.erase(s.end() + bytes , s.end());
+        return this;
+    }
     if(bytes == 0){
         Clear();
         return this;

@@ -271,6 +271,9 @@ public:
     cxEvent<cxView> onFree;
 public:
     
+    const cxStr *ViewPath();
+    cxView *Selector(cchars path);
+    
     cxView *AttachTo(cxView *pview);
     
     cxView *Sort();
@@ -290,6 +293,11 @@ public:
 
     cxEvent<cxView> onEnter;
     cxEvent<cxView> onLeave;
+
+    //ratio height
+    cxView *SetW(cxFloat w);
+    //ratio width
+    cxView *SetH(cxFloat h);
     
     void Layout();
     

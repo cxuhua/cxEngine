@@ -122,6 +122,18 @@ void cxFrames::SetRepeat(cchars str)
     }
 }
 
+const cxTexCoord *cxFrames::TexCoord(cxInt idx,cxInt layer) const
+{
+    const cxArray *layers = Layers(idx);
+    return layers->At(layer)->To<cxTexCoord>();
+}
+
+const cxArray *cxFrames::Layers(cxInt idx) const
+{
+    const cxTimePoint *tp = At(idx);
+    return tp->Object()->To<cxArray>();
+}
+
 cxTexCoord *cxFrames::layerEnd(cxInt group,cxInt count,cxInt layer)
 {
     cxInt idx = group * Count() + count - 1;

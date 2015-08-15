@@ -25,6 +25,7 @@ cxAtlas::~cxAtlas()
 
 cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
 {
+    CX_ASSERT(!Size().IsZero(), "size not set");
     cxInt size = frames->Num();
     SetCapacity(size);
     const cxInt *map = frames->Map();
@@ -53,10 +54,10 @@ cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
 
 cxAtlas *cxAtlas::SetFrames(const cxFrames *frames,cxInt idx)
 {
-    const cxTimePoint *tp = frames->At(idx);
-    const cxArray *coords = tp->Object()->To<cxArray>();
-    CX_ASSERT(coords != nullptr, "frames null");
-    SetCoords(coords, frames);
+    const cxArray *layers = frames->Layers(idx);
+    CX_ASSERT(layers != nullptr, "frames null");
+    SetTexture(frames->Texture());
+    SetCoords(layers, frames);
     return this;
 }
 

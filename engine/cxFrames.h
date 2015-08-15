@@ -87,6 +87,8 @@ public:
     cxTimePoint *Append(cxFloat time);
     const cxTimePoint *At(cxInt idx) const;
     const cxArray *Points() const;
+    const cxArray *Layers(cxInt idx) const;
+    const cxTexCoord *TexCoord(cxInt idx=0,cxInt layer=0) const;
 };
 
 CX_CPP_END

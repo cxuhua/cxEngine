@@ -63,7 +63,7 @@ cxBool cxSize2F::IsNAN() const
 
 cxBool cxSize2F::IsZero() const
 {
-    return cxFloatIsZero(w) && cxFloatIsZero(h);
+    return !(w > 0 && h > 0);
 }
 
 cxBool cxSize2F::operator==(const cxSize2F &v) const

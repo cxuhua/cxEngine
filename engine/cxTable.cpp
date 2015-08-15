@@ -15,6 +15,7 @@ CX_IMPLEMENT(cxTable);
 
 cxTable::cxTable()
 {
+    ignore = -1;
     rownum = INT_MAX;
     padding = 0.0f;      //view outter
     margin = 0.0f;       //table inner
@@ -23,6 +24,15 @@ cxTable::cxTable()
 cxTable::~cxTable()
 {
     
+}
+
+cxTable *cxTable::SetIgnore(cxLong tag)
+{
+    if(ignore != tag){
+        SetDirty(DirtyModeForce);
+        ignore = tag;
+    }
+    return this;
 }
 
 void cxTable::OnDirty()
@@ -35,19 +45,28 @@ void cxTable::OnDirty()
 
 cxTable *cxTable::SetPadding(const cxBox4F &v)
 {
-    padding = v;
+    if(padding != v){
+        SetDirty(DirtyModeForce);
+        padding = v;
+    }
     return this;
 }
 
 cxTable *cxTable::SetMargin(const cxBox4F &v)
 {
-    margin = v;
+    if(margin != v){
+        SetDirty(DirtyModeForce);
+        margin = v;
+    }
     return this;
 }
 
 cxTable *cxTable::SetRowNum(cxInt v)
 {
-    rownum = v;
+    if(rownum != v){
+        SetDirty(DirtyModeForce);
+        rownum = v;
+    }
     return this;
 }
 
@@ -62,6 +81,9 @@ cxTable *cxTable::UpdateViews()
     for(cxArray::FIter it=vs->FBegin();it!=vs->FEnd();it++){
         cxView *pv = (*it)->To<cxView>();
         if(!pv->EnableVisible()){
+            continue;
+        }
+        if(pv->Tag() == ignore){
             continue;
         }
         cxSize2F siz = pv->Size();
@@ -92,6 +114,9 @@ cxTable *cxTable::UpdateViews()
     for(cxArray::FIter it=vs->FBegin();it!=vs->FEnd();it++){
         cxView *pv = (*it)->To<cxView>();
         if(!pv->EnableVisible()){
+            continue;
+        }
+        if(pv->Tag() == ignore){
             continue;
         }
         cxSize2F siz = pv->Size();

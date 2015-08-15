@@ -25,10 +25,12 @@ protected:
 protected:
     void OnDirty();
 private:
+    cxLong ignore;
     cxInt rownum;
     cxBox4F padding;
     cxBox4F margin;
 public:
+    cxTable *SetIgnore(cxLong tag);
     cxTable *UpdateViews();
     //内边距
     cxTable *SetPadding(const cxBox4F &v);

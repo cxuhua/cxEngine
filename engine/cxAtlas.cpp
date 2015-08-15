@@ -89,6 +89,7 @@ void cxAtlas::updateScale9()
         Clear();
         cxSize2F size = Size();
         cxBox4F box = scalebox;
+        //
         if(size.w < scalebox.l + scalebox.r){
             box.l = (scalebox.l / scalebox.W()) * size.w;
             box.r = (scalebox.r / scalebox.W()) * size.w;
@@ -97,6 +98,12 @@ void cxAtlas::updateScale9()
             box.t = (scalebox.t / scalebox.H()) * size.h;
             box.b = (scalebox.b / scalebox.H()) * size.h;
         }
+        //
+        box.l = !cxFloatIsOK(box.l)?0:box.l;
+        box.r = !cxFloatIsOK(box.r)?0:box.r;
+        box.t = !cxFloatIsOK(box.t)?0:box.t;
+        box.b = !cxFloatIsOK(box.b)?0:box.b;
+        //
         cxSize2F texsiz = Texture()->Size();
         cxFloat tx = coord->rotated?(coord->frame.y/texsiz.h):(coord->frame.x/texsiz.w);
         cxFloat ty = coord->rotated?((coord->frame.x+coord->frame.h)/texsiz.w):(coord->frame.y/texsiz.h);

@@ -30,7 +30,7 @@ struct cxBoxPoint3F
     void Set(cxFloat l,cxFloat r,cxFloat t,cxFloat b);
     const cxBoxPoint3F ToLoop() const;
     const cxBox4F ToBox4F() const;
-    const cxBox4F ToMaxBox() const;
+    const cxBox4F ToMaxRect4F() const;
     const cxSize2F Size() const;
     cxBoxPoint3F operator*(const cxMatrixF &mat);
     cxBoxPoint3F &operator*=(const cxMatrixF &mat);

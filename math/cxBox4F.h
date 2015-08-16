@@ -35,6 +35,7 @@ struct cxBox4F
     cxBool Contain(const cxPoint2F &p);
     cxBool Contain(const cxPoint3F &p);
     cxBool Contain(const cxBox4F &p);
+    cxBool Contain(const cxBoxPoint3F &v);
     cxRect4F ToRect4F() const;
     cxPoint2F Center() const;
     cxJson *ToJson();

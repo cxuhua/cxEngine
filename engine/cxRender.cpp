@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
-
+#include <core/cxUtil.h>
 #include "cxEngine.h"
 #include "cxShader.h"
 #include "cxRender.h"

@@ -171,7 +171,7 @@ public:
     //window point -> local point
     cxPoint2F FromPoint(const cxPoint2F &wp);
     
-    const cxBox4F ToMaxBox();
+    const cxBox4F ToMaxRect4F();
     cxView *SetClip(cxBool v);
     
     //max z front
@@ -270,7 +270,7 @@ public:
     cxEvent<cxView, cxView *> onRemove;
     cxEvent<cxView> onFree;
 public:
-    
+    const cxBox4F ParentBox() const;
     const cxStr *ViewPath();
     cxView *Selector(cchars path);
     
@@ -284,6 +284,7 @@ public:
     cxView *StopAction(cxActionId aid=0);
     cxView *ExitAction(cxActionId aid=0);
 
+    void RenderSubviews(cxRender *render,const cxMatrixF &mv);
     virtual void Render(cxRender *render,const cxMatrixF &mv);
     
     void Update(cxFloat dt);

@@ -146,38 +146,7 @@ cxFloat cxEngine::PlanHeight()
 
 cxBool cxEngine::Contain(const cxBoxPoint3F &b)
 {
-    if(box.Contain(b.lt)){
-        return true;
-    }
-    if(box.Contain(b.lb)){
-        return true;
-    }
-    if(box.Contain(b.rt)){
-        return true;
-    }
-    if(box.Contain(b.rb)){
-        return true;
-    }
-    cxBox4F vb = b.ToMaxBox();
-    if(vb.t >= box.t && vb.b <= box.b){
-        return true;
-    }
-    if(vb.l <= box.l && vb.r >= box.r){
-        return true;
-    }
-    if(box.Contain(vb.LT())){
-        return true;
-    }
-    if(box.Contain(vb.LB())){
-        return true;
-    }
-    if(box.Contain(vb.RT())){
-        return true;
-    }
-    if(box.Contain(vb.RB())){
-        return true;
-    }
-    return false;
+    return box.Contain(b);
 }
 
 cxFloat cxEngine::ScaleFactor() const

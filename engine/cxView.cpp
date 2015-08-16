@@ -892,10 +892,10 @@ void cxView::OnRender(cxRender *render,const cxMatrixF &model)
     
 }
 
-const cxBox4F cxView::ToMaxBox()
+const cxBox4F cxView::ToMaxRect4F()
 {
     cxBoxPoint3F bp = BoxPoint() * modelview;
-    return bp.ToMaxBox();
+    return bp.ToMaxRect4F();
 }
 
 cxUInt cxView::Flags() const
@@ -909,6 +909,22 @@ cxView *cxView::SetFlags(cxUInt f)
     return this;
 }
 
+const cxBox4F cxView::ParentBox() const
+{
+    if(parent != nullptr && parent->isclip){
+        return parent->ToMaxRect4F();
+    }
+    return cxEngine::Instance()->WinBox();
+}
+
+void cxView::RenderSubviews(cxRender *render,const cxMatrixF &mv)
+{
+    for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
+        cxView *view = (*it)->To<cxView>();
+        view->Render(render,mv);
+    }
+}
+
 void cxView::Render(cxRender *render,const cxMatrixF &mv)
 {
     if(!EnableVisible() || EnableSleep() || IsRemoved()){
@@ -918,6 +934,7 @@ void cxView::Render(cxRender *render,const cxMatrixF &mv)
     gl->Push();
     gl->MultMatrix(normalMatrix);
     gl->MultMatrix(anchorMatrix);
+    //selector modelview
     if(relative == RelativeParent && Parent() != nullptr){
         modelview = Parent()->ModelView();
     }else if(relative == RelativeGlobal){
@@ -925,22 +942,24 @@ void cxView::Render(cxRender *render,const cxMatrixF &mv)
     }else{
         modelview = gl->ModelView();
     }
+    //clip view test
     if(isclip){
-        if(flags & FlagsClip)clipbox = ToMaxBox();
+        if(flags & FlagsClip)clipbox = ToMaxRect4F();
         render->Clip(cxRenderState::ClipOn,clipbox);
     }
+    //start render
     OnRender(render, modelview);
     if(issort){
         subviews->Sort(cxView::sortFunc);
         issort = false;
     }
-    for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
-        cxView *view = (*it)->To<cxView>();
-        view->Render(render,modelview);
+    if(!subviews->IsEmpty()){
+        RenderSubviews(render, modelview);
     }
     if(isclip){
         render->Clip(cxRenderState::ClipOff,clipbox);
     }
+finished:
     gl->Pop();
     flags = 0;
 }

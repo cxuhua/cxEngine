@@ -18,11 +18,11 @@ cxDraw::cxDraw()
 
 cxBool cxDraw::Render(cxBoxRender &r,const cxMatrixF &m,const cxRenderState &s,cxUInt flags)
 {
-    cxEngine *engine = cxEngine::Instance();
+    cxBox4F wbox = s.view->ParentBox();
     state = s;
     render.Clear();
     cxBoxRender b = r * m;
-    if(engine->Contain(b.ToBoxPoint())){
+    if(wbox.Contain(b.ToBoxPoint())){
         render.Append(b);
     }
     return render.Size() > 0;
@@ -30,14 +30,15 @@ cxBool cxDraw::Render(cxBoxRender &r,const cxMatrixF &m,const cxRenderState &s,c
 
 cxBool cxDraw::Render(cxBoxRenderArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags)
 {
-    cxEngine *engine = cxEngine::Instance();
+    cxBox4F wbox = s.view->ParentBox();
     state = s;
     render.Clear();
     for(cxInt i=0; i < rs.Size(); i++){
         cxBoxRender b = rs.At(i) * m;
-        if(engine->Contain(b.ToBoxPoint())){
-            render.Append(b);
+        if(!wbox.Contain(b.ToBoxPoint())){
+            continue;
         }
+        render.Append(b);
     }
     return render.Size() > 0;
 }
@@ -55,7 +56,6 @@ cxBool cxDraw::Render(cxRenderFArray &rs,const cxMatrixF &m,const cxRenderState 
 
 cxBool cxDraw::Clip(cxStateType type,const cxBox4F &box)
 {
-    CX_ASSERT(type == cxRenderState::ClipOn || type == cxRenderState::ClipOff, "type error");
     cxSize2F size = cxEngine::Instance()->WinSize();
     state.Set(type);
     clipbox.x = box.X() + size.w/2.0f;

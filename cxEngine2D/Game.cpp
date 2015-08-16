@@ -59,8 +59,25 @@ Game::~Game()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
-    cxMusic::Create("o.wav")->AttachTo(Window())->SetRepeat(3);
-    cxMusic::Create("test.mp3")->AttachTo(Window());
+    cxTexture::Create()->From("t.png")->gcSet<cxTexture>("t.png");
+
+    cxSprite *clip = cxSprite::Create();
+    clip->SetSize(cxSize2F(700, 700));
+    clip->SetTexture(cxTexture::Create()->From("t.png"));
+    clip->SetClip(true);
+    Window()->Append(clip);
+    
+    for(cxInt i=0; i < 1000;i++){
+        cxSprite *sp = cxSprite::Create();
+        sp->SetSize(cxSize2F(60, 60));
+        
+        sp->SetPosition(cxPoint2F(CX_RAND_11f() * 1024, CX_RAND_11f() * 1024));
+        sp->SetTexture("t.png");
+        clip->Append(sp);
+    }
+    
+    
+//    cxRotateBy::Create(3.14/2, 15)->AttachTo(clip);
     
 }
 

@@ -114,6 +114,42 @@ cxBool cxBox4F::Intersect(const cxBoxPoint3F &v)
     return false;
 }
 
+cxBool cxBox4F::Contain(const cxBoxPoint3F &v)
+{
+    if(Contain(v.lt)){
+        return true;
+    }
+    if(Contain(v.lb)){
+        return true;
+    }
+    if(Contain(v.rt)){
+        return true;
+    }
+    if(Contain(v.rb)){
+        return true;
+    }
+    cxBox4F vb = v.ToMaxRect4F();
+    if(vb.t >= t && vb.b <= b){
+        return true;
+    }
+    if(vb.l <= l && vb.r >= r){
+        return true;
+    }
+    if(Contain(vb.LT())){
+        return true;
+    }
+    if(Contain(vb.LB())){
+        return true;
+    }
+    if(Contain(vb.RT())){
+        return true;
+    }
+    if(Contain(vb.RB())){
+        return true;
+    }
+    return false;
+}
+
 cxBox4F cxBox4F::operator+(const cxPoint2F &v) const
 {
     return cxBox4F(l+v.x, r+v.x, t+v.y, b+v.y);

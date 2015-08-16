@@ -5,7 +5,9 @@ precision highp float;
 #define mediump
 #define lowp
 #endif
+
 varying mediump vec4 vColor;
+
 void main() {
     gl_FragColor = vColor;
 }

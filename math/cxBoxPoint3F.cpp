@@ -50,7 +50,7 @@ cxBoxPoint3F::cxBoxPoint3F(const cxPoint3F &alt,const cxPoint3F &alb,const cxPoi
     rb = arb;
 }
 
-const cxBox4F cxBoxPoint3F::ToMaxBox() const
+const cxBox4F cxBoxPoint3F::ToMaxRect4F() const
 {
     cxFloat minx = INT_MAX;
     cxFloat maxx = INT_MIN;

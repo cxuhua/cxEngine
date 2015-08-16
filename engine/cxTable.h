@@ -36,7 +36,7 @@ public:
     cxTable *SetPadding(const cxBox4F &v);
     //外边距
     cxTable *SetMargin(const cxBox4F &v);
-    cxTable *SetRowNum(cxInt v);
+    cxTable *SetNumPreRow(cxInt v);
 };
 
 CX_CPP_END

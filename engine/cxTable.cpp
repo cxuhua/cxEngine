@@ -61,7 +61,7 @@ cxTable *cxTable::SetMargin(const cxBox4F &v)
     return this;
 }
 
-cxTable *cxTable::SetRowNum(cxInt v)
+cxTable *cxTable::SetNumPreRow(cxInt v)
 {
     if(rownum != v){
         SetDirty(DirtyModeForce);

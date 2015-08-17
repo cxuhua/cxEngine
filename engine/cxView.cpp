@@ -1005,6 +1005,7 @@ void cxView::OnLayout()
         vbox.l = pbox.l + resizebox.l;
         vbox.r = pbox.r - resizebox.r;
         vsiz.w = vbox.r - vbox.l;
+        vpos.x = (resizebox.l - resizebox.r)/2.0f;
         vpos.x -= panchor.x * psiz.w;
         vpos.x += vanchor.x * vsiz.w;
     }else if(resizeflags & ResizeLeft){
@@ -1040,6 +1041,7 @@ void cxView::OnLayout()
         vbox.b = pbox.b + resizebox.b;
         vbox.t = pbox.t - resizebox.t;
         vsiz.h = vbox.t - vbox.b;
+        vpos.y = (resizebox.b - resizebox.t)/2.0f;
         vpos.y -= panchor.y * psiz.h;
         vpos.y += vanchor.y * vsiz.h;
     }else if(resizeflags & ResizeBottom){

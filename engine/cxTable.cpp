@@ -15,6 +15,7 @@ CX_IMPLEMENT(cxTable);
 
 cxTable::cxTable()
 {
+    flags = LeftToRight | BottomToTop;
     ignore = -1;
     rownum = INT_MAX;
     padding = 0.0f;      //view outter
@@ -24,6 +25,15 @@ cxTable::cxTable()
 cxTable::~cxTable()
 {
     
+}
+
+cxTable *cxTable::SetFlags(cxUInt v)
+{
+    if(flags != v){
+        SetDirty(DirtyModeForce);
+        flags = v;
+    }
+    return this;
 }
 
 cxTable *cxTable::SetIgnore(cxLong tag)
@@ -110,9 +120,18 @@ cxTable *cxTable::UpdateViews()
     SetSize(cxSize2F(maxw, maxh));
     
     cxInt i = 0;
-    cxFloat offx = padding.l - maxw/2.0f;
-    cxFloat offy = padding.b - maxh/2.0f;
-    
+    cxFloat offx = 0;
+    cxFloat offy = 0;
+    if(flags & LeftToRight){
+        offx = padding.l - maxw/2.0f;
+    }else{
+        offx = maxw/2.0f - padding.r;
+    }
+    if(flags & BottomToTop){
+        offy = padding.b - maxh/2.0f;
+    }else{
+        offy = maxh/2.0f - padding.t;
+    }
     maxh = 0;
     for(cxArray::FIter it=vs->FBegin();it!=vs->FEnd();it++){
         cxView *pv = (*it)->To<cxView>();
@@ -126,14 +145,36 @@ cxTable *cxTable::UpdateViews()
         if(siz.h > maxh){
             maxh = siz.h;
         }
-        offx += (siz.w/2.0f + margin.l);
-        pv->SetPosition(cxPoint2F(offx, offy + margin.b + siz.h/2.0f));
-        offx += (siz.w/2.0f + margin.r);
+        cxFloat yv = 0;
+        if(flags & LeftToRight){
+            offx += (siz.w/2.0f + margin.l);
+        }else{
+            offx -= (siz.w/2.0f + margin.r);
+        }
+        if(flags & BottomToTop){
+            yv = offy + (margin.b + siz.h/2.0f);
+        }else{
+            yv = offy - (margin.t + siz.h/2.0f);
+        }
+        pv->SetPosition(cxPoint2F(offx, yv));
+        if(flags & LeftToRight){
+            offx += (siz.w/2.0f + margin.r);
+        }else{
+            offx -= (siz.w/2.0f + margin.l);
+        }
         if(++i % rownum != 0){
             continue;
         }
-        offx = padding.l - maxw/2.0f;
-        offy += (maxh + margin.t + margin.b);
+        if(flags & LeftToRight){
+            offx = padding.l - maxw/2.0f;
+        }else{
+            offx = maxw/2.0f - padding.r;
+        }
+        if(flags & BottomToTop){
+            offy += (maxh + margin.t + margin.b);
+        }else{
+            offy -= (maxh + margin.t + margin.b);
+        }
     }
     return this;
 }

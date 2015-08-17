@@ -31,6 +31,11 @@ cxPoint2F cxTouchPoint::Speed() const
     return movement/time;
 }
 
+cxFloat cxTouchPoint::Length() const
+{
+    return length;
+}
+
 cxBool cxTouchPoint::IsBegan() const
 {
     return type == Began;
@@ -81,10 +86,12 @@ void cxTouchable::updateEvent(const cxTouchPoint &e)
         event->movement = 0.0f;
         event->time = now;
         event->prev = e.wp;
+        event->length = 0;
     }else if(e.type == cxTouchPoint::Moved){
         event->delta = e.wp - event->prev;
         event->prev = e.wp;
         event->movement += event->delta;
+        event->length += event->delta.Length();
     }else{
         event->time = now - event->time;
     }

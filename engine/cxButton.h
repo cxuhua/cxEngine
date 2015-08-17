@@ -9,6 +9,7 @@
 #ifndef cxEngineCore_cxButton_h
 #define cxEngineCore_cxButton_h
 
+#include "cxTimer.h"
 #include "cxView.h"
 
 CX_CPP_BEGIN
@@ -24,15 +25,21 @@ private:
     cxBool ispress;
     cxBool ispass;
     cxBool isenable;
+    cxTimer *timer;
+    //
+    cxFloat longerTime;
+    void timerArrive(cxAction *pav);
+    void timerStart();
+    void timerExit();
 protected:
     cxBool OnDispatch(const cxTouchable *e);
 public:
-    
+    void SetLongerTime(cxFloat v);
     cxEvent<cxButton> onTap;
     cxEvent<cxButton> onPress;
+    cxEvent<cxButton> onLonger;
     cxEvent<cxButton> onRelease;
     cxEvent<cxButton> onMove;
-    
     void SetIsPass(cxBool v);
     void SetIsEnable(cxBool v);
 };

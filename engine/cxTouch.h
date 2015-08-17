@@ -36,6 +36,7 @@ struct cxTouchPoint
     cxPoint2F wp;
     cxPoint2F prev;
     cxPoint2F movement;
+    cxFloat length;
     cxPoint2F delta;
     cxDouble time;
     
@@ -46,6 +47,7 @@ struct cxTouchPoint
     
     cxTouchPoint();
     
+    cxFloat Length() const;
     cxPoint2F Speed() const;
     cxBool IsBegan() const;
     cxBool IsMoved() const;

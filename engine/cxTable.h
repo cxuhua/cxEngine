@@ -24,12 +24,19 @@ protected:
     virtual ~cxTable();
 protected:
     void OnDirty();
+public:
+    static const cxUInt LeftToRight = 1 << 0;
+    static const cxUInt RightToLeft = 1 << 1;
+    static const cxUInt BottomToTop = 1 << 2;
+    static const cxUInt TopToBottom = 1 << 3;
 private:
+    cxUInt flags;
     cxLong ignore;
     cxInt rownum;
     cxBox4F padding;
     cxBox4F margin;
 public:
+    cxTable *SetFlags(cxUInt v);
     cxTable *SetIgnore(cxLong tag);
     cxTable *UpdateViews();
     //内边距

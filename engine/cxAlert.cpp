@@ -21,7 +21,6 @@ cxAlert::cxAlert()
     timeoutclose = false;
     isclose = true;
     SetResizeFlags(ResizeFill);
-    SetAlpha(0.0f);
 }
 
 cxAlert::~cxAlert()
@@ -69,7 +68,7 @@ cxBool cxAlert::OnDispatch(const cxTouchable *e)
     if(!isclose){
         return true;
     }
-    if(tp->IsBegan() || tp->IsEnded()){
+    if(tp->IsEnded() && tp->IsTap()){
         Hide();
     }
     return true;
@@ -95,7 +94,7 @@ void cxAlert::OnEnter()
     Body()->SetScale(0.95f);
     cxScaleTo::Create(1.0f, 0.6f)->AttachTo(Body())->SetTiming(cxTiming::ElasticOut);
     SetAlpha(0.0f);
-    cxAction *fade = cxFadeTo::Create(0.5f, 0.15f)->AttachTo(this);
+    cxAction *fade = cxFadeTo::Create(0.5, 0.15f)->AttachTo(this);
     fade->onExit = [this](cxAction *pav){
         onShow.Fire(this);
     };

@@ -930,7 +930,7 @@ void cxView::Render(cxRender *render,const cxMatrixF &mv)
     if(!EnableVisible() || EnableSleep() || IsRemoved()){
         return;
     }
-    CX_ASSERT(!size.IsZero(), "view size not set");
+    CX_ASSERT(!size.IsZero(), "view size not set,path:%s",ViewPath()->ToString());
     gl->Push();
     gl->MultMatrix(normalMatrix);
     gl->MultMatrix(anchorMatrix);

@@ -89,7 +89,7 @@ void cxAtlas::updateScale9()
         Clear();
         cxSize2F size = Size();
         cxBox4F box = scalebox;
-        //
+        
         if(size.w < scalebox.l + scalebox.r){
             box.l = (scalebox.l / scalebox.W()) * size.w;
             box.r = (scalebox.r / scalebox.W()) * size.w;
@@ -98,18 +98,19 @@ void cxAtlas::updateScale9()
             box.t = (scalebox.t / scalebox.H()) * size.h;
             box.b = (scalebox.b / scalebox.H()) * size.h;
         }
-        //
         box.l = !cxFloatIsOK(box.l)?0:box.l;
         box.r = !cxFloatIsOK(box.r)?0:box.r;
         box.t = !cxFloatIsOK(box.t)?0:box.t;
         box.b = !cxFloatIsOK(box.b)?0:box.b;
         //
         cxSize2F texsiz = Texture()->Size();
+        cxSize2F tsize = coord->FrameSize();
+        
         cxFloat tx = coord->rotated?(coord->frame.y/texsiz.h):(coord->frame.x/texsiz.w);
         cxFloat ty = coord->rotated?((coord->frame.x+coord->frame.h)/texsiz.w):(coord->frame.y/texsiz.h);
-        cxFloat tw = coord->frame.w/texsiz.w;
-        cxFloat th = coord->frame.h/texsiz.h;
-        cxSize2F tsize = cxSize2F(coord->frame.w, coord->frame.h);
+        cxFloat tw = coord->rotated?(coord->frame.w/texsiz.h):(coord->frame.w/texsiz.w);
+        cxFloat th = coord->rotated?(coord->frame.h/texsiz.w):(coord->frame.h/texsiz.h);
+        
         cxFloat txs[]={0.0f, box.l/tsize.w, (tsize.w - box.r)/tsize.w, 1.0f};
         cxFloat tys[]={0.0f, box.t/tsize.h, (tsize.h - box.b)/tsize.h, 1.0f};
         for(int i=0; i < 4; i++){
@@ -118,6 +119,7 @@ void cxAtlas::updateScale9()
         }
         cxFloat bxs[]={0.0f, box.l, size.w - box.r, size.w};
         cxFloat bys[]={0.0f, box.t, size.h - box.b, size.h};
+        
         cxFloat tx1=0,ty1=0,tx2=0,ty2=0;
         cxFloat bx1=0,by1=0,bx2=0,by2=0;
         cxFloat offx=0,offy=0;

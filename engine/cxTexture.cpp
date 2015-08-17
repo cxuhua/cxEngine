@@ -95,6 +95,11 @@ const cxSize2F &cxTexCoord::Size() const
     return sourceSize;
 }
 
+const cxSize2F cxTexCoord::FrameSize() const
+{
+    return cxSize2F(frame.w, frame.h);
+}
+
 const cxBool cxTexCoord::IsEmpty() const
 {
     cxBool bx = cxFloatIsZero(spriteSourceSize.x);

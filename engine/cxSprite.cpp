@@ -128,6 +128,7 @@ cxSprite *cxSprite::SetTexKey(cchars fmt,...)
     va_end(ap);
     cxTexCoord *coord = Texture()->At(key);
     if(coord == nullptr){
+        CX_WARN("texture key %s miss",key);
         return this;
     }
     SetTexCoord(coord);

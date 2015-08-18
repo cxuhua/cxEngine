@@ -62,6 +62,7 @@ public:
     cxLabel *SetBold(cxBool bold);
     cxLabel *SetFixWidth(cxFloat fix);
     cxLabel *SetNumFormat(const cxTextNumFormat &fmt);
+    cxLabel *SetLocalized(cchars key,...);
 public:
     static cxLabel *FromUTF8(cchars fmt,...);
     static cxLabel *Localized(cchars key,...);

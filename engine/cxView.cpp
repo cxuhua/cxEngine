@@ -724,7 +724,7 @@ void cxView::transform()
 {
     OnDirty();
     if(IsDirtyMode(DirtyModeLayout)){
-        Layout();
+        OnLayout();
     }
     if(EnableDir() && cxFloatIsOK(direction)){
         SetAngle(Direction());
@@ -807,12 +807,16 @@ cxView *cxView::SetClip(cxBool v)
     return this;
 }
 
-void cxView::Layout()
+void cxView::Layout(cxBool force)
 {
-    islayout = false;
+    if(force){
+        OnLayout();
+    }else{
+        islayout = false;
+    }
     for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
         cxView *view = (*it)->To<cxView>();
-        view->Layout();
+        view->Layout(force);
     }
 }
 

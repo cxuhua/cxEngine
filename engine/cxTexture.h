@@ -68,10 +68,12 @@ public:
     static const cxInt PNG = 1;
     static const cxInt PVR = 2;
     static const cxInt PKM = 3;
+    static const cxInt TXT = 4;
 protected:
     explicit cxTexture();
     virtual ~cxTexture();
 private:
+    cxInt type;
     cxBool success;
     cxHash *coords;
     cxTextureId texId;
@@ -88,6 +90,8 @@ public:
     cxTexture *GenTexture();
     cxTexture *Bind();
     cxTexture *SetParams(const cxTextureParams &params);
+    
+    cxInt Type() const;
 public:
     cxTexture *Atlas(const cxStr *data);
     cxTexture *FromLQT(const cxStr *data);

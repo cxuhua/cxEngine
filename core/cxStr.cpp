@@ -582,14 +582,17 @@ cxBool cxStr::IsEmpty() const
     return s.empty();
 }
 
-cxInt cxStr::EachUTF8(std::function<void(cchars ptr,cxInt bytes)> func) const
+cxInt cxStr::EachUTF8(std::function<void(cchars cptr)> func) const
 {
     cxInt ret = 0;
+    char buf[8]={0};
     cchars ptr = Data();
     cxInt size = Size();
     for(cxInt i=0;i<size;){
         cxInt c = getNumBytesForUTF8(ptr[i]);
-        func(ptr+i,c);
+        memcpy(buf, ptr + i, c);
+        buf[c] = 0;
+        func(buf);
         i+=c;
         ret++;
     }

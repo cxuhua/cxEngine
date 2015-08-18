@@ -129,6 +129,16 @@ cxLabel *cxLabel::SetNumFormat(const cxTextNumFormat &fmt)
     return this;
 }
 
+cxLabel *cxLabel::SetLocalized(cchars key,...)
+{
+    const cxStr *fmt = cxLocalized::Text(key);
+    va_list ap;
+    va_start(ap, key);
+    SetText(cxStr::Create()->AppFmt(fmt->ToString(), ap));
+    va_end(ap);
+    return this;
+}
+
 cxLabel *cxLabel::SetText(cchars fmt,...)
 {
     CX_ASSERT(cxStr::IsOK(fmt), "fmt error");

@@ -181,6 +181,7 @@ const cxTextureParams cxTextureParams::Repeat   = {GL_LINEAR,GL_LINEAR,GL_REPEAT
 
 cxTexture::cxTexture()
 {
+    type = 0;
     success = true;
     texId = 0;
     size = cxSize2F(0, 0);
@@ -269,6 +270,11 @@ cxTexture *cxTexture::From(cchars file)
         return FromLQT(file);
     }
     return this;
+}
+
+cxInt cxTexture::Type() const
+{
+    return type;
 }
 
 cxTexture *cxTexture::From(cxInt type,const cxStr *data)
@@ -481,6 +487,7 @@ cxTexture *cxTexture::FromPNG(const cxStr *data)
     }
     free(buffer);
     png_image_free(&image);
+    type = PNG;
     return this;
 }
 
@@ -533,6 +540,7 @@ cxTexture *cxTexture::FromPVR(const cxStr *data)
     cxUInt bufSize = widthBlocks * heightBlocks * ((blockSize  * bpp) / 8);
     GenTexture()->Bind()->SetParams(cxTextureParams::Default);
     glCompressedTexImage2D(GL_TEXTURE_2D, 0, glFormat, header->width, header->height, 0, bufSize, buffer);
+    type = PVR;
     return this;
 }
 
@@ -562,6 +570,7 @@ cxTexture *cxTexture::FromPKM(const cxStr *data)
 #else
     success = false;
 #endif
+    type = PKM;
     return this;
 }
 
@@ -574,6 +583,7 @@ cxTexture *cxTexture::FromTXT(const cxStr *txt,const cxTextAttr &attr)
     }
     GenTexture()->Bind()->SetParams(cxTextureParams::Default);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.w, size.h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data->Buffer());
+    type = TXT;
     return this;
 }
 

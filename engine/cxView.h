@@ -300,7 +300,7 @@ public:
     //ratio width
     cxView *SetH(cxFloat h);
     
-    void Layout();
+    void Layout(cxBool force=false);
     
     cxView *BringFront();
     

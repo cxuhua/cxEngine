@@ -2,6 +2,11 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := mpg123
+LOCAL_SRC_FILES := libmpg123.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := openal
 LOCAL_SRC_FILES := libopenal.so
 include $(PREBUILT_SHARED_LIBRARY)

@@ -8,7 +8,6 @@
 
 
 #include "cxOpenGL.h"
-#include "OpenGL.h"
 #include "cxView.h"
 #include "cxShader.h"
 #include <math/cxRect4F.h>

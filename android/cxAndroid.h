@@ -22,5 +22,10 @@
 #include <android/log.h>
 #include <android/native_activity.h>
 #include <android/configuration.h>
+#include <engine/cxEngine.h>
+
+CX_CPP_BEGIN
+
+CX_CPP_END
 
 #endif

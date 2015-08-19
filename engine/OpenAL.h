@@ -10,7 +10,8 @@
 #define cxEngineCore_OpenAL_h
 
 #if (CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID)
-
+#include <OpenAL/al.h>
+#include <OpenAL/alc.h>
 #elif (CX_TARGET_PLATFORM == CX_PLATFORM_IOS)
 #include <OpenAL/al.h>
 #include <OpenAL/alc.h>

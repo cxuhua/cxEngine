@@ -21,6 +21,7 @@
 #include <math/kazmath/GL/matrix.h>
 #include <math/cxBoxRender.h>
 #include <math/cxRenderF.h>
+#include "OpenGL.h"
 #include "cxTexture.h"
 
 CX_CPP_BEGIN

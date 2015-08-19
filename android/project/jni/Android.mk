@@ -7,7 +7,8 @@ LOCAL_MODULE := cxEngineAndroid
 
 LOCAL_WHOLE_STATIC_LIBRARIES += cxengine
 
-LOCAL_STATIC_LIBRARIES := pcre jpeg png uv jansson
+LOCAL_STATIC_LIBRARIES := pcre jpeg png uv jansson mpg123
+LOCAL_SHARED_LIBRARIES := openal
 
 LOCAL_LDLIBS := -llog -lGLESv2 -lz -landroid -lEGL -lOpenSLES
 
@@ -29,7 +30,7 @@ LOCAL_CPPFLAGS := \
     -I$(CX_ENGINE_PATH)/libs/android/include \
     -I$(LOCAL_PATH)
 
-LOCAL_SRC_FILES := $(wildcard $(LOCAL_PATH)/*.cpp)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/*.cpp)
 
 
 include $(BUILD_SHARED_LIBRARY)

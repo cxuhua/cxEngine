@@ -217,7 +217,7 @@ const cxInt cxFrames::Repeat() const
 {
     //forever loop play
     if(repeat == 0){
-        return INT32_MAX;
+        return INT_MAX;
     }
     return repeat;
 }

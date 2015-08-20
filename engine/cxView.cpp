@@ -551,7 +551,15 @@ const cxMatrixF &cxView::ModelView() const
 
 cxAction *cxView::GetAction(cxActionId aid)
 {
-    for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();it++){
+    cxArray::FIter it = actapps->FBegin();
+    while(it != actapps->FEnd()){
+        cxAction *action = (*it)->To<cxAction>();
+        if(action->ID() == aid){
+            return action;
+        }
+    }
+    it = actions->FBegin();
+    while(it != actions->FEnd()){
         cxAction *action = (*it)->To<cxAction>();
         if(action->ID() == aid){
             return action;
@@ -562,33 +570,65 @@ cxAction *cxView::GetAction(cxActionId aid)
 
 cxBool cxView::HasAction(cxActionId aid) const
 {
-    for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();it++){
+    cxArray::FIter it = actapps->FBegin();
+    while(it != actapps->FEnd()){
         cxAction *action = (*it)->To<cxAction>();
         if(action->ID() == aid){
             return true;
         }
+        it++;
+    }
+    it = actions->FBegin();
+    while(it != actions->FEnd()){
+        cxAction *action = (*it)->To<cxAction>();
+        if(action->ID() == aid){
+            return true;
+        }
+        it++;
     }
     return false;
 }
 
 cxView *cxView::StopAction(cxActionId aid)
 {
-    for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();it++){
+    cxArray::FIter it = actapps->FBegin();
+    while(it != actapps->FEnd()){
+        cxAction *action = (*it)->To<cxAction>();
+        if(action->ID() == aid || aid == 0){
+            it = actapps->Remove(it);
+        }else{
+            it++;
+        }
+    }
+    it = actions->FBegin();
+    while(it != actions->FEnd()){
         cxAction *action = (*it)->To<cxAction>();
         if(action->ID() == aid || aid == 0){
             action->Stop();
         }
+        it++;
     }
     return this;
 }
 
 cxView *cxView::ExitAction(cxActionId aid)
 {
-    for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();it++){
+    cxArray::FIter it = actapps->FBegin();
+    while(it != actapps->FEnd()){
+        cxAction *action = (*it)->To<cxAction>();
+        if(action->ID() == aid || aid == 0){
+            it = actapps->Remove(it);
+        }else{
+            it++;
+        }
+    }
+    it = actions->FBegin();
+    while(it != actions->FEnd()){
         cxAction *action = (*it)->To<cxAction>();
         if(action->ID() == aid || aid == 0){
             action->Exit(true);
         }
+        it++;
     }
     return this;
 }

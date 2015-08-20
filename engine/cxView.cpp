@@ -488,6 +488,7 @@ cxView *cxView::Append(cxView *view)
     CX_ASSERT(view != nullptr, "args error");
     CX_ASSERT(view->parent == nullptr, "view repeat append");
     view->SetParent(this);
+    view->isremoved = false;
     viewapps->Append(view);
     return this;
 }

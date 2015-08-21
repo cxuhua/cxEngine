@@ -336,7 +336,7 @@ cxJson *cxJson::Set(cchars key,const cxJson *value)
     if(value == nullptr){
         json_object_set_new(json, key, json_null());
     }else{
-        json_object_set_new(json, key, value->ToJson());
+        json_object_set_new(json, key, json_incref(value->ToJson()));
     }
     return this;
 }
@@ -481,7 +481,7 @@ cxJson *cxJson::Append(const cxJson *value)
     if(value == nullptr){
         json_array_append_new(json, json_null());
     }else{
-        json_array_append_new(json, value->ToJson());
+        json_array_append_new(json, json_incref(value->ToJson()));
     }
     return this;
 }

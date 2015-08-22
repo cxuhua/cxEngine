@@ -23,7 +23,7 @@ cxNotice::Notice::~Notice()
     
 }
 
-void cxNotice::Remove(cxObject *dst)
+void cxNotice::Remove(cxAny dst)
 {
     CX_ASSERT(dst != nullptr, "args error");
     Keys::iterator kt = instance.keys.begin();
@@ -62,7 +62,7 @@ void cxNotice::Post(cxLong key,cxAny src)
     }
 }
 
-void cxNotice::Append(cxLong key,cxObject *dst,NoticeFunc func)
+void cxNotice::Append(cxLong key,cxAny dst,NoticeFunc func)
 {
     CX_ASSERT(dst != nullptr, "dst error");
     Keys::iterator it = instance.keys.find(key);

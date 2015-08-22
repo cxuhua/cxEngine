@@ -25,7 +25,7 @@ private:
     typedef std::function<void(cxAny data)> NoticeFunc;
     struct Notice
     {
-        cxObject *dst;
+        cxAny dst;
         NoticeFunc func;
         Notice();
         ~Notice();
@@ -36,10 +36,10 @@ private:
     Keys keys;
 public:
     //must invoke remove(object)
-    static void Append(cxLong key,cxObject *dst,NoticeFunc func);
+    static void Append(cxLong key,cxAny dst,NoticeFunc func);
     static void Post(cxLong key,cxAny src);
     static void Remove(cxLong key);
-    static void Remove(cxObject *dst);
+    static void Remove(cxAny dst);
 };
 
 CX_CPP_END

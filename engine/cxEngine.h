@@ -75,6 +75,7 @@ public:
     
     cxFloat PlanWidth();
     cxFloat PlanHeight();
+    const cxSize2F PlanSize();
     
     const cxFloat Time() const;
     cxStr *TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size);

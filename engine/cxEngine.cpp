@@ -134,6 +134,11 @@ cxPoint2F cxEngine::FixHeight()
     return PlanScale().y;
 }
 
+const cxSize2F cxEngine::PlanSize()
+{
+    return plansize;
+}
+
 cxFloat cxEngine::PlanWidth()
 {
     return plansize.w;

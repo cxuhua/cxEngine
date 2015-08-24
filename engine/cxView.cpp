@@ -21,7 +21,6 @@ cxView::cxView()
     maxz = 0;
     direction = INFINITY;
     isdir = false;
-    islayout = false;
     resizeflags = ResizeNone;
     resizebox = 0.0f;
     z = 0;
@@ -75,7 +74,6 @@ cxView *cxView::SetResizeFlags(Resize flags)
 {
     if(resizeflags != flags){
         resizeflags = flags;
-        SetDirty(DirtyModeLayout);
     }
     return this;
 }
@@ -84,7 +82,6 @@ cxView *cxView::SetResizeBox(const cxBox4F &box)
 {
     if(resizebox != box){
         resizebox = box;
-        SetDirty(DirtyModeLayout);
     }
     return this;
 }
@@ -763,7 +760,12 @@ cxBool cxView::Dispatch(const cxTouchable *e)
 
 void cxView::transform()
 {
+    if(IsDirtyMode(DirtyModeLayout)){
+        OnLayout();
+    }
+    
     OnDirty();
+    
     if(IsDirtyMode(DirtyModeLayout)){
         OnLayout();
     }
@@ -791,10 +793,7 @@ void cxView::Update(cxFloat dt)
     if(IsRemoved() || EnableSleep()){
         return;
     }
-    if(!islayout){
-        OnLayout();
-        islayout = true;
-    }
+    OnUpdate(dt);
     if(!actions->IsEmpty() || !actapps->IsEmpty()){
         updateActions(dt);
     }
@@ -807,7 +806,6 @@ void cxView::Update(cxFloat dt)
     if(!subviews->IsEmpty()){
         runRemoves(dt);
     }
-    OnUpdate(dt);
 }
 
 cxInt cxView::Z() const
@@ -848,16 +846,12 @@ cxView *cxView::SetClip(cxBool v)
     return this;
 }
 
-void cxView::Layout(cxBool force)
+void cxView::Layout()
 {
-    if(force){
-        OnLayout();
-    }else{
-        islayout = false;
-    }
+    SetDirty(DirtyModeLayout);
     for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
         cxView *view = (*it)->To<cxView>();
-        view->Layout(force);
+        view->SetDirty(DirtyModeLayout);
     }
 }
 
@@ -1022,20 +1016,22 @@ void cxView::OnLayout()
         return;
     }
     CX_ASSERT(!cxEngine::Instance()->PlanScale().IsZero(), "not set plansize");
-    
     cxBox4F pbox = Parent()->BoxPoint().ToBox4F();
     cxBox4F vbox = BoxPoint().ToBox4F();
     
     cxSize2F    psiz = Parent()->Size();
     cxPoint2F   panchor = Parent()->Anchor();
-    
+
     cxSize2F    vsiz = ContentSize();
     cxPoint2F   vanchor = Anchor();
+    cxSize2F    nsiz = Size();
     
     cxPoint2F   vpos = Position();
     cxPoint2F   vscale = Scale();
     cxPoint2F   vfixscale = FixScale();
     
+    cxBox4F     vresizebox = resizebox * fixscale;
+
     //auto mask
     if(resizeflags & ResizeLeftSide){
         resizeflags |= ResizeLeft;
@@ -1047,30 +1043,29 @@ void cxView::OnLayout()
     if((resizeflags & ResizeLeft) && (resizeflags & ResizeRight)){
         vscale.x = 1.0f;
         vfixscale.x = 1.0f;
-        vbox.l = pbox.l + resizebox.l;
-        vbox.r = pbox.r - resizebox.r;
+        vbox.l = pbox.l + vresizebox.l;
+        vbox.r = pbox.r - vresizebox.r;
         vsiz.w = vbox.r - vbox.l;
-        vpos.x = (resizebox.l - resizebox.r)/2.0f;
+        vpos.x = (vresizebox.l - vresizebox.r)/2.0f;
         vpos.x -= panchor.x * psiz.w;
         vpos.x += vanchor.x * vsiz.w;
+        nsiz.w = vsiz.w;
     }else if(resizeflags & ResizeLeft){
-        vbox.l = pbox.l + resizebox.l;
+        vbox.l = pbox.l + vresizebox.l;
         vbox.r = vbox.l + vsiz.w;
         vpos.x = vbox.l + vsiz.w/2.0f;
         vpos.x += vanchor.x * vsiz.w;
         if(resizeflags & ResizeLeftSide){
-            vpos.x -= (resizebox.l * 2 + vsiz.w);
+            vpos.x -= (vresizebox.l * 2 * vfixscale.x + vsiz.w);
         }
-        vsiz.w = size.w;
     }else if(resizeflags & ResizeRight){
-        vbox.r = pbox.r - resizebox.r;
+        vbox.r = pbox.r - vresizebox.r;
         vbox.l = vbox.r - vsiz.w;
         vpos.x = vbox.l + vsiz.w/2.0f;
         vpos.x += vanchor.x * vsiz.w;
         if(resizeflags & ResizeRightSide){
-            vpos.x += (resizebox.r * 2 + vsiz.w);
+            vpos.x += (vresizebox.r * 2 + vsiz.w);
         }
-        vsiz.w = size.w;
     }
     //auto mask
     if(resizeflags & ResizeTopSide){
@@ -1083,34 +1078,33 @@ void cxView::OnLayout()
     if((resizeflags & ResizeTop) && (resizeflags & ResizeBottom)){
         vscale.y = 1.0f;
         vfixscale.y = 1.0f;
-        vbox.b = pbox.b + resizebox.b;
-        vbox.t = pbox.t - resizebox.t;
+        vbox.b = pbox.b + vresizebox.b;
+        vbox.t = pbox.t - vresizebox.t;
         vsiz.h = vbox.t - vbox.b;
-        vpos.y = (resizebox.b - resizebox.t)/2.0f;
+        vpos.y = (vresizebox.b - vresizebox.t)/2.0f;
         vpos.y -= panchor.y * psiz.h;
         vpos.y += vanchor.y * vsiz.h;
+        nsiz.h = vsiz.h;
     }else if(resizeflags & ResizeBottom){
-        vbox.b = pbox.b + resizebox.b;
+        vbox.b = pbox.b + vresizebox.b;
         vbox.t = vbox.b + vsiz.h;
         vpos.y = vbox.b + vsiz.h/2.0f;
         vpos.y += vanchor.y * vsiz.h;
         if(resizeflags & ResizeBottomSide){
-            vpos.y -= (resizebox.b * 2 + vsiz.h);
+            vpos.y -= (vresizebox.b * 2 + vsiz.h);
         }
-        vsiz.h = size.h;
     }else if(resizeflags & ResizeTop){
-        vbox.t = pbox.t - resizebox.t;
+        vbox.t = pbox.t - vresizebox.t;
         vbox.b = vbox.t - vsiz.h;
         vpos.y = vbox.b + vsiz.h/2.0f;
         vpos.y += vanchor.y * vsiz.h;
         if(resizeflags & ResizeTopSide){
-            vpos.y += (resizebox.t * 2 + vsiz.h);
+            vpos.y += (vresizebox.t * 2 + vsiz.h);
         }
-        vsiz.h = size.h;
     }
     SetFixScale(vfixscale);
     SetScale(vscale);
-    SetSize(vsiz);
+    SetSize(nsiz);
     SetPosition(vpos);
 }
 

@@ -57,8 +57,9 @@ void cxNotice::Post(cxLong key,cxAny src)
         return;
     }
     Notices &vs = it->second;
-    for(Notices::iterator vt=vs.begin();vt!=vs.end();vt++){
-        (*vt).func(src);
+    for(cxInt i=0;i <vs.size(); i++){
+        Notice &vt = vs.at(i);
+        vt.func(src);
     }
 }
 

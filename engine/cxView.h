@@ -76,8 +76,8 @@ public:
     static const DirtyMode DirtyModeColor       = 1 << 3;
     static const DirtyMode DirtyModeAngle       = 1 << 4;
     static const DirtyMode DirtyModeTexture     = 1 << 5;
-    static const DirtyMode DirtyModeLayout      = 1 << 6;
-    static const DirtyMode DirtyModeAnchor      = 1 << 7;
+    static const DirtyMode DirtyModeAnchor      = 1 << 6;
+    static const DirtyMode DirtyModeLayout      = 1 << 7;
     static const DirtyMode DirtyModeForce       = 1 << 8;
     static const DirtyMode DirtyModeNormal      = DirtyModePosition|DirtyModeAngle|DirtyModeScale;
     
@@ -145,11 +145,9 @@ private:
     cxBox4F clipbox;
     
     cxUInt flags;           //update and render flags
-    cxBool islayout;
     cxBool isdir;
     Relative relative;
 public:
-    
     cxView *SetRelative(Relative v);
     
     const cxBool EnableDir() const;
@@ -300,7 +298,7 @@ public:
     //ratio width
     cxView *SetH(cxFloat h);
     
-    void Layout(cxBool force=false);
+    void Layout();
     
     cxView *BringFront();
     

@@ -680,12 +680,12 @@ cxView *cxView::SetFrame(cxFloat x,cxFloat y,cxFloat w,cxFloat h)
 
 void cxView::OnEnter()
 {
-    
+    onEnter.Fire(this);
 }
 
 void cxView::OnLeave()
 {
-    
+    onLeave.Fire(this);
 }
 
 void cxView::runAppends(cxFloat dt)
@@ -694,7 +694,6 @@ void cxView::runAppends(cxFloat dt)
         cxView *view = (*it)->To<cxView>();
         subviews->Append(view);
         view->OnEnter();
-        view->onEnter.Fire(view);
         OnAppend(view);
     }
     viewapps->Clear();
@@ -712,7 +711,6 @@ void cxView::runRemoves(cxFloat dt)
             continue;
         }
         view->OnLeave();
-        view->onLeave.Fire(view);
         OnRemove(view);
         it = subviews->Remove(it);
     }

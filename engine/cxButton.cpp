@@ -51,7 +51,7 @@ void cxButton::timerStart()
 {
     timerExit();
     timer = cxTimer::Create(1.0, longerTime);
-    timer->onArrive =CX_BIND_EVENT(cxButton::timerArrive);
+    timer->onArrive = CX_BIND_EVENT_A1(this,cxButton::timerArrive);
     timer->AttachTo(this);
 }
 

@@ -15,7 +15,10 @@
 
 CX_CPP_BEGIN
 
-#define CX_BIND_EVENT(_f_)  std::bind(&_f_,this,std::placeholders::_1)
+#define CX_BIND_EVENT_A1(_s_,_f_) std::bind(&_f_,_s_,std::placeholders::_1)
+#define CX_BIND_EVENT_A2(_s_,_f_) std::bind(&_f_,_s_,std::placeholders::_1,std::placeholders::_2)
+#define CX_BIND_EVENT_A3(_s_,_f_) std::bind(&_f_,_s_,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3)
+#define CX_BIND_EVENT_A4(_s_,_f_) std::bind(&_f_,_s_,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3,std::placeholders::_4)
 
 template<class T,typename...A>
 class cxEvent

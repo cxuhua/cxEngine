@@ -52,6 +52,7 @@ cxView::cxView()
 
 cxView::~cxView()
 {
+    UnBind();
     onFree.Fire(this);
     cxObject::release(&shader);
     actapps->Release();
@@ -498,17 +499,6 @@ cxView *cxView::Append(cxAction *action)
     action->SetView(this);
     actapps->Append(action);
     return this;
-}
-
-cxView *cxView::Clone()
-{
-    cxView *rv = cxView::Create();
-    rv->SetSize(size);
-    rv->SetPosition(position);
-    rv->SetScale(scale);
-    rv->SetFixScale(fixscale);
-    rv->SetColor(Color());
-    return rv;
 }
 
 cxView *cxView::Remove()
@@ -1123,24 +1113,24 @@ const cxInt cxView::BindedSize() const
 
 void cxView::Bind(cxView *pview,cxLong tag)
 {
-    if(pview == nullptr){
-        return;
-    }
+    CX_ASSERT(pview != nullptr, "pview args error");
     CX_ASSERT(pview != this, "self can't bind self");
-    cxLong i = (cxLong)this;
-    cxLong m = (cxLong)pview;
-    bindes.insert(std::pair<cxLong, cxLong>(m,tag));
-    pview->binded.insert(std::pair<cxLong, cxLong>(i,tag));
+    if(bindes.find(pview) == bindes.end()){
+        bindes.emplace(pview,tag);
+    }
+    if(pview->binded.find(this) == pview->binded.end()){
+        pview->binded.emplace(this,tag);
+    }
 }
 
 const cxBool cxView::HasBindes(cxView *pview) const
 {
-    return bindes.find((cxLong)pview) != bindes.end();
+    return bindes.find(pview) != bindes.end();
 }
 
 const cxBool cxView::HasBinded(cxView *pview) const
 {
-    return binded.find((cxLong)pview) != binded.end();
+    return binded.find(pview) != binded.end();
 }
 
 const cxArray *cxView::GetBindes()
@@ -1208,26 +1198,24 @@ void cxView::UnBind(cxView *pview)
     if(pview == nullptr){
         return;
     }
-    cxLong i = (cxLong)this;
-    cxLong m = (cxLong)pview;
-    bindes.erase(m);
-    pview->binded.erase(i);
+    bindes.erase(pview);
+    pview->binded.erase(this);
 }
 
 void cxView::UnBind()
 {
-    cxLong i = (cxLong)this;
     BindMap::iterator it = bindes.begin();
     while(it != bindes.end()){
         cxView *pview = (cxView *)it->first;
-        pview->binded.erase(i);
+        pview->binded.erase(this);
         it++;
     }
     bindes.clear();
+    
     it = binded.begin();
     while(it != binded.end()){
         cxView *pview = (cxView *)it->first;
-        pview->bindes.erase(i);
+        pview->bindes.erase(this);
         it++;
     }
     binded.clear();

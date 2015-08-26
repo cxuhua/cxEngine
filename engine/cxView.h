@@ -89,7 +89,7 @@ protected:
 protected:
     cxRenderState state;
 private:
-    typedef std::map<cxLong,cxLong> BindMap;
+    typedef std::map<void *,cxLong> BindMap;
     cxFloat direction;
     BindMap bindes;
     BindMap binded;
@@ -301,8 +301,6 @@ public:
     void Layout();
     
     cxView *BringFront();
-    
-    virtual cxView *Clone();
     
     cxView *Append(cxView *view);
     cxView *Append(cxAction *action);

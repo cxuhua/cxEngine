@@ -1096,6 +1096,24 @@ void cxView::OnLayout()
     SetPosition(vpos);
 }
 
+void cxView::Each(std::function<void(cxView *pview)> func)
+{
+    for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
+        cxView *pv = (*it)->To<cxView>();
+        if(pv->IsRemoved()){
+            continue;
+        }
+        func(pv);
+    }
+    for(cxArray::FIter it=viewapps->FBegin();it!=viewapps->FEnd();it++){
+        cxView *pv = (*it)->To<cxView>();
+        if(pv->IsRemoved()){
+            continue;
+        }
+        func(pv);
+    }
+}
+
 void cxView::OnUpdate(cxFloat dt)
 {
     

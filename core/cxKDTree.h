@@ -19,17 +19,17 @@ CX_CPP_BEGIN
 struct KDTreeNode
 {
     static const cxInt DIM = 2;
-    cxLong tag;
+    void *ref;
     cxFloat vs[2];
     KDTreeNode()
     {
-        tag = 0;
+        ref = nullptr;
         vs[0] = 0;
         vs[1] = 0;
     }
-    KDTreeNode(const cxPoint2F &p,cxLong atag)
+    KDTreeNode(const cxPoint2F &p,void *aref)
     {
-        tag = atag;
+        ref = aref;
         vs[0] = p.x;
         vs[1] = p.y;
     }
@@ -60,7 +60,7 @@ private:
     Results results;
 public:
     cxKDTree *Clear();
-    cxKDTree *Append(const cxPoint2F &p,cxLong tag);
+    cxKDTree *Append(const cxPoint2F &p,void *ref);
     cxKDTree *Build();
     cxInt Nearst(const cxPoint2F &cp,cxFloat max);
     

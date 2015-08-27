@@ -274,6 +274,8 @@ public:
     
     cxView *AttachTo(cxView *pview);
     
+    void Each(std::function<void(cxView *pview)> func);
+    
     cxView *Sort();
     cxBool IsEmpty() const;
     

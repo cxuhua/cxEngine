@@ -54,9 +54,9 @@ cxKDTree *cxKDTree::Clear()
     return this;
 }
 
-cxKDTree *cxKDTree::Append(const cxPoint2F &p,cxLong tag)
+cxKDTree *cxKDTree::Append(const cxPoint2F &p,void *ref)
 {
-    nodes.push_back(KDTreeNode(p, tag));
+    nodes.push_back(KDTreeNode(p, ref));
     return this;
 }
 

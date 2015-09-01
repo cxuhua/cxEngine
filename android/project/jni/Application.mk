@@ -3,7 +3,7 @@
 NDK_PATH := /Users/xuhua/android/android-ndk
 CX_ENGINE_PATH := /Users/xuhua/Documents/cxengine
 
-NDK_TOOLCHAIN_VERSION := clang3.4
+NDK_TOOLCHAIN_VERSION := clang3.6
 
 APP_STL := gnustl_static
 

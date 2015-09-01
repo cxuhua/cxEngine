@@ -230,6 +230,8 @@ public:
     const cxPoint2F &Position() const;
     cxView *AddPosition(const cxPoint2F &v);
     cxView *SetPosition(const cxPoint2F &v);
+    cxView *SetX(cxFloat x);
+    cxView *SetY(cxFloat y);
     
     const cxPoint2F &FixScale() const;
     const cxPoint2F TransScale() const;

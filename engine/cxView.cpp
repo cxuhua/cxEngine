@@ -281,6 +281,20 @@ cxView *cxView::SetPosition(const cxPoint2F &v)
     return this;
 }
 
+cxView *cxView::SetX(cxFloat x)
+{
+    cxPoint2F pos = position;
+    pos.x = x;
+    return SetPosition(pos);
+}
+
+cxView *cxView::SetY(cxFloat y)
+{
+    cxPoint2F pos = position;
+    pos.y = y;
+    return SetPosition(pos);
+}
+
 const cxPoint2F cxView::TransScale() const
 {
     return scale * fixscale;

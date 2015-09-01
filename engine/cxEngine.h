@@ -84,6 +84,7 @@ public:
     static cxEngine *Instance();
     static void Startup(cxBool layout);
     
+    void Exit();
     void Reset();
 
     cxWindow *Window() const;

@@ -851,7 +851,8 @@ cxView *cxView::SetClip(cxBool v)
 void cxView::Layout()
 {
     SetDirty(DirtyModeLayout);
-    for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
+    cxArray *vs = Allviews();
+    for(cxArray::FIter it=vs->FBegin();it!=vs->FEnd();it++){
         cxView *view = (*it)->To<cxView>();
         view->SetDirty(DirtyModeLayout);
     }

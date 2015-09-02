@@ -34,6 +34,22 @@ cxInt cxArray::Size() const
     return (cxInt)mv.size();
 }
 
+cxObject *cxArray::Last() const
+{
+    if(Size() == 0){
+        return nullptr;
+    }
+    return At(Size() - 1);
+}
+
+cxObject *cxArray::First() const
+{
+    if(Size() == 0){
+        return nullptr;
+    }
+    return At(0);
+}
+
 cxObject *cxArray::At(cxInt idx) const
 {
     return mv.at(idx);

@@ -39,6 +39,8 @@ public:
     RIter Remove(RIter &iter);
 public:
     cxObject **Buffer();
+    cxObject *Last() const;
+    cxObject *First() const;
     cxObject *At(cxInt idx) const;
     cxBool IsEmpty() const;
     cxInt Size() const;

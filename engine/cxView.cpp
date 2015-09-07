@@ -477,6 +477,7 @@ cxView *cxView::EnableVisible(cxBool v)
 
 cxView *cxView::RemoveSubviews()
 {
+    viewapps->Clear();
     for(cxArray::FIter it = subviews->FBegin();it != subviews->FEnd();it++){
         cxView *pview = (*it)->To<cxView>();
         OnRemove(pview);
@@ -810,14 +811,14 @@ void cxView::Update(cxFloat dt)
     }
 }
 
-cxInt cxView::Z() const
+cxFloat cxView::Z() const
 {
     return z;
 }
 
-cxView *cxView::SetZ(cxInt v)
+cxView *cxView::SetZ(cxFloat v)
 {
-    if(z == v){
+    if(cxFloatIsEqual(z, v)){
         return this;
     }
     z = v;
@@ -867,7 +868,13 @@ cxInt cxView::sortFunc(const void *lp,const void *rp)
 {
     cxView *l = *(cxView **)lp;
     cxView *r = *(cxView **)rp;
-    return l->Z() - r->Z();
+    if(l->Z() > r->Z()){
+        return 1;
+    }
+    if(l->Z() < r->Z()){
+        return -1;
+    }
+    return 0;
 }
 
 cxRenderState &cxView::State()

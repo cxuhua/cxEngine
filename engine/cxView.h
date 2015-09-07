@@ -120,8 +120,8 @@ private:
     cxPoint3F axis;
     cxFloat angle;
     
-    cxInt maxz;
-    cxInt z;
+    cxFloat maxz;
+    cxFloat z;
     
     cxBool isvisible;
     cxBool issleep;
@@ -173,8 +173,8 @@ public:
     cxView *SetClip(cxBool v);
     
     //max z front
-    cxInt Z() const;
-    cxView *SetZ(cxInt v);
+    cxFloat Z() const;
+    cxView *SetZ(cxFloat v);
     
     cxView *SetBlend(const BlendFunc &b);
     const BlendFunc &Blend() const;

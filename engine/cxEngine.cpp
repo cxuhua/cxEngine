@@ -66,6 +66,11 @@ cxBool cxEngine::IsTouch() const
     return istouch;
 }
 
+void cxEngine::SetIsTouch(cxBool v)
+{
+    istouch = v;
+}
+
 cxEngine::cxEngine()
 {
     isreset = false;

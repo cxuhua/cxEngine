@@ -20,12 +20,6 @@
 
 CX_CPP_BEGIN
 
-enum cxEngineId{
-    cxEngineIdMusic     = 1,
-    
-    cxEngineIdMax
-};
-
 struct cxTextAttr;
 class cxEngine : public cxObject,public cxTouchable
 {
@@ -35,7 +29,9 @@ private:
 public:
     static constexpr cxFloat DTM = 1.0f/30.0f;
 protected:
+    
     static cxEngine *instance;
+    
     explicit cxEngine();
     virtual ~cxEngine();
     
@@ -66,6 +62,8 @@ private:
     cxBool isreset;
     cxHash *configs;
 public:
+    
+    void SetIsTouch(cxBool v);
     
     void LoadConfig(cchars file);
     const cxStr *Config(cchars key) const;

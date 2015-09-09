@@ -58,6 +58,14 @@ cxBoxCoord2F::cxBoxCoord2F(const cxBoxCoord2F &v)
     rb = v.rb;
 }
 
+cxBoxCoord2F::cxBoxCoord2F(cxFloat l,cxFloat r,cxFloat t,cxFloat b)
+{
+    lt = cxCoord2F(l,t);
+    lb = cxCoord2F(l,b);
+    rt = cxCoord2F(r,t);
+    rb = cxCoord2F(r,b);
+}
+
 cxBoxCoord2F::cxBoxCoord2F()
 {
     lt = cxCoord2F(0,0);

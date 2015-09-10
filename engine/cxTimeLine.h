@@ -36,6 +36,12 @@ public:
     cxFloat Time() const;
 };
 
+enum TimeType
+{
+    TimeTypeFrame = 1,
+    TimeTypeLine
+};
+
 class cxTimeLine : public cxAction
 {
 public:
@@ -57,9 +63,11 @@ private:
     cxInt idx;      //0-n
     cxInt from;     //0-(size-1);
     cxInt to;       //0-(size-1)
+    TimeType timeType;
 public:
     cxEvent<cxTimeLine,const cxTimePoint *> onTime;
 public:
+    void SetTimeType(TimeType v);
     cxTimeLine *SetRange(cxInt afrom,cxInt ato);
     cxInt Index() const;
     void UpdateTime();
@@ -73,6 +81,7 @@ public:
     cxTimePoint *At(cxInt i);
     
     cxTimePoint *Append(cxFloat time);
+    cxArray *Points();
     const cxArray *Points() const;
     
     const cxInt Length() const;

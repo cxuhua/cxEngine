@@ -22,6 +22,7 @@ protected:
     explicit cxAtlas();
     virtual ~cxAtlas();
 private:
+    cxInt currIdx;          //use SetFrames(frames,idx)
     cxBool isscale9;        //use scale9 image render
     cxBox4F scalebox;
     void updateScale9();

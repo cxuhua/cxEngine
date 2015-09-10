@@ -125,13 +125,11 @@ cxBox4F &cxTexCoord::Trimmed(cxBox4F &vbox,const cxSize2F &size,cxBool flipx,cxB
             vbox.l = -vbox.l - spriteSourceSize.w;
         }
         vbox.r = vbox.l + spriteSourceSize.w;
-        
         vbox.t = sourceSize.h/2.0f - spriteSourceSize.y;
         if(flipy){
             vbox.t = -vbox.t + spriteSourceSize.h;
         }
         vbox.b = vbox.t - spriteSourceSize.h;
-        
         xs = size.w / sourceSize.w;
         ys = size.h / sourceSize.h;
     }

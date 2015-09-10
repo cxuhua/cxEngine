@@ -15,8 +15,22 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxView);
 
+cxInt cxView::defaultSortFunc(const void *lp,const void *rp)
+{
+    cxView *l = *(cxView **)lp;
+    cxView *r = *(cxView **)rp;
+    if(l->Z() > r->Z()){
+        return 1;
+    }
+    if(l->Z() < r->Z()){
+        return -1;
+    }
+    return 0;
+}
+
 cxView::cxView()
 {
+    sortFunc = defaultSortFunc;
     relative = RelativeNone;
     maxz = 0;
     direction = INFINITY;
@@ -59,6 +73,12 @@ cxView::~cxView()
     viewapps->Release();
     actions->Release();
     subviews->Release();
+}
+
+cxView *cxView::SetSortFunc(cxCmpFunc func)
+{
+    sortFunc = func;
+    return this;
 }
 
 cxView *cxView::BringFront()
@@ -862,19 +882,6 @@ void cxView::Layout()
 cxBool cxView::IsEmpty() const
 {
     return subviews->IsEmpty() && viewapps->IsEmpty();
-}
-
-cxInt cxView::sortFunc(const void *lp,const void *rp)
-{
-    cxView *l = *(cxView **)lp;
-    cxView *r = *(cxView **)rp;
-    if(l->Z() > r->Z()){
-        return 1;
-    }
-    if(l->Z() < r->Z()){
-        return -1;
-    }
-    return 0;
 }
 
 cxRenderState &cxView::State()

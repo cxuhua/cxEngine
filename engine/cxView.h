@@ -138,7 +138,8 @@ private:
     
     void updateActions(cxFloat dt);
     
-    static cxInt sortFunc(const void *lp,const void *rp);
+    static cxInt defaultSortFunc(const void *lp,const void *rp);
+    cxCmpFunc sortFunc;
     cxBool issort;
     
     void transform();
@@ -148,6 +149,8 @@ private:
     cxBool isdir;
     Relative relative;
 public:
+    cxView *SetSortFunc(cxCmpFunc func);
+    
     cxView *SetRelative(Relative v);
     
     const cxBool EnableDir() const;

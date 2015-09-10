@@ -15,6 +15,7 @@ CX_IMPLEMENT(cxAtlas);
 
 cxAtlas::cxAtlas()
 {
+    currIdx = -1;
     isscale9 = false;
 }
 
@@ -54,8 +55,13 @@ cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
 
 cxAtlas *cxAtlas::SetFrames(const cxFrames *frames,cxInt idx)
 {
+    if(currIdx == idx){
+        return this;
+    }
+    currIdx = idx;
     const cxArray *layers = frames->Layers(idx);
     CX_ASSERT(layers != nullptr, "frames null");
+    
     SetTexture(frames->Texture());
     SetCoords(layers, frames);
     return this;

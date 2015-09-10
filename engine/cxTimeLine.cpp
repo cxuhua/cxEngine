@@ -102,10 +102,14 @@ void cxTimeLine::UpdateTime()
     times.clear();
     cxFloat time = 0;
     for(cxInt i = 0;i < Length();i++){
-        times.push_back(time);
-        if(looptime > 0){
+        if(timeType == TimeTypeLine){
+            time = At(i)->Time();
+            times.push_back(time);
+        }else if(looptime > 0){
+            times.push_back(time);
             time += looptime/(cxFloat)Length();
         }else{
+            times.push_back(time);
             time +=  At(i)->Time();
         }
     }
@@ -149,6 +153,11 @@ const cxArray *cxTimeLine::Points() const
     return points;
 }
 
+cxArray *cxTimeLine::Points()
+{
+    return points;
+}
+
 cxTimeLine *cxTimeLine::SetRange(cxInt afrom,cxInt ato)
 {
     CX_ASSERT(afrom < points->Size() && to < points->Size(), "range error");
@@ -182,8 +191,14 @@ const cxInt cxTimeLine::To() const
     return to;
 }
 
+void cxTimeLine::SetTimeType(TimeType v)
+{
+    timeType = v;
+}
+
 cxTimeLine::cxTimeLine()
 {
+    timeType = TimeTypeFrame;
     looptime = 0;
     isdirty = true;
     idx = -1;

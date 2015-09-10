@@ -114,6 +114,7 @@ public:
     cxJson *From(cchars str);
     cxJson *From(json_t *js);
     cxJson *From(const cxStr *str);
+    cxJson *From(const cxJson *json);
     
     cxBool IsObject() const;
     cxBool IsArray() const;

@@ -654,6 +654,12 @@ cxJson *cxJson::From(const cxStr *str)
     return From(str->Data());
 }
 
+cxJson *cxJson::From(const cxJson *json)
+{
+    CX_ASSERT(json->IsString(), "type error");
+    return cxJson::Create()->From(json->ToStr());
+}
+
 cxJson *cxJson::From(cchars str)
 {
     if(!cxStr::IsOK(str)){

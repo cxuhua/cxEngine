@@ -54,6 +54,7 @@ private:
 protected:
     virtual void OnDirty();
 public:
+    const cxStr *Text();
     cxLabel *SetText(const cxStr *ptxt);
     cxLabel *SetText(cchars fmt,...);
     cxLabel *SetFontSize(cxFloat size);

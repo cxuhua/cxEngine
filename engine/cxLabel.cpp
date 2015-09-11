@@ -139,6 +139,11 @@ cxLabel *cxLabel::SetLocalized(cchars key,...)
     return this;
 }
 
+const cxStr *cxLabel::Text()
+{
+    return txt;
+}
+
 cxLabel *cxLabel::SetText(cchars fmt,...)
 {
     CX_ASSERT(cxStr::IsOK(fmt), "fmt error");

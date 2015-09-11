@@ -91,15 +91,15 @@ void cxFrames::SetMaps(cchars maps)
     }
 }
 
-void cxFrames::SetRepeat(const cxStr *str)
+void cxFrames::SetRepeats(const cxStr *str)
 {
     if(!cxStr::IsOK(str)){
         return;
     }
-    SetRepeat(str->ToString());
+    SetRepeats(str->ToString());
 }
 
-void cxFrames::SetRepeat(cchars str)
+void cxFrames::SetRepeats(cchars str)
 {
     if(!cxStr::IsOK(str)){
         return;
@@ -149,6 +149,7 @@ void cxFrames::loadlayers(cxArray *layers,cxInt c,cxInt g)
         char key[128]={0};
         snprintf(key, 128, "%d.%d.png",Offset()+g*100+c,l);
         cxTexCoord *coord = texture->At(key);
+        //如果当前层丢失帧图片，使用最后一个存在的图片
         if(coord == nullptr && c > 0){
             coord = layerEnd(g, c, l);
         }
@@ -162,10 +163,12 @@ cxBool cxFrames::Init()
     CX_ASSERT(Texture() != nullptr && Count() > 0 && Group() > 0 && Layer() > 0, "data format error");
     for(cxInt g = 0;g < Group();g++){
         for(cxInt c = 0;c < Count();c++){
+            //每帧的重复倍数
             cxFloat repeat = 1;
             if(c < repeats.size()){
                 repeat = repeats.at(c);
             }
+            //添加时间点
             cxTimePoint *tp = Append(Time() * repeat);
             cxArray *layers = cxArray::Alloc();
             tp->SetObject(layers);

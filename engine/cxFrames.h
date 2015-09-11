@@ -24,7 +24,7 @@ protected:
     explicit cxFrames();
     virtual ~cxFrames();
 private:
-    std::vector<int> repeats;
+    std::vector<cxInt> repeats;
     cxSize2F size;
     cxInt repeat;
     BlendFunc blend;
@@ -54,8 +54,8 @@ public:
     void SetMaps(cchars maps);
     void SetMaps(cxInt count,...);    //first = mapnum end SetMaps(2,0,1)
     
-    void SetRepeat(const cxStr *str);
-    void SetRepeat(cchars str);
+    void SetRepeats(const cxStr *str);
+    void SetRepeats(cchars str);
     
     cxFrames *SetSize(const cxSize2F &size);
     const cxSize2F &Size() const;

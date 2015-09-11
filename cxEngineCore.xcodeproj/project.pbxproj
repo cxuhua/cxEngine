@@ -40,11 +40,6 @@
 		831B93FA1B4B833700511A63 /* cxResize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B93F81B4B833700511A63 /* cxResize.cpp */; };
 		831B9EBD1B291F2700B7A06B /* cxSize2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B9EBB1B291F2700B7A06B /* cxSize2F.cpp */; };
 		831B9EC01B29255500B7A06B /* cxRect4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B9EBE1B29255500B7A06B /* cxRect4F.cpp */; };
-		831D02641B4390EB00A5EFA7 /* cxViewTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 831D02631B4390EB00A5EFA7 /* cxViewTest.mm */; };
-		831D02661B43913300A5EFA7 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831D02651B43913300A5EFA7 /* CoreText.framework */; };
-		831D02681B43914B00A5EFA7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831D02671B43914B00A5EFA7 /* CoreGraphics.framework */; };
-		831D026A1B43915200A5EFA7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 831D02691B43915200A5EFA7 /* libz.dylib */; };
-		831D026C1B43915B00A5EFA7 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831D026B1B43915B00A5EFA7 /* OpenGLES.framework */; };
 		832A886A1B4CCBAA008AA181 /* cxFrames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832A88681B4CCBAA008AA181 /* cxFrames.cpp */; };
 		833043B31B40246E00636928 /* cxEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043B11B40246E00636928 /* cxEmitter.cpp */; };
 		833043B61B4024AE00636928 /* cxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043B41B4024AE00636928 /* cxButton.cpp */; };
@@ -57,7 +52,6 @@
 		8338FD7A1B467B2A00C84032 /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD781B467B2A00C84032 /* http_parser.c */; };
 		8338FD7D1B4695F300C84032 /* cxSpline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD7B1B4695F300C84032 /* cxSpline.cpp */; };
 		8338FD831B47712D00C84032 /* cxAstar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD811B47712D00C84032 /* cxAstar.cpp */; };
-		8338FD871B478B9C00C84032 /* cxAstarTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD861B478B9C00C84032 /* cxAstarTest.mm */; };
 		833B40631B31ABD900920A06 /* cxSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B40611B31ABD900920A06 /* cxSprite.cpp */; };
 		833B40691B31AF2800920A06 /* cxBoxColor4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B40671B31AF2800920A06 /* cxBoxColor4F.cpp */; };
 		833B406E1B31B71400920A06 /* cxBoxRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B406C1B31B71400920A06 /* cxBoxRender.cpp */; };
@@ -67,16 +61,13 @@
 		8354C3071B3C620C00AC9F3C /* cxTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8354C3051B3C620C00AC9F3C /* cxTouch.cpp */; };
 		8357CB951B11FDC80085E600 /* cxJson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8357CB931B11FDC80085E600 /* cxJson.cpp */; };
 		8357CB981B12079D0085E600 /* cxStr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8357CB961B12079D0085E600 /* cxStr.cpp */; };
-		8357CBA31B120B9F0085E600 /* cxStrTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8357CBA21B120B9F0085E600 /* cxStrTest.mm */; };
 		83610B051B1CA6F700BD06B1 /* cxPoint2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83610B031B1CA6F700BD06B1 /* cxPoint2F.cpp */; };
-		83610B071B1CA7D600BD06B1 /* cxMathTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83610B061B1CA7D600BD06B1 /* cxMathTest.mm */; };
 		83610B0A1B1CA8EA00BD06B1 /* cxMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83610B081B1CA8EA00BD06B1 /* cxMath.cpp */; };
 		83610B0D1B1CB68000BD06B1 /* cxPoint2I.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83610B0B1B1CB68000BD06B1 /* cxPoint2I.cpp */; };
 		83639F6F1B30270E006A61B7 /* cxAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83639F6D1B30270E006A61B7 /* cxAction.cpp */; };
 		83639F721B302E16006A61B7 /* cxWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83639F701B302E16006A61B7 /* cxWindow.cpp */; };
 		836730AE1B465A6A00E333D9 /* cxAnimate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836730AC1B465A6A00E333D9 /* cxAnimate.cpp */; };
 		836730B51B4671AA00E333D9 /* cxTcp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836730B31B4671AA00E333D9 /* cxTcp.cpp */; };
-		836A2F361B18C2B3009B427B /* cxJsonTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F351B18C2B3009B427B /* cxJsonTest.mm */; };
 		836A2F3B1B198662009B427B /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F391B198662009B427B /* xxtea.c */; };
 		836A2F481B19869D009B427B /* LzFind.c in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F3C1B19869D009B427B /* LzFind.c */; };
 		836A2F491B19869D009B427B /* lzma.c in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F3F1B19869D009B427B /* lzma.c */; };
@@ -85,7 +76,6 @@
 		836A2F4C1B19869D009B427B /* LzmaLib.c in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F451B19869D009B427B /* LzmaLib.c */; };
 		836A2F521B1987B7009B427B /* cxUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F501B1987B7009B427B /* cxUtil.cpp */; };
 		836A2F5F1B19CDD2009B427B /* cxNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F5D1B19CDD2009B427B /* cxNumber.cpp */; };
-		836A2F611B19CE23009B427B /* cxUtilTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F601B19CE23009B427B /* cxUtilTest.mm */; };
 		836A2F651B19F644009B427B /* cxIOSUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 836A2F631B19F644009B427B /* cxIOSUtil.mm */; };
 		836DD1061B29BBDF0094F5EF /* cxBox4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836DD1041B29BBDF0094F5EF /* cxBox4F.cpp */; };
 		836DD10A1B2AAF160094F5EF /* cxTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836DD1081B2AAF160094F5EF /* cxTexture.cpp */; };
@@ -99,13 +89,6 @@
 		839361791B57906D00DC7036 /* cxTriangles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839361771B57906D00DC7036 /* cxTriangles.cpp */; };
 		839836CE1B10B3F7002B7C20 /* cxAutoPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CC1B10B3F7002B7C20 /* cxAutoPool.cpp */; };
 		839836D11B10B59C002B7C20 /* cxArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CF1B10B59C002B7C20 /* cxArray.cpp */; };
-		839836D31B10B61C002B7C20 /* cxCoreTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 839836D21B10B61C002B7C20 /* cxCoreTest.mm */; };
-		839836D51B10C631002B7C20 /* cxArrayTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 839836D41B10C631002B7C20 /* cxArrayTest.mm */; };
-		839836DB1B10E3EF002B7C20 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839836D61B10E3EF002B7C20 /* libjansson.a */; };
-		839836DC1B10E3EF002B7C20 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839836D71B10E3EF002B7C20 /* libjpeg.a */; };
-		839836DD1B10E3EF002B7C20 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839836D81B10E3EF002B7C20 /* libpcre.a */; };
-		839836DE1B10E3EF002B7C20 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839836D91B10E3EF002B7C20 /* libpng.a */; };
-		839836DF1B10E3EF002B7C20 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839836DA1B10E3EF002B7C20 /* libuv.a */; };
 		839836E61B117475002B7C20 /* cxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836E41B117475002B7C20 /* cxObject.cpp */; };
 		839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B8AB51B687DA3009E0CF7 /* OpenAL.framework */; };
 		839B8AB91B687DC8009E0CF7 /* cxOpenAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */; };
@@ -121,7 +104,6 @@
 		83AABB281B45910F0035A9F0 /* cxTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83AABB261B45910F0035A9F0 /* cxTimer.cpp */; };
 		83B23B4F1B17E0E9000D770A /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 83B23B4D1B17E0E9000D770A /* xxhash.c */; };
 		83B23B521B17E14E000D770A /* atomic.c in Sources */ = {isa = PBXBuildFile; fileRef = 83B23B501B17E14E000D770A /* atomic.c */; };
-		83BBF3E41B109452003CB004 /* libcxEngineCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BBF3D81B109452003CB004 /* libcxEngineCore.a */; };
 		83BBF3FF1B10954E003CB004 /* cxCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BBF3FD1B10954E003CB004 /* cxCore.cpp */; };
 		83BE636E1B3117270028B6E7 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83BE636B1B3117270028B6E7 /* AppDelegate.mm */; };
 		83BE636F1B3117270028B6E7 /* cxGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83BE636D1B3117270028B6E7 /* cxGLView.mm */; };
@@ -134,9 +116,7 @@
 		83C9D1321B492A2300EC244C /* cxJump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C9D1301B492A2300EC244C /* cxJump.cpp */; };
 		83D2666B1B345D6000077DB8 /* cxStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D266691B345D6000077DB8 /* cxStack.cpp */; };
 		83D5D31E1B6763B70051D99D /* cxLQT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D31C1B6763B70051D99D /* cxLQT.cpp */; };
-		83D8C3551B69C71200155990 /* libmpg123.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8C3541B69C71200155990 /* libmpg123.a */; };
 		83D92D251B3151D200F061D6 /* cxBoxCoord2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D231B3151D200F061D6 /* cxBoxCoord2F.cpp */; };
-		83D92D331B31781600F061D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D92D321B31781600F061D6 /* UIKit.framework */; };
 		83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D341B317C2000F061D6 /* cxBoxPoint2F.cpp */; };
 		83D92D391B317E5900F061D6 /* cxRenderF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D371B317E5800F061D6 /* cxRenderF.cpp */; };
 		83EA27E31B15540600370757 /* cxHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EA27E11B15540600370757 /* cxHash.cpp */; };
@@ -146,16 +126,6 @@
 		83F7BADA1B42D9E900C644B9 /* cxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F7BAD91B42D9E900C644B9 /* cxLabel.cpp */; };
 		83FB15A81B293C1000E5ECFE /* cxOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83FB15A61B293C1000E5ECFE /* cxOpenGL.cpp */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		83BBF3E51B109452003CB004 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83BBF3D01B109452003CB004 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83BBF3D71B109452003CB004;
-			remoteInfo = cxEngineCore;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		83BBF3D61B109452003CB004 /* CopyFiles */ = {
@@ -237,11 +207,6 @@
 		831B9EBC1B291F2700B7A06B /* cxSize2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSize2F.h; sourceTree = "<group>"; };
 		831B9EBE1B29255500B7A06B /* cxRect4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRect4F.cpp; sourceTree = "<group>"; };
 		831B9EBF1B29255500B7A06B /* cxRect4F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRect4F.h; sourceTree = "<group>"; };
-		831D02631B4390EB00A5EFA7 /* cxViewTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxViewTest.mm; sourceTree = "<group>"; };
-		831D02651B43913300A5EFA7 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		831D02671B43914B00A5EFA7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		831D02691B43915200A5EFA7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		831D026B1B43915B00A5EFA7 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		832A88681B4CCBAA008AA181 /* cxFrames.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxFrames.cpp; sourceTree = "<group>"; };
 		832A88691B4CCBAA008AA181 /* cxFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxFrames.h; sourceTree = "<group>"; };
 		833043B11B40246E00636928 /* cxEmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxEmitter.cpp; sourceTree = "<group>"; };
@@ -268,7 +233,6 @@
 		8338FD821B47712D00C84032 /* cxAstar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAstar.h; sourceTree = "<group>"; };
 		8338FD841B477B7200C84032 /* stlastar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stlastar.h; sourceTree = "<group>"; };
 		8338FD851B477BD200C84032 /* fsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fsa.h; sourceTree = "<group>"; };
-		8338FD861B478B9C00C84032 /* cxAstarTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxAstarTest.mm; sourceTree = "<group>"; };
 		833B40611B31ABD900920A06 /* cxSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSprite.cpp; sourceTree = "<group>"; };
 		833B40621B31ABD900920A06 /* cxSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSprite.h; sourceTree = "<group>"; };
 		833B40671B31AF2800920A06 /* cxBoxColor4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxColor4F.cpp; sourceTree = "<group>"; };
@@ -287,10 +251,8 @@
 		8357CB941B11FDC80085E600 /* cxJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxJson.h; sourceTree = "<group>"; };
 		8357CB961B12079D0085E600 /* cxStr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxStr.cpp; sourceTree = "<group>"; };
 		8357CB971B12079D0085E600 /* cxStr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxStr.h; sourceTree = "<group>"; };
-		8357CBA21B120B9F0085E600 /* cxStrTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxStrTest.mm; sourceTree = "<group>"; };
 		83610B031B1CA6F700BD06B1 /* cxPoint2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxPoint2F.cpp; sourceTree = "<group>"; };
 		83610B041B1CA6F700BD06B1 /* cxPoint2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxPoint2F.h; sourceTree = "<group>"; };
-		83610B061B1CA7D600BD06B1 /* cxMathTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxMathTest.mm; sourceTree = "<group>"; };
 		83610B081B1CA8EA00BD06B1 /* cxMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxMath.cpp; sourceTree = "<group>"; };
 		83610B091B1CA8EA00BD06B1 /* cxMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxMath.h; sourceTree = "<group>"; };
 		83610B0B1B1CB68000BD06B1 /* cxPoint2I.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxPoint2I.cpp; sourceTree = "<group>"; };
@@ -303,7 +265,6 @@
 		836730AD1B465A6A00E333D9 /* cxAnimate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAnimate.h; sourceTree = "<group>"; };
 		836730B31B4671AA00E333D9 /* cxTcp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxTcp.cpp; sourceTree = "<group>"; };
 		836730B41B4671AA00E333D9 /* cxTcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTcp.h; sourceTree = "<group>"; };
-		836A2F351B18C2B3009B427B /* cxJsonTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxJsonTest.mm; sourceTree = "<group>"; };
 		836A2F391B198662009B427B /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
 		836A2F3A1B198662009B427B /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
 		836A2F3C1B19869D009B427B /* LzFind.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzFind.c; sourceTree = "<group>"; };
@@ -322,7 +283,6 @@
 		836A2F511B1987B7009B427B /* cxUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUtil.h; sourceTree = "<group>"; };
 		836A2F5D1B19CDD2009B427B /* cxNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxNumber.cpp; sourceTree = "<group>"; };
 		836A2F5E1B19CDD2009B427B /* cxNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxNumber.h; sourceTree = "<group>"; };
-		836A2F601B19CE23009B427B /* cxUtilTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxUtilTest.mm; sourceTree = "<group>"; };
 		836A2F631B19F644009B427B /* cxIOSUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxIOSUtil.mm; sourceTree = "<group>"; };
 		836A2F641B19F644009B427B /* cxIOSUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxIOSUtil.h; sourceTree = "<group>"; };
 		836DD1041B29BBDF0094F5EF /* cxBox4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBox4F.cpp; sourceTree = "<group>"; };
@@ -351,8 +311,6 @@
 		839836CD1B10B3F7002B7C20 /* cxAutoPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAutoPool.h; sourceTree = "<group>"; };
 		839836CF1B10B59C002B7C20 /* cxArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxArray.cpp; sourceTree = "<group>"; };
 		839836D01B10B59C002B7C20 /* cxArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxArray.h; sourceTree = "<group>"; };
-		839836D21B10B61C002B7C20 /* cxCoreTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxCoreTest.mm; sourceTree = "<group>"; };
-		839836D41B10C631002B7C20 /* cxArrayTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxArrayTest.mm; sourceTree = "<group>"; };
 		839836D61B10E3EF002B7C20 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = libs/osx/lib/libjansson.a; sourceTree = "<group>"; };
 		839836D71B10E3EF002B7C20 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = libs/osx/lib/libjpeg.a; sourceTree = "<group>"; };
 		839836D81B10E3EF002B7C20 /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = libs/osx/lib/libpcre.a; sourceTree = "<group>"; };
@@ -384,8 +342,6 @@
 		83B23B501B17E14E000D770A /* atomic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atomic.c; sourceTree = "<group>"; };
 		83B23B511B17E14E000D770A /* atomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atomic.h; sourceTree = "<group>"; };
 		83BBF3D81B109452003CB004 /* libcxEngineCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcxEngineCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		83BBF3E31B109452003CB004 /* cxEngineCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cxEngineCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		83BBF3E91B109452003CB004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83BBF3FD1B10954E003CB004 /* cxCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxCore.cpp; sourceTree = "<group>"; };
 		83BBF3FE1B10954E003CB004 /* cxCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxCore.h; sourceTree = "<group>"; };
 		83BE636A1B3117270028B6E7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -413,7 +369,6 @@
 		83D8C3541B69C71200155990 /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = libs/osx/lib/libmpg123.a; sourceTree = "<group>"; };
 		83D92D231B3151D200F061D6 /* cxBoxCoord2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxCoord2F.cpp; sourceTree = "<group>"; };
 		83D92D241B3151D200F061D6 /* cxBoxCoord2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxBoxCoord2F.h; sourceTree = "<group>"; };
-		83D92D321B31781600F061D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		83D92D341B317C2000F061D6 /* cxBoxPoint2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxPoint2F.cpp; sourceTree = "<group>"; };
 		83D92D351B317C2000F061D6 /* cxBoxPoint2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxBoxPoint2F.h; sourceTree = "<group>"; };
 		83D92D371B317E5800F061D6 /* cxRenderF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRenderF.cpp; sourceTree = "<group>"; };
@@ -438,25 +393,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83BBF3E01B109452003CB004 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83D8C3551B69C71200155990 /* libmpg123.a in Frameworks */,
-				831D026C1B43915B00A5EFA7 /* OpenGLES.framework in Frameworks */,
-				831D026A1B43915200A5EFA7 /* libz.dylib in Frameworks */,
-				831D02681B43914B00A5EFA7 /* CoreGraphics.framework in Frameworks */,
-				831D02661B43913300A5EFA7 /* CoreText.framework in Frameworks */,
-				83D92D331B31781600F061D6 /* UIKit.framework in Frameworks */,
-				839836DB1B10E3EF002B7C20 /* libjansson.a in Frameworks */,
-				839836DC1B10E3EF002B7C20 /* libjpeg.a in Frameworks */,
-				839836DD1B10E3EF002B7C20 /* libpcre.a in Frameworks */,
-				839836DE1B10E3EF002B7C20 /* libpng.a in Frameworks */,
-				839836DF1B10E3EF002B7C20 /* libuv.a in Frameworks */,
-				83BBF3E41B109452003CB004 /* libcxEngineCore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -730,7 +666,6 @@
 				83B23B4C1B17E0E9000D770A /* ext */,
 				839836E01B10E3F4002B7C20 /* libs */,
 				83BBF3FC1B109531003CB004 /* core */,
-				83BBF3E71B109452003CB004 /* cxEngineCoreTests */,
 				83BBF3D91B109452003CB004 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -739,38 +674,8 @@
 			isa = PBXGroup;
 			children = (
 				83BBF3D81B109452003CB004 /* libcxEngineCore.a */,
-				83BBF3E31B109452003CB004 /* cxEngineCoreTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		83BBF3E71B109452003CB004 /* cxEngineCoreTests */ = {
-			isa = PBXGroup;
-			children = (
-				831D026B1B43915B00A5EFA7 /* OpenGLES.framework */,
-				831D02691B43915200A5EFA7 /* libz.dylib */,
-				831D02671B43914B00A5EFA7 /* CoreGraphics.framework */,
-				831D02651B43913300A5EFA7 /* CoreText.framework */,
-				83D92D321B31781600F061D6 /* UIKit.framework */,
-				83BBF3E81B109452003CB004 /* Supporting Files */,
-				839836D21B10B61C002B7C20 /* cxCoreTest.mm */,
-				83610B061B1CA7D600BD06B1 /* cxMathTest.mm */,
-				836A2F601B19CE23009B427B /* cxUtilTest.mm */,
-				836A2F351B18C2B3009B427B /* cxJsonTest.mm */,
-				839836D41B10C631002B7C20 /* cxArrayTest.mm */,
-				8357CBA21B120B9F0085E600 /* cxStrTest.mm */,
-				831D02631B4390EB00A5EFA7 /* cxViewTest.mm */,
-				8338FD861B478B9C00C84032 /* cxAstarTest.mm */,
-			);
-			path = cxEngineCoreTests;
-			sourceTree = "<group>";
-		};
-		83BBF3E81B109452003CB004 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				83BBF3E91B109452003CB004 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		83BBF3FC1B109531003CB004 /* core */ = {
@@ -837,24 +742,6 @@
 			productReference = 83BBF3D81B109452003CB004 /* libcxEngineCore.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		83BBF3E21B109452003CB004 /* cxEngineCoreTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 83BBF3EF1B109452003CB004 /* Build configuration list for PBXNativeTarget "cxEngineCoreTests" */;
-			buildPhases = (
-				83BBF3DF1B109452003CB004 /* Sources */,
-				83BBF3E01B109452003CB004 /* Frameworks */,
-				83BBF3E11B109452003CB004 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				83BBF3E61B109452003CB004 /* PBXTargetDependency */,
-			);
-			name = cxEngineCoreTests;
-			productName = cxEngineCoreTests;
-			productReference = 83BBF3E31B109452003CB004 /* cxEngineCoreTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -865,9 +752,6 @@
 				ORGANIZATIONNAME = xuhua;
 				TargetAttributes = {
 					83BBF3D71B109452003CB004 = {
-						CreatedOnToolsVersion = 6.3.2;
-					};
-					83BBF3E21B109452003CB004 = {
 						CreatedOnToolsVersion = 6.3.2;
 					};
 				};
@@ -885,20 +769,9 @@
 			projectRoot = "";
 			targets = (
 				83BBF3D71B109452003CB004 /* cxEngineCore */,
-				83BBF3E21B109452003CB004 /* cxEngineCoreTests */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		83BBF3E11B109452003CB004 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		83BBF3D41B109452003CB004 /* Sources */ = {
@@ -1025,30 +898,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83BBF3DF1B109452003CB004 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				836A2F361B18C2B3009B427B /* cxJsonTest.mm in Sources */,
-				8357CBA31B120B9F0085E600 /* cxStrTest.mm in Sources */,
-				839836D51B10C631002B7C20 /* cxArrayTest.mm in Sources */,
-				831D02641B4390EB00A5EFA7 /* cxViewTest.mm in Sources */,
-				839836D31B10B61C002B7C20 /* cxCoreTest.mm in Sources */,
-				83610B071B1CA7D600BD06B1 /* cxMathTest.mm in Sources */,
-				8338FD871B478B9C00C84032 /* cxAstarTest.mm in Sources */,
-				836A2F611B19CE23009B427B /* cxUtilTest.mm in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		83BBF3E61B109452003CB004 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83BBF3D71B109452003CB004 /* cxEngineCore */;
-			targetProxy = 83BBF3E51B109452003CB004 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		83BBF3EA1B109452003CB004 /* Debug */ = {
@@ -1179,56 +1029,6 @@
 			};
 			name = Release;
 		};
-		83BBF3F01B109452003CB004 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"CX_TARGET_IOS=1",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
-					"$(SRCROOT)/libs/osx/include",
-				);
-				INFOPLIST_FILE = cxEngineCoreTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/libs/osx/lib",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		83BBF3F11B109452003CB004 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"NDEBUG=1",
-					"CX_TARGET_IOS=1",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)",
-					"$(SRCROOT)/libs/osx/include",
-				);
-				INFOPLIST_FILE = cxEngineCoreTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/libs/osx/lib",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1246,15 +1046,6 @@
 			buildConfigurations = (
 				83BBF3ED1B109452003CB004 /* Debug */,
 				83BBF3EE1B109452003CB004 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83BBF3EF1B109452003CB004 /* Build configuration list for PBXNativeTarget "cxEngineCoreTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83BBF3F01B109452003CB004 /* Debug */,
-				83BBF3F11B109452003CB004 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

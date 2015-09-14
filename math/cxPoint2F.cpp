@@ -395,6 +395,17 @@ cxRange2F::cxRange2F(const cxRange2F &v)
     max = v.max;
 }
 
+cxBool cxRange2F::At(cxFloat v)
+{
+    if(cxFloatIsEqual(v, min) || cxFloatIsEqual(v, max)){
+        return true;
+    }
+    if(v > min && v < max){
+        return true;
+    }
+    return false;
+}
+
 cxRange2F cxRange2F::Clamp(const cxRange2F &min,const cxRange2F &max,const cxRange2F &v)
 {
     cxRange2F rv;

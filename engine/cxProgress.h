@@ -10,6 +10,7 @@
 #define cxEngineCore_cxProgress_h
 
 #include "cxView.h"
+#include "cxTimer.h"
 
 CX_CPP_BEGIN
 
@@ -29,7 +30,9 @@ public:
     static const DirType BottomToTop = 1 << 3;
 protected:
     void OnDirty();
+    void UpdateValue(cxFloat v);
 private:
+    cxTimer *timer;
     cxBox4F inner;
     DirType dir;
     cxView *bg;
@@ -41,9 +44,7 @@ public:
     cxProgress *SetDir(DirType v);
     cxProgress *SetValue(cxFloat v);
     cxProgress *SetRange(const cxRange2F &v);
-    
     cxProgress *Init(cxView *pbg,cxView *pvv,cxFloat v);
-    
     static cxProgress *Create(cxView *pbg,cxView *pvv,cxFloat v);
 };
 

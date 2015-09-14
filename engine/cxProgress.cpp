@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
-
 #include "cxProgress.h"
 
 CX_CPP_BEGIN
@@ -15,6 +14,7 @@ CX_IMPLEMENT(cxProgress);
 
 cxProgress::cxProgress()
 {
+    timer = nullptr;
     bg = nullptr;
     vv = nullptr;
     value = 0;
@@ -28,11 +28,8 @@ cxProgress::~cxProgress()
     
 }
 
-void cxProgress::OnDirty()
+void cxProgress::UpdateValue(cxFloat v)
 {
-    if(!IsDirtyMode(DirtyModeForce)){
-        return;
-    }
     cxSize2F vsiz = Size();
     if(bg->Size().IsZero()){
         bg->SetSize(vsiz);
@@ -40,7 +37,7 @@ void cxProgress::OnDirty()
     if(vv->Size().IsZero()){
         vv->SetSize(vsiz);
     }
-    cxFloat p = value / (range.max - range.min);
+    cxFloat p = v / (range.max - range.min);
     cxSize2F vvsiz = vv->Size();
     vvsiz.w = vsiz.w - (inner.l +inner.r);
     vvsiz.h = vsiz.h - (inner.t +inner.b);
@@ -68,6 +65,14 @@ void cxProgress::OnDirty()
     vv->SetPosition(vvpos);
     vv->EnableVisible(!vvsiz.IsZero());
     vv->SetSize(vvsiz);
+}
+
+void cxProgress::OnDirty()
+{
+    if(!IsDirtyMode(DirtyModeForce)){
+        return;
+    }
+    UpdateValue(value);
 }
 
 void cxProgress::SetInner(const cxBox4F &v)

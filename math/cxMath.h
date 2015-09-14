@@ -119,7 +119,7 @@ CX_INLINE cxFloat cxFloatClamp(cxFloat x, cxFloat min, cxFloat max)
     return x < min ? min : (x > max ? max : x);
 }
 
-CX_INLINE cxFloat cxFloatLerp(cxFloat from, cxFloat to, cxFloat t )
+CX_INLINE cxFloat cxFloatLerp(cxFloat from, cxFloat to, cxFloat t)
 {
     return from + t * ( to - from );
 }

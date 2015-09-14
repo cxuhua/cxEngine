@@ -68,8 +68,8 @@ public:
     void LoadConfig(cchars file);
     const cxStr *Config(cchars key) const;
     
-    cxPoint2F FixScaleWidth();
-    cxPoint2F FixScaleHeight();
+    cxPoint2F FixScaleW();
+    cxPoint2F FixScaleH();
     
     cxFloat PlanWidth();
     cxFloat PlanHeight();

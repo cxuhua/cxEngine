@@ -135,12 +135,12 @@ const cxBox4F &cxEngine::WinBox() const
     return box;
 }
 
-cxPoint2F cxEngine::FixWidth()
+cxPoint2F cxEngine::FixScaleWidth()
 {
     return PlanScale().x;
 }
 
-cxPoint2F cxEngine::FixHeight()
+cxPoint2F cxEngine::FixScaleHeight()
 {
     return PlanScale().y;
 }

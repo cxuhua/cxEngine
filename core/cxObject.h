@@ -9,6 +9,7 @@
 #ifndef __cxEngineCore__cxObject__
 #define __cxEngineCore__cxObject__
 
+#include <map>
 #include <set>
 #include <string>
 #include <math.h>
@@ -26,6 +27,7 @@ void cxUtilWarn(cchars file,int line,cchars format, ...) CX_ATTR_FORMAT(3,4);
 
 void cxUtilAssert(cchars file,int line,cchars format, ...) CX_ATTR_FORMAT(3,4);
 
+class cxArray;
 class cxStr;
 class cxJson;
 class cxObject
@@ -36,6 +38,11 @@ protected:
     explicit cxObject();
     virtual ~cxObject();
 private:
+    //support bind
+    typedef std::map<void *,cxLong> BindMap;
+    BindMap bindes;
+    BindMap binded;
+    
     cxInt refcount;
     cxLong tag;
     cxObject *initFromJson(const cxJson *json);
@@ -92,6 +99,24 @@ public:
     
     virtual void SetProperty(cchars key, const cxJson *json);
     virtual const cxJson *GetProperty(cchars key);
+public:
+    //bind support
+    const cxInt BindesSize() const;
+    const cxInt BindedSize() const;
+    //
+    const cxArray *GetBindes();
+    cxObject *GetBindes(cxLong tag);
+    
+    const cxArray *GetBinded();
+    cxObject *GetBinded(cxLong tag);
+    //if this bind obj
+    const cxBool HasBindes(cxObject *pobj) const;
+    //if this binded obj
+    const cxBool HasBinded(cxObject *pobj) const;
+    //
+    void Bind(cxObject *pobj,cxLong tag=0);
+    void UnBind(cxObject *pobj);
+    void UnBind();
 };
 
 template<class T>

@@ -66,7 +66,6 @@ cxView::cxView()
 
 cxView::~cxView()
 {
-    UnBind();
     onFree.Fire(this);
     cxObject::release(&shader);
     actapps->Release();
@@ -1147,127 +1146,6 @@ void cxView::OnUpdate(cxFloat dt)
 {
     
 }
-
-const cxInt cxView::BindesSize() const
-{
-    return bindes.empty()?0:(cxInt)bindes.size();
-}
-
-const cxInt cxView::BindedSize() const
-{
-    return binded.empty()?0:(cxInt)binded.size();
-}
-
-void cxView::Bind(cxView *pview,cxLong tag)
-{
-    CX_ASSERT(pview != nullptr, "pview args error");
-    CX_ASSERT(pview != this, "self can't bind self");
-    if(bindes.find(pview) == bindes.end()){
-        bindes.emplace(pview,tag);
-    }
-    if(pview->binded.find(this) == pview->binded.end()){
-        pview->binded.emplace(this,tag);
-    }
-}
-
-const cxBool cxView::HasBindes(cxView *pview) const
-{
-    return bindes.find(pview) != bindes.end();
-}
-
-const cxBool cxView::HasBinded(cxView *pview) const
-{
-    return binded.find(pview) != binded.end();
-}
-
-const cxArray *cxView::GetBindes()
-{
-    cxArray *views = cxArray::Create();
-    if(bindes.empty()){
-        return views;
-    }
-    BindMap::iterator it = bindes.begin();
-    while(it != bindes.end()){
-        cxView *pview = (cxView *)it->first;
-        views->Append(pview);
-        it++;
-    }
-    return views;
-}
-
-cxView *cxView::GetBindes(cxLong tag)
-{
-    if(bindes.empty()){
-        return nullptr;
-    }
-    BindMap::iterator it = bindes.begin();
-    while(it != bindes.end()){
-        if(it->second == tag){
-            return (cxView *)it->first;
-        }
-        it++;
-    }
-    return nullptr;
-}
-
-const cxArray *cxView::GetBinded()
-{
-    cxArray *views = cxArray::Create();
-    if(binded.empty()){
-        return views;
-    }
-    BindMap::iterator it = binded.begin();
-    while(it != binded.end()){
-        cxView *pview = (cxView *)it->first;
-        views->Append(pview);
-        it++;
-    }
-    return views;
-}
-
-cxView *cxView::GetBinded(cxLong tag)
-{
-    if(binded.empty()){
-        return nullptr;
-    }
-    BindMap::iterator it = binded.begin();
-    while(it != binded.end()){
-        if(it->second == tag){
-            return (cxView *)it->first;
-        }
-        it++;
-    }
-    return nullptr;
-}
-
-void cxView::UnBind(cxView *pview)
-{
-    if(pview == nullptr){
-        return;
-    }
-    bindes.erase(pview);
-    pview->binded.erase(this);
-}
-
-void cxView::UnBind()
-{
-    BindMap::iterator it = bindes.begin();
-    while(it != bindes.end()){
-        cxView *pview = (cxView *)it->first;
-        pview->binded.erase(this);
-        it++;
-    }
-    bindes.clear();
-    
-    it = binded.begin();
-    while(it != binded.end()){
-        cxView *pview = (cxView *)it->first;
-        pview->bindes.erase(this);
-        it++;
-    }
-    binded.clear();
-}
-
 
 CX_CPP_END
 

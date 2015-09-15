@@ -89,10 +89,7 @@ protected:
 protected:
     cxRenderState state;
 private:
-    typedef std::map<void *,cxLong> BindMap;
     cxFloat direction;
-    BindMap bindes;
-    BindMap binded;
     
     Resize resizeflags;
     cxBox4F resizebox;
@@ -314,24 +311,6 @@ public:
 
     cxView *RemoveSubviews();
     cxView *Remove();
-    
-    //bind support
-    const cxInt BindesSize() const;
-    const cxInt BindedSize() const;
-    //
-    const cxArray *GetBindes();
-    cxView *GetBindes(cxLong tag);
-    
-    const cxArray *GetBinded();
-    cxView *GetBinded(cxLong tag);
-    //if this bind obj
-    const cxBool HasBindes(cxView *pview) const ;
-    //if this binded obj
-    const cxBool HasBinded(cxView *pview) const ;
-    //
-    void Bind(cxView *pview,cxLong tag=0);
-    void UnBind(cxView *pview);
-    void UnBind();
 };
 
 CX_CPP_END

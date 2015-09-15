@@ -18,12 +18,133 @@ CX_IMPLEMENT(cxObject);
 
 cxObject::~cxObject()
 {
-    
+    UnBind();
 }
 
 cxObject::cxObject():refcount(1),tag(0)
 {
     
+}
+
+
+const cxInt cxObject::BindesSize() const
+{
+    return bindes.empty()?0:(cxInt)bindes.size();
+}
+
+const cxInt cxObject::BindedSize() const
+{
+    return binded.empty()?0:(cxInt)binded.size();
+}
+
+void cxObject::Bind(cxObject *pobj,cxLong tag)
+{
+    CX_ASSERT(pobj != nullptr, "pobj args error");
+    CX_ASSERT(pobj != this, "self can't bind self");
+    if(bindes.find(pobj) == bindes.end()){
+        bindes.emplace(pobj,tag);
+    }
+    if(pobj->binded.find(this) == pobj->binded.end()){
+        pobj->binded.emplace(this,tag);
+    }
+}
+
+const cxBool cxObject::HasBindes(cxObject *pobj) const
+{
+    return bindes.find(pobj) != bindes.end();
+}
+
+const cxBool cxObject::HasBinded(cxObject *pobj) const
+{
+    return binded.find(pobj) != binded.end();
+}
+
+const cxArray *cxObject::GetBindes()
+{
+    cxArray *objects = cxArray::Create();
+    if(bindes.empty()){
+        return objects;
+    }
+    BindMap::iterator it = bindes.begin();
+    while(it != bindes.end()){
+        cxObject *pobj = (cxObject *)it->first;
+        objects->Append(pobj);
+        it++;
+    }
+    return objects;
+}
+
+cxObject *cxObject::GetBindes(cxLong tag)
+{
+    if(bindes.empty()){
+        return nullptr;
+    }
+    BindMap::iterator it = bindes.begin();
+    while(it != bindes.end()){
+        if(it->second == tag){
+            return (cxObject *)it->first;
+        }
+        it++;
+    }
+    return nullptr;
+}
+
+const cxArray *cxObject::GetBinded()
+{
+    cxArray *objects = cxArray::Create();
+    if(binded.empty()){
+        return objects;
+    }
+    BindMap::iterator it = binded.begin();
+    while(it != binded.end()){
+        cxObject *pobj = (cxObject *)it->first;
+        objects->Append(pobj);
+        it++;
+    }
+    return objects;
+}
+
+cxObject *cxObject::GetBinded(cxLong tag)
+{
+    if(binded.empty()){
+        return nullptr;
+    }
+    BindMap::iterator it = binded.begin();
+    while(it != binded.end()){
+        if(it->second == tag){
+            return (cxObject *)it->first;
+        }
+        it++;
+    }
+    return nullptr;
+}
+
+void cxObject::UnBind(cxObject *pobj)
+{
+    if(pobj == nullptr){
+        return;
+    }
+    bindes.erase(pobj);
+    pobj->binded.erase(this);
+}
+
+void cxObject::UnBind()
+{
+    BindMap::iterator it = bindes.begin();
+    while(it != bindes.end()){
+        cxObject *pobj = (cxObject *)it->first;
+        pobj->binded.erase(this);
+        it++;
+    }
+    bindes.clear();
+    
+    it = binded.begin();
+    while(it != binded.end()){
+        cxObject *pobj = (cxObject *)it->first;
+        pobj->bindes.erase(this);
+        it++;
+    }
+    binded.clear();
 }
 
 cxJson *cxObject::Serialize()

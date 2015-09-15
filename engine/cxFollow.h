@@ -24,11 +24,14 @@ protected:
     void OnStep(cxFloat dt);
 private:
     cxPoint2F offset;
-    cxView *target;
     cxFloat speed;
 public:
+    cxView *GetTarget();
     cxFollow *SetOffset(const cxPoint2F &off);
-    cxEvent<cxFollow,cxFloat> onDistance;
+public:
+    cxEvent<cxFollow> onMoving;
+    cxEvent<cxFollow> onMiss;
+public:
     static cxFollow *Create(cxView *target,cxFloat speed);
 };
 

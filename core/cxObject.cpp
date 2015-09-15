@@ -41,8 +41,8 @@ void cxObject::Bind(cxObject *pobj,cxLong tag)
 {
     CX_ASSERT(pobj != nullptr, "pobj args error");
     CX_ASSERT(pobj != this, "self can't bind self");
-    if(bindes.find(pobj) == bindes.end()){
-        bindes.emplace(pobj,tag);
+    if(this->bindes.find(pobj) == this->bindes.end()){
+        this->bindes.emplace(pobj,tag);
     }
     if(pobj->binded.find(this) == pobj->binded.end()){
         pobj->binded.emplace(this,tag);
@@ -136,15 +136,18 @@ void cxObject::UnBind()
         pobj->binded.erase(this);
         it++;
     }
-    bindes.clear();
-    
+    if(!bindes.empty()){
+        bindes.clear();
+    }
     it = binded.begin();
     while(it != binded.end()){
         cxObject *pobj = (cxObject *)it->first;
         pobj->bindes.erase(this);
         it++;
     }
-    binded.clear();
+    if(!binded.empty()){
+        binded.clear();
+    }
 }
 
 cxJson *cxObject::Serialize()

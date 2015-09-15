@@ -106,7 +106,7 @@ public:
     //
     const cxArray *GetBindes();
     cxObject *GetBindes(cxLong tag);
-    
+    //
     const cxArray *GetBinded();
     cxObject *GetBinded(cxLong tag);
     //if this bind obj

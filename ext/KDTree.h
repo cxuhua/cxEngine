@@ -1141,7 +1141,7 @@ namespace nanoflann
                         span = max_elem - min_elem;
                         if (span>max_span) {
                             max_span = span;
-                            cutfeat = i;
+                            cutfeat = (int)i;
                             cutval = (min_elem+max_elem)/2;
                         }
                     }

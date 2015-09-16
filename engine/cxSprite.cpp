@@ -121,6 +121,7 @@ cxBoxRender &cxSprite::BoxRender()
 cxSprite *cxSprite::SetTexKey(cchars fmt,...)
 {
     CX_ASSERT(texture != nullptr, "texture not set");
+    CX_ASSERT(cxStr::IsOK(fmt), "fmt args error");
     va_list ap;
     va_start(ap, fmt);
     char key[256]={0};

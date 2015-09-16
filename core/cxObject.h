@@ -87,8 +87,19 @@ public:
     cxLong Tag() const;
     void SetTag(cxLong value);
 
-    template<class T> const T *To() const;
-    template<class T> T *To();
+    template<class T> const T *To() const
+    {
+        return static_cast<const T *>(this);
+    }
+    template<class T> T *To()
+    {
+        return static_cast<T *>(this);
+    }
+    template<class T> static T *To(cxObject *pobj)
+    {
+        if(pobj == nullptr)return nullptr;
+        return static_cast<T *>(pobj);
+    }
     
     cxInt Refcount() const;
     void Retain();
@@ -118,18 +129,6 @@ public:
     void UnBind(cxObject *pobj);
     void UnBind();
 };
-
-template<class T>
-CX_INLINE T *cxObject::To()
-{
-    return static_cast<T *>(this);
-}
-
-template<class T>
-CX_INLINE const T *cxObject::To() const
-{
-    return static_cast<const T *>(this);
-}
 
 template<class T>
 CX_INLINE T *cxObject::gcSet(cchars key)

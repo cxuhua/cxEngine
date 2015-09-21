@@ -578,6 +578,7 @@ cxAction *cxView::GetAction(cxActionId aid)
         if(action->ID() == aid){
             return action;
         }
+        it++;
     }
     it = actions->FBegin();
     while(it != actions->FEnd()){
@@ -585,6 +586,7 @@ cxAction *cxView::GetAction(cxActionId aid)
         if(action->ID() == aid){
             return action;
         }
+        it++;
     }
     return nullptr;
 }

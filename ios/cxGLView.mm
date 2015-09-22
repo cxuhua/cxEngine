@@ -91,7 +91,6 @@ using namespace cxengine;
     [super viewDidLoad];
     
     context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-//    context.multiThreaded = YES;
     [EAGLContext setCurrentContext:context];
 
     glGenFramebuffers(1, &frameBuffer);

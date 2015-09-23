@@ -20,23 +20,6 @@ int32_t cxAtomicSubInt32(int32_t *p, int32_t x)
 {
     return OSAtomicAdd32(-x, p);
 }
-//ios for libuv fix
-DIR *opendir$INODE64(const char * a)
-{
-    return opendir(a);
-}
-struct dirent *readdir$INODE64(DIR *dir)
-{
-    return readdir(dir);
-}
-int alphasort$INODE64(const struct dirent **a, const struct dirent **b)
-{
-    return alphasort(a, b);
-}
-int scandir$INODE64(const char *a, struct dirent ***b,int (*c)(const struct dirent *), int (*d)(const struct dirent **, const struct dirent **))
-{
-    return scandir(a, b, c, d);
-}
 
 #elif CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID
 

@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83D4E3501BB2AADC00E10AF9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D4E34F1BB2AADC00E10AF9 /* libz.tbd */; };
 		83D5D28E1B6734BC0051D99D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D28D1B6734BC0051D99D /* main.cpp */; };
-		83D5D29B1B6734D60051D99D /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D2941B6734D60051D99D /* libfreetype.a */; };
 		83D5D29C1B6734D60051D99D /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D2951B6734D60051D99D /* libjansson.a */; };
 		83D5D29D1B6734D60051D99D /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D2961B6734D60051D99D /* libjpeg.a */; };
-		83D5D29E1B6734D60051D99D /* libluajit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D2971B6734D60051D99D /* libluajit.a */; };
 		83D5D29F1B6734D60051D99D /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D2981B6734D60051D99D /* libpcre.a */; };
 		83D5D2A01B6734D60051D99D /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D2991B6734D60051D99D /* libpng.a */; };
 		83D5D2A11B6734D60051D99D /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D29A1B6734D60051D99D /* libuv.a */; };
@@ -52,7 +51,6 @@
 		83D5D3121B6735100051D99D /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D2EC1B6735100051D99D /* xxhash.c */; };
 		83D5D3131B6735100051D99D /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D2EE1B6735100051D99D /* xxtea.c */; };
 		83D5D3191B6756D70051D99D /* cxLQT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D3171B6756D70051D99D /* cxLQT.cpp */; };
-		83D5D31B1B675A6C0051D99D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D31A1B675A6C0051D99D /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,12 +66,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		83D4E34F1BB2AADC00E10AF9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		83D5D28A1B6734BC0051D99D /* TextureTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TextureTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D5D28D1B6734BC0051D99D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		83D5D2941B6734D60051D99D /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../libs/osx/lib/libfreetype.a; sourceTree = "<group>"; };
 		83D5D2951B6734D60051D99D /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = ../libs/osx/lib/libjansson.a; sourceTree = "<group>"; };
 		83D5D2961B6734D60051D99D /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../libs/osx/lib/libjpeg.a; sourceTree = "<group>"; };
-		83D5D2971B6734D60051D99D /* libluajit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libluajit.a; path = ../libs/osx/lib/libluajit.a; sourceTree = "<group>"; };
 		83D5D2981B6734D60051D99D /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = ../libs/osx/lib/libpcre.a; sourceTree = "<group>"; };
 		83D5D2991B6734D60051D99D /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../libs/osx/lib/libpng.a; sourceTree = "<group>"; };
 		83D5D29A1B6734D60051D99D /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../libs/osx/lib/libuv.a; sourceTree = "<group>"; };
@@ -152,7 +149,6 @@
 		83D5D2EF1B6735100051D99D /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
 		83D5D3171B6756D70051D99D /* cxLQT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLQT.cpp; sourceTree = "<group>"; };
 		83D5D3181B6756D70051D99D /* cxLQT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxLQT.h; sourceTree = "<group>"; };
-		83D5D31A1B675A6C0051D99D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,11 +156,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83D5D31B1B675A6C0051D99D /* libz.dylib in Frameworks */,
-				83D5D29B1B6734D60051D99D /* libfreetype.a in Frameworks */,
+				83D4E3501BB2AADC00E10AF9 /* libz.tbd in Frameworks */,
 				83D5D29C1B6734D60051D99D /* libjansson.a in Frameworks */,
 				83D5D29D1B6734D60051D99D /* libjpeg.a in Frameworks */,
-				83D5D29E1B6734D60051D99D /* libluajit.a in Frameworks */,
 				83D5D29F1B6734D60051D99D /* libpcre.a in Frameworks */,
 				83D5D2A01B6734D60051D99D /* libpng.a in Frameworks */,
 				83D5D2A11B6734D60051D99D /* libuv.a in Frameworks */,
@@ -177,7 +171,6 @@
 		83D5D2811B6734BB0051D99D = {
 			isa = PBXGroup;
 			children = (
-				83D5D31A1B675A6C0051D99D /* libz.dylib */,
 				83D5D2A51B6735100051D99D /* core */,
 				83D5D2C91B6735100051D99D /* ext */,
 				83D5D2A21B6734DB0051D99D /* libs */,
@@ -205,10 +198,9 @@
 		83D5D2A21B6734DB0051D99D /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				83D5D2941B6734D60051D99D /* libfreetype.a */,
 				83D5D2951B6734D60051D99D /* libjansson.a */,
 				83D5D2961B6734D60051D99D /* libjpeg.a */,
-				83D5D2971B6734D60051D99D /* libluajit.a */,
+				83D4E34F1BB2AADC00E10AF9 /* libz.tbd */,
 				83D5D2981B6734D60051D99D /* libpcre.a */,
 				83D5D2991B6734D60051D99D /* libpng.a */,
 				83D5D29A1B6734D60051D99D /* libuv.a */,

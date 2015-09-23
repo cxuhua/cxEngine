@@ -21,6 +21,7 @@ struct cxActionAttr
     cxInt   to;
     cxInt   key;
     cxFloat speed;
+    cxFloat delay;
     cxInt   repeat;
     cxActionAttr();
     cxActionAttr Reverse();
@@ -55,6 +56,8 @@ public:
     cxEvent<cxAnimate, cxInt> onFrame;
     const cxActionAttr &ActionAttr() const;
     const cxBool IsKeyFrame() const;
+    
+    static cxAnimate *Create(cxFrames *frames);
 };
 
 CX_CPP_END

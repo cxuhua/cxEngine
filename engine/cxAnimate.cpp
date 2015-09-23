@@ -15,6 +15,7 @@ CX_CPP_BEGIN
 
 cxActionAttr::cxActionAttr()
 {
+    delay = 0.0f;
     group = 0;
     from = 0;
     to = 0;
@@ -50,6 +51,7 @@ cxAnimate *cxAnimate::SetAction(const cxActionAttr *pattr,cxInt agroup)
     CX_ASSERT(pattr->speed > 0 && frames != nullptr, "time or frames not set");
     attr = *pattr;
     SetSpeed(attr.speed);
+    SetDelay(attr.delay);
     SetRepeat((attr.repeat == 0)?INT_MAX:attr.repeat);
     SetGroup(agroup);
     return this;
@@ -103,6 +105,13 @@ const cxActionAttr &cxAnimate::ActionAttr() const
     return attr;
 }
 
+cxAnimate *cxAnimate::Create(cxFrames *frames)
+{
+    cxAnimate *rv = cxAnimate::Create();
+    rv->SetFrames(frames);
+    return rv;
+}
+
 cxAction *cxAnimate::Reverse()
 {
     cxAnimate *rv = cxAnimate::Create();
@@ -125,9 +134,13 @@ cxAnimate *cxAnimate::SetFrames(const cxFrames *aframes)
     CX_ASSERT(aframes != nullptr, "set frames error");
     cxObject::swap(&frames, aframes);
     SetPoints(frames->Points());
+    attr.speed = aframes->Speed();
+    attr.delay = aframes->Delay();
+    attr.repeat = aframes->Repeat();
     attr.group = 0;
     attr.from = 0;
     attr.to = aframes->Points()->Size() - 1;
+    SetAction(&attr, 0);
     return this;
 }
 

@@ -15,6 +15,8 @@ CX_IMPLEMENT(cxFrames);
 
 cxFrames::cxFrames()
 {
+    speed = 1.0f;
+    delay = 0.0f;
     repeat = 1;
     blend = BlendFunc::ALPHA;
     scale = 1.0f;
@@ -33,6 +35,28 @@ cxFrames::~cxFrames()
 {
     cxObject::release(&ptex);
     points->Release();
+}
+
+cxFrames *cxFrames::SetDelay(cxFloat v)
+{
+    delay = v;
+    return this;
+}
+
+cxFloat cxFrames::Delay() const
+{
+    return delay;
+}
+
+cxFrames *cxFrames::SetSpeed(cxFloat v)
+{
+    speed = v;
+    return this;
+}
+
+cxFloat cxFrames::Speed() const
+{
+    return speed;
 }
 
 const cxInt cxFrames::Num() const

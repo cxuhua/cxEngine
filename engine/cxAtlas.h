@@ -22,6 +22,7 @@ protected:
     explicit cxAtlas();
     virtual ~cxAtlas();
 private:
+    cxFrames *currFrames;
     cxInt currIdx;          //use SetFrames(frames,idx)
     cxBool isscale9;        //use scale9 image render
     cxBox4F scalebox;
@@ -48,6 +49,8 @@ public:
     cxAtlas *SetScale9(const cxBox4F &sb);
     
     cxAtlas *Clear();
+    
+    static cxAtlas *Create(cxFrames *frames);
 };
 
 CX_CPP_END

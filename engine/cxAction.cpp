@@ -179,7 +179,7 @@ cxBool cxAction::Update(cxFloat dt)
 {
     CX_ASSERT(pview != nullptr, "action view not set");
     
-    dt *= speed;
+    dt *= Speed();
     
     if(ispause){
         return false;
@@ -261,6 +261,12 @@ const cxFloat cxAction::Elapsed() const
 cxAction *cxAction::SetSpeed(cxFloat v)
 {
     speed = v;
+    return this;
+}
+
+cxAction *cxAction::AddSpeed(cxFloat v)
+{
+    speed += v;
     return this;
 }
 

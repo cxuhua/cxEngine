@@ -35,6 +35,8 @@ private:
     cxInt group;
     cxInt count;
     cxFloat time;
+    cxFloat speed;
+    cxFloat delay;
     cxArray *points;
     cxInt mapnum;           //层数量，最大16
     cxInt map[16];          //层映射
@@ -56,6 +58,12 @@ public:
     
     void SetRepeats(const cxStr *str);
     void SetRepeats(cchars str);
+    
+    cxFrames *SetDelay(cxFloat v);
+    cxFloat Delay() const;
+    
+    cxFrames *SetSpeed(cxFloat v);
+    cxFloat Speed() const;
     
     cxFrames *SetSize(const cxSize2F &size);
     const cxSize2F &Size() const;

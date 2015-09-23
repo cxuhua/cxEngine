@@ -118,6 +118,11 @@ cxBoxRender &cxSprite::BoxRender()
     return box;
 }
 
+cxSprite *cxSprite::SetTexKey(const cxStr *v)
+{
+    return SetTexKey(v->ToString());
+}
+
 cxSprite *cxSprite::SetTexKey(cchars fmt,...)
 {
     CX_ASSERT(texture != nullptr, "texture not set");

@@ -15,13 +15,22 @@ CX_IMPLEMENT(cxAtlas);
 
 cxAtlas::cxAtlas()
 {
+    currFrames = nullptr;
     currIdx = -1;
     isscale9 = false;
 }
 
 cxAtlas::~cxAtlas()
 {
-    
+    cxObject::release(&currFrames);
+}
+
+cxAtlas *cxAtlas::Create(cxFrames *frames)
+{
+    cxAtlas *rv = cxAtlas::Create();
+    rv->SetBlend(frames->Blend());
+    rv->SetSize(frames->Size() * frames->Scale());
+    return rv;
 }
 
 cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
@@ -55,15 +64,15 @@ cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
 
 cxAtlas *cxAtlas::SetFrames(const cxFrames *frames,cxInt idx)
 {
-    if(currIdx == idx){
+    if(frames == currFrames && currIdx == idx){
         return this;
     }
+    cxObject::swap(&currFrames, frames);
     currIdx = idx;
-    const cxArray *layers = frames->Layers(idx);
+    const cxArray *layers = currFrames->Layers(idx);
     CX_ASSERT(layers != nullptr, "frames null");
-    
-    SetTexture(frames->Texture());
-    SetCoords(layers, frames);
+    SetTexture(currFrames->Texture());
+    SetCoords(layers, currFrames);
     return this;
 }
 

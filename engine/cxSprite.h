@@ -40,6 +40,7 @@ public:
     
     cxBoxRender &BoxRender();
     
+    cxSprite *SetTexKey(const cxStr *v);
     cxSprite *SetTexKey(cchars fmt,...);
     cxSprite *SetTexCoord(const cxTexCoord *v);
     

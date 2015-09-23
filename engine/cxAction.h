@@ -73,6 +73,7 @@ public:
     cxBool IsPause() const;
     
     cxAction *SetSpeed(cxFloat v);
+    cxAction *AddSpeed(cxFloat v);
     cxFloat Speed() const;
     
     cxAction *SetView(cxView *view);

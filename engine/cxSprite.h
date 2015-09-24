@@ -57,6 +57,7 @@ public:
     
     cxTexture *Texture() const;
     cxSprite *SetTexture(cchars key);
+    cxSprite *SetTexture(const cxStr *tkey);
     cxSprite *SetTexture(const cxTexture *ptex);
     
     cxTexCoord *TexCoord() const;

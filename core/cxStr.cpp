@@ -12,6 +12,9 @@
 #include <ext/lzma.h>
 #include <ext/aes.h>
 #include <ext/utf8.h>
+#include <math/cxPoint2F.h>
+#include <math/cxPoint3F.h>
+#include <math/cxColor4F.h>
 #include "cxStr.h"
 #include "cxUtil.h"
 #include "cxArray.h"
@@ -86,6 +89,37 @@ const cxInt cxStr::ToInt() const
     return atoi(ToString());
 }
 
+static cxBool ccharsHasChar(cchars cs,cxByte c)
+{
+    cxInt len = (cxInt)strlen(cs);
+    for(cxInt i=0;i<len;i++){
+        if((cxByte)cs[i] == c){
+            return true;
+        }
+    }
+    return false;
+}
+
+const cxArray *cxStr::Split(cchars cs) const
+{
+    cxArray *rv = cxArray::Create();
+    cchars data = Data();
+    cxInt len = Size();
+    cxInt b = 0;
+    cxInt i = 0;
+    for(;i<len;i++){
+        if(!ccharsHasChar(cs,(cxByte)data[i])){
+            continue;
+        }
+        rv->Append(cxStr::Create()->Append(data + b, i-b));
+        b = i+1;
+    }
+    if(len > b){
+        rv->Append(cxStr::Create()->Append(data + b, len - b));
+    }
+    return rv;
+}
+
 const cxArray *cxStr::Split(cxInt c) const
 {
     cxArray *rv = cxArray::Create();
@@ -94,7 +128,9 @@ const cxArray *cxStr::Split(cxInt c) const
     cxInt b = 0;
     cxInt i = 0;
     for(;i<len;i++){
-        if(data[i] != c)continue;
+        if(data[i] != c){
+            continue;
+        }
         rv->Append(cxStr::Create()->Append(data + b, i-b));
         b = i+1;
     }
@@ -120,6 +156,79 @@ const cxBool cxStr::IsNumber() const
         return false;
     }
     return true;
+}
+
+const cxPoint2F cxStr::ToPoint2F() const
+{
+    const cxArray *ps = Split(',');
+    if(ps->IsEmpty()){
+        return cxPoint2F(0, 0);
+    }
+    if(ps->Size() == 1){
+        cxFloat v = ps->At(0)->To<cxStr>()->ToFloat();
+        return cxPoint2F(v, v);
+    }
+    if(ps->Size() == 2){
+        cxFloat x = ps->At(0)->To<cxStr>()->ToFloat();
+        cxFloat y = ps->At(1)->To<cxStr>()->ToFloat();
+        return cxPoint2F(x, y);
+    }
+    return cxPoint2F(0, 0);
+}
+
+const cxPoint3F cxStr::ToPoint3F() const
+{
+    const cxArray *ps = Split(',');
+    if(ps->IsEmpty()){
+        return cxPoint3F(0, 0, 0);
+    }
+    if(ps->Size() == 1){
+        cxFloat v = ps->At(0)->To<cxStr>()->ToFloat();
+        return cxPoint3F(v, v, v);
+    }
+    if(ps->Size() == 2){
+        cxFloat x = ps->At(0)->To<cxStr>()->ToFloat();
+        cxFloat y = ps->At(1)->To<cxStr>()->ToFloat();
+        return cxPoint3F(x, y, 0);
+    }
+    if(ps->Size() == 3){
+        cxFloat x = ps->At(0)->To<cxStr>()->ToFloat();
+        cxFloat y = ps->At(1)->To<cxStr>()->ToFloat();
+        cxFloat z = ps->At(2)->To<cxStr>()->ToFloat();
+        return cxPoint3F(x, y,z);
+    }
+    return cxPoint3F(0, 0, 0);
+}
+
+const cxColor4F cxStr::ToColor4F() const
+{
+    const cxArray *ps = Split(',');
+    if(ps->IsEmpty()){
+        return cxColor4F::WHITE;
+    }
+    if(ps->Size() == 1){
+        cxFloat v = ps->At(0)->To<cxStr>()->ToFloat();
+        return cxColor4F(v, v, v, 1.0f);
+    }
+    if(ps->Size() == 2){
+        cxFloat r = ps->At(0)->To<cxStr>()->ToFloat();
+        cxFloat g = ps->At(1)->To<cxStr>()->ToFloat();
+        return cxColor4F(r, g, 1, 1);
+    }
+    if(ps->Size() == 3){
+        cxFloat r = ps->At(0)->To<cxStr>()->ToFloat();
+        cxFloat g = ps->At(1)->To<cxStr>()->ToFloat();
+        cxFloat b = ps->At(2)->To<cxStr>()->ToFloat();
+        return cxColor4F(r, g, b, 1);
+    }
+    if(ps->Size() == 4){
+        cxFloat r = ps->At(0)->To<cxStr>()->ToFloat();
+        cxFloat g = ps->At(1)->To<cxStr>()->ToFloat();
+        cxFloat b = ps->At(2)->To<cxStr>()->ToFloat();
+        cxFloat a = ps->At(3)->To<cxStr>()->ToFloat();
+        return cxColor4F(r, g, b, a);
+    }
+    return cxColor4F::WHITE;
 }
 
 const cxFloat cxStr::ToFloat() const

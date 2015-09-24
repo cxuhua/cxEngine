@@ -39,7 +39,7 @@ cxInt cxKDTree::Nearst(const cxPoint2F &cp,cxFloat max)
     if(nodes.empty()){
         return 0;
     }
-    return (cxInt)tree.findPointsWithinRadius(KDTreeNode(cp, 0), max, results);
+    return (cxInt)tree.findPointsWithinRadius(KDTreeNode(cp, 0), max, results, cxEqualFloat, true);
 }
 
 cxKDTree *cxKDTree::Build()

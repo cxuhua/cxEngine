@@ -9,6 +9,7 @@
 #ifndef cxEngineCore_cxEngine_h
 #define cxEngineCore_cxEngine_h
 
+#include <queue>
 #include <core/cxHash.h>
 #include <math/cxMath.h>
 #include <math/cxSize2F.h>
@@ -19,6 +20,17 @@
 #include "cxTouch.h"
 
 CX_CPP_BEGIN
+
+class cxAsyncEvent
+{
+private:
+    cxLong key;
+    std::string data;
+public:
+    cxAsyncEvent(cxLong akey,cchars adata,cxInt length);
+    cxLong Key();
+    const cxStr *Data();
+};
 
 struct cxTextAttr;
 class cxEngine : public cxObject,public cxTouchable
@@ -42,6 +54,8 @@ protected:
     virtual void OnMemory();
     
     virtual void OnUpdate(cxFloat dt);
+    
+    virtual void OnEvent(cxAsyncEvent *e);
 private:
     cxFloat timevar;
     cxRender *render;
@@ -61,7 +75,14 @@ private:
     cxBool istouch;
     cxBool isreset;
     cxHash *configs;
+    //
+    uv_mutex_t eMutex;
+    void runEvents();
+    std::queue<cxAsyncEvent> events;
 public:
+    
+    void PushEvent(cxLong key,const cxStr *data);
+    void PushEvent(cxLong key,cchars data,cxInt length);
     
     void SetIsTouch(cxBool v);
     

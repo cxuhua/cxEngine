@@ -166,6 +166,12 @@ cxSprite *cxSprite::SetTexture(const cxTexture *ptex)
     return this;
 }
 
+cxSprite *cxSprite::SetTexture(const cxStr *tkey)
+{
+    CX_ASSERT(cxStr::IsOK(tkey), "args error");
+    return SetTexture(tkey->ToString());
+}
+
 cxSprite *cxSprite::SetTexture(cchars key)
 {
     CX_ASSERT(cxStr::IsOK(key), "args error");

@@ -262,7 +262,10 @@ cxView *cxView::EnableDir(cxBool v)
 
 cxView *cxView::SetDirection(cxFloat v)
 {
-    if(!cxFloatIsEqual(direction, v) && cxFloatIsOK(v)){
+    if(!cxFloatIsOK(v)){
+        return this;
+    }
+    if(!cxFloatIsEqual(direction, v)){
         direction = v;
         OnAngle();
     }

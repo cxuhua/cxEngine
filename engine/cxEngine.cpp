@@ -18,6 +18,25 @@
 
 CX_CPP_BEGIN
 
+cxAsyncEvent::cxAsyncEvent(cxLong akey,cchars adata,cxInt length)
+{
+    key = akey;
+    data.assign(adata, length);
+}
+
+cxLong cxAsyncEvent::Key()
+{
+    return key;
+}
+
+const cxStr *cxAsyncEvent::Data()
+{
+    if(data.length() == 0){
+        return nullptr;
+    }
+    return cxStr::Create()->Append(data.data(), (cxInt)data.length());
+}
+
 cxEngine *cxEngine::instance = nullptr;
 
 CX_IMPLEMENT(cxEngine);
@@ -86,10 +105,12 @@ cxEngine::cxEngine()
     window = cxWindow::Alloc();
     render = cxRender::Alloc();
     configs = cxHash::Alloc();
+    uv_mutex_init(&eMutex);
 }
 
 cxEngine::~cxEngine()
 {
+    uv_mutex_destroy(&eMutex);
     configs->Release();
     render->Release();
     window->Release();
@@ -210,6 +231,35 @@ cxFloat cxEngine::Delta() const
     return dt;
 }
 
+void cxEngine::OnEvent(cxAsyncEvent *e)
+{
+    
+}
+
+void cxEngine::runEvents()
+{
+    if(events.empty()){
+        return;
+    }
+    uv_mutex_lock(&eMutex);
+    cxAsyncEvent info = events.front();
+    events.pop();
+    uv_mutex_unlock(&eMutex);
+    OnEvent(&info);
+}
+
+void cxEngine::PushEvent(cxLong key,const cxStr *data)
+{
+    PushEvent(key, data->Data(), data->Size());
+}
+
+void cxEngine::PushEvent(cxLong key,cchars data,cxInt length)
+{
+    uv_mutex_lock(&eMutex);
+    events.push(cxAsyncEvent(key,data,length));
+    uv_mutex_unlock(&eMutex);
+}
+
 void cxEngine::Run()
 {
     cxAutoPool::Start();
@@ -245,6 +295,7 @@ void cxEngine::Run()
         }
         for(cxInt i=0;i<iter;i++){
             timevar += dt;
+            runEvents();
             OnUpdate(dt);
             window->Update(dt);
         }

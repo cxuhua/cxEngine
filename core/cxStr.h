@@ -16,6 +16,9 @@ CX_CPP_BEGIN
 
 #define AES_KEY_LENGTH  16
 
+struct cxPoint2F;
+struct cxPoint3F;
+struct cxColor4F;
 class cxArray;
 class cxStr : public cxObject
 {
@@ -42,6 +45,7 @@ public:
     void Print() const;
     
     const cxArray *Split(cxInt c) const;
+    const cxArray *Split(cchars cs) const;
     
     cxULong Hash() const;
     
@@ -56,6 +60,9 @@ public:
     const cxBool ToBool() const;
     const cxInt ToInt() const;
     const cxFloat ToFloat() const;
+    const cxPoint2F ToPoint2F() const;
+    const cxPoint3F ToPoint3F() const;
+    const cxColor4F ToColor4F() const;
     cchars ToString() const;
     
     cxObject *ToObject();

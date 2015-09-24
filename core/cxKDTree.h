@@ -37,7 +37,7 @@ struct KDTreeNode
     {
         return vs;
     }
-    cxFloat operator[](std::size_t idx) const
+    const cxFloat operator[](std::size_t idx) const
     {
         return vs[idx];
     }
@@ -63,9 +63,7 @@ public:
     cxKDTree *Append(const cxPoint2F &p,void *ref);
     cxKDTree *Build();
     cxInt Nearst(const cxPoint2F &cp,cxFloat max);
-    
     const Results &GetResults();
-    
     const KDTreeNode &GetTreeNode(cxKDTree::Results::const_iterator it);
 };
 

@@ -47,16 +47,20 @@ protected:
     virtual ~cxEmitter();
 protected:
     void OnUpdate(cxFloat dt);
+    virtual void OnBoxRender(cxEmitterUnit *unit,cxBoxRender &box);
+    virtual void Init();
 private:
+    cxInt max;
+    cxBool isinit;
     void initEmitterUnit(cxEmitterUnit *unit);
     void addEmitterUnit();
     void unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F &vq);
     cxBoxPoint3F vbp;
-    cxFloat systemtime;
     cxFloat runtime;
     cxEmitterUnit *units;
     cxFloat emitcounter;
     
+    cxFloat systemtime;
     cxFloat rate;
     cxEmitterType type;
     cxPoint2FRange position;
@@ -85,8 +89,11 @@ private:
     cxFloatRange rotatepers;
 public:
     static cxEmitter *Create(cxInt max);
-    
+public:
     cxEvent<cxEmitter> onExit;
+    cxEvent<cxEmitter> onStart;
+public:
+    void SetMax(cxInt v);
     
     cxView *Clone();
     
@@ -115,7 +122,15 @@ public:
     
     cxEmitter *SetSystemTime(cxFloat v);
     
+    cxEmitter *SetGravity(const cxPoint2F &v);
     cxEmitter *SetToDir(cxBool v);
+    cxEmitter *SetSpeed(const cxFloatRange &v);
+    cxEmitter *SetTanAccel(const cxFloatRange &v);
+    cxEmitter *SetRadAccel(const cxFloatRange &v);
+    
+    cxEmitter *SetStartradius(const cxFloatRange &v);
+    cxEmitter *SetEndradius(const cxFloatRange &v);
+    cxEmitter *SetRotatepers(const cxFloatRange &v);
 };
 
 CX_CPP_END

@@ -15,6 +15,8 @@ CX_IMPLEMENT(cxEmitter);
 
 cxEmitter::cxEmitter()
 {
+    max = 0;
+    isinit = false;
     runtime = 0;
     systemtime = 0;
     axisspin = cxPoint3F::AxisZ;
@@ -23,6 +25,7 @@ cxEmitter::cxEmitter()
     todir = false;
     units = nullptr;
     type = cxEmitterGravity;
+    SetSize(cxSize2F(8, 8));
 }
 
 cxEmitter::~cxEmitter()
@@ -33,6 +36,7 @@ cxEmitter::~cxEmitter()
 cxView *cxEmitter::Clone()
 {
     cxEmitter *rv = cxEmitter::Create();
+    rv->max = max;
     rv->systemtime = systemtime;
     rv->type = type;
     rv->rate = rate;
@@ -69,6 +73,30 @@ cxEmitter *cxEmitter::SetSystemTime(cxFloat v)
     systemtime = v;
     emitcounter = 0;
     Clear();
+    return this;
+}
+
+cxEmitter *cxEmitter::SetGravity(const cxPoint2F &v)
+{
+    gravity = v;
+    return this;
+}
+
+cxEmitter *cxEmitter::SetSpeed(const cxFloatRange &v)
+{
+    speed = v;
+    return this;
+}
+
+cxEmitter *cxEmitter::SetTanAccel(const cxFloatRange &v)
+{
+    tanaccel = v;
+    return this;
+}
+
+cxEmitter *cxEmitter::SetRadAccel(const cxFloatRange &v)
+{
+    radaccel = v;
     return this;
 }
 
@@ -151,12 +179,34 @@ cxEmitter *cxEmitter::SetAxisSpin(const cxPoint3F &v)
     return this;
 }
 
-cxEmitter *cxEmitter::Create(cxInt max)
+cxEmitter *cxEmitter::SetStartradius(const cxFloatRange &v)
 {
-    cxEmitter *rv = cxEmitter::Create();
-    rv->SetCapacity(max);
-    rv->units = new cxEmitterUnit[max];
-    return rv;
+    startradius = v;
+    return this;
+}
+
+cxEmitter *cxEmitter::SetEndradius(const cxFloatRange &v)
+{
+    endradius = v;
+    return this;
+}
+
+cxEmitter *cxEmitter::SetRotatepers(const cxFloatRange &v)
+{
+    rotatepers = v;
+    return this;
+}
+
+void cxEmitter::SetMax(cxInt v)
+{
+    max = v;
+}
+
+void cxEmitter::Init()
+{
+    CX_ASSERT(max > 0, "max not set");
+    SetCapacity(max);
+    units = new cxEmitterUnit[max];
 }
 
 void cxEmitter::initEmitterUnit(cxEmitterUnit *unit)
@@ -249,6 +299,11 @@ cxEmitter *cxEmitter::Stop()
 
 void cxEmitter::OnUpdate(cxFloat dt)
 {
+    if(!isinit){
+        Init();
+        onStart.Fire(this);
+        isinit = true;
+    }
     CX_ASSERT(systemtime != 0 && rate != 0, "system time must set");
     if(Capacity() == 0 || Texture() == nullptr){
         return;
@@ -319,11 +374,19 @@ void cxEmitter::OnUpdate(cxFloat dt)
         box.SetVertices(vbp);
         
         box.SetCoords(BoxCoord());
+        
+        OnBoxRender(p, box);
+        
         index ++;
     }
     if(systemtime > 0 && runtime >= systemtime && Number() == 0){
         onExit.Fire(this);
     }
+}
+
+void cxEmitter::OnBoxRender(cxEmitterUnit *unit,cxBoxRender &box)
+{
+    
 }
 
 CX_CPP_END

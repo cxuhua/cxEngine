@@ -33,6 +33,18 @@ int32_t cxAtomicSubInt32(int32_t *p, int32_t x)
     return __sync_fetch_and_sub(p,x);
 }
 
+//fix libuv
+int getpwuid_r(uid_t uid, struct passwd *pw, char *buf, size_t size, struct passwd **result)
+{
+    struct passwd *r = getpwuid(uid);
+    if(r == NULL){
+        return -ENOENT;
+    }
+    *pw = *r;
+    *result = r;
+    return 0;
+}
+
 #elif CX_TARGET_PLATFORM == CX_PLATFORM_LINUX
 
 int32_t cxAtomicAddInt32(int32_t *p, int32_t x)

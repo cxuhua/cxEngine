@@ -3,12 +3,13 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+LOCAL_WHOLE_STATIC_LIBRARIES += cpufeatures
+
 LOCAL_CFLAGS := \
 	-std=gnu99 \
 	-DANDROID \
 	-I$(LOCAL_PATH) \
-	-I$(LOCAL_PATH)/libs/android/include \
-	-I/Users/xuhua/android/android-ndk-r10d/sources/android/cpufeatures
+	-I$(LOCAL_PATH)/libs/android/include
 
 LOCAL_CPPFLAGS := \
 	-fno-rtti \
@@ -16,8 +17,7 @@ LOCAL_CPPFLAGS := \
 	-DANDROID \
 	-std=gnu++11 \
     -I$(LOCAL_PATH) \
-    -I$(LOCAL_PATH)/libs/android/include \
-    -I/Users/xuhua/android/android-ndk-r10d/sources/android/cpufeatures
+    -I$(LOCAL_PATH)/libs/android/include
 
 LOCAL_MODULE := cxengine
 

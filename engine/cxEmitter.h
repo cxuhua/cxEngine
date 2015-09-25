@@ -27,6 +27,8 @@ typedef struct {
     cxFloat rotation;
     cxFloat deltarotation;
     cxFloat life;
+    cxInt idx;
+    cxFloat time;
     //gravity mode
     cxPoint2F dir;
     cxFloat radaccel;
@@ -50,6 +52,9 @@ protected:
     virtual void OnBoxRender(cxEmitterUnit *unit,cxBoxRender &box);
     virtual void Init();
 private:
+    cxBool autoRemove;
+    cxFloat frameTime;
+    cxArray *tkeys;
     cxInt max;
     cxBool isinit;
     void initEmitterUnit(cxEmitterUnit *unit);
@@ -79,6 +84,7 @@ private:
     cxPoint3F axisspin;
     //gravity mode
     cxPoint2F gravity;
+    cxBool torotate;
     cxBool todir;
     cxFloatRange speed;
     cxFloatRange tanaccel;
@@ -93,10 +99,16 @@ public:
     cxEvent<cxEmitter> onExit;
     cxEvent<cxEmitter> onStart;
 public:
-    void SetMax(cxInt v);
+    cxEmitter *SetFrameTime(cxFloat v);
+    cxEmitter *AppendFrameKey(cchars fmt,...);
+    cxEmitter *AppendFrameKeys(const cxArray *keys);
+    cxEmitter *AppendFrameKey(const cxStr *key);
+    
+    cxEmitter *SetMax(cxInt v);
     
     cxView *Clone();
     
+    cxEmitter *SetAutoRemove(cxBool v);
     cxEmitter *Stop();
     
     cxEmitter *SetRate(cxFloat v);
@@ -123,6 +135,7 @@ public:
     cxEmitter *SetSystemTime(cxFloat v);
     
     cxEmitter *SetGravity(const cxPoint2F &v);
+    cxEmitter *SetToRotate(cxBool v);
     cxEmitter *SetToDir(cxBool v);
     cxEmitter *SetSpeed(const cxFloatRange &v);
     cxEmitter *SetTanAccel(const cxFloatRange &v);

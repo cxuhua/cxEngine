@@ -15,6 +15,9 @@ CX_IMPLEMENT(cxEmitter);
 
 cxEmitter::cxEmitter()
 {
+    autoRemove = false;
+    frameTime = 0.1f;
+    tkeys = cxArray::Alloc();
     max = 0;
     isinit = false;
     runtime = 0;
@@ -23,6 +26,7 @@ cxEmitter::cxEmitter()
     emitcounter = 0;
     rate = 1;
     todir = false;
+    torotate = false;
     units = nullptr;
     type = cxEmitterGravity;
     SetSize(cxSize2F(8, 8));
@@ -30,12 +34,47 @@ cxEmitter::cxEmitter()
 
 cxEmitter::~cxEmitter()
 {
+    tkeys->Release();
     delete []units;
+}
+
+cxEmitter *cxEmitter::SetFrameTime(cxFloat v)
+{
+    frameTime = v;
+    return this;
+}
+
+cxEmitter *cxEmitter::AppendFrameKey(cchars fmt,...)
+{
+    CX_ASSERT(cxStr::IsOK(fmt), "args error");
+    va_list ap;
+    va_start(ap, fmt);
+    cxStr *key = cxStr::Create()->AppFmt(fmt, ap);
+    va_end(ap);
+    tkeys->Append(key);
+    return this;
+}
+
+cxEmitter *cxEmitter::AppendFrameKey(const cxStr *key)
+{
+    CX_ASSERT(cxStr::IsOK(key), "args error");
+    tkeys->Append((cxObject *)key);
+    return this;
+}
+
+cxEmitter *cxEmitter::AppendFrameKeys(const cxArray *keys)
+{
+    tkeys->Appends(keys);
+    return this;
 }
 
 cxView *cxEmitter::Clone()
 {
     cxEmitter *rv = cxEmitter::Create();
+    rv->autoRemove = autoRemove;
+    rv->torotate = torotate;
+    rv->frameTime = frameTime;
+    rv->tkeys->Appends(tkeys);
     rv->max = max;
     rv->systemtime = systemtime;
     rv->type = type;
@@ -97,6 +136,12 @@ cxEmitter *cxEmitter::SetTanAccel(const cxFloatRange &v)
 cxEmitter *cxEmitter::SetRadAccel(const cxFloatRange &v)
 {
     radaccel = v;
+    return this;
+}
+
+cxEmitter *cxEmitter::SetToRotate(cxBool v)
+{
+    torotate = v;
     return this;
 }
 
@@ -197,22 +242,28 @@ cxEmitter *cxEmitter::SetRotatepers(const cxFloatRange &v)
     return this;
 }
 
-void cxEmitter::SetMax(cxInt v)
+cxEmitter *cxEmitter::SetMax(cxInt v)
 {
     max = v;
+    return this;
 }
 
 void cxEmitter::Init()
 {
     CX_ASSERT(max > 0, "max not set");
     SetCapacity(max);
+    if(units != nullptr){
+        delete []units;
+    }
     units = new cxEmitterUnit[max];
 }
 
 void cxEmitter::initEmitterUnit(cxEmitterUnit *unit)
 {
+    unit->idx           = -1;
     unit->position      = position.ToValue();
     unit->life          = life.ToValue();
+    unit->time          = unit->life;
     cxFloat speedv      = speed.ToValue();
     cxFloat anglev      = angle.ToRadians();
     cxColor4F scolor    = startcolor.ToValue();
@@ -234,7 +285,10 @@ void cxEmitter::initEmitterUnit(cxEmitterUnit *unit)
     if(type == cxEmitterGravity){
         unit->radaccel = radaccel.ToValue();
         unit->tanaccel = tanaccel.ToValue();
-        if(todir){
+        if(torotate && fabsf(unit->deltarotation) > 0){
+            todir = false;
+        }
+        if(todir || torotate){
             unit->rotation = -unit->dir.Angle();
         }
     }else if(type == cxEmitterRadial){
@@ -268,11 +322,13 @@ void cxEmitter::unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F &vq)
     cxFloat b = -sizeh;
     cxFloat r = +sizeh;
     cxFloat t = +sizeh;
-    if(todir){
-        cxPoint3F axis =  cxPoint3F(unit->dir.x, unit->dir.y, 0);
-        axisspin = axis.Normalize();
+    if(torotate){
+        axisspin = cxPoint3F(unit->dir.x, unit->dir.y, 0).Normalize();
     }
-    if (unit->rotation){
+    if(todir){
+        unit->rotation = -unit->dir.Angle();
+    }
+    if(unit->rotation){
         cxMatrixF mat4;
         mat4.InitRotation(axisspin, -unit->rotation);
         vq.lb = cxPoint3F(l, b, 0) * mat4 + pos;
@@ -289,6 +345,12 @@ void cxEmitter::unitToBoxPoint3F(cxEmitterUnit *unit,cxBoxPoint3F &vq)
         vq.rt.x = pos.x + r;
         vq.rt.y = pos.y + t;
     }
+}
+
+cxEmitter *cxEmitter::SetAutoRemove(cxBool v)
+{
+    autoRemove = v;
+    return this;
 }
 
 cxEmitter *cxEmitter::Stop()
@@ -368,12 +430,11 @@ void cxEmitter::OnUpdate(cxFloat dt)
         p->rotation += (p->deltarotation * dt);
 
         cxBoxRender &box = At(index);
+        
         box.SetColor(p->color);
 
         unitToBoxPoint3F(p, vbp);
         box.SetVertices(vbp);
-        
-        box.SetCoords(BoxCoord());
         
         OnBoxRender(p, box);
         
@@ -381,12 +442,34 @@ void cxEmitter::OnUpdate(cxFloat dt)
     }
     if(systemtime > 0 && runtime >= systemtime && Number() == 0){
         onExit.Fire(this);
+        if(autoRemove){
+            Remove();
+        }
     }
 }
 
 void cxEmitter::OnBoxRender(cxEmitterUnit *unit,cxBoxRender &box)
 {
-    
+    if(tkeys->Size() ==  0){
+        box.SetCoords(BoxCoord());
+        return;
+    }
+    cxInt idx = (unit->time - unit->life)/frameTime;
+    idx = idx % tkeys->Size();
+    if(unit->idx == idx){
+        return;
+    }
+    cxTexture *ptex = Texture();
+    if(ptex == nullptr){
+        return;
+    }
+    const cxStr *key = tkeys->At(idx)->To<cxStr>();
+    cxTexCoord *coord = ptex->At(key);
+    if(coord == nullptr){
+        return;
+    }
+    unit->idx = idx;
+    box.SetCoords(coord->BoxCoord(Pixel(), FlipX(), FlipY()));
 }
 
 CX_CPP_END

@@ -243,7 +243,7 @@ cxTexCoord *cxTexture::At(cchars key) const
 
 cxTexCoord *cxTexture::At(const cxStr *key) const
 {
-    return At(key->Data());
+    return At(key->ToString());
 }
 
 cxTexture *cxTexture::From(cchars file)

@@ -77,9 +77,10 @@ cxArray *cxArray::Append(cxObject *obj)
     return this;
 }
 
-cxArray *cxArray::Appends(cxArray *vs)
+cxArray *cxArray::Appends(const cxArray *vs)
 {
-    for(cxArray::FIter it=vs->FBegin();it!=vs->FEnd();it++){
+    cxArray *vvs = (cxArray *)vs;
+    for(cxArray::FIter it=vvs->FBegin();it!=vvs->FEnd();it++){
         Append(*it);
     }
     return this;

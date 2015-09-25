@@ -16,6 +16,7 @@ int32_t cxAtomicAddInt32(int32_t *p, int32_t x)
 {
     return OSAtomicAdd32(x, p);
 }
+
 int32_t cxAtomicSubInt32(int32_t *p, int32_t x)
 {
     return OSAtomicAdd32(-x, p);
@@ -33,7 +34,7 @@ int32_t cxAtomicSubInt32(int32_t *p, int32_t x)
     return __sync_fetch_and_sub(p,x);
 }
 
-//fix libuv
+//fix libuv android-21 support this method
 int getpwuid_r(uid_t uid, struct passwd *pw, char *buf, size_t size, struct passwd **result)
 {
     struct passwd *r = getpwuid(uid);

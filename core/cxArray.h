@@ -47,7 +47,7 @@ public:
     cxArray *Swap(cxInt src,cxInt dst);
     cxArray *Replace(cxInt idx,cxObject *obj);
     cxArray *Append(cxObject *obj);
-    cxArray *Appends(cxArray *vs);
+    cxArray *Appends(const cxArray *vs);
     cxArray *Remove(cxObject *obj);
     cxArray *Remove(cxInt idx);
     cxArray *Sort(cxCmpFunc func);

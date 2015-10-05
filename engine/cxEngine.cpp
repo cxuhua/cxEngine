@@ -43,9 +43,7 @@ CX_IMPLEMENT(cxEngine);
 
 void cxEngine::Reset()
 {
-    if(!isreset){
-        isreset = true;
-    }
+    isreset = true;
 }
 
 void cxEngine::Exit()

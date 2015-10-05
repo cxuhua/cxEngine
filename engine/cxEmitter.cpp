@@ -425,19 +425,15 @@ void cxEmitter::OnUpdate(cxFloat dt)
         // color
         p->color += p->deltacolor * dt;
         //size
-        p->size = CX_MAX(0, p->size + p->deltasize * dt);
+        cxFloat vsiz = p->size + p->deltasize * dt;
+        p->size = CX_MAX(0, vsiz);
         //angle
         p->rotation += (p->deltarotation * dt);
-
         cxBoxRender &box = At(index);
-        
         box.SetColor(p->color);
-
         unitToBoxPoint3F(p, vbp);
         box.SetVertices(vbp);
-        
         OnBoxRender(p, box);
-        
         index ++;
     }
     if(systemtime > 0 && runtime >= systemtime && Number() == 0){
@@ -460,14 +456,10 @@ void cxEmitter::OnBoxRender(cxEmitterUnit *unit,cxBoxRender &box)
         return;
     }
     cxTexture *ptex = Texture();
-    if(ptex == nullptr){
-        return;
-    }
+    CX_ASSERT(ptex != nullptr, "atlas texture null");
     const cxStr *key = tkeys->At(idx)->To<cxStr>();
     cxTexCoord *coord = ptex->At(key);
-    if(coord == nullptr){
-        return;
-    }
+    CX_ASSERT(coord != nullptr, "texuture key %s miss",key->ToString());
     unit->idx = idx;
     box.SetCoords(coord->BoxCoord(Pixel(), FlipX(), FlipY()));
 }

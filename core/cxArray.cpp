@@ -63,7 +63,7 @@ cxBool cxArray::IsOK(const cxArray *v)
 cxArray *cxArray::Clear()
 {
     for(FIter it = FBegin(); it != FEnd(); it++){
-        ( *it)->Release();
+        (*it)->Release();
     }
     mv.clear();
     return this;
@@ -79,6 +79,9 @@ cxArray *cxArray::Append(cxObject *obj)
 
 cxArray *cxArray::Appends(const cxArray *vs)
 {
+    if(vs->IsEmpty()){
+        return this;
+    }
     cxArray *vvs = (cxArray *)vs;
     for(cxArray::FIter it=vvs->FBegin();it!=vvs->FEnd();it++){
         Append(*it);

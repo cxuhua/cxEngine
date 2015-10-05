@@ -81,8 +81,8 @@ void cxAlert::Show()
 
 void cxAlert::Hide()
 {
-    cxScaleTo::Create(0.85f, 0.15f)->AttachTo(Body());
-    cxAction *fade = cxFadeTo::Create(0.0f, 0.15f)->AttachTo(this);
+    cxScaleTo::Create(0.95f, 0.1f)->AttachTo(Body());
+    cxAction *fade = cxFadeTo::Create(0.0f, 0.1f)->AttachTo(this);
     fade->onExit = [this](cxAction *pav){
         onHide.Fire(this);
         pav->View()->Remove();
@@ -93,10 +93,10 @@ void cxAlert::OnEnter()
 {
     cxSprite::OnEnter();
     
-    Body()->SetScale(0.85f);
-    cxScaleTo::Create(1.0f, 0.6f)->AttachTo(Body())->SetTiming(cxTiming::ElasticOut);
+    Body()->SetScale(0.95f);
+    cxScaleTo::Create(1.0f, 0.5f)->AttachTo(Body())->SetTiming(cxTiming::ElasticOut);
     SetAlpha(0.0f);
-    cxAction *fade = cxFadeTo::Create(0.6, 0.15f)->AttachTo(this);
+    cxAction *fade = cxFadeTo::Create(0.6, 0.1f)->AttachTo(this);
     fade->onExit = [this](cxAction *pav){
         onShow.Fire(this);
     };

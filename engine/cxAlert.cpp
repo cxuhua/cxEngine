@@ -92,7 +92,6 @@ void cxAlert::Hide()
 void cxAlert::OnEnter()
 {
     cxSprite::OnEnter();
-    
     Body()->SetScale(0.95f);
     cxScaleTo::Create(1.0f, 0.5f)->AttachTo(Body())->SetTiming(cxTiming::ElasticOut);
     SetAlpha(0.0f);

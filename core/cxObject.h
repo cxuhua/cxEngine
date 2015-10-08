@@ -97,7 +97,6 @@ public:
     }
     template<class T> static T *To(cxObject *pobj)
     {
-        if(pobj == nullptr)return nullptr;
         return static_cast<T *>(pobj);
     }
     

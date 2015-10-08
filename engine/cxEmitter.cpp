@@ -71,6 +71,9 @@ cxEmitter *cxEmitter::AppendFrameKeys(const cxArray *keys)
 cxView *cxEmitter::Clone()
 {
     cxEmitter *rv = cxEmitter::Create();
+    //
+    rv->SetBlend(Blend());
+    
     rv->autoRemove = autoRemove;
     rv->torotate = torotate;
     rv->frameTime = frameTime;

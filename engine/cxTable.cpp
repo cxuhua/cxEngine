@@ -109,14 +109,18 @@ cxTable *cxTable::UpdateViews()
             continue;
         }
         maxh += h;
-        if(w >= maxw){
+        if(w > maxw){
             maxw = w;
         }
         w = 0;
         h = 0;
     }
-    maxw += (padding.l + padding.r + w);
+    if(w > maxw){
+        maxw = w;
+    }
+    maxw += (padding.l + padding.r);
     maxh += (padding.t + padding.b + h);
+
     SetSize(cxSize2F(maxw, maxh));
     
     cxInt i = 0;

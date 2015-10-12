@@ -10,6 +10,11 @@
 
 CX_CPP_BEGIN
 
+cxBool cxAstarDelegate::IsGoal(cxAstar *star,const cxPoint2I &point)
+{
+    return star->GetEnd() == point;
+}
+
 SearchNode::SearchNode()
 {
     star = nullptr;
@@ -28,7 +33,7 @@ float SearchNode::GoalDistanceEstimate(SearchNode &nodeGoal)
 
 bool SearchNode::IsGoal(SearchNode &nodeGoal)
 {
-    return point == nodeGoal.Point();
+    return star->IsGoal(star, point);
 }
 
 bool SearchNode::GetSuccessors(AStarSearch<SearchNode> *astarsearch, SearchNode *parent_node)
@@ -63,6 +68,11 @@ cxAstar::cxAstar()
 cxAstar::~cxAstar()
 {
     astar.EnsureMemoryFreed();
+}
+
+cxAstarDelegate *cxAstar::GetDelegate()
+{
+    return delegate;
 }
 
 void cxAstar::SetDelegate(cxAstarDelegate *gate)
@@ -211,6 +221,14 @@ void cxAstar::SetObject(cxObject *pobj)
 cxObject *cxAstar::GetObject()
 {
     return object;
+}
+
+cxBool cxAstar::IsGoal(cxAstar *star,const cxPoint2I &point)
+{
+    if(delegate != nullptr){
+        return delegate->IsGoal(star, point);
+    }
+    return GetEnd() == point;
 }
 
 cxBool cxAstar::IsAppend(cxAstar *star,const cxPoint2I &point)

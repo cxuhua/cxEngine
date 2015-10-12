@@ -55,6 +55,7 @@ void cxPath::OnTime(const cxTimePoint *tp)
         return;
     }
     next = points.At(idx+1);
+    cxTimeLine::OnTime(tp);
 }
 
 cxPath *cxPath::Create(cxFloat speed)

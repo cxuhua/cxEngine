@@ -35,6 +35,7 @@ public:
 struct cxAstarDelegate
 {
     virtual cxBool IsAppend(cxAstar *star,const cxPoint2I &point) = 0;
+    virtual cxBool IsGoal(cxAstar *star,const cxPoint2I &point);
 };
 
 class cxAstar : public cxObject
@@ -68,12 +69,14 @@ public:
     cxPoint2I GetStart();
     cxPoint2I GetEnd();
     
+    cxAstarDelegate *GetDelegate();
     void SetDelegate(cxAstarDelegate *gate);
     
     const cxBool IsSuccess() const;
     void Cancel();
     cxBool Step(cxInt iter=INT_MAX);
     
+    virtual cxBool IsGoal(cxAstar *star,const cxPoint2I &point);
     virtual cxBool GetSuccessors(const cxPoint2I &point,const cxPoint2I &parent);
     virtual cxFloat GetCost(const cxPoint2I &p);
     

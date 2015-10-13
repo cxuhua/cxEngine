@@ -236,6 +236,11 @@ const cxFloat cxStr::ToFloat() const
     return atof(ToString());
 }
 
+cxStr *cxStr::Clone() const
+{
+    return cxStr::Create()->Init((cxAny)Data(), Size());
+}
+
 cchars cxStr::ToString() const
 {
     return Data();

@@ -107,6 +107,7 @@ public:
     cxStr *Clear();
     cxStr *Erase(cxInt p,cxInt n);
     cxStr *KeepBytes(cxInt bytes);
+    cxStr *Clone() const;
     
     cxBool IsEqu(const cxStr *str) const;
     cxBool IsCaseEqu(const cxStr *str) const;

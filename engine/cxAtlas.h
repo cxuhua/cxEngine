@@ -44,7 +44,9 @@ public:
     cxAtlas *SetCoords(const cxArray *coords);
     cxAtlas *SetCoords(const cxArray *coords,const cxFrames *frames);
     
+    cxAtlas *SetIdx(cxInt idx);
     cxAtlas *SetFrames(const cxFrames *frames,cxInt idx);
+    const cxFrames *GetFrames();
     
     cxAtlas *SetScale9(const cxBox4F &sb);
     

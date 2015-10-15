@@ -62,17 +62,40 @@ cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
     return this;
 }
 
-cxAtlas *cxAtlas::SetFrames(const cxFrames *frames,cxInt idx)
+const cxFrames *cxAtlas::GetFrames()
 {
-    if(frames == currFrames && currIdx == idx){
+    return currFrames;
+}
+
+cxAtlas *cxAtlas::SetIdx(cxInt idx)
+{
+    CX_ASSERT(currFrames != nullptr, "frames not set");
+    if(currIdx == idx){
         return this;
     }
-    cxObject::swap(&currFrames, frames);
     currIdx = idx;
     const cxArray *layers = currFrames->Layers(idx);
     CX_ASSERT(layers != nullptr, "frames null");
     SetTexture(currFrames->Texture());
     SetCoords(layers, currFrames);
+    return this;
+}
+
+cxAtlas *cxAtlas::SetFrames(const cxFrames *frames,cxInt idx)
+{
+    if(frames == nullptr){
+        Clear();
+        return this;
+    }
+    if(frames == currFrames && currIdx == idx){
+        return this;
+    }
+    if(frames != currFrames){
+        cxObject::swap(&currFrames, frames);
+    }
+    if(currIdx != idx){
+        SetIdx(idx);
+    }
     return this;
 }
 
@@ -182,6 +205,7 @@ void cxAtlas::updateScale9()
 
 cxAtlas *cxAtlas::Clear()
 {
+    currIdx = -1;
     renders.Clear();
     return this;
 }

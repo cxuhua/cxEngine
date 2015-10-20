@@ -70,9 +70,6 @@ const cxFrames *cxAtlas::GetFrames()
 cxAtlas *cxAtlas::SetIdx(cxInt idx)
 {
     CX_ASSERT(currFrames != nullptr, "frames not set");
-    if(currIdx == idx){
-        return this;
-    }
     currIdx = idx;
     const cxArray *layers = currFrames->Layers(idx);
     CX_ASSERT(layers != nullptr, "frames null");
@@ -90,12 +87,8 @@ cxAtlas *cxAtlas::SetFrames(const cxFrames *frames,cxInt idx)
     if(frames == currFrames && currIdx == idx){
         return this;
     }
-    if(frames != currFrames){
-        cxObject::swap(&currFrames, frames);
-    }
-    if(currIdx != idx){
-        SetIdx(idx);
-    }
+    cxObject::swap(&currFrames, frames);
+    SetIdx(idx);
     return this;
 }
 

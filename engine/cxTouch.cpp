@@ -134,6 +134,7 @@ void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxUInt tap,cxFloat x,c
     e.tap = tap;
     //convert to window coord
     e.wp = cxPoint2F(x * scale - winsiz.w, winsiz.h - y * scale);
+    //
     if(e.type != cxTouchPoint::None){
         updateEvent(e);
     }
@@ -141,9 +142,11 @@ void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxUInt tap,cxFloat x,c
     for(std::map<cxTouchId,cxTouchPoint>::iterator it=events.begin();it!=events.end();it++){
         items.push_back(&it->second);
     }
+    //
     if(cxEngine::Instance()->IsTouch()){
         cxEngine::Instance()->Window()->Dispatch(this);
     }
+    //
     if(e.type == cxTouchPoint::Ended){
         removeEvent(e);
     }

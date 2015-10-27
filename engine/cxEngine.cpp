@@ -236,10 +236,11 @@ void cxEngine::OnEvent(cxAsyncEvent *e)
 
 void cxEngine::runEvents()
 {
+    uv_mutex_lock(&eMutex);
     if(events.empty()){
+        uv_mutex_unlock(&eMutex);
         return;
     }
-    uv_mutex_lock(&eMutex);
     cxAsyncEvent info = events.front();
     events.pop();
     uv_mutex_unlock(&eMutex);

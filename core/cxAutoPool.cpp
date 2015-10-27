@@ -26,7 +26,7 @@ cxAutoPool *cxAutoPool::getTopAutoPool()
 {
     cxStack *pools = getThreadPoolStack();
     if(pools->IsEmpty()){
-        cxAutoPool *pool = new cxAutoPool();
+        cxAutoPool *pool = cxAutoPool::Alloc();
         pools->Push(pool);
         pool->Release();
     }
@@ -67,7 +67,7 @@ void cxAutoPool::Clear()
 void cxAutoPool::Push()
 {
     cxStack *pools = getThreadPoolStack();
-    cxAutoPool *pool = new cxAutoPool();
+    cxAutoPool *pool = cxAutoPool::Alloc();
     pools->Push(pool);
     pool->Release();
 }

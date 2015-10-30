@@ -26,8 +26,9 @@
 
 CX_CPP_BEGIN
 
-void ANativeActivity_onCreate(ANativeActivity* activity,void* savedState, size_t savedStateSize);
 
 CX_CPP_END
+
+extern "C" void ANativeActivity_onCreate(ANativeActivity* activity,void* savedState, size_t savedStateSize);
 
 #endif

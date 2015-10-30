@@ -15,9 +15,9 @@ cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &siz
     return nullptr;
 }
 
-void ANativeActivity_onCreate(ANativeActivity* activity,void* savedState, size_t savedStateSize)
+extern "C" void ANativeActivity_onCreate(ANativeActivity* activity,void* savedState, size_t savedStateSize)
 {
-    CX_LOGGER("onCreate");
+    
 }
 
 CX_CPP_END

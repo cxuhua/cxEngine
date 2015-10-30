@@ -21,7 +21,7 @@ import android.media.MediaPlayer;
 
 public class EngineActivity extends NativeActivity {
 	static {
-	    System.loadLibrary("openal");
+		System.loadLibrary("openal");
 	}
 	private MediaPlayer mediaPlayer = null;
 	private String mediaFile = null;
@@ -101,7 +101,6 @@ public class EngineActivity extends NativeActivity {
 			NumberFormat fmt = NumberFormat.getCurrencyInstance();
 			return fmt.format(v);
 		}
-		//
 		return str;
 	}
 	public byte[] createTextBitmap(String pString, 

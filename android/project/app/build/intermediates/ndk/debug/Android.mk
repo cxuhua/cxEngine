@@ -1,7 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := cxEngineAndroid
+LOCAL_MODULE := app
 LOCAL_LDFLAGS := -Wl,--build-id
 LOCAL_SRC_FILES := \
 	/Users/xuhua/Documents/cxengine/android/project/app/src/main/jni/Android.mk \

@@ -33,7 +33,6 @@
 		83D92D281B315E7200F061D6 /* animate.json in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D261B315E7200F061D6 /* animate.json */; };
 		83D92D291B315E7200F061D6 /* animate.png in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D271B315E7200F061D6 /* animate.png */; };
 		83E6F64D1B0C97B5006839C8 /* App.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83E6F64C1B0C97B5006839C8 /* App.mm */; };
-		83E6F6551B0C97B5006839C8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83E6F6541B0C97B5006839C8 /* Images.xcassets */; };
 		83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E6F6561B0C97B5006839C8 /* LaunchScreen.xib */; };
 		83E6F66F1B0C97F7006839C8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66D1B0C97F7006839C8 /* GLKit.framework */; };
 		83E6F6701B0C97F7006839C8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */; };
@@ -47,13 +46,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83BBF3D81B109452003CB004;
 			remoteInfo = cxEngineCore;
-		};
-		839836BD1B10978B002B7C20 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 839836B61B10978A002B7C20 /* cxEngineCore.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 83BBF3E31B109452003CB004;
-			remoteInfo = cxEngineCoreTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -89,7 +81,6 @@
 		83E6F6481B0C97B5006839C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83E6F64B1B0C97B5006839C8 /* App.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
 		83E6F64C1B0C97B5006839C8 /* App.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = App.mm; sourceTree = "<group>"; };
-		83E6F6541B0C97B5006839C8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		83E6F6571B0C97B5006839C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		83E6F66D1B0C97F7006839C8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -122,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				839836BC1B10978B002B7C20 /* libcxEngineCore.a */,
-				839836BE1B10978B002B7C20 /* cxEngineCoreTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,7 +167,6 @@
 				83BE63741B311E0A0028B6E7 /* main.m */,
 				83E6F64B1B0C97B5006839C8 /* App.h */,
 				83E6F64C1B0C97B5006839C8 /* App.mm */,
-				83E6F6541B0C97B5006839C8 /* Images.xcassets */,
 				83E6F6471B0C97B5006839C8 /* Supporting Files */,
 				83546A451B3127F700FFE1E7 /* Game.cpp */,
 				83546A461B3127F700FFE1E7 /* Game.h */,
@@ -228,7 +217,7 @@
 		83E6F63C1B0C97B5006839C8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = xuhua;
 				TargetAttributes = {
 					83E6F6431B0C97B5006839C8 = {
@@ -269,13 +258,6 @@
 			remoteRef = 839836BB1B10978B002B7C20 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		839836BE1B10978B002B7C20 /* cxEngineCoreTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = cxEngineCoreTests.xctest;
-			remoteRef = 839836BD1B10978B002B7C20 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -288,7 +270,6 @@
 				836E304C1B5E2B4C00ED8BDC /* foam.png in Resources */,
 				83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */,
 				836DD1211B2C26CE0094F5EF /* shader in Resources */,
-				83E6F6551B0C97B5006839C8 /* Images.xcassets in Resources */,
 				833043D01B424A1C00636928 /* bg.jpg in Resources */,
 				836E304D1B5E2B4C00ED8BDC /* water.fsh in Resources */,
 				836E304E1B5E2B4C00ED8BDC /* water.png in Resources */,
@@ -351,6 +332,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -415,8 +397,6 @@
 		83E6F6681B0C97B5006839C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -438,6 +418,7 @@
 					"$(SRCROOT)/libs/osx/lib",
 					"$(PROJECT_DIR)/libs/osx/lib",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.engine;
 				PRODUCT_NAME = cxEngineTest;
 			};
 			name = Debug;
@@ -445,8 +426,6 @@
 		83E6F6691B0C97B5006839C8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -468,6 +447,7 @@
 					"$(SRCROOT)/libs/osx/lib",
 					"$(PROJECT_DIR)/libs/osx/lib",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.engine;
 				PRODUCT_NAME = cxEngineTest;
 			};
 			name = Release;

@@ -51,7 +51,7 @@ protected:
     
     virtual void OnPause();
     virtual void OnResume();
-    virtual void OnMemory();
+    virtual void OnMemoryWarning();
     
     virtual void OnUpdate(cxFloat dt);
     
@@ -116,7 +116,7 @@ public:
 
     void Pause();
     void Resume();
-    void Memory();
+    void MemoryWarning();
     void Layout(cxFloat w,cxFloat h);
     void Run();
     

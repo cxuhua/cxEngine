@@ -68,7 +68,7 @@ using namespace cxengine;
 
 -(void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
-    cxEngine::Instance()->Memory();
+    cxEngine::Instance()->MemoryWarning();
 }
 
 -(void)dealloc

@@ -9,6 +9,7 @@
 #ifndef cxEngineCore_cxMath_h
 #define cxEngineCore_cxMath_h
 
+#include <float.h>
 #include <vector>
 #include <core/cxObject.h>
 #include "kazmath/kazmath.h"

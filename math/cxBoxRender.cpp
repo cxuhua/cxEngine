@@ -14,7 +14,7 @@ CX_CPP_BEGIN
 
 cxBoxRender::cxBoxRender()
 {
-    
+    SetCoords(cxBoxCoord2F::Default);
 }
 
 cxBoxRender::cxBoxRender(const cxBoxRender &v)

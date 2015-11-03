@@ -13,6 +13,7 @@
 		8302A3751B51078500C7209C /* cxLocalized.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8302A3731B51078500C7209C /* cxLocalized.cpp */; };
 		8302A5831B535E3A00C7209C /* cxProgress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8302A5811B535E3A00C7209C /* cxProgress.cpp */; };
 		83079B661B29300C00275F1F /* cxEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83079B641B29300C00275F1F /* cxEngine.cpp */; };
+		830E18D71BE70FFE009CE088 /* cxBox2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 830E18D51BE70FFE009CE088 /* cxBox2D.cpp */; };
 		830ECB1D1B3DA38F002EBE56 /* tools.c in Sources */ = {isa = PBXBuildFile; fileRef = 830ECB1B1B3DA38F002EBE56 /* tools.c */; };
 		830ECB261B3EAD52002EBE56 /* cxLineF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 830ECB241B3EAD52002EBE56 /* cxLineF.cpp */; };
 		830ECB291B3EF54F002EBE56 /* cxAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 830ECB271B3EF54F002EBE56 /* cxAtlas.cpp */; };
@@ -198,6 +199,8 @@
 		8302A5821B535E3A00C7209C /* cxProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxProgress.h; sourceTree = "<group>"; };
 		83079B641B29300C00275F1F /* cxEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxEngine.cpp; sourceTree = "<group>"; };
 		83079B651B29300C00275F1F /* cxEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxEngine.h; sourceTree = "<group>"; };
+		830E18D51BE70FFE009CE088 /* cxBox2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBox2D.cpp; sourceTree = "<group>"; };
+		830E18D61BE70FFE009CE088 /* cxBox2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxBox2D.h; sourceTree = "<group>"; };
 		830ECB1B1B3DA38F002EBE56 /* tools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tools.c; sourceTree = "<group>"; };
 		830ECB1C1B3DA38F002EBE56 /* tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tools.h; sourceTree = "<group>"; };
 		830ECB241B3EAD52002EBE56 /* cxLineF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLineF.cpp; sourceTree = "<group>"; };
@@ -633,6 +636,8 @@
 				83639F711B302E16006A61B7 /* cxWindow.h */,
 				839B8ABA1B687DFA009E0CF7 /* OpenAL.h */,
 				836DD10C1B2AC6560094F5EF /* OpenGL.h */,
+				830E18D51BE70FFE009CE088 /* cxBox2D.cpp */,
+				830E18D61BE70FFE009CE088 /* cxBox2D.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -1124,6 +1129,7 @@
 				831189D11B2D728000C930B5 /* ray2.c in Sources */,
 				8302A3751B51078500C7209C /* cxLocalized.cpp in Sources */,
 				8343CF041BE6487100AE9B7C /* b2WheelJoint.cpp in Sources */,
+				830E18D71BE70FFE009CE088 /* cxBox2D.cpp in Sources */,
 				831189C91B2D728000C930B5 /* aabb2.c in Sources */,
 				8343CEF01BE6487100AE9B7C /* b2ChainAndCircleContact.cpp in Sources */,
 				833043C11B40FBE900636928 /* cxTiming.cpp in Sources */,

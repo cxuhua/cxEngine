@@ -222,14 +222,14 @@ public:
     cxView *SetAxis(const cxPoint3F &v);
     
     const cxFloat Angle() const;
-    cxView *SetAngle(const cxFloat &v);
+    virtual cxView *SetAngle(const cxFloat &v);
     
     const cxPoint2F &Offset() const;
     cxView *SetOffset(const cxPoint2F &v);
     
     const cxPoint2F &Position() const;
     cxView *AddPosition(const cxPoint2F &v);
-    cxView *SetPosition(const cxPoint2F &v);
+    virtual cxView *SetPosition(const cxPoint2F &v);
     cxView *SetX(cxFloat x);
     cxView *SetY(cxFloat y);
     

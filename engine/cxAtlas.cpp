@@ -42,13 +42,14 @@ cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
     for(cxInt i = 0;i < size;i++){
         cxInt mapIdx = map[i];
         CX_ASSERT(mapIdx < coords->Size(), "map idx error");
-        
+        //get map tex
         cxTexCoord *coord = coords->At(mapIdx)->To<cxTexCoord>();
         if(coord->IsEmpty()){
             continue;
         }
+        //get coord box
         const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
-        //
+        //trimmed box
         cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
         if(bp.Size().IsZero()){
             continue;

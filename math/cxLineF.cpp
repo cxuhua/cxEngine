@@ -18,8 +18,14 @@ cxLineF::cxLineF()
 
 cxLineF::cxLineF(const cxPoint2F &aa,const cxPoint2F &ab)
 {
-    b = aa;
+    a = aa;
     b = ab;
+}
+
+cxLineF::cxLineF(cxFloat x1,cxFloat y1,cxFloat x2,cxFloat y2)
+{
+    a = cxPoint2F(x1, y1);
+    b = cxPoint2F(x2, y2);
 }
 
 cxInt cxLineF::AtLineLR(const cxPoint2F &v) const

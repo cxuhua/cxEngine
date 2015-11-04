@@ -67,6 +67,7 @@ void Game::OnMain()
     
     {
         cxBox2D::cxCircleBody *cb = cxBox2D::cxCircleBody::Create();
+        cb->SetAngularVelocity(3.0f);
         
         cxSprite *sp = cxSprite::Create();
         sp->SetTexture("t.png");
@@ -80,9 +81,25 @@ void Game::OnMain()
         b->SetPosition(cxPoint2F(-400, 400));
     }
     {
+        cxBox2D::cxCircleBody *cb = cxBox2D::cxCircleBody::Create();
+        cb->SetAngularVelocity(3.0f);
+        
+        cxSprite *sp = cxSprite::Create();
+        sp->SetTexture("t.png");
+        sp->SetResizeFlags(cxView::ResizeFill);
+        sp->AttachTo(cb);
+        
+        cb->SetSize(100);
+        
+        cxBox2D::cxBody *b = w->AppendBody(cb);
+        b->SetAngle(0.3f);
+        b->SetPosition(cxPoint2F(-400, 500));
+    }
+    {
         cxBox2D::cxEdgeBody *cb = cxBox2D::cxEdgeBody::Create();
         cb->SetSize(cxSize2F(2048, 10));
-        cb->Set(cxPoint2F(-1024, -400), cxPoint2F(1024, -400));
+        
+        cb->SetLinePoint(cxLineF(-1024, -400, 1024, -400));
         cb->SetStatic(true);
         
         cxBox2D::cxBody *b = w->AppendBody(cb);

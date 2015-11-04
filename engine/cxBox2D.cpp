@@ -10,29 +10,58 @@
 
 CX_BOX2D_BEGIN
 
+CX_IMPLEMENT(cxPolygonBody)
+
+cxPolygonBody::cxPolygonBody()
+{
+    
+}
+
+cxPolygonBody::~cxPolygonBody()
+{
+    
+}
+
+void cxPolygonBody::AppendPoint(const cxPoint2F &v)
+{
+    ps.Append(v);
+}
+
+cxBool cxPolygonBody::CreateFixture(cxWorld *pw)
+{
+    CX_ASSERT(ps.Size() >= 3 && ps.Size() <= b2_maxPolygonVertices, "point count error");
+    b2Vec2 *points = new b2Vec2[ps.Size()]();
+    for(cxInt i=0;i<ps.Size();i++){
+        cxPoint2F &p = ps.At(i);
+        points[i] = ToWorld(p);
+    }
+    shape.Set(points, ps.Size());
+    fixDef.shape = &shape;
+    fixture = body->CreateFixture(&fixDef);
+    delete []points;
+    return fixture != nullptr;
+}
+
 CX_IMPLEMENT(cxEdgeBody)
 
 cxEdgeBody::cxEdgeBody()
 {
     lineWidth = 10;
-    shape = new b2EdgeShape();
 }
 
 cxEdgeBody::~cxEdgeBody()
 {
-    delete shape;
+    
 }
 
-void cxEdgeBody::Set(const cxPoint2F &p1,const cxPoint2F &p2)
+void cxEdgeBody::SetLinePoint(const cxLineF &line)
 {
-    v1 = p1;
-    v2 = p2;
+    shape.Set(ToWorld(line.a),ToWorld(line.b));
 }
 
 cxBool cxEdgeBody::CreateFixture(cxWorld *pw)
 {
-    shape->Set(b2Vec2(v1.x, v1.y), b2Vec2(v2.x, v2.y));
-    fixDef.shape = shape;
+    fixDef.shape = &shape;
     fixture = body->CreateFixture(&fixDef);
     return fixture != nullptr;
 }
@@ -41,20 +70,19 @@ CX_IMPLEMENT(cxBoxBody)
 
 cxBoxBody::cxBoxBody()
 {
-    shape = new b2PolygonShape();
+    
 }
 
 cxBoxBody::~cxBoxBody()
 {
-    delete shape;
+    
 }
 
 cxBool cxBoxBody::CreateFixture(cxWorld *pw)
 {
     const cxSize2F &size = Size();
-    shape->SetAsBox(size.w/2.0f, size.h/2.0f);
-    fixDef.shape = shape;
-    
+    shape.SetAsBox(ToWorld(size.w/2.0f), ToWorld(size.h/2.0f));
+    fixDef.shape = &shape;
     fixture = body->CreateFixture(&fixDef);
     return fixture != nullptr;
 }
@@ -63,20 +91,19 @@ CX_IMPLEMENT(cxCircleBody)
 
 cxCircleBody::cxCircleBody()
 {
-    shape = new b2CircleShape();
+    
 }
 
 cxCircleBody::~cxCircleBody()
 {
-    delete shape;
+    
 }
 
 cxBool cxCircleBody::CreateFixture(cxWorld *pw)
 {
     const cxSize2F &size = Size();
-    shape->m_radius = size.w/2.0;
-    fixDef.shape = shape;
-
+    shape.m_radius = ToWorld(size.w/2.0);
+    fixDef.shape = &shape;
     fixture = body->CreateFixture(&fixDef);
     return fixture != nullptr;
 }
@@ -96,6 +123,81 @@ cxBody::cxBody()
 cxBody::~cxBody()
 {
     
+}
+
+cxFloat cxBody::GetMass()
+{
+    CX_ASSERT(body != nullptr, "body not init");
+    return body->GetMass();
+}
+
+void cxBody::SetLinearDamping(cxFloat linearDamping)
+{
+    if(body == nullptr){
+        bodyDef.linearDamping = linearDamping;
+        return;
+    }
+    body->SetLinearDamping(linearDamping);
+}
+
+void cxBody::SetAngularDamping(cxFloat angularDamping)
+{
+    if(body == nullptr){
+        bodyDef.angularDamping = angularDamping;
+        return;
+    }
+    body->SetAngularDamping(angularDamping);
+}
+
+void cxBody::SetGravityScale(cxFloat scale)
+{
+    if(body == nullptr){
+        bodyDef.gravityScale = scale;
+        return;
+    }
+    body->SetGravityScale(scale);
+}
+
+void cxBody::ApplyLinearImpulse(const cxPoint2F &impulse, const cxPoint2F &point, cxBool wake)
+{
+    CX_ASSERT(body != nullptr, "body not init");
+    body->ApplyLinearImpulse(b2Vec2(impulse.x, impulse.y), b2Vec2(point.x, point.y), wake);
+}
+
+void cxBody::ApplyAngularImpulse(cxFloat impulse, cxBool wake)
+{
+    CX_ASSERT(body != nullptr, "body not init");
+    body->ApplyAngularImpulse(impulse, wake);
+}
+
+void cxBody::ApplyForce(const cxPoint2F &force, const cxPoint2F &point, cxBool wake)
+{
+    CX_ASSERT(body != nullptr, "body not init");
+    body->ApplyForce(b2Vec2(force.x, force.y), b2Vec2(point.x, point.y), wake);
+}
+
+void cxBody::ApplyForceToCenter(const cxPoint2F &force, cxBool wake)
+{
+    CX_ASSERT(body != nullptr, "body not init");
+    body->ApplyForceToCenter(b2Vec2(force.x, force.y), wake);
+}
+
+void cxBody::SetLinearVelocity(const cxPoint2F &v)
+{
+    if(body == nullptr){
+        bodyDef.linearVelocity = b2Vec2(v.x, v.y);
+        return;
+    }
+    body->SetLinearVelocity(b2Vec2(v.x, v.y));
+}
+
+void cxBody::SetAngularVelocity(const cxFloat &v)
+{
+    if(body == nullptr){
+        bodyDef.angularVelocity = v;
+        return;
+    }
+    body->SetAngularVelocity(v);
 }
 
 void cxBody::SetStatic(cxBool v)
@@ -122,24 +224,31 @@ void cxBody::OnUpdate(cxFloat dt)
 {
     cxView::OnUpdate(dt);
     const b2Vec2 &pos = body->GetPosition();
-    cxView::SetPosition(cxPoint2F(pos.x, pos.y));
+    cxView::SetPosition(FromWorld(pos));
     cxView::SetAngle(body->GetAngle());
 }
 
 cxView *cxBody::SetPosition(const cxPoint2F &v)
 {
-    CX_ASSERT(body != nullptr, "body not init");
-    const b2Vec2 &pos = body->GetPosition();
-    if(cxFloatIsEqual(pos.x, v.x) && cxFloatIsEqual(pos.y, v.y)){
+    if(body == nullptr){
+        bodyDef.position = ToWorld(v);
         return this;
     }
-    body->SetTransform(b2Vec2(v.x, v.y), body->GetAngle());
+    const b2Vec2 &pos = body->GetPosition();
+    cxPoint2F np = FromWorld(pos);
+    if(np == v){
+        return this;
+    }
+    body->SetTransform(ToWorld(v), body->GetAngle());
     return this;
 }
 
 cxView *cxBody::SetAngle(const cxFloat &v)
 {
-    CX_ASSERT(body != nullptr, "body not init");
+    if(body == nullptr){
+        bodyDef.angle = v;
+        return this;
+    }
     const cxFloat angle = body->GetAngle();
     if(cxFloatIsEqual(angle, v)){
         return this;
@@ -148,10 +257,20 @@ cxView *cxBody::SetAngle(const cxFloat &v)
     return this;
 }
 
+cxBool cxBody::InitBody(b2BodyDef *def)
+{
+    return true;
+}
+
 cxBool cxBody::CreateBody(cxWorld *pw)
 {
     body = pw->CreateBody(&bodyDef);
     return body != nullptr;
+}
+
+cxBool cxBody::InitFixture(b2FixtureDef *def)
+{
+    return true;
 }
 
 cxBool cxBody::CreateFixture(cxWorld *pw)
@@ -162,7 +281,35 @@ cxBool cxBody::CreateFixture(cxWorld *pw)
 
 CX_IMPLEMENT(cxWorld);
 
-cxWorld::cxWorld():world(b2Vec2(0, -100.0f))
+cxCollideBody::cxCollideBody(b2Contact *pcontact)
+{
+    Contact = pcontact;
+    Fixture = nullptr;
+    Body = nullptr;
+}
+
+void cxCollideBody::UseA()
+{
+    CX_ASSERT(Contact != nullptr, "contact not init");
+    Fixture = Contact->GetFixtureA();
+    Body = static_cast<cxBody *>(Fixture->GetBody()->GetUserData());
+}
+
+void cxCollideBody::UseB()
+{
+    CX_ASSERT(Contact != nullptr, "contact not init");
+    Fixture = Contact->GetFixtureB();
+    Body = static_cast<cxBody *>(Fixture->GetBody()->GetUserData());
+}
+
+cxCollideBody::cxCollideBody(b2Fixture *fixture)
+{
+    Contact = nullptr;
+    Fixture = fixture;
+    Body = static_cast<cxBody *>(fixture->GetBody()->GetUserData());
+}
+
+cxWorld::cxWorld():world(b2Vec2(0, -10.0f))
 {
     vIters = 1;
     pIters = 1;
@@ -178,39 +325,72 @@ cxWorld::~cxWorld()
 
 void cxWorld::SayGoodbye(b2Joint* joint)
 {
-    CX_LOGGER("joint goodbye");
+    //CX_LOGGER("joint goodbye");
 }
 
 void cxWorld::SayGoodbye(b2Fixture* fixture)
 {
-    CX_LOGGER("fixture goodbye");
+    //CX_LOGGER("fixture goodbye");
+}
+
+cxBool cxWorld::ShouldCollide(cxCollideBody *a,cxCollideBody *b)
+{
+    return true;
 }
 
 bool cxWorld::ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB)
 {
-    CX_LOGGER("ShouldCollide 0");
-    return true;
+    cxCollideBody a(fixtureA);
+    cxCollideBody b(fixtureB);
+    return ShouldCollide(&a, &b);;
+}
+
+void cxWorld::BeginContact(cxCollideBody *a,cxCollideBody *b)
+{
+    
 }
 
 void cxWorld::BeginContact(b2Contact* contact)
 {
-    CX_LOGGER("BeginContact 1");
+    cxCollideBody a(contact);a.UseA();
+    cxCollideBody b(contact);b.UseB();
+    BeginContact(&a, &b);
+}
+
+cxBool cxWorld::PreSolve(cxCollideBody *a,cxCollideBody *b)
+{
+    return true;
 }
 
 void cxWorld::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
 {
-//    contact->SetRestitution(0);
-    CX_LOGGER("PreSolve 2");
+    cxCollideBody a(contact);a.UseA();
+    cxCollideBody b(contact);b.UseB();
+    contact->SetEnabled(PreSolve(&a, &b));
+}
+
+void cxWorld::PostSolve(cxCollideBody *a,cxCollideBody *b)
+{
+    
 }
 
 void cxWorld::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
 {
-    CX_LOGGER("PostSolve 3");
+    cxCollideBody a(contact);a.UseA();
+    cxCollideBody b(contact);b.UseB();
+    PostSolve(&a, &b);
+}
+
+void cxWorld::EndContact(cxCollideBody *a,cxCollideBody *b)
+{
+    
 }
 
 void cxWorld::EndContact(b2Contact* contact)
 {
-    CX_LOGGER("EndContact 4");
+    cxCollideBody a(contact);a.UseA();
+    cxCollideBody b(contact);b.UseB();
+    EndContact(&a, &b);
 }
 
 b2Body *cxWorld::CreateBody(const b2BodyDef* def)
@@ -220,7 +400,13 @@ b2Body *cxWorld::CreateBody(const b2BodyDef* def)
 
 cxBody *cxWorld::AppendBody(cxBody *body)
 {
+    if(!body->InitBody(&body->bodyDef)){
+        return nullptr;
+    }
     if(!body->CreateBody(this)){
+        return nullptr;
+    }
+    if(!body->InitFixture(&body->fixDef)){
         return nullptr;
     }
     if(!body->CreateFixture(this)){
@@ -235,8 +421,13 @@ void cxWorld::OnRemove(cxView *pview)
 {
     cxView::OnRemove(pview);
     cxBody *body = pview->To<cxBody>();
-    body->body->DestroyFixture(body->fixture);
-    body->fixture = nullptr;
+    if(body->body == nullptr){
+        return;
+    }
+    if(body->fixture != nullptr){
+        body->body->DestroyFixture(body->fixture);
+        body->fixture = nullptr;
+    }
     world.DestroyBody(body->body);
     body->body = nullptr;
 }

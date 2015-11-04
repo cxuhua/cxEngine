@@ -10,6 +10,46 @@
 
 CX_BOX2D_BEGIN
 
+CX_IMPLEMENT(cxChainBody)
+
+cxChainBody::cxChainBody()
+{
+    isloop = false;
+}
+
+cxChainBody::~cxChainBody()
+{
+    
+}
+
+void cxChainBody::SetLoop(cxBool loop)
+{
+    isloop = loop;
+}
+
+cxPoint2FArray &cxChainBody::Points()
+{
+    return ps;
+}
+
+cxBool cxChainBody::CreateFixture(cxWorld *pw)
+{
+    b2Vec2 *points = new b2Vec2[ps.Size()]();
+    for(cxInt i=0;i<ps.Size();i++){
+        cxPoint2F &p = ps.At(i);
+        points[i] = ToWorld(p);
+    }
+    if(isloop){
+        shape.CreateLoop(points, ps.Size());
+    }else{
+        shape.CreateChain(points, ps.Size());
+    }
+    fixDef.shape = &shape;
+    fixture = body->CreateFixture(&fixDef);
+    delete []points;
+    return fixture != nullptr;
+}
+
 CX_IMPLEMENT(cxPolygonBody)
 
 cxPolygonBody::cxPolygonBody()
@@ -22,9 +62,9 @@ cxPolygonBody::~cxPolygonBody()
     
 }
 
-void cxPolygonBody::AppendPoint(const cxPoint2F &v)
+cxPoint2FArray &cxPolygonBody::Points()
 {
-    ps.Append(v);
+    return ps;
 }
 
 cxBool cxPolygonBody::CreateFixture(cxWorld *pw)
@@ -115,7 +155,7 @@ cxBody::cxBody()
     fixture = nullptr;
     body = nullptr;
     bodyDef.type = b2_dynamicBody;
-    fixDef.restitution = 1.0f;
+    fixDef.restitution = 0.0f;
     fixDef.density = 1.0f;
     fixDef.friction = 0.0f;
 }
@@ -198,6 +238,11 @@ void cxBody::SetAngularVelocity(const cxFloat &v)
         return;
     }
     body->SetAngularVelocity(v);
+}
+
+cxBool cxBody::IsStatic()
+{
+    return bodyDef.type == b2_staticBody;
 }
 
 void cxBody::SetStatic(cxBool v)
@@ -313,7 +358,6 @@ cxWorld::cxWorld():world(b2Vec2(0, -10.0f))
 {
     vIters = 1;
     pIters = 1;
-    world.SetDestructionListener(this);
     world.SetContactFilter(this);
     world.SetContactListener(this);
 }
@@ -323,18 +367,12 @@ cxWorld::~cxWorld()
     
 }
 
-void cxWorld::SayGoodbye(b2Joint* joint)
-{
-    //CX_LOGGER("joint goodbye");
-}
-
-void cxWorld::SayGoodbye(b2Fixture* fixture)
-{
-    //CX_LOGGER("fixture goodbye");
-}
-
 cxBool cxWorld::ShouldCollide(cxCollideBody *a,cxCollideBody *b)
 {
+    b2Vec2 g = world.GetGravity();
+    g.y = CX_RAND_11f() * 5.0f;
+    g.x = CX_RAND_11f() * 5.0f;
+    world.SetGravity(g);
     return true;
 }
 

@@ -60,50 +60,73 @@ Game::~Game()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
-    cxTexture::Create()->From("t.png")->gcSet<cxTexture>("t.png");
+    cxTexture::Create()->From("circle.png")->gcSet<cxTexture>("circle");
+    cxTexture::Create()->From("t.png")->gcSet<cxTexture>("point");
     
     cxBox2D::cxWorld *w = cxBox2D::cxWorld::Create();
     w->SetSize(WinSize());
-    
+    for(cxInt i=0;i<40;i++)
     {
         cxBox2D::cxCircleBody *cb = cxBox2D::cxCircleBody::Create();
-        cb->SetAngularVelocity(3.0f);
-        
+        cb->SetElasticity(1.0f);
         cxSprite *sp = cxSprite::Create();
-        sp->SetTexture("t.png");
+        sp->SetTexture("circle");
         sp->SetResizeFlags(cxView::ResizeFill);
         sp->AttachTo(cb);
         
-        cb->SetSize(100);
+        cb->SetSize(50);
+        cb->EnableDir(true);
 
         cxBox2D::cxBody *b = w->AppendBody(cb);
-        b->SetAngle(0.3f);
-        b->SetPosition(cxPoint2F(-400, 400));
+        b->SetPosition(cxPoint2F(CX_RAND_11f()*200, CX_RAND_11f()*200));
     }
+    
+//    {
+//        cxBox2D::cxCircleBody *cb = cxBox2D::cxCircleBody::Create();
+//        cb->SetAngularVelocity(3.0f);
+//        cb->SetElasticity(1.0f);
+//        
+//        cxSprite *sp = cxSprite::Create();
+//        sp->SetTexture("circle");
+//        sp->SetResizeFlags(cxView::ResizeFill);
+//        sp->AttachTo(cb);
+//        
+//        cb->SetSize(100);
+//        
+//        cxBox2D::cxBody *b = w->AppendBody(cb);
+//        b->SetAngle(0.3f);
+//        b->SetPosition(cxPoint2F(400, 400));
+//    }
     {
-        cxBox2D::cxCircleBody *cb = cxBox2D::cxCircleBody::Create();
-        cb->SetAngularVelocity(3.0f);
-        
-        cxSprite *sp = cxSprite::Create();
-        sp->SetTexture("t.png");
-        sp->SetResizeFlags(cxView::ResizeFill);
-        sp->AttachTo(cb);
-        
-        cb->SetSize(100);
-        
-        cxBox2D::cxBody *b = w->AppendBody(cb);
-        b->SetAngle(0.3f);
-        b->SetPosition(cxPoint2F(-400, 500));
-    }
-    {
-        cxBox2D::cxEdgeBody *cb = cxBox2D::cxEdgeBody::Create();
-        cb->SetSize(cxSize2F(2048, 10));
-        
-        cb->SetLinePoint(cxLineF(-1024, -400, 1024, -400));
+        cxBox2D::cxChainBody *cb = cxBox2D::cxChainBody::Create();
+        cb->SetSize(cxSize2F(200, 200));
+        cb->SetLoop(true);
+        cb->Points().Append(cxPoint2F(-900, 600));
+        cb->Points().Append(cxPoint2F(-900, -600));
+        cb->Points().Append(cxPoint2F(900, -600));
+        cb->Points().Append(cxPoint2F(900, 600));
         cb->SetStatic(true);
         
+        cxPoint2FArray &ps = cb->Points();
+        for(cxInt i=0; i < ps.Size(); i++){
+            cxSprite *sp = cxSprite::Create();
+            sp->SetTexture("point");
+            sp->SetSize(30.0f);
+            sp->AttachTo(cb);
+            sp->SetPosition(ps.At(i));
+        }
+        
         cxBox2D::cxBody *b = w->AppendBody(cb);
     }
+//    {
+//        cxBox2D::cxEdgeBody *cb = cxBox2D::cxEdgeBody::Create();
+//        cb->SetSize(cxSize2F(2048, 10));
+//        cb->SetElasticity(0);
+//        cb->SetLinePoint(cxLineF(-1024, -400, 1024, -400));
+//        cb->SetStatic(true);
+//        
+//        cxBox2D::cxBody *b = w->AppendBody(cb);
+//    }
 //    {
 //        cxBox2D::cxBoxBody *cb = cxBox2D::cxBoxBody::Create();
 //        cb->SetSize(cxSize2F(2048, 50));

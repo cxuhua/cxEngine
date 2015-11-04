@@ -46,11 +46,13 @@ public:
     cxPoint2F FromWorld(const b2Vec2 &v);
     cxFloat FromWorld(const float32 &v);
     
+    void SetStatic(cxBool v);
+    cxBool IsStatic();
+    
     cxView *SetPosition(const cxPoint2F &v);
     cxView *SetAngle(const cxFloat &v);
     void SetAngularVelocity(const cxFloat &v);
     void SetLinearVelocity(const cxPoint2F &v);
-    void SetStatic(cxBool v);
     void SetElasticity(cxFloat v);
     void SetDensity(cxFloat v);
     void SetFriction(cxFloat v);
@@ -140,7 +142,24 @@ private:
     cxPoint2FArray ps;
     b2PolygonShape shape;
 public:
-    void AppendPoint(const cxPoint2F &v);
+    cxPoint2FArray &Points();
+    cxBool CreateFixture(cxWorld *pw);
+};
+
+class cxChainBody : public cxBody
+{
+public:
+    CX_DECLARE(cxChainBody);
+protected:
+    explicit cxChainBody();
+    virtual ~cxChainBody();
+private:
+    cxBool isloop;
+    cxPoint2FArray ps;
+    b2ChainShape shape;
+public:
+    void SetLoop(cxBool loop);
+    cxPoint2FArray &Points();
     cxBool CreateFixture(cxWorld *pw);
 };
 
@@ -155,7 +174,7 @@ struct cxCollideBody
     b2Fixture   *Fixture;
 };
 
-class cxWorld : public cxView,public b2ContactListener,public b2ContactFilter,public b2DestructionListener
+class cxWorld : public cxView,public b2ContactListener,public b2ContactFilter
 {
 public:
     CX_DECLARE(cxWorld);
@@ -170,9 +189,6 @@ protected:
     b2World world;
     void OnRemove(cxView *pview);
 public:
-    //b2DestructionListener
-    void SayGoodbye(b2Joint* joint);
-    void SayGoodbye(b2Fixture* fixture);
     //b2ContactFilter
     bool ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB);
     //b2ContactListener

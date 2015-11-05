@@ -43,7 +43,7 @@ void cxShader::SetModelProject(const cxMatrixF &value) const
 
 void cxShader::SetModelView(const cxMatrixF &value) const
 {
-    SetUniform(ump, value);
+    SetUniform(umv, value);
 }
 
 void cxShader::Using(cxView *pview) const

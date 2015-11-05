@@ -30,6 +30,7 @@ cxInt cxView::defaultSortFunc(const void *lp,const void *rp)
 
 cxView::cxView()
 {
+    idx = 0;
     sortFunc = defaultSortFunc;
     relative = RelativeNone;
     maxz = 0;
@@ -814,6 +815,11 @@ void cxView::transform()
     SetFlags(FlagsDirty);
 }
 
+void cxView::ResetIdx()
+{
+    idx = 0;
+}
+
 void cxView::Update(cxFloat dt)
 {
     flags = 0;
@@ -833,6 +839,7 @@ void cxView::Update(cxFloat dt)
     if(!subviews->IsEmpty()){
         runRemoves(dt);
     }
+    OnIndex(idx++);
 }
 
 cxFloat cxView::Z() const
@@ -945,6 +952,11 @@ cxView *cxView::Selector(cchars path)
     }
     free(ckey);
     return rv;
+}
+
+void cxView::OnIndex(cxULong idx)
+{
+    
 }
 
 void cxView::OnRender(cxRender *render,const cxMatrixF &model)

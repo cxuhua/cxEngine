@@ -17,6 +17,7 @@
 #include <math/cxBoxColor4F.h>
 #include <math/cxBoxPoint3F.h>
 #include <math/cxBoxCoord2F.h>
+#include <math/cxLineF.h>
 #include <math/cxMatrixF.h>
 #include <math/kazmath/GL/matrix.h>
 #include <math/cxBoxRender.h>
@@ -159,6 +160,7 @@ protected:
     void DrawBoxRender(const cxBoxRenderArray &renders,const cxUInt16 *indices);
     void DrawBoxRender(const cxBoxRender &render,const cxUInt16 *indices);
     void DrawBoxLine(const cxBoxPoint3F &vs,const cxBoxColor4F &cs);
+    void DrawLine(const cxLineF &line,const cxColor4F &color);
     void DrawBoxShape(const cxBoxPoint3F &vs,const cxBoxColor4F &cs);
     void DrawTriangles(const cxRenderFArray &renders);
 };

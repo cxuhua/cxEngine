@@ -38,19 +38,17 @@ protected:
 public:
     virtual cxBool InitFixture(b2FixtureDef *def);
     virtual cxBool CreateFixture(cxWorld *pw);
+    virtual void DestroyFixture();
     virtual cxBool InitBody(b2BodyDef *def);
     virtual cxBool CreateBody(cxWorld *pw);
 public:
-    b2Vec2 ToWorld(const cxPoint2F &v);
-    float32 ToWorld(const cxFloat &v);
-    cxPoint2F FromWorld(const b2Vec2 &v);
-    cxFloat FromWorld(const float32 &v);
     
     void SetStatic(cxBool v);
     cxBool IsStatic();
     
     cxView *SetPosition(const cxPoint2F &v);
     cxView *SetAngle(const cxFloat &v);
+    
     void SetAngularVelocity(const cxFloat &v);
     void SetLinearVelocity(const cxPoint2F &v);
     void SetElasticity(cxFloat v);
@@ -68,26 +66,6 @@ public:
     cxFloat GetMass();
 };
 
-inline b2Vec2 cxBody::ToWorld(const cxPoint2F &v)
-{
-    return b2Vec2(ToWorld(v.x), ToWorld(v.y));
-}
-
-inline float32 cxBody::ToWorld(const cxFloat &v)
-{
-    return v/PTM_RATIO;
-}
-
-inline cxPoint2F cxBody::FromWorld(const b2Vec2 &v)
-{
-    return cxPoint2F(FromWorld(v.x), FromWorld(v.y));
-}
-
-inline cxFloat cxBody::FromWorld(const float32 &v)
-{
-    return v*PTM_RATIO;
-}
-
 class cxEdgeBody : public cxBody
 {
 public:
@@ -96,11 +74,9 @@ protected:
     explicit cxEdgeBody();
     virtual ~cxEdgeBody();
 private:
-    cxFloat lineWidth;
     b2EdgeShape shape;
 public:
-    void UpdateEdge();
-    void SetLineWidth(const cxFloat &v);
+    cxLineF GetLinePoint();
     void SetLinePoint(const cxLineF &line);
     cxBool CreateFixture(cxWorld *pw);
 };
@@ -115,6 +91,12 @@ protected:
 private:
     b2CircleShape shape;
 public:
+    cxFloat Radius();
+    void SetRadius(const cxFloat &v);
+    
+    cxPoint2F GetCenter();
+    void SetCenter(const cxPoint2F &v);
+    
     cxBool CreateFixture(cxWorld *pw);
 };
 
@@ -163,15 +145,46 @@ public:
     cxBool CreateFixture(cxWorld *pw);
 };
 
-struct cxCollideBody
+struct cxBodyInfo
 {
-    cxCollideBody(b2Contact *pcontact);
-    void UseA();
-    void UseB();
-    cxCollideBody(b2Fixture *fixture);
-    b2Contact   *Contact;
+    cxBodyInfo();
+    cxBodyInfo(b2Fixture *fixture);
     cxBody      *Body;
     b2Fixture   *Fixture;
+};
+
+struct cxContactInfo
+{
+    cxContactInfo(b2Contact *pcontact);
+    b2Contact *Contact;
+    cxBodyInfo A;
+    cxBodyInfo B;
+    const b2Manifold* Manifold;
+    const b2ContactImpulse* Impulse;
+};
+
+class cxBoxQueryInfo : public b2QueryCallback
+{
+public:
+    cxBoxQueryInfo();
+    bool ReportFixture(b2Fixture* fixture);
+    std::function<cxBool(cxBodyInfo *)> *Func;
+};
+
+struct cxRayCastReport
+{
+    cxBodyInfo Info;
+    cxPoint2F Point;
+    cxPoint2F Normal;
+    cxFloat Fraction;
+};
+
+class cxRayCastInfo : public b2RayCastCallback
+{
+public:
+    cxRayCastInfo();
+    float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point,const b2Vec2& normal, float32 fraction);
+    std::function<cxBool(cxRayCastReport *)> *Func;
 };
 
 class cxWorld : public cxView,public b2ContactListener,public b2ContactFilter
@@ -185,10 +198,16 @@ private:
     float32 vIters;
     float32 pIters;
 protected:
+    void OnRender(cxRender *render, const cxMatrixF &model);
     void OnUpdate(cxFloat dt);
     b2World world;
     void OnRemove(cxView *pview);
 public:
+    //
+    static b2Vec2 ToWorld(const cxPoint2F &v);
+    static float32 ToWorld(const cxFloat &v);
+    static cxPoint2F FromWorld(const b2Vec2 &v);
+    static cxFloat FromWorld(const float32 &v);
     //b2ContactFilter
     bool ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB);
     //b2ContactListener
@@ -196,20 +215,44 @@ public:
     void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
     void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);
     void EndContact(b2Contact* contact);
-    
     //
-    virtual cxBool ShouldCollide(cxCollideBody *a,cxCollideBody *b);
-    virtual void BeginContact(cxCollideBody *a,cxCollideBody *b);
-    virtual cxBool PreSolve(cxCollideBody *a,cxCollideBody *b);
-    virtual void PostSolve(cxCollideBody *a,cxCollideBody *b);
-    virtual void EndContact(cxCollideBody *a,cxCollideBody *b);
-    
+    virtual cxBool ShouldCollide(cxBodyInfo *a,cxBodyInfo *b);
+    virtual void BeginContact(cxContactInfo *contact);
+    virtual cxBool PreSolve(cxContactInfo *contact);
+    virtual void PostSolve(cxContactInfo *contact);
+    virtual void EndContact(cxContactInfo *contact);
+    //
+    //func return true continue,false terminate
+    void QueryBox(const cxBox4F &box,std::function<cxBool(cxBodyInfo *)> func);
+    //
+    //func return -1 to filter, 0 to terminate, fraction to clip the ray for closest hit, 1 to continue
+    void RayCast(const cxLineF &line,std::function<cxBool(cxRayCastReport *)> func);
+    //
     void SetGravity(const cxPoint2F &v);
-    
     b2Body *CreateBody(const b2BodyDef* def);
-    
+    void DestroyBody(cxBody *body);
     cxBody *AppendBody(cxBody *body);
 };
+
+inline b2Vec2 cxWorld::ToWorld(const cxPoint2F &v)
+{
+    return b2Vec2(ToWorld(v.x), ToWorld(v.y));
+}
+
+inline float32 cxWorld::ToWorld(const cxFloat &v)
+{
+    return v/PTM_RATIO;
+}
+
+inline cxPoint2F cxWorld::FromWorld(const b2Vec2 &v)
+{
+    return cxPoint2F(FromWorld(v.x), FromWorld(v.y));
+}
+
+inline cxFloat cxWorld::FromWorld(const float32 &v)
+{
+    return v*PTM_RATIO;
+}
 
 CX_BOX2D_END
 

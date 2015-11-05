@@ -65,6 +65,7 @@ void Game::OnMain()
     
     cxBox2D::cxWorld *w = cxBox2D::cxWorld::Create();
     w->SetSize(WinSize());
+    
     for(cxInt i=0;i<40;i++)
     {
         cxBox2D::cxCircleBody *cb = cxBox2D::cxCircleBody::Create();
@@ -80,23 +81,6 @@ void Game::OnMain()
         cxBox2D::cxBody *b = w->AppendBody(cb);
         b->SetPosition(cxPoint2F(CX_RAND_11f()*200, CX_RAND_11f()*200));
     }
-    
-//    {
-//        cxBox2D::cxCircleBody *cb = cxBox2D::cxCircleBody::Create();
-//        cb->SetAngularVelocity(3.0f);
-//        cb->SetElasticity(1.0f);
-//        
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetTexture("circle");
-//        sp->SetResizeFlags(cxView::ResizeFill);
-//        sp->AttachTo(cb);
-//        
-//        cb->SetSize(100);
-//        
-//        cxBox2D::cxBody *b = w->AppendBody(cb);
-//        b->SetAngle(0.3f);
-//        b->SetPosition(cxPoint2F(400, 400));
-//    }
     {
         cxBox2D::cxChainBody *cb = cxBox2D::cxChainBody::Create();
         cb->SetSize(cxSize2F(200, 200));
@@ -115,8 +99,7 @@ void Game::OnMain()
             sp->AttachTo(cb);
             sp->SetPosition(ps.At(i));
         }
-        
-        cxBox2D::cxBody *b = w->AppendBody(cb);
+        w->AppendBody(cb);
     }
 //    {
 //        cxBox2D::cxEdgeBody *cb = cxBox2D::cxEdgeBody::Create();

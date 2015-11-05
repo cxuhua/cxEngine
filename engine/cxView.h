@@ -89,6 +89,8 @@ protected:
 protected:
     cxRenderState state;
 private:
+    cxULong idx;            //update idx
+    
     cxFloat direction;
     
     Resize resizeflags;
@@ -255,6 +257,7 @@ public:
     cxView *At(cxInt idx);
 protected:
     virtual void OnRender(cxRender *render,const cxMatrixF &model);
+    virtual void OnIndex(cxULong idx);
     virtual void OnUpdate(cxFloat dt);
     virtual void OnDirty();
     virtual void OnLayout();
@@ -270,6 +273,7 @@ public:
     cxEvent<cxView, cxView *> onRemove;
     cxEvent<cxView> onFree;
 public:
+    void ResetIdx();
     const cxBox4F ParentBox() const;
     const cxStr *ViewPath();
     cxView *Selector(cchars path);

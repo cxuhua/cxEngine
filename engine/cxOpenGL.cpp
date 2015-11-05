@@ -631,6 +631,25 @@ void TDrawable::DrawBoxShape(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
+void TDrawable::DrawLine(const cxLineF &line,const cxColor4F &color)
+{
+    cxObject::gcGet<cxShader>(ColorShader)->Using(nullptr);
+    
+    cxPoint3F ps[2];
+    ps[0] = cxPoint3F(line.a.x, line.a.y, 0);
+    ps[1] = cxPoint3F(line.b.x, line.b.y, 0);
+    glEnableVertexAttribArray(cxVertexAttribPosition);
+    glVertexAttribPointer(cxVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(cxPoint3F), ps);
+    
+    cxColor4F cs[2];
+    cs[0] = color;
+    cs[1] = color;
+    glEnableVertexAttribArray(cxVertexAttribColor);
+    glVertexAttribPointer(cxVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(cxColor4F), cs);
+    
+    glDrawArrays(GL_LINES, 0, 2);
+}
+
 void TDrawable::DrawBoxLine(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)
 {
     cxObject::gcGet<cxShader>(ColorShader)->Using(nullptr);

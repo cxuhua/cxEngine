@@ -163,9 +163,8 @@ struct cxContactInfo
     const b2ContactImpulse* Impulse;
 };
 
-class cxBoxQueryInfo : public b2QueryCallback
+struct cxBoxQueryInfo : public b2QueryCallback
 {
-public:
     cxBoxQueryInfo();
     bool ReportFixture(b2Fixture* fixture);
     std::function<cxBool(cxBodyInfo *)> *Func;
@@ -179,9 +178,8 @@ struct cxRayCastReport
     cxFloat Fraction;
 };
 
-class cxRayCastInfo : public b2RayCastCallback
+struct cxRayCastInfo : public b2RayCastCallback
 {
-public:
     cxRayCastInfo();
     float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point,const b2Vec2& normal, float32 fraction);
     std::function<cxBool(cxRayCastReport *)> *Func;

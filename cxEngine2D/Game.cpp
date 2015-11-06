@@ -66,7 +66,7 @@ void Game::OnMain()
     cxBox2D::cxWorld *w = cxBox2D::cxWorld::Create();
     w->SetSize(WinSize());
     
-    for(cxInt i=0;i<40;i++)
+    for(cxInt i=0;i<140;i++)
     {
         cxBox2D::cxCircleBody *cb = cxBox2D::cxCircleBody::Create();
         cb->SetElasticity(1.0f);

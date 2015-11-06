@@ -42,26 +42,27 @@ public:
     virtual cxBool InitBody(b2BodyDef *def);
     virtual cxBool CreateBody(cxWorld *pw);
 public:
-    
-    void SetStatic(cxBool v);
+    cxBody *SetFilter(const b2Filter &v);
+    //
+    cxBody *SetStatic(cxBool v);
     cxBool IsStatic();
-    
+    //
     cxView *SetPosition(const cxPoint2F &v);
     cxView *SetAngle(const cxFloat &v);
-    
-    void SetAngularVelocity(const cxFloat &v);
-    void SetLinearVelocity(const cxPoint2F &v);
-    void SetElasticity(cxFloat v);
-    void SetDensity(cxFloat v);
-    void SetFriction(cxFloat v);
-    void SetLinearDamping(cxFloat linearDamping);
-    void SetAngularDamping(cxFloat angularDamping);
-    void SetGravityScale(cxFloat scale);
-    
-    void ApplyForce(const cxPoint2F &force, const cxPoint2F &point, cxBool wake=true);
-    void ApplyForceToCenter(const cxPoint2F &force, cxBool wake=true);
-    void ApplyLinearImpulse(const cxPoint2F &impulse, const cxPoint2F &point, cxBool wake=true);
-    void ApplyAngularImpulse(cxFloat impulse, cxBool wake=true);
+    //
+    cxBody *SetAngularVelocity(const cxFloat &v);
+    cxBody *SetLinearVelocity(const cxPoint2F &v);
+    cxBody *SetElasticity(cxFloat v);
+    cxBody *SetDensity(cxFloat v);
+    cxBody *SetFriction(cxFloat v);
+    cxBody *SetLinearDamping(cxFloat linearDamping);
+    cxBody *SetAngularDamping(cxFloat angularDamping);
+    cxBody *SetGravityScale(cxFloat scale);
+    //
+    cxBody *ApplyForce(const cxPoint2F &force, const cxPoint2F &point, cxBool wake=true);
+    cxBody *ApplyForceToCenter(const cxPoint2F &force, cxBool wake=true);
+    cxBody *ApplyLinearImpulse(const cxPoint2F &impulse, const cxPoint2F &point, cxBool wake=true);
+    cxBody *ApplyAngularImpulse(cxFloat impulse, cxBool wake=true);
 
     cxFloat GetMass();
 };

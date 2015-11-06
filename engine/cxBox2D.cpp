@@ -201,73 +201,92 @@ cxFloat cxBody::GetMass()
     return body->GetMass();
 }
 
-void cxBody::SetLinearDamping(cxFloat linearDamping)
+cxBody *cxBody::SetLinearDamping(cxFloat linearDamping)
 {
     if(body == nullptr){
         bodyDef.linearDamping = linearDamping;
-        return;
+        return this;
     }
     body->SetLinearDamping(linearDamping);
+    return this;
 }
 
-void cxBody::SetAngularDamping(cxFloat angularDamping)
+cxBody *cxBody::SetAngularDamping(cxFloat angularDamping)
 {
     if(body == nullptr){
         bodyDef.angularDamping = angularDamping;
-        return;
+        return this;
     }
     body->SetAngularDamping(angularDamping);
+    return this;
 }
 
-void cxBody::SetGravityScale(cxFloat scale)
+cxBody *cxBody::SetGravityScale(cxFloat scale)
 {
     if(body == nullptr){
         bodyDef.gravityScale = scale;
-        return;
+        return this;
     }
     body->SetGravityScale(scale);
+    return this;
 }
 
-void cxBody::ApplyLinearImpulse(const cxPoint2F &impulse, const cxPoint2F &point, cxBool wake)
+cxBody *cxBody::ApplyLinearImpulse(const cxPoint2F &impulse, const cxPoint2F &point, cxBool wake)
 {
     CX_ASSERT(body != nullptr, "body not init");
     body->ApplyLinearImpulse(b2Vec2(impulse.x, impulse.y), b2Vec2(point.x, point.y), wake);
+    return this;
 }
 
-void cxBody::ApplyAngularImpulse(cxFloat impulse, cxBool wake)
+cxBody *cxBody::ApplyAngularImpulse(cxFloat impulse, cxBool wake)
 {
     CX_ASSERT(body != nullptr, "body not init");
     body->ApplyAngularImpulse(impulse, wake);
+    return this;
 }
 
-void cxBody::ApplyForce(const cxPoint2F &force, const cxPoint2F &point, cxBool wake)
+cxBody *cxBody::ApplyForce(const cxPoint2F &force, const cxPoint2F &point, cxBool wake)
 {
     CX_ASSERT(body != nullptr, "body not init");
     body->ApplyForce(b2Vec2(force.x, force.y), b2Vec2(point.x, point.y), wake);
+    return this;
 }
 
-void cxBody::ApplyForceToCenter(const cxPoint2F &force, cxBool wake)
+cxBody *cxBody::ApplyForceToCenter(const cxPoint2F &force, cxBool wake)
 {
     CX_ASSERT(body != nullptr, "body not init");
     body->ApplyForceToCenter(b2Vec2(force.x, force.y), wake);
+    return this;
 }
 
-void cxBody::SetLinearVelocity(const cxPoint2F &v)
+cxBody *cxBody::SetLinearVelocity(const cxPoint2F &v)
 {
     if(body == nullptr){
         bodyDef.linearVelocity = b2Vec2(v.x, v.y);
-        return;
+        return this;
     }
     body->SetLinearVelocity(b2Vec2(v.x, v.y));
+    return this;
 }
 
-void cxBody::SetAngularVelocity(const cxFloat &v)
+cxBody *cxBody::SetAngularVelocity(const cxFloat &v)
 {
     if(body == nullptr){
         bodyDef.angularVelocity = v;
-        return;
+        return this;
     }
     body->SetAngularVelocity(v);
+    return this;
+}
+
+cxBody *cxBody::SetFilter(const b2Filter &v)
+{
+    if(fixture == nullptr){
+        fixDef.filter = v;
+    }else{
+        fixture->SetFilterData(v);
+    }
+    return this;
 }
 
 cxBool cxBody::IsStatic()
@@ -275,24 +294,28 @@ cxBool cxBody::IsStatic()
     return bodyDef.type == b2_staticBody;
 }
 
-void cxBody::SetStatic(cxBool v)
+cxBody *cxBody::SetStatic(cxBool v)
 {
     bodyDef.type = v?b2_staticBody:b2_dynamicBody;
+    return this;
 }
 
-void cxBody::SetElasticity(cxFloat v)
+cxBody *cxBody::SetElasticity(cxFloat v)
 {
     fixDef.restitution = v;
+    return this;
 }
 
-void cxBody::SetDensity(cxFloat v)
+cxBody *cxBody::SetDensity(cxFloat v)
 {
     fixDef.density = v;
+    return this;
 }
 
-void cxBody::SetFriction(cxFloat v)
+cxBody *cxBody::SetFriction(cxFloat v)
 {
     fixDef.friction = v;
+    return this;
 }
 
 void cxBody::OnUpdate(cxFloat dt)

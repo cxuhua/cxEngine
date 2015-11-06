@@ -60,6 +60,27 @@ Game::~Game()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
+    
+//    cxSpine *sp = cxSpine::Create("goblins-mesh",0.5f);
+//    sp->SetSize(300);
+//    sp->SetMix("walk", "jump", 0.2f);
+//    sp->SetMix("jump", "run", 0.2f);
+//    sp->SetMix("run", "shoot", 0.2f);
+//    
+//    sp->SetAnimation(0, "walk", true);
+//    sp->AddAnimation(0, "jump", false, 3);
+//    sp->AddAnimation(0, "run", true, 0);
+//    sp->AddAnimation(0, "idle", true, 3);
+//    sp->AddAnimation(0, "shoot", true, 0);
+//    sp->AddAnimation(0, "death", true, 0);
+//    sp->AddAnimation(0, "hit", true, 0);
+//    sp->AddAnimation(0, "idle", true, 0);
+//    sp->AddAnimation(0, "hit", true, 0);
+//    
+//    Window()->Append(sp);
+//    
+//    return;
+    
     cxTexture::Create()->From("circle.png")->gcSet<cxTexture>("circle");
     cxTexture::Create()->From("t.png")->gcSet<cxTexture>("point");
     

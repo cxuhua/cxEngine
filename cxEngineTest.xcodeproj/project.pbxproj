@@ -14,6 +14,12 @@
 		8326D0DB1BE9F72000A15879 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8326D0DA1BE9F72000A15879 /* Images.xcassets */; };
 		833043D01B424A1C00636928 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 833043CF1B424A1C00636928 /* bg.jpg */; };
 		83546A471B3127F700FFE1E7 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83546A451B3127F700FFE1E7 /* Game.cpp */; };
+		835B40131BEC523800A7A4AC /* spineboy.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 835B40101BEC523800A7A4AC /* spineboy.atlas */; };
+		835B40141BEC523800A7A4AC /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 835B40111BEC523800A7A4AC /* spineboy.json */; };
+		835B40151BEC523800A7A4AC /* spineboy.png in Resources */ = {isa = PBXBuildFile; fileRef = 835B40121BEC523800A7A4AC /* spineboy.png */; };
+		835B40191BEC8F6300A7A4AC /* goblins-mesh.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 835B40161BEC8F6300A7A4AC /* goblins-mesh.atlas */; };
+		835B401A1BEC8F6300A7A4AC /* goblins-mesh.json in Resources */ = {isa = PBXBuildFile; fileRef = 835B40171BEC8F6300A7A4AC /* goblins-mesh.json */; };
+		835B401B1BEC8F6300A7A4AC /* goblins-mesh.png in Resources */ = {isa = PBXBuildFile; fileRef = 835B40181BEC8F6300A7A4AC /* goblins-mesh.png */; };
 		836DD1211B2C26CE0094F5EF /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 836DD1201B2C26CE0094F5EF /* shader */; };
 		836E30451B5E2ABF00ED8BDC /* Sea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836E30431B5E2ABF00ED8BDC /* Sea.cpp */; };
 		836E304C1B5E2B4C00ED8BDC /* foam.png in Resources */ = {isa = PBXBuildFile; fileRef = 836E30481B5E2B4C00ED8BDC /* foam.png */; };
@@ -59,6 +65,12 @@
 		833043CF1B424A1C00636928 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
 		83546A451B3127F700FFE1E7 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		83546A461B3127F700FFE1E7 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		835B40101BEC523800A7A4AC /* spineboy.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spineboy.atlas; sourceTree = "<group>"; };
+		835B40111BEC523800A7A4AC /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spineboy.json; sourceTree = "<group>"; };
+		835B40121BEC523800A7A4AC /* spineboy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spineboy.png; sourceTree = "<group>"; };
+		835B40161BEC8F6300A7A4AC /* goblins-mesh.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "goblins-mesh.atlas"; sourceTree = "<group>"; };
+		835B40171BEC8F6300A7A4AC /* goblins-mesh.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "goblins-mesh.json"; sourceTree = "<group>"; };
+		835B40181BEC8F6300A7A4AC /* goblins-mesh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goblins-mesh.png"; sourceTree = "<group>"; };
 		836DD1201B2C26CE0094F5EF /* shader */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shader; sourceTree = "<group>"; };
 		836E30431B5E2ABF00ED8BDC /* Sea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sea.cpp; sourceTree = "<group>"; };
 		836E30441B5E2ABF00ED8BDC /* Sea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sea.h; sourceTree = "<group>"; };
@@ -159,6 +171,12 @@
 		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
+				835B40161BEC8F6300A7A4AC /* goblins-mesh.atlas */,
+				835B40171BEC8F6300A7A4AC /* goblins-mesh.json */,
+				835B40181BEC8F6300A7A4AC /* goblins-mesh.png */,
+				835B40101BEC523800A7A4AC /* spineboy.atlas */,
+				835B40111BEC523800A7A4AC /* spineboy.json */,
+				835B40121BEC523800A7A4AC /* spineboy.png */,
 				83D8C3561B69E46400155990 /* battle_lost_02.mp3 */,
 				83E886DB1B68F970001C0727 /* test.mp3 */,
 				839B8AF01B68DD3A009E0CF7 /* o.wav */,
@@ -272,10 +290,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				830157E21B3BD27C00ED46A8 /* t.png in Resources */,
+				835B401B1BEC8F6300A7A4AC /* goblins-mesh.png in Resources */,
+				835B40191BEC8F6300A7A4AC /* goblins-mesh.atlas in Resources */,
 				8302A5851B535EC500C7209C /* grid.png in Resources */,
+				835B40141BEC523800A7A4AC /* spineboy.json in Resources */,
 				836E304C1B5E2B4C00ED8BDC /* foam.png in Resources */,
+				835B40151BEC523800A7A4AC /* spineboy.png in Resources */,
 				83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */,
+				835B40131BEC523800A7A4AC /* spineboy.atlas in Resources */,
 				836DD1211B2C26CE0094F5EF /* shader in Resources */,
+				835B401A1BEC8F6300A7A4AC /* goblins-mesh.json in Resources */,
 				833043D01B424A1C00636928 /* bg.jpg in Resources */,
 				836E304D1B5E2B4C00ED8BDC /* water.fsh in Resources */,
 				836E304E1B5E2B4C00ED8BDC /* water.png in Resources */,

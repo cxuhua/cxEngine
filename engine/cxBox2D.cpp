@@ -424,10 +424,10 @@ cxWorld::~cxWorld()
 
 cxBool cxWorld::ShouldCollide(cxBodyInfo *a,cxBodyInfo *b)
 {
-    b2Vec2 g = world.GetGravity();
-    g.y = CX_RAND_11f() * 5.0f;
-    g.x = CX_RAND_11f() * 5.0f;
-    world.SetGravity(g);
+//    b2Vec2 g = world.GetGravity();
+//    g.y = CX_RAND_11f() * 5.0f;
+//    g.x = CX_RAND_11f() * 5.0f;
+//    world.SetGravity(g);
     return true;
 }
 

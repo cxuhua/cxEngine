@@ -198,7 +198,7 @@ void cxSprite::OnRender(cxRender *render,const cxMatrixF &model)
     if(Texture() == nullptr){
         return;
     }
-    state.Set(cxRenderState::BoxRender);
+    state.Set(cxRenderState::TrianglesVBO);
     state.Set(Texture());
     state.Set(Blend());
     render->Render(box,model,State(), Flags());

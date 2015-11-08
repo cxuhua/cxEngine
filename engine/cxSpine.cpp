@@ -10,24 +10,25 @@
 #include <spine/extension.h>
 #include "cxSpine.h"
 
+using namespace cxengine;
 static const int quadTriangles[6] = {0, 1, 2, 2, 3, 0};
 
 //spine ext method
 void _spAtlasPage_createTexture (spAtlasPage* self, const char* path) {
-    cxengine::cxTexture *ptex = cxengine::cxTexture::Alloc()->From(path);
+    cxTexture *ptex = cxTexture::Alloc()->From(path);
     self->rendererObject = ptex;
-    cxengine::cxSize2F size = ptex->Size();
+    cxSize2F size = ptex->Size();
     self->width = size.w;
     self->height = size.h;
 }
 
 void _spAtlasPage_disposeTexture (spAtlasPage* self) {
-    cxengine::cxTexture *ptex = static_cast<cxengine::cxTexture *>(self->rendererObject);
+    cxTexture *ptex = static_cast<cxTexture *>(self->rendererObject);
     ptex->Release();
 }
 
 char* _spUtil_readFile (const char* path, int* length) {
-    const cxengine::cxStr *data = cxengine::cxUtil::Instance()->AssetsData(path);
+    const cxStr *data = cxUtil::Instance()->AssetsData(path);
     if(data == nullptr){
         return nullptr;
     }
@@ -167,7 +168,7 @@ void cxSpine::OnRender(cxRender *render, const cxMatrixF &model)
             SetTexture(texture);
             //append is
             for(cxInt j=0; j < inum; j++) {
-                Indices().Append(is[j] + verticesNum);
+                Indices().Append(is[j]);
             }
             //append vs
             for(cxInt i=0; i < vnum; i+=2){
@@ -176,7 +177,6 @@ void cxSpine::OnRender(cxRender *render, const cxMatrixF &model)
                 render.vertices = cxPoint3F(vs[i], vs[i+1], 0);
                 render.coords = cxCoord2F(us[i], us[i+1]);
                 Renders().Append(render);
-                verticesNum++;
             }
             state.Set(cxRenderState::TrianglesVBO);
             state.Set(Texture());

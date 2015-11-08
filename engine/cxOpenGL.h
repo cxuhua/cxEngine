@@ -141,13 +141,12 @@ struct cxRenderState
     
     cxUInt64 ID() const;
     
-    static const cxStateType BoxRender      = 0;
+    static const cxStateType TrianglesVBO   = 0;    //GL_TRIANGLES VBO VAO
     static const cxStateType ClipOn         = 1;
     static const cxStateType ClipOff        = 2;
-    static const cxStateType TrianglesVBO   = 3;    //GL_TRIANGLES VBO
-    static const cxStateType Triangles      = 4;    //GL_TRIANGLES
-    static const cxStateType TriangleFan    = 5;    //GL_TRIANGLE_FAN
-    static const cxStateType TriangleStrip  = 6;    //GL_TRIANGLE_STRIP
+    static const cxStateType Triangles      = 3;    //GL_TRIANGLES
+    static const cxStateType TriangleFan    = 4;    //GL_TRIANGLE_FAN
+    static const cxStateType TriangleStrip  = 5;    //GL_TRIANGLE_STRIP
 };
 
 class TDrawable

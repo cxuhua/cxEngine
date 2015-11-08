@@ -35,7 +35,7 @@ private:
     cxRenderFArray renders;
     cxDrawArray draws;
 public:
-    void InitBoxInices();
+    void MergeDraw(const cxDraw &draw);
     cxRenderFArray &Renders();
     void Draw();
     void Init();

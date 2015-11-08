@@ -19,6 +19,7 @@ cxRender::cxRender()
 {
     Init();
     max = MAX_TRIANGLES;
+    indices.Init(max*6);
     renders.Append(max);
     draws.Append(max);
 }
@@ -26,19 +27,6 @@ cxRender::cxRender()
 cxRender::~cxRender()
 {
     
-}
-
-void cxRender::InitBoxInices()
-{
-    cxInt num = indices.Size()/6;
-    for(cxInt i=0; i<num;i++){
-        indices.At(i*6+0)=i*4+0;
-        indices.At(i*6+1)=i*4+1;
-        indices.At(i*6+2)=i*4+2;
-        indices.At(i*6+3)=i*4+3;
-        indices.At(i*6+4)=i*4+2;
-        indices.At(i*6+5)=i*4+1;
-    }
 }
 
 cxRenderFArray &cxRender::Renders()
@@ -96,14 +84,6 @@ void cxRender::DrawAllRenders(cxDraw *draw)
     draw->Using();
     vdc ++;
     switch (draw->Type()) {
-        case cxRenderState::BoxRender:{
-            vsc += renders.Size();
-            InitBoxInices();
-            DrawVertexRender(renders, indices);
-            renders.Clear();
-            indices.Clear();
-            break;
-        }
         case cxRenderState::TrianglesVBO:{
             vsc += renders.Size();
             DrawVertexRender(renders, indices);
@@ -155,6 +135,15 @@ void cxRender::Init()
     cid = 0;
 }
 
+void cxRender::MergeDraw(const cxDraw &draw)
+{
+    cxInt start = renders.Size();
+    for(cxInt i=0;i<draw.indices.Size();i++){
+        indices.Append(draw.indices.At(i) + start);
+    }
+    renders.Append(draw.renders);
+}
+
 void cxRender::Draw()
 {
     for(cxInt i=0; i < draws.Size();i++){
@@ -176,28 +165,22 @@ void cxRender::Draw()
             DrawAllRenders(prev);
         }
         prev = &draw;
-        if(type == cxRenderState::BoxRender){
-            renders.Append(draw.renders);
-            indices.Append(draw.indices);
-            continue;
-        }
         if(type == cxRenderState::TrianglesVBO){
-            renders.Append(draw.renders);
-            indices.Append(draw.indices);
+            MergeDraw(draw);
             continue;
         }
         if(type == cxRenderState::Triangles){
-            renders.Append(draw.renders);
+            MergeDraw(draw);
             continue;
         }
         if(type == cxRenderState::TriangleFan){
             renders.Append(draw.renders);
-            DrawAllRenders(prev);
+            DrawAllRenders(&draw);
             continue;
         }
         if(type == cxRenderState::TriangleStrip){
             renders.Append(draw.renders);
-            DrawAllRenders(prev);
+            DrawAllRenders(&draw);
             continue;
         }
     }

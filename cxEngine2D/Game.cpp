@@ -144,6 +144,7 @@ void Game::OnMain()
         sp->SetSkin("goblingirl");
         sp->SetSize(300);
         sp->SetAnimation(0, "walk", true);
+        sp->SetColor(cxColor4F::RED);
         Window()->Append(sp);
     }
     {

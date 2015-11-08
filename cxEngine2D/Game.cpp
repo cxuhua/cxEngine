@@ -139,25 +139,33 @@ void Game::OnMain()
 //        }
 //        Window()->Append(ts);
 //    }
+    {
+        cxSpine *sp = cxSpine::Create("goblins-mesh",1.0f);
+        sp->SetSkin("goblingirl");
+        sp->SetSize(300);
+        sp->SetAnimation(0, "walk", true);
+        Window()->Append(sp);
+    }
+    {
+        cxSpine *sp = cxSpine::Create("spineboy",1.0f);
+        sp->SetPosition(cxPoint2F(800, 0));
+        sp->SetSize(300);
+        sp->SetMix("walk", "jump", 0.2f);
+        sp->SetMix("jump", "run", 0.2f);
+        sp->SetMix("run", "shoot", 0.2f);
     
-//    cxSpine *sp = cxSpine::Create("spineboy",0.5f);
-//    sp->SetSize(300);
-//    sp->SetMix("walk", "jump", 0.2f);
-//    sp->SetMix("jump", "run", 0.2f);
-//    sp->SetMix("run", "shoot", 0.2f);
-//    
-//    sp->SetAnimation(0, "walk", true);
-//    sp->AddAnimation(0, "jump", false, 3);
-//    sp->AddAnimation(0, "run", true, 0);
-//    sp->AddAnimation(0, "idle", true, 3);
-//    sp->AddAnimation(0, "shoot", true, 0);
-//    sp->AddAnimation(0, "death", true, 0);
-//    sp->AddAnimation(0, "hit", true, 0);
-//    sp->AddAnimation(0, "idle", true, 0);
-//    sp->AddAnimation(0, "hit", true, 0);
-//    
-//    Window()->Append(sp);
-//    
+        sp->SetAnimation(0, "walk", true);
+        sp->AddAnimation(0, "jump", false, 3);
+        sp->AddAnimation(0, "run", true, 0);
+        sp->AddAnimation(0, "idle", true, 3);
+        sp->AddAnimation(0, "shoot", true, 0);
+        sp->AddAnimation(0, "death", true, 0);
+        sp->AddAnimation(0, "hit", true, 0);
+        sp->AddAnimation(0, "idle", true, 0);
+        sp->AddAnimation(0, "hit", true, 0);
+        
+        Window()->Append(sp);
+    }
 //    return;
     
     cxBox2D::cxWorld *w = cxBox2D::cxWorld::Create();

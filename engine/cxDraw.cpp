@@ -16,11 +16,6 @@ cxDraw::cxDraw()
     
 }
 
-cxInt cxDraw::BoxIndices()
-{
-    return (renders.Size()/4)*6;
-}
-
 cxBool cxDraw::Render(cxBoxRender &r,const cxMatrixF &m,const cxRenderState &s,cxUInt flags)
 {
     cxBox4F wbox = s.view->ParentBox();
@@ -29,6 +24,16 @@ cxBool cxDraw::Render(cxBoxRender &r,const cxMatrixF &m,const cxRenderState &s,c
     cxBoxRender b = r * m;
     if(wbox.Contain(b.ToBoxPoint())){
         renders.Append(b);
+    }
+    indices.Clear();
+    cxInt num = renders.Size()/4;
+    for(cxInt i=0; i<num;i++){
+        indices.Append(i*4+0);
+        indices.Append(i*4+1);
+        indices.Append(i*4+2);
+        indices.Append(i*4+3);
+        indices.Append(i*4+2);
+        indices.Append(i*4+1);
     }
     return renders.Size() > 0;
 }
@@ -45,6 +50,16 @@ cxBool cxDraw::Render(cxBoxRenderArray &rs,const cxMatrixF &m,const cxRenderStat
         }
         renders.Append(b);
     }
+    indices.Clear();
+    cxInt num = renders.Size()/4;
+    for(cxInt i=0; i<num;i++){
+        indices.Append(i*4+0);
+        indices.Append(i*4+1);
+        indices.Append(i*4+2);
+        indices.Append(i*4+3);
+        indices.Append(i*4+2);
+        indices.Append(i*4+1);
+    }
     return renders.Size() > 0;
 }
 
@@ -52,8 +67,11 @@ cxBool cxDraw::Render(cxRenderFArray &vs,const cxIndicesArray &is,const cxMatrix
 {
     state = s;
     renders.Clear();
+    for(cxInt i=0; i < vs.Size(); i++){
+        cxRenderF b = vs.At(i) * m;
+        renders.Append(b);
+    }
     indices.Clear();
-    renders.Append(vs);
     indices.Append(is);
     return renders.Size() > 0 && indices.Size() > 0;
 }
@@ -62,7 +80,10 @@ cxBool cxDraw::Render(cxRenderFArray &vs,const cxMatrixF &m,const cxRenderState 
 {
     state = s;
     renders.Clear();
-    renders.Append(vs);
+    for(cxInt i=0; i < vs.Size(); i++){
+        cxRenderF b = vs.At(i) * m;
+        renders.Append(b);
+    }
     return renders.Size() > 0;
 }
 

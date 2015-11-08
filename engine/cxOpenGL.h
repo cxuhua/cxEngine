@@ -128,9 +128,11 @@ struct cxRenderState
     cxShader    *shader;
     cxTexture   *texture;
     cxView      *view;
+    cxByte      tags;
     
     cxRenderState();
     
+    void SetTags(cxByte v);
     void Set(BlendFunc b);
     void Set(cxShader *s);
     void Set(cxTexture *t);
@@ -180,7 +182,6 @@ protected:
     virtual ~TDrawBuffer();
     void InitVertexBuffer(const cxRenderFArray &renders,const cxIndicesArray &indices);
     void DrawVertexRender(const cxRenderFArray &renders,const cxIndicesArray &indices);
-    
     void DrawTriangles(cxUInt mode,const cxRenderFArray &renders);
 };
 

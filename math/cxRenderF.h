@@ -69,7 +69,7 @@ public:
 private:
     cxInt number;
 public:
-    
+    void Init(cxInt n);
     void Append(const cxIndicesArray &v);
     void Append(const cxUInt16 &v);
     

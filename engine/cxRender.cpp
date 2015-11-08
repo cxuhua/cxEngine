@@ -19,14 +19,6 @@ cxRender::cxRender()
 {
     Init();
     max = MAX_TRIANGLES;
-    for(cxInt i=0; i<max;i++){
-        indices.Append(i*4+0);
-        indices.Append(i*4+1);
-        indices.Append(i*4+2);
-        indices.Append(i*4+3);
-        indices.Append(i*4+2);
-        indices.Append(i*4+1);
-    }
     renders.Append(max);
     draws.Append(max);
 }
@@ -38,14 +30,14 @@ cxRender::~cxRender()
 
 void cxRender::InitBoxInices()
 {
-    cxInt num = indices.Size() / 6;
+    cxInt num = indices.Size()/6;
     for(cxInt i=0; i<num;i++){
-        indices.At(i*6+0) = i*4+0;
-        indices.At(i*6+1) = i*4+1;
-        indices.At(i*6+2) = i*4+2;
-        indices.At(i*6+3) = i*4+3;
-        indices.At(i*6+4) = i*4+2;
-        indices.At(i*6+5) = i*4+1;
+        indices.At(i*6+0)=i*4+0;
+        indices.At(i*6+1)=i*4+1;
+        indices.At(i*6+2)=i*4+2;
+        indices.At(i*6+3)=i*4+3;
+        indices.At(i*6+4)=i*4+2;
+        indices.At(i*6+5)=i*4+1;
     }
 }
 
@@ -186,7 +178,7 @@ void cxRender::Draw()
         prev = &draw;
         if(type == cxRenderState::BoxRender){
             renders.Append(draw.renders);
-            indices.Inc(draw.BoxIndices());
+            indices.Append(draw.indices);
             continue;
         }
         if(type == cxRenderState::TrianglesVBO){

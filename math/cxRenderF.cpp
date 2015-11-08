@@ -209,6 +209,14 @@ void cxIndicesArray::Append(const cxIndicesArray &v)
     }
 }
 
+void cxIndicesArray::Init(cxInt n)
+{
+    for(cxInt i=0; i< n;i++){
+        Append(0);
+    }
+    Clear();
+}
+
 void cxIndicesArray::Remove(cxInt idx)
 {
     erase(begin() + idx);

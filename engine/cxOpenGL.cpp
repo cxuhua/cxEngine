@@ -510,6 +510,15 @@ void TDrawBuffer::DrawVertexRender(const cxRenderFArray &renders,const cxIndices
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+cxRenderState::cxRenderState()
+{
+    tags = 0;
+    blend = BlendFunc::NONE;
+    shader = nullptr;
+    texture = nullptr;
+    type = 0;
+}
+
 cxUInt64 cxRenderState::ID() const
 {
     cxUInt64 idd = 0;
@@ -517,16 +526,13 @@ cxUInt64 cxRenderState::ID() const
     ptr[0] = (cxUInt16)shader->ID();
     ptr[1] = (cxUInt16)texture->ID();
     ptr[2] = (cxUInt16)blend.ID();
-    ptr[3] = (cxUInt16)type;
+    ptr[3] = (cxUInt16)(((type&0xFF)<<8)|(tags&0xFF));
     return idd;
 }
 
-cxRenderState::cxRenderState()
+void cxRenderState::SetTags(cxByte v)
 {
-    blend = BlendFunc::NONE;
-    shader = nullptr;
-    texture = nullptr;
-    type = 0;
+    tags = v;
 }
 
 void cxRenderState::Set(BlendFunc b)

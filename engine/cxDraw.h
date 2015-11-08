@@ -37,7 +37,6 @@ struct cxDraw
     //
     cxUInt64 ID() const;
     cxStateType Type() const;
-    cxInt BoxIndices();
     void Using();
 };
 

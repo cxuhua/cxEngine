@@ -27,6 +27,8 @@ struct cxRenderF
     cxRenderF operator*(const cxMatrixF &v);
 };
 
+class cxBoxRender;
+class cxBoxRenderArray;
 class cxRenderFArray : private std::vector<cxRenderF>
 {
 public:
@@ -35,9 +37,11 @@ public:
 private:
     cxInt number;
 public:
-    
+    void Init(cxInt n);
     void Append(cxInt n);
-    void Append(cxRenderFArray &v);
+    void Append(const cxBoxRender &v);
+    void Append(const cxBoxRenderArray &v);
+    void Append(const cxRenderFArray &v);
     void Append(const cxRenderF &v);
     
     void Remove(cxInt idx);
@@ -47,9 +51,40 @@ public:
     cxRenderF &Inc();
     void Clear();
 
+    cxInt DataBytes() const;
+    cxInt BufferBytes() const;
     const cxRenderF *Buffer() const;
     cxRenderF &At(cxInt idx);
     const cxRenderF &At(cxInt idx) const;
+    const cxInt Capacity() const;
+    const cxInt Size() const;
+    cxBool IsEmpty() const;
+};
+
+class cxIndicesArray : private std::vector<cxUInt16>
+{
+public:
+    explicit cxIndicesArray();
+    virtual ~cxIndicesArray();
+private:
+    cxInt number;
+public:
+    
+    void Append(const cxIndicesArray &v);
+    void Append(const cxUInt16 &v);
+    
+    void Remove(cxInt idx);
+    void Remove(cxInt idx,cxInt n);
+    
+    cxInt Inc(cxInt inc);
+    cxUInt16 &Inc();
+    void Clear();
+    
+    cxInt DataBytes() const;
+    cxInt BufferBytes() const;
+    const cxUInt16 *Buffer() const;
+    cxUInt16 &At(cxInt idx);
+    const cxUInt16 &At(cxInt idx) const;
     const cxInt Capacity() const;
     const cxInt Size() const;
     cxBool IsEmpty() const;

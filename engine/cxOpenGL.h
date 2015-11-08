@@ -139,10 +139,13 @@ struct cxRenderState
     
     cxUInt64 ID() const;
     
-    static const cxStateType BoxRender  = 0;
-    static const cxStateType ClipOn     = 1;
-    static const cxStateType ClipOff    = 2;
-    static const cxStateType Triangles  = 3;
+    static const cxStateType BoxRender      = 0;
+    static const cxStateType ClipOn         = 1;
+    static const cxStateType ClipOff        = 2;
+    static const cxStateType TrianglesVBO   = 3;    //GL_TRIANGLES VBO
+    static const cxStateType Triangles      = 4;    //GL_TRIANGLES
+    static const cxStateType TriangleFan    = 5;    //GL_TRIANGLE_FAN
+    static const cxStateType TriangleStrip  = 6;    //GL_TRIANGLE_STRIP
 };
 
 class TDrawable
@@ -175,9 +178,10 @@ protected:
     cxOpenGL *gl;
     explicit TDrawBuffer();
     virtual ~TDrawBuffer();
-    void InitDrawBuffer(const cxBoxRenderArray &renders,const cxUInt16 *indices);
-    void DrawBoxRender(const cxBoxRenderArray &renders,const cxUInt16 *indices);
-    void DrawTriangles(const cxRenderFArray &renders);
+    void InitVertexBuffer(const cxRenderFArray &renders,const cxIndicesArray &indices);
+    void DrawVertexRender(const cxRenderFArray &renders,const cxIndicesArray &indices);
+    
+    void DrawTriangles(cxUInt mode,const cxRenderFArray &renders);
 };
 
 CX_CPP_END

@@ -19,17 +19,25 @@ CX_CPP_BEGIN
 struct cxDraw
 {
     cxRenderState state;
-    cxBoxRenderArray render;    //Render
-    cxRenderFArray triangles;
-    cxRect4F clipbox;           //ClipOn ClipOff
+    cxRenderFArray renders;
+    cxIndicesArray indices;
+    cxRect4F clipbox;
     ~cxDraw();
     cxDraw();
+    
+    //BoxRender
     cxBool Render(cxBoxRender &r,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
     cxBool Render(cxBoxRenderArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
+    //TrianglesVBO
+    cxBool Render(cxRenderFArray &vs,const cxIndicesArray &is,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
+    //Triangles,TriangleFan,TriangleStrip
+    cxBool Render(cxRenderFArray &vs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
+    //clip
     cxBool Clip(cxStateType type,const cxBox4F &box);
-    cxBool Render(cxRenderFArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
+    //
     cxUInt64 ID() const;
     cxStateType Type() const;
+    cxInt BoxIndices();
     void Using();
 };
 

@@ -16,7 +16,7 @@
 
 CX_CPP_BEGIN
 
-#define MAX_TRIANGLES   65536/6
+#define MAX_TRIANGLES   10240
 
 class cxRender : public cxObject,public TDrawBuffer
 {
@@ -31,21 +31,22 @@ private:
     cxInt vsc;
     cxInt vdc;
     cxInt max;
-    cxUInt16 *indices;
-    cxBoxRenderArray renders;
-    cxRenderFArray triangles;
+    cxIndicesArray indices;
+    cxRenderFArray renders;
     cxDrawArray draws;
 public:
+    void InitBoxInices();
+    cxRenderFArray &Renders();
     void Draw();
     void Init();
     //cxSprite
-    void Render(cxBoxRender &r,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
+    cxDraw &Render(cxBoxRender &r,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
     //cxAtlas
-    void Render(cxBoxRenderArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
+    cxDraw &Render(cxBoxRenderArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
+    cxDraw &Render(cxRenderFArray &vs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
+    cxDraw &Render(cxRenderFArray &vs,cxIndicesArray &is,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
     //clip subviews
     void Clip(cxStateType type,const cxBox4F &box);
-    //cxTrangles
-    void Render(cxRenderFArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags);
     //
     void DrawAllRenders(cxDraw *draw);
 };

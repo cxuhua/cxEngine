@@ -16,42 +16,54 @@ cxDraw::cxDraw()
     
 }
 
+cxInt cxDraw::BoxIndices()
+{
+    return (renders.Size()/4)*6;
+}
+
 cxBool cxDraw::Render(cxBoxRender &r,const cxMatrixF &m,const cxRenderState &s,cxUInt flags)
 {
     cxBox4F wbox = s.view->ParentBox();
     state = s;
-    render.Clear();
+    renders.Clear();
     cxBoxRender b = r * m;
     if(wbox.Contain(b.ToBoxPoint())){
-        render.Append(b);
+        renders.Append(b);
     }
-    return render.Size() > 0;
+    return renders.Size() > 0;
 }
 
 cxBool cxDraw::Render(cxBoxRenderArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags)
 {
     cxBox4F wbox = s.view->ParentBox();
     state = s;
-    render.Clear();
+    renders.Clear();
     for(cxInt i=0; i < rs.Size(); i++){
         cxBoxRender b = rs.At(i) * m;
         if(!wbox.Contain(b.ToBoxPoint())){
             continue;
         }
-        render.Append(b);
+        renders.Append(b);
     }
-    return render.Size() > 0;
+    return renders.Size() > 0;
 }
 
-cxBool cxDraw::Render(cxRenderFArray &rs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags)
+cxBool cxDraw::Render(cxRenderFArray &vs,const cxIndicesArray &is,const cxMatrixF &m,const cxRenderState &s,cxUInt flags)
 {
     state = s;
-    triangles.Clear();
-    for(cxInt i=0; i < rs.Size(); i++){
-        cxRenderF p = rs.At(i) * m;
-        triangles.Append(p);
-    }
-    return triangles.Size() > 0;
+    renders.Clear();
+    indices.Clear();
+    renders.Append(vs);
+    indices.Append(is);
+    return renders.Size() > 0 && indices.Size() > 0;
+}
+
+cxBool cxDraw::Render(cxRenderFArray &vs,const cxMatrixF &m,const cxRenderState &s,cxUInt flags)
+{
+    state = s;
+    renders.Clear();
+    renders.Append(vs);
+    return renders.Size() > 0;
 }
 
 cxBool cxDraw::Clip(cxStateType type,const cxBox4F &box)

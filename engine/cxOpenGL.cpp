@@ -415,44 +415,7 @@ TDrawBuffer::~TDrawBuffer()
     glDeleteVertexArrays(1, &vaoid);
 }
 
-void TDrawBuffer::InitDrawBuffer(const cxBoxRenderArray &renders,const cxUInt16 *indices)
-{
-    glGenBuffers(2, &vboid[0]);
-    cxInt capacity = renders.Capacity();
-    if(gl->support_GL_OES_vertex_array_object){
-        glGenVertexArrays(1, &vaoid);
-        glBindVertexArray(vaoid);
-        glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(cxBoxRender) * capacity, renders.Buffer(), GL_DYNAMIC_DRAW);
-        //vertices
-        glEnableVertexAttribArray(cxVertexAttribPosition);
-        glVertexAttribPointer(cxVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, vertices));
-        //colors
-        glEnableVertexAttribArray(cxVertexAttribColor);
-        glVertexAttribPointer(cxVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, colors));
-        //tex coords
-        glEnableVertexAttribArray(cxVertexAttribTexcoord);
-        glVertexAttribPointer(cxVertexAttribTexcoord, 2, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, coords));
-        //
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cxUInt16)*6*capacity, indices, GL_STATIC_DRAW);
-        
-        glBindVertexArray(0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-    }else{
-        glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(cxBoxRender) * capacity, renders.Buffer(), GL_DYNAMIC_DRAW);
-        
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cxUInt16)*6*capacity, indices, GL_STATIC_DRAW);
-        
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-    }
-}
-
-void TDrawBuffer::DrawTriangles(const cxRenderFArray &renders)
+void TDrawBuffer::DrawTriangles(cxUInt mode,const cxRenderFArray &renders)
 {
     cxInt num = renders.Size();
     if(num == 0){
@@ -470,24 +433,64 @@ void TDrawBuffer::DrawTriangles(const cxRenderFArray &renders)
     glEnableVertexAttribArray(cxVertexAttribTexcoord);
     GLvoid *toff = (GLvoid *)(start + offsetof(cxRenderF, coords));
     glVertexAttribPointer(cxVertexAttribTexcoord, 2, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), toff);
-    glDrawArrays(GL_TRIANGLE_FAN, 0, num);
+    glDrawArrays(mode, 0, num);
 }
 
-void TDrawBuffer::DrawBoxRender(const cxBoxRenderArray &renders,const cxUInt16 *indices)
+void TDrawBuffer::InitVertexBuffer(const cxRenderFArray &renders,const cxIndicesArray &indices)
+{
+    glGenBuffers(2, &vboid[0]);
+    if(gl->support_GL_OES_vertex_array_object){
+        glGenVertexArrays(1, &vaoid);
+        glBindVertexArray(vaoid);
+        glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
+        glBufferData(GL_ARRAY_BUFFER, renders.BufferBytes(), renders.Buffer(), GL_DYNAMIC_DRAW);
+        //vertices
+        glEnableVertexAttribArray(cxVertexAttribPosition);
+        glVertexAttribPointer(cxVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, vertices));
+        //colors
+        glEnableVertexAttribArray(cxVertexAttribColor);
+        glVertexAttribPointer(cxVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, colors));
+        //tex coords
+        glEnableVertexAttribArray(cxVertexAttribTexcoord);
+        glVertexAttribPointer(cxVertexAttribTexcoord, 2, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, coords));
+        //
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.BufferBytes(), indices.Buffer(), GL_DYNAMIC_DRAW);
+        
+        glBindVertexArray(0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }else{
+        glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
+        glBufferData(GL_ARRAY_BUFFER, renders.BufferBytes(), renders.Buffer(), GL_DYNAMIC_DRAW);
+        
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.BufferBytes(), indices.Buffer(), GL_DYNAMIC_DRAW);
+        
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+}
+
+void TDrawBuffer::DrawVertexRender(const cxRenderFArray &renders,const cxIndicesArray &indices)
 {
     if(!isinit){
-        InitDrawBuffer(renders, indices);
+        InitVertexBuffer(renders, indices);
         isinit = true;
     }
-    cxInt num = renders.Size();
-    if(num == 0){
+    if(renders.Size() == 0){
         return;
     }
+    //
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.DataBytes(), indices.Buffer(), GL_DYNAMIC_DRAW);
+    //
     glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(cxBoxRender) * num, renders.Buffer(), GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, renders.DataBytes(), renders.Buffer(), GL_DYNAMIC_DRAW);
+    //
     if(gl->support_GL_OES_vertex_array_object){
         glBindVertexArray(vaoid);
-        glDrawElements(GL_TRIANGLES, num*6, GL_UNSIGNED_SHORT, NULL);
+        glDrawElements(GL_TRIANGLES, indices.Size(), GL_UNSIGNED_SHORT, NULL);
         glBindVertexArray(0);
     }else{
         //vertices
@@ -501,7 +504,7 @@ void TDrawBuffer::DrawBoxRender(const cxBoxRenderArray &renders,const cxUInt16 *
         glVertexAttribPointer(cxVertexAttribTexcoord, 2, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, coords));
         //
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
-        glDrawElements(GL_TRIANGLES, num * 6, GL_UNSIGNED_SHORT, NULL);
+        glDrawElements(GL_TRIANGLES, indices.Size(), GL_UNSIGNED_SHORT, NULL);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
     glBindBuffer(GL_ARRAY_BUFFER, 0);

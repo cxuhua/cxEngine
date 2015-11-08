@@ -43,6 +43,7 @@ public:
 private:
     cxInt number;
 public:
+    void Init(cxInt n);
     void Append(cxInt n);
     void Append(cxBoxRenderArray &v);
     void Append(const cxBoxRender &v);
@@ -54,6 +55,8 @@ public:
     void SetAlpha(cxInt idx,cxFloat alpha);
     void SetAlpha(cxInt idx,cxInt n,cxFloat alpha);
     void SetColor(const cxColor4F &v);
+    cxInt DataBytes() const;
+    cxInt BufferBytes() const;
     const cxBoxRender *Buffer() const;
     cxBoxRender &At(cxInt idx);
     const cxBoxRender &At(cxInt idx) const;

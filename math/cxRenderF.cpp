@@ -7,6 +7,7 @@
 //
 
 
+#include "cxBoxRender.h"
 #include "cxRenderF.h"
 
 CX_CPP_BEGIN
@@ -51,6 +52,12 @@ void cxRenderFArray::Clear()
     number = 0;
 }
 
+void cxRenderFArray::Init(cxInt n)
+{
+    Append(n);
+    Clear();
+}
+
 void cxRenderFArray::Append(cxInt n)
 {
     if(size() >= n){
@@ -85,7 +92,22 @@ void cxRenderFArray::Append(const cxRenderF &v)
     number ++;
 }
 
-void cxRenderFArray::Append(cxRenderFArray &v)
+void cxRenderFArray::Append(const cxBoxRender &v)
+{
+    Append(v.lt);
+    Append(v.lb);
+    Append(v.rt);
+    Append(v.rb);
+}
+
+void cxRenderFArray::Append(const cxBoxRenderArray &v)
+{
+    for(cxInt i=0;i<v.Size();i++){
+        Append(v.At(i));
+    }
+}
+
+void cxRenderFArray::Append(const cxRenderFArray &v)
 {
     for(cxInt i=0;i<v.Size();i++){
         Append(v.At(i));
@@ -122,12 +144,117 @@ const cxRenderF *cxRenderFArray::Buffer() const
     return data();
 }
 
+cxInt cxRenderFArray::DataBytes() const
+{
+    return Size() * sizeof(cxRenderF);
+}
+
+cxInt cxRenderFArray::BufferBytes() const
+{
+    return Capacity() * sizeof(cxRenderF);
+}
+
 cxRenderF &cxRenderFArray::At(cxInt idx)
 {
     return at(idx);
 }
 
 const cxRenderF &cxRenderFArray::At(cxInt idx) const
+{
+    return at(idx);
+}
+
+//
+
+cxIndicesArray::cxIndicesArray()
+{
+    number = 0;
+}
+
+cxIndicesArray::~cxIndicesArray()
+{
+    
+}
+
+void cxIndicesArray::Clear()
+{
+    number = 0;
+}
+
+cxInt cxIndicesArray::Inc(cxInt inc)
+{
+    number += inc;
+    return number;
+}
+
+cxUInt16 &cxIndicesArray::Inc()
+{
+    return At(number++);
+}
+
+void cxIndicesArray::Append(const cxUInt16 &v)
+{
+    if(size() > number){
+        At(number) = v;
+    }else{
+        push_back(v);
+    }
+    number ++;
+}
+
+void cxIndicesArray::Append(const cxIndicesArray &v)
+{
+    for(cxInt i=0;i<v.Size();i++){
+        Append(v.At(i));
+    }
+}
+
+void cxIndicesArray::Remove(cxInt idx)
+{
+    erase(begin() + idx);
+}
+
+void cxIndicesArray::Remove(cxInt idx,cxInt n)
+{
+    erase(begin() + idx, begin() + idx + n);
+}
+
+cxBool cxIndicesArray::IsEmpty() const
+{
+    return number == 0;
+}
+
+const cxInt cxIndicesArray::Capacity() const
+{
+    return (cxInt)size();
+}
+
+const cxInt cxIndicesArray::Size() const
+{
+    return (cxInt)number;
+}
+
+cxInt cxIndicesArray::DataBytes() const
+{
+    return Size() * sizeof(cxUInt16);
+}
+
+cxInt cxIndicesArray::BufferBytes() const
+{
+    return Capacity() * sizeof(cxUInt16);
+}
+
+const cxUInt16 *cxIndicesArray::Buffer() const
+{
+    return data();
+}
+
+cxUInt16 &cxIndicesArray::At(cxInt idx)
+{
+    return at(idx);
+}
+
+const cxUInt16 &cxIndicesArray::At(cxInt idx) const
 {
     return at(idx);
 }

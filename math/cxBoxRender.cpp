@@ -109,6 +109,12 @@ void cxBoxRenderArray::Clear()
     number = 0;
 }
 
+void cxBoxRenderArray::Init(cxInt n)
+{
+    Append(n);
+    Clear();
+}
+
 void cxBoxRenderArray::Append(cxInt n)
 {
     if(size() >= n){
@@ -192,6 +198,16 @@ const cxInt cxBoxRenderArray::Capacity() const
 const cxInt cxBoxRenderArray::Size() const
 {
     return (cxInt)number;
+}
+
+cxInt cxBoxRenderArray::DataBytes() const
+{
+    return Size() * sizeof(cxBoxRender);
+}
+
+cxInt cxBoxRenderArray::BufferBytes() const
+{
+    return Capacity() * sizeof(cxBoxRender);
 }
 
 const cxBoxRender *cxBoxRenderArray::Buffer() const

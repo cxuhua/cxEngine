@@ -32,14 +32,14 @@
 #include <engine/cxResize.h>
 #include <engine/cxProgress.h>
 #include <engine/cxTable.h>
-#include <engine/cxTriangles.h>
 #include <engine/cxPath.h>
-#include <engine/cxCircle.h>
+#include <engine/cxTriangles.h>
 #include <engine/cxMusic.h>
 #include "Game.h"
 #include <core/cxKDTree.h>
 #include "Sea.h"
 #include <engine/cxBox2D.h>
+#include <engine/cxSpine.h>
 
 
 CX_CPP_BEGIN
@@ -61,7 +61,86 @@ void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     
-//    cxSpine *sp = cxSpine::Create("goblins-mesh",0.5f);
+    cxTexture::Create()->From("circle.png")->gcSet<cxTexture>("circle");
+    cxTexture::Create()->From("t.png")->gcSet<cxTexture>("point");
+    
+//    {
+//    cxTriangles *ts = cxTriangles::Create();
+//    ts->SetSize(400);
+//    ts->SetTexture("point");
+//    cxRenderFArray &rs = ts->Renders();
+//    rs.Init(4);
+//    
+//    int a = 100;
+//    int c = 200;
+//    int &b = a;
+//    b = c;
+//    {
+//    cxRenderF &r = rs.Inc();
+//    r.vertices = cxPoint3F(-400, 400, 0);
+//    r.colors = cxColor4F::WHITE;
+//    r.coords = cxCoord2F(0, 0);
+//    }
+//    {
+//    cxRenderF &r = rs.Inc();
+//    r.vertices = cxPoint3F(400, 400, 0);
+//    r.colors = cxColor4F::WHITE;
+//    r.coords = cxCoord2F(1, 0);
+//    }
+//    {
+//    cxRenderF &r = rs.Inc();
+//    r.vertices = cxPoint3F(400, -400, 0);
+//    r.colors = cxColor4F::WHITE;
+//    r.coords = cxCoord2F(1, 1);
+//    }
+//    {
+//    cxRenderF &r = rs.Inc();
+//    r.vertices = cxPoint3F(-400, -400, 0);
+//    r.colors = cxColor4F::WHITE;
+//    r.coords = cxCoord2F(0, 1);
+//    }
+//    Window()->Append(ts);
+//    }
+//    
+//    {
+//        cxTriangles *ts = cxTriangles::Create();
+//        ts->SetSize(400);
+//        ts->SetTexture("point");
+//        cxRenderFArray &rs = ts->Renders();
+//        rs.Init(4);
+//        
+//        int a = 100;
+//        int c = 200;
+//        int &b = a;
+//        b = c;
+//        {
+//            cxRenderF &r = rs.Inc();
+//            r.vertices = cxPoint3F(-200, 200, 0);
+//            r.colors = cxColor4F::RED;
+//            r.coords = cxCoord2F(0, 0);
+//        }
+//        {
+//            cxRenderF &r = rs.Inc();
+//            r.vertices = cxPoint3F(200, 200, 0);
+//            r.colors = cxColor4F::RED;
+//            r.coords = cxCoord2F(1, 0);
+//        }
+//        {
+//            cxRenderF &r = rs.Inc();
+//            r.vertices = cxPoint3F(200, -200, 0);
+//            r.colors = cxColor4F::RED;
+//            r.coords = cxCoord2F(1, 1);
+//        }
+//        {
+//            cxRenderF &r = rs.Inc();
+//            r.vertices = cxPoint3F(-200, -200, 0);
+//            r.colors = cxColor4F::RED;
+//            r.coords = cxCoord2F(0, 1);
+//        }
+//        Window()->Append(ts);
+//    }
+    
+//    cxSpine *sp = cxSpine::Create("spineboy",0.5f);
 //    sp->SetSize(300);
 //    sp->SetMix("walk", "jump", 0.2f);
 //    sp->SetMix("jump", "run", 0.2f);
@@ -80,9 +159,6 @@ void Game::OnMain()
 //    Window()->Append(sp);
 //    
 //    return;
-    
-    cxTexture::Create()->From("circle.png")->gcSet<cxTexture>("circle");
-    cxTexture::Create()->From("t.png")->gcSet<cxTexture>("point");
     
     cxBox2D::cxWorld *w = cxBox2D::cxWorld::Create();
     w->SetSize(WinSize());

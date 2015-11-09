@@ -139,42 +139,43 @@ void Game::OnMain()
 //        }
 //        Window()->Append(ts);
 //    }
+
+
     {
-        cxSpine *sp = cxSpine::Create("goblins-mesh",1.0f);
-        sp->SetSkin("goblingirl");
+        cxSpine *sp = cxSpine::Create("goblins-mesh.atlas","goblins-mesh.json",1.0f);
+        sp->SetSkin("goblin");
         sp->SetSize(300);
         sp->SetAnimation(0, "walk", true);
-        sp->SetColor(cxColor4F::RED);
         Window()->Append(sp);
     }
-    {
-        cxSpine *sp = cxSpine::Create("spineboy",1.0f);
-        sp->SetPosition(cxPoint2F(800, 0));
-        sp->SetSize(300);
-        sp->SetMix("walk", "jump", 0.2f);
-        sp->SetMix("jump", "run", 0.2f);
-        sp->SetMix("run", "shoot", 0.2f);
+//    {
+//        cxSpine *sp = cxSpine::Create("spineboy.atlas","spineboy.json",1.0f);
+//        sp->SetPosition(cxPoint2F(800, 0));
+//        sp->SetSize(300);
+//        sp->SetMix("walk", "jump", 0.2f);
+//        sp->SetMix("jump", "run", 0.2f);
+//        sp->SetMix("run", "shoot", 0.2f);
+//    
+//        sp->SetAnimation(0, "walk", true);
+//        sp->AddAnimation(0, "jump", false, 3);
+//        sp->AddAnimation(0, "run", true, 0);
+//        sp->AddAnimation(0, "idle", true, 3);
+//        sp->AddAnimation(0, "shoot", true, 0);
+//        sp->AddAnimation(0, "death", true, 0);
+//        sp->AddAnimation(0, "hit", true, 0);
+//        sp->AddAnimation(0, "idle", true, 0);
+//        sp->AddAnimation(0, "hit", true, 0);
+//        
+//        Window()->Append(sp);
+//    }
+    return;
     
-        sp->SetAnimation(0, "walk", true);
-        sp->AddAnimation(0, "jump", false, 3);
-        sp->AddAnimation(0, "run", true, 0);
-        sp->AddAnimation(0, "idle", true, 3);
-        sp->AddAnimation(0, "shoot", true, 0);
-        sp->AddAnimation(0, "death", true, 0);
-        sp->AddAnimation(0, "hit", true, 0);
-        sp->AddAnimation(0, "idle", true, 0);
-        sp->AddAnimation(0, "hit", true, 0);
-        
-        Window()->Append(sp);
-    }
-//    return;
-    
-    cxBox2D::cxWorld *w = cxBox2D::cxWorld::Create();
+    cxWorld *w = cxWorld::Create();
     w->SetSize(WinSize());
     
     for(cxInt i=0;i<140;i++)
     {
-        cxBox2D::cxCircleBody *cb = cxBox2D::cxCircleBody::Create();
+        cxCircleBody *cb = cxCircleBody::Create();
         cb->SetElasticity(1.0f);
         cxSprite *sp = cxSprite::Create();
         sp->SetTexture("circle");
@@ -184,11 +185,11 @@ void Game::OnMain()
         cb->SetSize(50);
         cb->EnableDir(true);
 
-        cxBox2D::cxBody *b = w->AppendBody(cb);
+        cxBody *b = w->AppendBody(cb);
         b->SetPosition(cxPoint2F(CX_RAND_11f()*200, CX_RAND_11f()*200));
     }
     {
-        cxBox2D::cxChainBody *cb = cxBox2D::cxChainBody::Create();
+        cxChainBody *cb = cxChainBody::Create();
         cb->SetSize(cxSize2F(200, 200));
         cb->SetLoop(true);
         cb->Points().Append(cxPoint2F(-900, 600));
@@ -208,20 +209,20 @@ void Game::OnMain()
         w->AppendBody(cb);
     }
 //    {
-//        cxBox2D::cxEdgeBody *cb = cxBox2D::cxEdgeBody::Create();
+//        cxEdgeBody *cb = cxEdgeBody::Create();
 //        cb->SetSize(cxSize2F(2048, 10));
 //        cb->SetElasticity(0);
 //        cb->SetLinePoint(cxLineF(-1024, -400, 1024, -400));
 //        cb->SetStatic(true);
 //        
-//        cxBox2D::cxBody *b = w->AppendBody(cb);
+//        cxBody *b = w->AppendBody(cb);
 //    }
 //    {
-//        cxBox2D::cxBoxBody *cb = cxBox2D::cxBoxBody::Create();
+//        cxBoxBody *cb = cxBoxBody::Create();
 //        cb->SetSize(cxSize2F(2048, 50));
 //        cb->SetStatic(true);
 //        
-//        cxBox2D::cxBody *b = w->AppendBody(cb);
+//        cxBody *b = w->AppendBody(cb);
 //        b->SetPosition(cxPoint2F(0, -400));
 //        b->SetTexture("t.png");
 //        b->SetCapacity(1);

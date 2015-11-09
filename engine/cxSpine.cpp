@@ -38,8 +38,8 @@ char* _spUtil_readFile (const char* path, int* length) {
     return ret;
 }
 
-void _spineAnimationCallback(spAnimationState* state, int trackIndex, spEventType type, spEvent* event, int loopCount) {
-    cxengine::cxSpine *sp = static_cast<cxengine::cxSpine *>(state->rendererObject);
+void _spineAnimationListen(spAnimationState* state, int trackIndex, spEventType type, spEvent* event, int loopCount) {
+    cxSpine *sp = static_cast<cxSpine *>(state->rendererObject);
     sp->AnimationListen(state, trackIndex, type, event, loopCount);
 }
 
@@ -85,25 +85,20 @@ void cxSpine::SetTimeScale(cxFloat v)
 
 void cxSpine::AnimationListen(spAnimationState* state, cxInt trackIndex, spEventType type, spEvent* event, cxInt loopCount)
 {
-    
+    //CX_LOGGER("%d %d %d",trackIndex,type,loopCount);
 }
 
 void cxSpine::OnUpdate(cxFloat dt)
 {
     cxTriangles::OnUpdate(dt);
     dt = dt * timeScale;
-    if(skeleton != nullptr){
-        spSkeleton_update(skeleton, dt);
+    if(skeleton == nullptr){
+        return;
     }
-    if(spState != nullptr){
-        spAnimationState_update(spState, dt);
-    }
-    if(spState != nullptr && skeleton != nullptr){
-        spAnimationState_apply(spState, skeleton);
-    }
-    if(skeleton != nullptr){
-        spSkeleton_updateWorldTransform(skeleton);
-    }
+    spSkeleton_update(skeleton, dt);
+    spAnimationState_update(spState, dt);
+    spAnimationState_apply(spState, skeleton);
+    spSkeleton_updateWorldTransform(skeleton);
 }
 
 void cxSpine::OnRender(cxRender *render, const cxMatrixF &model)
@@ -233,20 +228,14 @@ void cxSpine::SetMix(cchars from,cchars to,cxFloat duration)
     spAnimationStateData_setMixByName(spState->data, from, to, duration);
 }
 
-void cxSpine::Init(cchars path,cxFloat scale)
+void cxSpine::Init(cchars atlasFile,cchars jsonFile,cxFloat scale)
 {
-    char dataFile[PATH_MAX]={0};
-    snprintf(dataFile, PATH_MAX, "%s.json",path);
-    
-    char atlasFile[PATH_MAX]={0};
-    snprintf(atlasFile, PATH_MAX, "%s.atlas",path);
-    
     atlas = spAtlas_createFromFile(atlasFile, this);
     CX_ASSERT(atlas != nullptr, "create atlas file error");
     
     spSkeletonJson* json = spSkeletonJson_create(atlas);
     json->scale = scale;
-    skeletonData = spSkeletonJson_readSkeletonDataFile(json, dataFile);
+    skeletonData = spSkeletonJson_readSkeletonDataFile(json, jsonFile);
     CX_ASSERT(skeletonData != nullptr, "create skeletion data error");
     spSkeletonJson_dispose(json);
     
@@ -257,13 +246,13 @@ void cxSpine::Init(cchars path,cxFloat scale)
     spState = spAnimationState_create(spAnimationStateData_create(skeleton->data));
     CX_ASSERT(spState != nullptr, "create animation state error");
     spState->rendererObject = this;
-    spState->listener = _spineAnimationCallback;
+    spState->listener = _spineAnimationListen;
 }
 
-cxSpine *cxSpine::Create(cchars path,cxFloat scale)
+cxSpine *cxSpine::Create(cchars atlasFile,cchars jsonFile,cxFloat scale)
 {
     cxSpine *ret = cxSpine::Create();
-    ret->Init(path,scale);
+    ret->Init(atlasFile, jsonFile, scale);
     return ret;
 }
 

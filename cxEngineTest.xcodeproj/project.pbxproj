@@ -40,10 +40,10 @@
 		83A34E511BEF899500DAEE91 /* goblins-ffd.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 83A34E4E1BEF899500DAEE91 /* goblins-ffd.atlas */; };
 		83A34E521BEF899500DAEE91 /* goblins-ffd.json in Resources */ = {isa = PBXBuildFile; fileRef = 83A34E4F1BEF899500DAEE91 /* goblins-ffd.json */; };
 		83A34E531BEF899500DAEE91 /* goblins-ffd.png in Resources */ = {isa = PBXBuildFile; fileRef = 83A34E501BEF899500DAEE91 /* goblins-ffd.png */; };
+		83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0D3E1BF04EC200B0CC0B /* libz.tbd */; };
 		83BE63751B311E0A0028B6E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BE63741B311E0A0028B6E7 /* main.m */; };
 		83D8C34F1B69C6D300155990 /* libmpg123.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8C34E1B69C6D300155990 /* libmpg123.a */; };
 		83D8C3571B69E46400155990 /* battle_lost_02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83D8C3561B69E46400155990 /* battle_lost_02.mp3 */; };
-		83D92D221B314ECF00F061D6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D92D211B314ECF00F061D6 /* libz.dylib */; };
 		83D92D281B315E7200F061D6 /* animate.json in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D261B315E7200F061D6 /* animate.json */; };
 		83D92D291B315E7200F061D6 /* animate.png in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D271B315E7200F061D6 /* animate.png */; };
 		83E6F64D1B0C97B5006839C8 /* App.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83E6F64C1B0C97B5006839C8 /* App.mm */; };
@@ -99,10 +99,10 @@
 		83A34E4E1BEF899500DAEE91 /* goblins-ffd.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "goblins-ffd.atlas"; sourceTree = "<group>"; };
 		83A34E4F1BEF899500DAEE91 /* goblins-ffd.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "goblins-ffd.json"; sourceTree = "<group>"; };
 		83A34E501BEF899500DAEE91 /* goblins-ffd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goblins-ffd.png"; sourceTree = "<group>"; };
+		83BA0D3E1BF04EC200B0CC0B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		83BE63741B311E0A0028B6E7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83D8C34E1B69C6D300155990 /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = libs/osx/lib/libmpg123.a; sourceTree = "<group>"; };
 		83D8C3561B69E46400155990 /* battle_lost_02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = battle_lost_02.mp3; sourceTree = "<group>"; };
-		83D92D211B314ECF00F061D6 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		83D92D261B315E7200F061D6 /* animate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animate.json; sourceTree = "<group>"; };
 		83D92D271B315E7200F061D6 /* animate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = animate.png; sourceTree = "<group>"; };
 		83E6F6441B0C97B5006839C8 /* cxEngineTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cxEngineTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,10 +120,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */,
 				8326D0D71BE9EB7700A15879 /* libjpeg.a in Frameworks */,
 				83D8C34F1B69C6D300155990 /* libmpg123.a in Frameworks */,
 				839B8AEF1B68DC2B009E0CF7 /* OpenAL.framework in Frameworks */,
-				83D92D221B314ECF00F061D6 /* libz.dylib in Frameworks */,
 				839836C61B10B01B002B7C20 /* libjansson.a in Frameworks */,
 				839836C81B10B01B002B7C20 /* libpcre.a in Frameworks */,
 				839836C91B10B01B002B7C20 /* libpng.a in Frameworks */,
@@ -149,8 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */,
-				83D92D211B314ECF00F061D6 /* libz.dylib */,
 				839836C11B10B01B002B7C20 /* libjansson.a */,
+				83BA0D3E1BF04EC200B0CC0B /* libz.tbd */,
 				83D8C34E1B69C6D300155990 /* libmpg123.a */,
 				839836C21B10B01B002B7C20 /* libjpeg.a */,
 				839836C31B10B01B002B7C20 /* libpcre.a */,

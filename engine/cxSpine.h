@@ -48,8 +48,8 @@ public:
     void SetSkin(cchars name);
 public:
     virtual void AnimationListen(spAnimationState* state, cxInt trackIndex, spEventType type, spEvent* event, cxInt loopCount);
-    void Init(cchars path,cxFloat scale);
-    static cxSpine *Create(cchars path,cxFloat scale=1.0f);
+    void Init(cchars atlasFile, cchars jsonFile, cxFloat scale);
+    static cxSpine *Create(cchars atlasFile, cchars jsonFile, cxFloat scale=1.0f);
 };
 
 CX_CPP_END

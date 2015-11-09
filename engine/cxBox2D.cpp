@@ -8,7 +8,7 @@
 
 #include "cxBox2D.h"
 
-CX_BOX2D_BEGIN
+CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxChainBody)
 
@@ -580,5 +580,5 @@ void cxWorld::SetGravity(const cxPoint2F &v)
     world.SetGravity(b2Vec2(v.x, v.y));
 }
 
-CX_BOX2D_END
+CX_CPP_END
 

@@ -13,11 +13,9 @@
 #include <math/cxLineF.h>
 #include "cxAtlas.h"
 
-#define CX_BOX2D_BEGIN  CX_CPP_BEGIN namespace cxBox2D {
-#define CX_BOX2D_END    } CX_CPP_END
 #define PTM_RATIO       100.0f
 
-CX_BOX2D_BEGIN
+CX_CPP_BEGIN
 
 class cxWorld;
 
@@ -253,7 +251,7 @@ inline cxFloat cxWorld::FromWorld(const float32 &v)
     return v*PTM_RATIO;
 }
 
-CX_BOX2D_END
+CX_CPP_END
 
 #endif
 

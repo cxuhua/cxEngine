@@ -109,10 +109,17 @@ struct BlendFunc
 {
     glUint src;
     glUint dst;
+    
+    static BlendFunc NONE;
     static BlendFunc ADDITIVE;
     static BlendFunc ALPHA;
-    static BlendFunc MULTIPLIED;
-    static BlendFunc NONE;
+    static BlendFunc PREMULTIPLIED_ALPHA;
+    static BlendFunc MULTIPLY;
+    static BlendFunc SCREEN;
+    static BlendFunc MULTIPLICATIVE;
+    static BlendFunc DODGE;
+    
+    static BlendFunc To(cchars name);
     BlendFunc();
     const cxByte ID() const;
     BlendFunc(glUint s,glUint d);
@@ -142,8 +149,8 @@ struct cxRenderState
     cxUInt64 ID() const;
     
     static const cxStateType TrianglesVBO   = 0;    //GL_TRIANGLES VBO VAO
-    static const cxStateType ClipOn         = 1;
-    static const cxStateType ClipOff        = 2;
+    static const cxStateType ClipOn         = 1;    //clip On
+    static const cxStateType ClipOff        = 2;    //clip Off
     static const cxStateType Triangles      = 3;    //GL_TRIANGLES
     static const cxStateType TriangleFan    = 4;    //GL_TRIANGLE_FAN
     static const cxStateType TriangleStrip  = 5;    //GL_TRIANGLE_STRIP
@@ -179,8 +186,8 @@ protected:
     cxOpenGL *gl;
     explicit TDrawBuffer();
     virtual ~TDrawBuffer();
-    void InitVertexBuffer(const cxRenderFArray &renders,const cxIndicesArray &indices);
-    void DrawVertexRender(const cxRenderFArray &renders,const cxIndicesArray &indices);
+    void InitTrianglesVBO(const cxRenderFArray &renders,const cxIndicesArray &indices);
+    void DrawTrianglesVBO(const cxRenderFArray &renders,const cxIndicesArray &indices);
     void DrawTriangles(cxUInt mode,const cxRenderFArray &renders);
 };
 

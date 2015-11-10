@@ -42,7 +42,6 @@ private:
     typedef std::map<void *,cxLong> BindMap;
     BindMap bindes;
     BindMap binded;
-    
     cxInt refcount;
     cxLong tag;
     cxObject *initFromJson(const cxJson *json);
@@ -102,11 +101,11 @@ public:
     
     cxInt Refcount() const;
     void Retain();
+    
     cxObject *AutoRelease();
     void Release();
     
     virtual cxJson *Serialize();
-    
     virtual void SetProperty(cchars key, const cxJson *json);
     virtual const cxJson *GetProperty(cchars key);
 public:
@@ -114,9 +113,11 @@ public:
     const cxInt BindesSize() const;
     const cxInt BindedSize() const;
     //
+    cxInt EachBindes(std::function<cxBool(cxObject *pobj)> func);
     const cxArray *GetBindes();
     cxObject *GetBindes(cxLong tag);
     //
+    cxInt EachBinded(std::function<cxBool(cxObject *pobj)> func);
     const cxArray *GetBinded();
     cxObject *GetBinded(cxLong tag);
     //if this bind obj

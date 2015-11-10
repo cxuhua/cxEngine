@@ -41,7 +41,6 @@
 #include <engine/cxBox2D.h>
 #include <engine/cxSpine.h>
 
-
 CX_CPP_BEGIN
 
 CX_IMPLEMENT(Game);
@@ -60,7 +59,7 @@ Game::~Game()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
-    
+
     cxTexture::Create()->From("circle.png")->gcSet<cxTexture>("circle");
     cxTexture::Create()->From("t.png")->gcSet<cxTexture>("point");
     

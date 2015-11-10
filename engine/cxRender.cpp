@@ -86,7 +86,7 @@ void cxRender::DrawAllRenders(cxDraw *draw)
     switch (draw->Type()) {
         case cxRenderState::TrianglesVBO:{
             vsc += renders.Size();
-            DrawVertexRender(renders, indices);
+            DrawTrianglesVBO(renders, indices);
             renders.Clear();
             indices.Clear();
             break;

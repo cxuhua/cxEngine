@@ -52,17 +52,13 @@ public:
     static const Resize ResizeRight             = 1 << 1;
     static const Resize ResizeTop               = 1 << 2;
     static const Resize ResizeBottom            = 1 << 3;
-    
     static const Resize ResizeWidth             = ResizeLeft | ResizeRight;
     static const Resize ResizeHeight            = ResizeTop | ResizeBottom;
-    
     static const Resize ResizeLeftTop           = ResizeLeft | ResizeTop;
     static const Resize ResizeLeftBottom        = ResizeBottom | ResizeLeft;
     static const Resize ResizeRightTop          = ResizeTop | ResizeRight;
     static const Resize ResizeRightBottom       = ResizeBottom | ResizeRight;
-    
     static const Resize ResizeFill              = ResizeWidth | ResizeHeight;
-    
     static const Resize ResizeTopSide           = 1 << 4;
     static const Resize ResizeBottomSide        = 1 << 5;
     static const Resize ResizeLeftSide          = 1 << 6;
@@ -90,9 +86,7 @@ protected:
     cxRenderState state;
 private:
     cxULong idx;            //update idx
-    
     cxFloat direction;
-    
     Resize resizeflags;
     cxBox4F resizebox;
     
@@ -253,7 +247,6 @@ public:
     cxView *EnableTouch(cxBool v);
     
     cxArray *Subviews() const;
-    cxArray *Allviews() const;
     cxView *At(cxInt idx);
 protected:
     virtual void OnRender(cxRender *render,const cxMatrixF &model);

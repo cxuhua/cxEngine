@@ -57,7 +57,7 @@ void cxTriangles::OnRender(cxRender *render,const cxMatrixF &model)
     state.Set(type);
     state.Set(Texture());
     state.Set(Blend());
-    render->Render(rs, model, State(), Flags());
+    render->Render(Renders(), model, State(), Flags());
 }
 
 CX_CPP_END

@@ -155,16 +155,9 @@ cxView *cxView::SetShader(cxShader *ps,cxBool deep)
 {
     CX_ASSERT(ps != nullptr, "shader null");
     cxObject::swap(&shader, ps);
-    cxArray::FIter it = subviews->FBegin();
-    while(deep && it != subviews->FEnd()){
-        (*it)->To<cxView>()->SetShader(ps);
-        it++;
-    }
-    it = viewapps->FBegin();
-    while(deep && it != viewapps->FEnd()){
-        (*it)->To<cxView>()->SetShader(ps);
-        it++;
-    }
+    Each([ps](cxView *pview){
+        pview->SetShader(ps);
+    });
     return this;
 }
 
@@ -192,11 +185,6 @@ cxView *cxView::At(cxInt idx)
 }
 
 cxArray *cxView::Subviews() const
-{
-    return subviews;
-}
-
-cxArray *cxView::Allviews() const
 {
     cxArray *vs = cxArray::Create();
     vs->Appends(subviews);
@@ -883,11 +871,9 @@ cxView *cxView::SetClip(cxBool v)
 void cxView::Layout()
 {
     SetDirty(DirtyModeLayout);
-    cxArray *vs = Allviews();
-    for(cxArray::FIter it=vs->FBegin();it!=vs->FEnd();it++){
-        cxView *view = (*it)->To<cxView>();
-        view->SetDirty(DirtyModeLayout);
-    }
+    Each([](cxView *pview){
+        pview->SetDirty(DirtyModeLayout);
+    });
 }
 
 cxBool cxView::IsEmpty() const

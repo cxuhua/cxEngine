@@ -78,6 +78,16 @@ cxSpine::~cxSpine()
     delete []vertices;
 }
 
+void cxSpine::ClearTracks()
+{
+    spAnimationState_clearTracks(spState);
+}
+
+void cxSpine::ClearTrack(cxInt trackIndex)
+{
+    spAnimationState_clearTrack(spState, trackIndex);
+}
+
 void cxSpine::SetTimeScale(cxFloat v)
 {
     timeScale = v;
@@ -160,6 +170,24 @@ void cxSpine::OnRender(cxRender *render, const cxMatrixF &model)
         if(texture != nullptr){
             Renders().Clear();
             Indices().Clear();
+            switch (slot->data->blendMode) {
+                case SP_BLEND_MODE_ADDITIVE:{
+                    SetBlend(BlendFunc::ADDITIVE);
+                    break;
+                }
+                case SP_BLEND_MODE_MULTIPLY:{
+                    SetBlend(BlendFunc::MULTIPLY);
+                    break;
+                }
+                case SP_BLEND_MODE_SCREEN:{
+                    SetBlend(BlendFunc::SCREEN);
+                    break;
+                }
+                default:{
+                    SetBlend(BlendFunc::ALPHA);
+                    break;
+                }
+            }
             SetTexture(texture);
             //append is
             for(cxInt j=0; j < inum; j++) {
@@ -173,6 +201,7 @@ void cxSpine::OnRender(cxRender *render, const cxMatrixF &model)
                 render.coords = cxCoord2F(us[i], us[i+1]);
                 Renders().Append(render);
             }
+            //
             state.Set(cxRenderState::TrianglesVBO);
             state.Set(Texture());
             state.Set(Blend());

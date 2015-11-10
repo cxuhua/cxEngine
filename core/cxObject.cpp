@@ -59,6 +59,21 @@ const cxBool cxObject::HasBinded(cxObject *pobj) const
     return binded.find(pobj) != binded.end();
 }
 
+cxInt cxObject::EachBindes(std::function<cxBool(cxObject *pobj)> func)
+{
+    cxInt c = 0;
+    if(bindes.empty()){
+        return c;
+    }
+    BindMap::iterator it = bindes.begin();
+    while(it != bindes.end()){
+        cxObject *obj = (cxObject *)it->first;
+        if(!func(obj))break;
+        c++;it++;
+    }
+    return c;
+}
+
 const cxArray *cxObject::GetBindes()
 {
     cxArray *objects = cxArray::Create();
@@ -87,6 +102,21 @@ cxObject *cxObject::GetBindes(cxLong tag)
         it++;
     }
     return nullptr;
+}
+
+cxInt cxObject::EachBinded(std::function<cxBool(cxObject *pobj)> func)
+{
+    cxInt c = 0;
+    if(binded.empty()){
+        return c;
+    }
+    BindMap::iterator it = binded.begin();
+    while(it != binded.end()){
+        cxObject *obj = (cxObject *)it->first;
+        if(!func(obj))break;
+        c++;it++;
+    }
+    return c;
 }
 
 const cxArray *cxObject::GetBinded()
@@ -124,8 +154,12 @@ void cxObject::UnBind(cxObject *pobj)
     if(pobj == nullptr){
         return;
     }
-    bindes.erase(pobj);
-    pobj->binded.erase(this);
+    if(!bindes.empty()){
+        bindes.erase(pobj);
+    }
+    if(!pobj->binded.empty()){
+        pobj->binded.erase(this);
+    }
 }
 
 void cxObject::UnBind()

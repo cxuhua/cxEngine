@@ -156,7 +156,7 @@ void cxCircleBody::SetRadius(const cxFloat &v)
     shape.m_radius = cxWorld::ToWorld(v);
 }
 
-cxPoint2F cxCircleBody::GetCenter()
+cxPoint2F cxCircleBody::Center()
 {
     return cxWorld::FromWorld(shape.m_p);
 }
@@ -358,6 +358,11 @@ cxView *cxBody::SetAngle(const cxFloat &v)
 cxBool cxBody::InitBody(b2BodyDef *def)
 {
     return true;
+}
+
+b2Body *cxBody::GetBody()
+{
+    return body;
 }
 
 cxBool cxBody::CreateBody(cxWorld *pw)

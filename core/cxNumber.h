@@ -57,8 +57,8 @@ public:
     cxInt ToInt() const;
     cxBool ToBool() const;
     cxInt64 ToInt64() const;
-    float ToFloat() const;
-    double ToDouble() const;
+    cxFloat ToFloat() const;
+    cxDouble ToDouble() const;
 };
 
 CX_CPP_END

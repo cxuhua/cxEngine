@@ -36,24 +36,28 @@ cxNumber *cxNumber::Init(cxInt value)
     type = Int;
     return this;
 }
+
 cxNumber *cxNumber::Init(cxBool value)
 {
     v.bv = value;
     type = Bool;
     return this;
 }
+
 cxNumber *cxNumber::Init(cxInt64 value)
 {
     v.i64 = value;
     type = Int64;
     return this;
 }
+
 cxNumber *cxNumber::Init(float value)
 {
     v.fv = value;
     type = Float;
     return this;
 }
+
 cxNumber *cxNumber::Init(double value)
 {
     v.dv = value;
@@ -71,22 +75,26 @@ cxInt cxNumber::ToInt() const
     CX_ASSERT(type == Int, "type error");
     return v.i32;
 }
+
 cxBool cxNumber::ToBool() const
 {
     CX_ASSERT(type == Bool, "type error");
     return v.bv;
 }
+
 cxInt64 cxNumber::ToInt64() const
 {
     CX_ASSERT(type == Int64, "type error");
     return v.i64;
 }
-float cxNumber::ToFloat() const
+
+cxFloat cxNumber::ToFloat() const
 {
     CX_ASSERT(type == Float, "type error");
     return v.fv;
 }
-double cxNumber::ToDouble() const
+
+cxDouble cxNumber::ToDouble() const
 {
     CX_ASSERT(type == Double, "type error");
     return v.dv;

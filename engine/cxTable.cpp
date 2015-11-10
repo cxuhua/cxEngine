@@ -82,10 +82,11 @@ cxTable *cxTable::SetNumPreRow(cxInt v)
 
 cxTable *cxTable::UpdateViews()
 {
-    cxArray *vs = Subviews();
-    if(vs->IsEmpty()){
+    
+    if(IsEmpty()){
         return this;
     }
+    cxArray *vs = Subviews();
     cxInt num = 0;
     cxFloat maxw = 0;
     cxFloat maxh = 0;

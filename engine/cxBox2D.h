@@ -13,6 +13,7 @@
 #include <math/cxLineF.h>
 #include "cxAtlas.h"
 
+//1 pixel = 0.01m
 #define PTM_RATIO       100.0f
 
 CX_CPP_BEGIN
@@ -40,6 +41,7 @@ public:
     virtual cxBool InitBody(b2BodyDef *def);
     virtual cxBool CreateBody(cxWorld *pw);
 public:
+    b2Body *GetBody();
     cxBody *SetFilter(const b2Filter &v);
     //
     cxBody *SetStatic(cxBool v);
@@ -93,7 +95,7 @@ public:
     cxFloat Radius();
     void SetRadius(const cxFloat &v);
     
-    cxPoint2F GetCenter();
+    cxPoint2F Center();
     void SetCenter(const cxPoint2F &v);
     
     cxBool CreateFixture(cxWorld *pw);

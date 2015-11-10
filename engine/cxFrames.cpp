@@ -211,21 +211,7 @@ cxFrames *cxFrames::SetBlend(const BlendFunc &func)
 
 cxFrames *cxFrames::SetBlend(const cxStr *name)
 {
-    if(!cxStr::IsOK(name)){
-        return this;
-    }
-    if(name->IsCaseEqu("ADD")){
-        blend = BlendFunc::ADDITIVE;
-        return this;
-    }
-    if(name->IsCaseEqu("MUL")){
-        blend = BlendFunc::MULTIPLIED;
-        return this;
-    }
-    if(name->IsCaseEqu("ALPHA")){
-        blend = BlendFunc::ALPHA;
-        return this;
-    }
+    blend = BlendFunc::To(name->ToString());
     return this;
 }
 

@@ -436,7 +436,7 @@ void TDrawBuffer::DrawTriangles(cxUInt mode,const cxRenderFArray &renders)
     glDrawArrays(mode, 0, num);
 }
 
-void TDrawBuffer::InitVertexBuffer(const cxRenderFArray &renders,const cxIndicesArray &indices)
+void TDrawBuffer::InitTrianglesVBO(const cxRenderFArray &renders,const cxIndicesArray &indices)
 {
     glGenBuffers(2, &vboid[0]);
     if(gl->support_GL_OES_vertex_array_object){
@@ -472,10 +472,10 @@ void TDrawBuffer::InitVertexBuffer(const cxRenderFArray &renders,const cxIndices
     }
 }
 
-void TDrawBuffer::DrawVertexRender(const cxRenderFArray &renders,const cxIndicesArray &indices)
+void TDrawBuffer::DrawTrianglesVBO(const cxRenderFArray &renders,const cxIndicesArray &indices)
 {
     if(!isinit){
-        InitVertexBuffer(renders, indices);
+        InitTrianglesVBO(renders, indices);
         isinit = true;
     }
     if(renders.Size() == 0){
@@ -559,11 +559,14 @@ void cxRenderState::Set(cxTexture *t)
 {
     texture = t;
 }
-
-BlendFunc BlendFunc::NONE       = BlendFunc(0, 0);
-BlendFunc BlendFunc::ADDITIVE   = BlendFunc(GL_SRC_ALPHA, GL_ONE);
-BlendFunc BlendFunc::ALPHA      = BlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-BlendFunc BlendFunc::MULTIPLIED = BlendFunc(GL_ZERO, GL_SRC_COLOR);
+BlendFunc BlendFunc::NONE                   = BlendFunc(0, 0);
+BlendFunc BlendFunc::ADDITIVE               = BlendFunc(GL_ONE, GL_ONE);
+BlendFunc BlendFunc::ALPHA                  = BlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+BlendFunc BlendFunc::PREMULTIPLIED_ALPHA    = BlendFunc(GL_ONE,GL_ONE_MINUS_SRC_ALPHA);
+BlendFunc BlendFunc::MULTIPLY               = BlendFunc(GL_SRC_ALPHA, GL_ZERO);
+BlendFunc BlendFunc::SCREEN                 = BlendFunc(GL_ONE_MINUS_DST_COLOR,GL_ONE);
+BlendFunc BlendFunc::MULTIPLICATIVE         = BlendFunc(GL_DST_COLOR,GL_ONE_MINUS_SRC_ALPHA);
+BlendFunc BlendFunc::DODGE                  = BlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_ONE);
 
 BlendFunc TDrawable::blend = BlendFunc::NONE;
 
@@ -572,13 +575,42 @@ const cxByte BlendFunc::ID() const
     if(*this == BlendFunc::ADDITIVE){
         return 1;
     }
-    if(*this == BlendFunc::MULTIPLIED){
+    if(*this == BlendFunc::MULTIPLY){
         return 2;
     }
     if(*this == BlendFunc::ALPHA){
         return 3;
     }
     return 0;
+}
+
+BlendFunc BlendFunc::To(cchars name)
+{
+    if(cxStr::IsEqu(name, "NONE")){
+        return BlendFunc::NONE;
+    }
+    if(cxStr::IsEqu(name, "ADDITIVE")){
+        return BlendFunc::ADDITIVE;
+    }
+    if(cxStr::IsEqu(name, "ALPHA")){
+        return BlendFunc::ALPHA;
+    }
+    if(cxStr::IsEqu(name, "PREMULTIPLIED_ALPHA")){
+        return BlendFunc::PREMULTIPLIED_ALPHA;
+    }
+    if(cxStr::IsEqu(name, "MULTIPLY")){
+        return BlendFunc::MULTIPLY;
+    }
+    if(cxStr::IsEqu(name, "SCREEN")){
+        return BlendFunc::SCREEN;
+    }
+    if(cxStr::IsEqu(name, "MULTIPLICATIVE")){
+        return BlendFunc::MULTIPLICATIVE;
+    }
+    if(cxStr::IsEqu(name, "DODGE")){
+        return BlendFunc::DODGE;
+    }
+    return BlendFunc::ALPHA;
 }
 
 BlendFunc::BlendFunc(glUint s,glUint d)

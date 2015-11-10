@@ -35,6 +35,9 @@ private:
     cxInt verticesNum;
 public:
     
+    void ClearTracks();
+    void ClearTrack(cxInt trackIndex);
+    
     void SetTimeScale(cxFloat v);
     
     void SetMix(cchars from,cchars to,cxFloat duration);

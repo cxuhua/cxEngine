@@ -156,11 +156,9 @@ cxBool cxMP3Buffer::newformat()
 cxBool cxMP3Buffer::Open()
 {
     mp3position = 0;
-    
     mp3hand = mpg123_new(nullptr, nullptr);
     CX_ASSERT(mp3hand != nullptr, "mpg123 new error");
     mpg123_replace_reader_handle(mp3hand, mp3read, mp3seek, mp3cleanup);
-    
     isopen =(mpg123_open_handle(mp3hand, this) == MPG123_OK);
     if(!IsOpen()){
         return false;

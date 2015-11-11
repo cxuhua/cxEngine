@@ -167,7 +167,7 @@ void Game::OnMain()
 //        
 //        Window()->Append(sp);
 //    }
-    return;
+//    return;
     
     cxWorld *w = cxWorld::Create();
     w->SetSize(WinSize());

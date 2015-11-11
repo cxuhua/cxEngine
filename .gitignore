@@ -4,4 +4,4 @@ obj
 .DS_Store
 android/libs
 godcity
-godcityserver
+runner

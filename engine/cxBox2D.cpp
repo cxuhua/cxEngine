@@ -416,8 +416,8 @@ cxContactInfo::cxContactInfo(b2Contact *pcontact)
 
 cxWorld::cxWorld():world(b2Vec2(0, -10.0f))
 {
-    vIters = 1;
-    pIters = 1;
+    vIters = 6;
+    pIters = 2;
     world.SetContactFilter(this);
     world.SetContactListener(this);
 }

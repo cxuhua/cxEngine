@@ -69,7 +69,7 @@ cxInt cxTriangles::FromPolygons(const cxRenderFArray &vs)
     }
     Renders().Clear();
     Indices().Clear();
-    type = cxRenderState::TrianglesVBO;
+    SetType(cxRenderState::TrianglesVBO);
     //append triangles vertices
     p2t::Point *ps = new p2t::Point[num];
     std::vector<p2t::Point*> polylines;
@@ -99,7 +99,7 @@ cxInt cxTriangles::FromPolygons(const cxRenderFArray &vs)
         Indices().Append(i2);
     }
     delete []ps;
-    return 0;
+    return (cxInt)triangles.size();
 }
 
 void cxTriangles::OnRender(cxRender *render,const cxMatrixF &model)

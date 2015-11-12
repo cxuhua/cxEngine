@@ -363,6 +363,11 @@ const cxPoint2F *cxPoint2FArray::Buffer() const
     return data();
 }
 
+const cxPoint2F &cxPoint2FArray::At(cxInt idx) const
+{
+    return at(idx);
+}
+
 cxPoint2F &cxPoint2FArray::At(cxInt idx)
 {
     return at(idx);

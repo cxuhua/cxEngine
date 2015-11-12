@@ -109,6 +109,7 @@ public:
     cxFloat Distance(const cxPoint2F &start);
     const cxPoint2F *Buffer()const ;
     cxPoint2F &At(cxInt idx);
+    const cxPoint2F &At(cxInt idx) const;
     const cxInt Size() const;
     cxBool IsEmpty() const;
 };

@@ -32,6 +32,7 @@ public:
     cxRenderFArray &Renders();
     cxIndicesArray &Indices();
     cxTriangles *Append(const cxRenderF &p);
+    cxInt FromPolygons(const cxRenderFArray &vs);
 };
 
 CX_CPP_END

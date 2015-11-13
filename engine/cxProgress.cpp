@@ -63,7 +63,7 @@ void cxProgress::UpdateValue(cxFloat v)
         vvpos.y -= ((vsiz.h - vvsiz.h)/2.0f + inner.b);
     }
     vv->SetPosition(vvpos);
-    vv->EnableVisible(!vvsiz.IsZero());
+    vv->SetEnableVisible(!vvsiz.IsZero());
     vv->SetSize(vvsiz);
 }
 

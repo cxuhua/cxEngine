@@ -147,7 +147,7 @@ public:
     cxView *SetRelative(Relative v);
     
     const cxBool EnableDir() const;
-    cxView *EnableDir(cxBool v);
+    cxView *SetEnableDir(cxBool v);
     
     cxView *SetDirection(cxFloat v);
     const cxFloat Direction() const;
@@ -194,15 +194,15 @@ public:
     cxView *Parent() const;
     
     cxBool EnableHideTop() const;
-    cxView *EnableHideTop(cxBool v);
+    cxView *SetEnableHideTop(cxBool v);
     
     cxBool EnableVisible() const;
-    cxView *EnableVisible(cxBool v);
+    cxView *SetEnableVisible(cxBool v);
     
     cxBool IsRemoved() const;
     
     cxBool EnableSleep() const;
-    cxView *EnableSleep(cxBool v);
+    cxView *SetEnableSleep(cxBool v);
     
     cxView *SetColor(const cxColor4F &v);
     cxView *SetAlpha(const cxFloat a);
@@ -244,7 +244,7 @@ public:
     cxView *SetSize(const cxSize2F &v);
     
     cxBool EnableTouch() const;
-    cxView *EnableTouch(cxBool v);
+    cxView *SetEnableTouch(cxBool v);
     
     cxArray *Subviews() const;
     cxView *At(cxInt idx);

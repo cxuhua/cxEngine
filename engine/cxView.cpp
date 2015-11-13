@@ -243,7 +243,7 @@ const cxBool cxView::EnableDir() const
     return isdir;
 }
 
-cxView *cxView::EnableDir(cxBool v)
+cxView *cxView::SetEnableDir(cxBool v)
 {
     isdir = v;
     return this;
@@ -458,7 +458,7 @@ cxBool cxView::IsRemoved() const
     return isremoved;
 }
 
-cxView *cxView::EnableSleep(cxBool v)
+cxView *cxView::SetEnableSleep(cxBool v)
 {
     issleep = v;
     return this;
@@ -469,7 +469,7 @@ cxBool cxView::EnableHideTop() const
     return hideTop;
 }
 
-cxView *cxView::EnableHideTop(cxBool v)
+cxView *cxView::SetEnableHideTop(cxBool v)
 {
     hideTop = v;
     return this;
@@ -480,7 +480,7 @@ cxBool cxView::EnableVisible() const
     return isvisible;
 }
 
-cxView *cxView::EnableVisible(cxBool v)
+cxView *cxView::SetEnableVisible(cxBool v)
 {
     isvisible = v;
     return this;
@@ -739,7 +739,7 @@ cxBool cxView::EnableTouch() const
     return istouch;
 }
 
-cxView *cxView::EnableTouch(cxBool v)
+cxView *cxView::SetEnableTouch(cxBool v)
 {
     istouch = v;
     return this;

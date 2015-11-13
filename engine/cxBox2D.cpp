@@ -416,8 +416,8 @@ cxContactInfo::cxContactInfo(b2Contact *pcontact)
 
 cxWorld::cxWorld():world(b2Vec2(0, -10.0f))
 {
-    vIters = 6;
-    pIters = 2;
+    vIters = 1;
+    pIters = 1;
     world.SetContactFilter(this);
     world.SetContactListener(this);
 }
@@ -429,10 +429,6 @@ cxWorld::~cxWorld()
 
 cxBool cxWorld::ShouldCollide(cxBodyInfo *a,cxBodyInfo *b)
 {
-//    b2Vec2 g = world.GetGravity();
-//    g.y = CX_RAND_11f() * 5.0f;
-//    g.x = CX_RAND_11f() * 5.0f;
-//    world.SetGravity(g);
     return true;
 }
 

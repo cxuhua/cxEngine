@@ -37,7 +37,7 @@ void cxWindow::Push(cxView *view)
 {
     cxView *top = Top();
     if(top != nullptr && view->EnableHideTop()){
-        top->EnableSleep(true);
+        top->SetEnableSleep(true);
     }
     Append(view);
     views->Push(view);
@@ -62,7 +62,7 @@ void cxWindow::Pop()
     }
     top = Top();
     if(top != nullptr){
-        top->EnableSleep(false);
+        top->SetEnableSleep(false);
     }
 }
 

@@ -28,7 +28,6 @@ enum {
 #define CX_ATTR_TEXCOORD    "aTexcoord"
 #define CX_UNIFORM_UMP      "uMP"
 #define CX_UNIFORM_UMV      "uMV"
-#define CX_UNIFORM_UFLAGS   "uFlags"
 
 class cxStr;
 struct cxMatrixF;

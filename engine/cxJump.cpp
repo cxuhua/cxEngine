@@ -32,14 +32,11 @@ void cxJump::OnInit()
 void cxJump::OnStep(cxFloat dt)
 {
     cxFloat time = Progress();
-    
     cxFloat frac = fmodf(time * jumps, 1.0f );
     cxPoint2F npos = cxPoint2F::Lerp(from, to, time);
     npos.y += height * 4.0f * frac * (1.0f - frac);
-    
     cxPoint2F diff = npos - prev;
     prev = npos;
-    
     View()->AddPosition(diff);
 }
 

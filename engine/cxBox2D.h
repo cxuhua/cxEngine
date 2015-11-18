@@ -51,9 +51,17 @@ public:
     cxView *SetAngle(const cxFloat &v);
     //
     cxBody *SetAngularVelocity(const cxFloat &v);
+    const cxFloat GetAngularVelocity() const;
+    
     cxBody *SetLinearVelocity(const cxPoint2F &v);
+    const cxPoint2F GetLinearVelocity() const;
+    
     cxBody *SetElasticity(cxFloat v);
+    
+    
     cxBody *SetDensity(cxFloat v);
+    const cxFloat GetDensity() const;
+    
     cxBody *SetFriction(cxFloat v);
     cxBody *SetLinearDamping(cxFloat linearDamping);
     cxBody *SetAngularDamping(cxFloat angularDamping);

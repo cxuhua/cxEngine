@@ -269,6 +269,17 @@ cxBody *cxBody::SetLinearVelocity(const cxPoint2F &v)
     return this;
 }
 
+const cxPoint2F cxBody::GetLinearVelocity() const
+{
+    b2Vec2 v;
+    if(body == nullptr){
+        v = bodyDef.linearVelocity;
+    }else{
+        v = body->GetLinearVelocity();
+    }
+    return cxPoint2F(v.x, v.y);
+}
+
 cxBody *cxBody::SetAngularVelocity(const cxFloat &v)
 {
     if(body == nullptr){
@@ -277,6 +288,11 @@ cxBody *cxBody::SetAngularVelocity(const cxFloat &v)
     }
     body->SetAngularVelocity(v);
     return this;
+}
+
+const cxFloat cxBody::GetAngularVelocity() const
+{
+    return body==nullptr?bodyDef.angularVelocity:body->GetAngularVelocity();
 }
 
 cxBody *cxBody::SetFilter(const b2Filter &v)
@@ -310,6 +326,11 @@ cxBody *cxBody::SetDensity(cxFloat v)
 {
     fixDef.density = v;
     return this;
+}
+
+const cxFloat cxBody::GetDensity() const
+{
+    return fixDef.density;
 }
 
 cxBody *cxBody::SetFriction(cxFloat v)

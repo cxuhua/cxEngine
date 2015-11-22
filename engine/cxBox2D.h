@@ -170,6 +170,9 @@ struct cxContactInfo
     cxBodyInfo B;
     const b2Manifold* Manifold;
     const b2ContactImpulse* Impulse;
+    //You can call this in PreSolve
+    void SetFriction(float32 friction);
+    void SetRestitution(float32 restitution);
 };
 
 struct cxBoxQueryInfo : public b2QueryCallback
@@ -198,17 +201,20 @@ class cxWorld : public cxView,public b2ContactListener,public b2ContactFilter
 {
 public:
     CX_DECLARE(cxWorld);
+    friend cxBody;
 protected:
     explicit cxWorld();
     virtual ~cxWorld();
 private:
     float32 vIters;
     float32 pIters;
+    b2Body *createBody(const b2BodyDef* def);
+    void destroyBody(cxBody *body);
 protected:
-    void OnRender(cxRender *render, const cxMatrixF &model);
     void OnUpdate(cxFloat dt);
     b2World world;
     void OnRemove(cxView *pview);
+    void OnAppend(cxView *nview);
 public:
     //
     static b2Vec2 ToWorld(const cxPoint2F &v);
@@ -236,9 +242,6 @@ public:
     void RayCast(const cxLineF &line,std::function<cxBool(cxRayCastReport *)> func);
     //
     void SetGravity(const cxPoint2F &v);
-    b2Body *CreateBody(const b2BodyDef* def);
-    void DestroyBody(cxBody *body);
-    cxBody *AppendBody(cxBody *body);
 };
 
 inline b2Vec2 cxWorld::ToWorld(const cxPoint2F &v)

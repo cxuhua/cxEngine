@@ -711,8 +711,8 @@ void cxView::runAppends(cxFloat dt)
     for(cxArray::FIter it=viewapps->FBegin();it!=viewapps->FEnd();it++){
         cxView *view = (*it)->To<cxView>();
         subviews->Append(view);
-        view->OnEnter();
         OnAppend(view);
+        view->OnEnter();
     }
     viewapps->Clear();
 }

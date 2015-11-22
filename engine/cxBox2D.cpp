@@ -388,7 +388,7 @@ b2Body *cxBody::GetBody()
 
 cxBool cxBody::CreateBody(cxWorld *pw)
 {
-    body = pw->CreateBody(&bodyDef);
+    body = pw->createBody(&bodyDef);
     return body != nullptr;
 }
 
@@ -433,6 +433,18 @@ cxContactInfo::cxContactInfo(b2Contact *pcontact)
     B = cxBodyInfo(Contact->GetFixtureB());
     Manifold = nullptr;
     Impulse = nullptr;
+}
+
+void cxContactInfo::SetFriction(float32 friction)
+{
+    CX_ASSERT(Contact != nullptr, "Contact null");
+    Contact->SetFriction(friction);
+}
+
+void cxContactInfo::SetRestitution(float32 restitution)
+{
+    CX_ASSERT(Contact != nullptr, "Contact null");
+    Contact->SetRestitution(restitution);
 }
 
 cxWorld::cxWorld():world(b2Vec2(0, -10.0f))
@@ -549,46 +561,45 @@ void cxWorld::QueryBox(const cxBox4F &box,std::function<cxBool(cxBodyInfo *)> fu
     world.QueryAABB(&info, ab);
 }
 
-b2Body *cxWorld::CreateBody(const b2BodyDef* def)
+b2Body *cxWorld::createBody(const b2BodyDef* def)
 {
     return world.CreateBody(def);
 }
 
-void cxWorld::DestroyBody(cxBody *body)
+void cxWorld::destroyBody(cxBody *body)
 {
     body->DestroyFixture();
     world.DestroyBody(body->body);
     body->body = nullptr;
 }
 
-cxBody *cxWorld::AppendBody(cxBody *body)
-{
-    if(!body->InitBody(&body->bodyDef)){
-        return nullptr;
-    }
-    if(!body->CreateBody(this)){
-        return nullptr;
-    }
-    if(!body->InitFixture(&body->fixDef)){
-        return nullptr;
-    }
-    if(!body->CreateFixture(this)){
-        return nullptr;
-    }
-    body->body->SetUserData(body);
-    Append(body);
-    return body;
-}
-
 void cxWorld::OnRemove(cxView *pview)
 {
     cxView::OnRemove(pview);
-    DestroyBody(pview->To<cxBody>());
+    destroyBody(pview->To<cxBody>());
 }
 
-void cxWorld::OnRender(cxengine::cxRender *render, const cxengine::cxMatrixF &model)
+void cxWorld::OnAppend(cxView *nview)
 {
-    
+    cxBody *body = nview->To<cxBody>();
+    cxView::OnAppend(body);
+    if(!body->InitBody(&body->bodyDef)){
+        CX_ASSERT(false, "init body error");
+        return;
+    }
+    if(!body->CreateBody(this)){
+        CX_ASSERT(false, "create body error");
+        return;
+    }
+    if(!body->InitFixture(&body->fixDef)){
+        CX_ASSERT(false, "init fixture error");
+        return;
+    }
+    if(!body->CreateFixture(this)){
+        CX_ASSERT(false, "create fixture error");
+        return;
+    }
+    body->body->SetUserData(body);
 }
 
 void cxWorld::OnUpdate(cxFloat dt)

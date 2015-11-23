@@ -70,7 +70,6 @@ void cxAndroid::Destroy()
     }
     instance->Release();
     instance = nullptr;
-    CX_LOGGER("cxAndroid destroy");
 }
 
 cxAndroid::cxAndroid()
@@ -607,6 +606,7 @@ void cxAndroid::cxAndroidMain()
     }
     CX_LOGGER("cxengie exit");
     cxEngine::Destroy();
+    cxCore::Instance()->Clear();
     DestroyDisplay();
     if(env != nullptr){
         vm->DetachCurrentThread();

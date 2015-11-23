@@ -88,6 +88,7 @@ private:
     int destroyed;
     int animating;
     int destroyRequested;
+    int tapCount;
     
     
     ALooper *looper;
@@ -109,6 +110,8 @@ private:
     int8_t activityState;
     void SetActivityState(int8_t cmd);
     //input event
+    int32_t HandleMotionInput(AInputEvent* event);
+    int32_t HandleKeyInput(AInputEvent* event);
     int32_t HandleInput(AInputEvent* event);
     //cmd event
     void onAppCmd(int8_t cmd);

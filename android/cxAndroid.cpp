@@ -74,6 +74,7 @@ void cxAndroid::Destroy()
 
 cxAndroid::cxAndroid()
 {
+    tapCount = 0;
     config = AConfiguration_new();
     state = nullptr;
     size = 0;
@@ -430,9 +431,79 @@ void cxAndroid::cxAndroidExec(cxAndroid *app, AndroidPollSource *source)
     cxAndroidPostExec(app, cmd);
 }
 
+int32_t cxAndroid::HandleMotionInput(AInputEvent* event)
+{
+    cxInt action = AMotionEvent_getAction(event);
+    cxInt atype =  action & AMOTION_EVENT_ACTION_MASK;
+    switch (atype) {
+        case AMOTION_EVENT_ACTION_POINTER_DOWN:{
+            cxInt idx = action >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
+            cxTouchId id = AMotionEvent_getPointerId(event, idx);
+            cxFloat x = AMotionEvent_getX(event, idx);
+            cxFloat y = AMotionEvent_getY(event, idx);
+            cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, tapCount, x, y);
+            break;
+        }
+        case AMOTION_EVENT_ACTION_POINTER_UP:{
+            cxInt idx = action >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
+            cxTouchId id = AMotionEvent_getPointerId(event, idx);
+            cxFloat x = AMotionEvent_getX(event, idx);
+            cxFloat y = AMotionEvent_getY(event, idx);
+            cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, tapCount, x, y);
+            break;
+        }
+        case AMOTION_EVENT_ACTION_MOVE:{
+            cxInt count = (cxInt)AMotionEvent_getPointerCount(event);
+            for(cxInt i=0; i < count; i++){
+                cxTouchId id = AMotionEvent_getPointerId(event, i);
+                cxFloat x = AMotionEvent_getX(event, i);
+                cxFloat y =AMotionEvent_getY(event, i);
+                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, tapCount, x, y);
+            }
+            break;
+        }
+        case AMOTION_EVENT_ACTION_DOWN:{
+            cxInt count = (cxInt)AMotionEvent_getPointerCount(event);
+            for(cxInt i=0; i < count; i++){
+                cxTouchId id = AMotionEvent_getPointerId(event, i);
+                cxFloat x = AMotionEvent_getX(event, i);
+                cxFloat y =AMotionEvent_getY(event, i);
+                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, tapCount, x, y);
+            }
+            break;
+        }
+        case AMOTION_EVENT_ACTION_UP:{
+            tapCount++;
+            cxInt count = (cxInt)AMotionEvent_getPointerCount(event);
+            for(cxInt i=0; i < count; i++){
+                cxTouchId id = AMotionEvent_getPointerId(event, i);
+                cxFloat x = AMotionEvent_getX(event, i);
+                cxFloat y =AMotionEvent_getY(event, i);
+                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, tapCount, x, y);
+            }
+            break;
+        }
+        default:
+            break;
+    }
+    return 0;
+}
+
+int32_t cxAndroid::HandleKeyInput(AInputEvent* event)
+{
+    return 0;
+}
+
 int32_t cxAndroid::HandleInput(AInputEvent* event)
 {
-//    int type = AInputEvent_getType(event);
+    int type = AInputEvent_getType(event);
+    if(type == AINPUT_EVENT_TYPE_MOTION){
+        return HandleMotionInput(event);
+    }
+    if(type == AINPUT_EVENT_TYPE_KEY){
+        return HandleKeyInput(event);
+    }
+    return 0;
 //    //touch
 //    if (type == AINPUT_EVENT_TYPE_MOTION) {
 //        cxInt action = AMotionEvent_getAction(event);
@@ -594,8 +665,8 @@ void cxAndroid::cxAndroidMain()
     vm = activity->vm;
     vm->AttachCurrentThread(&env, nullptr);
     CX_ASSERT(env != nullptr, "attach current thread java env error");
+    //startup engine
     cxEngine::Startup(false);
-    CX_LOGGER("cxengine start");
     while(!destroyRequested){
         if(ProcessInput()){
             break;
@@ -604,8 +675,9 @@ void cxAndroid::cxAndroidMain()
             DrawFrame();
         }
     }
-    CX_LOGGER("cxengie exit");
+    //destroy engine
     cxEngine::Destroy();
+    //clear core cache
     cxCore::Instance()->Clear();
     DestroyDisplay();
     if(env != nullptr){

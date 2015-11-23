@@ -17,14 +17,11 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.Layout;
 import android.content.res.AssetFileDescriptor;
-import android.media.MediaPlayer;
 
 public class EngineActivity extends NativeActivity {
 	static {
 		System.loadLibrary("openal");
 	}
-	private MediaPlayer mediaPlayer = null;
-	private String mediaFile = null;
 	private HashMap<String, Typeface> sTypefaceCache = new HashMap<String, Typeface>();
 	//退出程序
 	public void EngineTerminate(){

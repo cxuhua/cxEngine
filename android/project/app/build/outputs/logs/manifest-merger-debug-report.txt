@@ -1,75 +1,75 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:2:1-31:12
+ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:2:1-31:12
 	package
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:3:9-36
-		INJECTED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:3:9-36
+		INJECTED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml
 	android:versionName
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:5:9-34
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:5:9-34
 	android:versionCode
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:4:9-32
-		INJECTED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:4:9-32
+		INJECTED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:2:11-69
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:2:11-69
 uses-sdk
-ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:7:5-75
+ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:7:5-75
 	android:targetSdkVersion
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:7:16-45
-		INJECTED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:7:16-45
+		INJECTED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:7:47-72
-		INJECTED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:7:47-72
+		INJECTED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml
 uses-feature#0x00020000
-ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:9:5-77
+ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:9:5-77
 	android:glEsVersion
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:9:19-51
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:9:19-51
 	android:required
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:9:52-75
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:9:52-75
 uses-permission#android.permission.INTERNET
-ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:11:5-66
+ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:11:5-66
 	android:name
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:11:22-64
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:11:22-64
 uses-permission#android.permission.MODIFY_AUDIO_SETTINGS
-ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:12:5-79
+ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:12:5-79
 	android:name
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:12:22-77
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:12:22-77
 application
-ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:14:5-29:19
+ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:14:5-29:19
 	android:label
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:17:9-41
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:17:9-41
 	android:allowBackup
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:16:9-35
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:16:9-35
 	android:icon
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:15:9-41
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:15:9-41
 	android:theme
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:18:9-67
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:18:9-67
 activity#cn.rockygame.TestActivity
-ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:19:9-28:20
+ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:19:9-28:20
 	android:screenOrientation
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:21:17-54
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:21:17-54
 	android:label
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:20:17-49
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:20:17-49
 	android:configChanges
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:22:17-67
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:22:17-67
 	android:name
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:19:19-59
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:19:19-59
 meta-data#android.app.lib_name
-ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:23:13-94
+ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:23:13-94
 	android:value
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:23:60-91
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:23:60-91
 	android:name
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:23:24-59
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:23:24-59
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:24:13-27:29
+ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:24:13-27:29
 action#android.intent.action.MAIN
-ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:25:17-69
+ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:25:17-69
 	android:name
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:25:25-66
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:25:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:26:17-77
+ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:26:17-77
 	android:name
-		ADDED from /Users/xuhua/Documents/cxengine/android/project/app/src/main/AndroidManifest.xml:26:27-74
+		ADDED from /Users/xuhua/cxengine/android/project/app/src/main/AndroidManifest.xml:26:27-74

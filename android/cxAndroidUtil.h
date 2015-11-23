@@ -11,6 +11,7 @@
 
 #include <core/cxUtil.h>
 #include <math/cxMath.h>
+#include "cxAndroid.h"
 
 CX_CPP_BEGIN
 
@@ -23,7 +24,11 @@ protected:
     virtual ~cxAndroidUtil();
 private:
 public:
+    const cxStr *GetLang() const;
+    const cxStr *GetCountry() const;
+    const cxStr *DocumentPath(cchars file);
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
+    const cxStr *AssetsData(cchars file);
 };
 
 CX_CPP_END

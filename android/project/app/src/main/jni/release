@@ -1,1 +1,2 @@
 /Users/xuhua/android/android-ndk/ndk-build
+cp ../libs/armeabi/*.so ../jniLibs/armeabi/

@@ -13,19 +13,6 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxAndroidUtil);
 
-void cxAndroidUtil::Logger(const char* type,const char*file,int line,const char* format,va_list ap)
-{
-    char *buffer = nullptr;
-    vasprintf(&buffer, format, ap);
-    if(strcmp(type, "ERROR") == 0 || strcmp(type, "ASSERT") == 0){
-        __android_log_print(ANDROID_LOG_ERROR, "cxEngine", "[%s:%d] %s:%s",file,line,type,buffer);
-    }else if(strcmp(type, "WARN") == 0){
-        __android_log_print(ANDROID_LOG_WARN, "cxEngine", "[%s:%d] %s:%s",file,line,type,buffer);
-    }else{
-        __android_log_print(ANDROID_LOG_INFO, "cxEngine", "[%s:%d] %s:%s",file,line,type,buffer);
-    }
-    free(buffer);
-}
 
 cxAndroidUtil::cxAndroidUtil()
 {
@@ -35,6 +22,31 @@ cxAndroidUtil::cxAndroidUtil()
 cxAndroidUtil::~cxAndroidUtil()
 {
     
+}
+
+const cxStr *cxAndroidUtil::AssetsData(cchars file)
+{
+    return cxAndroid::Instance()->AssetsData(file);
+}
+
+void cxAndroidUtil::Logger(const char* type,const char*file,int line,const char* format,va_list ap)
+{
+    cxAndroid::Instance()->Logger(type, file, line, format, ap);
+}
+
+const cxStr *cxAndroidUtil::GetLang() const
+{
+    return cxAndroid::Instance()->GetLang();
+}
+
+const cxStr *cxAndroidUtil::GetCountry() const
+{
+    return cxAndroid::Instance()->GetCountry();
+}
+
+const cxStr *cxAndroidUtil::DocumentPath(cchars file)
+{
+    return cxAndroid::Instance()->DocumentPath(file);
 }
 
 CX_CPP_END

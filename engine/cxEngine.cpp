@@ -55,6 +55,7 @@ void cxEngine::Exit()
 void cxEngine::Destroy()
 {
     cxObject::release(&instance);
+    instance = nullptr;
 }
 
 cxEngine *cxEngine::Instance()

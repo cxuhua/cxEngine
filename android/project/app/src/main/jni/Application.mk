@@ -2,7 +2,7 @@
 #set ndk path and src root path
 
 NDK_PATH := /Users/xuhua/android/android-ndk
-CX_ENGINE_PATH := /Users/xuhua/Documents/cxengine
+CX_ENGINE_PATH := /Users/xuhua/cxengine
 
 NDK_TOOLCHAIN_VERSION := clang3.6
 

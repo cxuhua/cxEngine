@@ -10,6 +10,7 @@
 #define cxEngineCore_cxAndroidUtil_h
 
 #include <core/cxUtil.h>
+#include <math/cxMath.h>
 
 CX_CPP_BEGIN
 

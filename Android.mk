@@ -35,6 +35,11 @@ LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/ext/*.c)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/kazmath/*.c)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/kazmath/GL/*.c)
 
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/spine/*.c)
+
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/poly2tri/common/*.cc)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/poly2tri/sweep/*.cc)
+
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/android/*.cpp)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/core/*.cpp)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/*.cpp)

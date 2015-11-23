@@ -9,9 +9,10 @@
 #ifndef cxEngineCore_cxMath_h
 #define cxEngineCore_cxMath_h
 
-#include <float.h>
-#include <vector>
 #include <core/cxObject.h>
+#include <float.h>
+#include <math.h>
+#include <vector>
 #include "kazmath/kazmath.h"
 
 CX_CPP_BEGIN
@@ -74,95 +75,43 @@ cxInt cxAngleToIndex(cxFloat angle,cxInt split,cxFloat *off);
 
 cxPoint2F cxCardinalSplineAt(const cxPoint2F &p0,const cxPoint2F &p1,const cxPoint2F &p2,const cxPoint2F &p3, cxFloat tension, cxFloat t);
 
-CX_INLINE cxFloat cxDegreesToRadians(cxFloat degrees)
-{
-    return kmDegreesToRadians(degrees);
-}
+cxFloat cxDegreesToRadians(cxFloat degrees);
 
-CX_INLINE cxFloat cxRadiansToDegrees(cxFloat radians)
-{
-    return kmRadiansToDegrees(radians);
-}
+cxFloat cxRadiansToDegrees(cxFloat radians);
 
-CX_INLINE cxInt cxCharToInt(cxUInt8 c)
-{
-    cxInt v = tolower(c);
-    return v >= 'a' ? (v - 'a' + 10) : (v - '0');
-}
+cxInt cxCharToInt(cxUInt8 c);
 
-CX_INLINE cxBool cxFloatIsEqual(cxFloat a, cxFloat b)
-{
-    return fabsf(a - b) < cxEqualFloat;
-}
+cxBool cxFloatIsEqual(cxFloat a, cxFloat b);
 
-CX_INLINE cxBool cxFloatIsZero(cxFloat a)
-{
-    return fabsf(a) < cxEqualFloat;
-}
+cxBool cxFloatIsZero(cxFloat a);
 
-CX_INLINE cxBool cxFloatIsINF(cxFloat a)
-{
-    return isinf(a);
-}
+cxBool cxFloatIsINF(cxFloat a);
 
-CX_INLINE cxBool cxFloatIsOK(cxFloat a)
-{
-    return !isinf(a) && !isnan(a);
-}
+cxBool cxFloatIsOK(cxFloat a);
 
-CX_INLINE cxBool cxFloatIsNAN(cxFloat a)
-{
-    return isnan(a);
-}
+cxBool cxFloatIsNAN(cxFloat a);
 
-CX_INLINE cxFloat cxFloatClamp(cxFloat x, cxFloat min, cxFloat max)
-{
-    return x < min ? min : (x > max ? max : x);
-}
+cxFloat cxFloatClamp(cxFloat x, cxFloat min, cxFloat max);
 
-CX_INLINE cxFloat cxFloatLerp(cxFloat from, cxFloat to, cxFloat t)
-{
-    return from + t * ( to - from );
-}
+cxFloat cxFloatLerp(cxFloat from, cxFloat to, cxFloat t);
 
-CX_INLINE cxFloat cxBezier2(cxFloat a, cxFloat b, cxFloat c, cxFloat t)
-{
-    return powf(1.0f-t,2.0f)*a+2.0f*t*(1.0f-t)*b+powf(t,2.0f)*c;
-}
+cxFloat cxBezier2(cxFloat a, cxFloat b, cxFloat c, cxFloat t);
 
 cxPoint2F cxBezier2(cxPoint2F a, cxPoint2F b, cxPoint2F c, cxFloat t);
 
-CX_INLINE cxFloat cxBezier3(cxFloat a, cxFloat b, cxFloat c, cxFloat d, cxFloat t)
-{
-    return powf(1.0f-t,3.0f)*a+3.0f*t*(powf(1.0f-t,2.0f))*b+3.0f*powf(t,2.0f)*(1.0f-t)*c+powf(t,3.0f)*d;
-}
+cxFloat cxBezier3(cxFloat a, cxFloat b, cxFloat c, cxFloat d, cxFloat t);
 
 cxPoint2F cxBezier3(cxPoint2F a, cxPoint2F b, cxPoint2F c, cxPoint2F d, cxFloat t);
 
-CX_INLINE cxFloat cxFloatBezier(cxFloat eq0, cxFloat eq1, cxFloat eq2, cxFloat eq3, cxFloat from, cxFloat vout, cxFloat to, cxFloat vin)
-{
-    return from * eq0 + vout * eq1 + vin * eq2 + to * eq3;
-}
+cxFloat cxFloatBezier(cxFloat eq0, cxFloat eq1, cxFloat eq2, cxFloat eq3, cxFloat from, cxFloat vout, cxFloat to, cxFloat vin);
 
-CX_INLINE cxFloat cxFloatSpline(cxFloat eq0, cxFloat eq1, cxFloat eq2, cxFloat eq3, cxFloat c0, cxFloat c1, cxFloat c2, cxFloat c3)
-{
-    return c0 * eq0 + c1 * eq1 + c2 * eq2 + c3 * eq3;
-}
+cxFloat cxFloatSpline(cxFloat eq0, cxFloat eq1, cxFloat eq2, cxFloat eq3, cxFloat c0, cxFloat c1, cxFloat c2, cxFloat c3);
 
-CX_INLINE cxFloat cxFloatHermite(cxFloat h00, cxFloat h01, cxFloat h10, cxFloat h11, cxFloat from, cxFloat vout, cxFloat to, cxFloat vin)
-{
-    return h00 * from + h01 * to + h10 * vout + h11 * vin;
-}
+cxFloat cxFloatHermite(cxFloat h00, cxFloat h01, cxFloat h10, cxFloat h11, cxFloat from, cxFloat vout, cxFloat to, cxFloat vin);
 
-CX_INLINE cxFloat cxFloatHermiteFlat(cxFloat h00, cxFloat h01, cxFloat from, cxFloat to)
-{
-    return h00 * from + h01 * to;
-}
+cxFloat cxFloatHermiteFlat(cxFloat h00, cxFloat h01, cxFloat from, cxFloat to);
 
-CX_INLINE cxFloat cxFloatHermiteSmooth(cxFloat h00, cxFloat h01, cxFloat h10, cxFloat h11, cxFloat from, cxFloat vout, cxFloat to, cxFloat vin)
-{
-    return h00 * from + h01 * to + h10 * vout + h11 * vin;
-}
+cxFloat cxFloatHermiteSmooth(cxFloat h00, cxFloat h01, cxFloat h10, cxFloat h11, cxFloat from, cxFloat vout, cxFloat to, cxFloat vin);
 
 CX_CPP_END
 

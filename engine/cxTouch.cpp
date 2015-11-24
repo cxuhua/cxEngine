@@ -53,7 +53,7 @@ cxBool cxTouchPoint::IsEnded() const
 
 cxBool cxTouchPoint::IsTap() const
 {
-    return tap > 0;
+    return time < 0.3f && length < 6.0f;
 }
 
 cxTouchable::cxTouchable()
@@ -76,7 +76,6 @@ void cxTouchable::updateEvent(const cxTouchPoint &e)
     if(it != events.end()){
         event = &it->second;
         event->type = e.type;
-        event->tap = e.tap;
         event->wp = e.wp;
     }else{
         event = &newEvent;
@@ -94,6 +93,7 @@ void cxTouchable::updateEvent(const cxTouchPoint &e)
         event->length += event->delta.Length();
     }else{
         event->time = now - event->time;
+        CX_LOGGER("time=%f length=%f %d",event->time,event->length,event->IsTap());
     }
     if(add){
         events.emplace(e.key,newEvent);
@@ -124,14 +124,24 @@ const cxHitInfo cxTouchable::HitTest(cxView *view,const cxPoint2F &wp) const
     return info;
 }
 
-void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxUInt tap,cxFloat x,cxFloat y)
+cxBool cxTouchable::Dispatch(cxKeyType type,cxInt code)
+{
+    cxKey key;
+    key.code = code;
+    key.type = type;
+    if(cxEngine::Instance()->IsTouch()){
+        return cxEngine::Instance()->Window()->Dispatch(key);
+    }
+    return false;
+}
+
+void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxFloat x,cxFloat y)
 {
     cxSize2F winsiz = cxEngine::Instance()->WinSize() * 0.5f;
     cxFloat scale = cxEngine::Instance()->ScaleFactor();
     cxTouchPoint e;
     e.key  = key;
     e.type = type;
-    e.tap = tap;
     //convert to window coord
     e.wp = cxPoint2F(x * scale - winsiz.w, winsiz.h - y * scale);
     //

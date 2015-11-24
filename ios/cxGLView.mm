@@ -32,10 +32,9 @@ using namespace cxengine;
             CX_WARN("type not process");
             continue;
         }
-        cxUInt  t = (cxUInt)touch.tapCount;
         cxULong i = (cxULong)touch;
         CGPoint p = [touch locationInView:self];
-        cxEngine::Instance()->Dispatch(i, type, t, p.x, p.y);
+        cxEngine::Instance()->Dispatch(i, type,p.x, p.y);
     }
 }
 

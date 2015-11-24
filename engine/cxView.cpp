@@ -759,6 +759,11 @@ cxBool cxView::OnDispatch(const cxTouchable *e)
     return false;
 }
 
+cxBool cxView::OnDispatch(const cxKey &key)
+{
+    return false;
+}
+
 cxBool cxView::Dispatch(const cxTouchable *e)
 {
     if(!EnableTouch()){
@@ -772,6 +777,21 @@ cxBool cxView::Dispatch(const cxTouchable *e)
         if(view->Dispatch(e))return true;
     }
     return OnDispatch(e);
+}
+
+cxBool cxView::Dispatch(const cxKey &key)
+{
+    if(!EnableTouch()){
+        return false;
+    }
+    if(!EnableVisible()){
+        return false;
+    }
+    for(cxArray::RIter it=subviews->RBegin();it!=subviews->REnd();it++){
+        cxView *view = (*it)->To<cxView>();
+        if(view->Dispatch(key))return true;
+    }
+    return OnDispatch(key);
 }
 
 void cxView::transform()

@@ -259,6 +259,7 @@ protected:
     virtual void OnAppend(cxView *nview);
     virtual void OnRemove(cxView *oview);
     virtual cxBool OnDispatch(const cxTouchable *e);
+    virtual cxBool OnDispatch(const cxKey &key);
     virtual void OnEnter();
     virtual void OnLeave();
 public:
@@ -290,6 +291,7 @@ public:
     
     const cxHitInfo HitTest(const cxPoint2F &wp);
     cxBool Dispatch(const cxTouchable *e);
+    cxBool Dispatch(const cxKey &key);
 
     cxEvent<cxView> onEnter;
     cxEvent<cxView> onLeave;

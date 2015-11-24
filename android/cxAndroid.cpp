@@ -74,7 +74,6 @@ void cxAndroid::Destroy()
 
 cxAndroid::cxAndroid()
 {
-    tapCount = 0;
     config = AConfiguration_new();
     state = nullptr;
     size = 0;
@@ -93,7 +92,7 @@ cxAndroid::cxAndroid()
     animating = 0;
     destroyRequested = 0;
     destroyed = 0;
-    activityState = 0;
+    activityState = -1;
     
     window = nullptr;
     pendingWindow = nullptr;
@@ -192,14 +191,14 @@ int cxAndroid::InitSurface()
 
 void cxAndroid::DrawFrame()
 {
-    cxEngine *engine = cxEngine::Instance();
-    if(engine == NULL){
-        return;
-    }
     if(display == EGL_NO_DISPLAY) {
         return;
     }
     if(surface == EGL_NO_SURFACE){
+        return;
+    }
+    cxEngine *engine = cxEngine::Instance();
+    if(engine == NULL){
         return;
     }
     engine->Run();
@@ -441,7 +440,7 @@ int32_t cxAndroid::HandleMotionInput(AInputEvent* event)
             cxTouchId id = AMotionEvent_getPointerId(event, idx);
             cxFloat x = AMotionEvent_getX(event, idx);
             cxFloat y = AMotionEvent_getY(event, idx);
-            cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, tapCount, x, y);
+            cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, x, y);
             break;
         }
         case AMOTION_EVENT_ACTION_POINTER_UP:{
@@ -449,7 +448,7 @@ int32_t cxAndroid::HandleMotionInput(AInputEvent* event)
             cxTouchId id = AMotionEvent_getPointerId(event, idx);
             cxFloat x = AMotionEvent_getX(event, idx);
             cxFloat y = AMotionEvent_getY(event, idx);
-            cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, tapCount, x, y);
+            cxEngine::Instance()->Dispatch(id, cxTouchPoint::Ended, x, y);
             break;
         }
         case AMOTION_EVENT_ACTION_MOVE:{
@@ -458,7 +457,7 @@ int32_t cxAndroid::HandleMotionInput(AInputEvent* event)
                 cxTouchId id = AMotionEvent_getPointerId(event, i);
                 cxFloat x = AMotionEvent_getX(event, i);
                 cxFloat y =AMotionEvent_getY(event, i);
-                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, tapCount, x, y);
+                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Moved, x, y);
             }
             break;
         }
@@ -468,30 +467,39 @@ int32_t cxAndroid::HandleMotionInput(AInputEvent* event)
                 cxTouchId id = AMotionEvent_getPointerId(event, i);
                 cxFloat x = AMotionEvent_getX(event, i);
                 cxFloat y =AMotionEvent_getY(event, i);
-                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, tapCount, x, y);
+                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, x, y);
             }
             break;
         }
         case AMOTION_EVENT_ACTION_UP:{
-            tapCount++;
             cxInt count = (cxInt)AMotionEvent_getPointerCount(event);
             for(cxInt i=0; i < count; i++){
                 cxTouchId id = AMotionEvent_getPointerId(event, i);
                 cxFloat x = AMotionEvent_getX(event, i);
                 cxFloat y =AMotionEvent_getY(event, i);
-                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, tapCount, x, y);
+                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Ended, x, y);
             }
             break;
         }
-        default:
+        default:{
             break;
+        }
     }
     return 0;
 }
 
 int32_t cxAndroid::HandleKeyInput(AInputEvent* event)
 {
-    return 0;
+    cxKeyType type = cxKeyTypeDown;
+    cxInt action = AKeyEvent_getAction(event);
+    if(action == AKEY_EVENT_ACTION_DOWN){
+        type = cxKeyTypeDown;
+    }else if(action == AKEY_EVENT_ACTION_UP){
+        type = cxKeyTypeUp;
+    }else if(action == AKEY_EVENT_ACTION_MULTIPLE){
+        type = cxKeyTypeMultiple;
+    }
+    return cxEngine::Instance()->Dispatch(type, AKeyEvent_getKeyCode(event));
 }
 
 int32_t cxAndroid::HandleInput(AInputEvent* event)

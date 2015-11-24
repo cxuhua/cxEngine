@@ -88,7 +88,6 @@ private:
     int destroyed;
     int animating;
     int destroyRequested;
-    int tapCount;
     
     
     ALooper *looper;

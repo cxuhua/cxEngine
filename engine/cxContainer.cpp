@@ -155,7 +155,7 @@ cxBool cxContainer::OnDispatch(const cxTouchable *e)
         Body()->SetPosition(pos);
         return true;
     }
-    if(ep->IsEnded() && ep->tap == 0){
+    if(ep->IsEnded() && !ep->IsTap()){
         cxPoint2F sp = ep->Speed();
         if(sp.Length() < 1000){
             return false;

@@ -171,9 +171,13 @@ private:
 public:
     static cxAndroid *Instance();
     static void Destroy();
+    //
     void Init(ANativeActivity *a,void *d, size_t l);
+    //
     JNIMethodInfo JNIMethod(cchars name,cchars param);
+    //
     cxStr *TocxStr(jstring jstr);
+    //ret value need deleteLocalRef
     jstring Tojstring(const cxStr *str);
 public:
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);

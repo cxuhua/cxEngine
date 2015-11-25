@@ -93,7 +93,6 @@ void cxTouchable::updateEvent(const cxTouchPoint &e)
         event->length += event->delta.Length();
     }else{
         event->time = now - event->time;
-        CX_LOGGER("time=%f length=%f %d",event->time,event->length,event->IsTap());
     }
     if(add){
         events.emplace(e.key,newEvent);

@@ -40,9 +40,112 @@ const EGLint context_attribs[] = {
 
 CX_CPP_BEGIN
 
-cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size)
+JNIMethodInfo::JNIMethodInfo()
 {
-    return nullptr;
+    env  = nullptr;
+    classID = nullptr;
+    methodID = nullptr;
+    object = nullptr;
+}
+
+JNIMethodInfo::~JNIMethodInfo()
+{
+    if(classID != nullptr){
+        env->DeleteLocalRef(classID);
+        classID = nullptr;
+    }
+    methodID = nullptr;
+}
+
+jobject JNIMethodInfo::CallObjectMethod(cxAndroid *app,...)
+{
+    va_list ap;
+    va_start(ap, app);
+    jobject ret = env->CallObjectMethodV(object, methodID, ap);
+    va_end(ap);
+    return ret;
+}
+
+void JNIMethodInfo::CallVoidMethod(cxAndroid *app,...)
+{
+    va_list ap;
+    va_start(ap, app);
+    env->CallVoidMethodV(object, methodID, ap);
+    va_end(ap);
+}
+
+//invoke java methpd engineTerminate
+void cxEngine::Exit()
+{
+    cxAndroid *app = cxAndroid::Instance();
+    if(app == nullptr){
+        return;
+    }
+    JNIMethodInfo m = app->JNIMethod("EngineTerminate", "()V");
+    m.CallVoidMethod(app);
+}
+
+cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &texSize)
+{
+    cxAndroid *app = cxAndroid::Instance();
+    if(app == nullptr){
+        return nullptr;
+    }
+    JNIMethodInfo m = app->JNIMethod("CreateTextBitmap", "(Ljava/lang/String;Ljava/lang/String;ZIIIFFFFFFFFFFFF)[B");
+    cxInt32 *sp=nullptr;
+    cxStr *rv = NULL;
+    jstring strText = app->Tojstring(txt);
+    jstring fontName = NULL;
+    
+    jint size = attr.size;
+    jint align = attr.align;
+    jint format = attr.format;
+    //fixwidth
+    jfloat fw = attr.fixWidth;
+    //font color
+    jfloat tr = attr.color.r;
+    jfloat tg = attr.color.g;
+    jfloat tb = attr.color.b;
+    jfloat ta = attr.color.a;
+    //stroke width
+    jfloat sw = attr.strokeWidth;
+    //stroke color
+    jfloat sr = attr.strokeColor.r;
+    jfloat sg = attr.strokeColor.g;
+    jfloat sb = attr.strokeColor.b;
+    jfloat sa = attr.strokeColor.a;
+    //stroke offset
+    jfloat sx = attr.strokeOffset.x;
+    jfloat sy = attr.strokeOffset.y;
+    //bold
+    jboolean bold = attr.boldFont;
+    jsize length = 0;
+    jbyteArray bytes=(jbyteArray)m.CallObjectMethod(app,strText,fontName,bold,size,align,format,fw,tr,tg,tb,ta,sw,sr,sg,sb,sa,sx,sy);
+    if(bytes == nullptr){
+        goto finished;
+    }
+    length = m.env->GetArrayLength(bytes);
+    if(length == 0){
+        goto finished;
+    }
+    CX_ASSERT(length >= 8, "bytes length error");
+    rv = cxStr::Create()->Init(length);
+    m.env->GetByteArrayRegion(bytes, 0, length, (jbyte *)rv->Buffer());
+    sp = (cxInt32 *)(rv->Data() + length - 8);
+    texSize.w = *sp;
+    texSize.h = *(++sp);
+    rv->KeepBytes(length - 8);
+finished:
+    if(bytes != NULL){
+        m.env->DeleteLocalRef(bytes);
+    }
+    if(fontName != NULL){
+        m.env->DeleteLocalRef(fontName);
+    }
+    if(strText != NULL){
+        m.env->DeleteLocalRef(strText);
+    }
+    return rv;
 }
 
 extern "C" void ANativeActivity_onCreate(ANativeActivity* activity,void* savedState, size_t savedStateSize)
@@ -61,6 +164,24 @@ cxAndroid *cxAndroid::Instance()
         instance = cxAndroid::Alloc();
     }
     return instance;
+}
+
+JNIMethodInfo cxAndroid::JNIMethod(cchars name,cchars param)
+{
+    JNIMethodInfo info;
+    info.env = env;
+    info.object = activity->clazz;
+    jclass clasz = info.env->GetObjectClass(info.object);
+    if(clasz == NULL){
+        CX_ASSERT(false, "get object nativeclass error");
+    }
+    info.classID = clasz;
+    jmethodID methodID = info.env->GetMethodID(clasz,name,param);
+    if(methodID == NULL){
+        CX_ASSERT(false, "get methodId %s(%s) error", name, param);
+    }
+    info.methodID = methodID;
+    return info;
 }
 
 void cxAndroid::Destroy()
@@ -247,6 +368,35 @@ void cxAndroid::SetActivityState(int8_t cmd)
 void cxAndroid::writecmd(int8_t cmd)
 {
     write(msgwrite, &cmd, sizeof(cmd));
+}
+
+cxStr *cxAndroid::TocxStr(jstring jstr)
+{
+    if(jstr == nullptr){
+        return nullptr;
+    }
+    jboolean copy = JNI_FALSE;
+    cchars chars = env->GetStringUTFChars(jstr,&copy);
+    cxStr *rv = cxStr::Create()->Init(chars);
+    env->ReleaseStringUTFChars(jstr,chars);
+    return rv;
+}
+
+jstring cxAndroid::Tojstring(const cxStr *str)
+{
+    if(!cxStr::IsOK(str)){
+        return NULL;
+    }
+    return env->NewStringUTF(str->ToString());
+}
+
+const cxStr *cxAndroid::UUID()
+{
+    JNIMethodInfo m = JNIMethod("NewUUID", "()Ljava/lang/String;");
+    jstring uuid = (jstring)m.CallObjectMethod(this);
+    cxStr *ret = TocxStr(uuid);
+    env->DeleteLocalRef(uuid);
+    return ret;
 }
 
 const cxStr *cxAndroid::GetLang() const
@@ -511,69 +661,7 @@ int32_t cxAndroid::HandleInput(AInputEvent* event)
     if(type == AINPUT_EVENT_TYPE_KEY){
         return HandleKeyInput(event);
     }
-    return 0;
-//    //touch
-//    if (type == AINPUT_EVENT_TYPE_MOTION) {
-//        cxInt action = AMotionEvent_getAction(event);
-//        cxInt atype =  action & AMOTION_EVENT_ACTION_MASK;
-//        if(atype == AMOTION_EVENT_ACTION_POINTER_DOWN){
-//            cxInt idx = action >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
-//            cxTouchId id = AMotionEvent_getPointerId(event, idx);
-//            cxFloat x = AMotionEvent_getX(event, idx);
-//            cxFloat y = AMotionEvent_getY(event, idx);
-//            cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, 0, x, y);
-//        }else if(atype == AMOTION_EVENT_ACTION_POINTER_UP){
-//            cxInt idx = action >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
-//            cxTouchId id = AMotionEvent_getPointerId(event, idx);
-//            cxFloat x = AMotionEvent_getX(event, idx);
-//            cxFloat y = AMotionEvent_getY(event, idx);
-//            cxEngine::Instance()->Dispatch(id, cxTouchPoint::Ended, 0, x, y);
-//        }else if(atype == AMOTION_EVENT_ACTION_MOVE){
-//            cxInt count = AMotionEvent_getPointerCount(event);
-//            for(cxInt i=0; i < count; i++){
-//                cxTouchPoint *p = &points[num++];
-//                p->id = AMotionEvent_getPointerId(event, i);
-//                p->xy.x = AMotionEvent_getX(event, i);
-//                p->xy.y =AMotionEvent_getY(event, i);
-//                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Moved, 0, x, y);
-//            }
-//            type = cxTouchTypeMove;
-//        }else if(atype == AMOTION_EVENT_ACTION_DOWN){
-//            cxInt count = AMotionEvent_getPointerCount(event);
-//            for(cxInt i=0; i < count; i++){
-//                cxTouchPoint *p = &points[num++];
-//                p->id = AMotionEvent_getPointerId(event, i);
-//                p->xy.x = AMotionEvent_getX(event, i);
-//                p->xy.y =AMotionEvent_getY(event, i);
-//                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, 0, x, y);
-//            }
-//            type = cxTouchTypeDown;
-//        }else if(atype == AMOTION_EVENT_ACTION_UP){
-//            cxInt count = AMotionEvent_getPointerCount(event);
-//            for(cxInt i=0; i < count; i++){
-//                cxTouchPoint *p = &points[num++];
-//                p->id = AMotionEvent_getPointerId(event, i);
-//                p->xy.x = AMotionEvent_getX(event, i);
-//                p->xy.y =AMotionEvent_getY(event, i);
-//                cxEngine::Instance()->Dispatch(id, cxTouchPoint::Ended, 0, x, y);
-//            }
-//        }
-//        return cxEngineFireTouch(type, num, points);
-//    }
-//    //key
-//    if(type == AINPUT_EVENT_TYPE_KEY){
-//        cxKeyType type = cxKeyTypeDown;
-//        cxInt action = AKeyEvent_getAction(event);
-//        if(action == AKEY_EVENT_ACTION_DOWN){
-//            type = cxKeyTypeDown;
-//        }else if(action == AKEY_EVENT_ACTION_UP){
-//            type = cxKeyTypeUp;
-//        }else if(action == AKEY_EVENT_ACTION_MULTIPLE){
-//            type = cxKeyTypeMultiple;
-//        }
-//        return cxEngineFireKey(type, AKeyEvent_getKeyCode(event));
-//    }
-    return 0;
+    return 0;    return 0;
 }
 
 cxBool cxAndroid::ProcessInput()

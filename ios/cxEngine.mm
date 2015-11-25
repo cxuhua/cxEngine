@@ -125,6 +125,12 @@ static NSString *spaceString(NSString *str,cxTextNumFormat format)
     return [formatter stringFromNumber:[NSNumber numberWithInt:[str intValue]]];
 }
 
+void cxEngine::Exit()
+{
+    cxEngine::Destroy();
+    exit(0);
+}
+
 cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size)
 {
     if(!cxStr::IsOK(txt)){

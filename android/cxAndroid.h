@@ -55,6 +55,19 @@ enum {
 class cxAndroid;
 class cxAndroidUtil;
 
+struct JNIMethodInfo
+{
+    JNIEnv      *env;
+    jclass      classID;
+    jmethodID   methodID;
+    jobject     object;
+    JNIMethodInfo();
+    virtual ~JNIMethodInfo();
+    
+    jobject CallObjectMethod(cxAndroid *app,...);
+    void CallVoidMethod(cxAndroid *app,...);
+};
+
 struct AndroidPollSource
 {
     int32_t id;
@@ -159,12 +172,16 @@ public:
     static cxAndroid *Instance();
     static void Destroy();
     void Init(ANativeActivity *a,void *d, size_t l);
+    JNIMethodInfo JNIMethod(cchars name,cchars param);
+    cxStr *TocxStr(jstring jstr);
+    jstring Tojstring(const cxStr *str);
 public:
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
     const cxStr *GetLang() const;
     const cxStr *GetCountry() const;
     const cxStr *DocumentPath(cchars file);
     const cxStr *AssetsData(cchars file);
+    const cxStr *UUID();
 };
 
 CX_CPP_END

@@ -29,6 +29,7 @@ public:
     const cxStr *DocumentPath(cchars file);
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
     const cxStr *AssetsData(cchars file);
+    const cxStr *UUID() const;
 };
 
 CX_CPP_END

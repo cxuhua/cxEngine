@@ -46,12 +46,6 @@ void cxEngine::Reset()
     isreset = true;
 }
 
-void cxEngine::Exit()
-{
-    cxEngine::Destroy();
-    exit(0);
-}
-
 void cxEngine::Destroy()
 {
     cxObject::release(&instance);

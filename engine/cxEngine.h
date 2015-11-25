@@ -97,13 +97,16 @@ public:
     const cxSize2F PlanSize();
     
     const cxFloat Time() const;
-    cxStr *TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size);
+    
     
     static void Destroy();
     static cxEngine *Instance();
     static void Startup(cxBool layout);
     
+    //need platform imp
+    cxStr *TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size);
     void Exit();
+    
     void Reset();
 
     cxWindow *Window() const;

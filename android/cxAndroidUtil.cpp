@@ -24,6 +24,11 @@ cxAndroidUtil::~cxAndroidUtil()
     
 }
 
+const cxStr *cxAndroidUtil::UUID() const
+{
+    return cxAndroid::Instance()->UUID();
+}
+
 const cxStr *cxAndroidUtil::AssetsData(cchars file)
 {
     return cxAndroid::Instance()->AssetsData(file);

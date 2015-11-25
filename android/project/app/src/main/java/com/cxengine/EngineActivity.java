@@ -16,13 +16,17 @@ import android.graphics.Typeface;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.Layout;
-import android.content.res.AssetFileDescriptor;
 
 public class EngineActivity extends NativeActivity {
 	static {
 		System.loadLibrary("openal");
 	}
 	private HashMap<String, Typeface> sTypefaceCache = new HashMap<String, Typeface>();
+	//获取UUID
+	public String NewUUID(){
+		UUID uuid = UUID.randomUUID();
+		return uuid.toString();
+	}
 	//退出程序
 	public void EngineTerminate(){
 		this.runOnUiThread(new Runnable(){
@@ -100,7 +104,7 @@ public class EngineActivity extends NativeActivity {
 		}
 		return str;
 	}
-	public byte[] createTextBitmap(String pString, 
+	public byte[] CreateTextBitmap(String pString,
 			String pFontName, boolean bold,int fontSize,
 			int align,int format,
 			float fw,

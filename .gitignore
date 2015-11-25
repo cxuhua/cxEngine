@@ -1,7 +1,5 @@
-gen
-bin
-obj
 .DS_Store
 android/libs
+android/project/app/build
 godcity
 runner

@@ -3,7 +3,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_WHOLE_STATIC_LIBRARIES += cpufeatures
+LOCAL_STATIC_LIBRARIES := cpufeatures
 
 LOCAL_CFLAGS := \
 	-std=gnu99 \
@@ -20,7 +20,6 @@ LOCAL_CPPFLAGS := \
     -I$(LOCAL_PATH)/libs/android/include
 
 LOCAL_MODULE := cxengine
-
 
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/Box2D/Collision/*.cpp)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/Box2D/Collision/Shapes/*.cpp)

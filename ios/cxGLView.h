@@ -22,4 +22,5 @@
     GLint   height;
     EAGLContext *context;
 }
+-(EAGLContext *)GLContext;
 @end

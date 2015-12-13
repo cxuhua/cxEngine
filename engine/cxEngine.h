@@ -121,6 +121,7 @@ public:
     void Resume();
     void MemoryWarning();
     void Layout(cxFloat w,cxFloat h);
+    
     void Run();
     
     cxBool IsTouch() const;

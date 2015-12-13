@@ -168,6 +168,7 @@
 		839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B8AB51B687DA3009E0CF7 /* OpenAL.framework */; };
 		839B8AB91B687DC8009E0CF7 /* cxOpenAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */; };
 		839B8AF41B68E877009E0CF7 /* cxMusic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AF21B68E877009E0CF7 /* cxMusic.cpp */; };
+		839B936D1C1DC07F001B8C79 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 839B936B1C1DC07F001B8C79 /* sqlite3.c */; };
 		83A943A41B44DC3200F70FBA /* aes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439B1B44DC3200F70FBA /* aes_cbc.c */; };
 		83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439C1B44DC3200F70FBA /* aes_cfb.c */; };
 		83A943A61B44DC3200F70FBA /* aes_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439D1B44DC3200F70FBA /* aes_core.c */; };
@@ -555,6 +556,9 @@
 		839B8ABA1B687DFA009E0CF7 /* OpenAL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenAL.h; sourceTree = "<group>"; };
 		839B8AF21B68E877009E0CF7 /* cxMusic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxMusic.cpp; sourceTree = "<group>"; };
 		839B8AF31B68E877009E0CF7 /* cxMusic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxMusic.h; sourceTree = "<group>"; };
+		839B936B1C1DC07F001B8C79 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		839B936C1C1DC07F001B8C79 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		839B936E1C1DC094001B8C79 /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
 		83A9439B1B44DC3200F70FBA /* aes_cbc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cbc.c; sourceTree = "<group>"; };
 		83A9439C1B44DC3200F70FBA /* aes_cfb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cfb.c; sourceTree = "<group>"; };
 		83A9439D1B44DC3200F70FBA /* aes_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_core.c; sourceTree = "<group>"; };
@@ -1082,6 +1086,9 @@
 				838345681B5A457B00921BE8 /* KDTree.h */,
 				831B93ED1B4A923200511A63 /* csv.c */,
 				831B93EE1B4A923200511A63 /* csv.h */,
+				839B936B1C1DC07F001B8C79 /* sqlite3.c */,
+				839B936C1C1DC07F001B8C79 /* sqlite3.h */,
+				839B936E1C1DC094001B8C79 /* sqlite3ext.h */,
 				8338FD851B477BD200C84032 /* fsa.h */,
 				8338FD841B477B7200C84032 /* stlastar.h */,
 				8338FD781B467B2A00C84032 /* http_parser.c */,
@@ -1285,6 +1292,7 @@
 				83C9D11B1B47E26100EC244C /* cxTint.cpp in Sources */,
 				836A2F651B19F644009B427B /* cxIOSUtil.mm in Sources */,
 				831189D61B2D728000C930B5 /* vec4.c in Sources */,
+				839B936D1C1DC07F001B8C79 /* sqlite3.c in Sources */,
 				835B402A1BEF516200A7A4AC /* cxSpine.cpp in Sources */,
 				835B40B31BEF51C100A7A4AC /* AnimationStateData.c in Sources */,
 				83610B051B1CA6F700BD06B1 /* cxPoint2F.cpp in Sources */,

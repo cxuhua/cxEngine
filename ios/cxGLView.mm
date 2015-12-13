@@ -72,9 +72,11 @@ using namespace cxengine;
     CAEAGLLayer *layer = (CAEAGLLayer*)self.view.layer;
     glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
     [context renderbufferStorage:GL_RENDERBUFFER fromDrawable:layer];
+    
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &width);
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &height);
-    cxengine:cxEngine::Instance()->Layout(width, height);
+    
+    cxEngine::Instance()->Layout(width, height);
 }
 
 -(void)viewDidLoad
@@ -98,6 +100,9 @@ using namespace cxengine;
     glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderBuffer);
+    
+    IOSDelegate *app = (IOSDelegate *)[[UIApplication sharedApplication] delegate];
+    [app InitOK];
 }
 
 - (void)viewDidUnload
@@ -110,13 +115,18 @@ using namespace cxengine;
     [super viewDidUnload];
 }
 
+-(EAGLContext *)GLContext
+{
+    return context;
+}
+
 - (void)glkViewControllerUpdate:(GLKViewController *)controller
 {
     cxEngine::Instance()->Run();
     [context presentRenderbuffer:GL_RENDERBUFFER];
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskAll;
 }

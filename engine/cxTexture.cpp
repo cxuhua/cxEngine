@@ -466,6 +466,14 @@ cxTexture *cxTexture::FromLQT(const cxStr *data)
     return Atlas(atlasdata);
 }
 
+cxTexture *cxTexture::From(cxTextureId name,const cxSize2F &siz)
+{
+    texId = name;
+    size = siz;
+    success = true;
+    return this;
+}
+
 cxTexture *cxTexture::FromPNG(const cxStr *data)
 {
     CX_ASSERT(cxStr::IsOK(data), "data error");

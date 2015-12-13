@@ -107,6 +107,7 @@ public:
     cxTexture *FromPKM(cchars file);
     cxTexture *FromTXT(const cxStr *txt,const cxTextAttr &attr);
     cxTexture *From(cchars file);
+    cxTexture *From(cxTextureId name,const cxSize2F &siz);
     cxTexture *From(cxInt type,const cxStr *data);
 };
 

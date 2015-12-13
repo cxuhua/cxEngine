@@ -14,11 +14,11 @@
     
 }
 @end
-
 @interface IOSDelegate : UIResponder <UIApplicationDelegate>
-
 @property(retain,nonatomic)UIWindow *window;
-
 @property(retain,nonatomic)IOSViewController *rootViewController;
+
+-(void)InitOK;
+-(EAGLContext *)GLContext;
 @end
 

@@ -41,6 +41,16 @@ using namespace cxengine;
     }
 }
 
+-(void)InitOK
+{
+    
+}
+
+-(EAGLContext *)GLContext
+{
+    return [self.rootViewController GLContext];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self cxDisableDocumentBackup];

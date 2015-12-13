@@ -168,45 +168,45 @@ void Game::OnMain()
 //        Window()->Append(sp);
 //    }
 //    return;
-    
-    cxWorld *w = cxWorld::Create();
-    w->SetSize(WinSize());
-    
-    for(cxInt i=0;i<140;i++)
-    {
-        cxCircleBody *cb = cxCircleBody::Create();
-        cb->SetElasticity(1.0f);
-        cxSprite *sp = cxSprite::Create();
-        sp->SetTexture("circle");
-        sp->SetResizeFlags(cxView::ResizeFill);
-        sp->AttachTo(cb);
-        
-        cb->SetSize(50);
-        cb->EnableDir(true);
-
-        cxBody *b = w->AppendBody(cb);
-        b->SetPosition(cxPoint2F(CX_RAND_11f()*200, CX_RAND_11f()*200));
-    }
-    {
-        cxChainBody *cb = cxChainBody::Create();
-        cb->SetSize(cxSize2F(200, 200));
-        cb->SetLoop(true);
-        cb->Points().Append(cxPoint2F(-900, 600));
-        cb->Points().Append(cxPoint2F(-900, -600));
-        cb->Points().Append(cxPoint2F(900, -600));
-        cb->Points().Append(cxPoint2F(900, 600));
-        cb->SetStatic(true);
-        
-        cxPoint2FArray &ps = cb->Points();
-        for(cxInt i=0; i < ps.Size(); i++){
-            cxSprite *sp = cxSprite::Create();
-            sp->SetTexture("point");
-            sp->SetSize(30.0f);
-            sp->AttachTo(cb);
-            sp->SetPosition(ps.At(i));
-        }
-        w->AppendBody(cb);
-    }
+//    
+//    cxWorld *w = cxWorld::Create();
+//    w->SetSize(WinSize());
+//    
+//    for(cxInt i=0;i<140;i++)
+//    {
+//        cxCircleBody *cb = cxCircleBody::Create();
+//        cb->SetElasticity(1.0f);
+//        cxSprite *sp = cxSprite::Create();
+//        sp->SetTexture("circle");
+//        sp->SetResizeFlags(cxView::ResizeFill);
+//        sp->AttachTo(cb);
+//        
+//        cb->SetSize(50);
+//        cb->EnableDir(true);
+//
+//        cxBody *b = w->AppendBody(cb);
+//        b->SetPosition(cxPoint2F(CX_RAND_11f()*200, CX_RAND_11f()*200));
+//    }
+//    {
+//        cxChainBody *cb = cxChainBody::Create();
+//        cb->SetSize(cxSize2F(200, 200));
+//        cb->SetLoop(true);
+//        cb->Points().Append(cxPoint2F(-900, 600));
+//        cb->Points().Append(cxPoint2F(-900, -600));
+//        cb->Points().Append(cxPoint2F(900, -600));
+//        cb->Points().Append(cxPoint2F(900, 600));
+//        cb->SetStatic(true);
+//        
+//        cxPoint2FArray &ps = cb->Points();
+//        for(cxInt i=0; i < ps.Size(); i++){
+//            cxSprite *sp = cxSprite::Create();
+//            sp->SetTexture("point");
+//            sp->SetSize(30.0f);
+//            sp->AttachTo(cb);
+//            sp->SetPosition(ps.At(i));
+//        }
+//        w->AppendBody(cb);
+//    }
 //    {
 //        cxEdgeBody *cb = cxEdgeBody::Create();
 //        cb->SetSize(cxSize2F(2048, 10));
@@ -230,7 +230,7 @@ void Game::OnMain()
 //        cxBoxRender &r = b->Inc();
 //        r.SetVertices(box);
 //    }
-    Window()->Append(w);
+//    Window()->Append(w);
 }
 
 CX_CPP_END

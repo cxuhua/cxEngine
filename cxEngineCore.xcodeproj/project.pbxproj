@@ -49,6 +49,7 @@
 		833043C11B40FBE900636928 /* cxTiming.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043BF1B40FBE900636928 /* cxTiming.cpp */; };
 		833043C41B41109600636928 /* cxRotate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043C21B41109600636928 /* cxRotate.cpp */; };
 		833043C71B41149000636928 /* cxScale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043C51B41149000636928 /* cxScale.cpp */; };
+		8333ACD51C1EA86C00C185E7 /* cxSqlite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8333ACD31C1EA86C00C185E7 /* cxSqlite.cpp */; };
 		8338FD771B467AAE00C84032 /* cxHttp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD751B467AAE00C84032 /* cxHttp.cpp */; };
 		8338FD7A1B467B2A00C84032 /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD781B467B2A00C84032 /* http_parser.c */; };
 		8338FD7D1B4695F300C84032 /* cxSpline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD7B1B4695F300C84032 /* cxSpline.cpp */; };
@@ -305,6 +306,8 @@
 		833043C31B41109600636928 /* cxRotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRotate.h; sourceTree = "<group>"; };
 		833043C51B41149000636928 /* cxScale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxScale.cpp; sourceTree = "<group>"; };
 		833043C61B41149000636928 /* cxScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxScale.h; sourceTree = "<group>"; };
+		8333ACD31C1EA86C00C185E7 /* cxSqlite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSqlite.cpp; sourceTree = "<group>"; };
+		8333ACD41C1EA86C00C185E7 /* cxSqlite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSqlite.h; sourceTree = "<group>"; };
 		8338FD751B467AAE00C84032 /* cxHttp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxHttp.cpp; sourceTree = "<group>"; };
 		8338FD761B467AAE00C84032 /* cxHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxHttp.h; sourceTree = "<group>"; };
 		8338FD781B467B2A00C84032 /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
@@ -1224,6 +1227,8 @@
 				8302A3741B51078500C7209C /* cxLocalized.h */,
 				838345691B5A45B300921BE8 /* cxKDTree.cpp */,
 				8383456A1B5A45B300921BE8 /* cxKDTree.h */,
+				8333ACD31C1EA86C00C185E7 /* cxSqlite.cpp */,
+				8333ACD41C1EA86C00C185E7 /* cxSqlite.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1366,6 +1371,7 @@
 				835B40BB1BEF51C100A7A4AC /* Event.c in Sources */,
 				831B93F41B4A970600511A63 /* cxCSV.cpp in Sources */,
 				835B40B51BEF51C100A7A4AC /* AtlasAttachmentLoader.c in Sources */,
+				8333ACD51C1EA86C00C185E7 /* cxSqlite.cpp in Sources */,
 				83D5D31E1B6763B70051D99D /* cxLQT.cpp in Sources */,
 				831189D91B2D72F100C930B5 /* cxMatrixF.cpp in Sources */,
 				835B40CA1BEF51C100A7A4AC /* SlotData.c in Sources */,

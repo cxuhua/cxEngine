@@ -36,6 +36,7 @@ public:
     
     static void Load(cchars file);
     
+    static const cxStr *Format(cchars fmt,...);
     static const cxStr *Text(cchars key);
     
     static cxLocalized *Instance();

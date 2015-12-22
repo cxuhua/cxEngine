@@ -67,6 +67,9 @@ public:
     
     cxObject *ToObject();
     
+    cxStr *ToLower();
+    cxStr *ToUpper();
+    
     const cxStr *TeaEncode(const cxStr *key) const;
     const cxStr *TeaDecode(const cxStr *key) const;
     

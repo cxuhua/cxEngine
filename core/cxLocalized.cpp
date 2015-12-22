@@ -63,6 +63,20 @@ const cxStr *cxLocalized::GetLang()
     return instance->lang;
 }
 
+const cxStr *cxLocalized::Format(cchars fmt,...)
+{
+    const cxStr *fs = Text(fmt);
+    if(!cxStr::IsOK(fs)){
+        return nullptr;
+    }
+    cxStr *ret = cxStr::Create();
+    va_list ap;
+    va_start(ap, fmt);
+    ret->AppFmt(fs->ToString(), ap);
+    va_end(ap);
+    return ret;
+}
+
 const cxStr *cxLocalized::Text(cchars key)
 {
     cxLocalized *instance = Instance();

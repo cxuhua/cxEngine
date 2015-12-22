@@ -241,6 +241,26 @@ cxStr *cxStr::Clone() const
     return cxStr::Create()->Init((cxAny)Data(), Size());
 }
 
+cxStr *cxStr::ToLower()
+{
+    cxStr *ret = cxStr::Create();
+    for(cxInt i=0;i<Size();i++){
+        char c = tolower(At(i));
+        ret->Append(&c,1);
+    }
+    return ret;
+}
+
+cxStr *cxStr::ToUpper()
+{
+    cxStr *ret = cxStr::Create();
+    for(cxInt i=0;i<Size();i++){
+        char c = toupper(At(i));
+        ret->Append(&c,1);
+    }
+    return ret;
+}
+
 cchars cxStr::ToString() const
 {
     return Data();

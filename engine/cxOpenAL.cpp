@@ -208,16 +208,14 @@ cxBool cxMP3Buffer::NextALBuffer(ALuint idx)
         newformat();
         ret = mpg123_decode_frame(mp3hand, &framenum, (unsigned char **)&buf, (size_t *)&bytes);
     }
-    if(ret != MPG123_OK || bytes == 0){
+    if(ret != MPG123_OK){
         return false;
     }
     alClearError();
-    alBufferData(idx, format, buf, (ALsizei)bytes, samplerate);
-    if(alGetError() != AL_NO_ERROR){
-        CX_ERROR("al buffer data error");
-        return false;
+    if(bytes > 0){
+        alBufferData(idx, format, buf, (ALsizei)bytes, samplerate);
     }
-    return true;
+    return alGetError() == AL_NO_ERROR;
 }
 
 CX_IMPLEMENT(cxMP3Source)
@@ -585,7 +583,7 @@ cxALSource *cxOpenAL::Source(cchars key,cchars file)
     }else if(cxStr::IsEqu(ext, ".wav")){
         type = cxALBuffer::DataTypeWAV;
     }
-    s = cxALSource::Create(data,type);
+    s = Source(data,type);
     if(s == nullptr){
         return nullptr;
     }

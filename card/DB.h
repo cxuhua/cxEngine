@@ -9,9 +9,8 @@
 #ifndef card_DB_h
 #define card_DB_h
 
-#include <core/cxStr.h>
 #include <core/cxSqlite.h>
-#include <core/cxArray.h>
+#include "Data.h"
 
 CX_CPP_BEGIN
 
@@ -21,6 +20,31 @@ CX_CPP_BEGIN
 
 class DB;
 
+//更新
+class Update : public cxObject
+{
+public:
+    CX_DECLARE(Update);
+protected:
+    explicit Update();
+    virtual ~Update();
+private:
+    DB *db;
+    cxStr *key;
+    cxInt version;
+    cxStr *dataId;
+    cxInt64 time;
+public:
+    void SetVersion(cxInt v);
+    void SetDataId(const cxStr *v);
+    void SetTime(cxInt64 v);
+    cxBool Insert();
+    cxBool Delete();
+public:
+    static Update *Create(DB *db,cchars key);
+};
+
+//词卡索引
 class Word : public cxObject
 {
 public:
@@ -40,6 +64,8 @@ private:
     cxInt64 time;
     cxInt64 last;
 public:
+    //获取词卡数据
+    Data *GetData();
     //设置可用值
     void SetValue(cxSqlStmt *stmt);
     //是否存在,如果存在设置字段值
@@ -53,6 +79,7 @@ public:
     static Word *Create(DB *db,const cxStr *key);
 };
 
+//词卡数据库
 class DB : public cxSqlite
 {
 public:
@@ -62,17 +89,18 @@ protected:
     virtual ~DB();
 private:
     cxInt64 LVS[9];
+    cxInt maxVer;
 public:
     //获取count个需要复习的词卡
     cxArray *ReviewWords(cxInt count);
     //获取数据版本
     cxInt DataVersion();
-    void SetDataVersion(cxInt ver);
+    cxBool SetDataVersion(cxInt ver);
     //获取用户Id
-    void SetBindId(const cxStr *id);
+    cxBool SetBindId(const cxStr *id);
     const cxStr *BindId();
     //设置临时id
-    void SetTempId(const cxStr *id);
+    cxBool SetTempId(const cxStr *id);
     const cxStr *TempId();
     //获得当前时间
     cxInt64 TimeNow();

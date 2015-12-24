@@ -12,6 +12,62 @@
 
 CX_CPP_BEGIN
 
+CX_IMPLEMENT(Update)
+
+Update::Update()
+{
+    key = nullptr;
+    dataId = nullptr;
+    version = 0;
+    time = 0;
+}
+
+Update::~Update()
+{
+    cxObject::release(&key);
+    cxObject::release(&dataId);
+}
+
+void Update::SetVersion(cxInt v)
+{
+    version = v;
+}
+
+void Update::SetDataId(const cxStr *v)
+{
+    cxObject::swap(&dataId, v);
+}
+
+void Update::SetTime(cxInt64 v)
+{
+    time = v;
+}
+
+cxBool Update::Delete()
+{
+    cxSqlStmt *stmt = db->Prepare("DELETE FROM updates WHERE Key=?;");
+    stmt->Bind(1, key->ToString());
+    return stmt->Exec();
+}
+
+cxBool Update::Insert()
+{
+    cxSqlStmt *stmt = db->Prepare("INSERT INTO updates VALUES(?,?,?,?);");
+    stmt->Bind(1, key->ToString());
+    stmt->Bind(2, version);
+    stmt->Bind(3, dataId->ToString());
+    stmt->Bind(4, time);
+    return stmt->Exec();
+}
+
+Update *Update::Create(DB *db,cchars key)
+{
+    Update *ret = Update::Create();
+    ret->db = db;
+    ret->key = cxStr::Alloc()->Init(key);
+    return ret;
+}
+
 CX_IMPLEMENT(Word)
 
 Word::Word()
@@ -28,6 +84,11 @@ Word::Word()
 Word::~Word()
 {
     cxObject::release(&key);
+}
+
+Data *Word::GetData()
+{
+    return nullptr;
 }
 
 Word *Word::Create(DB *db,const cxStr *key)
@@ -136,7 +197,7 @@ const cxStr *DB::GetValue(cchars key)
 
 cxBool DB::SetValue(cchars key,const cxStr *value)
 {
-    cxSqlStmt *stmt = Prepare("UPDATE config SET Value='?' WHERE Key='%s';",key);
+    cxSqlStmt *stmt = Prepare("UPDATE config SET Value=? WHERE Key='%s';",key);
     stmt->Bind(1, value->ToString());
     return stmt->Exec();
 }
@@ -161,14 +222,14 @@ cxInt DB::DataVersion()
     return GetValue("DataVersion")->ToInt();
 }
 
-void DB::SetDataVersion(cxInt ver)
+cxBool DB::SetDataVersion(cxInt ver)
 {
-    SetValue("DataVersion", cxStr::UTF8("%d",ver));
+    return SetValue("DataVersion", cxStr::UTF8("%d",ver));
 }
 
-void DB::SetBindId(const cxStr *id)
+cxBool DB::SetBindId(const cxStr *id)
 {
-    SetValue("BindId", id);
+    return SetValue("BindId", id);
 }
 
 const cxStr *DB::BindId()
@@ -176,9 +237,9 @@ const cxStr *DB::BindId()
     return GetValue("BindId");
 }
 
-void DB::SetTempId(const cxStr *id)
+cxBool DB::SetTempId(const cxStr *id)
 {
-    SetValue("TempId", id);
+    return SetValue("TempId", id);
 }
 
 const cxStr *DB::TempId()
@@ -196,8 +257,6 @@ cxBool DB::Init()
     if(!ExistTable("config")){
         //创建配置表
         Exec("CREATE TABLE config(Key VARCHAR(32) PRIMARY KEY,Value VARCHAR(128));");
-        //分组版本
-        Exec("INSERT INTO config VALUES('GroupVersion','0');");
         //词库版本(DataVersion),是否有新的词卡
         Exec("INSERT INTO config VALUES('DataVersion','0');");
         //用户TempId,用户唯一id
@@ -221,6 +280,10 @@ cxBool DB::Init()
         Exec("CREATE INDEX TimeIndex ON words(Time ASC)");
         //创建是否使用索引
         Exec("CREATE INDEX IsUseIndex ON words(IsUse ASC)");
+    }
+    if(!ExistTable("updates")){
+        //将要更新的word列表,更新数据后删除
+        Exec("CREATE TABLE updates(Key VARCHAR(32) PRIMARY KEY,Version INT, DataId VARCHAR(32),Time INT);");
     }
     Commit();
     return true;

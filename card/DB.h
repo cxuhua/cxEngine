@@ -38,6 +38,7 @@ private:
     cxBool isbuy;
     cxBool isuse;
     cxInt64 time;
+    cxInt64 last;
 public:
     //设置可用值
     void SetValue(cxSqlStmt *stmt);
@@ -68,8 +69,11 @@ public:
     cxInt DataVersion();
     void SetDataVersion(cxInt ver);
     //获取用户Id
-    void SetUserId(const cxStr *id);
-    const cxStr *UserId();
+    void SetBindId(const cxStr *id);
+    const cxStr *BindId();
+    //设置临时id
+    void SetTempId(const cxStr *id);
+    const cxStr *TempId();
     //获得当前时间
     cxInt64 TimeNow();
     //根据当前等级获得复习时间

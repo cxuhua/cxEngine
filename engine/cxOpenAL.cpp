@@ -175,12 +175,9 @@ cxBool cxMP3Buffer::Open()
     return false;
 }
 
-cxBool cxMP3Buffer::Init(cchars file)
+cxBool cxMP3Buffer::Init(const cxStr *data)
 {
-    const cxStr *data = cxUtil::Assets(file);
-    if(!cxStr::IsOK(data)) {
-        return false;
-    }
+    CX_ASSERT(cxStr::IsOK(data), "mp3 data error");
     cxObject::swap(&mp3data, data);
     return Open();
 }
@@ -328,12 +325,9 @@ cxALBuffer::~cxALBuffer()
     alDeleteBuffers(1, &handle);
 }
 
-cxBool cxALBuffer::Init(cchars file)
+cxBool cxALBuffer::Init(const cxStr *data)
 {
-    const cxStr *data = cxUtil::Assets(file);
-    if(!cxStr::IsOK(data)) {
-        return false;
-    }
+    CX_ASSERT(cxStr::IsOK(data), "bufer init ok");
     cchars begin = data->Buffer();
     cchars end = begin + data->Size();
     WAVFileHdr fhdr;
@@ -406,23 +400,18 @@ cxALBuffer::DataType cxALBuffer::Type()
     return datatype;
 }
 
-cxALBuffer *cxALBuffer::Create(cchars file)
+cxALBuffer *cxALBuffer::Create(const cxStr *data,DataType type)
 {
-    CX_ASSERT(cxStr::IsOK(file), "args error");
+    CX_ASSERT(cxStr::IsOK(data), "args error");
     cxALBuffer *b = nullptr;
-    cchars ext = strrchr(file, '.');
-    if(!cxStr::IsOK(ext)){
-        CX_ERROR("file %s name error",file);
-        return nullptr;
-    }
-    if(cxStr::IsCaseEqu(ext, ".wav")){
+    
+    if(type == DataTypeWAV){
         b = cxALBuffer::Create();
-        b->datatype = DataTypeWAV;
-    }else if(cxStr::IsCaseEqu(ext, ".mp3")){
+    }else if(type == DataTypeMP3){
         b = cxMP3Buffer::Create();
-        b->datatype = DataTypeMP3;
     }
-    if(!b->Init(file)){
+    b->datatype = type;
+    if(!b->Init(data)){
         return nullptr;
     }
     return b;
@@ -518,22 +507,20 @@ void cxALSource::SetPitch(cxFloat v)
     pitch = v;
 }
 
-cxALSource *cxALSource::Create(cchars file)
+cxALSource *cxALSource::Create(const cxStr *data, cxALBuffer::DataType type)
 {
-    CX_ASSERT(cxStr::IsOK(file), "args error");
-    cxALBuffer *b = cxALBuffer::Create(file);
+    CX_ASSERT(cxStr::IsOK(data), "args error");
+    cxALBuffer *b = cxALBuffer::Create(data,type);
     if(b == nullptr){
         return nullptr;
     }
     cxALSource *s = nullptr;
-    cchars ext = strrchr(file, '.');
-    if(!cxStr::IsOK(ext)){
-        return nullptr;
-    }
     if(b->Type() == cxALBuffer::DataTypeWAV){
         s = cxALSource::Create();
     }else if(b->Type() == cxALBuffer::DataTypeMP3){
         s = cxMP3Source::Create();
+    }else{
+        CX_ASSERT(false, "type %d not support",type);
     }
     if(!s->Init(b)){
         return nullptr;
@@ -575,13 +562,30 @@ cxALSource *cxOpenAL::Source(cchars key)
     return nullptr;
 }
 
+cxALSource *cxOpenAL::Source(const cxStr *data,cxALBuffer::DataType type)
+{
+    return cxALSource::Create(data, type);
+}
+
 cxALSource *cxOpenAL::Source(cchars key,cchars file)
 {
     cxALSource *s = Source(key);
     if(s != nullptr){
         return s;
     }
-    s = cxALSource::Create(file);
+    const cxStr *data = cxUtil::Assets(file);
+    if(!cxStr::IsOK(data)){
+        CX_ERROR("data get error");
+        return nullptr;
+    }
+    cxALBuffer::DataType type = 0;
+    cchars ext = strrchr(file, '.');
+    if(cxStr::IsEqu(ext, ".mp3")){
+        type = cxALBuffer::DataTypeMP3;
+    }else if(cxStr::IsEqu(ext, ".wav")){
+        type = cxALBuffer::DataTypeWAV;
+    }
+    s = cxALSource::Create(data,type);
     if(s == nullptr){
         return nullptr;
     }

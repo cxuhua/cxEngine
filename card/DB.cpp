@@ -52,13 +52,14 @@ void Word::SetValue(cxSqlStmt *stmt)
     isuse = stmt->ToBool(5);
     time = stmt->ToInt64(6);
     group = stmt->ToInt(7);
+    last = stmt->ToInt64(8);
 }
 
 cxBool Word::Exists()
 {
     CX_ASSERT(cxStr::IsOK(key), "key not set");
     CX_ASSERT(db != nullptr, "db not set");
-    cxSqlStmt *stmt = db->Prepare("SELECT Key,Level,Version,IsBuy,IsUse,Time,GroupId FROM words WHERE key=? LIMIT 1");
+    cxSqlStmt *stmt = db->Prepare("SELECT Key,Level,Version,IsBuy,IsUse,Time,GroupId,Last FROM words WHERE key=? LIMIT 1");
     stmt->Bind(1, key->ToString());
     if(!stmt->Step()){
         return false;
@@ -76,7 +77,7 @@ cxInt64 Word::NextTime()
 cxBool Word::Insert()
 {
     CX_ASSERT(cxStr::IsOK(key), "key not set");
-    cxSqlStmt *stmt = db->Prepare("INSERT INTO words VALUES(?,?,?,?,?,?,?);");
+    cxSqlStmt *stmt = db->Prepare("INSERT INTO words VALUES(?,?,?,?,?,?,?,?);");
     stmt->Bind(1, key->ToString());
     stmt->Bind(2, group);
     stmt->Bind(3, level);
@@ -84,6 +85,7 @@ cxBool Word::Insert()
     stmt->Bind(5, isbuy);
     stmt->Bind(6, isuse);
     stmt->Bind(7, NextTime());
+    stmt->Bind(8, db->TimeNow());
     return stmt->Exec();
 }
 
@@ -111,7 +113,8 @@ cxArray *DB::ReviewWords(cxInt count)
 {
     cxInt64 now = TimeNow();
     cxArray *ws = cxArray::Create();
-    cxSqlStmt *stmt = Prepare("SELECT Key,Level,Version,IsBuy,IsUse,Time,GroupId FROM words WHERE Time <= ? LIMIT ?");
+    cxSqlStmt *stmt = Prepare("SELECT Key,Level,Version,IsBuy,IsUse,Time,GroupId,Last FROM words "
+                              "WHERE IsBuy = 1 AND IsUse = 1 AND Time <= ? LIMIT ?");
     stmt->Bind(1, now);
     stmt->Bind(2, count);
     while(stmt->Step()){
@@ -147,7 +150,7 @@ cxInt64 DB::TimeNow()
 cxInt64 DB::LevelTime(cxInt level)
 {
     cxInt64 now = TimeNow();
-    if(level >=0 && level <= 8){
+    if(level >=1 && level <= 9){
         return now + LVS[level-1];
     }
     return now + (level * 3 + 1) * TIME_DAY;
@@ -163,14 +166,24 @@ void DB::SetDataVersion(cxInt ver)
     SetValue("DataVersion", cxStr::UTF8("%d",ver));
 }
 
-void DB::SetUserId(const cxStr *id)
+void DB::SetBindId(const cxStr *id)
 {
-    SetValue("UserId", id);
+    SetValue("BindId", id);
 }
 
-const cxStr *DB::UserId()
+const cxStr *DB::BindId()
 {
-    return GetValue("UserId");
+    return GetValue("BindId");
+}
+
+void DB::SetTempId(const cxStr *id)
+{
+    SetValue("TempId", id);
+}
+
+const cxStr *DB::TempId()
+{
+    return GetValue("TempId");
 }
 
 cxBool DB::Init()
@@ -183,11 +196,13 @@ cxBool DB::Init()
     if(!ExistTable("config")){
         //创建配置表
         Exec("CREATE TABLE config(Key VARCHAR(32) PRIMARY KEY,Value VARCHAR(128));");
+        //分组版本
+        Exec("INSERT INTO config VALUES('GroupVersion','0');");
         //词库版本(DataVersion),是否有新的词卡
-        Exec("INSERT INTO config VALUES('DataVersion','1');");
-        //用户Id(UserId),用户唯一id
+        Exec("INSERT INTO config VALUES('DataVersion','0');");
+        //用户TempId,用户唯一id
         const cxStr *id = cxUtil::Instance()->UUID()->MD5();
-        Exec("INSERT INTO config VALUES('UserId','%s');",id->ToString());
+        Exec("INSERT INTO config VALUES('TempId','%s');",id->ToString());
     }
     if(!ExistTable("words")){
         //创建词卡表
@@ -198,7 +213,8 @@ cxBool DB::Init()
              "Version INT,"                 //数据版本,是否更新或者删除词卡数据,由服务器端确定
              "IsBuy INT,"                   //是否已经购买
              "IsUse INT,"                   //是否用于复习
-             "Time INT);");                 //下次复习时间
+             "Time INT,"                    //下次复习时间
+             "Last INT);");                 //最后复习时间
         //创建分类索引
         Exec("CREATE INDEX GroupIndex ON words(GroupId ASC)");
         //创建复习时间索引

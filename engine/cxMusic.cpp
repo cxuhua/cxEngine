@@ -40,6 +40,18 @@ void cxMusic::OnStep(cxFloat dt)
     source->Update(dt);
 }
 
+cxMusic *cxMusic::Create(const cxStr *data,cxALBuffer::DataType type)
+{
+    cxMusic *ret = cxMusic::Create();
+    cxALSource *source = cxOpenAL::Instance()->Source(data, type);
+    if(source == nullptr){
+        return ret;
+    }
+    cxObject::swap(&ret->source, source);
+    ret->SetTime(source->Buffer()->Duration());
+    return ret;
+}
+
 cxMusic *cxMusic::Create(cchars file)
 {
     cxMusic *ret = cxMusic::Create();

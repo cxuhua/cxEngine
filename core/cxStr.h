@@ -84,8 +84,14 @@ public:
     cxBool WriteToFile(cchars file,cxBool replace);
     static const cxStr *ReadFromFile(cchars file);
     
+    cxInt16 ReadInt16();
+    void WriteInt16(cxInt16 v);
+    
     cxInt32 ReadInt32();
     void WriteInt32(cxInt32 v);
+    
+    cxInt64 ReadInt64();
+    void WriteInt64(cxInt64 v);
     
     const cxStr *ReadBytes(cxInt bytes);
     void WriteBytes(const cxStr *bytes);

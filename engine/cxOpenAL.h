@@ -41,9 +41,9 @@ protected:
 public:
     DataType Type();
     virtual cxFloat Duration();
-    virtual cxBool Init(cchars file);
+    virtual cxBool Init(const cxStr *data);
     ALuint Handle();
-    static cxALBuffer *Create(cchars file);
+    static cxALBuffer *Create(const cxStr *data,DataType type);
 };
 
 class cxMP3Buffer : public cxALBuffer
@@ -75,7 +75,7 @@ public:
     void Reset();
     void Close();
     cxBool NextALBuffer(ALuint b);
-    cxBool Init(cchars file);
+    cxBool Init(const cxStr *data);
 };
 
 class cxALSource : public cxObject
@@ -101,7 +101,7 @@ public:
     void SetPosition(const cxPoint2F &v);
     cxALBuffer *Buffer();
     virtual void Update(cxFloat dt);
-    static cxALSource *Create(cchars file);
+    static cxALSource *Create(const cxStr *data,cxALBuffer::DataType type);
 };
 
 class cxMP3Source : public cxALSource
@@ -139,6 +139,7 @@ public:
     static cxOpenAL *Instance();
     cxALSource *Source(cchars key,cchars file);
     cxALSource *Source(cchars key);
+    cxALSource *Source(const cxStr *data,cxALBuffer::DataType type);
 };
 
 CX_CPP_END

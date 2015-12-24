@@ -600,6 +600,32 @@ cxBool cxStr::HasSuffix(cchars str) const
     return memcmp(Data() + Size() - len, str, len) == 0;
 }
 
+cxInt16 cxStr::ReadInt16()
+{
+    CX_ASSERT(Size() >= sizeof(cxInt16), "bytes not enough");
+    cxInt16 v = *(cxInt16 *)Buffer();
+    Erase(0, sizeof(cxInt16));
+    return v;
+}
+
+void cxStr::WriteInt16(cxInt16 v)
+{
+    Append((cchars)&v, sizeof(cxInt16));
+}
+
+cxInt64 cxStr::ReadInt64()
+{
+    CX_ASSERT(Size() >= sizeof(cxInt64), "bytes not enough");
+    cxInt64 v = *(cxInt64 *)Buffer();
+    Erase(0, sizeof(cxInt64));
+    return v;
+}
+
+void cxStr::WriteInt64(cxInt64 v)
+{
+    Append((cchars)&v, sizeof(cxInt64));
+}
+
 cxInt32 cxStr::ReadInt32()
 {
     CX_ASSERT(Size() >= sizeof(cxInt32), "bytes not enough");

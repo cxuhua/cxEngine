@@ -65,6 +65,13 @@ cxInt64 cxSqlStmt::ToInt64(cxInt idx)
     return sqlite3_column_int64(stmt, idx-1);
 }
 
+cchars cxSqlStmt::ToChars(cxInt idx)
+{
+    CX_ASSERT(stmt != nullptr, "stmt null");
+    CX_ASSERT(idx > 0, "idx > 0");
+    return (cchars)sqlite3_column_text(stmt, idx-1);
+}
+
 const cxStr *cxSqlStmt::ToString(cxInt idx)
 {
     CX_ASSERT(stmt != nullptr, "stmt null");

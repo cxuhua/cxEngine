@@ -21,13 +21,13 @@ CX_CPP_BEGIN
 class DB;
 
 //更新
-class Update : public cxObject
+class UpData : public cxObject
 {
 public:
-    CX_DECLARE(Update);
+    CX_DECLARE(UpData);
 protected:
-    explicit Update();
-    virtual ~Update();
+    explicit UpData();
+    virtual ~UpData();
 private:
     DB *db;
     cxStr *key;
@@ -35,13 +35,19 @@ private:
     cxStr *dataId;
     cxInt64 time;
 public:
+    //获取数据
+    Data *GetData(const cxStr *data);
+    
+    const cxStr *Key();
+    const cxStr *DataId();
+    
     void SetVersion(cxInt v);
     void SetDataId(const cxStr *v);
     void SetTime(cxInt64 v);
     cxBool Insert();
     cxBool Delete();
 public:
-    static Update *Create(DB *db,cchars key);
+    static UpData *Create(DB *db,cchars key);
 };
 
 //词卡索引
@@ -54,16 +60,17 @@ protected:
     explicit Word();
     virtual ~Word();
 private:
+    Data *data;
     DB *db;
     cxStr *key;
     cxInt level;
-    cxInt ver;
     cxInt group;
     cxBool isbuy;
     cxBool isuse;
     cxInt64 time;
     cxInt64 last;
 public:
+    void SetGroup(cxInt v);
     //获取词卡数据
     Data *GetData();
     //设置可用值
@@ -77,6 +84,7 @@ public:
 public:
     static Word *Create(DB *db,cchars key);
     static Word *Create(DB *db,const cxStr *key);
+    static Word *Create(DB *db,Data *data);
 };
 
 //词卡数据库
@@ -91,6 +99,16 @@ private:
     cxInt64 LVS[9];
     cxInt maxVer;
 public:
+    //有数据
+    cxBool HasData(const cxStr *key);
+    //获得数据
+    const cxStr *ReadData(const cxStr *key);
+    //写入数据
+    cxBool WriteData(const cxStr *key,const cxStr *data);
+    //获得更新数量
+    cxInt UpDataCount();
+    //获得一个需要更新的单词名称
+    UpData *OneUpData();
     //获取count个需要复习的词卡
     cxArray *ReviewWords(cxInt count);
     //获取数据版本

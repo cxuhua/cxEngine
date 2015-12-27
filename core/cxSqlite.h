@@ -41,6 +41,7 @@ public:
     cxBool ToBool(cxInt idx);
     cxInt ToInt(cxInt idx);
     cxInt64 ToInt64(cxInt idx);
+    cchars ToChars(cxInt idx);
     const cxStr *ToString(cxInt idx);
     const cxStr *ToBlob(cxInt idx);
     cxFloat ToFloat(cxInt idx);

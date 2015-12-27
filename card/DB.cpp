@@ -12,9 +12,9 @@
 
 CX_CPP_BEGIN
 
-CX_IMPLEMENT(Update)
+CX_IMPLEMENT(UpData)
 
-Update::Update()
+UpData::UpData()
 {
     key = nullptr;
     dataId = nullptr;
@@ -22,35 +22,45 @@ Update::Update()
     time = 0;
 }
 
-Update::~Update()
+UpData::~UpData()
 {
     cxObject::release(&key);
     cxObject::release(&dataId);
 }
 
-void Update::SetVersion(cxInt v)
+const cxStr *UpData::Key()
+{
+    return key;
+}
+
+const cxStr *UpData::DataId()
+{
+    return dataId;
+}
+
+void UpData::SetVersion(cxInt v)
 {
     version = v;
 }
 
-void Update::SetDataId(const cxStr *v)
+void UpData::SetDataId(const cxStr *v)
 {
     cxObject::swap(&dataId, v);
 }
 
-void Update::SetTime(cxInt64 v)
+void UpData::SetTime(cxInt64 v)
 {
     time = v;
 }
 
-cxBool Update::Delete()
+cxBool UpData::Delete()
 {
     cxSqlStmt *stmt = db->Prepare("DELETE FROM updates WHERE Key=?;");
     stmt->Bind(1, key->ToString());
     return stmt->Exec();
 }
 
-cxBool Update::Insert()
+cxBool UpData::Insert()
 {
     cxSqlStmt *stmt = db->Prepare("INSERT INTO updates VALUES(?,?,?,?);");
     stmt->Bind(1, key->ToString());
@@ -60,12 +70,22 @@ cxBool Update::Insert()
     return stmt->Exec();
 }
 
-Update *Update::Create(DB *db,cchars key)
+UpData *UpData::Create(DB *db,cchars key)
 {
-    Update *ret = Update::Create();
+    UpData *ret = UpData::Create();
     ret->db = db;
     ret->key = cxStr::Alloc()->Init(key);
     return ret;
+}
+
+Data *UpData::GetData(const cxStr *data)
+{
+    Data *d = Data::Create(key->ToString());
+    if(!d->Load(data)){
+        CX_ERROR("load data error");
+        return nullptr;
+    }
+    return d;
 }
 
 CX_IMPLEMENT(Word)
@@ -74,21 +94,52 @@ Word::Word()
 {
     key = nullptr;
     level = 1;
-    ver = 1;
     isbuy = false;
     isuse = true;
     time = 0;
     group = 0;
+    data = nullptr;
 }
 
 Word::~Word()
 {
+    cxObject::release(&data);
     cxObject::release(&key);
+}
+
+void Word::SetGroup(cxInt v)
+{
+    group = v;
 }
 
 Data *Word::GetData()
 {
-    return nullptr;
+    if(data != nullptr){
+        return data;
+    }
+    //获取数据
+    const cxStr *bytes = db->ReadData(key);
+    if(!cxStr::IsOK(bytes)){
+        CX_ERROR("read data error");
+        return nullptr;
+    }
+    //加载解码数据
+    Data *d = Data::Create(key);
+    if(!d->Load(bytes)){
+        CX_ERROR("from data load error");
+        return nullptr;
+    }
+    //保存数据
+    cxObject::swap(&data, d);
+    return d;
+}
+
+Word *Word::Create(DB *db,Data *data)
+{
+    Word *ret = Create(db, data->Key());
+    cxObject::swap(&ret->data, data);
+    ret->SetGroup(data->GroupId());
+    return ret;
 }
 
 Word *Word::Create(DB *db,const cxStr *key)
@@ -108,19 +159,18 @@ void Word::SetValue(cxSqlStmt *stmt)
 {
     //1 -> key
     level = stmt->ToInt(2);
-    ver = stmt->ToInt(3);
-    isbuy = stmt->ToBool(4);
-    isuse = stmt->ToBool(5);
-    time = stmt->ToInt64(6);
-    group = stmt->ToInt(7);
-    last = stmt->ToInt64(8);
+    isbuy = stmt->ToBool(3);
+    isuse = stmt->ToBool(4);
+    time = stmt->ToInt64(5);
+    group = stmt->ToInt(6);
+    last = stmt->ToInt64(7);
 }
 
 cxBool Word::Exists()
 {
     CX_ASSERT(cxStr::IsOK(key), "key not set");
     CX_ASSERT(db != nullptr, "db not set");
-    cxSqlStmt *stmt = db->Prepare("SELECT Key,Level,Version,IsBuy,IsUse,Time,GroupId,Last FROM words WHERE key=? LIMIT 1");
+    cxSqlStmt *stmt = db->Prepare("SELECT Key,Level,IsBuy,IsUse,Time,GroupId,Last FROM words WHERE key=? LIMIT 1");
     stmt->Bind(1, key->ToString());
     if(!stmt->Step()){
         return false;
@@ -138,16 +188,21 @@ cxInt64 Word::NextTime()
 cxBool Word::Insert()
 {
     CX_ASSERT(cxStr::IsOK(key), "key not set");
-    cxSqlStmt *stmt = db->Prepare("INSERT INTO words VALUES(?,?,?,?,?,?,?,?);");
+    cxSqlStmt *stmt = db->Prepare("INSERT INTO words VALUES(?,?,?,?,?,?,?);");
     stmt->Bind(1, key->ToString());
     stmt->Bind(2, group);
     stmt->Bind(3, level);
-    stmt->Bind(4, ver);
-    stmt->Bind(5, isbuy);
-    stmt->Bind(6, isuse);
-    stmt->Bind(7, NextTime());
-    stmt->Bind(8, db->TimeNow());
-    return stmt->Exec();
+    stmt->Bind(4, isbuy);
+    stmt->Bind(5, isuse);
+    stmt->Bind(6, NextTime());
+    stmt->Bind(7, db->TimeNow());
+    if(!stmt->Exec()){
+        return false;
+    }
+    if(data != nullptr){
+        return db->WriteData(key, data->Bytes());
+    }
+    return true;
 }
 
 CX_IMPLEMENT(DB);
@@ -174,7 +229,7 @@ cxArray *DB::ReviewWords(cxInt count)
 {
     cxInt64 now = TimeNow();
     cxArray *ws = cxArray::Create();
-    cxSqlStmt *stmt = Prepare("SELECT Key,Level,Version,IsBuy,IsUse,Time,GroupId,Last FROM words "
+    cxSqlStmt *stmt = Prepare("SELECT Key,Level,IsBuy,IsUse,Time,GroupId,Last FROM words "
                               "WHERE IsBuy = 1 AND IsUse = 1 AND Time <= ? LIMIT ?");
     stmt->Bind(1, now);
     stmt->Bind(2, count);
@@ -247,6 +302,60 @@ const cxStr *DB::TempId()
     return GetValue("TempId");
 }
 
+cxInt DB::UpDataCount()
+{
+    cxSqlStmt *stmt = Prepare("SELECT COUNT(*) FROM updates");
+    if(stmt->Step()){
+        return stmt->ToInt(1);
+    }
+    return 0;
+}
+
+UpData *DB::OneUpData()
+{
+    cxSqlStmt *stmt = Prepare("SELECT Key,Version,DataId,Time FROM updates LIMIT 1");
+    if(!stmt->Step()){
+        return nullptr;
+    }
+    UpData *up = UpData::Create(this, stmt->ToChars(1));
+    up->SetVersion(stmt->ToInt(2));
+    up->SetDataId(stmt->ToString(3));
+    up->SetTime(stmt->ToInt64(4));
+    return up;
+}
+
+cxBool DB::HasData(const cxStr *key)
+{
+    cxSqlStmt *stmt = Prepare("SELECT COUNT(*) FROM datas WHERE Key=? LIMIT 1;");
+    stmt->Bind(1, key->ToString());
+    return stmt->Step() && stmt->ToInt(1) > 0;
+}
+
+const cxStr *DB::ReadData(const cxStr *key)
+{
+    cxSqlStmt *stmt = Prepare("SELECT Data FROM datas WHERE Key=? LIMIT 1;");
+    stmt->Bind(1, key->ToString());
+    if(stmt->Step()){
+        return stmt->ToBlob(1);
+    }
+    return nullptr;
+}
+
+cxBool DB::WriteData(const cxStr *key,const cxStr *data)
+{
+    cxSqlStmt *stmt = nullptr;
+    if(!HasData(key)){
+        stmt = Prepare("INSERT INTO datas VALUES(?,?);");
+        stmt->Bind(1, key->ToString());
+        stmt->Bind(2, data);
+    }else{
+        stmt = Prepare("UPDATE config SET Data=? WHERE Key=?;");
+        stmt->Bind(1, data);
+        stmt->Bind(2, key->ToString());
+    }
+    return stmt->Exec();
+}
+
 cxBool DB::Init()
 {
     if(!cxSqlite::Init("card.db", false)){
@@ -269,7 +378,6 @@ cxBool DB::Init()
              "Key VARCHAR(256) PRIMARY KEY,"//词条主键,按小写方式存储
              "GroupId INT,"                 //分组id
              "Level INT,"                   //等级
-             "Version INT,"                 //数据版本,是否更新或者删除词卡数据,由服务器端确定
              "IsBuy INT,"                   //是否已经购买
              "IsUse INT,"                   //是否用于复习
              "Time INT,"                    //下次复习时间
@@ -284,6 +392,10 @@ cxBool DB::Init()
     if(!ExistTable("updates")){
         //将要更新的word列表,更新数据后删除
         Exec("CREATE TABLE updates(Key VARCHAR(32) PRIMARY KEY,Version INT, DataId VARCHAR(32),Time INT);");
+    }
+    if(!ExistTable("datas")){
+        //创建数据表
+        Exec("CREATE TABLE datas(Key VARCHAR(32) PRIMARY KEY,Data BLOB);");
     }
     Commit();
     return true;

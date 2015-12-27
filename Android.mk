@@ -31,6 +31,8 @@ LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/Box2D/Rope/*.cpp)
 
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/ext/*.c)
 
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/qrcode/*.c)
+
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/kazmath/*.c)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/kazmath/GL/*.c)
 

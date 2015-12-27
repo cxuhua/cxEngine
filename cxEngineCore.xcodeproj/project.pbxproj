@@ -36,6 +36,15 @@
 		831189DC1B2D779C00C930B5 /* cxPoint3F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831189DA1B2D779C00C930B5 /* cxPoint3F.cpp */; };
 		831189E11B2D7D3600C930B5 /* cxView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831189DF1B2D7D3600C930B5 /* cxView.cpp */; };
 		831189E41B2D82A200C930B5 /* cxNotice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831189E21B2D82A200C930B5 /* cxNotice.cpp */; };
+		8318C8AF1C30122D002A85CF /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C89D1C30122D002A85CF /* bitstream.c */; };
+		8318C8B01C30122D002A85CF /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C89F1C30122D002A85CF /* mask.c */; };
+		8318C8B11C30122D002A85CF /* mmask.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8A11C30122D002A85CF /* mmask.c */; };
+		8318C8B21C30122D002A85CF /* mqrspec.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8A31C30122D002A85CF /* mqrspec.c */; };
+		8318C8B31C30122D002A85CF /* qrencode.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8A51C30122D002A85CF /* qrencode.c */; };
+		8318C8B41C30122D002A85CF /* qrinput.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8A71C30122D002A85CF /* qrinput.c */; };
+		8318C8B51C30122D002A85CF /* qrspec.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8A91C30122D002A85CF /* qrspec.c */; };
+		8318C8B61C30122D002A85CF /* rsecc.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8AB1C30122D002A85CF /* rsecc.c */; };
+		8318C8B71C30122D002A85CF /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8AD1C30122D002A85CF /* split.c */; };
 		831B93EF1B4A923200511A63 /* csv.c in Sources */ = {isa = PBXBuildFile; fileRef = 831B93ED1B4A923200511A63 /* csv.c */; };
 		831B93F41B4A970600511A63 /* cxCSV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B93F21B4A970600511A63 /* cxCSV.cpp */; };
 		831B93FA1B4B833700511A63 /* cxResize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B93F81B4B833700511A63 /* cxResize.cpp */; };
@@ -280,6 +289,24 @@
 		831189E01B2D7D3600C930B5 /* cxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxView.h; sourceTree = "<group>"; };
 		831189E21B2D82A200C930B5 /* cxNotice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxNotice.cpp; sourceTree = "<group>"; };
 		831189E31B2D82A200C930B5 /* cxNotice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxNotice.h; sourceTree = "<group>"; };
+		8318C89D1C30122D002A85CF /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
+		8318C89E1C30122D002A85CF /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		8318C89F1C30122D002A85CF /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
+		8318C8A01C30122D002A85CF /* mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mask.h; sourceTree = "<group>"; };
+		8318C8A11C30122D002A85CF /* mmask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mmask.c; sourceTree = "<group>"; };
+		8318C8A21C30122D002A85CF /* mmask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mmask.h; sourceTree = "<group>"; };
+		8318C8A31C30122D002A85CF /* mqrspec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mqrspec.c; sourceTree = "<group>"; };
+		8318C8A41C30122D002A85CF /* mqrspec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mqrspec.h; sourceTree = "<group>"; };
+		8318C8A51C30122D002A85CF /* qrencode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrencode.c; sourceTree = "<group>"; };
+		8318C8A61C30122D002A85CF /* qrencode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrencode.h; sourceTree = "<group>"; };
+		8318C8A71C30122D002A85CF /* qrinput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrinput.c; sourceTree = "<group>"; };
+		8318C8A81C30122D002A85CF /* qrinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrinput.h; sourceTree = "<group>"; };
+		8318C8A91C30122D002A85CF /* qrspec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrspec.c; sourceTree = "<group>"; };
+		8318C8AA1C30122D002A85CF /* qrspec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrspec.h; sourceTree = "<group>"; };
+		8318C8AB1C30122D002A85CF /* rsecc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rsecc.c; sourceTree = "<group>"; };
+		8318C8AC1C30122D002A85CF /* rsecc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rsecc.h; sourceTree = "<group>"; };
+		8318C8AD1C30122D002A85CF /* split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = split.c; sourceTree = "<group>"; };
+		8318C8AE1C30122D002A85CF /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
 		831B93ED1B4A923200511A63 /* csv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = csv.c; sourceTree = "<group>"; };
 		831B93EE1B4A923200511A63 /* csv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csv.h; sourceTree = "<group>"; };
 		831B93F21B4A970600511A63 /* cxCSV.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxCSV.cpp; sourceTree = "<group>"; };
@@ -796,6 +823,31 @@
 			path = GL;
 			sourceTree = "<group>";
 		};
+		8318C89C1C30122D002A85CF /* qrcode */ = {
+			isa = PBXGroup;
+			children = (
+				8318C89D1C30122D002A85CF /* bitstream.c */,
+				8318C89E1C30122D002A85CF /* bitstream.h */,
+				8318C89F1C30122D002A85CF /* mask.c */,
+				8318C8A01C30122D002A85CF /* mask.h */,
+				8318C8A11C30122D002A85CF /* mmask.c */,
+				8318C8A21C30122D002A85CF /* mmask.h */,
+				8318C8A31C30122D002A85CF /* mqrspec.c */,
+				8318C8A41C30122D002A85CF /* mqrspec.h */,
+				8318C8A51C30122D002A85CF /* qrencode.c */,
+				8318C8A61C30122D002A85CF /* qrencode.h */,
+				8318C8A71C30122D002A85CF /* qrinput.c */,
+				8318C8A81C30122D002A85CF /* qrinput.h */,
+				8318C8A91C30122D002A85CF /* qrspec.c */,
+				8318C8AA1C30122D002A85CF /* qrspec.h */,
+				8318C8AB1C30122D002A85CF /* rsecc.c */,
+				8318C8AC1C30122D002A85CF /* rsecc.h */,
+				8318C8AD1C30122D002A85CF /* split.c */,
+				8318C8AE1C30122D002A85CF /* split.h */,
+			);
+			path = qrcode;
+			sourceTree = SOURCE_ROOT;
+		};
 		835B3F291BEC511400A7A4AC /* Box2D */ = {
 			isa = PBXGroup;
 			children = (
@@ -1083,6 +1135,7 @@
 		83B23B4C1B17E0E9000D770A /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				8318C89C1C30122D002A85CF /* qrcode */,
 				83B3F9AB1BF4537000AE458F /* poly2tri */,
 				835B407B1BEF51C100A7A4AC /* spine */,
 				835B3F291BEC511400A7A4AC /* Box2D */,
@@ -1324,6 +1377,7 @@
 				835B40BA1BEF51C100A7A4AC /* BoundingBoxAttachment.c in Sources */,
 				835B40BF1BEF51C100A7A4AC /* IkConstraintData.c in Sources */,
 				835B3FEA1BEC511400A7A4AC /* b2MouseJoint.cpp in Sources */,
+				8318C8B01C30122D002A85CF /* mask.c in Sources */,
 				835B40271BEF457700A7A4AC /* cxTriangles.cpp in Sources */,
 				835B3FEE1BEC511400A7A4AC /* b2RopeJoint.cpp in Sources */,
 				83AABB281B45910F0035A9F0 /* cxTimer.cpp in Sources */,
@@ -1341,9 +1395,11 @@
 				83F54B5F1B54BD5700AC5844 /* cxAsync.cpp in Sources */,
 				831189D31B2D728000C930B5 /* utility.c in Sources */,
 				83A943A41B44DC3200F70FBA /* aes_cbc.c in Sources */,
+				8318C8B31C30122D002A85CF /* qrencode.c in Sources */,
 				836E30531B5E771600ED8BDC /* cxPath.cpp in Sources */,
 				830ECB2F1B3FEE1C002EBE56 /* cxEngine.mm in Sources */,
 				835B3FC41BEC511400A7A4AC /* b2BroadPhase.cpp in Sources */,
+				8318C8B71C30122D002A85CF /* split.c in Sources */,
 				835B3FDE1BEC511400A7A4AC /* b2CircleContact.cpp in Sources */,
 				830157DF1B3B931900ED46A8 /* cxDraw.cpp in Sources */,
 				836730AE1B465A6A00E333D9 /* cxAnimate.cpp in Sources */,
@@ -1379,6 +1435,7 @@
 				83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */,
 				836A2F4B1B19869D009B427B /* LzmaEnc.c in Sources */,
 				839836D11B10B59C002B7C20 /* cxArray.cpp in Sources */,
+				8318C8AF1C30122D002A85CF /* bitstream.c in Sources */,
 				835B3FF01BEC511400A7A4AC /* b2WheelJoint.cpp in Sources */,
 				83BE636F1B3117270028B6E7 /* cxGLView.mm in Sources */,
 				835B3FC81BEC511400A7A4AC /* b2Collision.cpp in Sources */,
@@ -1387,12 +1444,14 @@
 				835B3FE51BEC511400A7A4AC /* b2DistanceJoint.cpp in Sources */,
 				835B3FC61BEC511400A7A4AC /* b2CollideEdge.cpp in Sources */,
 				835B3FE31BEC511400A7A4AC /* b2PolygonAndCircleContact.cpp in Sources */,
+				8318C8B41C30122D002A85CF /* qrinput.c in Sources */,
 				835B40C41BEF51C100A7A4AC /* SkeletonBounds.c in Sources */,
 				835B40261BEF457700A7A4AC /* cxCircle.cpp in Sources */,
 				833043B61B4024AE00636928 /* cxButton.cpp in Sources */,
 				836A2F4A1B19869D009B427B /* LzmaDec.c in Sources */,
 				83D92D391B317E5900F061D6 /* cxRenderF.cpp in Sources */,
 				835B3FE01BEC511400A7A4AC /* b2ContactSolver.cpp in Sources */,
+				8318C8B61C30122D002A85CF /* rsecc.c in Sources */,
 				835B40C31BEF51C100A7A4AC /* Skeleton.c in Sources */,
 				831B93EF1B4A923200511A63 /* csv.c in Sources */,
 				831189CC1B2D728000C930B5 /* matrix.c in Sources */,
@@ -1422,6 +1481,7 @@
 				839836E61B117475002B7C20 /* cxObject.cpp in Sources */,
 				836A2F4C1B19869D009B427B /* LzmaLib.c in Sources */,
 				835B3FCF1BEC511400A7A4AC /* b2PolygonShape.cpp in Sources */,
+				8318C8B11C30122D002A85CF /* mmask.c in Sources */,
 				831B9EBD1B291F2700B7A06B /* cxSize2F.cpp in Sources */,
 				835B3FE71BEC511400A7A4AC /* b2GearJoint.cpp in Sources */,
 				83C9D1211B48CA9C00EC244C /* cxCustom.cpp in Sources */,
@@ -1435,6 +1495,7 @@
 				835B3FDC1BEC511400A7A4AC /* b2ChainAndCircleContact.cpp in Sources */,
 				831189D01B2D728000C930B5 /* quaternion.c in Sources */,
 				83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */,
+				8318C8B21C30122D002A85CF /* mqrspec.c in Sources */,
 				835B3FDB1BEC511400A7A4AC /* b2WorldCallbacks.cpp in Sources */,
 				831189CE1B2D728000C930B5 /* mat4.c in Sources */,
 				835B40B71BEF51C100A7A4AC /* AttachmentLoader.c in Sources */,
@@ -1446,6 +1507,7 @@
 				835B3FEC1BEC511400A7A4AC /* b2PulleyJoint.cpp in Sources */,
 				838D1BE41B79905500CA4C8B /* cxAlert.cpp in Sources */,
 				835B3FC71BEC511400A7A4AC /* b2CollidePolygon.cpp in Sources */,
+				8318C8B51C30122D002A85CF /* qrspec.c in Sources */,
 				835B3FD21BEC511400A7A4AC /* b2Math.cpp in Sources */,
 				831189CB1B2D728000C930B5 /* mat4stack.c in Sources */,
 				8345E1621B37138200A46A47 /* cxList.cpp in Sources */,

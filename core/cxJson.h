@@ -23,6 +23,8 @@ protected:
     explicit cxJson();
     virtual ~cxJson();
 public:
+    static cxJson *Create(cchars fmt,...);
+public:
     struct Iter
     {
         cxInt number;

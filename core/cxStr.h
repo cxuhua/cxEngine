@@ -76,6 +76,9 @@ public:
     const cxStr *AESEncode(const cxStr *key) const;
     const cxStr *AESDecode(const cxStr *key) const;
     
+    const cxStr *Base64Encode() const;
+    const cxStr *Base64Decode() const;
+    
     const cxStr *LzmaCompress() const;
     const cxStr *LzmaUncompress() const;
     

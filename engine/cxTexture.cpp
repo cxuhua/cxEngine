@@ -179,7 +179,7 @@ const cxTextureParams cxTextureParams::Repeat   = {GL_LINEAR,GL_LINEAR,GL_REPEAT
 
 cxTexture::cxTexture()
 {
-    type = 0;
+    type = RAW;
     success = true;
     texId = 0;
     size = cxSize2F(0, 0);
@@ -388,6 +388,36 @@ cxTexture *cxTexture::FromJPG(const cxStr *data)
         jpeg_finish_decompress(&cinfo);
     }while(0);
     jpeg_destroy_decompress(&cinfo);
+    return this;
+}
+
+cxTexture *cxTexture::FromRGBA(cchars data,cxInt width,cxInt height)
+{
+    if(data == nullptr || width == 0 || height == 0){
+        success = false;
+        return this;
+    }
+    size = cxSize2F(width, height);
+    type = RAW;
+    GenTexture()->Bind()->SetParams(cxTextureParams::Default);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    return this;
+}
+
+cxTexture *cxTexture::FromRGB(cchars data,cxInt width,cxInt height)
+{
+    if(data == nullptr || width == 0 || height == 0){
+        success = false;
+        return this;
+    }
+    size = cxSize2F(width, height);
+    type = RAW;
+    GLint unpack = 0;
+    glGetIntegerv(GL_UNPACK_ALIGNMENT, &unpack);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    GenTexture()->Bind()->SetParams(cxTextureParams::Default);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, unpack);
     return this;
 }
 

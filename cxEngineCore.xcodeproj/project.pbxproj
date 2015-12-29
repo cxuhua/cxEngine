@@ -45,6 +45,8 @@
 		8318C8B51C30122D002A85CF /* qrspec.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8A91C30122D002A85CF /* qrspec.c */; };
 		8318C8B61C30122D002A85CF /* rsecc.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8AB1C30122D002A85CF /* rsecc.c */; };
 		8318C8B71C30122D002A85CF /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8AD1C30122D002A85CF /* split.c */; };
+		8318C8BA1C317056002A85CF /* cxQRcode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8B81C317056002A85CF /* cxQRcode.cpp */; };
+		8318C8BD1C32BC28002A85CF /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8BB1C32BC28002A85CF /* base64.c */; };
 		831B93EF1B4A923200511A63 /* csv.c in Sources */ = {isa = PBXBuildFile; fileRef = 831B93ED1B4A923200511A63 /* csv.c */; };
 		831B93F41B4A970600511A63 /* cxCSV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B93F21B4A970600511A63 /* cxCSV.cpp */; };
 		831B93FA1B4B833700511A63 /* cxResize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B93F81B4B833700511A63 /* cxResize.cpp */; };
@@ -307,6 +309,10 @@
 		8318C8AC1C30122D002A85CF /* rsecc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rsecc.h; sourceTree = "<group>"; };
 		8318C8AD1C30122D002A85CF /* split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = split.c; sourceTree = "<group>"; };
 		8318C8AE1C30122D002A85CF /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
+		8318C8B81C317056002A85CF /* cxQRcode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxQRcode.cpp; sourceTree = "<group>"; };
+		8318C8B91C317056002A85CF /* cxQRcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxQRcode.h; sourceTree = "<group>"; };
+		8318C8BB1C32BC28002A85CF /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
+		8318C8BC1C32BC28002A85CF /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		831B93ED1B4A923200511A63 /* csv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = csv.c; sourceTree = "<group>"; };
 		831B93EE1B4A923200511A63 /* csv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = csv.h; sourceTree = "<group>"; };
 		831B93F21B4A970600511A63 /* cxCSV.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxCSV.cpp; sourceTree = "<group>"; };
@@ -773,6 +779,8 @@
 				83639F711B302E16006A61B7 /* cxWindow.h */,
 				839B8ABA1B687DFA009E0CF7 /* OpenAL.h */,
 				836DD10C1B2AC6560094F5EF /* OpenGL.h */,
+				8318C8B81C317056002A85CF /* cxQRcode.cpp */,
+				8318C8B91C317056002A85CF /* cxQRcode.h */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -1142,6 +1150,8 @@
 				838345681B5A457B00921BE8 /* KDTree.h */,
 				831B93ED1B4A923200511A63 /* csv.c */,
 				831B93EE1B4A923200511A63 /* csv.h */,
+				8318C8BB1C32BC28002A85CF /* base64.c */,
+				8318C8BC1C32BC28002A85CF /* base64.h */,
 				839B936B1C1DC07F001B8C79 /* sqlite3.c */,
 				839B936C1C1DC07F001B8C79 /* sqlite3.h */,
 				839B936E1C1DC094001B8C79 /* sqlite3ext.h */,
@@ -1364,6 +1374,7 @@
 				831189E11B2D7D3600C930B5 /* cxView.cpp in Sources */,
 				839B8AF41B68E877009E0CF7 /* cxMusic.cpp in Sources */,
 				83639F6F1B30270E006A61B7 /* cxAction.cpp in Sources */,
+				8318C8BA1C317056002A85CF /* cxQRcode.cpp in Sources */,
 				835B3FC91BEC511400A7A4AC /* b2Distance.cpp in Sources */,
 				835B3FED1BEC511400A7A4AC /* b2RevoluteJoint.cpp in Sources */,
 				835B3FE91BEC511400A7A4AC /* b2MotorJoint.cpp in Sources */,
@@ -1518,6 +1529,7 @@
 				83BE636E1B3117270028B6E7 /* AppDelegate.mm in Sources */,
 				83C9D1121B47C63600EC244C /* cxFollow.cpp in Sources */,
 				831189CD1B2D728000C930B5 /* mat3.c in Sources */,
+				8318C8BD1C32BC28002A85CF /* base64.c in Sources */,
 				833043C71B41149000636928 /* cxScale.cpp in Sources */,
 				835B40C71BEF51C100A7A4AC /* Skin.c in Sources */,
 				835B3FE11BEC511400A7A4AC /* b2EdgeAndCircleContact.cpp in Sources */,

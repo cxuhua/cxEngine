@@ -65,10 +65,11 @@ class cxTexture : public cxObject
 public:
     CX_DECLARE(cxTexture);
 public:
-    static const cxInt PNG = 1;
-    static const cxInt PVR = 2;
-    static const cxInt PKM = 3;
-    static const cxInt TXT = 4;
+    static const cxInt RAW = 1;
+    static const cxInt PNG = 2;
+    static const cxInt PVR = 3;
+    static const cxInt PKM = 4;
+    static const cxInt TXT = 5;
 protected:
     explicit cxTexture();
     virtual ~cxTexture();
@@ -94,6 +95,8 @@ public:
     cxInt Type() const;
 public:
     cxTexture *Atlas(const cxStr *data);
+    cxTexture *FromRGB(cchars data,cxInt width,cxInt height);
+    cxTexture *FromRGBA(cchars data,cxInt width,cxInt height);
     cxTexture *FromLQT(const cxStr *data);
     cxTexture *FromPNG(const cxStr *data);
     cxTexture *FromJPG(const cxStr *data);

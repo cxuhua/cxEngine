@@ -132,6 +132,15 @@ cxJson::~cxJson()
     json_decref(json);
 }
 
+cxJson *cxJson::Create(cchars fmt,...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    cxStr *str = cxStr::Create()->AppFmt(fmt, ap);
+    va_end(ap);
+    return cxJson::Create()->From(str);
+}
+
 cxBool cxJson::IsOK(const cxJson *json)
 {
     if(json == nullptr){

@@ -134,14 +134,26 @@ cxBool cxSqlStmt::Bind(cxInt idx,cchars value)
 {
     CX_ASSERT(stmt != nullptr, "stmt null");
     CX_ASSERT(idx > 0, "idx > 0");
-    return sqlite3_bind_text(stmt, idx, value, -1, nullptr) == SQLITE_OK;
+    cxInt ret = 0;
+    if(!cxStr::IsOK(value)){
+        ret = sqlite3_bind_null(stmt, idx);
+    }else{
+        ret = sqlite3_bind_text(stmt, idx, value, -1, nullptr);
+    }
+    return ret == SQLITE_OK;
 }
 
 cxBool cxSqlStmt::Bind(cxInt idx,const cxStr *value)
 {
     CX_ASSERT(stmt != nullptr, "stmt null");
     CX_ASSERT(idx > 0, "idx > 0");
-    return sqlite3_bind_blob(stmt, idx, value->Data(), value->Size(), nullptr) == SQLITE_OK;
+    cxInt ret = 0;
+    if(!cxStr::IsOK(value)){
+        ret = sqlite3_bind_null(stmt, idx);
+    }else{
+        ret = sqlite3_bind_blob(stmt, idx, value->Data(), value->Size(), nullptr);
+    }
+    return ret == SQLITE_OK;
 }
 
 cxBool cxSqlStmt::Bind(cxInt idx,cxFloat value)

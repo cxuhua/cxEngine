@@ -12,6 +12,7 @@
 #include <ext/lzma.h>
 #include <ext/aes.h>
 #include <ext/utf8.h>
+#include <ext/base64.h>
 #include <math/cxPoint2F.h>
 #include <math/cxPoint3F.h>
 #include <math/cxColor4F.h>
@@ -287,6 +288,26 @@ cxStr *cxStr::Init(cchars str)
 {
     s = s.assign(str);
     return this;
+}
+
+const cxStr *cxStr::Base64Encode() const
+{
+    cxInt l = Size();
+    cxInt len = BASE64_ENCODE_OUT_SIZE(l);
+    cxStr *ret = cxStr::Create()->Init(len);
+    cxInt dl = base64_encode((unsigned char *)Data(), l, (char *)ret->Data());
+    ret->KeepBytes(dl);
+    return ret;
+}
+
+const cxStr *cxStr::Base64Decode() const
+{
+    cxInt l = Size();
+    cxInt len = BASE64_DECODE_OUT_SIZE(l);
+    cxStr *ret = cxStr::Create()->Init(len);
+    cxInt dl = base64_decode((char *)Data(), l, (unsigned char *)ret->Data());
+    ret->KeepBytes(dl);
+    return ret;
 }
 
 const cxStr *cxStr::AESEncode(const cxStr *key) const

@@ -65,7 +65,7 @@ public:
     //获得数据
     const cxStr *ReadData(const cxStr *key);
     //获得单词数据
-    Data *WordData(const cxStr *key);
+    Data *CardData(const cxStr *key);
     //写入数据
     cxBool WriteData(const cxStr *key,const cxStr *data);
     //获得更新数量

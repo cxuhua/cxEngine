@@ -55,11 +55,9 @@ static signed char base64de[] = {
 	    44,  45,  46,  47,  48,  49,  50,  51,
 };
 
-int
-base64_encode(unsigned char *in, int inlen, char *out)
+int base64_encode(unsigned char *in, int inlen, char *out)
 {
 	int i, j;
-
 	for (i = j = 0; i < inlen; i++) {
 		int s = i % 3; 			/* from 6/gcd(6, 8) */
 
@@ -75,10 +73,8 @@ base64_encode(unsigned char *in, int inlen, char *out)
 			out[j++] = base64en[in[i] & 0x3F];
 		}
 	}
-
 	/* move back */
 	i -= 1;
-
 	/* check the last and add padding */
 	if ((i % 3) == 0) {
 		out[j++] = base64en[(in[i] & 0x3) << 4];
@@ -88,20 +84,17 @@ base64_encode(unsigned char *in, int inlen, char *out)
 		out[j++] = base64en[(in[i] & 0xF) << 2];
 		out[j++] = BASE64_PAD;
 	}
-
 	return j;
 }
 
-int
-base64_decode(char *in, int inlen, unsigned char *out)
+int base64_decode(char *in, int inlen, unsigned char *out)
 {
 	int i, j;
-
 	for (i = j = 0; i < inlen; i++) {
 		int c;
 		int s = i % 4; 			/* from 8/gcd(6, 8) */
 
-		if (in[i] == '=')
+		if (in[i] == BASE64_PAD)
 			return j;
 
 		if (in[i] < BASE64DE_FIRST || in[i] > BASE64DE_LAST ||
@@ -130,7 +123,6 @@ base64_decode(char *in, int inlen, unsigned char *out)
 			out[j++] += c;
 		}
 	}
-
 	return j;
 }
 

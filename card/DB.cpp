@@ -205,7 +205,7 @@ cxBool DB::HasData(const cxStr *key)
     return stmt->Step() && stmt->ToInt(1) > 0;
 }
 
-Data *DB::WordData(const cxStr *key)
+Data *DB::CardData(const cxStr *key)
 {
     const cxStr *d = ReadData(key);
     if(!cxStr::IsOK(d)){
@@ -261,11 +261,11 @@ cxBool DB::Init()
     }
     if(!ExistTable("updates")){
         //将要更新的word临时列表,更新数据后删除
-        Exec("CREATE TABLE updates(Key VARCHAR(32) PRIMARY KEY,Version INT, DataId VARCHAR(32),Time INT);");
+        Exec("CREATE TABLE updates(Key VARCHAR(255) PRIMARY KEY,Version INT, DataId VARCHAR(32),Time INT);");
     }
     if(!ExistTable("datas")){
         //创建数据表
-        Exec("CREATE TABLE datas(Key VARCHAR(32) PRIMARY KEY,Data BLOB);");
+        Exec("CREATE TABLE datas(Key VARCHAR(255) PRIMARY KEY,Data BLOB);");
     }
     Commit();
     return true;

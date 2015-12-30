@@ -41,6 +41,7 @@ public:
     cxStr *Init(cxInt size,char c=0);
     cxStr *Init(cchars str);
     cxStr *Init(cxAny data,cxInt size);
+    cxStr *Init(const cxStr *v);
 
     void Print() const;
     

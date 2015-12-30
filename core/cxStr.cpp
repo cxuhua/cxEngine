@@ -284,6 +284,11 @@ cxStr *cxStr::Init(cxAny data,cxInt size)
     return this;
 }
 
+cxStr *cxStr::Init(const cxStr *v)
+{
+    return Init((cxAny)v->Data(), v->Size());
+}
+
 cxStr *cxStr::Init(cchars str)
 {
     s = s.assign(str);

@@ -27,9 +27,9 @@ protected:
 private:
     cxStack *views;
 public:
-    void Push(cxView *view);
-    void Replace(cxView *view);
-    void Pop();
+    virtual void Push(cxView *view);
+    virtual void Replace(cxView *view);
+    virtual void Pop();
     cxView *Top() const;
 };
 

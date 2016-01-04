@@ -116,12 +116,12 @@ CX_IMPLEMENT(DB);
 
 DB::DB()
 {
-    
+    dataCaches = cxHash::Alloc();
 }
 
 DB::~DB()
 {
-    
+    dataCaches->Release();
 }
 
 const cxStr *DB::GetValue(cchars key)
@@ -178,7 +178,7 @@ const cxStr *DB::TempId()
 
 cxInt DB::UpDataCount()
 {
-    cxSqlStmt *stmt = Prepare("SELECT COUNT(*) FROM updates");
+    cxSqlStmt *stmt = Prepare("SELECT COUNT(Key) FROM updates;");
     if(stmt->Step()){
         return stmt->ToInt(1);
     }
@@ -187,7 +187,7 @@ cxInt DB::UpDataCount()
 
 UpData *DB::OneUpData()
 {
-    cxSqlStmt *stmt = Prepare("SELECT Key,Version,DataId,Time FROM updates LIMIT 1");
+    cxSqlStmt *stmt = Prepare("SELECT Key,Version,DataId,Time FROM updates LIMIT 1;");
     if(!stmt->Step()){
         return nullptr;
     }
@@ -200,6 +200,9 @@ UpData *DB::OneUpData()
 
 cxBool DB::HasData(const cxStr *key)
 {
+    if(dataCaches->Has(key->ToString())){
+        return true;
+    }
     cxSqlStmt *stmt = Prepare("SELECT COUNT(*) FROM datas WHERE Key=? LIMIT 1;");
     stmt->Bind(1, key->ToString());
     return stmt->Step() && stmt->ToInt(1) > 0;
@@ -207,14 +210,19 @@ cxBool DB::HasData(const cxStr *key)
 
 Data *DB::CardData(const cxStr *key)
 {
+    Data *ret = dataCaches->Get(key->ToString())->To<Data>();
+    if(ret != nullptr){
+        return ret;
+    }
     const cxStr *d = ReadData(key);
     if(!cxStr::IsOK(d)){
         return nullptr;
     }
-    Data *ret = Data::Create(key);
+    ret = Data::Create(key);
     if(!ret->Load(d)){
         return nullptr;
     }
+    dataCaches->Set(key->ToString(), ret);
     return ret;
 }
 
@@ -236,7 +244,7 @@ cxBool DB::WriteData(const cxStr *key,const cxStr *data)
         stmt->Bind(1, key->ToString());
         stmt->Bind(2, data);
     }else{
-        stmt = Prepare("UPDATE config SET Data=? WHERE Key=?;");
+        stmt = Prepare("UPDATE datas SET Data=? WHERE Key=?;");
         stmt->Bind(1, data);
         stmt->Bind(2, key->ToString());
     }

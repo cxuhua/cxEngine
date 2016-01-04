@@ -109,6 +109,12 @@ cxEngine::~cxEngine()
     window->Release();
 }
 
+void cxEngine::SetWindow(cxWindow *win)
+{
+    CX_ASSERT(win != nullptr, "win args error");
+    cxObject::swap(&window, win);
+}
+
 const cxStr *cxEngine::Config(cchars key) const
 {
     return configs->Get(key)->To<cxStr>();

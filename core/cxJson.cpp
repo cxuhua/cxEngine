@@ -107,6 +107,9 @@ cxJson::Iter::Iter(json_t *j)
 
 const cxJson::Iter cxJson::Begin() const
 {
+    if(Size() == 0){
+        return Iter(nullptr);
+    }
     Iter iter(json);
     if(IsArray()){
         iter.number = (cxInt)json_array_size(json);

@@ -81,6 +81,8 @@ private:
     std::queue<cxAsyncEvent> events;
 public:
     
+    void SetWindow(cxWindow *win);
+    
     void PushEvent(cxLong key,const cxStr *data);
     void PushEvent(cxLong key,cchars data,cxInt length);
     

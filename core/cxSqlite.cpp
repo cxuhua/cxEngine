@@ -224,7 +224,7 @@ cxSqlStmt *cxSqlite::Prepare(cchars fmt,...)
         return nullptr;
     }
     sqlite3_stmt *stmt = nullptr;
-    if(sqlite3_prepare_v2(sqlptr, sql->ToString(), -1, &stmt, nullptr) != SQLITE_OK){
+    if(sqlite3_prepare_v2(sqlptr, sql->Data(), sql->Size(), &stmt, nullptr) != SQLITE_OK){
         return nullptr;
     }
     return cxSqlStmt::Create(stmt);

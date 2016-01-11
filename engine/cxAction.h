@@ -101,6 +101,7 @@ public:
     cxAction *AttachTo(cxView *pview);
     virtual cxAction *Clone();
     virtual cxAction *Reverse();
+    //return true -> exit
     virtual cxBool Update(cxFloat dt);
 };
 

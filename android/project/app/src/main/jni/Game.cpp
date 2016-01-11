@@ -9,6 +9,8 @@
 #include <engine/cxBox2D.h>
 #include <engine/cxContainer.h>
 #include <engine/cxSprite.h>
+#include <engine/cxMusic.h>
+#include <engine/cxButton.h>
 #include "Game.h"
 
 CX_CPP_BEGIN
@@ -28,18 +30,19 @@ Game::~Game()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
-    cxTexture::Create()->From("t.png")->gcSet<cxTexture>("circle");
     
-    cxContainer *c = cxContainer::Create();
-    c->SetSize(1024);
-    c->SetClip(true);
+    cxButton *btn = cxButton::Create();
+    btn->SetSize(300);
+    btn->onRelease+=[this](cxButton *pview){
+        cxMusic::Create("o.wav")->AttachTo(Window());
+    };
     
-    cxSprite *s = cxSprite::Create();
-    s->SetSize(2048);
-    s->SetTexture("circle");
-    c->Append(s);
+    cxSprite *sp = cxSprite::Create();
+    sp->SetResizeFlags(cxView::ResizeFill);
+    sp->SetTexture(cxTexture::Create()->From("t.png"));
+    btn->Append(sp);
     
-    Window()->Append(c);
+    Window()->Append(btn);
     
 //    cxWorld *w = cxWorld::Create();
 //    w->SetSize(WinSize());

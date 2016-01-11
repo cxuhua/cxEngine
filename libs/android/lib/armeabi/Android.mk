@@ -8,8 +8,8 @@ include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := openal
-LOCAL_SRC_FILES := libopenal.so
-include $(PREBUILT_SHARED_LIBRARY)
+LOCAL_SRC_FILES := libopenal.a
+include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := pcre

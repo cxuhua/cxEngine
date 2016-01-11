@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>AD778622-5A9A-4D9E-96E9-6362431CA5D0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>android</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>CFFA633CDE37E0E5270EC2A14589AD5CAFADCD4D</key>
+		<string>https://coding.net/cxuhua/cxEngine.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>android/jni/android.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>CFFA633CDE37E0E5270EC2A14589AD5CAFADCD4D</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://coding.net/cxuhua/cxEngine.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>CFFA633CDE37E0E5270EC2A14589AD5CAFADCD4D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CFFA633CDE37E0E5270EC2A14589AD5CAFADCD4D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>cxEngine</string>
+		</dict>
+	</array>
+</dict>
+</plist>

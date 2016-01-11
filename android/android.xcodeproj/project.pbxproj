@@ -1,0 +1,275 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		833482391A8329B3001EC056 /* cxAndroid.h in Headers */ = {isa = PBXBuildFile; fileRef = 833482341A8329B3001EC056 /* cxAndroid.h */; };
+		834AC2EF1C030A4500C02C67 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 834AC2ED1C030A4500C02C67 /* Game.cpp */; };
+		834AC2F01C030A4500C02C67 /* Game.h in Headers */ = {isa = PBXBuildFile; fileRef = 834AC2EE1C030A4500C02C67 /* Game.h */; };
+		8392FD901BDF768B00B8B35F /* cxAndroidUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8392FD8D1BDF768B00B8B35F /* cxAndroidUtil.cpp */; };
+		8392FD911BDF768B00B8B35F /* cxAndroidUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 8392FD8E1BDF768B00B8B35F /* cxAndroidUtil.h */; };
+		839FFB001BE0912600052109 /* cxAndroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839FFAFF1BE0912600052109 /* cxAndroid.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		833482341A8329B3001EC056 /* cxAndroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAndroid.h; sourceTree = "<group>"; };
+		834AC2ED1C030A4500C02C67 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = project/app/src/main/jni/Game.cpp; sourceTree = "<group>"; };
+		834AC2EE1C030A4500C02C67 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = project/app/src/main/jni/Game.h; sourceTree = "<group>"; };
+		8392FD8D1BDF768B00B8B35F /* cxAndroidUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAndroidUtil.cpp; sourceTree = "<group>"; };
+		8392FD8E1BDF768B00B8B35F /* cxAndroidUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAndroidUtil.h; sourceTree = "<group>"; };
+		839FFAFF1BE0912600052109 /* cxAndroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAndroid.cpp; sourceTree = "<group>"; };
+		83E043E21A8328E10071386C /* libandroid-static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libandroid-static.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		83E043DF1A8328E10071386C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		83E043D91A8328E10071386C = {
+			isa = PBXGroup;
+			children = (
+				834AC2ED1C030A4500C02C67 /* Game.cpp */,
+				834AC2EE1C030A4500C02C67 /* Game.h */,
+				839FFAFF1BE0912600052109 /* cxAndroid.cpp */,
+				833482341A8329B3001EC056 /* cxAndroid.h */,
+				8392FD8D1BDF768B00B8B35F /* cxAndroidUtil.cpp */,
+				8392FD8E1BDF768B00B8B35F /* cxAndroidUtil.h */,
+				83E043E31A8328E10071386C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		83E043E31A8328E10071386C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83E043E21A8328E10071386C /* libandroid-static.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		83E043E01A8328E10071386C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				833482391A8329B3001EC056 /* cxAndroid.h in Headers */,
+				8392FD911BDF768B00B8B35F /* cxAndroidUtil.h in Headers */,
+				834AC2F01C030A4500C02C67 /* Game.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		83E043E11A8328E10071386C /* android-static */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83E043E61A8328E10071386C /* Build configuration list for PBXNativeTarget "android-static" */;
+			buildPhases = (
+				83E043DE1A8328E10071386C /* Sources */,
+				83E043DF1A8328E10071386C /* Frameworks */,
+				83E043E01A8328E10071386C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "android-static";
+			productName = "android-static";
+			productReference = 83E043E21A8328E10071386C /* libandroid-static.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83E043DA1A8328E10071386C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = xuhua;
+				TargetAttributes = {
+					83E043E11A8328E10071386C = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 83E043DD1A8328E10071386C /* Build configuration list for PBXProject "android" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 83E043D91A8328E10071386C;
+			productRefGroup = 83E043E31A8328E10071386C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				83E043E11A8328E10071386C /* android-static */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		83E043DE1A8328E10071386C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				834AC2EF1C030A4500C02C67 /* Game.cpp in Sources */,
+				839FFB001BE0912600052109 /* cxAndroid.cpp in Sources */,
+				8392FD901BDF768B00B8B35F /* cxAndroidUtil.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		83E043E41A8328E10071386C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		83E043E51A8328E10071386C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		83E043E71A8328E10071386C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"ANDROID=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"/Users/xuhua/android/android-ndk/platforms/android-9/arch-arm/usr/include",
+					"/Users/xuhua/android/android-ndk/sources/android",
+					/Users/xuhua/cxengine,
+					/Users/xuhua/cxengine/libs/android/include,
+					/Users/xuhua/cxengine/android/project/src/main/jni,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		83E043E81A8328E10071386C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"/Users/xuhua/android/android-ndk/platforms/android-9/arch-arm/usr/include",
+					"/Users/xuhua/android/android-ndk/sources/android",
+					/Users/xuhua/cxengine,
+					/Users/xuhua/cxengine/libs/android/include,
+					/Users/xuhua/cxengine/android/project/src/main/jni,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		83E043DD1A8328E10071386C /* Build configuration list for PBXProject "android" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83E043E41A8328E10071386C /* Debug */,
+				83E043E51A8328E10071386C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83E043E61A8328E10071386C /* Build configuration list for PBXNativeTarget "android-static" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83E043E71A8328E10071386C /* Debug */,
+				83E043E81A8328E10071386C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83E043DA1A8328E10071386C /* Project object */;
+}

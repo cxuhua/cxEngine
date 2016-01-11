@@ -59,19 +59,52 @@ Game::~Game()
 
 void Game::OnMain()
 {
+    cxOpenGL::Instance()->SetClearColor(cxColor4F::RED);
     SetPlanSize(cxSize2F(2048, 1536));
-    
-    cxSqlite *db = cxSqlite::Create("test.db",false);
-    cxBool ret =  db->Begin();
-    ret = db->Exec("CREATE TABLE IF NOT EXISTS Test (Id INTEGER PRIMARY KEY AUTOINCREMENT,Name VARCHAR(20),Path VARCHAR(20));");
-    
-    for(cxInt i=0;i<10;i++){
-        cxSqlStmt *stmt = db->Prepare("INSERT INTO Test(Name,Path)VALUES(?,?)");
-        ret = stmt->Bind(1, "1");
-        ret = stmt->Bind(2, "2");
-        ret = stmt->Exec();
+    {
+    cxSprite *sp = cxSprite::Create();
+    sp->SetSize(300);
+    sp->SetResizeFlags(cxView::ResizeLeftTop);
+    sp->SetTexture(cxTexture::Create()->From("t.png"));
+    Window()->Append(sp);
+    cxRotateBy *a = cxRotateBy::Create(1.0, 60);
+    a->AttachTo(sp);
     }
-    ret = db->Commit();
+    {
+        cxSprite *sp = cxSprite::Create();
+        sp->SetSize(300);
+        sp->SetTexture(cxTexture::Create()->From("t.png"));
+        Window()->Append(sp);
+        cxRotateBy *a = cxRotateBy::Create(1.0, 60);
+        a->AttachTo(sp);
+    }
+    {
+        cxSprite *sp = cxSprite::Create();
+        sp->SetSize(300);
+        sp->SetResizeFlags(cxView::ResizeRightTop);
+        sp->SetTexture(cxTexture::Create()->From("t.png"));
+        Window()->Append(sp);
+        cxRotateBy *a = cxRotateBy::Create(1.0, 60);
+        a->AttachTo(sp);
+    }
+    {
+        cxSprite *sp = cxSprite::Create();
+        sp->SetSize(300);
+        sp->SetResizeFlags(cxView::ResizeRightBottom);
+        sp->SetTexture(cxTexture::Create()->From("t.png"));
+        Window()->Append(sp);
+        cxRotateBy *a = cxRotateBy::Create(1.0, 60);
+        a->AttachTo(sp);
+    }
+    {
+        cxSprite *sp = cxSprite::Create();
+        sp->SetSize(300);
+        sp->SetResizeFlags(cxView::ResizeLeftBottom);
+        sp->SetTexture(cxTexture::Create()->From("t.png"));
+        Window()->Append(sp);
+        cxRotateBy *a = cxRotateBy::Create(1.0, 60);
+        a->AttachTo(sp);
+    }
 }
 
 CX_CPP_END

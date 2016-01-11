@@ -52,6 +52,9 @@
 		831B93FA1B4B833700511A63 /* cxResize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B93F81B4B833700511A63 /* cxResize.cpp */; };
 		831B9EBD1B291F2700B7A06B /* cxSize2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B9EBB1B291F2700B7A06B /* cxSize2F.cpp */; };
 		831B9EC01B29255500B7A06B /* cxRect4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B9EBE1B29255500B7A06B /* cxRect4F.cpp */; };
+		832695021C425E3D0096A3F6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832695011C425E3D0096A3F6 /* AVFoundation.framework */; };
+		832695081C426E020096A3F6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832695071C426E020096A3F6 /* AssetsLibrary.framework */; };
+		8326950A1C4273240096A3F6 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832695091C4273240096A3F6 /* MediaPlayer.framework */; };
 		832A886A1B4CCBAA008AA181 /* cxFrames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832A88681B4CCBAA008AA181 /* cxFrames.cpp */; };
 		833043B31B40246E00636928 /* cxEmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043B11B40246E00636928 /* cxEmitter.cpp */; };
 		833043B61B4024AE00636928 /* cxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043B41B4024AE00636928 /* cxButton.cpp */; };
@@ -323,6 +326,9 @@
 		831B9EBC1B291F2700B7A06B /* cxSize2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSize2F.h; sourceTree = "<group>"; };
 		831B9EBE1B29255500B7A06B /* cxRect4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRect4F.cpp; sourceTree = "<group>"; };
 		831B9EBF1B29255500B7A06B /* cxRect4F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRect4F.h; sourceTree = "<group>"; };
+		832695011C425E3D0096A3F6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		832695071C426E020096A3F6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		832695091C4273240096A3F6 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		832A88681B4CCBAA008AA181 /* cxFrames.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxFrames.cpp; sourceTree = "<group>"; };
 		832A88691B4CCBAA008AA181 /* cxFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxFrames.h; sourceTree = "<group>"; };
 		833043B11B40246E00636928 /* cxEmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxEmitter.cpp; sourceTree = "<group>"; };
@@ -673,6 +679,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8326950A1C4273240096A3F6 /* MediaPlayer.framework in Frameworks */,
+				832695081C426E020096A3F6 /* AssetsLibrary.framework in Frameworks */,
+				832695021C425E3D0096A3F6 /* AVFoundation.framework in Frameworks */,
 				839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1232,6 +1241,9 @@
 		83BBF3CF1B109452003CB004 = {
 			isa = PBXGroup;
 			children = (
+				832695091C4273240096A3F6 /* MediaPlayer.framework */,
+				832695071C426E020096A3F6 /* AssetsLibrary.framework */,
+				832695011C425E3D0096A3F6 /* AVFoundation.framework */,
 				83079B5D1B292F1B00275F1F /* engine */,
 				836F3F0A1B1B89A000E3E82C /* math */,
 				836A2F621B19F636009B427B /* ios */,

@@ -80,6 +80,9 @@ public:
     const cxStr *Base64Encode() const;
     const cxStr *Base64Decode() const;
     
+    const cxStr *HexEncode() const;
+    const cxStr *HexDecode() const;
+    
     const cxStr *LzmaCompress() const;
     const cxStr *LzmaUncompress() const;
     

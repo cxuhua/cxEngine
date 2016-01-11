@@ -62,7 +62,7 @@ cxBool UpData::Delete()
 
 cxBool UpData::Exists()
 {
-    cxSqlStmt *stmt = db->Prepare("SELECT COUNT(*) FROM updates WHERE Key=? LIMIT 1;");
+    cxSqlStmt *stmt = db->Prepare("SELECT COUNT(Key) FROM updates WHERE Key=? LIMIT 1;");
     stmt->Bind(1, key->ToString());
     if(!stmt->Step()){
         return false;
@@ -203,14 +203,14 @@ cxBool DB::HasData(const cxStr *key)
     if(dataCaches->Has(key->ToString())){
         return true;
     }
-    cxSqlStmt *stmt = Prepare("SELECT COUNT(*) FROM datas WHERE Key=? LIMIT 1;");
+    cxSqlStmt *stmt = Prepare("SELECT COUNT(Key) FROM datas WHERE Key=? LIMIT 1;");
     stmt->Bind(1, key->ToString());
     return stmt->Step() && stmt->ToInt(1) > 0;
 }
 
 Data *DB::CardData(const cxStr *key)
 {
-    Data *ret = dataCaches->Get(key->ToString())->To<Data>();
+    Data *ret = dataCaches->Get(key)->To<Data>();
     if(ret != nullptr){
         return ret;
     }
@@ -222,7 +222,7 @@ Data *DB::CardData(const cxStr *key)
     if(!ret->Load(d)){
         return nullptr;
     }
-    dataCaches->Set(key->ToString(), ret);
+    dataCaches->Set(key, ret);
     return ret;
 }
 

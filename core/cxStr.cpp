@@ -686,14 +686,59 @@ cxByte cxStr::ReadByte()
     return v;
 }
 
+static const char hex[16] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+
 void cxStr::WriteByte(cxByte v)
 {
     Append((cchars)&v,sizeof(cxByte));
 }
 
+const cxStr *cxStr::HexEncode() const
+{
+    cchars data = Data();
+    cxInt len = Size();
+    cxStr *ret = cxStr::Create()->Init(len * 2);
+    cxUInt8 *ptr = (cxUInt8 *)ret->Data();
+    for(cxInt i = 0; i < len; i++){
+        ptr[2*i] = hex[(data[i] & 0xf0)>> 4];
+        ptr[2*i + 1] = hex[data[i] & 0x0f];
+    }
+    return ret;
+}
+
+static cxUInt8 fromHexChar(cxUInt8 c)
+{
+    if('0' <= c && c <= '9'){
+        return c-'0';
+    }
+    if('a' <= c && c <= 'f'){
+        return c - 'a' + 10;
+    }
+    if('A' <= c && c <= 'F'){
+        return c - 'A' + 10;
+    }
+    return 255;
+}
+
+
+const cxStr *cxStr::HexDecode() const
+{
+    cchars data = Data();
+    cxInt len = Size();
+    cxStr *ret = cxStr::Create()->Init(len / 2);
+    cxUInt8 *ptr = (cxUInt8 *)ret->Data();
+    for(cxInt i=0;i<len;i+=2){
+        cxUInt8 c1 = fromHexChar(data[i]);
+        CX_ASSERT(c1 != 255, "char error");
+        cxUInt8 c2 = fromHexChar(data[i+1]);
+        CX_ASSERT(c2 != 255, "char error");
+        ptr[i/2] = ((c1 <<4) |c2);
+    }
+    return ret;
+}
+
 const cxStr *cxStr::MD5() const
 {
-    static const char hex[16] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
     mongo_md5_state_t state={0};
     mongo_md5_byte_t digest[MD5_DIGEST_LENGTH+1]={0};
     mongo_md5_init(&state);
@@ -709,7 +754,6 @@ const cxStr *cxStr::MD5() const
 
 const cxStr *cxStr::NewObjectId()
 {
-    static const char hex[16] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
     struct timeval val = {0};
     gettimeofday(&val, NULL);
     srand((unsigned)val.tv_sec);
@@ -718,8 +762,8 @@ const cxStr *cxStr::NewObjectId()
     cxUInt32 vlast = (cxUInt)val.tv_usec;
     char buf[12]={0};
     memcpy(buf + 0, &vtime, sizeof(cxUInt32));
-    memcpy(buf + 4, &vrand, sizeof(cxUInt32));
-    memcpy(buf + 8, &vlast, sizeof(cxUInt32));
+    memcpy(buf + 4, &vlast, sizeof(cxUInt32));
+    memcpy(buf + 8, &vrand, sizeof(cxUInt32));
     char txt[25]={0};
     for(cxInt i = 0; i < 12; i++){
         txt[2*i] = hex[(buf[i] & 0xf0)>> 4];

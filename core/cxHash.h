@@ -32,8 +32,8 @@ struct cxHashKey
 
 struct cxHasher
 {
-    size_t operator()(const cxHashKey& k) const;
-    bool operator()(const cxHashKey& lhs, const cxHashKey& rhs) const;
+    size_t operator()(const cxHashKey &k) const;
+    bool operator()(const cxHashKey &lhs, const cxHashKey &rhs) const;
 };
 
 typedef std::unordered_map<cxHashKey, cxObject *,cxHasher,cxHasher> cxHashMap;

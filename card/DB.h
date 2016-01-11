@@ -15,9 +15,8 @@
 CX_CPP_BEGIN
 
 static const cxInt CARD_TYPE_REVIEW  = 1; //复习卡
-static const cxInt CARD_TYPE_ARDER   = 2; //休闲卡
+static const cxInt CARD_TYPE_READER  = 2; //休闲卡
 static const cxInt CARD_TYPE_TESTING = 3; //测试卡
-static const cxInt CARD_TYPE_GAME    = 4; //游戏卡
 
 class DB;
 

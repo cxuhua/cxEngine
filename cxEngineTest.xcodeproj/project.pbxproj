@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		830157E21B3BD27C00ED46A8 /* t.png in Resources */ = {isa = PBXBuildFile; fileRef = 830157E11B3BD27C00ED46A8 /* t.png */; };
 		8302A5851B535EC500C7209C /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 8302A5841B535EC500C7209C /* grid.png */; };
+		832694FF1C425E060096A3F6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832694FE1C425E060096A3F6 /* AVFoundation.framework */; };
+		832695041C42604E0096A3F6 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832695031C42604E0096A3F6 /* CoreMedia.framework */; };
+		832695061C426DF80096A3F6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832695051C426DF80096A3F6 /* AssetsLibrary.framework */; };
+		8326950C1C4273730096A3F6 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8326950B1C4273730096A3F6 /* MediaPlayer.framework */; };
 		8326D0D71BE9EB7700A15879 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839836C21B10B01B002B7C20 /* libjpeg.a */; };
 		8326D0D91BE9F43D00A15879 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8326D0D81BE9F43D00A15879 /* circle.png */; };
 		8326D0DB1BE9F72000A15879 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8326D0DA1BE9F72000A15879 /* Images.xcassets */; };
@@ -66,6 +70,10 @@
 /* Begin PBXFileReference section */
 		830157E11B3BD27C00ED46A8 /* t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = t.png; sourceTree = "<group>"; };
 		8302A5841B535EC500C7209C /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
+		832694FE1C425E060096A3F6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		832695031C42604E0096A3F6 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		832695051C426DF80096A3F6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		8326950B1C4273730096A3F6 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		8326D0D81BE9F43D00A15879 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		8326D0DA1BE9F72000A15879 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = cxEngineTest/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		833043CF1B424A1C00636928 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
@@ -120,6 +128,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8326950C1C4273730096A3F6 /* MediaPlayer.framework in Frameworks */,
+				832695061C426DF80096A3F6 /* AssetsLibrary.framework in Frameworks */,
+				832695041C42604E0096A3F6 /* CoreMedia.framework in Frameworks */,
+				832694FF1C425E060096A3F6 /* AVFoundation.framework in Frameworks */,
 				83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */,
 				8326D0D71BE9EB7700A15879 /* libjpeg.a in Frameworks */,
 				83D8C34F1B69C6D300155990 /* libmpg123.a in Frameworks */,
@@ -165,6 +177,10 @@
 		83E6F63B1B0C97B5006839C8 = {
 			isa = PBXGroup;
 			children = (
+				8326950B1C4273730096A3F6 /* MediaPlayer.framework */,
+				832695051C426DF80096A3F6 /* AssetsLibrary.framework */,
+				832695031C42604E0096A3F6 /* CoreMedia.framework */,
+				832694FE1C425E060096A3F6 /* AVFoundation.framework */,
 				839836B61B10978A002B7C20 /* cxEngineCore.xcodeproj */,
 				839836CB1B10B021002B7C20 /* libs */,
 				83E6F6461B0C97B5006839C8 /* cxEngineTest */,

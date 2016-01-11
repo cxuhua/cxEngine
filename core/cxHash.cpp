@@ -24,6 +24,7 @@ cxHashKey::cxHashKey()
 cxHashKey::cxHashKey(const cxStr *key)
 {
     length = key->Size();
+    CX_ASSERT(length < CX_HASH_MAX_KEY, "key too longer");
     memcpy(data, key->Data(), length);
     data[length] = 0;
 }
@@ -60,7 +61,7 @@ cxHashKey cxHashKey::Format(cchars fmt,...)
     return key;
 }
 
-bool cxHasher::operator()(const cxHashKey& lhs, const cxHashKey& rhs) const
+bool cxHasher::operator()(const cxHashKey &lhs, const cxHashKey &rhs) const
 {
     if(lhs.length != rhs.length){
         return false;
@@ -68,7 +69,7 @@ bool cxHasher::operator()(const cxHashKey& lhs, const cxHashKey& rhs) const
     return memcmp(lhs.data, rhs.data, lhs.length) == 0;
 }
 
-size_t cxHasher::operator()(const cxHashKey& k) const
+size_t cxHasher::operator()(const cxHashKey &k) const
 {
     return (size_t)XXH32(k.data, k.length, 0);
 }

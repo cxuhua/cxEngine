@@ -1,6 +1,5 @@
 package com.cxengine;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
@@ -13,8 +12,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Typeface;
-import android.net.Uri;
-import android.os.Bundle;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.Layout;
@@ -23,7 +20,9 @@ public class EngineActivity extends NativeActivity {
 	static {
 		System.loadLibrary("cxEngineAndroid");
 	}
+
 	private HashMap<String, Typeface> sTypefaceCache = new HashMap<String, Typeface>();
+
 	//获取UUID
 	public String NewUUID() {
 		UUID uuid = UUID.randomUUID();

@@ -472,7 +472,7 @@ void cxALSource::SetPosition(const cxPoint3F &v)
 void cxALSource::SetPosition(const cxPoint2F &v)
 {
     alSourcei(handle, AL_SOURCE_RELATIVE, AL_TRUE);
-    alSource3f(handle, AL_POSITION, v.x, v.y, 1.0f);
+    alSource3f(handle, AL_POSITION, v.x, v.y, 0.0f);
 }
 
 cxALBuffer *cxALSource::Buffer()

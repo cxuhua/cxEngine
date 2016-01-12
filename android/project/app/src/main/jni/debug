@@ -1,2 +1,1 @@
 /Users/xuhua/android/android-ndk/ndk-build NDK_DEBUG=1
-cp ../libs/armeabi/*.so ../jniLibs/armeabi/

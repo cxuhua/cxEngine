@@ -7,6 +7,7 @@
 //
 
 #include <ext/xxhash.h>
+#include <ext/sqlite3.h>
 #include "cxHash.h"
 #include "cxAutoPool.h"
 #include "cxCore.h"
@@ -114,18 +115,21 @@ void cxCore::Destroy()
 
 cxCore::cxCore()
 {
+    sqlite3_initialize();
     caches = cxHash::Alloc();
     uv_key_create(&autoKey);
 }
 
 cxCore::~cxCore()
 {
+    
     Clear();
     caches->Release();
     cxObject *obj = static_cast<cxObject *>(uv_key_get(&autoKey));
     cxObject::release(&obj);
     uv_key_delete(&autoKey);
     classes.clear();
+    sqlite3_shutdown();
 }
 
 void cxCore::Clear()

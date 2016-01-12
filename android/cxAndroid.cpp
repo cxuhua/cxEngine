@@ -209,10 +209,10 @@ cxAndroid::cxAndroid()
     msgread = msgpipe[0];
     msgwrite = msgpipe[1];
     
-    running = 0;
-    animating = 0;
-    destroyRequested = 0;
-    destroyed = 0;
+    running = false;
+    animating = false;
+    destroyReq = false;
+    destroyed = false;
     activityState = -1;
     
     window = nullptr;
@@ -242,44 +242,44 @@ cxAndroid::~cxAndroid()
 
 int cxAndroid::InitDisplay()
 {
+    if(display != NULL){
+        return 0;
+    }
+    display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
     if(display == NULL){
-       display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-        if(display == NULL){
-            CX_ERROR("eglGetDisplay error");
-            return -1;
-        }
-        EGLint major = 0;
-        EGLint minor = 0;
-        if(!eglInitialize(display, &major, &minor)){
-            CX_ERROR("eglInitialize error");
-            return -1;
-        }
-        CX_LOGGER("EGL Version:%d.%d",major,minor);
-        eglChooseConfig(display, display_attribs24, &eglConfig, 1, &numConfigs);
-        if(!numConfigs){
-            eglChooseConfig(display, display_attribs16, &eglConfig, 1, &numConfigs);
-        }
-        if(!numConfigs){
-            CX_ERROR("get egl config error");
-            return -1;
-        }
-        CX_LOGGER("EGL Config Number:%d",numConfigs);
-        if(!eglGetConfigAttrib(display, eglConfig, EGL_NATIVE_VISUAL_ID, &format)){
-            CX_ERROR("eglGetConfigAttrib error");
-            return -1;
-        }
-        context = eglCreateContext(display, eglConfig, NULL, context_attribs);
-        if(context == NULL){
-            CX_ERROR("eglCreateContext error");
-            return -1;
-        }
+        CX_ERROR("eglGetDisplay error");
+        return -1;
+    }
+    EGLint major = 0;
+    EGLint minor = 0;
+    if(!eglInitialize(display, &major, &minor)){
+        CX_ERROR("eglInitialize error");
+        return -1;
+    }
+    CX_LOGGER("EGL Version:%d.%d",major,minor);
+    eglChooseConfig(display, display_attribs24, &eglConfig, 1, &numConfigs);
+    if(!numConfigs){
+        eglChooseConfig(display, display_attribs16, &eglConfig, 1, &numConfigs);
+    }
+    if(!numConfigs){
+        CX_ERROR("get egl config error");
+        return -1;
+    }
+    CX_LOGGER("EGL Config Number:%d",numConfigs);
+    if(!eglGetConfigAttrib(display, eglConfig, EGL_NATIVE_VISUAL_ID, &format)){
+        CX_ERROR("eglGetConfigAttrib error");
+        return -1;
+    }
+    context = eglCreateContext(display, eglConfig, NULL, context_attribs);
+    if(context == NULL){
+        CX_ERROR("eglCreateContext error");
+        return -1;
     }
     return 0;
 }
 
 int cxAndroid::InitSurface()
 {
-    
     EGLint w, h;
     if(InitDisplay() != 0){
         return -1;
@@ -450,7 +450,7 @@ void cxAndroid::Logger(const char* type,const char*file,int line,const char* for
 void cxAndroid::cxAndroidPreExec(cxAndroid *app, int8_t cmd)
 {
     switch (cmd) {
-        case APP_CMD_INPUT_CHANGED:
+        case APP_CMD_INPUT_CHANGED:{
             pthread_mutex_lock(&app->mutex);
             if (app->inputQueue != NULL) {
                 AInputQueue_detachLooper(app->inputQueue);
@@ -462,42 +462,49 @@ void cxAndroid::cxAndroidPreExec(cxAndroid *app, int8_t cmd)
             pthread_cond_broadcast(&app->cond);
             pthread_mutex_unlock(&app->mutex);
             break;
-        case APP_CMD_INIT_WINDOW:
+        }
+        case APP_CMD_INIT_WINDOW:{
             pthread_mutex_lock(&app->mutex);
             app->window = app->pendingWindow;
             pthread_cond_broadcast(&app->cond);
             pthread_mutex_unlock(&app->mutex);
             break;
-        case APP_CMD_TERM_WINDOW:
+        }
+        case APP_CMD_TERM_WINDOW:{
             pthread_cond_broadcast(&app->cond);
             break;
+        }
         case APP_CMD_RESUME:
         case APP_CMD_START:
         case APP_CMD_PAUSE:
-        case APP_CMD_STOP:
+        case APP_CMD_STOP:{
             pthread_mutex_lock(&app->mutex);
             app->activityState = cmd;
             pthread_cond_broadcast(&app->cond);
             pthread_mutex_unlock(&app->mutex);
             break;
-        case APP_CMD_CONFIG_CHANGED:
+        }
+        case APP_CMD_CONFIG_CHANGED:{
             AConfiguration_fromAssetManager(app->config,app->activity->assetManager);
             break;
-        case APP_CMD_DESTROY:
-            app->destroyRequested = 1;
+        }
+        case APP_CMD_DESTROY:{
+            app->destroyReq = true;
             break;
+        }
     }
 }
 
 void cxAndroid::cxAndroidPostExec(cxAndroid *app, int8_t cmd)
 {
     switch (cmd) {
-        case APP_CMD_TERM_WINDOW:
+        case APP_CMD_TERM_WINDOW:{
             pthread_mutex_lock(&app->mutex);
             app->window = NULL;
             pthread_cond_broadcast(&app->cond);
             pthread_mutex_unlock(&app->mutex);
             break;
+        }
     }
 }
 
@@ -518,7 +525,7 @@ void cxAndroid::onAppCmd(int8_t cmd)
         }
         case APP_CMD_WINDOW_RESIZED:{
             cxEngine::Instance()->Layout(width, height);
-            animating = 1;
+            animating = true;
             break;
         }
         case APP_CMD_WINDOW_REDRAW_NEEDED:{
@@ -531,7 +538,7 @@ void cxAndroid::onAppCmd(int8_t cmd)
             break;
         }
         case APP_CMD_LOST_FOCUS:{
-            animating = 0;
+            animating = false;
             break;
         }
         case APP_CMD_CONFIG_CHANGED:{
@@ -546,24 +553,24 @@ void cxAndroid::onAppCmd(int8_t cmd)
         }
         case APP_CMD_RESUME:{
             cxEngine::Instance()->Resume();
-            animating = 1;
+            animating = true;
             break;
         }
         case APP_CMD_SAVE_STATE:{
             break;
         }
         case APP_CMD_PAUSE:{
-            animating = 0;
+            animating = false;
             cxEngine::Instance()->Pause();
             break;
         }
         case APP_CMD_STOP:{
-            animating = 0;
+            animating = false;
             break;
         }
         case APP_CMD_DESTROY:{
-            animating = 0;
-            destroyRequested = 1;
+            animating = false;
+            destroyReq = true;
             break;
         }
         default:{
@@ -631,9 +638,6 @@ int32_t cxAndroid::HandleMotionInput(AInputEvent* event)
             }
             break;
         }
-        default:{
-            break;
-        }
     }
     return 0;
 }
@@ -673,7 +677,7 @@ cxBool cxAndroid::ProcessInput()
         if(source != NULL){
             source->process(this,source);
         }
-        if(destroyRequested != 0) {
+        if(destroyReq) {
             return true;
         }
     }
@@ -709,7 +713,7 @@ void *cxAndroid::AndroidEntry(void *data)
     ALooper_addFd(app->looper, app->msgread, LOOPER_ID_MAIN, ALOOPER_EVENT_INPUT, NULL,&app->cmd);
     
     pthread_mutex_lock(&app->mutex);
-    app->running = 1;
+    app->running = true;
     pthread_cond_broadcast(&app->cond);
     pthread_mutex_unlock(&app->mutex);
     
@@ -722,10 +726,9 @@ void *cxAndroid::AndroidEntry(void *data)
     }
     AConfiguration_delete(app->config);
     app->config = NULL;
-    app->destroyed = 1;
+    app->destroyed = true;
     pthread_cond_broadcast(&app->cond);
     pthread_mutex_unlock(&app->mutex);
-
     return data;
 }
 
@@ -763,7 +766,7 @@ void cxAndroid::cxAndroidMain()
     CX_ASSERT(env != nullptr, "attach current thread java env error");
     //startup engine
     cxEngine::Startup(false);
-    while(!destroyRequested){
+    while(!destroyReq){
         if(ProcessInput()){
             break;
         }
@@ -780,7 +783,6 @@ void cxAndroid::cxAndroidMain()
         vm->DetachCurrentThread();
         env = NULL;
     }
-    
 }
 
 void cxAndroid::onDestroy(ANativeActivity* activity)
@@ -886,7 +888,6 @@ void cxAndroid::Init(ANativeActivity *a,void *d, size_t l)
         state = malloc(l);
         memcpy(state, d, l);
     }
-
     //set event
     activity->callbacks->onDestroy = cxAndroid::onDestroy;
     activity->callbacks->onStart = cxAndroid::onStart;
@@ -903,12 +904,11 @@ void cxAndroid::Init(ANativeActivity *a,void *d, size_t l)
     activity->callbacks->onNativeWindowDestroyed = cxAndroid::onNativeWindowDestroyed;
     activity->callbacks->onInputQueueCreated = cxAndroid::onInputQueueCreated;
     activity->callbacks->onInputQueueDestroyed = cxAndroid::onInputQueueDestroyed;
-    
+    //
     pthread_attr_t attr;
     pthread_attr_init(&attr);
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
     pthread_create(&thread, &attr, cxAndroid::AndroidEntry, this);
-    
     //wait AndroidEntry run
     pthread_mutex_lock(&mutex);
     while (!running) {

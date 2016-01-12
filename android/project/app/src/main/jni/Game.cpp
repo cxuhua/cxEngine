@@ -43,50 +43,6 @@ void Game::OnMain()
     btn->Append(sp);
     
     Window()->Append(btn);
-    
-//    cxWorld *w = cxWorld::Create();
-//    w->SetSize(WinSize());
-//    
-//    for(cxInt i=0;i<10;i++)
-//    {
-//        cxCircleBody *cb = cxCircleBody::Create();
-//        cb->SetElasticity(0.8f);
-//        cb->SetFriction(0.0f);
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetTexture("circle");
-//        sp->SetResizeFlags(cxView::ResizeFill);
-//        sp->AttachTo(cb);
-//        
-//        cb->SetSize(50);
-//        cb->SetEnableDir(true);
-//        cb->SetPosition(cxPoint2F(CX_RAND_11f()*200, CX_RAND_11f()*200));
-//        
-//        w->Append(cb);
-//        
-//    }
-//    {
-//        cxChainBody *cb = cxChainBody::Create();
-//        cb->SetSize(cxSize2F(200, 200));
-//        cb->SetLoop(true);
-//        cb->SetElasticity(0);
-//        cb->SetFriction(0.0f);
-//        cb->Points().Append(cxPoint2F(-900, 600));
-//        cb->Points().Append(cxPoint2F(-900, -600));
-//        cb->Points().Append(cxPoint2F(900, -600));
-//        cb->Points().Append(cxPoint2F(900, 600));
-//        cb->SetStatic(true);
-//        
-//        cxPoint2FArray &ps = cb->Points();
-//        for(cxInt i=0; i < ps.Size(); i++){
-//            cxSprite *sp = cxSprite::Create();
-//            sp->SetTexture("circle");
-//            sp->SetSize(30.0f);
-//            sp->AttachTo(cb);
-//            sp->SetPosition(ps.At(i));
-//        }
-//        w->Append(cb);
-//    }
-//    Window()->Append(w);
 }
 
 CX_CPP_END

@@ -1,17 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 14
+    compileSdkVersion 10
     buildToolsVersion "22.0.1"
-
     defaultConfig {
         applicationId "cn.cxengine.test"
-        minSdkVersion 18
-        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        minSdkVersion 10
+        targetSdkVersion 22
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -21,14 +19,12 @@ android {
             jniDebuggable true
         }
     }
-
-    sourceSets{
-        main{
-            jni.srcDirs=[]
-            jniLibs.srcDirs=['src/main/libs']
+    sourceSets {
+        main {
+            jni.srcDirs = []
+            jniLibs.srcDirs = ['src/main/libs']
         }
     }
-
     task buildNative(type: Exec, description: 'Compile JNI source via NDK') {
         def ndkDir = android.ndkDirectory
         commandLine "$ndkDir/ndk-build",
@@ -37,18 +33,17 @@ android {
                 'all',
                 'NDK_DEBUG=1'
     }
-
     task cleanNative(type: Exec, description: 'Clean JNI object files') {
         def ndkDir = android.ndkDirectory
         commandLine "$ndkDir/ndk-build",
                 '-C', file('src/main/jni').absolutePath,
                 'clean'
     }
-
     clean.dependsOn 'cleanNative'
-
     tasks.withType(JavaCompile) {
         compileTask -> compileTask.dependsOn buildNative
+    }
+    productFlavors {
     }
 }
 

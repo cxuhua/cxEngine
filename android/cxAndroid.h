@@ -95,16 +95,17 @@ private:
     pthread_cond_t cond;
     int msgread;
     int msgwrite;
+    
     int8_t readcmd();
     void writecmd(int8_t cmd);
     
-    int destroyed;
-    int animating;
-    int destroyRequested;
+    bool destroyed;
+    bool animating;
+    bool destroyReq;
     
     
     ALooper *looper;
-    int running;
+    bool running;
     pthread_t thread;
     static void *AndroidEntry(void *data);
     
@@ -133,7 +134,6 @@ private:
     static void cxAndroidPreExec(cxAndroid *app, int8_t cmd);
     static void cxAndroidExec(cxAndroid *app, AndroidPollSource *source);
     static void cxAndroidPostExec(cxAndroid *app, int8_t cmd);
-    
     static void cxAndroidInputExec(cxAndroid *app, AndroidPollSource *source);
 private:
     JavaVM *vm;

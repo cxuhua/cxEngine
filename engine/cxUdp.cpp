@@ -25,14 +25,16 @@ cxUdp::cxUdp()
 
 cxUdp::~cxUdp()
 {
-    
+    uv_loop_close(&looper);
+}
+
+void cxUdp::OnStep(cxFloat dt)
+{
+    uv_run(&looper, UV_RUN_NOWAIT);
 }
 
 cxBool cxUdp::Init(cchars host,cxInt port)
 {
-    if(uv_udp_bind(&handle, (const struct sockaddr*)&hints.ai_addr, 0) != 0){
-        return false;
-    }
     return true;
 }
 

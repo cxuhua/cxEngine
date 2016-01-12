@@ -26,6 +26,8 @@ private:
     uv_loop_t looper;
     uv_udp_t handle;
     struct addrinfo hints;
+protected:
+    void OnStep(cxFloat dt);
 public:
     cxBool Init(cchars host,cxInt port);
     static cxUdp *Create(cchars host,cxInt port);

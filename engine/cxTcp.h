@@ -25,7 +25,6 @@ protected:
 private:
     uv_loop_t looper;
     cxInt error;
-    
     uv_tcp_t handle;
     uv_connect_t connreq;
     uv_shutdown_t shutreq;

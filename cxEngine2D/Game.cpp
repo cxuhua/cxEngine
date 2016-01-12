@@ -65,20 +65,6 @@ void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     
-//    cxButton *btn = cxButton::Create();
-//    btn->SetSize(300);
-//    btn->onRelease+=[this](cxButton *pview){
-//        cxMusic::Create("o.wav")->AttachTo(Window());
-//    };
-//    
-//    cxSprite *sp = cxSprite::Create();
-//    sp->SetResizeFlags(cxView::ResizeFill);
-//    sp->SetTexture(cxTexture::Create()->From("t.png"));
-//    btn->Append(sp);
-//    
-//    Window()->Append(btn);
-//    cxOpenGL::Instance()->SetClearColor(cxColor4F::RED);
-    
     cxTcp *tcp = cxTcp::Create("192.168.199.242", 8899);
     tcp->onData+=[](cxTcp *pav,cchars data, cxInt len){
         cxDouble now = cxUtil::Timestamp();
@@ -98,51 +84,6 @@ void Game::OnMain()
         dataLen = 0;
     };
     Window()->Append(tcp);
-
-//    {
-//    cxSprite *sp = cxSprite::Create();
-//    sp->SetSize(300);
-//    sp->SetResizeFlags(cxView::ResizeLeftTop);
-//    sp->SetTexture(cxTexture::Create()->From("t.png"));
-//    Window()->Append(sp);
-//    cxRotateBy *a = cxRotateBy::Create(1.0, 60);
-//    a->AttachTo(sp);
-//    }
-//    {
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetSize(300);
-//        sp->SetTexture(cxTexture::Create()->From("t.png"));
-//        Window()->Append(sp);
-//        cxRotateBy *a = cxRotateBy::Create(1.0, 60);
-//        a->AttachTo(sp);
-//    }
-//    {
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetSize(300);
-//        sp->SetResizeFlags(cxView::ResizeRightTop);
-//        sp->SetTexture(cxTexture::Create()->From("t.png"));
-//        Window()->Append(sp);
-//        cxRotateBy *a = cxRotateBy::Create(1.0, 60);
-//        a->AttachTo(sp);
-//    }
-//    {
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetSize(300);
-//        sp->SetResizeFlags(cxView::ResizeRightBottom);
-//        sp->SetTexture(cxTexture::Create()->From("t.png"));
-//        Window()->Append(sp);
-//        cxRotateBy *a = cxRotateBy::Create(1.0, 60);
-//        a->AttachTo(sp);
-//    }
-//    {
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetSize(300);
-//        sp->SetResizeFlags(cxView::ResizeLeftBottom);
-//        sp->SetTexture(cxTexture::Create()->From("t.png"));
-//        Window()->Append(sp);
-//        cxRotateBy *a = cxRotateBy::Create(1.0, 60);
-//        a->AttachTo(sp);
-//    }
 }
 
 CX_CPP_END

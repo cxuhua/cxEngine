@@ -56,7 +56,7 @@ cxTCaches *cxTCaches::Instance()
 
 cxTCaches::cxTCaches()
 {
-    maxx = 256;
+    maxx = 512;
     maxy = cxOpenGL::Instance()->maxTextureSize;
     yv = 0;
     blocks = cxHash::Alloc();

@@ -8,6 +8,7 @@
 
 #include <core/cxLocalized.h>
 #include "cxLabel.h"
+#include "cxTCaches.h"
 
 CX_CPP_BEGIN
 
@@ -15,15 +16,20 @@ CX_IMPLEMENT(cxLabel);
 
 cxLabel::cxLabel()
 {
+    key = 0;
     txt = cxStr::Alloc();
     memset(&attr, 0, sizeof(cxTextAttr));
     attr.size = 30;
+    attr.cached = false;
     attr.color = cxColor4F::WHITE;
     attr.align = cxTextAlignCenter;
 }
 
 cxLabel::~cxLabel()
 {
+    if(attr.cached && key != 0){
+        cxTCaches::Instance()->Remove(key);
+    }
     txt->Release();
 }
 
@@ -57,12 +63,18 @@ void cxLabel::OnDirty()
         attr.color = Color();
     }
     if(IsDirtyMode(DirtyModeTexture)){
-        cxTexture *ptex = cxTexture::Create()->FromTXT(txt, attr);
-        if(!ptex->IsSuccess()){
-            return;
+        cxTexture *ptex = cxTexture::Create()->FromTXT(txt, attr, &key);
+        if(key != 0){
+            cxTexCoord *coord = cxTCaches::Instance()->Coord(key);
+            SetTexture(coord->Texture());
+            SetTexCoord(coord);
+            SetSize(coord->Size());
+        }else if(ptex->IsSuccess()){
+            SetTexture(ptex);
+            SetSize(ptex->Size());
+        }else{
+            CX_ASSERT(false, "texture set failed");
         }
-        SetTexture(ptex);
-        SetSize(ptex->Size());
     }
     cxSprite::OnDirty();
 }
@@ -106,6 +118,15 @@ cxLabel *cxLabel::SetBold(cxBool bold)
 {
     if(attr.boldFont != bold){
         attr.boldFont = bold;
+        SetDirty(DirtyModeTexture);
+    }
+    return this;
+}
+
+cxLabel *cxLabel::SetCached(cxBool cache)
+{
+    if(attr.cached != cache){
+        attr.cached = cache;
         SetDirty(DirtyModeTexture);
     }
     return this;

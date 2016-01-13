@@ -96,7 +96,10 @@ public:
 public:
     cxTexture *Atlas(const cxStr *data);
     cxTexture *FromRGB(cchars data,cxInt width,cxInt height);
+    cxTexture *UpdateRGB(cchars data);
     cxTexture *FromRGBA(cchars data,cxInt width,cxInt height);
+    cxTexture *UpdateRGBA(cchars data,cxInt width,cxInt height);
+    cxTexture *UpdateRGBA(cchars data);
     cxTexture *FromLQT(const cxStr *data);
     cxTexture *FromPNG(const cxStr *data);
     cxTexture *FromJPG(const cxStr *data);
@@ -108,7 +111,7 @@ public:
     cxTexture *FromJPG(cchars file);
     cxTexture *FromPVR(cchars file);
     cxTexture *FromPKM(cchars file);
-    cxTexture *FromTXT(const cxStr *txt,const cxTextAttr &attr);
+    cxTexture *FromTXT(const cxStr *txt,const cxTextAttr &attr,cxUInt64 *key=nullptr);
     cxTexture *From(cchars file);
     cxTexture *From(cxTextureId name,const cxSize2F &siz);
     cxTexture *From(cxInt type,const cxStr *data);

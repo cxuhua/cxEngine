@@ -185,6 +185,7 @@ void cxRender::Draw()
         }
     }
     DrawAllRenders(prev);
+    CX_LOGGER("%d %d",vsc,vdc);
 }
 
 CX_CPP_END

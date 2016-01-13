@@ -43,6 +43,13 @@ cxHashKey::cxHashKey(cchars key)
     data[length] = 0;
 }
 
+cxHashKey::cxHashKey(cxUInt64 key)
+{
+    length = sizeof(cxUInt64);
+    memcpy(data, &key, length);
+    data[length] = 0;
+}
+
 cxHashKey::cxHashKey(cxULong key)
 {
     length = sizeof(cxULong);

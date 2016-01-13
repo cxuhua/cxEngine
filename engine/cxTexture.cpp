@@ -16,6 +16,7 @@
 #include "cxTexture.h"
 #include "cxEngine.h"
 #include "cxLabel.h"
+#include "cxTCaches.h"
 
 #pragma pack(1)
 
@@ -391,6 +392,13 @@ cxTexture *cxTexture::FromJPG(const cxStr *data)
     return this;
 }
 
+cxTexture *cxTexture::UpdateRGBA(cchars data)
+{
+    Bind()->SetParams(cxTextureParams::Default);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.w, size.h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    return this;
+}
+
 cxTexture *cxTexture::FromRGBA(cchars data,cxInt width,cxInt height)
 {
     if(data == nullptr || width == 0 || height == 0){
@@ -401,6 +409,29 @@ cxTexture *cxTexture::FromRGBA(cchars data,cxInt width,cxInt height)
     type = RAW;
     GenTexture()->Bind()->SetParams(cxTextureParams::Default);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    return this;
+}
+
+cxTexture *cxTexture::UpdateRGBA(cchars data,cxInt width,cxInt height)
+{
+    if(data == nullptr || width == 0 || height == 0){
+        success = false;
+        return this;
+    }
+    size = cxSize2F(width, height);
+    Bind()->SetParams(cxTextureParams::Default);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    return this;
+}
+
+cxTexture *cxTexture::UpdateRGB(cchars data)
+{
+    GLint unpack = 0;
+    glGetIntegerv(GL_UNPACK_ALIGNMENT, &unpack);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    Bind()->SetParams(cxTextureParams::Default);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, size.w, size.h, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, unpack);
     return this;
 }
 
@@ -610,16 +641,21 @@ cxTexture *cxTexture::FromPKM(const cxStr *data)
     return this;
 }
 
-cxTexture *cxTexture::FromTXT(const cxStr *txt,const cxTextAttr &attr)
+cxTexture *cxTexture::FromTXT(const cxStr *txt,const cxTextAttr &attr,cxUInt64 *key)
 {
     cxStr *data = cxEngine::Instance()->TextImage(txt, attr, size);
     if(!cxStr::IsOK(data)){
         success = false;
         return this;
     }
+    if(attr.cached && key != nullptr){
+        *key = cxTCaches::Instance()->Append(size.w, size.h, data);
+        success = (*key) != 0;
+        return this;
+    }
+    type = TXT;
     GenTexture()->Bind()->SetParams(cxTextureParams::Default);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.w, size.h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data->Buffer());
-    type = TXT;
     return this;
 }
 

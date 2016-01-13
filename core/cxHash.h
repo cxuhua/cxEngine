@@ -23,6 +23,7 @@ struct cxHashKey
     cxByte data[CX_HASH_MAX_KEY + 1];
     cxHashKey();
     cxHashKey(cxInt key);
+    cxHashKey(cxUInt64 key);
     cxHashKey(cchars key);
     cxHashKey(cxULong key);
     cxHashKey(const cxStr *key);

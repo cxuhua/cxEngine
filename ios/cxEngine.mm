@@ -112,7 +112,7 @@ static void drawString(CGContextRef ctx,CTFrameRef frameRef,CGRect rect,UIFont *
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     [image drawInRect:rect];
 }
-//使用空格每三位数分离
+
 static NSString *spaceString(NSString *str,cxTextNumFormat format)
 {
     NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
@@ -155,13 +155,14 @@ cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &siz
     if(frameRef == nil){
         return NULL;
     }
+    //RGBA
     cxInt bufsiz = (int)(dim.width * dim.height * 4);
     cxStr *rv = cxStr::Create()->Init(bufsiz);
     chars buffer = rv->Buffer();
     CGBitmapInfo bitMapInfo = kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault;
     CGColorSpaceRef colorSpace  = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(buffer,dim.width,dim.height,8,(int)(dim.width * 4),colorSpace,bitMapInfo);
-    CX_ASSERT(context != NULL, "CGBitmapContextCreate create error");
+    CX_ASSERT(context != NULL, "CGBitmapContextCreate create failed");
     CGContextTranslateCTM(context, 0.0f, dim.height);
     CGContextScaleCTM(context, 1.0f, -1.0f);
     UIGraphicsPushContext(context);

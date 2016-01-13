@@ -25,8 +25,8 @@ cxTcp::cxTcp()
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_protocol = IPPROTO_TCP;
     hints.ai_flags = 0;
-    buffer = (char *)malloc(4096);
     bufsiz = 4096;
+    buffer = (char *)malloc(bufsiz);
     Forever();
 }
 

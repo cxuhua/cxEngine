@@ -98,7 +98,6 @@ public:
     cxTexture *FromRGB(cchars data,cxInt width,cxInt height);
     cxTexture *UpdateRGB(cchars data);
     cxTexture *FromRGBA(cchars data,cxInt width,cxInt height);
-    cxTexture *UpdateRGBA(cchars data,cxInt width,cxInt height);
     cxTexture *UpdateRGBA(cchars data);
     cxTexture *FromLQT(const cxStr *data);
     cxTexture *FromPNG(const cxStr *data);

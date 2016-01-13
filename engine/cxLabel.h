@@ -39,7 +39,6 @@ struct cxTextAttr
     cxBool boldFont;
     cxFloat fixWidth;
     cxTextNumFormat format;
-    cxBool cached;
 };
 
 class cxLabel : public cxSprite
@@ -62,7 +61,6 @@ public:
     cxLabel *SetFontSize(cxFloat size);
     cxLabel *SetAlign(const cxTextAlign &align);
     cxLabel *SetStroke(cxFloat width,const cxColor4F &color,const cxPoint2F &off);
-    cxLabel *SetCached(cxBool cache);
     cxLabel *SetBold(cxBool bold);
     cxLabel *SetFixWidth(cxFloat fix);
     cxLabel *SetNumFormat(const cxTextNumFormat &fmt);

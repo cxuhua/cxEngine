@@ -65,46 +65,6 @@ void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     
-    {
-        cxLabel *label = cxLabel::Create();
-        label->SetText("中国");
-        label->SetFontSize(64);
-        label->SetCached(true);
-        label->SetPosition(cxPoint2F(0, 60));
-        Window()->Append(label);
-    }
-    
-    {
-        cxLabel *label = cxLabel::Create();
-        label->SetText("上海");
-        label->SetFontSize(64);
-        label->SetCached(true);
-        Window()->Append(label);
-    }
-    
-    {
-        cxLabel *label = cxLabel::Create();
-        label->SetText("北京");
-        label->SetFontSize(64);
-        label->SetCached(true);
-        label->SetPosition(cxPoint2F(0, -60));
-        Window()->Append(label);
-        
-//        cxTimer *p = cxTimer::Create(1, 3);
-//        p->onArrive +=[label,this](cxTimer *pt){
-//            label->Remove();
-//            {
-//                cxLabel *x = cxLabel::Create();
-//                x->SetText("地球");
-//                x->SetFontSize(64);
-//                x->SetCached(true);
-//                x->SetPosition(cxPoint2F(0, -60));
-//                Window()->Append(x);
-//            }
-//        };
-//        Window()->Append(p);
-    }
-    
 //    cxTcp *tcp = cxTcp::Create("192.168.199.242", 8899);
 //    tcp->onData+=[](cxTcp *pav,cchars data, cxInt len){
 //        cxDouble now = cxUtil::Timestamp();

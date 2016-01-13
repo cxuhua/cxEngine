@@ -2,6 +2,7 @@
 //  cxTCaches.h
 //  cxEngineCore
 //  text texture cache
+//  适合大量的小文字批显示，宽度不超过maxx的静态文字
 //  Created by xuhua on 1/13/16.
 //  Copyright © 2016 xuhua. All rights reserved.
 //

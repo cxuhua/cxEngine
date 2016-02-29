@@ -64,26 +64,28 @@ cxInt dataLen = 0;
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
-    
-//    cxTcp *tcp = cxTcp::Create("192.168.199.242", 8899);
-//    tcp->onData+=[](cxTcp *pav,cchars data, cxInt len){
-//        cxDouble now = cxUtil::Timestamp();
-//        dataLen += len;
-//        if(prev == 0){
-//            prev = now;
-//            return;
-//        }
-//        cxDouble delta = now - prev;
-//        prev = now;
-//        allTime += delta;
-//        if(allTime < 1.0f){
-//            return;
-//        }
-//        allTime -= 1.0f;
-//        CX_LOGGER("%d",dataLen);
-//        dataLen = 0;
-//    };
-//    Window()->Append(tcp);
+    cxTcp *tcp = cxTcp::Create("192.168.199.242", 8899);
+    tcp->onClose+=[](cxTcp *pav){
+        CX_LOGGER("error close");
+    };
+    tcp->onData+=[](cxTcp *pav,cchars data, cxInt len){
+        cxDouble now = cxUtil::Timestamp();
+        dataLen += len;
+        if(prev == 0){
+            prev = now;
+            return;
+        }
+        cxDouble delta = now - prev;
+        prev = now;
+        allTime += delta;
+        if(allTime < 1.0f){
+            return;
+        }
+        allTime -= 1.0f;
+        CX_LOGGER("%d",dataLen);
+        dataLen = 0;
+    };
+    Window()->Append(tcp);
 }
 
 CX_CPP_END

@@ -477,8 +477,10 @@
 					"$(SRCROOT)/libs/osx/lib",
 					"$(PROJECT_DIR)/libs/osx/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.engine;
+				PRODUCT_BUNDLE_IDENTIFIER = co.cegou.app;
 				PRODUCT_NAME = cxEngineTest;
+				PROVISIONING_PROFILE = "9a3a7d10-97e7-442b-87e8-c1acb325d3bd";
+				STRIP_PNG_TEXT = NO;
 			};
 			name = Debug;
 		};
@@ -509,8 +511,10 @@
 					"$(SRCROOT)/libs/osx/lib",
 					"$(PROJECT_DIR)/libs/osx/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.engine;
+				PRODUCT_BUNDLE_IDENTIFIER = co.cegou.app;
 				PRODUCT_NAME = cxEngineTest;
+				PROVISIONING_PROFILE = "9a3a7d10-97e7-442b-87e8-c1acb325d3bd";
+				STRIP_PNG_TEXT = NO;
 			};
 			name = Release;
 		};

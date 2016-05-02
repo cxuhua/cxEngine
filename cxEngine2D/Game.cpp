@@ -41,11 +41,11 @@
 #include <engine/cxBox2D.h>
 #include <engine/cxSpine.h>
 #include <core/cxSqlite.h>
+#include <engine/cxScript.h>
 
 CX_CPP_BEGIN
 
 CX_IMPLEMENT(Game);
-
 
 Game::Game()
 {
@@ -59,6 +59,7 @@ Game::~Game()
 
 void Game::OnMain()
 {
+    
     SetPlanSize(cxSize2F(2048, 1536));
     
     cxSprite *sp = cxSprite::Create();

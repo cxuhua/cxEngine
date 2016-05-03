@@ -18,12 +18,12 @@
 		839A52311CD856B60002BF77 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52301CD856B60002BF77 /* OpenAL.framework */; };
 		839A52331CD856BA0002BF77 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52321CD856BA0002BF77 /* GLKit.framework */; };
 		839A52351CD856C10002BF77 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52341CD856C10002BF77 /* OpenGLES.framework */; };
-		839A523C1CD856DB0002BF77 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52361CD856DB0002BF77 /* libjansson.a */; };
-		839A523D1CD856DB0002BF77 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52371CD856DB0002BF77 /* libjpeg.a */; };
-		839A523E1CD856DB0002BF77 /* libmpg123.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52381CD856DB0002BF77 /* libmpg123.a */; };
-		839A523F1CD856DB0002BF77 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52391CD856DB0002BF77 /* libpcre.a */; };
-		839A52401CD856DB0002BF77 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A523A1CD856DB0002BF77 /* libpng.a */; };
-		839A52411CD856DB0002BF77 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A523B1CD856DB0002BF77 /* libuv.a */; };
+		83C5BF961CD860CD00F0DA0B /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF901CD860CD00F0DA0B /* libjansson.a */; };
+		83C5BF971CD860CD00F0DA0B /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF911CD860CD00F0DA0B /* libjpeg.a */; };
+		83C5BF981CD860CD00F0DA0B /* libmpg123.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF921CD860CD00F0DA0B /* libmpg123.a */; };
+		83C5BF991CD860CD00F0DA0B /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF931CD860CD00F0DA0B /* libpcre.a */; };
+		83C5BF9A1CD860CD00F0DA0B /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF941CD860CD00F0DA0B /* libpng.a */; };
+		83C5BF9B1CD860CD00F0DA0B /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF951CD860CD00F0DA0B /* libuv.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,13 +51,13 @@
 		839A52301CD856B60002BF77 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		839A52321CD856BA0002BF77 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		839A52341CD856C10002BF77 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		839A52361CD856DB0002BF77 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = ../libs/osx/lib/libjansson.a; sourceTree = "<group>"; };
-		839A52371CD856DB0002BF77 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../libs/osx/lib/libjpeg.a; sourceTree = "<group>"; };
-		839A52381CD856DB0002BF77 /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = ../libs/osx/lib/libmpg123.a; sourceTree = "<group>"; };
-		839A52391CD856DB0002BF77 /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = ../libs/osx/lib/libpcre.a; sourceTree = "<group>"; };
-		839A523A1CD856DB0002BF77 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../libs/osx/lib/libpng.a; sourceTree = "<group>"; };
-		839A523B1CD856DB0002BF77 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../libs/osx/lib/libuv.a; sourceTree = "<group>"; };
 		839A52431CD857140002BF77 /* cxEngineCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cxEngineCore.xcodeproj; path = ../cxEngineCore.xcodeproj; sourceTree = "<group>"; };
+		83C5BF901CD860CD00F0DA0B /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = ../libs/ios/lib/libjansson.a; sourceTree = "<group>"; };
+		83C5BF911CD860CD00F0DA0B /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../libs/ios/lib/libjpeg.a; sourceTree = "<group>"; };
+		83C5BF921CD860CD00F0DA0B /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = ../libs/ios/lib/libmpg123.a; sourceTree = "<group>"; };
+		83C5BF931CD860CD00F0DA0B /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = ../libs/ios/lib/libpcre.a; sourceTree = "<group>"; };
+		83C5BF941CD860CD00F0DA0B /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../libs/ios/lib/libpng.a; sourceTree = "<group>"; };
+		83C5BF951CD860CD00F0DA0B /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../libs/ios/lib/libuv.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,14 +65,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83C5BF961CD860CD00F0DA0B /* libjansson.a in Frameworks */,
+				83C5BF971CD860CD00F0DA0B /* libjpeg.a in Frameworks */,
+				83C5BF981CD860CD00F0DA0B /* libmpg123.a in Frameworks */,
+				83C5BF991CD860CD00F0DA0B /* libpcre.a in Frameworks */,
+				83C5BF9A1CD860CD00F0DA0B /* libpng.a in Frameworks */,
+				83C5BF9B1CD860CD00F0DA0B /* libuv.a in Frameworks */,
 				833ED2491CD857EC00046BB6 /* libz.tbd in Frameworks */,
 				833ED2471CD857C700046BB6 /* libcxEngineCore.a in Frameworks */,
-				839A523C1CD856DB0002BF77 /* libjansson.a in Frameworks */,
-				839A523D1CD856DB0002BF77 /* libjpeg.a in Frameworks */,
-				839A523E1CD856DB0002BF77 /* libmpg123.a in Frameworks */,
-				839A523F1CD856DB0002BF77 /* libpcre.a in Frameworks */,
-				839A52401CD856DB0002BF77 /* libpng.a in Frameworks */,
-				839A52411CD856DB0002BF77 /* libuv.a in Frameworks */,
 				839A52351CD856C10002BF77 /* OpenGLES.framework in Frameworks */,
 				839A52331CD856BA0002BF77 /* GLKit.framework in Frameworks */,
 				839A52311CD856B60002BF77 /* OpenAL.framework in Frameworks */,
@@ -135,13 +135,13 @@
 		839A52421CD856E60002BF77 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				83C5BF901CD860CD00F0DA0B /* libjansson.a */,
+				83C5BF911CD860CD00F0DA0B /* libjpeg.a */,
+				83C5BF921CD860CD00F0DA0B /* libmpg123.a */,
+				83C5BF931CD860CD00F0DA0B /* libpcre.a */,
+				83C5BF941CD860CD00F0DA0B /* libpng.a */,
+				83C5BF951CD860CD00F0DA0B /* libuv.a */,
 				833ED2481CD857EC00046BB6 /* libz.tbd */,
-				839A52361CD856DB0002BF77 /* libjansson.a */,
-				839A52371CD856DB0002BF77 /* libjpeg.a */,
-				839A52381CD856DB0002BF77 /* libmpg123.a */,
-				839A52391CD856DB0002BF77 /* libpcre.a */,
-				839A523A1CD856DB0002BF77 /* libpng.a */,
-				839A523B1CD856DB0002BF77 /* libuv.a */,
 				839A52341CD856C10002BF77 /* OpenGLES.framework */,
 				839A52321CD856BA0002BF77 /* GLKit.framework */,
 				839A52301CD856B60002BF77 /* OpenAL.framework */,
@@ -364,11 +364,11 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../",
-					"$(SRCROOT)/../libs/osx/include",
+					"$(SRCROOT)/../libs/ios/include",
 				);
 				INFOPLIST_FILE = template/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../libs/osx/lib";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../libs/ios/lib";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.template;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -392,11 +392,11 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../",
-					"$(SRCROOT)/../libs/osx/include",
+					"$(SRCROOT)/../libs/ios/include",
 				);
 				INFOPLIST_FILE = template/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../libs/osx/lib";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../libs/ios/lib";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.template;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

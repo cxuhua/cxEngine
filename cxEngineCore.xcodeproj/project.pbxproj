@@ -179,7 +179,6 @@
 		839836CE1B10B3F7002B7C20 /* cxAutoPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CC1B10B3F7002B7C20 /* cxAutoPool.cpp */; };
 		839836D11B10B59C002B7C20 /* cxArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CF1B10B59C002B7C20 /* cxArray.cpp */; };
 		839836E61B117475002B7C20 /* cxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836E41B117475002B7C20 /* cxObject.cpp */; };
-		839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B8AB51B687DA3009E0CF7 /* OpenAL.framework */; };
 		839B8AB91B687DC8009E0CF7 /* cxOpenAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */; };
 		839B8AF41B68E877009E0CF7 /* cxMusic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AF21B68E877009E0CF7 /* cxMusic.cpp */; };
 		839B936D1C1DC07F001B8C79 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 839B936B1C1DC07F001B8C79 /* sqlite3.c */; };
@@ -585,15 +584,9 @@
 		839836CD1B10B3F7002B7C20 /* cxAutoPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAutoPool.h; sourceTree = "<group>"; };
 		839836CF1B10B59C002B7C20 /* cxArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxArray.cpp; sourceTree = "<group>"; };
 		839836D01B10B59C002B7C20 /* cxArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxArray.h; sourceTree = "<group>"; };
-		839836D61B10E3EF002B7C20 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = libs/osx/lib/libjansson.a; sourceTree = "<group>"; };
-		839836D71B10E3EF002B7C20 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = libs/osx/lib/libjpeg.a; sourceTree = "<group>"; };
-		839836D81B10E3EF002B7C20 /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = libs/osx/lib/libpcre.a; sourceTree = "<group>"; };
-		839836D91B10E3EF002B7C20 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libs/osx/lib/libpng.a; sourceTree = "<group>"; };
-		839836DA1B10E3EF002B7C20 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = libs/osx/lib/libuv.a; sourceTree = "<group>"; };
 		839836E41B117475002B7C20 /* cxObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxObject.cpp; sourceTree = "<group>"; };
 		839836E51B117475002B7C20 /* cxObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxObject.h; sourceTree = "<group>"; };
 		839A52031CD84F1E0002BF77 /* system.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = system.shader; sourceTree = "<group>"; };
-		839B8AB51B687DA3009E0CF7 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxOpenAL.cpp; sourceTree = "<group>"; };
 		839B8AB81B687DC8009E0CF7 /* cxOpenAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxOpenAL.h; sourceTree = "<group>"; };
 		839B8ABA1B687DFA009E0CF7 /* OpenAL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenAL.h; sourceTree = "<group>"; };
@@ -656,7 +649,6 @@
 		83D2666A1B345D6000077DB8 /* cxStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxStack.h; sourceTree = "<group>"; };
 		83D5D31C1B6763B70051D99D /* cxLQT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLQT.cpp; sourceTree = "<group>"; };
 		83D5D31D1B6763B70051D99D /* cxLQT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxLQT.h; sourceTree = "<group>"; };
-		83D8C3541B69C71200155990 /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = libs/osx/lib/libmpg123.a; sourceTree = "<group>"; };
 		83D92D231B3151D200F061D6 /* cxBoxCoord2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxCoord2F.cpp; sourceTree = "<group>"; };
 		83D92D241B3151D200F061D6 /* cxBoxCoord2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxBoxCoord2F.h; sourceTree = "<group>"; };
 		83D92D341B317C2000F061D6 /* cxBoxPoint2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxPoint2F.cpp; sourceTree = "<group>"; };
@@ -680,7 +672,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				839B8AB61B687DA3009E0CF7 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1138,20 +1129,6 @@
 			path = math;
 			sourceTree = "<group>";
 		};
-		839836E01B10E3F4002B7C20 /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				839B8AB51B687DA3009E0CF7 /* OpenAL.framework */,
-				839836D61B10E3EF002B7C20 /* libjansson.a */,
-				83D8C3541B69C71200155990 /* libmpg123.a */,
-				839836D71B10E3EF002B7C20 /* libjpeg.a */,
-				839836D81B10E3EF002B7C20 /* libpcre.a */,
-				839836D91B10E3EF002B7C20 /* libpng.a */,
-				839836DA1B10E3EF002B7C20 /* libuv.a */,
-			);
-			name = libs;
-			sourceTree = "<group>";
-		};
 		83B23B4C1B17E0E9000D770A /* ext */ = {
 			isa = PBXGroup;
 			children = (
@@ -1248,7 +1225,6 @@
 				836F3F0A1B1B89A000E3E82C /* math */,
 				836A2F621B19F636009B427B /* ios */,
 				83B23B4C1B17E0E9000D770A /* ext */,
-				839836E01B10E3F4002B7C20 /* libs */,
 				83BBF3FC1B109531003CB004 /* core */,
 				83BBF3D91B109452003CB004 /* Products */,
 			);
@@ -1674,11 +1650,11 @@
 				GCC_WARN_UNUSED_LABEL = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/libs/osx/include",
+					"$(SRCROOT)/libs/ios/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/libs/osx/lib",
-					"$(PROJECT_DIR)/libs/osx/lib",
+					"$(PROJECT_DIR)/libs/ios/lib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1699,11 +1675,11 @@
 				GCC_WARN_UNUSED_LABEL = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/libs/osx/include",
+					"$(SRCROOT)/libs/ios/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/libs/osx/lib",
-					"$(PROJECT_DIR)/libs/osx/lib",
+					"$(PROJECT_DIR)/libs/ios/lib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

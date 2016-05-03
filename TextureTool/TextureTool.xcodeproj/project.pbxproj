@@ -41,13 +41,13 @@
 		839313D21C33B79A00DB9C0A /* vec2.c in Sources */ = {isa = PBXBuildFile; fileRef = 839313AF1C33B79A00DB9C0A /* vec2.c */; };
 		839313D31C33B79A00DB9C0A /* vec3.c in Sources */ = {isa = PBXBuildFile; fileRef = 839313B11C33B79A00DB9C0A /* vec3.c */; };
 		839313D41C33B79A00DB9C0A /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 839313B31C33B79A00DB9C0A /* vec4.c */; };
+		83D4CD491CD863FB00D1FE34 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D4CD441CD863FB00D1FE34 /* libjansson.a */; };
+		83D4CD4A1CD863FB00D1FE34 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D4CD451CD863FB00D1FE34 /* libjpeg.a */; };
+		83D4CD4B1CD863FB00D1FE34 /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D4CD461CD863FB00D1FE34 /* libpcre.a */; };
+		83D4CD4C1CD863FB00D1FE34 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D4CD471CD863FB00D1FE34 /* libpng.a */; };
+		83D4CD4D1CD863FB00D1FE34 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D4CD481CD863FB00D1FE34 /* libuv.a */; };
 		83D4E3501BB2AADC00E10AF9 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D4E34F1BB2AADC00E10AF9 /* libz.tbd */; };
 		83D5D28E1B6734BC0051D99D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D28D1B6734BC0051D99D /* main.cpp */; };
-		83D5D29C1B6734D60051D99D /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D2951B6734D60051D99D /* libjansson.a */; };
-		83D5D29D1B6734D60051D99D /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D2961B6734D60051D99D /* libjpeg.a */; };
-		83D5D29F1B6734D60051D99D /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D2981B6734D60051D99D /* libpcre.a */; };
-		83D5D2A01B6734D60051D99D /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D2991B6734D60051D99D /* libpng.a */; };
-		83D5D2A11B6734D60051D99D /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D5D29A1B6734D60051D99D /* libuv.a */; };
 		83D5D2F01B6735100051D99D /* cxArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D2A61B6735100051D99D /* cxArray.cpp */; };
 		83D5D2F11B6735100051D99D /* cxAutoPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D2A81B6735100051D99D /* cxAutoPool.cpp */; };
 		83D5D2F21B6735100051D99D /* cxCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D2AA1B6735100051D99D /* cxCore.cpp */; };
@@ -170,14 +170,14 @@
 		839313B21C33B79A00DB9C0A /* vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec3.h; sourceTree = "<group>"; };
 		839313B31C33B79A00DB9C0A /* vec4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vec4.c; sourceTree = "<group>"; };
 		839313B41C33B79A00DB9C0A /* vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec4.h; sourceTree = "<group>"; };
+		83D4CD441CD863FB00D1FE34 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = ../libs/osx/lib/libjansson.a; sourceTree = "<group>"; };
+		83D4CD451CD863FB00D1FE34 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../libs/osx/lib/libjpeg.a; sourceTree = "<group>"; };
+		83D4CD461CD863FB00D1FE34 /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = ../libs/osx/lib/libpcre.a; sourceTree = "<group>"; };
+		83D4CD471CD863FB00D1FE34 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../libs/osx/lib/libpng.a; sourceTree = "<group>"; };
+		83D4CD481CD863FB00D1FE34 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../libs/osx/lib/libuv.a; sourceTree = "<group>"; };
 		83D4E34F1BB2AADC00E10AF9 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		83D5D28A1B6734BC0051D99D /* TextureTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TextureTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D5D28D1B6734BC0051D99D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		83D5D2951B6734D60051D99D /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = ../libs/osx/lib/libjansson.a; sourceTree = "<group>"; };
-		83D5D2961B6734D60051D99D /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../libs/osx/lib/libjpeg.a; sourceTree = "<group>"; };
-		83D5D2981B6734D60051D99D /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = ../libs/osx/lib/libpcre.a; sourceTree = "<group>"; };
-		83D5D2991B6734D60051D99D /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../libs/osx/lib/libpng.a; sourceTree = "<group>"; };
-		83D5D29A1B6734D60051D99D /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../libs/osx/lib/libuv.a; sourceTree = "<group>"; };
 		83D5D2A61B6735100051D99D /* cxArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxArray.cpp; sourceTree = "<group>"; };
 		83D5D2A71B6735100051D99D /* cxArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxArray.h; sourceTree = "<group>"; };
 		83D5D2A81B6735100051D99D /* cxAutoPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAutoPool.cpp; sourceTree = "<group>"; };
@@ -260,12 +260,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83D4CD491CD863FB00D1FE34 /* libjansson.a in Frameworks */,
+				83D4CD4A1CD863FB00D1FE34 /* libjpeg.a in Frameworks */,
+				83D4CD4B1CD863FB00D1FE34 /* libpcre.a in Frameworks */,
+				83D4CD4C1CD863FB00D1FE34 /* libpng.a in Frameworks */,
+				83D4CD4D1CD863FB00D1FE34 /* libuv.a in Frameworks */,
 				83D4E3501BB2AADC00E10AF9 /* libz.tbd in Frameworks */,
-				83D5D29C1B6734D60051D99D /* libjansson.a in Frameworks */,
-				83D5D29D1B6734D60051D99D /* libjpeg.a in Frameworks */,
-				83D5D29F1B6734D60051D99D /* libpcre.a in Frameworks */,
-				83D5D2A01B6734D60051D99D /* libpng.a in Frameworks */,
-				83D5D2A11B6734D60051D99D /* libuv.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,12 +392,12 @@
 		83D5D2A21B6734DB0051D99D /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				83D5D2951B6734D60051D99D /* libjansson.a */,
-				83D5D2961B6734D60051D99D /* libjpeg.a */,
+				83D4CD441CD863FB00D1FE34 /* libjansson.a */,
+				83D4CD451CD863FB00D1FE34 /* libjpeg.a */,
+				83D4CD461CD863FB00D1FE34 /* libpcre.a */,
+				83D4CD471CD863FB00D1FE34 /* libpng.a */,
+				83D4CD481CD863FB00D1FE34 /* libuv.a */,
 				83D4E34F1BB2AADC00E10AF9 /* libz.tbd */,
-				83D5D2981B6734D60051D99D /* libpcre.a */,
-				83D5D2991B6734D60051D99D /* libpng.a */,
-				83D5D29A1B6734D60051D99D /* libuv.a */,
 			);
 			name = libs;
 			sourceTree = "<group>";
@@ -668,7 +668,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -704,7 +704,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
@@ -722,7 +722,9 @@
 					"$(SRCROOT)/../libs/osx/include",
 				);
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../libs/osx/lib";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -738,7 +740,9 @@
 					"$(SRCROOT)/../libs/osx/include",
 				);
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../libs/osx/lib";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};

@@ -14,7 +14,6 @@
 		83B3F9911BF3737600AE458F /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B3F98B1BF3737600AE458F /* libpcre.a */; };
 		83B3F9921BF3737600AE458F /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B3F98C1BF3737600AE458F /* libpng.a */; };
 		83B3F9931BF3737600AE458F /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B3F98D1BF3737600AE458F /* libuv.a */; };
-		83B3F9961BF373B000AE458F /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 83B3F9951BF373B000AE458F /* shader */; };
 		83B3F9981BF373BA00AE458F /* libcxEngineCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B3F9871BF3735400AE458F /* libcxEngineCore.a */; };
 		83B3F99C1BF3740A00AE458F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B3F99B1BF3740A00AE458F /* LaunchScreen.xib */; };
 		83B3F9A21BF3746600AE458F /* App.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83B3F99E1BF3746600AE458F /* App.mm */; };
@@ -45,7 +44,6 @@
 		83B3F98B1BF3737600AE458F /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = ../libs/osx/lib/libpcre.a; sourceTree = "<group>"; };
 		83B3F98C1BF3737600AE458F /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../libs/osx/lib/libpng.a; sourceTree = "<group>"; };
 		83B3F98D1BF3737600AE458F /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../libs/osx/lib/libuv.a; sourceTree = "<group>"; };
-		83B3F9951BF373B000AE458F /* shader */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shader; sourceTree = SOURCE_ROOT; };
 		83B3F99B1BF3740A00AE458F /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = SOURCE_ROOT; };
 		83B3F99D1BF3746600AE458F /* App.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = SOURCE_ROOT; };
 		83B3F99E1BF3746600AE458F /* App.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = App.mm; sourceTree = SOURCE_ROOT; };
@@ -143,7 +141,6 @@
 			children = (
 				83B3F9A51BF376C800AE458F /* textures */,
 				83B3F99B1BF3740A00AE458F /* LaunchScreen.xib */,
-				83B3F9951BF373B000AE458F /* shader */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -222,7 +219,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83B3F9961BF373B000AE458F /* shader in Resources */,
 				83B3F99C1BF3740A00AE458F /* LaunchScreen.xib in Resources */,
 				83B3F9A61BF376C800AE458F /* textures in Resources */,
 			);

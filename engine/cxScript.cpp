@@ -11,10 +11,6 @@
 
 CX_CPP_BEGIN
 
-int cxScript::ScriptInit(lua_State *L)
-{
-    return 0;
-}
 
 CX_CPP_END
 

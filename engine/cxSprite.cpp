@@ -201,7 +201,7 @@ void cxSprite::OnRender(cxRender *render,const cxMatrixF &model)
     state.Set(cxRenderState::TrianglesVBO);
     state.Set(Texture());
     state.Set(Blend());
-    render->Render(box,model,State(), Flags());
+    render->Render(box, model, State(), Flags());
 }
 
 CX_CPP_END

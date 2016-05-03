@@ -10,7 +10,6 @@
 #define cxEngineCore_cxScript_h
 
 #include <core/cxObject.h>
-#include <lua/lua.hpp>
 #include "cxTimer.h"
 
 CX_CPP_BEGIN
@@ -65,7 +64,6 @@ int Script_##_t_##_GC(lua_State *L){                            \
 class cxScript
 {
 public:
-    static int ScriptInit(lua_State *L);
 };
 
 CX_CPP_END

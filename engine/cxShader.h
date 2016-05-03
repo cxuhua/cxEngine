@@ -53,8 +53,6 @@ protected:
 private:
     glUint CompileVSHShader(const cxStr *source);
     glUint CompileFSHShader(const cxStr *source);
-    cxStr *vs;
-    cxStr *fs;
 public:
     
     void BindAttrib(glUint idx,cchars name);
@@ -75,11 +73,12 @@ public:
     const glUint ID() const;
     
     void Free();
+    //use file init
     cxShader *Init(cchars vsf,cchars fsf);
-    virtual void Using(cxView *pview) const;
+    //use mem content init
+    cxShader *Init(const cxStr *vs,const cxStr *fs);
     
-    cxShader *Vertex(cchars file);
-    cxShader *Fragment(cchars file);
+    virtual void Using(cxView *pview) const;
 };
 //
 class cxColorShader : public cxShader

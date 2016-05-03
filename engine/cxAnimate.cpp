@@ -59,6 +59,7 @@ cxAnimate *cxAnimate::SetAction(const cxActionAttr *pattr,cxInt agroup)
 
 cxAnimate *cxAnimate::SetGroup(cxInt agroup)
 {
+    CX_ASSERT(frames != nullptr, "frames not set");
     CX_ASSERT(agroup < frames->Group(), "group set error");
     group = agroup;
     cxInt from = agroup * frames->Count() + attr.from;
@@ -71,6 +72,7 @@ cxAnimate *cxAnimate::SetGroup(cxInt agroup)
 
 cxAnimate *cxAnimate::SetRange(cxInt afrom,cxInt ato)
 {
+    CX_ASSERT(frames != nullptr, "frames not set");
     cxInt from = group * frames->Count() + afrom;
     CX_ASSERT(from >= 0 && from < Points()->Size(), "from out");
     cxInt to = group * frames->Count() + ato;

@@ -15,8 +15,11 @@
 #include <math/cxMatrixF.h>
 #include <math/cxBoxPoint2F.h>
 #include <math/cxBoxRender.h>
+#include <core/cxUtil.h>
 
 CX_CPP_BEGIN
+
+#include "system.shader"
 
 #define CX_GL_SUPPORT(t)                          \
 support_##t = strstr(extensions,#t) > 0;          \
@@ -66,11 +69,11 @@ void cxOpenGL::Init()
     
     glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &maxVertexTextureUnits);
     CX_LOGGER("GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS: %d",maxVertexTextureUnits);
-    //init shader
-    cxShader::Create()->Init("shader/default.vsh","shader/default.fsh")->gcSet<cxShader>(DefaultShader);
-    cxShader::Create()->Init("shader/gray.vsh","shader/gray.fsh")->gcSet<cxShader>(GrayShader);
-    cxColorShader::Create()->Init("shader/color.vsh","shader/color.fsh")->gcSet<cxShader>(ColorShader);
-    //
+    //init system shader
+    cxShader::Create()->Init(DefaultVSH,DefaultFSH)->gcSet<cxShader>(DefaultShader);
+    cxShader::Create()->Init(GrayVSH,GrayFSH)->gcSet<cxShader>(GrayShader);
+    cxColorShader::Create()->Init(ColorVSH,ColorFSH)->gcSet<cxShader>(ColorShader);
+    //init system color
     SetClearColor(cxColor4F::BLACK);
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_SCISSOR_TEST);
@@ -371,13 +374,11 @@ glUint cxShader::CompileFSHShader(const cxStr *source)
     return shader;
 }
 
-cxShader *cxShader::Init(cchars vsf,cchars fsf)
+cxShader *cxShader::Init(const cxStr *avs,const cxStr *afs)
 {
-    Vertex(vsf);
-    Fragment(fsf);
     GLint status;
-    vsh = CompileVSHShader(vs);
-    fsh = CompileFSHShader(fs);
+    vsh = CompileVSHShader(avs);
+    fsh = CompileFSHShader(afs);
     program = glCreateProgram();
     glAttachShader(program, vsh);
     glAttachShader(program, fsh);
@@ -401,6 +402,11 @@ cxShader *cxShader::Init(cchars vsf,cchars fsf)
         return this;
     }
     return this;
+}
+
+cxShader *cxShader::Init(cchars vsf,cchars fsf)
+{
+    return Init(cxUtil::Assets(vsf), cxUtil::Assets(fsf));
 }
 
 TDrawBuffer::TDrawBuffer()

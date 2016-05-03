@@ -59,7 +59,6 @@ Game::~Game()
 
 void Game::OnMain()
 {
-    
     SetPlanSize(cxSize2F(2048, 1536));
     
     cxSprite *sp = cxSprite::Create();

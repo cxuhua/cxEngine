@@ -24,18 +24,6 @@ void cxShader::Free()
     cxOpenGL::Instance()->DelProgram(program);
 }
 
-cxShader *cxShader::Vertex(cchars file)
-{
-    cxObject::swap(&vs, cxUtil::Assets(file));
-    return this;
-}
-
-cxShader *cxShader::Fragment(cchars file)
-{
-    cxObject::swap(&fs, cxUtil::Assets(file));
-    return this;
-}
-
 void cxShader::SetModelProject(const cxMatrixF &value) const
 {
     SetUniform(ump, value);
@@ -55,8 +43,6 @@ void cxShader::Using(cxView *pview) const
 
 cxShader::cxShader()
 {
-    vs = nullptr;
-    fs = nullptr;
     program = 0;
     vsh = 0;
     fsh = 0;
@@ -66,8 +52,6 @@ cxShader::cxShader()
 
 cxShader::~cxShader()
 {
-    cxObject::release(&vs);
-    cxObject::release(&fs);
     Free();
 }
 

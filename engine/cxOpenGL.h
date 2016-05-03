@@ -33,6 +33,8 @@ CX_CPP_BEGIN
 
 #define MAX_TEXTURES    32
 
+#define STRINGIFY(A)  #A
+
 typedef uint32_t glUint;
 
 class cxView;

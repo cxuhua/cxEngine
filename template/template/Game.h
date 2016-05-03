@@ -13,7 +13,6 @@
 
 CX_CPP_BEGIN
 
-class cxButton;
 class Game : public cxEngine
 {
 public:

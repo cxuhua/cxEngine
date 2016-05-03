@@ -17,7 +17,6 @@ using namespace cxengine;
 {
     //must init engine class
     cxEngine::Startup(false);
-    
     return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 @end

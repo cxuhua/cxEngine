@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		839ED1BD1CD9C46100BEF5BB /* cxRaknet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839ED1BB1CD9C46100BEF5BB /* cxRaknet.cpp */; };
 		83B4A09F1B087B41005A89BF /* Base64Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B49F9A1B087B40005A89BF /* Base64Encoder.cpp */; };
 		83B4A0A01B087B41005A89BF /* BitStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B49F9C1B087B40005A89BF /* BitStream.cpp */; };
 		83B4A0A11B087B41005A89BF /* CCRakNetSlidingWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B49F9E1B087B40005A89BF /* CCRakNetSlidingWindow.cpp */; };
@@ -65,6 +66,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		839ED1BB1CD9C46100BEF5BB /* cxRaknet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRaknet.cpp; sourceTree = "<group>"; };
+		839ED1BC1CD9C46100BEF5BB /* cxRaknet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRaknet.h; sourceTree = "<group>"; };
 		83B49F7B1B087B0F005A89BF /* libraknet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libraknet.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		83B49F9A1B087B40005A89BF /* Base64Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Base64Encoder.cpp; sourceTree = "<group>"; };
 		83B49F9B1B087B40005A89BF /* Base64Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Encoder.h; sourceTree = "<group>"; };
@@ -219,6 +222,8 @@
 		83B49F951B087B40005A89BF /* raknet */ = {
 			isa = PBXGroup;
 			children = (
+				839ED1BB1CD9C46100BEF5BB /* cxRaknet.cpp */,
+				839ED1BC1CD9C46100BEF5BB /* cxRaknet.h */,
 				83B49F9A1B087B40005A89BF /* Base64Encoder.cpp */,
 				83B49F9B1B087B40005A89BF /* Base64Encoder.h */,
 				83B49F9C1B087B40005A89BF /* BitStream.cpp */,
@@ -433,6 +438,7 @@
 				83B4A0EC1B087B41005A89BF /* RandSync.cpp in Sources */,
 				83B4A10B1B087B41005A89BF /* WSAStartupSingleton.cpp in Sources */,
 				83B4A0AC1B087B41005A89BF /* DR_SHA1.cpp in Sources */,
+				839ED1BD1CD9C46100BEF5BB /* cxRaknet.cpp in Sources */,
 				83B4A0D21B087B41005A89BF /* PluginInterface2.cpp in Sources */,
 				83B4A0D51B087B41005A89BF /* RakMemoryOverride.cpp in Sources */,
 				83B4A0EF1B087B41005A89BF /* ReliabilityLayer.cpp in Sources */,

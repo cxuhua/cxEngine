@@ -97,8 +97,6 @@ namespace RakNet
 #include <stdio.h>
 #endif
 
- 
-
 // http://beej.us/guide/bgnet/output/html/singlepage/bgnet.html#ip4to6
 // http://beej.us/guide/bgnet/output/html/singlepage/bgnet.html#getaddrinfo
 
@@ -128,22 +126,16 @@ void SocketLayer::SetSocketOptions( __UDPSOCKET__ listenSocket, bool blockingSoc
 	sock_opt=0;
 	setsockopt__(listenSocket, SOL_SOCKET, SO_LINGER, ( char * ) & sock_opt, sizeof ( sock_opt ) );
 
-
-
 	// This doesn't make much difference: 10% maybe
 	// Not supported on console 2
 	sock_opt=1024*16;
 	setsockopt__(listenSocket, SOL_SOCKET, SO_SNDBUF, ( char * ) & sock_opt, sizeof ( sock_opt ) );
-
 
 	if (blockingSocket==false)
 	{
 #ifdef _WIN32
 		unsigned long nonblocking = 1;
 		ioctlsocket__(listenSocket, FIONBIO, &nonblocking );
-
-
-
 #else
 		fcntl( listenSocket, F_SETFL, O_NONBLOCK );
 #endif
@@ -185,11 +177,6 @@ RakNet::RakString SocketLayer::GetSubNetForSocketAndIp(__UDPSOCKET__ inSock, Rak
 {
 	RakNet::RakString netMaskString;
 	RakNet::RakString ipString;
-
-
-
-
-
 #if   defined(WINDOWS_STORE_RT)
 	RakAssert("Not yet supported" && 0);
 	return "";

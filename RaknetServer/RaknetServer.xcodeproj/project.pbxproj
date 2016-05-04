@@ -128,6 +128,9 @@
 		83226A3E1CD88F7F00B3E45E /* vec2.c in Sources */ = {isa = PBXBuildFile; fileRef = 83226A1B1CD88F7F00B3E45E /* vec2.c */; };
 		83226A3F1CD88F7F00B3E45E /* vec3.c in Sources */ = {isa = PBXBuildFile; fileRef = 83226A1D1CD88F7F00B3E45E /* vec3.c */; };
 		83226A401CD88F7F00B3E45E /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 83226A1F1CD88F7F00B3E45E /* vec4.c */; };
+		839ED1BA1CD9C32B00BEF5BB /* cxRaknet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839ED1B81CD9C32B00BEF5BB /* cxRaknet.cpp */; };
+		839ED2691CD9C54E00BEF5BB /* cxServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839ED2671CD9C54E00BEF5BB /* cxServer.cpp */; };
+		839ED26F1CD9C74100BEF5BB /* cxClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839ED26D1CD9C74100BEF5BB /* cxClient.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -418,6 +421,12 @@
 		83226A1E1CD88F7F00B3E45E /* vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec3.h; sourceTree = "<group>"; };
 		83226A1F1CD88F7F00B3E45E /* vec4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vec4.c; sourceTree = "<group>"; };
 		83226A201CD88F7F00B3E45E /* vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec4.h; sourceTree = "<group>"; };
+		839ED1B81CD9C32B00BEF5BB /* cxRaknet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRaknet.cpp; sourceTree = "<group>"; };
+		839ED1B91CD9C32B00BEF5BB /* cxRaknet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRaknet.h; sourceTree = "<group>"; };
+		839ED2671CD9C54E00BEF5BB /* cxServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxServer.cpp; sourceTree = "<group>"; };
+		839ED2681CD9C54E00BEF5BB /* cxServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxServer.h; sourceTree = "<group>"; };
+		839ED26D1CD9C74100BEF5BB /* cxClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxClient.cpp; sourceTree = "<group>"; };
+		839ED26E1CD9C74100BEF5BB /* cxClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxClient.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -589,6 +598,12 @@
 				832268E51CD8745C00B3E45E /* WindowsIncludes.h */,
 				832268E61CD8745C00B3E45E /* WSAStartupSingleton.cpp */,
 				832268E71CD8745C00B3E45E /* WSAStartupSingleton.h */,
+				839ED1B81CD9C32B00BEF5BB /* cxRaknet.cpp */,
+				839ED1B91CD9C32B00BEF5BB /* cxRaknet.h */,
+				839ED26D1CD9C74100BEF5BB /* cxClient.cpp */,
+				839ED26E1CD9C74100BEF5BB /* cxClient.h */,
+				839ED2671CD9C54E00BEF5BB /* cxServer.cpp */,
+				839ED2681CD9C54E00BEF5BB /* cxServer.h */,
 			);
 			name = raknet;
 			path = ../raknet;
@@ -864,6 +879,7 @@
 				832268ED1CD8745C00B3E45E /* CCRakNetUDT.cpp in Sources */,
 				832269401CD8745C00B3E45E /* SignaledEvent.cpp in Sources */,
 				832268EA1CD8745C00B3E45E /* Base64Encoder.cpp in Sources */,
+				839ED1BA1CD9C32B00BEF5BB /* cxRaknet.cpp in Sources */,
 				832268EC1CD8745C00B3E45E /* CCRakNetSlidingWindow.cpp in Sources */,
 				832269831CD88EB300B3E45E /* cxEvent.cpp in Sources */,
 				83226A3E1CD88F7F00B3E45E /* vec2.c in Sources */,
@@ -903,6 +919,7 @@
 				832269D61CD88F5100B3E45E /* LzmaEnc.c in Sources */,
 				83226A381CD88F7F00B3E45E /* plane.c in Sources */,
 				83226A211CD88F7F00B3E45E /* cxBox4F.cpp in Sources */,
+				839ED2691CD9C54E00BEF5BB /* cxServer.cpp in Sources */,
 				832269801CD88EB300B3E45E /* cxAutoPool.cpp in Sources */,
 				832269D51CD88F5100B3E45E /* LzmaDec.c in Sources */,
 				832269901CD88EB300B3E45E /* cxStr.cpp in Sources */,
@@ -946,6 +963,7 @@
 				8322698D1CD88EB300B3E45E /* cxQueue.cpp in Sources */,
 				832269D41CD88F5100B3E45E /* lzma.c in Sources */,
 				83226A3D1CD88F7F00B3E45E /* utility.c in Sources */,
+				839ED26F1CD9C74100BEF5BB /* cxClient.cpp in Sources */,
 				832269891CD88EB300B3E45E /* cxLQT.cpp in Sources */,
 				8322692B1CD8745C00B3E45E /* RakNetSocket2_Windows_Linux.cpp in Sources */,
 				832269DB1CD88F5100B3E45E /* xxhash.c in Sources */,

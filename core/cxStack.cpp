@@ -20,6 +20,7 @@ cxStack::cxStack()
 
 cxStack::~cxStack()
 {
+    CX_LOGGER("cxstack release %p",pthread_self());
     Clear();
 }
 

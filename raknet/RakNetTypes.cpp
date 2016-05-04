@@ -485,13 +485,7 @@ bool SystemAddress::SetBinaryAddress(const char *str, char portDelineator)
 		if (strncasecmp(str,"localhost", 9)==0)
 #endif
 		{
-
-
-
-
-
 			address.addr4.sin_addr.s_addr=inet_addr__("127.0.0.1");
-
 			if (str[9])
 			{
 				SetPortHostOrder((unsigned short) atoi(str+9));
@@ -505,13 +499,7 @@ bool SystemAddress::SetBinaryAddress(const char *str, char portDelineator)
 		RakNetSocket2::DomainNameToIP(str, ip);
 		if (ip[0])
 		{
-
-
-
-
-
 			address.addr4.sin_addr.s_addr=inet_addr__(ip);
-
 		}
 		else
 		{
@@ -551,31 +539,11 @@ bool SystemAddress::SetBinaryAddress(const char *str, char portDelineator)
 			}
 			portPart[portIndex]=0;
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
 		if (IPPart[0])
 		{
-
-
-
-
-
 			address.addr4.sin_addr.s_addr=inet_addr__(IPPart);
 
 		}
-
-
 		if (portPart[0])
 		{
 			address.addr4.sin_port=htons((unsigned short) atoi(portPart));
@@ -646,15 +614,6 @@ bool SystemAddress::FromString(const char *str, char portDelineator, int ipVersi
 		}
 	}
 	portPart[j]=0;
-
-
-
-
-
-
-
-
-
 
 	// needed for getaddrinfo
 	WSAStartupSingleton::AddRef();

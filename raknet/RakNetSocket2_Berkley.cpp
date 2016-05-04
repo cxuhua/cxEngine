@@ -8,8 +8,6 @@
  *
  */
 
-#include "EmptyHeader.h"
-
 #ifdef RAKNET_SOCKET_2_INLINE_FUNCTIONS
 
 #ifndef RAKNETSOCKET2_BERKLEY_CPP
@@ -520,13 +518,6 @@ void RNS2_Berkley::RecvFromBlockingIPV4(RNS2RecvStruct *recvFromStruct)
 		return;
 	}
 	recvFromStruct->timeRead=RakNet::GetTimeUS();
-
-
-
-
-
-
-
 
 
 	{

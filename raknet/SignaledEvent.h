@@ -11,21 +11,12 @@
 #ifndef __SIGNALED_EVENT_H
 #define __SIGNALED_EVENT_H
 
-
-
 #if   defined(_WIN32)
-#include "WindowsIncludes.h"
-
-
-
+    #include "WindowsIncludes.h"
 #else
 	#include <pthread.h>
 	#include <sys/types.h>
 	#include "SimpleMutex.h"
-
-
-
-
 #endif
 
 #include "Export.h"

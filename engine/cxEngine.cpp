@@ -305,7 +305,7 @@ void cxEngine::Run()
         render->Draw();
         break;
     };
-    cxAutoPool::Clear();
+    cxAutoPool::Update();
     if(isreset){
         cxEngine::Startup(true);
     }

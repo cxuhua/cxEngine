@@ -20,9 +20,6 @@
 #include "RakAssert.h"
 #include "Rand.h"
 #include "MessageIdentifiers.h"
-#ifdef USE_THREADED_SEND
-#include "SendToThread.h"
-#endif
 #include <math.h>
 
 using namespace RakNet;
@@ -2319,17 +2316,6 @@ void ReliabilityLayer::SendBitStream( RakNetSocket2 *s, SystemAddress &systemAdd
 	bpsMetrics[(int) ACTUAL_BYTES_SENT].Push1(currentTime,length);
 
 	RakAssert(length <= congestionManager.GetMTU());
-
-#ifdef USE_THREADED_SEND
-	SendToThread::SendToThreadBlock *block =  SendToThread::AllocateBlock();
-	memcpy(block->data, bitStream->GetData(), length);
-	block->dataWriteOffset=length;
-	block->extraSocketOptions=extraSocketOptions;
-	block->remotePortRakNetWasStartedOn_PS3=remotePortRakNetWasStartedOn_PS3;
-	block->s=s;
-	block->systemAddress=systemAddress;
-	SendToThread::ProcessBlock(block);
-#else
 	// SocketLayer::SendTo( s, ( char* ) bitStream->GetData(), length, systemAddress, __FILE__, __LINE__  );
 
 	RNS2_SendParameters bsp;
@@ -2337,7 +2323,6 @@ void ReliabilityLayer::SendBitStream( RakNetSocket2 *s, SystemAddress &systemAdd
 	bsp.length = length;
 	bsp.systemAddress = systemAddress;
 	s->Send(&bsp, _FILE_AND_LINE_);
-#endif
 }
 
 //-------------------------------------------------------------------------------------------------------

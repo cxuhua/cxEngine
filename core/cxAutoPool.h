@@ -28,8 +28,10 @@ private:
     cxArray *objects;
 public:
     static void Start();
-    static cxObject *Append(cxObject *item);
-    static void Clear();
+    static void Stop();
+    static cxObject *Append(cxObject *object);
+    static void Update();
+    static cxInt Size();
     static void Push();
     static void Pop();
 };

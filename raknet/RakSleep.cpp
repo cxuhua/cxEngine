@@ -37,13 +37,6 @@ void RakSleep(unsigned int ms)
 {
 #ifdef _WIN32
 	Sleep(ms);
-
-
-
-
-
-
-
 #else
 	//Single thread sleep code thanks to Furquan Shaikh, http://somethingswhichidintknow.blogspot.com/2009/09/sleep-in-pthread.html
 	//Modified slightly from the original
@@ -55,9 +48,14 @@ void RakSleep(unsigned int ms)
 
 	long seconds = ms/1000;
 	long nanoseconds = (ms - seconds * 1000) * 1000000;
+    if(nanoseconds == 0){
+        nanoseconds = 1;
+    }
 	timeToWait.tv_sec = now.tv_sec + seconds;
 	timeToWait.tv_nsec = now.tv_usec*1000 + nanoseconds;
-	
+    if(timeToWait.tv_nsec == 0){
+        timeToWait.tv_nsec = 1;
+    }
 	if (timeToWait.tv_nsec >= 1000000000)
 	{
 	        timeToWait.tv_nsec -= 1000000000;

@@ -13,7 +13,6 @@
 
 // If you want to change these defines, put them in RakNetDefinesOverrides so your changes are not lost when updating RakNet
 // The user should not edit this file
-#include "RakNetDefinesOverrides.h"
 
 /// Define __GET_TIME_64BIT to have RakNet::TimeMS use a 64, rather than 32 bit value.  A 32 bit value will overflow after about 5 weeks.
 /// However, this doubles the bandwidth use for sending times, so don't do it unless you have a reason to.
@@ -132,16 +131,6 @@
 #define RAKNET_SUPPORT_IPV6 0
 #endif
 
-
-
-
-
-
-
-
-
-
-
 #ifndef RAKSTRING_TYPE
 #if defined(_UNICODE)
 #define RAKSTRING_TYPE RakWString
@@ -184,12 +173,5 @@
 #ifndef USE_ALLOCA
 #define USE_ALLOCA 1
 #endif
-
-
-
-
-
-
-//#define USE_THREADED_SEND
 
 #endif // __RAKNET_DEFINES_H

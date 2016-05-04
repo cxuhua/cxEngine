@@ -41,22 +41,16 @@
 #include "PluginInterface2.h"
 #include "StringCompressor.h"
 #include "StringTable.h"
-#include "NetworkIDObject.h"
 #include "RakNetTypes.h"
 #include "DR_SHA1.h"
 #include "RakSleep.h"
 #include "RakAssert.h"
 #include "RakNetVersion.h"
-#include "NetworkIDManager.h"
 #include "gettimeofday.h"
 #include "SignaledEvent.h"
 #include "SuperFastHash.h"
 #include "RakAlloca.h"
 #include "WSAStartupSingleton.h"
-
-#ifdef USE_THREADED_SEND
-#include "SendToThread.h"
-#endif
 
 #ifdef CAT_AUDIT
 #define CAT_AUDIT_PRINTF(...) printf(__VA_ARGS__)
@@ -217,10 +211,6 @@ RakPeer::RakPeer()
 	isMainLoopThreadActive = false;
 	incomingDatagramEventHandler=0;
 
-
-
-
-
 	// isRecvfromThreadActive=false;
 #if defined(GET_TIME_SPIKE_LIMIT) && GET_TIME_SPIKE_LIMIT>0
 	occasionalPing = true;
@@ -263,48 +253,6 @@ RakPeer::RakPeer()
 	packetAllocationPoolMutex.Unlock();
 
 	remoteSystemIndexPool.SetPageSize(sizeof(DataStructures::MemoryPool<RemoteSystemIndex>::MemoryWithPage)*32);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	GenerateGUID();
 
@@ -734,10 +682,6 @@ StartupResult RakPeer::Startup( unsigned int maxConnections, SocketDescriptor *s
 	{
 		pluginListNTS[i]->OnRakPeerStartup();
 	}
-
-#ifdef USE_THREADED_SEND
-	RakNet::SendToThread::AddRef();
-#endif
 
 	return RAKNET_STARTED;
 }
@@ -1212,10 +1156,6 @@ void RakPeer::Shutdown( unsigned int blockDuration, unsigned char orderingChanne
 	activeSystemList=0;
 
 	ClearRemoteSystemLookup();
-
-#ifdef USE_THREADED_SEND
-	RakNet::SendToThread::Deref();
-#endif
 
 	ResetSendReceipt();
 }
@@ -4485,6 +4425,7 @@ uint64_t RakPeerInterface::Get64BitUniqueRandomNumber(void)
 	return g;
 
 #else
+    RakSleep(0);
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
 	return tv.tv_usec + tv.tv_sec * 1000000;

@@ -38,16 +38,11 @@ using namespace RakNet;
 #ifdef TEST_NATIVE_CLIENT_ON_WINDOWS
 #else
 #define RAKNET_SOCKET_2_INLINE_FUNCTIONS
-#include "RakNetSocket2_360_720.cpp"
-#include "RakNetSocket2_PS3_PS4.cpp"
-#include "RakNetSocket2_PS4.cpp"
 #include "RakNetSocket2_Windows_Linux.cpp"
 #include "RakNetSocket2_Windows_Linux_360.cpp"
-#include "RakNetSocket2_Vita.cpp"
 #include "RakNetSocket2_NativeClient.cpp"
 #include "RakNetSocket2_Berkley.cpp"
 #include "RakNetSocket2_Berkley_NativeClient.cpp"
-#include "RakNetSocket2_WindowsStore8.cpp"
 #undef RAKNET_SOCKET_2_INLINE_FUNCTIONS
 
 #endif
@@ -73,10 +68,6 @@ RakNetSocket2* RakNetSocket2Allocator::AllocRNS2(void)
 #if defined(WINDOWS_STORE_RT)
 	s2 = RakNet::OP_NEW<RNS2_WindowsStore8>(_FILE_AND_LINE_);
 	s2->SetSocketType(RNS2T_WINDOWS_STORE_8);
-
-
-
-
 
 
 #elif defined(__native_client__)

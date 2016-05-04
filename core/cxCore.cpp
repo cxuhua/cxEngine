@@ -122,11 +122,8 @@ cxCore::cxCore()
 
 cxCore::~cxCore()
 {
-    
     Clear();
     caches->Release();
-    cxObject *obj = static_cast<cxObject *>(uv_key_get(&autoKey));
-    cxObject::release(&obj);
     uv_key_delete(&autoKey);
     classes.clear();
     sqlite3_shutdown();
@@ -141,9 +138,8 @@ void cxCore::Clear()
     ones.clear();
     //cache clear
     caches->Clear();
-    //
-    cxStack *pool = static_cast<cxStack *>(uv_key_get(&autoKey));
-    pool->Clear();
+    //clean main thread auto release pool
+    cxAutoPool::Stop();
 }
 
 void cxCore::Push(cchars key,cxObject *pobj)
@@ -162,12 +158,12 @@ cxObject *cxCore::Pull(cchars key)
     return caches->Get(key);
 }
 
-void *cxCore::GetAutoPool()
+cxStack *cxCore::GetAutoPool()
 {
-    return uv_key_get(&autoKey);
+    return (cxStack *)uv_key_get(&autoKey);
 }
 
-void cxCore::SetAutoPool(void *pool)
+void cxCore::SetAutoPool(cxStack *pool)
 {
     uv_key_set(&autoKey, pool);
 }

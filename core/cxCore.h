@@ -22,6 +22,7 @@ class cxStr;
 class cxJson;
 class cxHelper;
 class cxArray;
+class cxStack;
 
 class cxCore
 {
@@ -62,8 +63,8 @@ public:
     static cxCore *Instance();
     static void Destroy();
     //
-    void *GetAutoPool();
-    void SetAutoPool(void *pool);
+    cxStack *GetAutoPool();
+    void SetAutoPool(cxStack *pool);
     //cache opt
     void Clear();
     void Remove(cchars key);

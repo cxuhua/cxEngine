@@ -76,9 +76,6 @@ struct RNS2_SendParameters
 
 struct RNS2RecvStruct
 {
-
-
-
 	char data[MAXIMUM_MTU_SIZE];
 
 	int bytesRead;

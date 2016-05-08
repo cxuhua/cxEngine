@@ -52,6 +52,7 @@ protected:
     explicit cxRaknet();
     virtual ~cxRaknet();
 private:
+    uv_key_t key;
     void InitBitStream(RakNet::BitStream *bs,const cxStr *data);
 protected:
     //
@@ -63,15 +64,27 @@ protected:
     RakNet::SocketDescriptor socket;
     RakNet::RakPeerInterface *peer;
     //
-    void ReadMessage(RakNet::Packet *packet,void *data);
+    void ReadMessage(RakNet::Packet *packet);
+public:
+    void SetKey(void *data)
+    {
+        uv_key_set(&key, data);
+    }
+    template<class T>
+    T*GetKey()
+    {
+        return (T *)uv_key_get(&key);
+    }
 public:
     void SetOccasionalPing(bool ping);
     
-    virtual void OnMessage(RakNet::RakNetGUID clientId, const cxStr *message,void *data);
+    virtual void OnMessage(RakNet::RakNetGUID clientId, const cxStr *message);
     
-    virtual void *ThreadData();
-    virtual void Process(void *data);
-    virtual void OnPacket(RakNet::Packet *packet,void *data);
+    virtual void ThreadBegin();
+    virtual void ThreadExit();
+    
+    virtual void Process();
+    virtual void OnPacket(RakNet::Packet *packet);
 public:
     cxUInt32 Broadcast(const cxStr *message);
     cxUInt32 Broadcast(const cxStr *message,PacketPriority priority, PacketReliability reliability, char channel);

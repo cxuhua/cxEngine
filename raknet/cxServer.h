@@ -28,6 +28,7 @@ private:
     uv_loop_t loop;
     uv_timer_t timer;
     uv_mutex_t mutex;
+protected:
     char publicKey[cat::EasyHandshake::PUBLIC_KEY_BYTES];
     char privateKey[cat::EasyHandshake::PRIVATE_KEY_BYTES];
     bool initKey();
@@ -36,12 +37,12 @@ public:
     void Stop();
     virtual bool Init(cxInt nt,cxInt port,cxInt max,cchars pass);
     void Run();
-    void OnPacket(RakNet::Packet *packet,void *data);
-    void OnMessage(RakNet::RakNetGUID clientId,const cxStr *message,void *data);
+    void OnPacket(RakNet::Packet *packet);
+    void OnMessage(RakNet::RakNetGUID clientId,const cxStr *message);
 public:
-    virtual void Loop(void *data);
-    virtual void OnNewConnect(RakNet::RakNetGUID clientId,void *data);
-    virtual void OnLost(RakNet::RakNetGUID clientId,void *data);
+    virtual void Loop();
+    virtual void OnNewConnect(RakNet::RakNetGUID clientId);
+    virtual void OnLost(RakNet::RakNetGUID clientId);
 };
 
 CX_CPP_END

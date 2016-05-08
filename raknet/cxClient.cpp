@@ -31,50 +31,50 @@ void cxClient::SetPublicKey(cchars data)
     publicKey.myPublicKey = publicKeyData;
 }
 
-void cxClient::OnPacket(RakNet::Packet *packet,void *data)
+void cxClient::OnPacket(RakNet::Packet *packet)
 {
     RakNet::MessageID type = packet->data[0];
     switch (type) {
         case ID_CONNECTION_REQUEST_ACCEPTED:{
             remote = packet->guid;
-            OnConnected(data);
+            OnConnected();
             break;
         }
         case ID_CONNECTION_LOST:{
-            OnLost(data);
+            OnLost();
             break;
         }
         case ID_CONNECTION_ATTEMPT_FAILED:{
-            OnError(1,data);
+            OnError(1);
             break;
         }
         case ID_DISCONNECTION_NOTIFICATION:{
-            OnLost(data);
+            OnLost();
             break;
         }
         default:{
-            cxRaknet::OnPacket(packet, data);
+            cxRaknet::OnPacket(packet);
             break;
         }
     }
 }
 
-void cxClient::OnError(cxInt error,void *data)
+void cxClient::OnError(cxInt error)
 {
     CX_LOGGER("OnError:%d",error);
 }
 
-void cxClient::OnConnected(void *data)
+void cxClient::OnConnected()
 {
     CX_LOGGER("OnConnected");
 }
 
-void cxClient::OnLost(void *data)
+void cxClient::OnLost()
 {
     CX_LOGGER("OnLost");
 }
 
-void cxClient::OnMessage(RakNet::RakNetGUID clientId, const cxStr *message,void *data)
+void cxClient::OnMessage(RakNet::RakNetGUID clientId, const cxStr *message)
 {
     CX_LOGGER("OnMessage %s",message->ToString());
 }

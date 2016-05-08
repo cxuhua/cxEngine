@@ -25,13 +25,13 @@ private:
     RakNet::PublicKey publicKey;
 public:
     void SetPublicKey(cchars data);
-    void OnPacket(RakNet::Packet *packet,void *data);
+    void OnPacket(RakNet::Packet *packet);
     RakNet::ConnectionAttemptResult Connect(cchars host,cxInt port,cchars pass);
 public:
-    void OnMessage(RakNet::RakNetGUID clientId, const cxStr *message,void *data);
-    virtual void OnConnected(void *data);
-    virtual void OnLost(void *data);
-    virtual void OnError(cxInt error,void *data);
+    void OnMessage(RakNet::RakNetGUID clientId, const cxStr *message);
+    virtual void OnConnected();
+    virtual void OnLost();
+    virtual void OnError(cxInt error);
 };
 
 CX_CPP_END

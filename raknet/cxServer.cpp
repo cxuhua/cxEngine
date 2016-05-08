@@ -54,41 +54,41 @@ bool cxServer::Init(cxInt nt,cxInt port,cxInt max,cchars pass)
     return true;
 }
 
-void cxServer::OnNewConnect(RakNet::RakNetGUID clientId,void *data)
+void cxServer::OnNewConnect(RakNet::RakNetGUID clientId)
 {
     CX_LOGGER("OnNewConnect %s",clientId.ToString());
 }
 
-void cxServer::OnLost(RakNet::RakNetGUID clientId,void *data)
+void cxServer::OnLost(RakNet::RakNetGUID clientId)
 {
     CX_LOGGER("OnLost %s",clientId.ToString());
 }
 
-void cxServer::OnMessage(RakNet::RakNetGUID clientId,const cxStr *message,void *data)
+void cxServer::OnMessage(RakNet::RakNetGUID clientId,const cxStr *message)
 {
     CX_LOGGER("onMessage %s,%d",clientId.ToString(),message->Size());
 }
 
-void cxServer::OnPacket(RakNet::Packet *packet,void *data)
+void cxServer::OnPacket(RakNet::Packet *packet)
 {
     RakNet::MessageID type = packet->data[0];
     switch (type) {
         case ID_NEW_INCOMING_CONNECTION:{
-            OnNewConnect(packet->guid,data);
+            OnNewConnect(packet->guid);
             break;
         }
         case ID_CONNECTION_LOST:{
-            OnLost(packet->guid,data);
+            OnLost(packet->guid);
             break;
         }
         default:{
-            cxRaknet::OnPacket(packet, data);
+            cxRaknet::OnPacket(packet);
             break;
         }
     }
 }
 
-void cxServer::Loop(void *data)
+void cxServer::Loop()
 {
     uv_mutex_lock(&mutex);
     uv_run(&loop, UV_RUN_NOWAIT);
@@ -99,13 +99,7 @@ bool cxServer::initKey()
 {
     cat::EasyHandshake::Initialize();
     cat::EasyHandshake handshake;
-    
-    if(handshake.GenerateServerKey(publicKey, privateKey)){
-        cxUtil::Instance()->WriteDocument("key", cxStr::Create()->Init(publicKey, cat::EasyHandshake::PUBLIC_KEY_BYTES), true);
-        cxUtil::Instance()->WriteDocument("key.pub", cxStr::Create()->Init(privateKey, cat::EasyHandshake::PRIVATE_KEY_BYTES), true);
-        return true;
-    }
-    return false;
+    return handshake.GenerateServerKey(publicKey, privateKey);
 }
 
 void cxServer::runEntry(void *a)
@@ -113,14 +107,15 @@ void cxServer::runEntry(void *a)
     cxAutoPool::Start();
     CX_LOGGER("%p process thread start",uv_thread_self());
     cxServer *server = (cxServer *)a;
-    void *data = server->ThreadData();
+    server->ThreadBegin();
     while(!server->exitFlags){
-        server->Loop(data);
-        server->Process(data);
+        server->Loop();
+        server->Process();
         cxAutoPool::Update();
         RakSleep(1);
     }
     CX_LOGGER("%p process thread stop",uv_thread_self());
+    server->ThreadExit();
     cxAutoPool::Stop();
 }
 

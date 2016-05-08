@@ -16,10 +16,12 @@ CX_IMPLEMENT(cxRaknet);
 cxRaknet::cxRaknet()
 {
     peer = RakNet::RakPeerInterface::GetInstance();
+    uv_key_create(&key);
 }
 
 cxRaknet::~cxRaknet()
 {
+    uv_key_delete(&key);
     RakNet::RakPeerInterface::DestroyInstance(peer);
 }
 
@@ -28,12 +30,12 @@ void cxRaknet::SetOccasionalPing(bool ping)
     peer->SetOccasionalPing(ping);
 }
 
-void cxRaknet::OnMessage(RakNet::RakNetGUID clientId, const cxStr *message,void *data)
+void cxRaknet::OnMessage(RakNet::RakNetGUID clientId, const cxStr *message)
 {
     
 }
 
-void cxRaknet::ReadMessage(RakNet::Packet *packet,void *data)
+void cxRaknet::ReadMessage(RakNet::Packet *packet)
 {
     RakNet::BitStream bsIn(packet->data, packet->length, false);
     bsIn.IgnoreBytes(sizeof(RakNet::MessageID));
@@ -46,15 +48,15 @@ void cxRaknet::ReadMessage(RakNet::Packet *packet,void *data)
         return;
     }
     buf[l] = 0;
-    OnMessage(packet->guid, cxStr::Create()->Init(buf, l), data);
+    OnMessage(packet->guid, cxStr::Create()->Init(buf, l));
 }
 
-void cxRaknet::OnPacket(RakNet::Packet *packet,void *data)
+void cxRaknet::OnPacket(RakNet::Packet *packet)
 {
     RakNet::MessageID type = packet->data[0];
     switch (type) {
         case ID_MESSAGE_PACKET:{
-            ReadMessage(packet,data);
+            ReadMessage(packet);
             break;
         }
         case ID_PUBLIC_KEY_MISMATCH:{
@@ -68,16 +70,21 @@ void cxRaknet::OnPacket(RakNet::Packet *packet,void *data)
     }
 }
 
-void *cxRaknet::ThreadData()
+void cxRaknet::ThreadBegin()
 {
-    return nullptr;
+    
 }
 
-void cxRaknet::Process(void *data)
+void cxRaknet::ThreadExit()
+{
+    
+}
+
+void cxRaknet::Process()
 {
     RakNet::Packet *packet = nullptr;
     for(packet=peer->Receive(); packet; peer->DeallocatePacket(packet), packet=peer->Receive()) {
-        OnPacket(packet,data);
+        OnPacket(packet);
     }
 }
 

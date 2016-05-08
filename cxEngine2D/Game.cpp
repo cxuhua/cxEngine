@@ -60,7 +60,7 @@ void Game::OnUpdate(cxFloat dt)
 Game::Game()
 {
     client = cxClient::Alloc();
-    client->Connect("192.168.199.244", 10020, "123");
+    
 }
 
 Game::~Game()
@@ -71,6 +71,9 @@ Game::~Game()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
+    const cxStr *key = cxUtil::Instance()->AssetsData("key.pub");
+    client->SetPublicKey(key->Data());
+    client->Connect("192.168.199.244", 10020, "123");
     
     cxSprite *sp = cxSprite::Create();
     sp->SetSize(cxSize2F(250, 250));

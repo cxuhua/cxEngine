@@ -25,15 +25,23 @@ private:
     static void runEntry(void *a);
     cxBool exitFlags;
     uv_thread_t *threads;
+    uv_loop_t loop;
+    uv_timer_t timer;
+    uv_mutex_t mutex;
+    char publicKey[cat::EasyHandshake::PUBLIC_KEY_BYTES];
+    char privateKey[cat::EasyHandshake::PRIVATE_KEY_BYTES];
+    bool initKey();
 public:
+    uv_loop_t *Looper();
     void Stop();
-    virtual void Init(cxInt nt,cxInt port,cxInt max,cchars pass);
+    virtual bool Init(cxInt nt,cxInt port,cxInt max,cchars pass);
     void Run();
     void OnPacket(RakNet::Packet *packet,void *data);
-    void OnMessage(RakNet::RakNetGUID clientId,const cxStr *message);
+    void OnMessage(RakNet::RakNetGUID clientId,const cxStr *message,void *data);
 public:
-    virtual void OnNewConnect(RakNet::RakNetGUID clientId);
-    virtual void OnLost(RakNet::RakNetGUID clientId);
+    virtual void Loop(void *data);
+    virtual void OnNewConnect(RakNet::RakNetGUID clientId,void *data);
+    virtual void OnLost(RakNet::RakNetGUID clientId,void *data);
 };
 
 CX_CPP_END

@@ -23,12 +23,17 @@ cxRaknet::~cxRaknet()
     RakNet::RakPeerInterface::DestroyInstance(peer);
 }
 
-void cxRaknet::OnMessage(RakNet::RakNetGUID clientId, const cxStr *message)
+void cxRaknet::SetOccasionalPing(bool ping)
+{
+    peer->SetOccasionalPing(ping);
+}
+
+void cxRaknet::OnMessage(RakNet::RakNetGUID clientId, const cxStr *message,void *data)
 {
     
 }
 
-void cxRaknet::ReadMessage(RakNet::Packet *packet)
+void cxRaknet::ReadMessage(RakNet::Packet *packet,void *data)
 {
     RakNet::BitStream bsIn(packet->data, packet->length, false);
     bsIn.IgnoreBytes(sizeof(RakNet::MessageID));
@@ -41,12 +46,26 @@ void cxRaknet::ReadMessage(RakNet::Packet *packet)
         return;
     }
     buf[l] = 0;
-    OnMessage(packet->guid, cxStr::Create()->Init(buf, l));
+    OnMessage(packet->guid, cxStr::Create()->Init(buf, l), data);
 }
 
 void cxRaknet::OnPacket(RakNet::Packet *packet,void *data)
 {
-    CX_LOGGER("OnPacket");
+    RakNet::MessageID type = packet->data[0];
+    switch (type) {
+        case ID_MESSAGE_PACKET:{
+            ReadMessage(packet,data);
+            break;
+        }
+        case ID_PUBLIC_KEY_MISMATCH:{
+            CX_LOGGER("public key mismatch");
+            break;
+        }
+        default:{
+            CX_LOGGER("onMessageType %d not process",type);
+            break;
+        }
+    }
 }
 
 void *cxRaknet::ThreadData()

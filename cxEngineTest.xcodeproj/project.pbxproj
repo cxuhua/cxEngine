@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		830157E21B3BD27C00ED46A8 /* t.png in Resources */ = {isa = PBXBuildFile; fileRef = 830157E11B3BD27C00ED46A8 /* t.png */; };
 		8302A5851B535EC500C7209C /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 8302A5841B535EC500C7209C /* grid.png */; };
+		831BFC0C1CDEE622009CCAA8 /* key.pub in Resources */ = {isa = PBXBuildFile; fileRef = 831BFC0B1CDEE622009CCAA8 /* key.pub */; };
 		8326D0D91BE9F43D00A15879 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8326D0D81BE9F43D00A15879 /* circle.png */; };
 		8326D0DB1BE9F72000A15879 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8326D0DA1BE9F72000A15879 /* Images.xcassets */; };
 		833043D01B424A1C00636928 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 833043CF1B424A1C00636928 /* bg.jpg */; };
@@ -113,6 +114,7 @@
 /* Begin PBXFileReference section */
 		830157E11B3BD27C00ED46A8 /* t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = t.png; sourceTree = "<group>"; };
 		8302A5841B535EC500C7209C /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
+		831BFC0B1CDEE622009CCAA8 /* key.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = key.pub; sourceTree = "<group>"; };
 		8326D0D81BE9F43D00A15879 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		8326D0DA1BE9F72000A15879 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = cxEngineTest/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		833043CF1B424A1C00636928 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
+				831BFC0B1CDEE622009CCAA8 /* key.pub */,
 				83A34E4E1BEF899500DAEE91 /* goblins-ffd.atlas */,
 				83A34E4F1BEF899500DAEE91 /* goblins-ffd.json */,
 				83A34E501BEF899500DAEE91 /* goblins-ffd.png */,
@@ -625,6 +628,7 @@
 				836E304C1B5E2B4C00ED8BDC /* foam.png in Resources */,
 				835B40151BEC523800A7A4AC /* spineboy.png in Resources */,
 				83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */,
+				831BFC0C1CDEE622009CCAA8 /* key.pub in Resources */,
 				835B40131BEC523800A7A4AC /* spineboy.atlas in Resources */,
 				836DD1211B2C26CE0094F5EF /* shader in Resources */,
 				835B401A1BEC8F6300A7A4AC /* goblins-mesh.json in Resources */,

@@ -38,6 +38,7 @@
 #include "RakSleep.h"
 #include "MessageIdentifiers.h"
 #include "BitStream.h"
+#include "SecureHandshake.h"
 
 CX_CPP_BEGIN
 
@@ -62,9 +63,11 @@ protected:
     RakNet::SocketDescriptor socket;
     RakNet::RakPeerInterface *peer;
     //
-    void ReadMessage(RakNet::Packet *packet);
+    void ReadMessage(RakNet::Packet *packet,void *data);
 public:
-    virtual void OnMessage(RakNet::RakNetGUID clientId, const cxStr *message);
+    void SetOccasionalPing(bool ping);
+    
+    virtual void OnMessage(RakNet::RakNetGUID clientId, const cxStr *message,void *data);
     
     virtual void *ThreadData();
     virtual void Process(void *data);

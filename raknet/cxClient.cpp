@@ -15,6 +15,7 @@ CX_IMPLEMENT(cxClient);
 
 cxClient::cxClient()
 {
+    memset(&publicKey, 0, sizeof(publicKey));
     peer->Startup(1, &socket, 1);
 }
 
@@ -23,63 +24,69 @@ cxClient::~cxClient()
     
 }
 
+void cxClient::SetPublicKey(cchars data)
+{
+    memcpy(publicKeyData, data, cat::EasyHandshake::PUBLIC_KEY_BYTES);
+    publicKey.publicKeyMode = RakNet::PKM_ACCEPT_ANY_PUBLIC_KEY;
+    publicKey.myPublicKey = publicKeyData;
+}
+
 void cxClient::OnPacket(RakNet::Packet *packet,void *data)
 {
     RakNet::MessageID type = packet->data[0];
     switch (type) {
         case ID_CONNECTION_REQUEST_ACCEPTED:{
             remote = packet->guid;
-            OnConnected();
+            OnConnected(data);
             break;
         }
         case ID_CONNECTION_LOST:{
-            OnLost();
+            OnLost(data);
             break;
         }
         case ID_CONNECTION_ATTEMPT_FAILED:{
-            OnError(1);
+            OnError(1,data);
             break;
         }
         case ID_DISCONNECTION_NOTIFICATION:{
-            OnLost();
-            break;
-        }
-        case ID_MESSAGE_PACKET:{
-            ReadMessage(packet);
+            OnLost(data);
             break;
         }
         default:{
-            CX_LOGGER("onMessageType %d not process",type);
+            cxRaknet::OnPacket(packet, data);
             break;
         }
     }
 }
 
-void cxClient::OnError(cxInt error)
+void cxClient::OnError(cxInt error,void *data)
 {
     CX_LOGGER("OnError:%d",error);
 }
 
-void cxClient::OnConnected()
+void cxClient::OnConnected(void *data)
 {
     CX_LOGGER("OnConnected");
-    Write(cxStr::UTF8("123456"));
 }
 
-void cxClient::OnLost()
+void cxClient::OnLost(void *data)
 {
     CX_LOGGER("OnLost");
 }
 
-void cxClient::OnMessage(RakNet::RakNetGUID clientId, const cxStr *message)
+void cxClient::OnMessage(RakNet::RakNetGUID clientId, const cxStr *message,void *data)
 {
     CX_LOGGER("OnMessage %s",message->ToString());
 }
 
 RakNet::ConnectionAttemptResult cxClient::Connect(cchars host,cxInt port,cchars pass)
 {
-    CX_ASSERT(peer != nullptr, "not init");
-    return peer->Connect(host, port, pass, (int)strlen(pass));
+    if(publicKey.myPublicKey == NULL){
+        CX_LOGGER("public key miss");
+        return RakNet::SECURITY_INITIALIZATION_FAILED;
+    }
+    peer->SetOccasionalPing(true);
+    return peer->Connect(host, port, pass, (int)strlen(pass),&publicKey);
 }
 
 CX_CPP_END

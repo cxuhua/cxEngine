@@ -12,12 +12,17 @@
 #include <mongo/client/dbclient.h>
 #include <core/cxObject.h>
 
+//数据库连接
 #define DB_HOST     "mongodb://127.0.0.1:27017"
 
+//每隔多少秒更新服务器状态
 #define UPDATE_SERVER_STATUS_TIME   10000
+
 //服务器表
 #define DB_NAME         "test"
 #define NS_SERVERS      DB_NAME".servers"
+
+//
 
 using namespace mongo;
 

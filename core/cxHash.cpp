@@ -50,9 +50,9 @@ cxHashKey::cxHashKey(cxUInt64 key)
     data[length] = 0;
 }
 
-cxHashKey::cxHashKey(cxULong key)
+cxHashKey::cxHashKey(cxUInt32 key)
 {
-    length = sizeof(cxULong);
+    length = sizeof(cxUInt32);
     memcpy(data, &key, length);
     data[length] = 0;
 }

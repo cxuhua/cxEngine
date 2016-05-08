@@ -8,41 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		831BFC0F1CDEECB0009CCAA8 /* libmongoclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFC0E1CDEECB0009CCAA8 /* libmongoclient.a */; };
-		831BFCBC1CDEF800009CCAA8 /* libboost_atomic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFC9A1CDEF800009CCAA8 /* libboost_atomic.a */; };
-		831BFCBD1CDEF800009CCAA8 /* libboost_chrono.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFC9B1CDEF800009CCAA8 /* libboost_chrono.a */; };
-		831BFCBE1CDEF800009CCAA8 /* libboost_container.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFC9C1CDEF800009CCAA8 /* libboost_container.a */; };
-		831BFCBF1CDEF800009CCAA8 /* libboost_context.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFC9D1CDEF800009CCAA8 /* libboost_context.a */; };
-		831BFCC01CDEF800009CCAA8 /* libboost_coroutine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFC9E1CDEF800009CCAA8 /* libboost_coroutine.a */; };
-		831BFCC11CDEF800009CCAA8 /* libboost_date_time.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFC9F1CDEF800009CCAA8 /* libboost_date_time.a */; };
-		831BFCC21CDEF800009CCAA8 /* libboost_exception.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCA01CDEF800009CCAA8 /* libboost_exception.a */; };
-		831BFCC31CDEF800009CCAA8 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCA11CDEF800009CCAA8 /* libboost_filesystem.a */; };
-		831BFCC41CDEF800009CCAA8 /* libboost_graph.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCA21CDEF800009CCAA8 /* libboost_graph.a */; };
-		831BFCC51CDEF800009CCAA8 /* libboost_iostreams.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCA31CDEF800009CCAA8 /* libboost_iostreams.a */; };
-		831BFCC61CDEF800009CCAA8 /* libboost_locale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCA41CDEF800009CCAA8 /* libboost_locale.a */; };
-		831BFCC71CDEF800009CCAA8 /* libboost_log_setup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCA51CDEF800009CCAA8 /* libboost_log_setup.a */; };
-		831BFCC81CDEF800009CCAA8 /* libboost_log.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCA61CDEF800009CCAA8 /* libboost_log.a */; };
-		831BFCC91CDEF800009CCAA8 /* libboost_math_c99.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCA71CDEF800009CCAA8 /* libboost_math_c99.a */; };
-		831BFCCA1CDEF800009CCAA8 /* libboost_math_c99f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCA81CDEF800009CCAA8 /* libboost_math_c99f.a */; };
-		831BFCCB1CDEF800009CCAA8 /* libboost_math_c99l.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCA91CDEF800009CCAA8 /* libboost_math_c99l.a */; };
-		831BFCCC1CDEF800009CCAA8 /* libboost_math_tr1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCAA1CDEF800009CCAA8 /* libboost_math_tr1.a */; };
-		831BFCCD1CDEF800009CCAA8 /* libboost_math_tr1f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCAB1CDEF800009CCAA8 /* libboost_math_tr1f.a */; };
-		831BFCCE1CDEF800009CCAA8 /* libboost_math_tr1l.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCAC1CDEF800009CCAA8 /* libboost_math_tr1l.a */; };
-		831BFCCF1CDEF800009CCAA8 /* libboost_prg_exec_monitor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCAD1CDEF800009CCAA8 /* libboost_prg_exec_monitor.a */; };
-		831BFCD01CDEF800009CCAA8 /* libboost_program_options.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCAE1CDEF800009CCAA8 /* libboost_program_options.a */; };
-		831BFCD11CDEF800009CCAA8 /* libboost_python.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCAF1CDEF800009CCAA8 /* libboost_python.a */; };
-		831BFCD21CDEF800009CCAA8 /* libboost_random.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB01CDEF800009CCAA8 /* libboost_random.a */; };
 		831BFCD31CDEF800009CCAA8 /* libboost_regex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB11CDEF800009CCAA8 /* libboost_regex.a */; };
-		831BFCD41CDEF800009CCAA8 /* libboost_serialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB21CDEF800009CCAA8 /* libboost_serialization.a */; };
-		831BFCD51CDEF800009CCAA8 /* libboost_signals.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB31CDEF800009CCAA8 /* libboost_signals.a */; };
-		831BFCD61CDEF800009CCAA8 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB41CDEF800009CCAA8 /* libboost_system.a */; };
-		831BFCD71CDEF800009CCAA8 /* libboost_test_exec_monitor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB51CDEF800009CCAA8 /* libboost_test_exec_monitor.a */; };
 		831BFCD81CDEF800009CCAA8 /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB61CDEF800009CCAA8 /* libboost_thread.a */; };
-		831BFCD91CDEF800009CCAA8 /* libboost_timer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB71CDEF800009CCAA8 /* libboost_timer.a */; };
-		831BFCDA1CDEF800009CCAA8 /* libboost_type_erasure.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB81CDEF800009CCAA8 /* libboost_type_erasure.a */; };
-		831BFCDB1CDEF800009CCAA8 /* libboost_unit_test_framework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB91CDEF800009CCAA8 /* libboost_unit_test_framework.a */; };
-		831BFCDC1CDEF800009CCAA8 /* libboost_wave.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCBA1CDEF800009CCAA8 /* libboost_wave.a */; };
-		831BFCDD1CDEF800009CCAA8 /* libboost_wserialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCBB1CDEF800009CCAA8 /* libboost_wserialization.a */; };
 		831BFCE11CDF184B009CCAA8 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831BFCE01CDF184B009CCAA8 /* Config.cpp */; };
+		831BFCE31CDF978B009CCAA8 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCE21CDF978B009CCAA8 /* libboost_system.a */; };
 		832267DA1CD8744E00B3E45E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832267D91CD8744E00B3E45E /* main.cpp */; };
 		832268EA1CD8745C00B3E45E /* Base64Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832267E51CD8745B00B3E45E /* Base64Encoder.cpp */; };
 		832268EB1CD8745C00B3E45E /* BitStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832267E71CD8745B00B3E45E /* BitStream.cpp */; };
@@ -107,9 +76,6 @@
 		832269901CD88EB300B3E45E /* cxStr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8322697B1CD88EB300B3E45E /* cxStr.cpp */; };
 		832269911CD88EB300B3E45E /* cxUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8322697D1CD88EB300B3E45E /* cxUtil.cpp */; };
 		832269971CD88ECD00B3E45E /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832269921CD88ECD00B3E45E /* libjansson.a */; };
-		832269981CD88ECD00B3E45E /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832269931CD88ECD00B3E45E /* libjpeg.a */; };
-		832269991CD88ECD00B3E45E /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832269941CD88ECD00B3E45E /* libpcre.a */; };
-		8322699A1CD88ECD00B3E45E /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832269951CD88ECD00B3E45E /* libpng.a */; };
 		8322699B1CD88ECD00B3E45E /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832269961CD88ECD00B3E45E /* libuv.a */; };
 		832269C81CD88F5100B3E45E /* aes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 8322699E1CD88F5100B3E45E /* aes_cbc.c */; };
 		832269C91CD88F5100B3E45E /* aes_cfb.c in Sources */ = {isa = PBXBuildFile; fileRef = 8322699F1CD88F5100B3E45E /* aes_cfb.c */; };
@@ -183,43 +149,12 @@
 
 /* Begin PBXFileReference section */
 		831BFC0E1CDEECB0009CCAA8 /* libmongoclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmongoclient.a; path = ../libs/osx/lib/libmongoclient.a; sourceTree = "<group>"; };
-		831BFC9A1CDEF800009CCAA8 /* libboost_atomic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_atomic.a; path = ../libs/osx/lib/libboost_atomic.a; sourceTree = "<group>"; };
-		831BFC9B1CDEF800009CCAA8 /* libboost_chrono.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_chrono.a; path = ../libs/osx/lib/libboost_chrono.a; sourceTree = "<group>"; };
-		831BFC9C1CDEF800009CCAA8 /* libboost_container.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_container.a; path = ../libs/osx/lib/libboost_container.a; sourceTree = "<group>"; };
-		831BFC9D1CDEF800009CCAA8 /* libboost_context.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_context.a; path = ../libs/osx/lib/libboost_context.a; sourceTree = "<group>"; };
-		831BFC9E1CDEF800009CCAA8 /* libboost_coroutine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_coroutine.a; path = ../libs/osx/lib/libboost_coroutine.a; sourceTree = "<group>"; };
-		831BFC9F1CDEF800009CCAA8 /* libboost_date_time.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_date_time.a; path = ../libs/osx/lib/libboost_date_time.a; sourceTree = "<group>"; };
-		831BFCA01CDEF800009CCAA8 /* libboost_exception.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_exception.a; path = ../libs/osx/lib/libboost_exception.a; sourceTree = "<group>"; };
-		831BFCA11CDEF800009CCAA8 /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../libs/osx/lib/libboost_filesystem.a; sourceTree = "<group>"; };
-		831BFCA21CDEF800009CCAA8 /* libboost_graph.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_graph.a; path = ../libs/osx/lib/libboost_graph.a; sourceTree = "<group>"; };
-		831BFCA31CDEF800009CCAA8 /* libboost_iostreams.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_iostreams.a; path = ../libs/osx/lib/libboost_iostreams.a; sourceTree = "<group>"; };
-		831BFCA41CDEF800009CCAA8 /* libboost_locale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_locale.a; path = ../libs/osx/lib/libboost_locale.a; sourceTree = "<group>"; };
-		831BFCA51CDEF800009CCAA8 /* libboost_log_setup.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_log_setup.a; path = ../libs/osx/lib/libboost_log_setup.a; sourceTree = "<group>"; };
-		831BFCA61CDEF800009CCAA8 /* libboost_log.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_log.a; path = ../libs/osx/lib/libboost_log.a; sourceTree = "<group>"; };
-		831BFCA71CDEF800009CCAA8 /* libboost_math_c99.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_math_c99.a; path = ../libs/osx/lib/libboost_math_c99.a; sourceTree = "<group>"; };
-		831BFCA81CDEF800009CCAA8 /* libboost_math_c99f.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_math_c99f.a; path = ../libs/osx/lib/libboost_math_c99f.a; sourceTree = "<group>"; };
-		831BFCA91CDEF800009CCAA8 /* libboost_math_c99l.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_math_c99l.a; path = ../libs/osx/lib/libboost_math_c99l.a; sourceTree = "<group>"; };
-		831BFCAA1CDEF800009CCAA8 /* libboost_math_tr1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_math_tr1.a; path = ../libs/osx/lib/libboost_math_tr1.a; sourceTree = "<group>"; };
-		831BFCAB1CDEF800009CCAA8 /* libboost_math_tr1f.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_math_tr1f.a; path = ../libs/osx/lib/libboost_math_tr1f.a; sourceTree = "<group>"; };
-		831BFCAC1CDEF800009CCAA8 /* libboost_math_tr1l.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_math_tr1l.a; path = ../libs/osx/lib/libboost_math_tr1l.a; sourceTree = "<group>"; };
-		831BFCAD1CDEF800009CCAA8 /* libboost_prg_exec_monitor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_prg_exec_monitor.a; path = ../libs/osx/lib/libboost_prg_exec_monitor.a; sourceTree = "<group>"; };
-		831BFCAE1CDEF800009CCAA8 /* libboost_program_options.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_program_options.a; path = ../libs/osx/lib/libboost_program_options.a; sourceTree = "<group>"; };
-		831BFCAF1CDEF800009CCAA8 /* libboost_python.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_python.a; path = ../libs/osx/lib/libboost_python.a; sourceTree = "<group>"; };
-		831BFCB01CDEF800009CCAA8 /* libboost_random.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_random.a; path = ../libs/osx/lib/libboost_random.a; sourceTree = "<group>"; };
 		831BFCB11CDEF800009CCAA8 /* libboost_regex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_regex.a; path = ../libs/osx/lib/libboost_regex.a; sourceTree = "<group>"; };
-		831BFCB21CDEF800009CCAA8 /* libboost_serialization.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_serialization.a; path = ../libs/osx/lib/libboost_serialization.a; sourceTree = "<group>"; };
-		831BFCB31CDEF800009CCAA8 /* libboost_signals.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_signals.a; path = ../libs/osx/lib/libboost_signals.a; sourceTree = "<group>"; };
-		831BFCB41CDEF800009CCAA8 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../libs/osx/lib/libboost_system.a; sourceTree = "<group>"; };
-		831BFCB51CDEF800009CCAA8 /* libboost_test_exec_monitor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_test_exec_monitor.a; path = ../libs/osx/lib/libboost_test_exec_monitor.a; sourceTree = "<group>"; };
 		831BFCB61CDEF800009CCAA8 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_thread.a; path = ../libs/osx/lib/libboost_thread.a; sourceTree = "<group>"; };
-		831BFCB71CDEF800009CCAA8 /* libboost_timer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_timer.a; path = ../libs/osx/lib/libboost_timer.a; sourceTree = "<group>"; };
-		831BFCB81CDEF800009CCAA8 /* libboost_type_erasure.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_type_erasure.a; path = ../libs/osx/lib/libboost_type_erasure.a; sourceTree = "<group>"; };
-		831BFCB91CDEF800009CCAA8 /* libboost_unit_test_framework.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_unit_test_framework.a; path = ../libs/osx/lib/libboost_unit_test_framework.a; sourceTree = "<group>"; };
-		831BFCBA1CDEF800009CCAA8 /* libboost_wave.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_wave.a; path = ../libs/osx/lib/libboost_wave.a; sourceTree = "<group>"; };
-		831BFCBB1CDEF800009CCAA8 /* libboost_wserialization.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_wserialization.a; path = ../libs/osx/lib/libboost_wserialization.a; sourceTree = "<group>"; };
 		831BFCDE1CDF16F9009CCAA8 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		831BFCDF1CDF17C0009CCAA8 /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		831BFCE01CDF184B009CCAA8 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
+		831BFCE21CDF978B009CCAA8 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../libs/osx/lib/libboost_system.a; sourceTree = "<group>"; };
 		832267D61CD8744E00B3E45E /* RaknetServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RaknetServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		832267D91CD8744E00B3E45E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		832267E51CD8745B00B3E45E /* Base64Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Base64Encoder.cpp; sourceTree = "<group>"; };
@@ -383,9 +318,6 @@
 		8322697D1CD88EB300B3E45E /* cxUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUtil.cpp; sourceTree = "<group>"; };
 		8322697E1CD88EB300B3E45E /* cxUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUtil.h; sourceTree = "<group>"; };
 		832269921CD88ECD00B3E45E /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = ../libs/osx/lib/libjansson.a; sourceTree = "<group>"; };
-		832269931CD88ECD00B3E45E /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../libs/osx/lib/libjpeg.a; sourceTree = "<group>"; };
-		832269941CD88ECD00B3E45E /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = ../libs/osx/lib/libpcre.a; sourceTree = "<group>"; };
-		832269951CD88ECD00B3E45E /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../libs/osx/lib/libpng.a; sourceTree = "<group>"; };
 		832269961CD88ECD00B3E45E /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../libs/osx/lib/libuv.a; sourceTree = "<group>"; };
 		8322699D1CD88F5100B3E45E /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
 		8322699E1CD88F5100B3E45E /* aes_cbc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cbc.c; sourceTree = "<group>"; };
@@ -508,46 +440,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				831BFCC31CDEF800009CCAA8 /* libboost_filesystem.a in Frameworks */,
-				831BFCD91CDEF800009CCAA8 /* libboost_timer.a in Frameworks */,
-				831BFCC11CDEF800009CCAA8 /* libboost_date_time.a in Frameworks */,
-				831BFCC61CDEF800009CCAA8 /* libboost_locale.a in Frameworks */,
-				831BFCD11CDEF800009CCAA8 /* libboost_python.a in Frameworks */,
-				831BFCC21CDEF800009CCAA8 /* libboost_exception.a in Frameworks */,
-				831BFCCE1CDEF800009CCAA8 /* libboost_math_tr1l.a in Frameworks */,
-				831BFCCC1CDEF800009CCAA8 /* libboost_math_tr1.a in Frameworks */,
+				831BFCE31CDF978B009CCAA8 /* libboost_system.a in Frameworks */,
 				831BFCD31CDEF800009CCAA8 /* libboost_regex.a in Frameworks */,
-				831BFCD21CDEF800009CCAA8 /* libboost_random.a in Frameworks */,
-				831BFCC01CDEF800009CCAA8 /* libboost_coroutine.a in Frameworks */,
 				832269971CD88ECD00B3E45E /* libjansson.a in Frameworks */,
-				831BFCBC1CDEF800009CCAA8 /* libboost_atomic.a in Frameworks */,
-				832269981CD88ECD00B3E45E /* libjpeg.a in Frameworks */,
-				831BFCC71CDEF800009CCAA8 /* libboost_log_setup.a in Frameworks */,
-				831BFCC51CDEF800009CCAA8 /* libboost_iostreams.a in Frameworks */,
-				831BFCD51CDEF800009CCAA8 /* libboost_signals.a in Frameworks */,
-				832269991CD88ECD00B3E45E /* libpcre.a in Frameworks */,
-				831BFCDB1CDEF800009CCAA8 /* libboost_unit_test_framework.a in Frameworks */,
-				8322699A1CD88ECD00B3E45E /* libpng.a in Frameworks */,
-				831BFCCB1CDEF800009CCAA8 /* libboost_math_c99l.a in Frameworks */,
-				831BFCCA1CDEF800009CCAA8 /* libboost_math_c99f.a in Frameworks */,
-				831BFCDA1CDEF800009CCAA8 /* libboost_type_erasure.a in Frameworks */,
 				8322699B1CD88ECD00B3E45E /* libuv.a in Frameworks */,
-				831BFCD71CDEF800009CCAA8 /* libboost_test_exec_monitor.a in Frameworks */,
-				831BFCC81CDEF800009CCAA8 /* libboost_log.a in Frameworks */,
-				831BFCC41CDEF800009CCAA8 /* libboost_graph.a in Frameworks */,
-				831BFCBE1CDEF800009CCAA8 /* libboost_container.a in Frameworks */,
 				831BFCD81CDEF800009CCAA8 /* libboost_thread.a in Frameworks */,
-				831BFCD61CDEF800009CCAA8 /* libboost_system.a in Frameworks */,
-				831BFCD01CDEF800009CCAA8 /* libboost_program_options.a in Frameworks */,
-				831BFCDC1CDEF800009CCAA8 /* libboost_wave.a in Frameworks */,
-				831BFCD41CDEF800009CCAA8 /* libboost_serialization.a in Frameworks */,
-				831BFCBD1CDEF800009CCAA8 /* libboost_chrono.a in Frameworks */,
-				831BFCDD1CDEF800009CCAA8 /* libboost_wserialization.a in Frameworks */,
-				831BFCC91CDEF800009CCAA8 /* libboost_math_c99.a in Frameworks */,
 				831BFC0F1CDEECB0009CCAA8 /* libmongoclient.a in Frameworks */,
-				831BFCCD1CDEF800009CCAA8 /* libboost_math_tr1f.a in Frameworks */,
-				831BFCBF1CDEF800009CCAA8 /* libboost_context.a in Frameworks */,
-				831BFCCF1CDEF800009CCAA8 /* libboost_prg_exec_monitor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -911,45 +809,11 @@
 		83226A411CD88F8C00B3E45E /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				831BFC9A1CDEF800009CCAA8 /* libboost_atomic.a */,
-				831BFC9B1CDEF800009CCAA8 /* libboost_chrono.a */,
-				831BFC9C1CDEF800009CCAA8 /* libboost_container.a */,
-				831BFC9D1CDEF800009CCAA8 /* libboost_context.a */,
-				831BFC9E1CDEF800009CCAA8 /* libboost_coroutine.a */,
-				831BFC9F1CDEF800009CCAA8 /* libboost_date_time.a */,
-				831BFCA01CDEF800009CCAA8 /* libboost_exception.a */,
-				831BFCA11CDEF800009CCAA8 /* libboost_filesystem.a */,
-				831BFCA21CDEF800009CCAA8 /* libboost_graph.a */,
-				831BFCA31CDEF800009CCAA8 /* libboost_iostreams.a */,
-				831BFCA41CDEF800009CCAA8 /* libboost_locale.a */,
-				831BFCA51CDEF800009CCAA8 /* libboost_log_setup.a */,
-				831BFCA61CDEF800009CCAA8 /* libboost_log.a */,
-				831BFCA71CDEF800009CCAA8 /* libboost_math_c99.a */,
-				831BFCA81CDEF800009CCAA8 /* libboost_math_c99f.a */,
-				831BFCA91CDEF800009CCAA8 /* libboost_math_c99l.a */,
-				831BFCAA1CDEF800009CCAA8 /* libboost_math_tr1.a */,
-				831BFCAB1CDEF800009CCAA8 /* libboost_math_tr1f.a */,
-				831BFCAC1CDEF800009CCAA8 /* libboost_math_tr1l.a */,
-				831BFCAD1CDEF800009CCAA8 /* libboost_prg_exec_monitor.a */,
-				831BFCAE1CDEF800009CCAA8 /* libboost_program_options.a */,
-				831BFCAF1CDEF800009CCAA8 /* libboost_python.a */,
-				831BFCB01CDEF800009CCAA8 /* libboost_random.a */,
+				831BFCE21CDF978B009CCAA8 /* libboost_system.a */,
 				831BFCB11CDEF800009CCAA8 /* libboost_regex.a */,
-				831BFCB21CDEF800009CCAA8 /* libboost_serialization.a */,
-				831BFCB31CDEF800009CCAA8 /* libboost_signals.a */,
-				831BFCB41CDEF800009CCAA8 /* libboost_system.a */,
-				831BFCB51CDEF800009CCAA8 /* libboost_test_exec_monitor.a */,
 				831BFCB61CDEF800009CCAA8 /* libboost_thread.a */,
-				831BFCB71CDEF800009CCAA8 /* libboost_timer.a */,
-				831BFCB81CDEF800009CCAA8 /* libboost_type_erasure.a */,
-				831BFCB91CDEF800009CCAA8 /* libboost_unit_test_framework.a */,
-				831BFCBA1CDEF800009CCAA8 /* libboost_wave.a */,
-				831BFCBB1CDEF800009CCAA8 /* libboost_wserialization.a */,
 				831BFC0E1CDEECB0009CCAA8 /* libmongoclient.a */,
 				832269921CD88ECD00B3E45E /* libjansson.a */,
-				832269931CD88ECD00B3E45E /* libjpeg.a */,
-				832269941CD88ECD00B3E45E /* libpcre.a */,
-				832269951CD88ECD00B3E45E /* libpng.a */,
 				832269961CD88ECD00B3E45E /* libuv.a */,
 			);
 			name = libs;

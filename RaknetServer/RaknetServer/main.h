@@ -13,7 +13,7 @@
 #include <raknet/cxServer.h>
 #include "config.h"
 
-using namespace cxengine;
+CX_CPP_BEGIN
 
 class cxGameServer : public cxServer
 {
@@ -27,16 +27,23 @@ private:
     //服务器信息
     std::string id;
     std::string host;
+    std::string pass;
     int port;
-    
     static void updateServerStatus(uv_timer_t* handle);
-    
+    //
+    DBClientBase *conn;
 public:
+    void OnMessage(RakNet::RakNetGUID clientId,const cxStr *message);
+    void OnNewConnect(RakNet::RakNetGUID clientId);
+    void OnLost(RakNet::RakNetGUID clientId);
+    
     void ThreadBegin();
     void ThreadExit();
 public:
     //注册服务器
-    void Register(cchars id, cchars host, int port);
+    void Register(cchars id, cchars host, int port,cchars pass);
 };
+
+CX_CPP_END
 
 #endif /* main_h */

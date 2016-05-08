@@ -25,7 +25,7 @@ struct cxHashKey
     cxHashKey(cxInt key);
     cxHashKey(cxUInt64 key);
     cxHashKey(cchars key);
-    cxHashKey(cxULong key);
+    cxHashKey(cxUInt32 key);
     cxHashKey(const cxStr *key);
     cchars Key() const;
     static cxHashKey Format(cchars fmt,...);

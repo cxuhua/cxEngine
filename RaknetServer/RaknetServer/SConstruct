@@ -1,0 +1,23 @@
+
+
+env = Environment()
+
+env.SConscript('../../SConscript')
+
+Import('env')
+
+env.Append(LIBS=['mongoclient'])
+env.Append(LIBS=['core'])
+env.Append(LIBS=['raknet'])
+env.Append(LIBS=['math'])
+env.Append(LIBS=['kazmath'])
+env.Append(LIBS=['ext'])
+env.Append(LIBS=['dl'])
+env.Append(LIBS=['jansson'])
+env.Append(LIBS=['uv'])
+env.Append(LIBS=['pthread'])
+env.Append(LIBS=['boost_regex'])
+env.Append(LIBS=['boost_thread'])
+
+env.Program('server',Glob('*.cpp'),CCFLAGS=[env['CCFLAGS'],'-std=gnu++11'])
+

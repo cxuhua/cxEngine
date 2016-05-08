@@ -22,6 +22,10 @@ Config::Config()
         exit(1);
     }
     conn = cs.connect(errmsg);
+    if(conn == nullptr){
+        CX_ERROR("conn server error :%s",errmsg.c_str());
+        exit(1);
+    }
 }
 
 Config::~Config()

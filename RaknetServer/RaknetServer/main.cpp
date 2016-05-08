@@ -39,41 +39,41 @@ void cxGameServer::OnMessage(RakNet::RakNetGUID clientId,const cxStr *message)
 
 void cxGameServer::Register(cchars aid,cchars ahost,int aport,cchars apass)
 {
-//    try{
-//        pass = apass;
-//        id = aid;
-//        host = ahost;
-//        port = aport;
-//        cxInt64 time = (cxInt64)cxUtil::Timestamp();
-//        BSONBinData pb = BSONBinData(publicKey,cat::EasyHandshake::PUBLIC_KEY_BYTES,BinDataGeneral);
-//        BSONBinData pk = BSONBinData(privateKey,cat::EasyHandshake::PRIVATE_KEY_BYTES,BinDataGeneral);
-//        BSONObj d = BSON("_id" << id
-//                         << "host" << host
-//                         << "port" << port
-//                         << "pass" << pass
-//                         << "time" << time
-//                         << "public" << pb
-//                         << "private" << pk);
-//        BSONObj q = BSON("_id" << id);
-//        conn->update(NS_SERVERS, q , d, true);
-//    }catch(DBException &e){
-//        CX_ERROR("Register server error:%s",e.getInfo().toString().c_str());
-//        exit(1);
-//    }
+    try{
+        pass = apass;
+        id = aid;
+        host = ahost;
+        port = aport;
+        long long time = (long long)cxUtil::Timestamp();
+        BSONBinData pb = BSONBinData(publicKey,cat::EasyHandshake::PUBLIC_KEY_BYTES,BinDataGeneral);
+        BSONBinData pk = BSONBinData(privateKey,cat::EasyHandshake::PRIVATE_KEY_BYTES,BinDataGeneral);
+        BSONObj d = BSON("_id" << id
+                         << "host" << host
+                         << "port" << port
+                         << "pass" << pass
+                         << "time" << time
+                         << "public" << pb
+                         << "private" << pk);
+        BSONObj q = BSON("_id" << id);
+        conn->update(NS_SERVERS, q , d, true);
+    }catch(DBException &e){
+        CX_ERROR("Register server error:%s",e.getInfo().toString().c_str());
+        exit(1);
+    }
 }
 
 void cxGameServer::updateServerStatus(uv_timer_t* handle)
 {
-//    cxGameServer *server = (cxGameServer *)handle->data;
-//    Config *conf = server->GetKey<Config>();
-//    try{
-//        cxInt64 time = (cxInt64)cxUtil::Timestamp();
-//        BSONObj q = BSON("_id" << server->id);
-//        BSONObj d = BSON("time" << time);
-//        conf->Conn()->update(NS_SERVERS, q, BSON("$set" << d));
-//    }catch(DBException &e){
-//        CX_ERROR("update server status error :%s",e.getInfo().toString().c_str());
-//    }
+    cxGameServer *server = (cxGameServer *)handle->data;
+    Config *conf = server->GetKey<Config>();
+    try{
+        long long time = (long long)cxUtil::Timestamp();
+        BSONObj q = BSON("_id" << server->id);
+        BSONObj d = BSON("time" << time);
+        conf->Conn()->update(NS_SERVERS, q, BSON("$set" << d));
+    }catch(DBException &e){
+        CX_ERROR("update server status error :%s",e.getInfo().toString().c_str());
+    }
     uv_timer_again(handle);
 }
 
@@ -90,10 +90,9 @@ cxGameServer::cxGameServer()
         CX_ERROR("db host error");
         exit(1);
     }
-    try{
-        conn = cs.connect(errmsg);
-    }catch(DBException &e){
-        CX_ERROR("conn server error :%s",e.getInfo().toString().c_str());
+    conn = cs.connect(errmsg);
+    if(conn == nullptr){
+        CX_ERROR("conn server error :%s",errmsg.c_str());
         exit(1);
     }
 }

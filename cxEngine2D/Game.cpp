@@ -44,6 +44,7 @@
 #include <engine/cxScript.h>
 
 #include <raknet/cxClient.h>
+#include <raknet/ListServers.h>
 
 CX_CPP_BEGIN
 
@@ -53,7 +54,7 @@ CX_IMPLEMENT(Game);
 
 void Game::OnUpdate(cxFloat dt)
 {
-    client->Process(this);
+    client->Process();
     cxEngine::OnUpdate(dt);
 }
 
@@ -71,9 +72,34 @@ Game::~Game()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
-    const cxStr *key = cxUtil::Instance()->AssetsData("key.pub");
-    client->SetPublicKey(key->Data());
-    client->Connect("192.168.199.244", 10020, "123");
+    
+    cxHttp *http = cxHttp::Get("http://192.168.199.244:9001/servers/list");
+    Window()->Append(http);
+    http->onCompleted += [this](cxHttp *http){
+        if(!http->Success()){
+            CX_ERROR("Get Server list failed");
+            return;
+        }
+        const cxStr *json = http->Body();
+        CX_LOGGER("%s",json->ToString());
+        ListServers *list = ListServers::Create();
+        list->Init(json);
+        if(list->Code != 0){
+            CX_ERROR("%s",list->Error->ToString());
+            return;
+        }
+        const ServerInfo *info = list->Query();
+        if(info == nullptr){
+            CX_ERROR("query server info error");
+            return;
+        }
+        client->SetPublicKey(info->Public);
+        client->Connect(info->Host->ToString(), info->Port, info->Pass->ToString());
+    };
+    
+//    const cxStr *key = cxUtil::Instance()->AssetsData("key.pub");
+//    client->SetPublicKey(key->Data());
+//    client->Connect("192.168.199.244", 10020, "123");
     
     cxSprite *sp = cxSprite::Create();
     sp->SetSize(cxSize2F(250, 250));

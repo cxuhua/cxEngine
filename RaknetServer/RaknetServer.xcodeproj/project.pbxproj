@@ -12,6 +12,7 @@
 		831BFCD81CDEF800009CCAA8 /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB61CDEF800009CCAA8 /* libboost_thread.a */; };
 		831BFCE11CDF184B009CCAA8 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831BFCE01CDF184B009CCAA8 /* Config.cpp */; };
 		831BFCE31CDF978B009CCAA8 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCE21CDF978B009CCAA8 /* libboost_system.a */; };
+		831E5CD71CE06CDE00B71C1B /* DB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831E5CD51CE06CDE00B71C1B /* DB.cpp */; };
 		832267DA1CD8744E00B3E45E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832267D91CD8744E00B3E45E /* main.cpp */; };
 		832268EA1CD8745C00B3E45E /* Base64Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832267E51CD8745B00B3E45E /* Base64Encoder.cpp */; };
 		832268EB1CD8745C00B3E45E /* BitStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832267E71CD8745B00B3E45E /* BitStream.cpp */; };
@@ -152,9 +153,11 @@
 		831BFCB11CDEF800009CCAA8 /* libboost_regex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_regex.a; path = ../libs/osx/lib/libboost_regex.a; sourceTree = "<group>"; };
 		831BFCB61CDEF800009CCAA8 /* libboost_thread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_thread.a; path = ../libs/osx/lib/libboost_thread.a; sourceTree = "<group>"; };
 		831BFCDE1CDF16F9009CCAA8 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
-		831BFCDF1CDF17C0009CCAA8 /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		831BFCDF1CDF17C0009CCAA8 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		831BFCE01CDF184B009CCAA8 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
 		831BFCE21CDF978B009CCAA8 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../libs/osx/lib/libboost_system.a; sourceTree = "<group>"; };
+		831E5CD51CE06CDE00B71C1B /* DB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DB.cpp; sourceTree = "<group>"; };
+		831E5CD61CE06CDE00B71C1B /* DB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DB.h; sourceTree = "<group>"; };
 		832267D61CD8744E00B3E45E /* RaknetServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RaknetServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		832267D91CD8744E00B3E45E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		832267E51CD8745B00B3E45E /* Base64Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Base64Encoder.cpp; sourceTree = "<group>"; };
@@ -478,8 +481,10 @@
 			children = (
 				832267D91CD8744E00B3E45E /* main.cpp */,
 				831BFCDE1CDF16F9009CCAA8 /* main.h */,
-				831BFCDF1CDF17C0009CCAA8 /* config.h */,
+				831BFCDF1CDF17C0009CCAA8 /* Config.h */,
 				831BFCE01CDF184B009CCAA8 /* Config.cpp */,
+				831E5CD51CE06CDE00B71C1B /* DB.cpp */,
+				831E5CD61CE06CDE00B71C1B /* DB.h */,
 			);
 			path = RaknetServer;
 			sourceTree = "<group>";
@@ -886,6 +891,7 @@
 				83226A2E1CD88F7F00B3E45E /* cxRect4F.cpp in Sources */,
 				832269071CD8745C00B3E45E /* gettimeofday.cpp in Sources */,
 				8322692E1CD8745C00B3E45E /* RakNetStatistics.cpp in Sources */,
+				831E5CD71CE06CDE00B71C1B /* DB.cpp in Sources */,
 				83226A241CD88F7F00B3E45E /* cxBoxPoint2F.cpp in Sources */,
 				832268ED1CD8745C00B3E45E /* CCRakNetUDT.cpp in Sources */,
 				832269401CD8745C00B3E45E /* SignaledEvent.cpp in Sources */,

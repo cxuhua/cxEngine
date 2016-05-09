@@ -24,9 +24,10 @@ cxClient::~cxClient()
     
 }
 
-void cxClient::SetPublicKey(cchars data)
+void cxClient::SetPublicKey(const cxStr *data)
 {
-    memcpy(publicKeyData, data, cat::EasyHandshake::PUBLIC_KEY_BYTES);
+    CX_ASSERT(data != nullptr && data->Size() == cat::EasyHandshake::PUBLIC_KEY_BYTES, "public key data error");
+    memcpy(publicKeyData, data->Data(), cat::EasyHandshake::PUBLIC_KEY_BYTES);
     publicKey.publicKeyMode = RakNet::PKM_ACCEPT_ANY_PUBLIC_KEY;
     publicKey.myPublicKey = publicKeyData;
 }

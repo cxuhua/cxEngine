@@ -8,6 +8,7 @@
 
 
 #include "Config.h"
+#include "main.h"
 
 CX_CPP_BEGIN
 
@@ -15,30 +16,36 @@ CX_IMPLEMENT(Config);
 
 Config::Config()
 {
-    std::string errmsg;
-    ConnectionString cs = ConnectionString::parse(DB_HOST, errmsg);
-    if (!cs.isValid()) {
-        CX_ERROR("db host error");
-        exit(1);
-    }
-    conn = cs.connect(errmsg);
-    if(conn == nullptr){
-        CX_ERROR("conn server error :%s",errmsg.c_str());
-        exit(1);
-    }
+    uv_loop_init(&loop);
+    db = DB::Alloc();
 }
 
 Config::~Config()
 {
-    delete conn;
+    db->Release();
+    uv_loop_close(&loop);
 }
 
-DBClientBase *Config::Conn()
+uv_loop_t *Config::Looper()
 {
-    if(conn->isStillConnected()){
-        return conn;
-    }
-    throw new DBException("db connect miss", 1000);
+    return &loop;
+}
+
+DB *Config::GetDB()
+{
+    return db;
+}
+
+void Config::SetServer(void *ptr)
+{
+    server = ptr;
+}
+
+void Config::IncCurr(cxInt c)
+{
+    GameServer *s = (GameServer *)server;
+    BSONObj d = BSON("$inc" << BSON("curr" << c));
+    db->UpdateId(T_SERVERS, s->GetId(), d);
 }
 
 CX_CPP_END

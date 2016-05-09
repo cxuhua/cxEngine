@@ -9,22 +9,10 @@
 #ifndef config_h
 #define config_h
 
-#include <mongo/client/dbclient.h>
-#include <core/cxObject.h>
-
-//数据库连接
-#define DB_HOST     "mongodb://127.0.0.1:27017"
+#include "DB.h"
 
 //每隔多少秒更新服务器状态
-#define UPDATE_SERVER_STATUS_TIME   10000
-
-//服务器表
-#define DB_NAME         "test"
-#define NS_SERVERS      DB_NAME".servers"
-
-//
-
-using namespace mongo;
+#define UPDATE_STATUS_TIME   10000
 
 CX_CPP_BEGIN
 
@@ -36,9 +24,16 @@ protected:
     explicit Config();
     virtual ~Config();
 private:
-    DBClientBase *conn;
+    DB *db;
+    uv_loop_t loop;
+    void *server;
 public:
-    DBClientBase *Conn();
+    void SetServer(void *ptr);
+    uv_loop_t *Looper();
+    DB *GetDB();
+public:
+    //更新当前在线人数
+    void IncCurr(cxInt c);
 };
 
 CX_CPP_END

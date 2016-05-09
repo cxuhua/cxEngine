@@ -19,19 +19,24 @@ cxServer::cxServer()
 {
     threads = nullptr;
     uv_mutex_init(&mutex);
-    uv_loop_init(&loop);
+    clients=cxHash::Alloc();
 }
 
 cxServer::~cxServer()
 {
-    uv_loop_close(&loop);
+    clients->Release();
     uv_mutex_destroy(&mutex);
     delete []threads;
 }
 
-uv_loop_t *cxServer::Looper()
+void cxServer::Lock()
 {
-    return &loop;
+    uv_mutex_lock(&mutex);
+}
+
+void cxServer::UnLock()
+{
+    uv_mutex_unlock(&mutex);
 }
 
 bool cxServer::Init(cxInt nt,cxInt port,cxInt max,cchars pass)
@@ -88,11 +93,9 @@ void cxServer::OnPacket(RakNet::Packet *packet)
     }
 }
 
-void cxServer::Loop()
+void cxServer::ThreadLoop()
 {
-    uv_mutex_lock(&mutex);
-    uv_run(&loop, UV_RUN_NOWAIT);
-    uv_mutex_unlock(&mutex);
+    
 }
 
 bool cxServer::initKey()
@@ -109,7 +112,7 @@ void cxServer::runEntry(void *a)
     cxServer *server = (cxServer *)a;
     server->ThreadBegin();
     while(!server->exitFlags){
-        server->Loop();
+        server->ThreadLoop();
         server->Process();
         cxAutoPool::Update();
         RakSleep(1);
@@ -117,6 +120,13 @@ void cxServer::runEntry(void *a)
     CX_LOGGER("%p process thread stop",uv_thread_self());
     server->ThreadExit();
     cxAutoPool::Stop();
+}
+
+void cxServer::Wait()
+{
+    for(cxInt i=0;i<thread;i++){
+        uv_thread_join(&threads[i]);
+    }
 }
 
 void cxServer::Stop()
@@ -128,9 +138,6 @@ void cxServer::Run()
 {
     for(cxInt i=0;i<thread;i++){
         uv_thread_create(&threads[i], cxServer::runEntry, this);
-    }
-    for(cxInt i=0;i<thread;i++){
-        uv_thread_join(&threads[i]);
     }
 }
 

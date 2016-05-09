@@ -24,7 +24,7 @@ private:
     char publicKeyData[cat::EasyHandshake::PUBLIC_KEY_BYTES];
     RakNet::PublicKey publicKey;
 public:
-    void SetPublicKey(cchars data);
+    void SetPublicKey(const cxStr *data);
     void OnPacket(RakNet::Packet *packet);
     RakNet::ConnectionAttemptResult Connect(cchars host,cxInt port,cchars pass);
 public:

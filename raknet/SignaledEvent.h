@@ -34,15 +34,9 @@ public:
 	void CloseEvent(void);
 	void SetEvent(void);
 	void WaitOnEvent(int timeoutMs);
-
 protected:
 #ifdef _WIN32
 	HANDLE eventList;
-
-
-
-
-
 #else
 	SimpleMutex isSignaledMutex;
 	bool isSignaled;

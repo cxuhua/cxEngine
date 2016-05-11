@@ -23,21 +23,39 @@ using namespace mongo;
 
 CX_CPP_BEGIN
 
-class DB : public cxObject
+class DBQuery : public cxObject
 {
 public:
-    CX_DECLARE(DB);
+    CX_DECLARE(DBQuery);
 protected:
-    explicit DB();
-    virtual ~DB();
+    explicit DBQuery();
+    virtual ~DBQuery();
+};
+
+class MongoDB : public cxObject
+{
+public:
+    CX_DECLARE(MongoDB);
+protected:
+    explicit MongoDB();
+    virtual ~MongoDB();
 private:
     std::string dbName;
     DBClientBase *db;
     std::string NS(const std::string& c)
     {
+        if(dbName.size() == 0)return c;
         return dbName + "." + c;
     };
 public:
+    template<class T>
+    BSONObj FindId(const std::string& c,T v)
+    {
+        BSONObj q = BSON("_id" << v);
+        return db->findOne(NS(c), q);
+    }
+    std::auto_ptr<DBClientCursor> Find(const std::string& c,Query query,int skip=0,int limit=0,const BSONObj* fieldsToReturn = 0,int queryOptions = 0,int batchSize = 0);
+    
     cxInt64 Count(const std::string& c,const Query& query ,int skip,int limit,int opts=0);
     
     void Insert(const std::string& c,const std::vector<BSONObj> &obj,int flags = 0,const WriteConcern* wc = NULL);

@@ -34,9 +34,9 @@ private:
     cxInt curr;
     static void updateServerStatus(uv_timer_t* handle);
     //
-    DB *db;
+    MongoDB *db;
 public:
-    DB *GetDB();
+    MongoDB *GetDB();
     cchars GetHost();
     cxInt GetPort();
     cchars GetId();

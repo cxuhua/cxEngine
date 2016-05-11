@@ -16,7 +16,11 @@
 
 // SET DEFAULTS IF UNDEFINED
 #ifndef LIBCAT_SECURITY
-#define LIBCAT_SECURITY 1
+    #define LIBCAT_SECURITY 1
+#endif
+
+#ifndef _RAKNET_SUPPORT_TCPInterface
+    #define _RAKNET_SUPPORT_TCPInterface 1
 #endif
 
 #endif // __NATIVE_FEATURE_INCLDUES_H

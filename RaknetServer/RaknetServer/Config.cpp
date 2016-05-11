@@ -6,7 +6,6 @@
 //  Copyright © 2016 xuhua. All rights reserved.
 //
 
-
 #include "Config.h"
 #include "main.h"
 
@@ -17,7 +16,7 @@ CX_IMPLEMENT(Config);
 Config::Config()
 {
     uv_loop_init(&loop);
-    db = DB::Alloc();
+    db = MongoDB::Alloc();
 }
 
 Config::~Config()
@@ -31,7 +30,7 @@ uv_loop_t *Config::Looper()
     return &loop;
 }
 
-DB *Config::GetDB()
+MongoDB *Config::GetDB()
 {
     return db;
 }
@@ -39,13 +38,6 @@ DB *Config::GetDB()
 void Config::SetServer(void *ptr)
 {
     server = ptr;
-}
-
-void Config::IncCurr(cxInt c)
-{
-    GameServer *s = (GameServer *)server;
-    BSONObj d = BSON("$inc" << BSON("curr" << c));
-    db->UpdateId(T_SERVERS, s->GetId(), d);
 }
 
 CX_CPP_END

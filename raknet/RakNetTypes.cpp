@@ -271,25 +271,6 @@ void SystemAddress::ToString_Old(bool writePort, char *dest, char portDelineator
 	portStr[0]=portDelineator;
 	portStr[1]=0;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	in_addr in;
 	in.s_addr = address.addr4.sin_addr.s_addr;
 	const char *ntoaStr = inet_ntoa( in );
@@ -326,21 +307,6 @@ void SystemAddress::ToString_New(bool writePort, char *dest, char portDelineator
 		strcpy(dest, "UNASSIGNED_SYSTEM_ADDRESS");
 		return;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	if (address.addr4.sin_family==AF_INET)
 	{
@@ -396,43 +362,6 @@ SystemAddress::SystemAddress(const char *str, unsigned short port)
 	FromStringExplicitPort(str,port);
 	systemIndex=(SystemIndex)-1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #ifdef _MSC_VER
 #pragma warning( disable : 4996 )  // The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strnicmp. See online help for details.

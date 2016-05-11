@@ -80,6 +80,18 @@ void cxRaknet::ThreadExit()
     
 }
 
+cxInt cxRaknet::UdpCount()
+{
+    unsigned short num = 0;
+    peer->GetConnectionList(nullptr, &num);
+    return num;
+}
+
+cxInt cxRaknet::UdpMax()
+{
+    return peer->GetMaximumIncomingConnections();
+}
+
 void cxRaknet::Process()
 {
     RakNet::Packet *packet = nullptr;
@@ -96,27 +108,21 @@ void cxRaknet::InitBitStream(RakNet::BitStream *bs,const cxStr *data)
     bs->WriteAlignedBytes((const unsigned char *)data->Data(), (const unsigned int)l);
 }
 
-cxUInt32 cxRaknet::Write(const cxStr *message)
+cxUInt32 cxRaknet::UDPWrite(const cxStr *message, bool broadcast)
 {
-    return Write(message, remote, IMMEDIATE_PRIORITY, RELIABLE_ORDERED, 0,false ,0);
+    if(broadcast){
+        return UDPWrite(message, RakNet::UNASSIGNED_RAKNET_GUID, IMMEDIATE_PRIORITY, RELIABLE_ORDERED, 0,broadcast ,0);
+    }else{
+        return UDPWrite(message, remote, IMMEDIATE_PRIORITY, RELIABLE_ORDERED, 0,broadcast ,0);
+    }
 }
 
-cxUInt32 cxRaknet::Write(const cxStr *message,PacketPriority priority, PacketReliability reliability, char channel)
+cxUInt32 cxRaknet::UDPWrite(const cxStr *message,PacketPriority priority, PacketReliability reliability, char channel, bool broadcast)
 {
-    return Write(message, remote, priority, reliability, channel, false, 0);
+    return UDPWrite(message, remote, priority, reliability, channel, broadcast, 0);
 }
 
-cxUInt32 cxRaknet::Broadcast(const cxStr *message)
-{
-    return Broadcast(message, IMMEDIATE_PRIORITY, RELIABLE_ORDERED, 0);
-}
-
-cxUInt32 cxRaknet::Broadcast(const cxStr *message,PacketPriority priority, PacketReliability reliability, char channel)
-{
-    return Write(message, RakNet::UNASSIGNED_SYSTEM_ADDRESS, priority, reliability, channel, true, 0);
-}
-
-cxUInt32 cxRaknet::Write(const cxStr *message,RakNet::AddressOrGUID clientId,PacketPriority priority, PacketReliability reliability, char channel,bool broadcast, uint32_t receipt)
+cxUInt32 cxRaknet::UDPWrite(const cxStr *message,RakNet::AddressOrGUID clientId,PacketPriority priority, PacketReliability reliability, char channel,bool broadcast, uint32_t receipt)
 {
     RakNet::BitStream bsOut;
     InitBitStream(&bsOut, message);

@@ -12,7 +12,7 @@
 		831BFCD81CDEF800009CCAA8 /* libboost_thread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCB61CDEF800009CCAA8 /* libboost_thread.a */; };
 		831BFCE11CDF184B009CCAA8 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831BFCE01CDF184B009CCAA8 /* Config.cpp */; };
 		831BFCE31CDF978B009CCAA8 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BFCE21CDF978B009CCAA8 /* libboost_system.a */; };
-		831E5CD71CE06CDE00B71C1B /* DB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831E5CD51CE06CDE00B71C1B /* DB.cpp */; };
+		831E5CD71CE06CDE00B71C1B /* MongoDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831E5CD51CE06CDE00B71C1B /* MongoDB.cpp */; };
 		832267DA1CD8744E00B3E45E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832267D91CD8744E00B3E45E /* main.cpp */; };
 		832268EA1CD8745C00B3E45E /* Base64Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832267E51CD8745B00B3E45E /* Base64Encoder.cpp */; };
 		832268EB1CD8745C00B3E45E /* BitStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832267E71CD8745B00B3E45E /* BitStream.cpp */; };
@@ -131,9 +131,12 @@
 		83226A3E1CD88F7F00B3E45E /* vec2.c in Sources */ = {isa = PBXBuildFile; fileRef = 83226A1B1CD88F7F00B3E45E /* vec2.c */; };
 		83226A3F1CD88F7F00B3E45E /* vec3.c in Sources */ = {isa = PBXBuildFile; fileRef = 83226A1D1CD88F7F00B3E45E /* vec3.c */; };
 		83226A401CD88F7F00B3E45E /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 83226A1F1CD88F7F00B3E45E /* vec4.c */; };
+		83588A341CE195DB0020C2B7 /* libhiredis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83588A331CE195DB0020C2B7 /* libhiredis.a */; };
+		83588A371CE1989D0020C2B7 /* cxRedis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83588A351CE1989D0020C2B7 /* cxRedis.cpp */; };
 		839ED1BA1CD9C32B00BEF5BB /* cxRaknet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839ED1B81CD9C32B00BEF5BB /* cxRaknet.cpp */; };
 		839ED2691CD9C54E00BEF5BB /* cxServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839ED2671CD9C54E00BEF5BB /* cxServer.cpp */; };
 		839ED26F1CD9C74100BEF5BB /* cxClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839ED26D1CD9C74100BEF5BB /* cxClient.cpp */; };
+		83C67ECE1CE0E2F400E36650 /* TCPInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C67ECC1CE0E2F400E36650 /* TCPInterface.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -156,8 +159,8 @@
 		831BFCDF1CDF17C0009CCAA8 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		831BFCE01CDF184B009CCAA8 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
 		831BFCE21CDF978B009CCAA8 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../libs/osx/lib/libboost_system.a; sourceTree = "<group>"; };
-		831E5CD51CE06CDE00B71C1B /* DB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DB.cpp; sourceTree = "<group>"; };
-		831E5CD61CE06CDE00B71C1B /* DB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DB.h; sourceTree = "<group>"; };
+		831E5CD51CE06CDE00B71C1B /* MongoDB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MongoDB.cpp; sourceTree = "<group>"; };
+		831E5CD61CE06CDE00B71C1B /* MongoDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MongoDB.h; sourceTree = "<group>"; };
 		832267D61CD8744E00B3E45E /* RaknetServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RaknetServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		832267D91CD8744E00B3E45E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		832267E51CD8745B00B3E45E /* Base64Encoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Base64Encoder.cpp; sourceTree = "<group>"; };
@@ -430,12 +433,17 @@
 		83226A1E1CD88F7F00B3E45E /* vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec3.h; sourceTree = "<group>"; };
 		83226A1F1CD88F7F00B3E45E /* vec4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vec4.c; sourceTree = "<group>"; };
 		83226A201CD88F7F00B3E45E /* vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec4.h; sourceTree = "<group>"; };
+		83588A331CE195DB0020C2B7 /* libhiredis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhiredis.a; path = ../libs/osx/lib/libhiredis.a; sourceTree = "<group>"; };
+		83588A351CE1989D0020C2B7 /* cxRedis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRedis.cpp; sourceTree = "<group>"; };
+		83588A361CE1989D0020C2B7 /* cxRedis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRedis.h; sourceTree = "<group>"; };
 		839ED1B81CD9C32B00BEF5BB /* cxRaknet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRaknet.cpp; sourceTree = "<group>"; };
 		839ED1B91CD9C32B00BEF5BB /* cxRaknet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRaknet.h; sourceTree = "<group>"; };
 		839ED2671CD9C54E00BEF5BB /* cxServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxServer.cpp; sourceTree = "<group>"; };
 		839ED2681CD9C54E00BEF5BB /* cxServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxServer.h; sourceTree = "<group>"; };
 		839ED26D1CD9C74100BEF5BB /* cxClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxClient.cpp; sourceTree = "<group>"; };
 		839ED26E1CD9C74100BEF5BB /* cxClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxClient.h; sourceTree = "<group>"; };
+		83C67ECC1CE0E2F400E36650 /* TCPInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPInterface.cpp; sourceTree = "<group>"; };
+		83C67ECD1CE0E2F400E36650 /* TCPInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPInterface.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -447,6 +455,7 @@
 				831BFCD31CDEF800009CCAA8 /* libboost_regex.a in Frameworks */,
 				832269971CD88ECD00B3E45E /* libjansson.a in Frameworks */,
 				8322699B1CD88ECD00B3E45E /* libuv.a in Frameworks */,
+				83588A341CE195DB0020C2B7 /* libhiredis.a in Frameworks */,
 				831BFCD81CDEF800009CCAA8 /* libboost_thread.a in Frameworks */,
 				831BFC0F1CDEECB0009CCAA8 /* libmongoclient.a in Frameworks */,
 			);
@@ -481,10 +490,12 @@
 			children = (
 				832267D91CD8744E00B3E45E /* main.cpp */,
 				831BFCDE1CDF16F9009CCAA8 /* main.h */,
+				83588A351CE1989D0020C2B7 /* cxRedis.cpp */,
+				83588A361CE1989D0020C2B7 /* cxRedis.h */,
 				831BFCDF1CDF17C0009CCAA8 /* Config.h */,
 				831BFCE01CDF184B009CCAA8 /* Config.cpp */,
-				831E5CD51CE06CDE00B71C1B /* DB.cpp */,
-				831E5CD61CE06CDE00B71C1B /* DB.h */,
+				831E5CD51CE06CDE00B71C1B /* MongoDB.cpp */,
+				831E5CD61CE06CDE00B71C1B /* MongoDB.h */,
 			);
 			path = RaknetServer;
 			sourceTree = "<group>";
@@ -492,6 +503,8 @@
 		832267E01CD8745B00B3E45E /* raknet */ = {
 			isa = PBXGroup;
 			children = (
+				83C67ECC1CE0E2F400E36650 /* TCPInterface.cpp */,
+				83C67ECD1CE0E2F400E36650 /* TCPInterface.h */,
 				832267E51CD8745B00B3E45E /* Base64Encoder.cpp */,
 				832267E61CD8745B00B3E45E /* Base64Encoder.h */,
 				832267E71CD8745B00B3E45E /* BitStream.cpp */,
@@ -814,6 +827,7 @@
 		83226A411CD88F8C00B3E45E /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				83588A331CE195DB0020C2B7 /* libhiredis.a */,
 				831BFCE21CDF978B009CCAA8 /* libboost_system.a */,
 				831BFCB11CDEF800009CCAA8 /* libboost_regex.a */,
 				831BFCB61CDEF800009CCAA8 /* libboost_thread.a */,
@@ -891,7 +905,7 @@
 				83226A2E1CD88F7F00B3E45E /* cxRect4F.cpp in Sources */,
 				832269071CD8745C00B3E45E /* gettimeofday.cpp in Sources */,
 				8322692E1CD8745C00B3E45E /* RakNetStatistics.cpp in Sources */,
-				831E5CD71CE06CDE00B71C1B /* DB.cpp in Sources */,
+				831E5CD71CE06CDE00B71C1B /* MongoDB.cpp in Sources */,
 				83226A241CD88F7F00B3E45E /* cxBoxPoint2F.cpp in Sources */,
 				832268ED1CD8745C00B3E45E /* CCRakNetUDT.cpp in Sources */,
 				832269401CD8745C00B3E45E /* SignaledEvent.cpp in Sources */,
@@ -945,6 +959,7 @@
 				83226A271CD88F7F00B3E45E /* cxColor4F.cpp in Sources */,
 				83226A2B1CD88F7F00B3E45E /* cxPoint2F.cpp in Sources */,
 				83226A3C1CD88F7F00B3E45E /* tools.c in Sources */,
+				83588A371CE1989D0020C2B7 /* cxRedis.cpp in Sources */,
 				83226A3A1CD88F7F00B3E45E /* ray2.c in Sources */,
 				832269451CD8745C00B3E45E /* StringTable.cpp in Sources */,
 				83226A251CD88F7F00B3E45E /* cxBoxPoint3F.cpp in Sources */,
@@ -979,6 +994,7 @@
 				832269311CD8745C00B3E45E /* RakPeer.cpp in Sources */,
 				83226A2A1CD88F7F00B3E45E /* cxMatrixF.cpp in Sources */,
 				8322698D1CD88EB300B3E45E /* cxQueue.cpp in Sources */,
+				83C67ECE1CE0E2F400E36650 /* TCPInterface.cpp in Sources */,
 				832269D41CD88F5100B3E45E /* lzma.c in Sources */,
 				83226A3D1CD88F7F00B3E45E /* utility.c in Sources */,
 				839ED26F1CD9C74100BEF5BB /* cxClient.cpp in Sources */,

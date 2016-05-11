@@ -56,7 +56,7 @@ private:
     void InitBitStream(RakNet::BitStream *bs,const cxStr *data);
 protected:
     //
-    cxUInt32 Write(const cxStr *message,RakNet::AddressOrGUID clientId,
+    cxUInt32 UDPWrite(const cxStr *message,RakNet::AddressOrGUID clientId,
                    PacketPriority priority, PacketReliability reliability, char channel,
                    bool broadcast, uint32_t receipt);
     //
@@ -76,6 +76,8 @@ public:
         return (T *)uv_key_get(&key);
     }
 public:
+    cxInt UdpCount();
+    cxInt UdpMax();
     void SetOccasionalPing(bool ping);
     
     virtual void OnMessage(RakNet::RakNetGUID clientId, const cxStr *message);
@@ -86,11 +88,8 @@ public:
     virtual void Process();
     virtual void OnPacket(RakNet::Packet *packet);
 public:
-    cxUInt32 Broadcast(const cxStr *message);
-    cxUInt32 Broadcast(const cxStr *message,PacketPriority priority, PacketReliability reliability, char channel);
-    
-    cxUInt32 Write(const cxStr *message);
-    cxUInt32 Write(const cxStr *message,PacketPriority priority, PacketReliability reliability, char channel);
+    cxUInt32 UDPWrite(const cxStr *message,bool broadcast=false);
+    cxUInt32 UDPWrite(const cxStr *message,PacketPriority priority, PacketReliability reliability, char channel,bool broadcast=false);
 };
 
 CX_CPP_END

@@ -10,8 +10,40 @@
 #include <core/cxAutoPool.h>
 #include <core/cxUtil.h>
 #include "cxServer.h"
+#include "TCPInterface.h"
 
 CX_CPP_BEGIN
+
+CX_IMPLEMENT(TcpServer)
+
+TcpServer::TcpServer()
+{
+    
+}
+
+TcpServer::~TcpServer()
+{
+    
+}
+
+bool TcpServer::HasConnection(RakNet::SystemAddress addr)
+{
+    bool ret = false;
+    for(cxInt i=0; i < remoteClientsLength; i++){
+        remoteClients[i].isActiveMutex.Lock();
+        ret = remoteClients[i].isActive && remoteClients[i].systemAddress == addr;
+        remoteClients[i].isActiveMutex.Unlock();
+        if(ret){
+            break;
+        }
+    }
+    return ret;
+}
+
+cxInt TcpServer::MaxConnection()
+{
+    return remoteClientsLength;
+}
 
 CX_IMPLEMENT(cxServer);
 
@@ -19,12 +51,14 @@ cxServer::cxServer()
 {
     threads = nullptr;
     uv_mutex_init(&mutex);
-    clients=cxHash::Alloc();
+    uv_mutex_init(&tcpMutex);
+    tcp = TcpServer::Alloc();
 }
 
 cxServer::~cxServer()
 {
-    clients->Release();
+    tcp->Release();
+    uv_mutex_destroy(&tcpMutex);
     uv_mutex_destroy(&mutex);
     delete []threads;
 }
@@ -42,11 +76,11 @@ void cxServer::UnLock()
 bool cxServer::Init(cxInt nt,cxInt port,cxInt max,cchars pass)
 {
     if(!initKey()){
-        CX_LOGGER("create public private key error");
+        CX_ERROR("create public private key error");
         return false;
     }
     if(!peer->InitializeSecurity(publicKey, privateKey)){
-        CX_LOGGER("init key error");
+        CX_ERROR("init key error");
         return false;
     }
     thread = nt;
@@ -56,7 +90,8 @@ bool cxServer::Init(cxInt nt,cxInt port,cxInt max,cchars pass)
     peer->Startup(max, &socket, 1);
     peer->SetMaximumIncomingConnections(max);
     peer->SetIncomingPassword(pass, (int)strlen(pass));
-    return true;
+    CX_LOGGER("server start port=%d max=%d thread=%d",port,max,thread);
+    return tcp->Start(port, max/8);
 }
 
 void cxServer::OnNewConnect(RakNet::RakNetGUID clientId)
@@ -93,6 +128,94 @@ void cxServer::OnPacket(RakNet::Packet *packet)
     }
 }
 
+void cxServer::OnTcpPacket(RakNet::Packet *packet)
+{
+    CX_LOGGER("on tcp packet length=%d",packet->length);
+}
+
+void cxServer::OnTcpNewConnect(RakNet::SystemAddress addr)
+{
+    CX_LOGGER("tcp new conn %s",addr.ToString());
+}
+
+void cxServer::OnTcpLost(RakNet::SystemAddress addr)
+{
+    CX_LOGGER("tcp lost conn %s",addr.ToString());
+}
+
+void cxServer::OnTcpConnected(RakNet::SystemAddress addr)
+{
+    CX_LOGGER("client connected to %s",addr.ToString());
+}
+
+void cxServer::OnTcpFailed(RakNet::SystemAddress addr)
+{
+    CX_LOGGER("client connected to %s failed",addr.ToString());
+}
+
+RakNet::SystemAddress cxServer::Connect(cchars host,cxInt port)
+{
+    return tcp->Connect(host, port);
+}
+
+void cxServer::CloseTcp(RakNet::SystemAddress addr)
+{
+    tcp->CloseConnection(addr);
+}
+
+void cxServer::TcpWrite(RakNet::SystemAddress addr,const cxStr *data,bool broadcast)
+{
+    if(broadcast){
+        tcp->Send(data->Data(), data->Size(), RakNet::UNASSIGNED_SYSTEM_ADDRESS, broadcast);
+    }else{
+        tcp->Send(data->Data(), data->Size(), addr, broadcast);
+    }
+}
+
+cxInt cxServer::TcpCount()
+{
+    return tcp->GetConnectionCount();
+}
+
+cxInt cxServer::TcpMax()
+{
+    return tcp->MaxConnection();
+}
+
+bool cxServer::HasConnection(RakNet::SystemAddress addr)
+{
+    return tcp->HasConnection(addr);
+}
+
+void cxServer::Process()
+{
+    //有连接成功的
+    RakNet::SystemAddress completedAddr = tcp->HasCompletedConnectionAttempt();
+    if(completedAddr != RakNet::UNASSIGNED_SYSTEM_ADDRESS){
+        OnTcpConnected(completedAddr);
+    }
+    //连接失败的
+    RakNet::SystemAddress failedAddr = tcp->HasFailedConnectionAttempt();
+    if(failedAddr != RakNet::UNASSIGNED_SYSTEM_ADDRESS){
+        OnTcpFailed(failedAddr);
+    }
+    //有新的连接
+    RakNet::SystemAddress newAddr = tcp->HasNewIncomingConnection();
+    if(newAddr != RakNet::UNASSIGNED_SYSTEM_ADDRESS){
+        OnTcpNewConnect(newAddr);
+    }
+    //连接断开
+    RakNet::SystemAddress lostAddr = tcp->HasLostConnection();
+    if(lostAddr != RakNet::UNASSIGNED_SYSTEM_ADDRESS){
+        OnTcpLost(lostAddr);
+    }
+    RakNet::Packet *packet = nullptr;
+    for(packet=tcp->Receive(); packet; tcp->DeallocatePacket(packet), packet=tcp->Receive()) {
+        OnTcpPacket(packet);
+    }
+    cxRaknet::Process();
+}
+
 void cxServer::ThreadLoop()
 {
     
@@ -107,6 +230,7 @@ bool cxServer::initKey()
 
 void cxServer::runEntry(void *a)
 {
+    signal(SIGPIPE, SIG_IGN);
     cxAutoPool::Start();
     CX_LOGGER("%p process thread start",uv_thread_self());
     cxServer *server = (cxServer *)a;
@@ -124,9 +248,12 @@ void cxServer::runEntry(void *a)
 
 void cxServer::Wait()
 {
+    //等待线程结束
     for(cxInt i=0;i<thread;i++){
         uv_thread_join(&threads[i]);
     }
+    //关闭tcp连接
+    tcp->Stop();
 }
 
 void cxServer::Stop()
@@ -138,6 +265,7 @@ void cxServer::Run()
 {
     for(cxInt i=0;i<thread;i++){
         uv_thread_create(&threads[i], cxServer::runEntry, this);
+        RakSleep(100);
     }
 }
 

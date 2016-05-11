@@ -55,21 +55,19 @@ cxInt GameServer::GetCurr()
     return curr;
 }
 
-DB *GameServer::GetDB()
+MongoDB *GameServer::GetDB()
 {
     return db;
 }
 
 void GameServer::OnNewConnect(RakNet::RakNetGUID clientId)
 {
-    Config *conf = GetKey<Config>();
-    conf->IncCurr(+1);
+//    Config *conf = GetKey<Config>();
 }
 
 void GameServer::OnLost(RakNet::RakNetGUID clientId)
 {
-    Config *conf = GetKey<Config>();
-    conf->IncCurr(-1);
+//    Config *conf = GetKey<Config>();
 }
 
 void GameServer::OnMessage(RakNet::RakNetGUID clientId,const cxStr *message)
@@ -86,7 +84,6 @@ void GameServer::Register(cchars aid,cchars ahost,cxInt aport,cchars apass,cxInt
         host = ahost;
         port = aport;
         max = amax;
-        long long time = (long long)cxUtil::Timestamp();
         BSONBinData pb = BSONBinData(publicKey,cat::EasyHandshake::PUBLIC_KEY_BYTES,BinDataGeneral);
         BSONBinData pk = BSONBinData(privateKey,cat::EasyHandshake::PRIVATE_KEY_BYTES,BinDataGeneral);
         BSONObj d = BSON("_id" << id
@@ -95,7 +92,7 @@ void GameServer::Register(cchars aid,cchars ahost,cxInt aport,cchars apass,cxInt
                          << "pass" << pass
                          << "max" << max
                          << "curr" << curr
-                         << "time" << time
+                         << "time" << (long long)0
                          << "public" << pb
                          << "private" << pk);
         BSONObj q = BSON("_id" << id);
@@ -108,15 +105,41 @@ void GameServer::Register(cchars aid,cchars ahost,cxInt aport,cchars apass,cxInt
 
 void GameServer::updateServerStatus(uv_timer_t* handle)
 {
+    //更新当前服务器状态
     GameServer *server = (GameServer *)handle->data;
+    unsigned short num = server->UdpCount();
     try{
         long long time = (long long)cxUtil::Timestamp();
         BSONObj q = BSON("_id" << server->id);
-        BSONObj d = BSON("time" << time);
+        BSONObj d = BSON("time" << time << "curr" << num);
         server->GetDB()->Update(T_SERVERS, q, BSON("$set" << d));
     }catch(DBException &e){
         CX_ERROR("update server status error :%s",e.getInfo().toString().c_str());
     }
+    //维护到其它服务器的连接状态
+    try{
+        long long time = (long long)cxUtil::Timestamp() - UPDATE_STATUS_TIME ;
+        Query q = MONGO_QUERY("time" << GTE << time);
+        std::auto_ptr<DBClientCursor> iter = server->GetDB()->Find(T_SERVERS, q);
+        while(iter->more()){
+            BSONObj obj = iter->next();
+            //自己不能连接自己
+            if(obj["_id"].String() == server->id){
+                continue;
+            }
+            //如果连接丢失重新连接到其它服务器
+            cchars host = obj["host"].String().c_str();
+            cxInt port = obj["port"].Int();
+            RakNet::SystemAddress addr(host,port);
+            if(server->HasConnection(addr)){
+                continue;
+            }
+            server->Connect(host, port);
+        }
+    }catch(DBException &e){
+        CX_ERROR("list server error :%s",e.getInfo().toString().c_str());
+    }
+    CX_LOGGER("TCP=%d/%d UDP=%d/%d",server->TcpCount(),server->TcpMax(),num,server->UdpMax());
 }
 
 void GameServer::Stop()
@@ -146,7 +169,7 @@ GameServer::GameServer()
     timer.data = this;
     uv_timer_start(&timer, updateServerStatus, UPDATE_STATUS_TIME, UPDATE_STATUS_TIME);
     //主线程数据库连接
-    db = DB::Alloc();
+    db = MongoDB::Alloc();
 }
 
 GameServer::~GameServer()
@@ -157,6 +180,7 @@ GameServer::~GameServer()
 
 int GameServer::Main(int argc, const char * argv[])
 {
+    signal(SIGPIPE, SIG_IGN);
     cchars host = "192.168.199.244";
     cchars pass = "123";
     cxInt max = 512;

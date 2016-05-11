@@ -9,7 +9,7 @@
 #ifndef config_h
 #define config_h
 
-#include "DB.h"
+#include "MongoDB.h"
 
 //每隔多少秒更新服务器状态
 #define UPDATE_STATUS_TIME   10000
@@ -24,16 +24,13 @@ protected:
     explicit Config();
     virtual ~Config();
 private:
-    DB *db;
+    MongoDB *db;
     uv_loop_t loop;
     void *server;
 public:
     void SetServer(void *ptr);
     uv_loop_t *Looper();
-    DB *GetDB();
-public:
-    //更新当前在线人数
-    void IncCurr(cxInt c);
+    MongoDB *GetDB();
 };
 
 CX_CPP_END

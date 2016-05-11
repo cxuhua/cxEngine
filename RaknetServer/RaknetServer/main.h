@@ -23,7 +23,13 @@ protected:
     explicit GameServer();
     virtual ~GameServer();
 private:
+    //SIGQUIT信号处理
+    static void signalExit(uv_signal_t* handle, int signum);
+    uv_signal_t sigkill;
+    //定时更新服务器
+    static void updateServerStatus(uv_timer_t* handle);
     uv_timer_t timer;
+    //主线程looper
     uv_loop_t loop;
     //服务器信息
     std::string id;
@@ -32,7 +38,6 @@ private:
     cxInt port;
     cxInt max;
     cxInt curr;
-    static void updateServerStatus(uv_timer_t* handle);
     //
     MongoDB *db;
 public:

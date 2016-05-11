@@ -7,7 +7,7 @@
 //
 
 
-#include <poly2tri/poly2tri.h>
+#include <math/poly2tri/poly2tri.h>
 #include "cxTriangles.h"
 
 CX_CPP_BEGIN

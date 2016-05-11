@@ -139,7 +139,7 @@ void GameServer::updateServerStatus(uv_timer_t* handle)
     }catch(DBException &e){
         CX_ERROR("list server error :%s",e.getInfo().toString().c_str());
     }
-    CX_LOGGER("TCP=%d/%d UDP=%d/%d",server->TcpCount(),server->TcpMax(),num,server->UdpMax());
+    CX_LOGGER("STATS TCP=%d/%d UDP=%d/%d",server->TcpCount(),server->TcpMax(),num,server->UdpMax());
 }
 
 void GameServer::Stop()
@@ -160,6 +160,13 @@ void GameServer::Run()
     GetDB()->RemoveId(T_SERVERS, id);
 }
 
+void GameServer::signalExit(uv_signal_t* handle, int signum)
+{
+    CX_LOGGER("Server recv signal %d",signum);
+    GameServer *server = (GameServer *)handle->data;
+    server->Stop();
+}
+
 GameServer::GameServer()
 {
     //主线程loop
@@ -168,6 +175,10 @@ GameServer::GameServer()
     uv_timer_init(&loop, &timer);
     timer.data = this;
     uv_timer_start(&timer, updateServerStatus, UPDATE_STATUS_TIME, UPDATE_STATUS_TIME);
+    //kill信号处理
+    uv_signal_init(&loop, &sigkill);
+    sigkill.data = this;
+    uv_signal_start(&sigkill, GameServer::signalExit, SIGQUIT);
     //主线程数据库连接
     db = MongoDB::Alloc();
 }
@@ -177,6 +188,7 @@ GameServer::~GameServer()
     uv_loop_close(&loop);
     db->Release();
 }
+
 
 int GameServer::Main(int argc, const char * argv[])
 {

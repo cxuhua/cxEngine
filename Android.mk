@@ -35,15 +35,15 @@ LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/qrcode/*.c)
 
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/kazmath/*.c)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/kazmath/GL/*.c)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/poly2tri/*.cc)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/*.cpp)
 
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/spine/*.c)
 
-LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/poly2tri/common/*.cc)
-LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/poly2tri/sweep/*.cc)
-
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/android/*.cpp)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/core/*.cpp)
-LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/*.cpp)
+
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/raknet/*.cpp)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/engine/*.cpp)
 
 include $(BUILD_STATIC_LIBRARY)

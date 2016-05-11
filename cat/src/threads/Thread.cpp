@@ -127,9 +127,11 @@ void Thread::AbortThread()
 	}
 
 #else
-
-	pthread_cancel(_thread);
-
+    #if defined(ANDROID)
+        pthread_kill(_thread,SIGKILL);
+    #else
+        pthread_cancel(_thread);
+    #endif
 #endif
 
 	_thread_running = false;

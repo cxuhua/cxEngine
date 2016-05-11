@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		836123521CE3406700D07CCC /* TCPInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836123501CE3406700D07CCC /* TCPInterface.cpp */; };
+		836123601CE3414C00D07CCC /* cxClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8361235A1CE3414C00D07CCC /* cxClient.cpp */; };
+		836123611CE3414C00D07CCC /* cxServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8361235C1CE3414C00D07CCC /* cxServer.cpp */; };
+		836123621CE3414C00D07CCC /* ListServers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8361235E1CE3414C00D07CCC /* ListServers.cpp */; };
 		839ED1BD1CD9C46100BEF5BB /* cxRaknet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839ED1BB1CD9C46100BEF5BB /* cxRaknet.cpp */; };
 		83B4A09F1B087B41005A89BF /* Base64Encoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B49F9A1B087B40005A89BF /* Base64Encoder.cpp */; };
 		83B4A0A01B087B41005A89BF /* BitStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B49F9C1B087B40005A89BF /* BitStream.cpp */; };
@@ -66,6 +70,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		836123501CE3406700D07CCC /* TCPInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TCPInterface.cpp; sourceTree = "<group>"; };
+		836123511CE3406700D07CCC /* TCPInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPInterface.h; sourceTree = "<group>"; };
+		8361235A1CE3414C00D07CCC /* cxClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxClient.cpp; sourceTree = "<group>"; };
+		8361235B1CE3414C00D07CCC /* cxClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxClient.h; sourceTree = "<group>"; };
+		8361235C1CE3414C00D07CCC /* cxServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxServer.cpp; sourceTree = "<group>"; };
+		8361235D1CE3414C00D07CCC /* cxServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxServer.h; sourceTree = "<group>"; };
+		8361235E1CE3414C00D07CCC /* ListServers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ListServers.cpp; sourceTree = "<group>"; };
+		8361235F1CE3414C00D07CCC /* ListServers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListServers.h; sourceTree = "<group>"; };
 		839ED1BB1CD9C46100BEF5BB /* cxRaknet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRaknet.cpp; sourceTree = "<group>"; };
 		839ED1BC1CD9C46100BEF5BB /* cxRaknet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRaknet.h; sourceTree = "<group>"; };
 		83B49F7B1B087B0F005A89BF /* libraknet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libraknet.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,6 +234,14 @@
 		83B49F951B087B40005A89BF /* raknet */ = {
 			isa = PBXGroup;
 			children = (
+				8361235A1CE3414C00D07CCC /* cxClient.cpp */,
+				8361235B1CE3414C00D07CCC /* cxClient.h */,
+				8361235C1CE3414C00D07CCC /* cxServer.cpp */,
+				8361235D1CE3414C00D07CCC /* cxServer.h */,
+				8361235E1CE3414C00D07CCC /* ListServers.cpp */,
+				8361235F1CE3414C00D07CCC /* ListServers.h */,
+				836123501CE3406700D07CCC /* TCPInterface.cpp */,
+				836123511CE3406700D07CCC /* TCPInterface.h */,
 				839ED1BB1CD9C46100BEF5BB /* cxRaknet.cpp */,
 				839ED1BC1CD9C46100BEF5BB /* cxRaknet.h */,
 				83B49F9A1B087B40005A89BF /* Base64Encoder.cpp */,
@@ -407,12 +427,14 @@
 			files = (
 				83B4A0E91B087B41005A89BF /* RakThread.cpp in Sources */,
 				83B4A0E61B087B41005A89BF /* RakPeer.cpp in Sources */,
+				836123521CE3406700D07CCC /* TCPInterface.cpp in Sources */,
 				83B4A0FB1B087B41005A89BF /* SuperFastHash.cpp in Sources */,
 				83B4A0C31B087B41005A89BF /* LocklessTypes.cpp in Sources */,
 				83B4A0B71B087B41005A89BF /* FormatString.cpp in Sources */,
 				83B4A0A21B087B41005A89BF /* CCRakNetUDT.cpp in Sources */,
 				83B4A0DC1B087B41005A89BF /* RakNetSocket2_NativeClient.cpp in Sources */,
 				83B4A0F71B087B41005A89BF /* SocketLayer.cpp in Sources */,
+				836123611CE3414C00D07CCC /* cxServer.cpp in Sources */,
 				83B4A0AD1B087B41005A89BF /* DS_BytePool.cpp in Sources */,
 				83B4A0D81B087B41005A89BF /* RakNetSocket2.cpp in Sources */,
 				83B4A0E51B087B41005A89BF /* RakNetTypes.cpp in Sources */,
@@ -439,7 +461,9 @@
 				83B4A10B1B087B41005A89BF /* WSAStartupSingleton.cpp in Sources */,
 				83B4A0AC1B087B41005A89BF /* DR_SHA1.cpp in Sources */,
 				839ED1BD1CD9C46100BEF5BB /* cxRaknet.cpp in Sources */,
+				836123601CE3414C00D07CCC /* cxClient.cpp in Sources */,
 				83B4A0D21B087B41005A89BF /* PluginInterface2.cpp in Sources */,
+				836123621CE3414C00D07CCC /* ListServers.cpp in Sources */,
 				83B4A0D51B087B41005A89BF /* RakMemoryOverride.cpp in Sources */,
 				83B4A0EF1B087B41005A89BF /* ReliabilityLayer.cpp in Sources */,
 				83B4A0DA1B087B41005A89BF /* RakNetSocket2_Berkley.cpp in Sources */,
@@ -491,6 +515,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/libs/ios/include";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -527,8 +552,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/libs/ios/include";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -541,12 +568,16 @@
 					"LIBCAT_SECURITY=1",
 					"DEBUG=1",
 				);
-				HEADER_SEARCH_PATHS = "$(SRCROOT)";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)",
+					"$(SRCROOT)/libs/ios/include",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "";
 			};
 			name = Debug;
 		};
@@ -557,11 +588,16 @@
 					"LIBCAT_SECURITY=1",
 					"NDEBUG=1",
 				);
-				HEADER_SEARCH_PATHS = "$(SRCROOT)";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)",
+					"$(SRCROOT)/libs/ios/include",
+				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "";
 			};
 			name = Release;
 		};

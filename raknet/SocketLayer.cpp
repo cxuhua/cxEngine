@@ -130,7 +130,10 @@ void SocketLayer::SetSocketOptions( __UDPSOCKET__ listenSocket, bool blockingSoc
 	// Not supported on console 2
 	sock_opt=1024*16;
 	setsockopt__(listenSocket, SOL_SOCKET, SO_SNDBUF, ( char * ) & sock_opt, sizeof ( sock_opt ) );
-
+    
+    //
+    sock_opt = 1;
+    setsockopt__(listenSocket, SOL_SOCKET, SO_REUSEADDR, ( char * ) & sock_opt, sizeof ( sock_opt ) );
 	if (blockingSocket==false)
 	{
 #ifdef _WIN32

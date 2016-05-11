@@ -5,6 +5,7 @@ env = Environment()
 ROOT = '/root/cxengine'
 
 env.Append(CCFLAGS=['-DLINUX'])
+env.Append(CCFLAGS=['-DNDEBUG'])
 env.Append(CCFLAGS=['-I'+ROOT])
 env.Append(CCFLAGS=['-I'+ROOT+'/libs/linux64/include'])
 

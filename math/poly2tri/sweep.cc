@@ -32,7 +32,7 @@
 #include "sweep.h"
 #include "sweep_context.h"
 #include "advancing_front.h"
-#include "../common/utils.h"
+#include "utils.h"
 
 namespace p2t {
 

@@ -230,7 +230,6 @@ bool cxServer::initKey()
 
 void cxServer::runEntry(void *a)
 {
-    signal(SIGPIPE, SIG_IGN);
     cxAutoPool::Start();
     CX_LOGGER("%p process thread start",uv_thread_self());
     cxServer *server = (cxServer *)a;
@@ -239,7 +238,7 @@ void cxServer::runEntry(void *a)
         server->ThreadLoop();
         server->Process();
         cxAutoPool::Update();
-        RakSleep(1);
+        RakSleep(5);
     }
     CX_LOGGER("%p process thread stop",uv_thread_self());
     server->ThreadExit();
@@ -258,6 +257,7 @@ void cxServer::Wait()
 
 void cxServer::Stop()
 {
+    //设置结束标识
     exitFlags = true;
 }
 

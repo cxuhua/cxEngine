@@ -8,6 +8,7 @@
 
 
 #include "cxClient.h"
+#include "ListServers.h"
 
 CX_CPP_BEGIN
 
@@ -80,14 +81,21 @@ void cxClient::OnMessage(RakNet::RakNetGUID clientId, const cxStr *message)
     CX_LOGGER("OnMessage %s",message->ToString());
 }
 
-RakNet::ConnectionAttemptResult cxClient::Connect(cchars host,cxInt port,cchars pass)
+void cxClient::Connect(const ServerInfo *info)
 {
-    if(publicKey.myPublicKey == NULL){
-        CX_LOGGER("public key miss");
-        return RakNet::SECURITY_INITIALIZATION_FAILED;
-    }
+    CX_ASSERT(info->Public != nullptr, "public key null");
+    SetPublicKey(info->Public);
+    CX_ASSERT(info->Host != nullptr, "host null");
+    CX_ASSERT(info->Port >0, "port error");
+    CX_ASSERT(info->Pass!= nullptr, "pass null");
+    Connect(info->Host->ToString(), info->Port, info->Pass->ToString());
+}
+
+void cxClient::Connect(cchars host,cxInt port,cchars pass)
+{
+    CX_ASSERT(publicKey.myPublicKey != NULL, "public key miss");
     peer->SetOccasionalPing(true);
-    return peer->Connect(host, port, pass, (int)strlen(pass),&publicKey);
+    peer->Connect(host, port, pass, (int)strlen(pass),&publicKey);
 }
 
 CX_CPP_END

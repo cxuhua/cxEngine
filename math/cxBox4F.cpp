@@ -64,6 +64,16 @@ cxPoint2F cxBox4F::Center() const
     return cxPoint2F(l + H()/2.0f, b + W()/2.0f);
 }
 
+const cxPoint2FArray cxBox4F::Points() const
+{
+    cxPoint2FArray rets;
+    rets.Append(LT());
+    rets.Append(RT());
+    rets.Append(RB());
+    rets.Append(LB());
+    return rets;
+}
+
 cxFloat cxBox4F::X() const
 {
     return l;

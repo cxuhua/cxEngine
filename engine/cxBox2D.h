@@ -58,7 +58,6 @@ public:
     
     cxBody *SetElasticity(cxFloat v);
     
-    
     cxBody *SetDensity(cxFloat v);
     const cxFloat GetDensity() const;
     
@@ -177,7 +176,7 @@ struct cxContactInfo
 
 struct cxBoxQueryInfo : public b2QueryCallback
 {
-    cxBoxQueryInfo();
+    cxBoxQueryInfo(){};
     bool ReportFixture(b2Fixture* fixture);
     std::function<cxBool(cxBodyInfo *)> *Func;
 };
@@ -215,6 +214,12 @@ protected:
     b2World world;
     void OnRemove(cxView *pview);
     void OnAppend(cxView *nview);
+private:
+    //b2ContactListener
+    void BeginContact(b2Contact* contact);
+    void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
+    void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);
+    void EndContact(b2Contact* contact);
 public:
     //
     static b2Vec2 ToWorld(const cxPoint2F &v);
@@ -223,11 +228,6 @@ public:
     static cxFloat FromWorld(const float32 &v);
     //b2ContactFilter
     bool ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB);
-    //b2ContactListener
-    void BeginContact(b2Contact* contact);
-    void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
-    void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);
-    void EndContact(b2Contact* contact);
     //
     virtual cxBool ShouldCollide(cxBodyInfo *a,cxBodyInfo *b);
     virtual void BeginContact(cxContactInfo *contact);

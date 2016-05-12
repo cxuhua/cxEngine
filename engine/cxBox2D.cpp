@@ -34,6 +34,14 @@ cxPoint2FArray &cxChainBody::Points()
 
 cxBool cxChainBody::CreateFixture(cxWorld *pw)
 {
+    //use view points
+    if(ps.Size() == 0){
+        ps.Append(ToBox4F().Points());
+        isloop = true;
+    }
+    if(ps.Size() == 0){
+        return false;
+    }
     b2Vec2 *points = new b2Vec2[ps.Size()]();
     for(cxInt i=0;i<ps.Size();i++){
         cxPoint2F &p = ps.At(i);
@@ -538,11 +546,6 @@ void cxWorld::RayCast(const cxLineF &line,std::function<cxBool(cxRayCastReport *
     cxRayCastInfo info;
     info.Func = &func;
     world.RayCast(&info, ToWorld(line.a), ToWorld(line.b));
-}
-
-cxBoxQueryInfo::cxBoxQueryInfo()
-{
-    
 }
 
 bool cxBoxQueryInfo::ReportFixture(b2Fixture* fixture)

@@ -343,6 +343,14 @@ void cxPoint2FArray::Append(const cxPoint2F &v)
     push_back(v);
 }
 
+void cxPoint2FArray::Append(const cxPoint2FArray &v)
+{
+    cxInt n = v.Size();
+    for(cxInt i=0;i<n;i++){
+        push_back(v.At(i));
+    }
+}
+
 void cxPoint2FArray::Remove(cxInt idx)
 {
     erase(begin() + idx);

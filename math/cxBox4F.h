@@ -39,6 +39,7 @@ struct cxBox4F
     cxRect4F ToRect4F() const;
     cxPoint2F Center() const;
     cxJson *ToJson();
+    const cxPoint2FArray Points() const;
     
     cxPoint2F LT() const;
     cxPoint2F RT() const;

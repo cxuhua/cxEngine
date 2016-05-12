@@ -1010,7 +1010,6 @@ void cxView::Render(cxRender *render,const cxMatrixF &mv)
     if(!EnableVisible() || EnableSleep() || IsRemoved()){
         return;
     }
-    CX_ASSERT(!size.IsZero(), "view size not set,path:%s",ViewPath()->ToString());
     gl->Push();
     gl->MultMatrix(normalMatrix);
     gl->MultMatrix(anchorMatrix);
@@ -1170,6 +1169,29 @@ void cxView::Each(std::function<void(cxView *pview)> func)
 void cxView::OnUpdate(cxFloat dt)
 {
     
+}
+
+void cxView::Invoke(std::function<void(cxView *pview)>func)
+{
+    Invoke(0.001f, 1, func);
+}
+
+void cxView::Invoke(cxFloat delay,std::function<void(cxView *pview)>func)
+{
+    Invoke(delay, 1, func);
+}
+
+void cxView::Invoke(cxFloat delay,cxInt repeat,std::function<void(cxView *pview)>func)
+{
+    if(cxFloatIsEqual(delay,0)){
+        func(this);
+        return;
+    }
+    cxAction *timer = cxAction::Create();
+    timer->SetTime(delay);
+    timer->SetRepeat(repeat);
+    timer->onStop+=[this,func](cxAction *pav){func(this);};
+    Append(timer);
 }
 
 CX_CPP_END

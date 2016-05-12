@@ -98,12 +98,12 @@ cxEngine::cxEngine()
     window = cxWindow::Alloc();
     render = cxRender::Alloc();
     configs = cxHash::Alloc();
-    uv_mutex_init(&eMutex);
+    uv_mutex_init(&mutex);
 }
 
 cxEngine::~cxEngine()
 {
-    uv_mutex_destroy(&eMutex);
+    uv_mutex_destroy(&mutex);
     configs->Release();
     render->Release();
     window->Release();
@@ -237,14 +237,16 @@ void cxEngine::OnEvent(cxAsyncEvent *e)
 
 void cxEngine::runEvents()
 {
-    uv_mutex_lock(&eMutex);
-    if(events.empty()){
-        uv_mutex_unlock(&eMutex);
-        return;
-    }
+    uv_mutex_lock(&mutex);
+    bool empty = events.empty();
+    uv_mutex_unlock(&mutex);
+    if(empty)return;
+    
+    uv_mutex_lock(&mutex);
     cxAsyncEvent info = events.front();
     events.pop();
-    uv_mutex_unlock(&eMutex);
+    uv_mutex_unlock(&mutex);
+    
     OnEvent(&info);
 }
 
@@ -255,9 +257,9 @@ void cxEngine::PushEvent(cxLong key,const cxStr *data)
 
 void cxEngine::PushEvent(cxLong key,cchars data,cxInt length)
 {
-    uv_mutex_lock(&eMutex);
+    uv_mutex_lock(&mutex);
     events.push(cxAsyncEvent(key,data,length));
-    uv_mutex_unlock(&eMutex);
+    uv_mutex_unlock(&mutex);
 }
 
 void cxEngine::Run()

@@ -200,6 +200,8 @@ public:
     const cxHitInfo HitTest(cxView *view,const cxPoint2F &wp) const;
     void Dispatch(cxTouchId key,cxTouchType type,cxFloat x,cxFloat y);
     cxBool Dispatch(cxKeyType type,cxInt code);
+public:
+    virtual void OnDispatch(const cxTouchable *e);
 };
 
 CX_CPP_END

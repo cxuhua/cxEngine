@@ -47,7 +47,7 @@ ServerInfo::~ServerInfo()
     cxObject::release(&Pass);
 }
 
-void ServerInfo::Init(const cxJson *json)
+ServerInfo *ServerInfo::Init(const cxJson *json)
 {
     cxObject::swap(&Id, json->Get("id"));
     cxObject::swap(&Host, json->Get("host"));
@@ -58,6 +58,7 @@ void ServerInfo::Init(const cxJson *json)
     Max     = json->Get("max", Max);
     Curr    = json->Get("curr", Curr);
     Time    = json->Get("time", Time);
+    return this;
 }
 
 CX_IMPLEMENT(ListServers);
@@ -74,22 +75,27 @@ ListServers::~ListServers()
     cxObject::release(&Error);
 }
 
-void ListServers::Init(const cxStr *txt)
+ListServers *ListServers::Init(const cxStr *txt)
 {
     cxJson *json = cxJson::Create()->From(txt);
+    if(json == nullptr){
+        return nullptr;
+    }
     Code = json->Get("code", 0);
     cxObject::swap(&Error, json->Get("error"));
     const cxJson *items = json->At("items");
     if(items == nullptr || !items->IsArray() || items->Size() == 0){
-        return;
+        CX_LOGGER("server list empty");
+        return this;
     }
     for(cxJson::Iter it=items->Begin(); it!=items->End(); it++){
         const cxJson *item = it.Value();
-        ServerInfo *info = ServerInfo::Alloc();
-        info->Init(item);
+        ServerInfo *info = ServerInfo::Alloc()->Init(item);
         Items->Append(info);
         info->Release();
+        CX_LOGGER("Servers: + %s",item->Dumps()->ToString());
     }
+    return this;
 }
 
 const ServerInfo *ListServers::Query()

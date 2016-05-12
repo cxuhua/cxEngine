@@ -51,14 +51,17 @@ cxServer::cxServer()
 {
     threads = nullptr;
     uv_mutex_init(&mutex);
-    uv_mutex_init(&tcpMutex);
     tcp = TcpServer::Alloc();
+}
+
+TcpServer *cxServer::GetTcp()
+{
+    return tcp;
 }
 
 cxServer::~cxServer()
 {
     tcp->Release();
-    uv_mutex_destroy(&tcpMutex);
     uv_mutex_destroy(&mutex);
     delete []threads;
 }

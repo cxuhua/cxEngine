@@ -22,7 +22,7 @@ public:
 protected:
     explicit Game();
     virtual ~Game();
-    
+    void OnDispatch(const cxTouchable *e);
     void OnUpdate(cxFloat dt);
 private:
     RakNet::RakPeerInterface* peer;

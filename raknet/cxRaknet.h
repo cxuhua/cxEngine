@@ -76,6 +76,7 @@ public:
         return (T *)uv_key_get(&key);
     }
 public:
+    void Shutdown(cxInt wait);
     cxInt UdpCount();
     cxInt UdpMax();
     void SetOccasionalPing(bool ping);

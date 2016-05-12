@@ -80,6 +80,11 @@ void cxRaknet::ThreadExit()
     
 }
 
+void cxRaknet::Shutdown(cxInt wait)
+{
+    peer->Shutdown(wait);
+}
+
 cxInt cxRaknet::UdpCount()
 {
     unsigned short num = 0;

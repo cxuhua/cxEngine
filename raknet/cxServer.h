@@ -38,8 +38,6 @@ private:
     //用于服务器之间数据传输
     TcpServer *tcp;
 public:
-    //处理tcp连接队列
-    uv_mutex_t tcpMutex;
     virtual void OnTcpPacket(RakNet::Packet *packet);
     //有新连接
     virtual void OnTcpNewConnect(RakNet::SystemAddress addr);
@@ -58,7 +56,7 @@ public:
     bool HasConnection(RakNet::SystemAddress addr);
     //连接数量
     cxInt TcpCount();
-    //最大
+    //最大连接数
     cxInt TcpMax();
 private:
     cxInt thread;
@@ -71,9 +69,11 @@ protected:
     char privateKey[cat::EasyHandshake::PRIVATE_KEY_BYTES];
     bool initKey();
 public:
+    TcpServer *GetTcp();
     //主锁用于读写全局数据
     void Lock();
     void UnLock();
+    //
     void Process();
     void OnPacket(RakNet::Packet *packet);
     void OnMessage(RakNet::RakNetGUID clientId,const cxStr *message);

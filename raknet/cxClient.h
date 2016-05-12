@@ -13,6 +13,7 @@
 
 CX_CPP_BEGIN
 
+class ServerInfo;
 class cxClient : public cxRaknet
 {
 public:
@@ -26,7 +27,9 @@ private:
 public:
     void SetPublicKey(const cxStr *data);
     void OnPacket(RakNet::Packet *packet);
-    RakNet::ConnectionAttemptResult Connect(cchars host,cxInt port,cchars pass);
+    
+    void Connect(const ServerInfo *info);
+    void Connect(cchars host,cxInt port,cchars pass);
 public:
     void OnMessage(RakNet::RakNetGUID clientId, const cxStr *message);
     virtual void OnConnected();

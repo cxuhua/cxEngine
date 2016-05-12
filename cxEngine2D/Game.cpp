@@ -69,21 +69,53 @@ Game::~Game()
     
 }
 
+cxWorld *w;
+
+void Game::OnDispatch(const cxTouchable *e)
+{
+    
+    float r = CX_RAND_01f();
+    float g = CX_RAND_01f();
+    float b = CX_RAND_01f();
+    const cxTouchPoint *t1 = e->TouchPoint(0);
+    if(t1->type == cxTouchPoint::Ended){
+        cxCircleBody *body = cxCircleBody::Create();
+        body->SetRadius(25);
+        body->SetPosition(t1->wp);
+        body->SetElasticity(1.0);
+        
+        body->Invoke([](cxView *pview){
+            pview->To<cxCircleBody>()->ApplyForceToCenter(cxPoint2F(800, 0));
+        });
+        
+        w->Append(body);
+        
+        cxSprite *sp = cxSprite::Create();
+        sp->SetColor(cxColor4F(r, g, b, 1.0));
+        sp->SetSize(cxSize2F(50, 50));
+        sp->SetTexture("grid");
+        body->Append(sp);
+    }
+}
+
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     
-    cxHttp *http = cxHttp::Get("http://192.168.199.244:9001/servers/list");
+    cxTexture::Create()->From("grid.png")->gcSet<cxTexture>("grid");
+    
+    cxHttp *http = cxHttp::Get("http://192.168.199.244:9001");
     Window()->Append(http);
-    http->onCompleted += [this](cxHttp *http){
-        if(!http->Success()){
-            CX_ERROR("Get Server list failed");
-            return;
-        }
+    http->onError +=[](cxHttp *http){
+        CX_LOGGER("error");
+    };
+    http->onSuccess += [this](cxHttp *http){
         const cxStr *json = http->Body();
         CX_LOGGER("%s",json->ToString());
-        ListServers *list = ListServers::Create();
-        list->Init(json);
+        ListServers *list = ListServers::Create()->Init(json);
+        if(list == nullptr){
+            return;
+        }
         if(list->Code != 0){
             CX_ERROR("%s",list->Error->ToString());
             return;
@@ -93,21 +125,17 @@ void Game::OnMain()
             CX_ERROR("query server info error");
             return;
         }
-        client->SetPublicKey(info->Public);
-        client->Connect(info->Host->ToString(), info->Port, info->Pass->ToString());
+        client->Connect(info);
     };
-    
-//    const cxStr *key = cxUtil::Instance()->AssetsData("key.pub");
-//    client->SetPublicKey(key->Data());
-//    client->Connect("192.168.199.244", 10020, "123");
-    
-    cxSprite *sp = cxSprite::Create();
-    sp->SetSize(cxSize2F(250, 250));
-    sp->SetTexture(cxTexture::Create()->From("grid.png"));
-    Window()->Append(sp);
-    
-    cxRotateBy *by = cxRotateBy::Create(1.0f, 1000.0f);
-    sp->Append(by);
+//    w = cxWorld::Create();
+//    w->SetSize(cxSize2F(2048, 1536));
+//    w->SetGravity(cxPoint2F(0, -10));
+//    Window()->Append(w);
+//    
+//    cxChainBody *c = cxChainBody::Create();
+//    c->SetSize(cxSize2F(2048, 1536));
+//    c->SetStatic(true);
+//    w->Append(c);
 }
 
 CX_CPP_END

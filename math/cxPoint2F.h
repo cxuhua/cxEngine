@@ -104,6 +104,7 @@ public:
     void Clear();
     void Append(cxInt n);
     void Append(const cxPoint2F &v);
+    void Append(const cxPoint2FArray &v);
     void Remove(cxInt idx);
     void Remove(cxInt idx,cxInt n);
     cxFloat Distance(const cxPoint2F &start);

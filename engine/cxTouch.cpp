@@ -134,6 +134,11 @@ cxBool cxTouchable::Dispatch(cxKeyType type,cxInt code)
     return false;
 }
 
+void cxTouchable::OnDispatch(const cxTouchable *e)
+{
+    
+}
+
 void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxFloat x,cxFloat y)
 {
     cxSize2F winsiz = cxEngine::Instance()->WinSize() * 0.5f;
@@ -153,6 +158,7 @@ void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxFloat x,cxFloat y)
     }
     //
     if(cxEngine::Instance()->IsTouch()){
+        cxEngine::Instance()->OnDispatch(this);
         cxEngine::Instance()->Window()->Dispatch(this);
     }
     //

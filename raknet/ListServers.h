@@ -33,7 +33,7 @@ public:
     cxInt64 Time;
     cxStr *Public;
 public:
-    void Init(const cxJson *json);
+    ServerInfo *Init(const cxJson *json);
 };
 
 class ListServers : public cxObject
@@ -49,7 +49,7 @@ public:
     cxInt Code;
     cxStr *Error;
 public:
-    void Init(const cxStr *txt);
+    ListServers *Init(const cxStr *txt);
     //查询最适合的服务器
     const ServerInfo *Query();
 };

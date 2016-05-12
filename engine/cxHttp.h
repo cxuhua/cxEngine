@@ -30,6 +30,7 @@ protected:
     virtual void OnStart();
     void OnConnected();
     void OnData(char *buffer,cxInt size);
+    void OnClose();
 private:
     cxUInt16 status;
     cxBool success;
@@ -54,13 +55,15 @@ private:
     static int messageCompleted(http_parser *parser);
     void connect(const char *url);
 public:
-    cxEvent<cxHttp> onCompleted;
+    cxEvent<cxHttp> onSuccess;
+    cxEvent<cxHttp> onError;
 public:
     cxHash *ReqHeads();
     cxHash *ResHeads();
+    const cxInt Status() const;
     const cxStr *Body() const;
     const cxBool Success() const;
-    
+public:
     static cxHttp *Post(cchars url,cxStr *post);
     static cxHttp *Get(cchars url);
 };

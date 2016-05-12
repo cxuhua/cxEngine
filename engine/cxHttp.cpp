@@ -64,7 +64,6 @@ int cxHttp::messageCompleted(http_parser *parser)
 void cxHttp::OnData(char *buffer,cxInt size)
 {
     data->Append(buffer, size);
-    
     chars buf = data->Buffer() + offset;
     cxInt siz = data->Size() - offset;
     offset = (cxInt)http_parser_execute(&parser, &settings, buf, (size_t)siz);
@@ -108,6 +107,14 @@ cxHttp::~cxHttp()
     reqHeads->Release();
     resHeads->Release();
     data->Release();
+}
+
+void cxHttp::OnClose()
+{
+    cxTcp::OnClose();
+    if(!Success()){
+        onError.Fire(this);
+    }
 }
 
 void cxHttp::OnConnected()
@@ -184,6 +191,11 @@ const cxBool cxHttp::Success() const
     return success;
 }
 
+const cxInt cxHttp::Status() const
+{
+    return status;
+}
+
 const cxStr *cxHttp::Body() const
 {
     return body;
@@ -201,7 +213,9 @@ cxHash *cxHttp::ResHeads()
 
 void cxHttp::OnCompleted()
 {
-    onCompleted.Fire(this);
+    if(Success()){
+        onSuccess.Fire(this);
+    }
 }
 
 void cxHttp::OnHeader()

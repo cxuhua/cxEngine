@@ -76,7 +76,7 @@ private:
     cxBool isreset;
     cxHash *configs;
     //
-    uv_mutex_t eMutex;
+    uv_mutex_t mutex;
     void runEvents();
     std::queue<cxAsyncEvent> events;
 public:

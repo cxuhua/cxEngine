@@ -68,7 +68,7 @@ const cxFrames *cxAtlas::GetFrames()
     return currFrames;
 }
 
-cxAtlas *cxAtlas::SetIdx(cxInt idx)
+cxAtlas *cxAtlas::SetFramesIdx(cxInt idx)
 {
     CX_ASSERT(currFrames != nullptr, "frames not set");
     currIdx = idx;
@@ -89,7 +89,7 @@ cxAtlas *cxAtlas::SetFrames(const cxFrames *frames,cxInt idx)
         return this;
     }
     cxObject::swap(&currFrames, frames);
-    SetIdx(idx);
+    SetFramesIdx(idx);
     return this;
 }
 

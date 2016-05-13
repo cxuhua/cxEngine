@@ -27,18 +27,21 @@ private:
     cxStr *lang;
     cxHash *texts;
 public:
-    
+    //
     static const cxStr *GetDefault();
     static void SetDefault(const cxStr *lng);
-    
+    //
     static const cxStr *GetLang();
     static void SetLang(const cxStr *lng);
-    
+    //
     static void Load(cchars file);
-    
+    //format content
+    static const cxStr *Content(cchars key,...);
+    //format key
     static const cxStr *Format(cchars fmt,...);
+    //use key
     static const cxStr *Text(cchars key);
-    
+    //
     static cxLocalized *Instance();
 };
 

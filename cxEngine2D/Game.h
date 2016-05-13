@@ -24,8 +24,6 @@ protected:
     virtual ~Game();
     void OnDispatch(const cxTouchable *e);
     void OnUpdate(cxFloat dt);
-private:
-    RakNet::RakPeerInterface* peer;
 public:
     void OnMain();
 };

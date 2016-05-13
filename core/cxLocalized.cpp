@@ -65,13 +65,23 @@ const cxStr *cxLocalized::GetLang()
 
 const cxStr *cxLocalized::Format(cchars fmt,...)
 {
-    const cxStr *fs = Text(fmt);
+    char key[1024]={0};
+    va_list ap;
+    va_start(ap, fmt);
+    vsnprintf(key, 1024, fmt, ap);
+    va_end(ap);
+    return Text(key);
+}
+
+const cxStr *cxLocalized::Content(cchars key,...)
+{
+    const cxStr *fs = Text(key);
     if(!cxStr::IsOK(fs)){
         return nullptr;
     }
     cxStr *ret = cxStr::Create();
     va_list ap;
-    va_start(ap, fmt);
+    va_start(ap, key);
     ret->AppFmt(fs->ToString(), ap);
     va_end(ap);
     return ret;
@@ -80,9 +90,9 @@ const cxStr *cxLocalized::Format(cchars fmt,...)
 const cxStr *cxLocalized::Text(cchars key)
 {
     cxLocalized *instance = Instance();
-    cxObject *tobj = instance->texts->Get(GetLang()->Data());
+    cxObject *tobj = instance->texts->Get(GetLang()->ToString());
     if(tobj == nullptr){
-        tobj = instance->texts->Get(GetDefault()->Data());
+        tobj = instance->texts->Get(GetDefault()->ToString());
     }
     if(tobj == nullptr){
         return cxStr::Create()->Init(key);
@@ -113,9 +123,9 @@ void cxLocalized::Load(cchars file)
             if(!cxStr::IsOK(key)){
                 continue;
             }
-            lngtxt->Set(key->Data(), csv->At(i, j));
+            lngtxt->Set(key->ToString(), csv->At(i, j));
         }
-        local->texts->Set(text->Data(), lngtxt);
+        local->texts->Set(text->ToString(), lngtxt);
         lngtxt->Release();
     }
 }

@@ -223,9 +223,9 @@ private:
 public:
     //
     static b2Vec2 ToWorld(const cxPoint2F &v);
-    static float32 ToWorld(const cxFloat &v);
+    static cxFloat ToWorld(const cxFloat &v);
     static cxPoint2F FromWorld(const b2Vec2 &v);
-    static cxFloat FromWorld(const float32 &v);
+    static cxFloat FromWorld(const cxFloat &v);
     //b2ContactFilter
     bool ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB);
     //
@@ -249,7 +249,7 @@ inline b2Vec2 cxWorld::ToWorld(const cxPoint2F &v)
     return b2Vec2(ToWorld(v.x), ToWorld(v.y));
 }
 
-inline float32 cxWorld::ToWorld(const cxFloat &v)
+inline cxFloat cxWorld::ToWorld(const cxFloat &v)
 {
     return v/PTM_RATIO;
 }
@@ -259,7 +259,7 @@ inline cxPoint2F cxWorld::FromWorld(const b2Vec2 &v)
     return cxPoint2F(FromWorld(v.x), FromWorld(v.y));
 }
 
-inline cxFloat cxWorld::FromWorld(const float32 &v)
+inline cxFloat cxWorld::FromWorld(const cxFloat &v)
 {
     return v*PTM_RATIO;
 }

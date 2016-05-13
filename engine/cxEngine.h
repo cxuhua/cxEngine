@@ -18,6 +18,8 @@
 #include "cxWindow.h"
 #include "cxRender.h"
 #include "cxTouch.h"
+#include "cxFrameAttr.h"
+#include "cxAnimateAttr.h"
 
 CX_CPP_BEGIN
 
@@ -79,6 +81,16 @@ private:
     uv_mutex_t mutex;
     void runEvents();
     std::queue<cxAsyncEvent> events;
+    //帧序列和帧动画
+    cxHash *frames;
+    cxHash *animates;
+public:
+    void LoadLocalized(cchars file);
+    void LoadTexture(cchars file,cchars key=nullptr);
+    void LoadFrames(cchars csv);
+    const cxFrames *GetFrames(cchars name,cxInt level=1);
+    void LoadAnimates(cchars csv);
+    const cxAnimateAttr *GetAnimates(cchars fmt,...);
 public:
     
     void SetWindow(cxWindow *win);

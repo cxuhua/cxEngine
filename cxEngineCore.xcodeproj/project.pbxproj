@@ -215,6 +215,9 @@
 		83D92D391B317E5900F061D6 /* cxRenderF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D371B317E5800F061D6 /* cxRenderF.cpp */; };
 		83EA27E31B15540600370757 /* cxHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EA27E11B15540600370757 /* cxHash.cpp */; };
 		83F54B5F1B54BD5700AC5844 /* cxAsync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F54B5D1B54BD5700AC5844 /* cxAsync.cpp */; };
+		83F5D0C01CE58B6D00690B86 /* cxAnimateAttr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F5D0BC1CE58B6D00690B86 /* cxAnimateAttr.cpp */; };
+		83F5D0C11CE58B6D00690B86 /* cxFrameAttr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F5D0BE1CE58B6D00690B86 /* cxFrameAttr.cpp */; };
+		83F5D0CB1CE5CDB200690B86 /* cxLoading.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F5D0C91CE5CDB200690B86 /* cxLoading.cpp */; };
 		83F7BAD81B42D97F00C644B9 /* cxEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F7BAD61B42D97F00C644B9 /* cxEvent.cpp */; };
 		83F7BADA1B42D9E900C644B9 /* cxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F7BAD91B42D9E900C644B9 /* cxLabel.cpp */; };
 		83FB15A81B293C1000E5ECFE /* cxOpenGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83FB15A61B293C1000E5ECFE /* cxOpenGL.cpp */; };
@@ -660,6 +663,12 @@
 		83EA27E21B15540600370757 /* cxHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxHash.h; sourceTree = "<group>"; };
 		83F54B5D1B54BD5700AC5844 /* cxAsync.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAsync.cpp; sourceTree = "<group>"; };
 		83F54B5E1B54BD5700AC5844 /* cxAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAsync.h; sourceTree = "<group>"; };
+		83F5D0BC1CE58B6D00690B86 /* cxAnimateAttr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAnimateAttr.cpp; sourceTree = "<group>"; };
+		83F5D0BD1CE58B6D00690B86 /* cxAnimateAttr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAnimateAttr.h; sourceTree = "<group>"; };
+		83F5D0BE1CE58B6D00690B86 /* cxFrameAttr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxFrameAttr.cpp; sourceTree = "<group>"; };
+		83F5D0BF1CE58B6D00690B86 /* cxFrameAttr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxFrameAttr.h; sourceTree = "<group>"; };
+		83F5D0C91CE5CDB200690B86 /* cxLoading.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLoading.cpp; sourceTree = "<group>"; };
+		83F5D0CA1CE5CDB200690B86 /* cxLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxLoading.h; sourceTree = "<group>"; };
 		83F7BAD61B42D97F00C644B9 /* cxEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxEvent.cpp; sourceTree = "<group>"; };
 		83F7BAD71B42D97F00C644B9 /* cxEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxEvent.h; sourceTree = "<group>"; };
 		83F7BAD91B42D9E900C644B9 /* cxLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLabel.cpp; sourceTree = "<group>"; };
@@ -681,6 +690,12 @@
 		83079B5D1B292F1B00275F1F /* engine */ = {
 			isa = PBXGroup;
 			children = (
+				83F5D0C91CE5CDB200690B86 /* cxLoading.cpp */,
+				83F5D0CA1CE5CDB200690B86 /* cxLoading.h */,
+				83F5D0BC1CE58B6D00690B86 /* cxAnimateAttr.cpp */,
+				83F5D0BD1CE58B6D00690B86 /* cxAnimateAttr.h */,
+				83F5D0BE1CE58B6D00690B86 /* cxFrameAttr.cpp */,
+				83F5D0BF1CE58B6D00690B86 /* cxFrameAttr.h */,
 				839A52031CD84F1E0002BF77 /* system.shader */,
 				83639F6D1B30270E006A61B7 /* cxAction.cpp */,
 				83639F6E1B30270E006A61B7 /* cxAction.h */,
@@ -1456,8 +1471,10 @@
 				835B40BC1BEF51C100A7A4AC /* EventData.c in Sources */,
 				83C9D1321B492A2300EC244C /* cxJump.cpp in Sources */,
 				83F7BADA1B42D9E900C644B9 /* cxLabel.cpp in Sources */,
+				83F5D0C11CE58B6D00690B86 /* cxFrameAttr.cpp in Sources */,
 				8345E15F1B370E6F00A46A47 /* cxQueue.cpp in Sources */,
 				836DD10F1B2AC72A0094F5EF /* cxShader.cpp in Sources */,
+				83F5D0CB1CE5CDB200690B86 /* cxLoading.cpp in Sources */,
 				835B40C51BEF51C100A7A4AC /* SkeletonData.c in Sources */,
 				835B40C21BEF51C100A7A4AC /* RegionAttachment.c in Sources */,
 				835B40BD1BEF51C100A7A4AC /* extension.c in Sources */,
@@ -1499,6 +1516,7 @@
 				835B40C11BEF51C100A7A4AC /* MeshAttachment.c in Sources */,
 				836124391CE343FD00D07CCC /* sweep.cc in Sources */,
 				8302541E1B453E8B0070D2E5 /* cxTimeLine.cpp in Sources */,
+				83F5D0C01CE58B6D00690B86 /* cxAnimateAttr.cpp in Sources */,
 				83BE636E1B3117270028B6E7 /* AppDelegate.mm in Sources */,
 				83C9D1121B47C63600EC244C /* cxFollow.cpp in Sources */,
 				831189CD1B2D728000C930B5 /* mat3.c in Sources */,

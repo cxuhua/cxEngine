@@ -1,0 +1,4 @@
+Key,Value,Info
+String,String,String
+SERVER_HOST,192.168.199.244,服务器地址
+SERVER_PORT,9001,服务器端口

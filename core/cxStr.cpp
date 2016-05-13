@@ -13,9 +13,6 @@
 #include <ext/aes.h>
 #include <ext/utf8.h>
 #include <ext/base64.h>
-#include <math/cxPoint2F.h>
-#include <math/cxPoint3F.h>
-#include <math/cxColor4F.h>
 #include "cxStr.h"
 #include "cxUtil.h"
 #include "cxArray.h"
@@ -157,6 +154,24 @@ const cxBool cxStr::IsNumber() const
         return false;
     }
     return true;
+}
+
+const cxSize2F cxStr::ToSize2F() const
+{
+    const cxArray *ps = Split(':');
+    if(ps->IsEmpty()){
+        return cxSize2F(0, 0);
+    }
+    if(ps->Size() == 1){
+        cxFloat v = ps->At(0)->To<cxStr>()->ToFloat();
+        return cxSize2F(v, v);
+    }
+    if(ps->Size() == 2){
+        cxFloat x = ps->At(0)->To<cxStr>()->ToFloat();
+        cxFloat y = ps->At(1)->To<cxStr>()->ToFloat();
+        return cxSize2F(x, y);
+    }
+    return cxSize2F(0, 0);
 }
 
 const cxPoint2F cxStr::ToPoint2F() const

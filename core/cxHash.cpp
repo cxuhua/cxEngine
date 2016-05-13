@@ -57,14 +57,20 @@ cxHashKey::cxHashKey(cxUInt32 key)
     data[length] = 0;
 }
 
-cxHashKey cxHashKey::Format(cchars fmt,...)
+cxHashKey cxHashKey::Format(cchars fmt,va_list ap)
 {
     cxHashKey key;
+    key.length = vsnprintf((char *)key.data, CX_HASH_MAX_KEY, fmt, ap);
+    key.data[key.length] = 0;
+    return key;
+}
+
+cxHashKey cxHashKey::Format(cchars fmt,...)
+{
     va_list ap;
     va_start(ap, fmt);
-    key.length = vsnprintf((char *)key.data, CX_HASH_MAX_KEY, fmt, ap);
+    cxHashKey key = Format(fmt, ap);
     va_end(ap);
-    key.data[key.length] = 0;
     return key;
 }
 

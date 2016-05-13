@@ -92,7 +92,6 @@
 		83CBC9FA1CE43BBC00D4B8F6 /* SuperFastHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83CBC9C51CE43BBC00D4B8F6 /* SuperFastHash.cpp */; };
 		83CBC9FB1CE43BBC00D4B8F6 /* TCPInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83CBC9C71CE43BBC00D4B8F6 /* TCPInterface.cpp */; };
 		83CBC9FC1CE43BBC00D4B8F6 /* WSAStartupSingleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83CBC9CB1CE43BBC00D4B8F6 /* WSAStartupSingleton.cpp */; };
-		83CBC9FF1CE47F8200D4B8F6 /* cxAnimateAttr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83CBC9FD1CE47F8200D4B8F6 /* cxAnimateAttr.cpp */; };
 		83D8C3571B69E46400155990 /* battle_lost_02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83D8C3561B69E46400155990 /* battle_lost_02.mp3 */; };
 		83D92D281B315E7200F061D6 /* animate.json in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D261B315E7200F061D6 /* animate.json */; };
 		83D92D291B315E7200F061D6 /* animate.png in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D271B315E7200F061D6 /* animate.png */; };
@@ -101,6 +100,11 @@
 		83E6F66F1B0C97F7006839C8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66D1B0C97F7006839C8 /* GLKit.framework */; };
 		83E6F6701B0C97F7006839C8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */; };
 		83E886DC1B68F970001C0727 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83E886DB1B68F970001C0727 /* test.mp3 */; };
+		83F5D0B51CE570A600690B86 /* animates.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B21CE570A600690B86 /* animates.csv */; };
+		83F5D0B61CE570A600690B86 /* c1.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B31CE570A600690B86 /* c1.lqt */; };
+		83F5D0B71CE570A600690B86 /* frames.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B41CE570A600690B86 /* frames.csv */; };
+		83F5D0C31CE5BB5400690B86 /* texts.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0C21CE5BB5400690B86 /* texts.csv */; };
+		83F5D0C51CE5BE0400690B86 /* configs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0C41CE5BE0400690B86 /* configs.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -284,8 +288,6 @@
 		83CBC9CA1CE43BBC00D4B8F6 /* WindowsIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowsIncludes.h; sourceTree = "<group>"; };
 		83CBC9CB1CE43BBC00D4B8F6 /* WSAStartupSingleton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WSAStartupSingleton.cpp; sourceTree = "<group>"; };
 		83CBC9CC1CE43BBC00D4B8F6 /* WSAStartupSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAStartupSingleton.h; sourceTree = "<group>"; };
-		83CBC9FD1CE47F8200D4B8F6 /* cxAnimateAttr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAnimateAttr.cpp; sourceTree = "<group>"; };
-		83CBC9FE1CE47F8200D4B8F6 /* cxAnimateAttr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAnimateAttr.h; sourceTree = "<group>"; };
 		83D8C3561B69E46400155990 /* battle_lost_02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = battle_lost_02.mp3; sourceTree = "<group>"; };
 		83D92D261B315E7200F061D6 /* animate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animate.json; sourceTree = "<group>"; };
 		83D92D271B315E7200F061D6 /* animate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = animate.png; sourceTree = "<group>"; };
@@ -297,6 +299,11 @@
 		83E6F66D1B0C97F7006839C8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		83E886DB1B68F970001C0727 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = test.mp3; sourceTree = "<group>"; };
+		83F5D0B21CE570A600690B86 /* animates.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = animates.csv; sourceTree = "<group>"; };
+		83F5D0B31CE570A600690B86 /* c1.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = c1.lqt; sourceTree = "<group>"; };
+		83F5D0B41CE570A600690B86 /* frames.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = frames.csv; sourceTree = "<group>"; };
+		83F5D0C21CE5BB5400690B86 /* texts.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = texts.csv; sourceTree = "<group>"; };
+		83F5D0C41CE5BE0400690B86 /* configs.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = configs.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -506,6 +513,11 @@
 		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
+				83F5D0C41CE5BE0400690B86 /* configs.csv */,
+				83F5D0C21CE5BB5400690B86 /* texts.csv */,
+				83F5D0B21CE570A600690B86 /* animates.csv */,
+				83F5D0B31CE570A600690B86 /* c1.lqt */,
+				83F5D0B41CE570A600690B86 /* frames.csv */,
 				83A34E4E1BEF899500DAEE91 /* goblins-ffd.atlas */,
 				83A34E4F1BEF899500DAEE91 /* goblins-ffd.json */,
 				83A34E501BEF899500DAEE91 /* goblins-ffd.png */,
@@ -534,8 +546,6 @@
 				83E6F6471B0C97B5006839C8 /* Supporting Files */,
 				83546A451B3127F700FFE1E7 /* Game.cpp */,
 				83546A461B3127F700FFE1E7 /* Game.h */,
-				83CBC9FD1CE47F8200D4B8F6 /* cxAnimateAttr.cpp */,
-				83CBC9FE1CE47F8200D4B8F6 /* cxAnimateAttr.h */,
 				836E30431B5E2ABF00ED8BDC /* Sea.cpp */,
 				836E30441B5E2ABF00ED8BDC /* Sea.h */,
 				8326D0DA1BE9F72000A15879 /* Images.xcassets */,
@@ -639,6 +649,7 @@
 				835B40141BEC523800A7A4AC /* spineboy.json in Resources */,
 				836E304C1B5E2B4C00ED8BDC /* foam.png in Resources */,
 				835B40151BEC523800A7A4AC /* spineboy.png in Resources */,
+				83F5D0B51CE570A600690B86 /* animates.csv in Resources */,
 				83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */,
 				835B40131BEC523800A7A4AC /* spineboy.atlas in Resources */,
 				836DD1211B2C26CE0094F5EF /* shader in Resources */,
@@ -649,6 +660,7 @@
 				83A34E4C1BEF882100DAEE91 /* goblins.png in Resources */,
 				83D92D291B315E7200F061D6 /* animate.png in Resources */,
 				83D92D281B315E7200F061D6 /* animate.json in Resources */,
+				83F5D0B71CE570A600690B86 /* frames.csv in Resources */,
 				83E886DC1B68F970001C0727 /* test.mp3 in Resources */,
 				8326D0DB1BE9F72000A15879 /* Images.xcassets in Resources */,
 				836E304F1B5E2B4C00ED8BDC /* water.vsh in Resources */,
@@ -656,10 +668,13 @@
 				834650171CD74C4C0046BC55 /* t.lua in Resources */,
 				83D8C3571B69E46400155990 /* battle_lost_02.mp3 in Resources */,
 				839B8AEB1B68D6EF009E0CF7 /* finch.wav in Resources */,
+				83F5D0C51CE5BE0400690B86 /* configs.csv in Resources */,
+				83F5D0B61CE570A600690B86 /* c1.lqt in Resources */,
 				83A34E511BEF899500DAEE91 /* goblins-ffd.atlas in Resources */,
 				83A34E4A1BEF882100DAEE91 /* goblins.atlas in Resources */,
 				83A34E531BEF899500DAEE91 /* goblins-ffd.png in Resources */,
 				83A34E4B1BEF882100DAEE91 /* goblins.json in Resources */,
+				83F5D0C31CE5BB5400690B86 /* texts.csv in Resources */,
 				8326D0D91BE9F43D00A15879 /* circle.png in Resources */,
 				83A34E521BEF899500DAEE91 /* goblins-ffd.json in Resources */,
 			);
@@ -677,7 +692,6 @@
 				83CBC9D31CE43BBC00D4B8F6 /* cxRaknet.cpp in Sources */,
 				83CBC9F71CE43BBC00D4B8F6 /* SocketLayer.cpp in Sources */,
 				83CBC9D01CE43BBC00D4B8F6 /* CCRakNetUDT.cpp in Sources */,
-				83CBC9FF1CE47F8200D4B8F6 /* cxAnimateAttr.cpp in Sources */,
 				83CBC9CF1CE43BBC00D4B8F6 /* CCRakNetSlidingWindow.cpp in Sources */,
 				83BE63751B311E0A0028B6E7 /* main.m in Sources */,
 				83CBC9DA1CE43BBC00D4B8F6 /* DS_Table.cpp in Sources */,
@@ -852,7 +866,7 @@
 					"$(SRCROOT)/libs/ios/lib",
 					"$(PROJECT_DIR)/libs/ios/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.cegou.app;
+				PRODUCT_BUNDLE_IDENTIFIER = co.cegou.test;
 				PRODUCT_NAME = cxEngineTest;
 				PROVISIONING_PROFILE = "";
 				STRIP_PNG_TEXT = NO;
@@ -886,7 +900,7 @@
 					"$(SRCROOT)/libs/ios/lib",
 					"$(PROJECT_DIR)/libs/ios/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.cegou.app;
+				PRODUCT_BUNDLE_IDENTIFIER = co.cegou.test;
 				PRODUCT_NAME = cxEngineTest;
 				PROVISIONING_PROFILE = "";
 				STRIP_PNG_TEXT = NO;

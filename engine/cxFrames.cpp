@@ -7,6 +7,7 @@
 //
 
 
+#include "cxAnimate.h"
 #include "cxFrames.h"
 
 CX_CPP_BEGIN
@@ -35,6 +36,11 @@ cxFrames::~cxFrames()
 {
     cxObject::release(&ptex);
     points->Release();
+}
+
+cxAnimate *cxFrames::Animate() const
+{
+    return cxAnimate::Create(this);
 }
 
 cxFrames *cxFrames::SetDelay(cxFloat v)
@@ -171,6 +177,7 @@ void cxFrames::loadlayers(cxArray *layers,cxInt c,cxInt g)
     const cxTexture *texture = Texture();
     for(cxInt l = 0;l < Layer();l++){
         char key[128]={0};
+        //每组最多100张
         snprintf(key, 128, "%d.%d.png",Offset()+g*100+c,l);
         cxTexCoord *coord = texture->At(key);
         //如果当前层丢失帧图片，使用最后一个存在的图片
@@ -246,16 +253,24 @@ const cxSize2F &cxFrames::Size() const
     return size;
 }
 
-cxFrames *cxFrames::SetScale(cxFloat v)
+cxFrames *cxFrames::SetScale(cxSize2F v)
 {
-    CX_ASSERT(v > 0, "scale must > 0");
+    CX_ASSERT(!v.IsZero(), "scale must > 0");
     scale = v;
     return this;
 }
 
-const cxFloat cxFrames::Scale() const
+const cxSize2F cxFrames::Scale() const
 {
     return scale;
+}
+
+cxFrames *cxFrames::SetTexture(cchars key)
+{
+    cxTexture *ptex = cxObject::gcGet<cxTexture>(key);
+    CX_ASSERT(ptex != nullptr, "texture key %s miss,need LoadTexture",key);
+    SetTexture(ptex);
+    return this;
 }
 
 cxFrames *cxFrames::SetTexture(const cxTexture *atex)

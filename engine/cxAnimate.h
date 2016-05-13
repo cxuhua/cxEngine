@@ -39,12 +39,11 @@ protected:
     void OnTime(const cxTimePoint *tp);
     void OnInit();
 private:
-    cxInt group;
+    cxInt group;            //agroup
     cxFrames *frames;       //has mul layer
     cxActionAttr attr;
     cxBool iskeyframe;
 public:
-    
     cxAnimate *SetAction(const cxActionAttr *pattr,cxInt agroup);
     cxAnimate *SetGroup(cxInt agroup);
     cxAnimate *SetRange(cxInt afrom,cxInt ato);
@@ -57,7 +56,7 @@ public:
     const cxActionAttr &ActionAttr() const;
     const cxBool IsKeyFrame() const;
     
-    static cxAnimate *Create(cxFrames *frames);
+    static cxAnimate *Create(const cxFrames *frames);
 };
 
 CX_CPP_END

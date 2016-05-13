@@ -98,12 +98,16 @@ cxEngine::cxEngine()
     window = cxWindow::Alloc();
     render = cxRender::Alloc();
     configs = cxHash::Alloc();
+    frames = cxHash::Alloc();
+    animates = cxHash::Alloc();
     uv_mutex_init(&mutex);
 }
 
 cxEngine::~cxEngine()
 {
     uv_mutex_destroy(&mutex);
+    frames->Release();
+    animates->Release();
     configs->Release();
     render->Release();
     window->Release();
@@ -120,9 +124,47 @@ const cxStr *cxEngine::Config(cchars key) const
     return configs->Get(key)->To<cxStr>();
 }
 
+void cxEngine::LoadLocalized(cchars file)
+{
+    cxLocalized::Load(file);
+}
+
+void cxEngine::LoadTexture(cchars file,cchars key)
+{
+    if(key == nullptr){
+        key = file;
+    }
+    cxTexture::Create()->From(file)->gcSet<cxTexture>(key);
+}
+
+void cxEngine::LoadFrames(cchars csv)
+{
+    cxFrameAttr::Load(frames, csv);
+}
+
+const cxFrames *cxEngine::GetFrames(cchars name,cxInt level)
+{
+    cxHashKey key = cxHashKey::Format("%s_%d",name,level);
+    return frames->Get(key)->To<cxFrames>();
+}
+
+void cxEngine::LoadAnimates(cchars csv)
+{
+    cxAnimateAttr::Load(animates, csv);
+}
+
+const cxAnimateAttr *cxEngine::GetAnimates(cchars fmt,...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    cxHashKey key = cxHashKey::Format(fmt, ap);
+    va_end(ap);
+    return animates->Get(key)->To<cxAnimateAttr>();
+}
+
 void cxEngine::LoadConfig(cchars file)
 {
-    const cxStr *data = cxUtil::Assets(file);
+    const cxStr *data = cxUtil::Content(file);
     if(!cxStr::IsOK(data)){
         return;
     }
@@ -308,6 +350,7 @@ void cxEngine::Run()
         break;
     };
     cxAutoPool::Update();
+    //
     if(isreset){
         cxEngine::Startup(true);
     }

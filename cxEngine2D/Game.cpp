@@ -46,6 +46,10 @@
 #include <raknet/cxClient.h>
 #include <raknet/ListServers.h>
 
+#include <engine/cxFrameAttr.h>
+#include <engine/cxAnimateAttr.h>
+#include <engine/cxLoading.h>
+
 CX_CPP_BEGIN
 
 cxClient *client = nullptr;
@@ -69,11 +73,13 @@ Game::~Game()
     
 }
 
-cxWorld *w;
+cxWorld *w = nullptr;
 
 void Game::OnDispatch(const cxTouchable *e)
 {
-    
+    if(w == nullptr){
+        return;
+    }
     float r = CX_RAND_01f();
     float g = CX_RAND_01f();
     float b = CX_RAND_01f();
@@ -93,7 +99,7 @@ void Game::OnDispatch(const cxTouchable *e)
         cxSprite *sp = cxSprite::Create();
         sp->SetColor(cxColor4F(r, g, b, 1.0));
         sp->SetSize(cxSize2F(50, 50));
-        sp->SetTexture("grid");
+        sp->SetTexture("grid.png");
         body->Append(sp);
     }
 }
@@ -102,40 +108,89 @@ void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     
-    cxTexture::Create()->From("grid.png")->gcSet<cxTexture>("grid");
+    w = cxWorld::Create();
+    w->SetSize(cxSize2F(2048, 1536));
+    w->SetGravity(cxPoint2F(0, -10));
+    Window()->Append(w);
     
-    cxHttp *http = cxHttp::Get("http://192.168.199.244:9001");
-    Window()->Append(http);
-    http->onError +=[](cxHttp *http){
-        CX_LOGGER("error");
+    cxChainBody *c = cxChainBody::Create();
+    c->SetSize(cxSize2F(2048, 1536));
+    c->SetStatic(true);
+    w->Append(c);
+    
+    cxLoading *loader = cxLoading::Create();
+    loader->Run([this](cxLoading *pview){
+        LoadConfig("configs.csv");
+    });
+    loader->Run([this](cxLoading *pview){
+        LoadLocalized("texts.csv");
+    });
+    loader->Run([this](cxLoading *pview){
+        LoadTexture("grid.png");
+        LoadTexture("c1.lqt");
+    });
+    loader->Run([this](cxLoading *pview){
+        LoadFrames("frames.csv");
+    });
+    loader->Run([this](cxLoading *pview){
+        LoadAnimates("animates.csv");
+    });
+    loader->onProgress+=[](cxLoading *pview,cxInt i,cxInt a){
+        CX_LOGGER("loader %d/%d",i,a);
     };
-    http->onSuccess += [this](cxHttp *http){
-        const cxStr *json = http->Body();
-        CX_LOGGER("%s",json->ToString());
-        ListServers *list = ListServers::Create()->Init(json);
-        if(list == nullptr){
-            return;
-        }
-        if(list->Code != 0){
-            CX_ERROR("%s",list->Error->ToString());
-            return;
-        }
-        const ServerInfo *info = list->Query();
-        if(info == nullptr){
-            CX_ERROR("query server info error");
-            return;
-        }
-        client->Connect(info);
+    loader->onCompleted +=[this](cxLoading *pview,cxBool ok){
+        CX_LOGGER("Port:=%d %d",Config("SERVER_PORT")->ToInt(),ok);
+        CX_LOGGER("%s",cxLocalized::Text("TID_LOCALIZED_NAME")->ToString());
+        //获取法师帧序列
+        const cxFrames *fs = GetFrames("Mage");
+        //获取法师的动作列表
+        const cxAnimateAttr *as = GetAnimates("Mage");
+        //获得move动作
+        const cxActionAttr *move = as->Action("move");
+        //创建动画
+        cxAnimate *animate = fs->Animate();
+        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+            CX_LOGGER("%d",frame);
+        };
+        //设置移动组1为当前播放组
+        animate->SetAction(move, 1);
+        //
+        cxAtlas *atlas = cxAtlas::Create();
+        atlas->SetFlipX(true);
+        atlas->SetSize(cxSize2F(600, 600));
+        animate->AttachTo(atlas);
+        Window()->Append(atlas);
+        
     };
-//    w = cxWorld::Create();
-//    w->SetSize(cxSize2F(2048, 1536));
-//    w->SetGravity(cxPoint2F(0, -10));
-//    Window()->Append(w);
+    
+    Window()->Append(loader);
+    
 //    
-//    cxChainBody *c = cxChainBody::Create();
-//    c->SetSize(cxSize2F(2048, 1536));
-//    c->SetStatic(true);
-//    w->Append(c);
+//    cxTexture::Create()->From("grid.png")->gcSet<cxTexture>("grid");
+//    
+//    cxHttp *http = cxHttp::Get("http://192.168.199.244:9001");
+//    Window()->Append(http);
+//    http->onError +=[](cxHttp *http){
+//        CX_LOGGER("error");
+//    };
+//    http->onSuccess += [this](cxHttp *http){
+//        const cxStr *json = http->Body();
+//        CX_LOGGER("%s",json->ToString());
+//        ListServers *list = ListServers::Create()->Init(json);
+//        if(list == nullptr){
+//            return;
+//        }
+//        if(list->Code != 0){
+//            CX_ERROR("%s",list->Error->ToString());
+//            return;
+//        }
+//        const ServerInfo *info = list->Query();
+//        if(info == nullptr){
+//            CX_ERROR("query server info error");
+//            return;
+//        }
+//        client->Connect(info);
+//    };
 }
 
 CX_CPP_END

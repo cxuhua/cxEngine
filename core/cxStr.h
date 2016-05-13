@@ -10,16 +10,16 @@
 #define __cxEngineCore__cxStr__
 
 #include <string>
-#include "cxObject.h"
+#include <math/cxPoint2F.h>
+#include <math/cxPoint3F.h>
+#include <math/cxColor4F.h>
+#include <math/cxSize2F.h>
+#include "cxArray.h"
 
 CX_CPP_BEGIN
 
 #define AES_KEY_LENGTH  16
 
-struct cxPoint2F;
-struct cxPoint3F;
-struct cxColor4F;
-class cxArray;
 class cxStr : public cxObject
 {
 public:
@@ -62,6 +62,7 @@ public:
     const cxInt ToInt() const;
     const cxFloat ToFloat() const;
     const cxPoint2F ToPoint2F() const;
+    const cxSize2F ToSize2F() const;
     const cxPoint3F ToPoint3F() const;
     const cxColor4F ToColor4F() const;
     cchars ToString() const;

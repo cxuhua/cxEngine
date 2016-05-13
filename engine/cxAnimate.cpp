@@ -107,7 +107,7 @@ const cxActionAttr &cxAnimate::ActionAttr() const
     return attr;
 }
 
-cxAnimate *cxAnimate::Create(cxFrames *frames)
+cxAnimate *cxAnimate::Create(const cxFrames *frames)
 {
     cxAnimate *rv = cxAnimate::Create();
     rv->SetFrames(frames);

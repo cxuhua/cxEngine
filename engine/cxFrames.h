@@ -100,6 +100,8 @@ public:
     const cxTexCoord *TexCoord(cxInt idx=0,cxInt layer=0) const;
 public:
     cxAnimate *Animate() const;
+public:
+    static void Load(cxHash *values,cchars file);
 };
 
 CX_CPP_END

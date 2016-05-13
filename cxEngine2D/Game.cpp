@@ -46,7 +46,7 @@
 #include <raknet/cxClient.h>
 #include <raknet/ListServers.h>
 
-#include <engine/cxFrameAttr.h>
+#include <engine/cxFrames.h>
 #include <engine/cxAnimateAttr.h>
 #include <engine/cxLoading.h>
 

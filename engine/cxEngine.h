@@ -18,7 +18,7 @@
 #include "cxWindow.h"
 #include "cxRender.h"
 #include "cxTouch.h"
-#include "cxFrameAttr.h"
+#include "cxFrames.h"
 #include "cxAnimateAttr.h"
 
 CX_CPP_BEGIN

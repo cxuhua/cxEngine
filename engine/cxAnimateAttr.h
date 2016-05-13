@@ -16,11 +16,6 @@
 
 CX_CPP_BEGIN
 
-/* CVS field
-ID      名字ID	动作         播放次数     播放速度	组编码	开始帧	结束帧	关键帧
-Name	TID     Action      Repeat      Speed	Group	From	To      Key
-String	String	String      Int         Float	Int     Int     Int     Int
-*/
 class cxAnimateAttr : public cxObject
 {
 public:

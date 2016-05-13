@@ -139,7 +139,7 @@ void cxEngine::LoadTexture(cchars file,cchars key)
 
 void cxEngine::LoadFrames(cchars csv)
 {
-    cxFrameAttr::Load(frames, csv);
+    cxFrames::Load(frames, csv);
 }
 
 const cxFrames *cxEngine::GetFrames(cchars name,cxInt level)

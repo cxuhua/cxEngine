@@ -690,19 +690,14 @@
 		83079B5D1B292F1B00275F1F /* engine */ = {
 			isa = PBXGroup;
 			children = (
-				83F5D0C91CE5CDB200690B86 /* cxLoading.cpp */,
-				83F5D0CA1CE5CDB200690B86 /* cxLoading.h */,
-				83F5D0BC1CE58B6D00690B86 /* cxAnimateAttr.cpp */,
-				83F5D0BD1CE58B6D00690B86 /* cxAnimateAttr.h */,
-				83F5D0BE1CE58B6D00690B86 /* cxFrameAttr.cpp */,
-				83F5D0BF1CE58B6D00690B86 /* cxFrameAttr.h */,
-				839A52031CD84F1E0002BF77 /* system.shader */,
 				83639F6D1B30270E006A61B7 /* cxAction.cpp */,
 				83639F6E1B30270E006A61B7 /* cxAction.h */,
 				838D1BE21B79905500CA4C8B /* cxAlert.cpp */,
 				838D1BE31B79905500CA4C8B /* cxAlert.h */,
 				836730AC1B465A6A00E333D9 /* cxAnimate.cpp */,
 				836730AD1B465A6A00E333D9 /* cxAnimate.h */,
+				83F5D0BC1CE58B6D00690B86 /* cxAnimateAttr.cpp */,
+				83F5D0BD1CE58B6D00690B86 /* cxAnimateAttr.h */,
 				8338FD811B47712D00C84032 /* cxAstar.cpp */,
 				8338FD821B47712D00C84032 /* cxAstar.h */,
 				83F54B5D1B54BD5700AC5844 /* cxAsync.cpp */,
@@ -731,6 +726,8 @@
 				83C9D1171B47E24C00EC244C /* cxFade.h */,
 				83C9D1101B47C63600EC244C /* cxFollow.cpp */,
 				83C9D1111B47C63600EC244C /* cxFollow.h */,
+				83F5D0BE1CE58B6D00690B86 /* cxFrameAttr.cpp */,
+				83F5D0BF1CE58B6D00690B86 /* cxFrameAttr.h */,
 				832A88681B4CCBAA008AA181 /* cxFrames.cpp */,
 				832A88691B4CCBAA008AA181 /* cxFrames.h */,
 				8338FD751B467AAE00C84032 /* cxHttp.cpp */,
@@ -739,6 +736,8 @@
 				83C9D1311B492A2300EC244C /* cxJump.h */,
 				83F7BAD91B42D9E900C644B9 /* cxLabel.cpp */,
 				830ECB2C1B3FEB0F002EBE56 /* cxLabel.h */,
+				83F5D0C91CE5CDB200690B86 /* cxLoading.cpp */,
+				83F5D0CA1CE5CDB200690B86 /* cxLoading.h */,
 				833043BA1B40254600636928 /* cxMove.cpp */,
 				833043BB1B40254600636928 /* cxMove.h */,
 				839B8AF21B68E877009E0CF7 /* cxMusic.cpp */,
@@ -761,6 +760,8 @@
 				833043C31B41109600636928 /* cxRotate.h */,
 				833043C51B41149000636928 /* cxScale.cpp */,
 				833043C61B41149000636928 /* cxScale.h */,
+				834650181CD754460046BC55 /* cxScript.cpp */,
+				834650191CD754460046BC55 /* cxScript.h */,
 				83C9D1251B48CC1E00EC244C /* cxSequence.cpp */,
 				83C9D1261B48CC1E00EC244C /* cxSequence.h */,
 				836DD10D1B2AC72A0094F5EF /* cxShader.cpp */,
@@ -797,8 +798,7 @@
 				83639F711B302E16006A61B7 /* cxWindow.h */,
 				839B8ABA1B687DFA009E0CF7 /* OpenAL.h */,
 				836DD10C1B2AC6560094F5EF /* OpenGL.h */,
-				834650181CD754460046BC55 /* cxScript.cpp */,
-				834650191CD754460046BC55 /* cxScript.h */,
+				839A52031CD84F1E0002BF77 /* system.shader */,
 			);
 			path = engine;
 			sourceTree = "<group>";

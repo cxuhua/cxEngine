@@ -192,20 +192,18 @@ void cxFrames::loadlayers(cxArray *layers,cxInt c,cxInt g)
 cxBool cxFrames::Init()
 {
     CX_ASSERT(Texture() != nullptr && Count() > 0 && Group() > 0 && Layer() > 0, "data format error");
-    for(cxInt g = 0;g < Group();g++){
-        for(cxInt c = 0;c < Count();c++){
-            //每帧的重复倍数
-            cxFloat repeat = 1;
-            if(c < repeats.size()){
-                repeat = repeats.at(c);
-            }
-            //添加时间点
-            cxTimePoint *tp = Append(Time() * repeat);
-            cxArray *layers = cxArray::Alloc();
-            tp->SetObject(layers);
-            layers->Release();
-            loadlayers(layers, c, g);
-        }
+    for(cxInt g = 0;g < Group();g++)
+    for(cxInt c = 0;c < Count();c++){
+        //每帧的重复倍数
+        cxFloat repeat = (c < repeats.size())?repeats.at(c):1;
+        //添加时间点
+        cxTimePoint *tp = Append(Time() * repeat);
+        //加载保存层
+        cxArray *layers = cxArray::Alloc();
+        tp->SetObject(layers);
+        //加载帧
+        loadlayers(layers, c, g);
+        layers->Release();
     }
     return true;
 }

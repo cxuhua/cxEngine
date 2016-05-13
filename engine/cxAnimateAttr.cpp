@@ -58,23 +58,17 @@ void cxAnimateAttr::Load(cxHash *values,cchars file)
             if(ktype->IsCaseEqu("Action")){
                 aname = value->ToString();//动作名称
             }else if(ktype->IsCaseEqu("Repeat")){
-                //播放次数 =0表示循环播放
-                av.repeat = value->ToInt();
+                av.repeat = value->ToInt();//播放次数 =0表示循环播放
             }else if(ktype->IsCaseEqu("Speed")){
-                //播放速度
-                av.speed = value->ToFloat();
+                av.speed = value->ToFloat();//播放速度
             }else if(ktype->IsCaseEqu("From")){
-                //开始帧
-                av.from = value->ToInt();
+                av.from = value->ToInt();//开始帧
             }else if(ktype->IsCaseEqu("To")){
-                //结束帧
-                av.to = value->ToInt();
+                av.to = value->ToInt();//结束帧
             }else if(ktype->IsCaseEqu("Key")){
-                //关键帧
-                av.key = value->ToInt();
+                av.key = value->ToInt();//关键帧
             }else if(ktype->IsCaseEqu("Group")){
-                //如果组>0表示使用固定组中的帧播放动画
-                av.group = value->ToInt();
+                av.group = value->ToInt();//如果组>0表示使用固定组中的帧播放动画
             }
         }
         if(av.key < av.from || av.key > av.to){

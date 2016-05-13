@@ -14,8 +14,8 @@
 CX_CPP_BEGIN
 
 /* CVS field
- ID,    名字,     纹理,      帧偏移,   组数,     每组帧数,   层数,     层映射,    帧重复
- Name,  TID,    Texture,    Offset,  Group,   Count,     Layer,   Map,      Repeats
+ ID,    名字,     纹理,     大小,  缩放      帧偏移,   组数,     每组帧数,   层数,     层映射,    帧重复
+ Name,  TID,    Texture,  Size,  Scale,   Offset,  Group,   Count,     Layer,   Map,      Repeats
 */
 class cxFrameAttr : public cxFrames
 {

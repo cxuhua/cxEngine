@@ -19,7 +19,7 @@
 #include "cxRender.h"
 #include "cxTouch.h"
 #include "cxFrames.h"
-#include "cxAnimateAttr.h"
+#include "cxActionGroup.h"
 
 CX_CPP_BEGIN
 
@@ -83,14 +83,14 @@ private:
     std::queue<cxAsyncEvent> events;
     //帧序列和帧动画
     cxHash *frames;
-    cxHash *animates;
+    cxHash *actions;
 public:
     void LoadLocalized(cchars file);
     void LoadTexture(cchars file,cchars key=nullptr);
     void LoadFrames(cchars csv);
     const cxFrames *GetFrames(cchars name,cxInt level=1);
-    void LoadAnimates(cchars csv);
-    const cxAnimateAttr *GetAnimates(cchars fmt,...);
+    void LoadActions(cchars csv);
+    const cxActionGroup *GetActions(cchars fmt,...);
 public:
     
     void SetWindow(cxWindow *win);

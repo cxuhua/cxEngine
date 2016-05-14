@@ -1,7 +1,7 @@
 //
 //  AnimaAttr.h
 //  godcity
-//
+//  帧动画组
 //  Created by xuhua on 7/7/15.
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
@@ -16,13 +16,13 @@
 
 CX_CPP_BEGIN
 
-class cxAnimateAttr : public cxObject
+class cxActionGroup : public cxObject
 {
 public:
-    CX_DECLARE(cxAnimateAttr);
+    CX_DECLARE(cxActionGroup);
 protected:
-    explicit cxAnimateAttr();
-    virtual ~cxAnimateAttr();
+    explicit cxActionGroup();
+    virtual ~cxActionGroup();
 private:
     std::map<std::string,cxActionAttr> actions;
 public:

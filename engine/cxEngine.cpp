@@ -99,7 +99,7 @@ cxEngine::cxEngine()
     render = cxRender::Alloc();
     configs = cxHash::Alloc();
     frames = cxHash::Alloc();
-    animates = cxHash::Alloc();
+    actions = cxHash::Alloc();
     uv_mutex_init(&mutex);
 }
 
@@ -107,7 +107,7 @@ cxEngine::~cxEngine()
 {
     uv_mutex_destroy(&mutex);
     frames->Release();
-    animates->Release();
+    actions->Release();
     configs->Release();
     render->Release();
     window->Release();
@@ -148,18 +148,18 @@ const cxFrames *cxEngine::GetFrames(cchars name,cxInt level)
     return frames->Get(key)->To<cxFrames>();
 }
 
-void cxEngine::LoadAnimates(cchars csv)
+void cxEngine::LoadActions(cchars csv)
 {
-    cxAnimateAttr::Load(animates, csv);
+    cxActionGroup::Load(actions, csv);
 }
 
-const cxAnimateAttr *cxEngine::GetAnimates(cchars fmt,...)
+const cxActionGroup *cxEngine::GetActions(cchars fmt,...)
 {
     va_list ap;
     va_start(ap, fmt);
     cxHashKey key = cxHashKey::Format(fmt, ap);
     va_end(ap);
-    return animates->Get(key)->To<cxAnimateAttr>();
+    return actions->Get(key)->To<cxActionGroup>();
 }
 
 void cxEngine::LoadConfig(cchars file)

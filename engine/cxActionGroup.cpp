@@ -9,37 +9,37 @@
 #include <core/cxUtil.h>
 #include <core/cxAutoPool.h>
 #include <core/cxCSV.h>
-#include "cxAnimateAttr.h"
+#include "cxActionGroup.h"
 
 CX_CPP_BEGIN
 
-CX_IMPLEMENT(cxAnimateAttr);
+CX_IMPLEMENT(cxActionGroup);
 
-cxAnimateAttr::cxAnimateAttr()
+cxActionGroup::cxActionGroup()
 {
     
 }
 
-cxAnimateAttr::~cxAnimateAttr()
+cxActionGroup::~cxActionGroup()
 {
     
 }
 
-void cxAnimateAttr::Load(cxHash *values,cchars file)
+void cxActionGroup::Load(cxHash *values,cchars file)
 {
     const cxStr *data = cxUtil::Content(file);
     CX_ASSERT(cxStr::IsOK(data), "get %s file data error",file);
     cxCSV *csv = cxCSV::Create(data);
     cxStr *name = nullptr;
     cxInt nrow = 0;
-    cxAnimateAttr *attr = nullptr;
+    cxActionGroup *attr = nullptr;
     for(cxInt i=3; i < csv->Row(); i++){
         cxAutoPool::Push();
         const cxStr *cn = csv->At(i, 0);
         if(cxStr::IsOK(cn)){
             cxObject::swap(&name, cn);
             nrow = i;
-            attr = cxAnimateAttr::Alloc();
+            attr = cxActionGroup::Alloc();
             values->Set(name->ToString(), attr);
             attr->Release();
         }
@@ -82,7 +82,7 @@ void cxAnimateAttr::Load(cxHash *values,cchars file)
     cxObject::release(&name);
 }
 
-const cxActionAttr *cxAnimateAttr::Action(cchars key) const
+const cxActionAttr *cxActionGroup::Action(cchars key) const
 {
     std::map<std::string,cxActionAttr>::const_iterator it = actions.find(key);
     if(it != actions.end()){

@@ -47,7 +47,7 @@
 #include <raknet/ListServers.h>
 
 #include <engine/cxFrames.h>
-#include <engine/cxAnimateAttr.h>
+#include <engine/cxActionGroup.h>
 #include <engine/cxLoading.h>
 #include <engine/cxRand.h>
 
@@ -134,7 +134,7 @@ void Game::OnMain()
         LoadFrames("frames.csv");
     });
     loader->Run([this](cxLoading *pview){
-        LoadAnimates("animates.csv");
+        LoadActions("actions.csv");
     });
     loader->onProgress+=[](cxLoading *pview,cxInt i,cxInt a){
         CX_LOGGER("loader %d/%d",i,a);
@@ -145,7 +145,7 @@ void Game::OnMain()
         //获取法师帧序列
         const cxFrames *fs = GetFrames("Mage");
         //获取法师的动作列表
-        const cxAnimateAttr *as = GetAnimates("Mage");
+        const cxActionGroup *as = GetActions("Mage");
         //获得move动作
         const cxActionAttr *move = as->Action("move");
         //创建动画

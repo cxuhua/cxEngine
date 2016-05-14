@@ -101,7 +101,7 @@
 		83E6F66F1B0C97F7006839C8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66D1B0C97F7006839C8 /* GLKit.framework */; };
 		83E6F6701B0C97F7006839C8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */; };
 		83E886DC1B68F970001C0727 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83E886DB1B68F970001C0727 /* test.mp3 */; };
-		83F5D0B51CE570A600690B86 /* animates.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B21CE570A600690B86 /* animates.csv */; };
+		83F5D0B51CE570A600690B86 /* actions.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B21CE570A600690B86 /* actions.csv */; };
 		83F5D0B61CE570A600690B86 /* c1.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B31CE570A600690B86 /* c1.lqt */; };
 		83F5D0B71CE570A600690B86 /* frames.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B41CE570A600690B86 /* frames.csv */; };
 		83F5D0C31CE5BB5400690B86 /* texts.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0C21CE5BB5400690B86 /* texts.csv */; };
@@ -301,7 +301,7 @@
 		83E6F66D1B0C97F7006839C8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		83E886DB1B68F970001C0727 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = test.mp3; sourceTree = "<group>"; };
-		83F5D0B21CE570A600690B86 /* animates.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = animates.csv; sourceTree = "<group>"; };
+		83F5D0B21CE570A600690B86 /* actions.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = actions.csv; sourceTree = "<group>"; };
 		83F5D0B31CE570A600690B86 /* c1.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = c1.lqt; sourceTree = "<group>"; };
 		83F5D0B41CE570A600690B86 /* frames.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = frames.csv; sourceTree = "<group>"; };
 		83F5D0C21CE5BB5400690B86 /* texts.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = texts.csv; sourceTree = "<group>"; };
@@ -517,7 +517,7 @@
 			children = (
 				83F5D0C41CE5BE0400690B86 /* configs.csv */,
 				83F5D0C21CE5BB5400690B86 /* texts.csv */,
-				83F5D0B21CE570A600690B86 /* animates.csv */,
+				83F5D0B21CE570A600690B86 /* actions.csv */,
 				83F5D0B31CE570A600690B86 /* c1.lqt */,
 				83F5D0B41CE570A600690B86 /* frames.csv */,
 				83A34E4E1BEF899500DAEE91 /* goblins-ffd.atlas */,
@@ -652,7 +652,7 @@
 				835B40141BEC523800A7A4AC /* spineboy.json in Resources */,
 				836E304C1B5E2B4C00ED8BDC /* foam.png in Resources */,
 				835B40151BEC523800A7A4AC /* spineboy.png in Resources */,
-				83F5D0B51CE570A600690B86 /* animates.csv in Resources */,
+				83F5D0B51CE570A600690B86 /* actions.csv in Resources */,
 				83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */,
 				835B40131BEC523800A7A4AC /* spineboy.atlas in Resources */,
 				836DD1211B2C26CE0094F5EF /* shader in Resources */,

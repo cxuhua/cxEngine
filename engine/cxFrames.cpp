@@ -25,7 +25,6 @@ void cxFrames::Load(cxHash *values,cchars file)
     cxInt nrow = 0;
     cxInt level = 1;
     for(cxInt i=3; i < csv->Row(); i++){
-        cxAutoPool::Push();
         const cxStr *cn = csv->At(i, 0);
         if(cxStr::IsOK(cn)){
             cxObject::swap(&name, cn);
@@ -85,7 +84,6 @@ void cxFrames::Load(cxHash *values,cchars file)
         if(attr->Init()){
             values->Set(cxHashKey::Format("%s_%d",name->ToString(),level), attr);
         }
-        cxAutoPool::Pop();
     }
     cxObject::release(&name);
 }

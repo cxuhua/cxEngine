@@ -161,7 +161,6 @@ void Game::OnMain()
         atlas->SetSize(cxSize2F(600, 600));
         animate->AttachTo(atlas);
         Window()->Append(atlas);
-        
     };
     
     Window()->Append(loader);

@@ -34,7 +34,6 @@ void cxActionGroup::Load(cxHash *values,cchars file)
     cxInt nrow = 0;
     cxActionGroup *attr = nullptr;
     for(cxInt i=3; i < csv->Row(); i++){
-        cxAutoPool::Push();
         const cxStr *cn = csv->At(i, 0);
         if(cxStr::IsOK(cn)){
             cxObject::swap(&name, cn);
@@ -49,6 +48,7 @@ void cxActionGroup::Load(cxHash *values,cchars file)
             const cxStr *ktype = csv->At(1, j);
             const cxStr *value = csv->At(i, j);
             cxInt c  = i;
+            //向后查找
             while(!cxStr::IsOK(value) && c > nrow){
                 value = csv->At(--c, j);
             }
@@ -71,13 +71,13 @@ void cxActionGroup::Load(cxHash *values,cchars file)
                 av.group = value->ToInt();//如果组>0表示使用固定组中的帧播放动画
             }
         }
+        if(!cxStr::IsOK(aname)){
+            continue;
+        }
         if(av.key < av.from || av.key > av.to){
             av.key = av.to;
         }
-        if(cxStr::IsOK(aname)){
-            attr->actions.emplace(aname,av);
-        }
-        cxAutoPool::Pop();
+        attr->actions.emplace(aname,av);
     }
     cxObject::release(&name);
 }
@@ -85,10 +85,11 @@ void cxActionGroup::Load(cxHash *values,cchars file)
 const cxActionAttr *cxActionGroup::Action(cchars key) const
 {
     std::map<std::string,cxActionAttr>::const_iterator it = actions.find(key);
-    if(it != actions.end()){
-        return &it->second;
+    if(it == actions.end()){
+        CX_ERROR("%s action miss",key);
+        return nullptr;
     }
-    return nullptr;
+    return &it->second;
 }
 
 CX_CPP_END

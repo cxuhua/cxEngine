@@ -118,6 +118,7 @@ void cxSpine::OnRender(cxRender *render, const cxMatrixF &model)
     skeleton->g = color.g;
     skeleton->b = color.b;
     skeleton->a = color.a;
+    int additive = -1;
     verticesNum = 0;
     cxColor4F cv;
     const cxFloat *vs = nullptr;
@@ -170,23 +171,10 @@ void cxSpine::OnRender(cxRender *render, const cxMatrixF &model)
         if(texture != nullptr){
             Renders().Clear();
             Indices().Clear();
-            switch (slot->data->blendMode) {
-                case SP_BLEND_MODE_ADDITIVE:{
-                    SetBlend(BlendFunc::ADDITIVE);
-                    break;
-                }
-                case SP_BLEND_MODE_MULTIPLY:{
-                    SetBlend(BlendFunc::MULTIPLY);
-                    break;
-                }
-                case SP_BLEND_MODE_SCREEN:{
-                    SetBlend(BlendFunc::SCREEN);
-                    break;
-                }
-                default:{
-                    SetBlend(BlendFunc::ALPHA);
-                    break;
-                }
+            if (slot->data->additiveBlending != additive) {
+                BlendFunc func = Blend();
+                if(slot->data->additiveBlending)func.dst = GL_NONE;
+                additive = slot->data->additiveBlending;
             }
             SetTexture(texture);
             //append is

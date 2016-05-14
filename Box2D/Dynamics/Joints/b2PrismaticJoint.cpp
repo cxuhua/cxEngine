@@ -174,9 +174,6 @@ void b2PrismaticJoint::InitVelocityConstraints(const b2SolverData& data)
 		m_s1 = b2Cross(d + rA, m_perp);
 		m_s2 = b2Cross(rB, m_perp);
 
-        float32 s1test;
-        s1test = b2Cross(rA, m_perp);
-
 		float32 k11 = mA + mB + iA * m_s1 * m_s1 + iB * m_s2 * m_s2;
 		float32 k12 = iA * m_s1 + iB * m_s2;
 		float32 k13 = iA * m_s1 * m_a1 + iB * m_s2 * m_a2;
@@ -360,6 +357,13 @@ void b2PrismaticJoint::SolveVelocityConstraints(const b2SolverData& data)
 	data.velocities[m_indexB].w = wB;
 }
 
+// A velocity based solver computes reaction forces(impulses) using the velocity constraint solver.Under this context,
+// the position solver is not there to resolve forces.It is only there to cope with integration error.
+//
+// Therefore, the pseudo impulses in the position solver do not have any physical meaning.Thus it is okay if they suck.
+//
+// We could take the active state from the velocity solver.However, the joint might push past the limit when the velocity
+// solver indicates the limit is inactive.
 bool b2PrismaticJoint::SolvePositionConstraints(const b2SolverData& data)
 {
 	b2Vec2 cA = data.positions[m_indexA].c;

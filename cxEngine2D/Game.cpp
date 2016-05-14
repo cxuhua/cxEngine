@@ -49,6 +49,7 @@
 #include <engine/cxFrames.h>
 #include <engine/cxAnimateAttr.h>
 #include <engine/cxLoading.h>
+#include <engine/cxRand.h>
 
 CX_CPP_BEGIN
 
@@ -164,9 +165,6 @@ void Game::OnMain()
     };
     
     Window()->Append(loader);
-    
-//    
-//    cxTexture::Create()->From("grid.png")->gcSet<cxTexture>("grid");
 //    
 //    cxHttp *http = cxHttp::Get("http://192.168.199.244:9001");
 //    Window()->Append(http);

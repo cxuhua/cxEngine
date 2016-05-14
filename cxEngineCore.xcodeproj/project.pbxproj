@@ -199,6 +199,7 @@
 		83B23B4F1B17E0E9000D770A /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 83B23B4D1B17E0E9000D770A /* xxhash.c */; };
 		83B23B521B17E14E000D770A /* atomic.c in Sources */ = {isa = PBXBuildFile; fileRef = 83B23B501B17E14E000D770A /* atomic.c */; };
 		83BBF3FF1B10954E003CB004 /* cxCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BBF3FD1B10954E003CB004 /* cxCore.cpp */; };
+		83BD3C311CE6037800F66794 /* cxRand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BD3C2F1CE6037800F66794 /* cxRand.cpp */; };
 		83BE636E1B3117270028B6E7 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83BE636B1B3117270028B6E7 /* AppDelegate.mm */; };
 		83BE636F1B3117270028B6E7 /* cxGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83BE636D1B3117270028B6E7 /* cxGLView.mm */; };
 		83C9D1121B47C63600EC244C /* cxFollow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C9D1101B47C63600EC244C /* cxFollow.cpp */; };
@@ -629,6 +630,8 @@
 		83BBF3D81B109452003CB004 /* libcxEngineCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcxEngineCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		83BBF3FD1B10954E003CB004 /* cxCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxCore.cpp; sourceTree = "<group>"; };
 		83BBF3FE1B10954E003CB004 /* cxCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxCore.h; sourceTree = "<group>"; };
+		83BD3C2F1CE6037800F66794 /* cxRand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxRand.cpp; sourceTree = "<group>"; };
+		83BD3C301CE6037800F66794 /* cxRand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRand.h; sourceTree = "<group>"; };
 		83BE636A1B3117270028B6E7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		83BE636B1B3117270028B6E7 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		83BE636C1B3117270028B6E7 /* cxGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxGLView.h; sourceTree = "<group>"; };
@@ -687,6 +690,8 @@
 		83079B5D1B292F1B00275F1F /* engine */ = {
 			isa = PBXGroup;
 			children = (
+				83BD3C2F1CE6037800F66794 /* cxRand.cpp */,
+				83BD3C301CE6037800F66794 /* cxRand.h */,
 				83639F6D1B30270E006A61B7 /* cxAction.cpp */,
 				83639F6E1B30270E006A61B7 /* cxAction.h */,
 				838D1BE21B79905500CA4C8B /* cxAlert.cpp */,
@@ -1525,6 +1530,7 @@
 				835B3FC51BEC511400A7A4AC /* b2CollideCircle.cpp in Sources */,
 				835B40C81BEF51C100A7A4AC /* SkinnedMeshAttachment.c in Sources */,
 				833043B91B4024E900636928 /* cxContainer.cpp in Sources */,
+				83BD3C311CE6037800F66794 /* cxRand.cpp in Sources */,
 				83079B661B29300C00275F1F /* cxEngine.cpp in Sources */,
 				833043BC1B40254600636928 /* cxMove.cpp in Sources */,
 				836DD1061B29BBDF0094F5EF /* cxBox4F.cpp in Sources */,

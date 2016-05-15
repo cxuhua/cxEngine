@@ -71,11 +71,13 @@ void cxActionGroup::Load(cxHash *values,cchars file)
                 av.group = value->ToInt();//如果组>0表示使用固定组中的帧播放动画
             }
         }
-        if(!cxStr::IsOK(aname)){
+        if(av.from < 0 || av.to < 0){
+            CX_ERROR("cxActionAttr from or to < 0");
             continue;
         }
-        if(av.key < av.from || av.key > av.to){
-            av.key = av.to;
+        if(!cxStr::IsOK(aname)){
+            CX_ERROR("cxActionAttr name miss");
+            continue;
         }
         attr->actions.emplace(aname,av);
     }

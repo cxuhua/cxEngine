@@ -47,8 +47,6 @@ cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
         if(coord->IsEmpty()){
             continue;
         }
-        //get coord box
-        const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
         //trimmed box
         cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
         if(bp.Size().IsZero()){
@@ -58,6 +56,8 @@ cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
         cxBoxRender &render = renders.Inc();
         render.SetVertices(bp);
         render.SetColor(Color());
+        //get coord box
+        const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
         render.SetCoords(tbox);
     }
     return this;

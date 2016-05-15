@@ -130,8 +130,7 @@ void GameServer::updateServerStatus(uv_timer_t* handle)
             //如果连接丢失重新连接到其它服务器
             cchars host = obj["host"].String().c_str();
             cxInt port = obj["port"].Int();
-            RakNet::SystemAddress addr(host,port);
-            if(server->HasConnection(addr)){
+            if(server->HasConnection(RakNet::SystemAddress(host,port))){
                 continue;
             }
             server->Connect(host, port);

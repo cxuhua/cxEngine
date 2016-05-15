@@ -117,9 +117,9 @@ void cxTimeLine::UpdateTime()
     isdirty = false;
 }
 
-cxInt cxTimeLine::Index() const
+const cxInt cxTimeLine::Index() const
 {
-    return idx;
+    return (from < to) ? (from + idx) : (from - idx);
 }
 
 const cxTimePoint *cxTimeLine::At(cxInt i) const

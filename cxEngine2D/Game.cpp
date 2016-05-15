@@ -145,19 +145,21 @@ void Game::OnMain()
         //获取法师帧序列
         const cxFrames *fs = GetFrames("Mage");
         //获取法师的动作列表
-        const cxActionGroup *as = GetActions("Mage");
+        const cxActionGroup *ag = GetActions("Mage");
         //获得move动作
-        const cxActionAttr *move = as->Action("move");
+        const cxActionAttr *move = ag->Action("move");
         //创建动画
         cxAnimate *animate = fs->Animate();
         animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-            CX_LOGGER("%d",frame);
+            CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
         };
         //设置移动组1为当前播放组
         animate->SetAction(move, 1);
+        animate->SetSpeed(1.5f);
+        
         //
         cxAtlas *atlas = cxAtlas::Create();
-        atlas->SetFlipX(true);
+//        atlas->SetFlipX(true);
         atlas->SetSize(cxSize2F(600, 600));
         animate->AttachTo(atlas);
         Window()->Append(atlas);

@@ -17,11 +17,11 @@ cxActionAttr::cxActionAttr()
 {
     delay = 0.0f;
     group = 0;
-    from = 0;
-    to = 0;
-    key = 0;
+    from = -1;
+    to = -1;
+    key = -1;
     speed = 1.0f;
-    repeat = 0;
+    repeat = -1;
 }
 
 cxActionAttr cxActionAttr::Reverse()
@@ -52,7 +52,7 @@ cxAnimate *cxAnimate::SetAction(const cxActionAttr *pattr,cxInt agroup)
     attr = *pattr;
     SetSpeed(attr.speed);
     SetDelay(attr.delay);
-    SetRepeat((attr.repeat == 0)?INT_MAX:attr.repeat);
+    SetRepeat((attr.repeat <= 0)?INT_MAX:attr.repeat);
     SetGroup(agroup);
     return this;
 }
@@ -92,7 +92,7 @@ void cxAnimate::OnInit()
 void cxAnimate::OnTime(const cxTimePoint *tp)
 {
     View()->To<cxAtlas>()->SetCoords(tp->Object()->To<cxArray>(),frames);
-    cxInt idx = Index() + attr.from;
+    cxInt idx = Index();
     iskeyframe = (idx == attr.key);
     onFrame.Fire(this, idx);
 }

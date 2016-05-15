@@ -39,7 +39,7 @@ cxView::cxView()
     resizeflags = ResizeNone;
     resizebox = 0.0f;
     z = 0;
-    flags = 0;
+    flags = FlagsNone;
     isclip = false;
     issort = true;
     istouch = true;
@@ -55,9 +55,9 @@ cxView::cxView()
     anchor = 0.0f;
     size = 0.0f;
     offset = 0.0f;
-    angle = 0;
+    angle = 0.0f;
     axis = cxPoint3F::AxisZ;
-    dirtymode = 0xFFFFFFFF;
+    dirtymode = DirtyModeAll;
     cc = cxColor4F::WHITE;
     subviews = cxArray::Alloc();
     viewapps = cxArray::Alloc();
@@ -1056,6 +1056,7 @@ void cxView::OnLayout()
         return;
     }
     CX_ASSERT(!cxEngine::Instance()->PlanScale().IsZero(), "not set plansize");
+    
     cxBox4F pbox = Parent()->BoxPoint().ToBox4F();
     cxBox4F vbox = BoxPoint().ToBox4F();
     

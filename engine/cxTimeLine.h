@@ -69,7 +69,6 @@ public:
 public:
     void SetTimeType(TimeType v);
     cxTimeLine *SetRange(cxInt afrom,cxInt ato);
-    cxInt Index() const;
     void UpdateTime();
     
     void SetLoopTime(cxFloat v);
@@ -84,6 +83,7 @@ public:
     cxArray *Points();
     const cxArray *Points() const;
     
+    const cxInt Index() const;
     const cxInt Length() const;
     const cxInt From() const;
     const cxInt To() const;

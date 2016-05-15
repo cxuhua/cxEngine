@@ -66,6 +66,7 @@ public:
     static const Resize ResizeAllSide           = ResizeTopSide|ResizeBottomSide|ResizeLeftSide|ResizeRightSide;
     
     static const DirtyMode DirtyModeNone        = 0;
+    static const DirtyMode DirtyModeAll         = -1;
     static const DirtyMode DirtyModeSize        = 1 << 0;
     static const DirtyMode DirtyModeScale       = 1 << 1;
     static const DirtyMode DirtyModePosition    = 1 << 2;
@@ -77,6 +78,7 @@ public:
     static const DirtyMode DirtyModeForce       = 1 << 8;
     static const DirtyMode DirtyModeNormal      = DirtyModePosition|DirtyModeAngle|DirtyModeScale;
     
+    static const cxUInt FlagsNone               = 0;
     static const cxUInt FlagsDirty              = 1 << 0;
     static const cxUInt FlagsClip               = 1 << 1;
 protected:

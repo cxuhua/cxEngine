@@ -384,10 +384,6 @@ SystemAddress TCPInterface::Connect(const char* host, unsigned short remotePort,
 
 		// Start the connection thread
 		int errorCode;
-
-
-
-
 		errorCode = RakNet::RakThread::Create(ConnectionAttemptLoop, s, threadPriority);
 
 		if (errorCode!=0)

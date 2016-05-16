@@ -104,6 +104,7 @@ cxFrames::cxFrames()
     count = 0;
     ptex = nullptr;
     points = cxArray::Alloc();
+    scale = 1.0f;
 }
 
 cxFrames::~cxFrames()

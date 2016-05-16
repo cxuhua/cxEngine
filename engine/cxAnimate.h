@@ -16,7 +16,6 @@ CX_CPP_BEGIN
 
 struct cxActionAttr
 {
-    cxInt   group;//>0fix group
     cxInt   from;
     cxInt   to;
     cxInt   key;

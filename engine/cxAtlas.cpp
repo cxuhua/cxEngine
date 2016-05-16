@@ -25,7 +25,7 @@ cxAtlas::~cxAtlas()
     cxObject::release(&currFrames);
 }
 
-cxAtlas *cxAtlas::Create(cxFrames *frames)
+cxAtlas *cxAtlas::Create(const cxFrames *frames)
 {
     cxAtlas *rv = cxAtlas::Create();
     rv->SetBlend(frames->Blend());

@@ -16,7 +16,6 @@ CX_CPP_BEGIN
 cxActionAttr::cxActionAttr()
 {
     delay = 0.0f;
-    group = 0;
     from = -1;
     to = -1;
     key = -1;
@@ -92,7 +91,9 @@ void cxAnimate::OnInit()
 void cxAnimate::OnTime(const cxTimePoint *tp)
 {
     View()->To<cxAtlas>()->SetCoords(tp->Object()->To<cxArray>(),frames);
-    cxInt idx = Index();
+    //计算组中的第几帧
+    cxInt idx = Index() - group * frames->Count();
+    //是否是关键帧
     iskeyframe = (idx == attr.key);
     onFrame.Fire(this, idx);
 }
@@ -120,6 +121,7 @@ cxAction *cxAnimate::Reverse()
     cxActionAttr vattr = attr.Reverse();
     rv->SetFrames(frames);
     rv->SetAction(&vattr, group);
+    rv->SetSpeed(Speed());
     return rv;
 }
 
@@ -128,18 +130,18 @@ cxAction *cxAnimate::Clone()
     cxAnimate *rv = cxAnimate::Create();
     rv->SetFrames(frames);
     rv->SetAction(&attr, group);
+    rv->SetSpeed(Speed());
     return rv;
 }
 
 cxAnimate *cxAnimate::SetFrames(const cxFrames *aframes)
 {
-    CX_ASSERT(aframes != nullptr, "set frames error");
+    CX_ASSERT(aframes != nullptr, "frames args error");
     cxObject::swap(&frames, aframes);
     SetPoints(frames->Points());
     attr.speed = aframes->Speed();
     attr.delay = aframes->Delay();
     attr.repeat = aframes->Repeat();
-    attr.group = 0;
     attr.from = 0;
     attr.to = aframes->Points()->Size() - 1;
     SetAction(&attr, 0);

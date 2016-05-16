@@ -18,17 +18,18 @@
 
 CX_CPP_BEGIN
 
-class cxWorld;
+class cxBoxWorld;
 
 class cxBody : public cxView
 {
 public:
     CX_DECLARE(cxBody);
-    friend cxWorld;
+    friend cxBoxWorld;
 protected:
     explicit cxBody();
     virtual ~cxBody();
 protected:
+    cxBoxWorld *world;
     b2Fixture *fixture;
     b2Body *body;
     b2BodyDef bodyDef;
@@ -36,11 +37,12 @@ protected:
     void OnUpdate(cxFloat dt);
 public:
     virtual cxBool InitFixture(b2FixtureDef *def);
-    virtual cxBool CreateFixture(cxWorld *pw);
+    virtual cxBool CreateFixture(cxBoxWorld *pw);
     virtual void DestroyFixture();
     virtual cxBool InitBody(b2BodyDef *def);
-    virtual cxBool CreateBody(cxWorld *pw);
+    virtual cxBool CreateBody(cxBoxWorld *pw);
 public:
+    void SetWorld(cxBoxWorld *pw);
     b2Body *GetBody();
     cxBody *SetFilter(const b2Filter &v);
     //
@@ -86,7 +88,7 @@ private:
 public:
     cxLineF GetLinePoint();
     void SetLinePoint(const cxLineF &line);
-    cxBool CreateFixture(cxWorld *pw);
+    cxBool CreateFixture(cxBoxWorld *pw);
 };
 
 class cxCircleBody : public cxBody
@@ -105,7 +107,7 @@ public:
     cxPoint2F Center();
     void SetCenter(const cxPoint2F &v);
     
-    cxBool CreateFixture(cxWorld *pw);
+    cxBool CreateFixture(cxBoxWorld *pw);
 };
 
 class cxBoxBody : public cxBody
@@ -118,7 +120,7 @@ protected:
 private:
     b2PolygonShape shape;
 public:
-    cxBool CreateFixture(cxWorld *pw);
+    cxBool CreateFixture(cxBoxWorld *pw);
 };
 
 class cxPolygonBody : public cxBody
@@ -133,7 +135,7 @@ private:
     b2PolygonShape shape;
 public:
     cxPoint2FArray &Points();
-    cxBool CreateFixture(cxWorld *pw);
+    cxBool CreateFixture(cxBoxWorld *pw);
 };
 
 class cxChainBody : public cxBody
@@ -150,7 +152,7 @@ private:
 public:
     void SetLoop(cxBool loop);
     cxPoint2FArray &Points();
-    cxBool CreateFixture(cxWorld *pw);
+    cxBool CreateFixture(cxBoxWorld *pw);
 };
 
 struct cxBodyInfo
@@ -196,14 +198,14 @@ struct cxRayCastInfo : public b2RayCastCallback
     std::function<cxBool(cxRayCastReport *)> *Func;
 };
 
-class cxWorld : public cxView,public b2ContactListener,public b2ContactFilter
+class cxBoxWorld : public cxView,public b2ContactListener,public b2ContactFilter
 {
 public:
-    CX_DECLARE(cxWorld);
+    CX_DECLARE(cxBoxWorld);
     friend cxBody;
 protected:
-    explicit cxWorld();
-    virtual ~cxWorld();
+    explicit cxBoxWorld();
+    virtual ~cxBoxWorld();
 private:
     float32 vIters;
     float32 pIters;
@@ -244,22 +246,22 @@ public:
     void SetGravity(const cxPoint2F &v);
 };
 
-inline b2Vec2 cxWorld::ToWorld(const cxPoint2F &v)
+inline b2Vec2 cxBoxWorld::ToWorld(const cxPoint2F &v)
 {
     return b2Vec2(ToWorld(v.x), ToWorld(v.y));
 }
 
-inline cxFloat cxWorld::ToWorld(const cxFloat &v)
+inline cxFloat cxBoxWorld::ToWorld(const cxFloat &v)
 {
     return v/PTM_RATIO;
 }
 
-inline cxPoint2F cxWorld::FromWorld(const b2Vec2 &v)
+inline cxPoint2F cxBoxWorld::FromWorld(const b2Vec2 &v)
 {
     return cxPoint2F(FromWorld(v.x), FromWorld(v.y));
 }
 
-inline cxFloat cxWorld::FromWorld(const cxFloat &v)
+inline cxFloat cxBoxWorld::FromWorld(const cxFloat &v)
 {
     return v*PTM_RATIO;
 }

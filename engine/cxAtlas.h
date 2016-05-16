@@ -52,7 +52,7 @@ public:
     
     cxAtlas *Clear();
     
-    static cxAtlas *Create(cxFrames *frames);
+    static cxAtlas *Create(const cxFrames *frames);
 };
 
 CX_CPP_END

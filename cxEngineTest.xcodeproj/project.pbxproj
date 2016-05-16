@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		830157E21B3BD27C00ED46A8 /* t.png in Resources */ = {isa = PBXBuildFile; fileRef = 830157E11B3BD27C00ED46A8 /* t.png */; };
 		8302A5851B535EC500C7209C /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 8302A5841B535EC500C7209C /* grid.png */; };
+		8314210F1CE99DD300C140B2 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8314210D1CE99DD300C140B2 /* Controller.cpp */; };
 		8326D0D91BE9F43D00A15879 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8326D0D81BE9F43D00A15879 /* circle.png */; };
 		8326D0DB1BE9F72000A15879 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8326D0DA1BE9F72000A15879 /* Images.xcassets */; };
 		833043D01B424A1C00636928 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 833043CF1B424A1C00636928 /* bg.jpg */; };
@@ -121,6 +122,8 @@
 /* Begin PBXFileReference section */
 		830157E11B3BD27C00ED46A8 /* t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = t.png; sourceTree = "<group>"; };
 		8302A5841B535EC500C7209C /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
+		8314210D1CE99DD300C140B2 /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
+		8314210E1CE99DD300C140B2 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
 		8326D0D81BE9F43D00A15879 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		8326D0DA1BE9F72000A15879 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = cxEngineTest/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		833043CF1B424A1C00636928 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
@@ -548,6 +551,8 @@
 				83E6F6471B0C97B5006839C8 /* Supporting Files */,
 				83546A451B3127F700FFE1E7 /* Game.cpp */,
 				83546A461B3127F700FFE1E7 /* Game.h */,
+				8314210D1CE99DD300C140B2 /* Controller.cpp */,
+				8314210E1CE99DD300C140B2 /* Controller.h */,
 				83BD3C2D1CE600B800F66794 /* data.rtf */,
 				836E30431B5E2ABF00ED8BDC /* Sea.cpp */,
 				836E30441B5E2ABF00ED8BDC /* Sea.h */,
@@ -695,6 +700,7 @@
 				83CBC9DB1CE43BBC00D4B8F6 /* FormatString.cpp in Sources */,
 				83CBC9D31CE43BBC00D4B8F6 /* cxRaknet.cpp in Sources */,
 				83CBC9F71CE43BBC00D4B8F6 /* SocketLayer.cpp in Sources */,
+				8314210F1CE99DD300C140B2 /* Controller.cpp in Sources */,
 				83CBC9D01CE43BBC00D4B8F6 /* CCRakNetUDT.cpp in Sources */,
 				83CBC9CF1CE43BBC00D4B8F6 /* CCRakNetSlidingWindow.cpp in Sources */,
 				83BE63751B311E0A0028B6E7 /* main.m in Sources */,

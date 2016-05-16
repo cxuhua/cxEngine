@@ -51,6 +51,8 @@
 #include <engine/cxLoading.h>
 #include <engine/cxRand.h>
 
+#include "Controller.h"
+
 CX_CPP_BEGIN
 
 cxClient *client = nullptr;
@@ -74,50 +76,50 @@ Game::~Game()
     
 }
 
-cxWorld *w = nullptr;
+cxBoxWorld *w = nullptr;
 
 void Game::OnDispatch(const cxTouchable *e)
 {
-    if(w == nullptr){
-        return;
-    }
-    float r = CX_RAND_01f();
-    float g = CX_RAND_01f();
-    float b = CX_RAND_01f();
-    const cxTouchPoint *t1 = e->TouchPoint(0);
-    if(t1->type == cxTouchPoint::Ended){
-        cxCircleBody *body = cxCircleBody::Create();
-        body->SetRadius(25);
-        body->SetPosition(t1->wp);
-        body->SetElasticity(1.0);
-        
-        body->Invoke([](cxView *pview){
-            pview->To<cxCircleBody>()->ApplyForceToCenter(cxPoint2F(800, 0));
-        });
-        
-        w->Append(body);
-        
-        cxSprite *sp = cxSprite::Create();
-        sp->SetColor(cxColor4F(r, g, b, 1.0));
-        sp->SetSize(cxSize2F(50, 50));
-        sp->SetTexture("grid.png");
-        body->Append(sp);
-    }
+//    if(w == nullptr){
+//        return;
+//    }
+//    float r = CX_RAND_01f();
+//    float g = CX_RAND_01f();
+//    float b = CX_RAND_01f();
+//    const cxTouchPoint *t1 = e->TouchPoint(0);
+//    if(t1->type == cxTouchPoint::Ended){
+//        cxCircleBody *body = cxCircleBody::Create();
+//        body->SetRadius(25);
+//        body->SetPosition(t1->wp);
+//        body->SetElasticity(1.0);
+//        
+//        body->Invoke([](cxView *pview){
+//            pview->To<cxCircleBody>()->ApplyForceToCenter(cxPoint2F(800, 0));
+//        });
+//        
+//        w->Append(body);
+//        
+//        cxSprite *sp = cxSprite::Create();
+//        sp->SetColor(cxColor4F(r, g, b, 1.0));
+//        sp->SetSize(cxSize2F(50, 50));
+//        sp->SetTexture("t.png");
+//        body->Append(sp);
+//    }
 }
 
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     
-    w = cxWorld::Create();
-    w->SetSize(cxSize2F(2048, 1536));
-    w->SetGravity(cxPoint2F(0, -10));
-    Window()->Append(w);
-    
-    cxChainBody *c = cxChainBody::Create();
-    c->SetSize(cxSize2F(2048, 1536));
-    c->SetStatic(true);
-    w->Append(c);
+//    w = cxBoxWorld::Create();
+//    w->SetSize(cxSize2F(2048, 1536));
+//    w->SetGravity(cxPoint2F(0, -10));
+//    Window()->Append(w);
+//    
+//    cxChainBody *c = cxChainBody::Create();
+//    c->SetSize(cxSize2F(2048, 1536));
+//    c->SetStatic(true);
+//    w->Append(c);
     
     cxLoading *loader = cxLoading::Create();
     loader->Run([this](cxLoading *pview){
@@ -127,42 +129,46 @@ void Game::OnMain()
         LoadLocalized("texts.csv");
     });
     loader->Run([this](cxLoading *pview){
-        LoadTexture("grid.png");
-        LoadTexture("c1.lqt");
+        LoadTexture("t.png");
+//        LoadTexture("c1.lqt");
     });
-    loader->Run([this](cxLoading *pview){
-        LoadFrames("frames.csv");
-    });
-    loader->Run([this](cxLoading *pview){
-        LoadActions("actions.csv");
-    });
+//    loader->Run([this](cxLoading *pview){
+//        LoadFrames("frames.csv");
+//    });
+//    loader->Run([this](cxLoading *pview){
+//        LoadActions("actions.csv");
+//    });
     loader->onProgress+=[](cxLoading *pview,cxInt i,cxInt a){
         CX_LOGGER("loader %d/%d",i,a);
     };
     loader->onCompleted +=[this](cxLoading *pview,cxBool ok){
-        CX_LOGGER("Port:=%d %d",Config("SERVER_PORT")->ToInt(),ok);
-        CX_LOGGER("%s",cxLocalized::Text("TID_LOCALIZED_NAME")->ToString());
-        //获取法师帧序列
-        const cxFrames *fs = GetFrames("Mage");
-        //获取法师的动作列表
-        const cxActionGroup *ag = GetActions("Mage");
-        //获得move动作
-        const cxActionAttr *move = ag->Action("move");
-        //创建动画
-        cxAnimate *animate = fs->Animate();
-        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-            CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
-        };
-        //设置移动组1为当前播放组
-        animate->SetAction(move, 1);
-        animate->SetSpeed(1.5f);
+//        CX_LOGGER("Port:=%d %d",Config("SERVER_PORT")->ToInt(),ok);
+//        CX_LOGGER("%s",cxLocalized::Text("TID_LOCALIZED_NAME")->ToString());
+//        //获取法师帧序列
+//        const cxFrames *fs = GetFrames("Mage");
+//        //获取法师的动作列表
+//        const cxActionGroup *ag = GetActions("Mage");
+//        //获得move动作
+//        const cxActionAttr *move = ag->Action("attack1");
+//        //创建动画
+//        cxAnimate *animate = fs->Animate();
+//        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+//            CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
+//        };
+//        //设置移动组1为当前播放组
+//        animate->SetAction(move, 1);
+//        animate->SetSpeed(1.5f);
+//        //
+//        cxAtlas *atlas = cxAtlas::Create();
+////        atlas->SetFlipX(true);
+//        atlas->SetSize(cxSize2F(600, 600));
+//        animate->AttachTo(atlas);
+//        
+//        Window()->Append(atlas);
         
-        //
-        cxAtlas *atlas = cxAtlas::Create();
-//        atlas->SetFlipX(true);
-        atlas->SetSize(cxSize2F(600, 600));
-        animate->AttachTo(atlas);
-        Window()->Append(atlas);
+        Controller *c = Controller::Create(5, 3);
+        c->SetResizeFlags(cxView::ResizeBottom);
+        Window()->Append(c);
     };
     
     Window()->Append(loader);

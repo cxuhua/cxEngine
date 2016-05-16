@@ -82,10 +82,13 @@ public:
     cxTimePoint *Append(cxFloat time);
     cxArray *Points();
     const cxArray *Points() const;
-    
+    //帧索引
     const cxInt Index() const;
+    //播放帧数量
     const cxInt Length() const;
+    //从*帧
     const cxInt From() const;
+    //到*帧
     const cxInt To() const;
     
     cxAction *Reverse();

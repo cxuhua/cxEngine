@@ -32,7 +32,7 @@ cxPoint2FArray &cxChainBody::Points()
     return ps;
 }
 
-cxBool cxChainBody::CreateFixture(cxWorld *pw)
+cxBool cxChainBody::CreateFixture(cxBoxWorld *pw)
 {
     //use view points
     if(ps.Size() == 0){
@@ -45,7 +45,7 @@ cxBool cxChainBody::CreateFixture(cxWorld *pw)
     b2Vec2 *points = new b2Vec2[ps.Size()]();
     for(cxInt i=0;i<ps.Size();i++){
         cxPoint2F &p = ps.At(i);
-        points[i] = cxWorld::ToWorld(p);
+        points[i] = cxBoxWorld::ToWorld(p);
     }
     if(isloop){
         shape.CreateLoop(points, ps.Size());
@@ -75,13 +75,13 @@ cxPoint2FArray &cxPolygonBody::Points()
     return ps;
 }
 
-cxBool cxPolygonBody::CreateFixture(cxWorld *pw)
+cxBool cxPolygonBody::CreateFixture(cxBoxWorld *pw)
 {
     CX_ASSERT(ps.Size() >= 3 && ps.Size() <= b2_maxPolygonVertices, "point count error");
     b2Vec2 *points = new b2Vec2[ps.Size()]();
     for(cxInt i=0;i<ps.Size();i++){
         cxPoint2F &p = ps.At(i);
-        points[i] = cxWorld::ToWorld(p);
+        points[i] = cxBoxWorld::ToWorld(p);
     }
     shape.Set(points, ps.Size());
     fixDef.shape = &shape;
@@ -104,17 +104,17 @@ cxEdgeBody::~cxEdgeBody()
 
 void cxEdgeBody::SetLinePoint(const cxLineF &line)
 {
-    shape.Set(cxWorld::ToWorld(line.a),cxWorld::ToWorld(line.b));
+    shape.Set(cxBoxWorld::ToWorld(line.a),cxBoxWorld::ToWorld(line.b));
 }
 
 cxLineF cxEdgeBody::GetLinePoint()
 {
-    cxPoint2F p1 = cxWorld::FromWorld(shape.m_vertex1);
-    cxPoint2F p2 = cxWorld::FromWorld(shape.m_vertex2);
+    cxPoint2F p1 = cxBoxWorld::FromWorld(shape.m_vertex1);
+    cxPoint2F p2 = cxBoxWorld::FromWorld(shape.m_vertex2);
     return cxLineF(p1, p2);
 }
 
-cxBool cxEdgeBody::CreateFixture(cxWorld *pw)
+cxBool cxEdgeBody::CreateFixture(cxBoxWorld *pw)
 {
     fixDef.shape = &shape;
     fixture = body->CreateFixture(&fixDef);
@@ -133,10 +133,10 @@ cxBoxBody::~cxBoxBody()
     
 }
 
-cxBool cxBoxBody::CreateFixture(cxWorld *pw)
+cxBool cxBoxBody::CreateFixture(cxBoxWorld *pw)
 {
     const cxSize2F &size = Size();
-    shape.SetAsBox(cxWorld::ToWorld(size.w/2.0f), cxWorld::ToWorld(size.h/2.0f));
+    shape.SetAsBox(cxBoxWorld::ToWorld(size.w/2.0f), cxBoxWorld::ToWorld(size.h/2.0f));
     fixDef.shape = &shape;
     fixture = body->CreateFixture(&fixDef);
     return fixture != nullptr;
@@ -156,30 +156,30 @@ cxCircleBody::~cxCircleBody()
 
 cxFloat cxCircleBody::Radius()
 {
-    return cxWorld::FromWorld(shape.m_radius);
+    return cxBoxWorld::FromWorld(shape.m_radius);
 }
 
 void cxCircleBody::SetRadius(const cxFloat &v)
 {
-    shape.m_radius = cxWorld::ToWorld(v);
+    shape.m_radius = cxBoxWorld::ToWorld(v);
 }
 
 cxPoint2F cxCircleBody::Center()
 {
-    return cxWorld::FromWorld(shape.m_p);
+    return cxBoxWorld::FromWorld(shape.m_p);
 }
 
 void cxCircleBody::SetCenter(const cxPoint2F &v)
 {
-    shape.m_p = cxWorld::ToWorld(v);
+    shape.m_p = cxBoxWorld::ToWorld(v);
 }
 
-cxBool cxCircleBody::CreateFixture(cxWorld *pw)
+cxBool cxCircleBody::CreateFixture(cxBoxWorld *pw)
 {
     if(cxFloatIsEqual(shape.m_radius, 0)){
         const cxSize2F &size = Size();
         cxFloat max = CX_MAX(size.w, size.h);
-        shape.m_radius = cxWorld::ToWorld(max/2.0);
+        shape.m_radius = cxBoxWorld::ToWorld(max/2.0);
     }
     fixDef.shape = &shape;
     fixture = body->CreateFixture(&fixDef);
@@ -351,22 +351,22 @@ void cxBody::OnUpdate(cxFloat dt)
 {
     cxView::OnUpdate(dt);
     const b2Vec2 &pos = body->GetPosition();
-    cxView::SetPosition(cxWorld::FromWorld(pos));
+    cxView::SetPosition(cxBoxWorld::FromWorld(pos));
     cxView::SetAngle(body->GetAngle());
 }
 
 cxView *cxBody::SetPosition(const cxPoint2F &v)
 {
     if(body == nullptr){
-        bodyDef.position = cxWorld::ToWorld(v);
+        bodyDef.position = cxBoxWorld::ToWorld(v);
         return this;
     }
     const b2Vec2 &pos = body->GetPosition();
-    cxPoint2F np = cxWorld::FromWorld(pos);
+    cxPoint2F np = cxBoxWorld::FromWorld(pos);
     if(np == v){
         return this;
     }
-    body->SetTransform(cxWorld::ToWorld(v), body->GetAngle());
+    body->SetTransform(cxBoxWorld::ToWorld(v), body->GetAngle());
     return this;
 }
 
@@ -389,12 +389,17 @@ cxBool cxBody::InitBody(b2BodyDef *def)
     return true;
 }
 
+void cxBody::SetWorld(cxBoxWorld *pw)
+{
+    world = pw;
+}
+
 b2Body *cxBody::GetBody()
 {
     return body;
 }
 
-cxBool cxBody::CreateBody(cxWorld *pw)
+cxBool cxBody::CreateBody(cxBoxWorld *pw)
 {
     body = pw->createBody(&bodyDef);
     return body != nullptr;
@@ -414,13 +419,13 @@ void cxBody::DestroyFixture()
     fixture = nullptr;
 }
 
-cxBool cxBody::CreateFixture(cxWorld *pw)
+cxBool cxBody::CreateFixture(cxBoxWorld *pw)
 {
     fixture = body->CreateFixture(&fixDef);
     return fixture != nullptr;
 }
 
-CX_IMPLEMENT(cxWorld);
+CX_IMPLEMENT(cxBoxWorld);
 
 cxBodyInfo::cxBodyInfo()
 {
@@ -455,7 +460,7 @@ void cxContactInfo::SetRestitution(float32 restitution)
     Contact->SetRestitution(restitution);
 }
 
-cxWorld::cxWorld():world(b2Vec2(0, -10.0f))
+cxBoxWorld::cxBoxWorld():world(b2Vec2(0, -10.0f))
 {
     vIters = 1;
     pIters = 1;
@@ -463,64 +468,64 @@ cxWorld::cxWorld():world(b2Vec2(0, -10.0f))
     world.SetContactListener(this);
 }
 
-cxWorld::~cxWorld()
+cxBoxWorld::~cxBoxWorld()
 {
     
 }
 
-cxBool cxWorld::ShouldCollide(cxBodyInfo *a,cxBodyInfo *b)
+cxBool cxBoxWorld::ShouldCollide(cxBodyInfo *a,cxBodyInfo *b)
 {
     return true;
 }
 
-bool cxWorld::ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB)
+bool cxBoxWorld::ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB)
 {
     cxBodyInfo a(fixtureA);
     cxBodyInfo b(fixtureB);
     return ShouldCollide(&a, &b);;
 }
 
-void cxWorld::BeginContact(cxContactInfo *contact)
+void cxBoxWorld::BeginContact(cxContactInfo *contact)
 {
     
 }
 
-void cxWorld::BeginContact(b2Contact* contact)
+void cxBoxWorld::BeginContact(b2Contact* contact)
 {
     cxContactInfo info(contact);
     BeginContact(&info);
 }
 
-cxBool cxWorld::PreSolve(cxContactInfo *contact)
+cxBool cxBoxWorld::PreSolve(cxContactInfo *contact)
 {
     return true;
 }
 
-void cxWorld::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
+void cxBoxWorld::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
 {
     cxContactInfo info(contact);
     info.Manifold = oldManifold;
     PreSolve(&info);
 }
 
-void cxWorld::PostSolve(cxContactInfo *contact)
+void cxBoxWorld::PostSolve(cxContactInfo *contact)
 {
     
 }
 
-void cxWorld::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
+void cxBoxWorld::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
 {
     cxContactInfo info(contact);
     info.Impulse = impulse;
     PostSolve(&info);
 }
 
-void cxWorld::EndContact(cxContactInfo *contact)
+void cxBoxWorld::EndContact(cxContactInfo *contact)
 {
     
 }
 
-void cxWorld::EndContact(b2Contact* contact)
+void cxBoxWorld::EndContact(b2Contact* contact)
 {
     cxContactInfo info(contact);
     EndContact(&info);
@@ -535,13 +540,13 @@ float32 cxRayCastInfo::ReportFixture(b2Fixture* fixture, const b2Vec2& point,con
 {
     cxRayCastReport info;
     info.Info = cxBodyInfo(fixture);
-    info.Point = cxWorld::FromWorld(point);
+    info.Point = cxBoxWorld::FromWorld(point);
     info.Normal = cxPoint2F(normal.x, normal.y);
     info.Fraction = fraction;
     return (*Func)(&info);
 }
 
-void cxWorld::RayCast(const cxLineF &line,std::function<cxBool(cxRayCastReport *)> func)
+void cxBoxWorld::RayCast(const cxLineF &line,std::function<cxBool(cxRayCastReport *)> func)
 {
     cxRayCastInfo info;
     info.Func = &func;
@@ -554,7 +559,7 @@ bool cxBoxQueryInfo::ReportFixture(b2Fixture* fixture)
     return (*Func)(&info);
 }
 
-void cxWorld::QueryBox(const cxBox4F &box,std::function<cxBool(cxBodyInfo *)> func)
+void cxBoxWorld::QueryBox(const cxBox4F &box,std::function<cxBool(cxBodyInfo *)> func)
 {
     cxBoxQueryInfo info;
     info.Func = &func;
@@ -564,27 +569,28 @@ void cxWorld::QueryBox(const cxBox4F &box,std::function<cxBool(cxBodyInfo *)> fu
     world.QueryAABB(&info, ab);
 }
 
-b2Body *cxWorld::createBody(const b2BodyDef* def)
+b2Body *cxBoxWorld::createBody(const b2BodyDef* def)
 {
     return world.CreateBody(def);
 }
 
-void cxWorld::destroyBody(cxBody *body)
+void cxBoxWorld::destroyBody(cxBody *body)
 {
     body->DestroyFixture();
     world.DestroyBody(body->body);
     body->body = nullptr;
 }
 
-void cxWorld::OnRemove(cxView *pview)
+void cxBoxWorld::OnRemove(cxView *pview)
 {
     cxView::OnRemove(pview);
     destroyBody(pview->To<cxBody>());
 }
 
-void cxWorld::OnAppend(cxView *nview)
+void cxBoxWorld::OnAppend(cxView *nview)
 {
     cxBody *body = nview->To<cxBody>();
+    body->SetWorld(this);
     cxView::OnAppend(body);
     if(!body->InitBody(&body->bodyDef)){
         CX_ASSERT(false, "init body error");
@@ -605,13 +611,13 @@ void cxWorld::OnAppend(cxView *nview)
     body->body->SetUserData(body);
 }
 
-void cxWorld::OnUpdate(cxFloat dt)
+void cxBoxWorld::OnUpdate(cxFloat dt)
 {
     cxView::OnUpdate(dt);
     world.Step(dt, vIters, pIters);
 }
 
-void cxWorld::SetGravity(const cxPoint2F &v)
+void cxBoxWorld::SetGravity(const cxPoint2F &v)
 {
     world.SetGravity(b2Vec2(v.x, v.y));
 }

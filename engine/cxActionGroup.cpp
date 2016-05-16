@@ -67,8 +67,6 @@ void cxActionGroup::Load(cxHash *values,cchars file)
                 av.to = value->ToInt();//结束帧
             }else if(ktype->IsCaseEqu("Key")){
                 av.key = value->ToInt();//关键帧
-            }else if(ktype->IsCaseEqu("Group")){
-                av.group = value->ToInt();//如果组>0表示使用固定组中的帧播放动画
             }
         }
         if(av.from < 0 || av.to < 0){

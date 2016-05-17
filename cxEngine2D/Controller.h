@@ -22,6 +22,31 @@ CX_CPP_BEGIN
 
 #define AT_BOTTOM(_src_,_dst_)  (_dst_.x == _src_.x && _dst_.y == _src_.y-1)
 
+
+class Controller;
+class CardItem : public cxSprite
+{
+public:
+    CX_DECLARE(CardItem);
+protected:
+    explicit CardItem();
+    virtual ~CardItem();
+private:
+    Controller *controller;
+    cxUInt type;
+    cxPoint2I idx;
+public:
+    //丢弃
+    void Drop();
+    //当前所在的位置
+    cxPoint2I Index() const;
+    void SetIdx(const cxPoint2I &i);
+    //两个item是否相等，相等意味着可合成
+    virtual cxBool IsEqu(const CardItem *item);
+public:
+    static CardItem *Create(Controller *c,const cxPoint2I &idx);
+};
+
 class Controller : public cxView
 {
 public:
@@ -42,20 +67,25 @@ private:
 protected:
     cxBool OnDispatch(const cxengine::cxTouchable *e);
 public:
+    //计算idx位置处左右上下相等的元素数量，不包括idx
+    cxBox4I Compute(const cxPoint2I &idx);
+    //丢弃idx位置的view
+    CardItem *DropView(const cxPoint2I &idx);
     cxMoveTo *SwapView(const cxPoint2I &src,const cxPoint2I &dst);
     void Reset();
     //是否可以从src移动到dst
     cxBool IsMoveTo(const cxPoint2I &src,const cxPoint2I &dst);
     cxBool IsValidIdx(const cxPoint2I &idx);
-    cxView *ToView(const cxPoint2I &idx);
+    CardItem *ToView(const cxPoint2I &idx);
     cxBool HasView(const cxPoint2I &idx);
-    void SetView(const cxPoint2I &idx,cxView *pview);
+    void SetView(const cxPoint2I &idx,CardItem *pview);
     cxPoint2F ToPos(const cxPoint2I &idx);
     cxPoint2I ToIdx(const cxPoint2F &pos);
     cxPoint2I ToIdx(cxInt key);
     cxInt ToKey(const cxPoint2I &idx);
     cxInt ToKey(const cxPoint2F &pos);
 public:
+    const cxSize2F ItemSize() const;
     void Init();
     static Controller *Create(cxInt c,cxInt r);
 public:

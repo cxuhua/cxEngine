@@ -35,6 +35,7 @@
 #include <engine/cxPath.h>
 #include <engine/cxTriangles.h>
 #include <engine/cxMusic.h>
+#include <engine/cxMultiple.h>
 #include "Game.h"
 #include <core/cxKDTree.h>
 #include "Sea.h"

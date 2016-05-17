@@ -1,7 +1,7 @@
 //
 //  cxSequence.h
 //  cxEngineCore
-//
+//  串行
 //  Created by xuhua on 7/5/15.
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
@@ -30,8 +30,8 @@ private:
 public:
     const cxInt Size() const;
     const cxInt Index() const;
-    cxSequence *Append(cxAction *pav);
-    cxEvent<cxSequence> onAction;
+    cxSequence *Append(cxAction *pav,cxView *pview);
+    cxEvent<cxSequence,cxAction *> onAction;
 };
 
 CX_CPP_END

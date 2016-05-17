@@ -69,6 +69,19 @@ struct cxBox4F
     cxBox4F operator/(const cxPoint2F &v);
 };
 
+struct cxBox4I
+{
+    cxInt l;
+    cxInt r;
+    cxInt t;
+    cxInt b;
+    cxBox4I();
+    cxBox4I(const cxBox4I &v);
+    cxBox4I(const cxJson *json);
+    cxBox4I(cxInt a);
+    cxBox4I(cxInt al,cxInt ar,cxInt at,cxInt ab);
+};
+
 CX_CPP_END
 
 #endif

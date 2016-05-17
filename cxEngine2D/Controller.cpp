@@ -6,11 +6,63 @@
 //  Copyright © 2016 xuhua. All rights reserved.
 //
 
+#include <core/cxUtil.h>
 #include <engine/cxMove.h>
 #include <engine/cxEngine.h>
 #include "Controller.h"
 
 CX_CPP_BEGIN
+
+CX_IMPLEMENT(CardItem)
+
+CardItem::CardItem()
+{
+    controller = nullptr;
+    type = cxUtil::Rand(0, 6);
+}
+
+CardItem::~CardItem()
+{
+    
+}
+
+cxBool CardItem::IsEqu(const CardItem *item)
+{
+    return type == item->type;
+}
+
+void CardItem::SetIdx(const cxPoint2I &i)
+{
+    idx = i;
+}
+
+cxPoint2I CardItem::Index() const
+{
+    return idx;
+}
+
+void CardItem::Drop()
+{
+    controller->DropView(idx);
+    Remove();
+}
+
+CardItem *CardItem::Create(Controller *c,const cxPoint2I &idx)
+{
+    CardItem *ret = CardItem::Create();
+    ret->SetSize(c->ItemSize());
+    ret->SetTexture("t.png");
+    ret->SetPosition(c->ToPos(idx));
+    ret->SetIdx(idx);
+    c->SetView(idx, ret);
+    
+    cxLabel *label = cxLabel::FromUTF8("%d",ret->type);
+    label->SetBold(true);
+    label->SetFontSize(48);
+    ret->Append(label);
+    
+    return ret;
+}
 
 CX_IMPLEMENT(Controller);
 
@@ -31,10 +83,25 @@ void Controller::Reset()
     dstIdx = -1;
 }
 
+const cxSize2F Controller::ItemSize() const
+{
+    return itemSize;
+}
+
+CardItem *Controller::DropView(const cxPoint2I &idx)
+{
+    CardItem *view = ToView(idx);
+    if(view == nullptr){
+        return nullptr;
+    }
+    items->Del(ToKey(idx));
+    return view;
+}
+
 cxMoveTo *Controller::SwapView(const cxPoint2I &src,const cxPoint2I &dst)
 {
-    cxView *srcView = ToView(src);
-    cxView *dstView = ToView(dst);
+    CardItem *srcView = ToView(src);
+    CardItem *dstView = ToView(dst);
     CX_ASSERT(srcView != nullptr && dstView != nullptr, "view miss");
     cxMoveTo *m1 = cxMoveTo::Create(ToPos(dst), 0.1f);
     m1->AttachTo(srcView);
@@ -74,7 +141,7 @@ cxBool Controller::OnSwap(const cxPoint2I &src,const cxPoint2I &dst)
             SetEnableTouch(true);
         };
     };
-    //重置原和目标数据
+    //重置
     Reset();
     return true;
 }
@@ -126,13 +193,71 @@ cxBool Controller::OnDispatch(const cxengine::cxTouchable *e)
     return false;
 }
 
+cxBox4I Controller::Compute(const cxPoint2I &idx)
+{
+    CardItem *item = ToView(idx);
+    if(item == nullptr){
+        return cxBox4I(0);
+    }
+    cxInt l = 0;
+    for(cxInt i = idx.x-1;i >= 0;i--){
+        cxPoint2I v = cxPoint2I(i, idx.y);
+        CardItem *pv = ToView(v);
+        if(pv == nullptr){
+            break;
+        }
+        if(!item->IsEqu(pv)){
+            break;
+        }
+        l++;
+    }
+    cxInt r = 0;
+    for(cxInt i = idx.x+1;i < col;i++){
+        cxPoint2I v = cxPoint2I(i, idx.y);
+        CardItem *pv = ToView(v);
+        if(pv == nullptr){
+            break;
+        }
+        if(!item->IsEqu(pv)){
+            break;
+        }
+        r++;
+    }
+    cxInt t = 0;
+    for(cxInt i = idx.y+1;i < row;i++){
+        cxPoint2I v = cxPoint2I(idx.x, i);
+        CardItem *pv = ToView(v);
+        if(pv == nullptr){
+            break;
+        }
+        if(!item->IsEqu(pv)){
+            break;
+        }
+        t++;
+    }
+    cxInt b = 0;
+    for(cxInt i = idx.y-1;i >= 0;i--){
+        cxPoint2I v = cxPoint2I(idx.x, i);
+        CardItem *pv = ToView(v);
+        if(pv == nullptr){
+            break;
+        }
+        if(!item->IsEqu(pv)){
+            break;
+        }
+        b++;
+    }
+    return cxBox4I(l, r, t, b);
+}
+
 cxBool Controller::HasView(const cxPoint2I &idx)
 {
     return ToView(idx) != nullptr;
 }
 
-void Controller::SetView(const cxPoint2I &idx,cxView *pview)
+void Controller::SetView(const cxPoint2I &idx,CardItem *pview)
 {
+    pview->SetIdx(idx);
     items->Set(ToKey(idx), pview);
 }
 
@@ -141,9 +266,9 @@ cxBool Controller::IsValidIdx(const cxPoint2I &idx)
     return idx.x >= 0 && idx.x < col && idx.y >= 0 && idx.y < row;
 }
 
-cxView *Controller::ToView(const cxPoint2I &idx)
+CardItem *Controller::ToView(const cxPoint2I &idx)
 {
-    return items->Get(ToKey(idx))->To<cxView>();
+    return items->Get(ToKey(idx))->To<CardItem>();
 }
 
 cxPoint2F Controller::ToPos(const cxPoint2I &idx)
@@ -179,8 +304,6 @@ cxInt Controller::ToKey(const cxPoint2F &pos)
     return ToKey(ToIdx(pos));
 }
 
-#include <engine/cxLabel.h>
-
 void Controller::Init()
 {
     cxSize2F siz = cxEngine::Instance()->WinSize();
@@ -191,21 +314,11 @@ void Controller::Init()
     nsiz.h = itemSize.w * row;
     SetSize(nsiz);
     //for test
-    for(cxInt i = 0; i < col; i++){
-        for(cxInt j = 0;j < row;j++){
-            cxPoint2I idx = cxPoint2I(i, j);
-            cxSprite *sp = cxSprite::Create();
-            sp->SetSize(itemSize);
-            sp->SetTexture("t.png");
-            sp->SetPosition(ToPos(idx));
-            Append(sp);
-            SetView(idx, sp);
-            
-            cxLabel *label = cxLabel::FromUTF8("%d %d",i,j);
-            label->SetBold(true);
-            label->SetFontSize(48);
-            sp->Append(label);
-        }
+    for(cxInt i = 0; i < col; i++)
+    for(cxInt j = 0;j < row;j++){
+        cxPoint2I idx = cxPoint2I(i, j);
+        CardItem *sp = CardItem::Create(this, idx);
+        Append(sp);
     }
 }
 

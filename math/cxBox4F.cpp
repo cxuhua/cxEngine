@@ -273,5 +273,46 @@ cxBool cxBox4F::Contain(const cxPoint3F &p)
     return (p.x >= l && p.x <= r && p.y >= b && p.y <= t);
 }
 
+cxBox4I::cxBox4I()
+{
+    l = 0;
+    r = 0;
+    t = 0;
+    b = 0;
+}
+
+cxBox4I::cxBox4I(const cxBox4I &v)
+{
+    l = v.l;
+    r = v.r;
+    t = v.t;
+    b = v.b;
+}
+
+cxBox4I::cxBox4I(const cxJson *json)
+{
+    CX_ASSERT(json != nullptr && json->IsObject(), "json format error");
+    l = json->Get("l", l);
+    r = json->Get("r", r);
+    t = json->Get("t", t);
+    b = json->Get("b", b);
+}
+
+cxBox4I::cxBox4I(cxInt a)
+{
+    l = a;
+    r = a;
+    t = a;
+    b = a;
+}
+
+cxBox4I::cxBox4I(cxInt al,cxInt ar,cxInt at,cxInt ab)
+{
+    l = al;
+    r = ar;
+    t = at;
+    b = ab;
+}
+
 CX_CPP_END
 

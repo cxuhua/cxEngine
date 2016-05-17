@@ -31,9 +31,6 @@ void cxSequence::OnInit()
         Exit(true);
         return;
     }
-    for(cxInt i=0;i<actions->Size();i++){
-        actions->At(i)->To<cxAction>()->SetView(View());
-    }
 }
 
 void cxSequence::OnStep(cxFloat dt)
@@ -41,7 +38,7 @@ void cxSequence::OnStep(cxFloat dt)
     CX_ASSERT(index < actions->Size(), "index error");
     cxAction *pav = actions->At(index)->To<cxAction>();
     if(pav->Update(dt)){
-        onAction.Fire(this);
+        onAction.Fire(this,pav);
         index ++;
     }
     if(index >= actions->Size()){
@@ -59,9 +56,10 @@ const cxInt cxSequence::Index() const
     return index;
 }
 
-cxSequence *cxSequence::Append(cxAction *pav)
+cxSequence *cxSequence::Append(cxAction *pav,cxView *pview)
 {
-    CX_ASSERT(pav != nullptr, "args error");
+    CX_ASSERT(pav != nullptr && pview != nullptr, "args error");
+    pav->SetView(pview);
     actions->Append(pav);
     return this;
 }

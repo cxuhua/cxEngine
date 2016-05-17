@@ -83,6 +83,11 @@ void cxAction::Reset()
     onReset.Fire(this);
 }
 
+cxBool cxAction::IsExit() const
+{
+    return isexit;
+}
+
 cxFloat cxAction::Delay() const
 {
     return delay;

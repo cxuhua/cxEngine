@@ -52,6 +52,8 @@ private:
     cxFloat deltaTimeFix(cxFloat dt);
     cxInt repeat;
 public:
+    cxBool IsExit() const;
+    
     cxFloat Delay() const;
     void SetDelay(cxFloat v);
     

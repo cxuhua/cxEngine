@@ -18,7 +18,7 @@ cxLoading::cxLoading()
     SetResizeFlags(ResizeFill);
     items = cxSequence::Create();
     Append(items);
-    items->onAction += [this](cxSequence *pav){
+    items->onAction += [this](cxSequence *pav,cxAction *sub){
         cxInt i = pav->Index();
         cxInt a = pav->Size();
         onProgress.Fire(this, i, a);
@@ -44,7 +44,7 @@ void cxLoading::Stop()
 
 void cxLoading::Async(cxAsync *async)
 {
-    items->Append(async);
+    items->Append(async,this);
 }
 
 void cxLoading::Run(std::function<void(cxLoading *pview)> func)
@@ -56,7 +56,7 @@ void cxLoading::Run(std::function<void(cxLoading *pview)> func)
         cxAutoPool::Pop();
         pav->SetFinished(true);
     };
-    items->Append(async);
+    items->Append(async,this);
 }
 
 CX_CPP_END

@@ -138,6 +138,7 @@ cxBool Controller::IsSwap(const cxPoint2I &idx)
     m->AttachTo(this);
     m->onExit +=[this](cxAction *pav){
         SetEnableTouch(true);
+        Scan();
     };
     return true;
 }
@@ -202,6 +203,11 @@ void Controller::MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I 
     }
 }
 
+CardItem *Controller::Find(const cxPoint2I &idx)
+{
+    return nullptr;
+}
+
 //从上到下扫描所有格子
 cxMultiple *Controller::Scan()
 {
@@ -209,6 +215,7 @@ cxMultiple *Controller::Scan()
     m->onInit +=[this](cxAction *pav){
         SetEnableTouch(false);
     };
+    //扫描可消除的行
     for(cxInt i = 0; i < col; i++)
     for(cxInt j = row - 1;j >= 0; j--){
         cxPoint2I idx = cxPoint2I(i, j);
@@ -224,6 +231,17 @@ cxMultiple *Controller::Scan()
         cxPoint2IArray ps = ToPoints(box, idx);
         CX_ASSERT(ps.Size() > 0, "points error");
         MergeTo(m, ps, idx);
+    }
+    //扫描空位置并补充新卡
+    for(cxInt i = 0; i < col; i++)
+    for(cxInt j = row - 1;j >= 0; j--){
+        cxPoint2I idx = cxPoint2I(i, j);
+        CardItem *view = ToView(idx);
+        if(view != nullptr) {
+            continue;
+        }
+        //idx为空位置
+        CX_LOGGER("%d %d empty pos",idx.x,idx.y);
     }
     m->AttachTo(this);
     m->onExit +=[this](cxAction *pav){

@@ -81,6 +81,8 @@ public:
     BoxType ParseBoxType(const cxBox4I &box);
     //转换为坐标点集合
     cxPoint2IArray ToPoints(const cxBox4I &box,const cxPoint2I &idx);
+    //查找底部最近的课上滑卡片,如果没有奖新创建
+    CardItem *Find(const cxPoint2I &idx);
     //扫描所有格子,返回并发动画
     cxMultiple *Scan();
     //计算idx位置处左右上下相等的元素数量，不包括idx

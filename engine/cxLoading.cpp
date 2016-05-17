@@ -44,7 +44,8 @@ void cxLoading::Stop()
 
 void cxLoading::Async(cxAsync *async)
 {
-    items->Append(async,this);
+    async->AttachTo(this);
+    items->Append(async);
 }
 
 void cxLoading::Run(std::function<void(cxLoading *pview)> func)
@@ -56,7 +57,8 @@ void cxLoading::Run(std::function<void(cxLoading *pview)> func)
         cxAutoPool::Pop();
         pav->SetFinished(true);
     };
-    items->Append(async,this);
+    async->AttachTo(this);
+    items->Append(async);
 }
 
 CX_CPP_END

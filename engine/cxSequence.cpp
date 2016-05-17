@@ -27,22 +27,11 @@ cxSequence::~cxSequence()
 
 void cxSequence::OnInit()
 {
+    cxAction::OnInit();
     if(actions->Size() == 0){
-        Exit(true);
-        return;
-    }
-}
-
-void cxSequence::OnStep(cxFloat dt)
-{
-    CX_ASSERT(index < actions->Size(), "index error");
-    cxAction *pav = actions->At(index)->To<cxAction>();
-    if(pav->Update(dt)){
-        onAction.Fire(this,pav);
-        index ++;
-    }
-    if(index >= actions->Size()){
-        Exit(true);
+        cxAction::Exit(true);
+    }else{
+        actions->At(index)->To<cxAction>()->Resume();
     }
 }
 
@@ -56,10 +45,40 @@ const cxInt cxSequence::Index() const
     return index;
 }
 
-cxSequence *cxSequence::Append(cxAction *pav,cxView *pview)
+void cxSequence::Stop()
 {
-    CX_ASSERT(pav != nullptr && pview != nullptr, "args error");
-    pav->SetView(pview);
+    for(cxInt i=0;i<actions->Size();i++){
+        actions->At(i)->To<cxAction>()->Stop();
+    }
+    cxAction::Stop();
+}
+
+void cxSequence::Exit(cxBool v)
+{
+    for(cxInt i=0;i<actions->Size();i++){
+        actions->At(i)->To<cxAction>()->Exit(v);
+    }
+    cxAction::Exit(v);
+}
+
+void cxSequence::actionExit(cxAction *pav)
+{
+    index ++;
+    onAction.Fire(this,pav);
+    if(actions->Size() == index){
+        cxAction::Exit(true);
+    }else{
+        actions->At(index)->To<cxAction>()->Resume();
+    }
+}
+
+cxSequence *cxSequence::Append(cxAction *pav)
+{
+    CX_ASSERT(pav != nullptr, "args error");
+    pav->onExit += [this](cxAction *pav){
+        actionExit(pav);
+    };
+    pav->Pause();
     actions->Append(pav);
     return this;
 }

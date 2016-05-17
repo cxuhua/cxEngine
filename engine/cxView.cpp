@@ -522,6 +522,9 @@ cxView *cxView::Append(cxView *view)
 cxView *cxView::Append(cxAction *action)
 {
     CX_ASSERT(action != nullptr, "args error");
+    if(action->View() == this){
+        return this;
+    }
     CX_ASSERT(action->View() == nullptr, "action repeat append");
     ExitAction(action->ID());
     action->SetView(this);

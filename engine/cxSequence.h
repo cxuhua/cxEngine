@@ -22,15 +22,17 @@ protected:
     explicit cxSequence();
     virtual ~cxSequence();
 protected:
-    void OnStep(cxFloat dt);
     void OnInit();
 private:
     cxInt index;
     cxArray *actions;
+    void actionExit(cxAction *pav);
 public:
+    void Exit(cxBool v);
+    void Stop();
     const cxInt Size() const;
     const cxInt Index() const;
-    cxSequence *Append(cxAction *pav,cxView *pview);
+    cxSequence *Append(cxAction *pav);
     cxEvent<cxSequence,cxAction *> onAction;
 };
 

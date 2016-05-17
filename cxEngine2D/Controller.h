@@ -9,6 +9,7 @@
 #ifndef cxEngineTest_Controller_h
 #define cxEngineTest_Controller_h
 
+#include <engine/cxMultiple.h>
 #include <core/cxHash.h>
 #include <engine/cxAtlas.h>
 
@@ -21,6 +22,13 @@ CX_CPP_BEGIN
 #define AT_TOP(_src_,_dst_)     (_dst_.x == _src_.x && _dst_.y == _src_.y+1)
 
 #define AT_BOTTOM(_src_,_dst_)  (_dst_.x == _src_.x && _dst_.y == _src_.y-1)
+
+enum BoxType{
+    BoxTypeNone = 0,
+    BoxType3,
+    BoxType4,
+    BoxType5,
+};
 
 
 class Controller;
@@ -67,11 +75,19 @@ private:
 protected:
     cxBool OnDispatch(const cxengine::cxTouchable *e);
 public:
+    //把ps中的view合并到idx位置
+    void MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I &idx);
+    //获得类型 3x3 3x4 4x3 4x4 5x5
+    BoxType ParseBoxType(const cxBox4I &box);
+    //转换为坐标点集合
+    cxPoint2IArray ToPoints(const cxBox4I &box,const cxPoint2I &idx);
+    //扫描所有格子,返回并发动画
+    cxMultiple *Scan();
     //计算idx位置处左右上下相等的元素数量，不包括idx
     cxBox4I Compute(const cxPoint2I &idx);
     //丢弃idx位置的view
     CardItem *DropView(const cxPoint2I &idx);
-    cxMoveTo *SwapView(const cxPoint2I &src,const cxPoint2I &dst);
+    cxMultiple *SwapView(const cxPoint2I &src,const cxPoint2I &dst);
     void Reset();
     //是否可以从src移动到dst
     cxBool IsMoveTo(const cxPoint2I &src,const cxPoint2I &dst);

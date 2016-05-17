@@ -94,12 +94,12 @@ public:
     cxAction *Forever();
     cxFloat Progress() const;
     //v = true,not invoke onStop
-    void Exit(cxBool v);
+    virtual void Exit(cxBool v);
     void Reset();
     void Pause();
     void Resume();
     //invoke stop
-    void Stop();
+    virtual void Stop();
     cxAction *AttachTo(cxView *pview);
     virtual cxAction *Clone();
     virtual cxAction *Reverse();

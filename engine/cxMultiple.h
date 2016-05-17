@@ -22,15 +22,17 @@ protected:
     explicit cxMultiple();
     virtual ~cxMultiple();
 protected:
-    void OnStep(cxFloat dt);
     void OnInit();
 private:
     cxInt index;
     cxArray *actions;
+    void actionExit(cxAction *pav);
 public:
+    void Exit(cxBool v);
+    void Stop();
     const cxInt Size() const;
     const cxInt Index() const;
-    cxMultiple *Append(cxAction *pav,cxView *pview);
+    cxMultiple *Append(cxAction *pav);
     cxEvent<cxMultiple,cxAction *> onAction;
 };
 

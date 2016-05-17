@@ -167,6 +167,27 @@ void Game::OnMain()
 //        
 //        Window()->Append(atlas);
         
+//        cxSprite *sp = cxSprite::Create();
+//        sp->SetTexture("t.png");
+//        sp->SetSize(200);
+//        Window()->Append(sp);
+//        
+//        cxSequence *ms = cxSequence::Create();
+//        cxMultiple *ms = cxMultiple::Create();
+//        
+//        cxMoveTo *m1 = cxMoveTo::Create(cxPoint2F(0, 300), 3.0);
+//        m1->AttachTo(sp);
+//        cxRotateTo *r1 = cxRotateTo::Create(3.0, 5.0);
+//        r1->AttachTo(sp);
+//        
+//        ms->Append(m1);
+//        ms->Append(r1);
+//        
+//        ms->onAction+=[](cxMultiple *p,cxAction *a){
+//            CX_LOGGER("%p action exit",a);
+//        };
+//        Window()->Append(ms);
+        
         Controller *c = Controller::Create(5, 3);
         c->SetResizeFlags(cxView::ResizeBottom);
         Window()->Append(c);

@@ -28,30 +28,26 @@ cxMultiple::~cxMultiple()
 
 void cxMultiple::OnInit()
 {
+    cxAction::OnInit();
     if(actions->Size() == 0){
         Exit(true);
-        return;
     }
 }
 
-void cxMultiple::OnStep(cxFloat dt)
+void cxMultiple::Stop()
 {
-    index = 0;
-    for(cxInt i=0; i < actions->Size();i++){
-        cxAction *pav = actions->At(i)->To<cxAction>();
-        if(pav->IsExit()){
-            index++;
-            continue;
-        }
-        if(pav->Update(dt)){
-            onAction.Fire(this,pav);
-            index++;
-            continue;
-        }
+    for(cxInt i=0;i<actions->Size();i++){
+        actions->At(i)->To<cxAction>()->Stop();
     }
-    if(actions->Size() == index){
-        Exit(true);
+    cxAction::Stop();
+}
+
+void cxMultiple::Exit(cxBool v)
+{
+    for(cxInt i=0;i<actions->Size();i++){
+        actions->At(i)->To<cxAction>()->Exit(v);
     }
+    cxAction::Exit(v);
 }
 
 const cxInt cxMultiple::Index() const
@@ -64,10 +60,21 @@ const cxInt cxMultiple::Size() const
     return actions->Size();
 }
 
-cxMultiple *cxMultiple::Append(cxAction *pav,cxView *pview)
+void cxMultiple::actionExit(cxAction *pav)
 {
-    CX_ASSERT(pav != nullptr && pview != nullptr, "args error");
-    pav->SetView(pview);
+    index ++;
+    onAction.Fire(this,pav);
+    if(actions->Size() == index){
+        cxAction::Exit(true);
+    }
+}
+
+cxMultiple *cxMultiple::Append(cxAction *pav)
+{
+    CX_ASSERT(pav != nullptr, "args error");
+    pav->onExit +=[this](cxAction *pav){
+        actionExit(pav);
+    };
     actions->Append(pav);
     return this;
 }

@@ -324,12 +324,12 @@ const glUint cxShader::GetUniform(cchars name) const
     return glGetUniformLocation(program, name);
 }
 
-glUint cxShader::CompileVSHShader(const cxStr *source)
+glUint cxShader::CompileVSHShader(cchars source)
 {
     CX_ASSERT(cxStr::IsOK(source), "source error");
     GLint status = 0;
     CX_ASSERT(source != NULL,"shader sources NULL");
-    const GLchar *sources[] = {source->Data()};
+    const GLchar *sources[] = {source};
     glUint shader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(shader, sizeof(sources)/sizeof(*sources), sources, NULL);
     glCompileShader(shader);
@@ -349,12 +349,12 @@ glUint cxShader::CompileVSHShader(const cxStr *source)
     return shader;
 }
 
-glUint cxShader::CompileFSHShader(const cxStr *source)
+glUint cxShader::CompileFSHShader(cchars source)
 {
     CX_ASSERT(cxStr::IsOK(source), "source error");
     GLint status = 0;
     CX_ASSERT(source != NULL,"shader sources NULL");
-    const GLchar *sources[] = {source->Data()};
+    const GLchar *sources[] = {source};
     glUint shader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(shader, sizeof(sources)/sizeof(*sources), sources, NULL);
     glCompileShader(shader);
@@ -374,7 +374,7 @@ glUint cxShader::CompileFSHShader(const cxStr *source)
     return shader;
 }
 
-cxShader *cxShader::Init(const cxStr *avs,const cxStr *afs)
+cxShader *cxShader::Init(cchars avs,cchars afs)
 {
     GLint status;
     vsh = CompileVSHShader(avs);
@@ -402,11 +402,6 @@ cxShader *cxShader::Init(const cxStr *avs,const cxStr *afs)
         return this;
     }
     return this;
-}
-
-cxShader *cxShader::Init(cchars vsf,cchars fsf)
-{
-    return Init(cxUtil::Assets(vsf), cxUtil::Assets(fsf));
 }
 
 TDrawBuffer::TDrawBuffer()

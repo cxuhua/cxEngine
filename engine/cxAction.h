@@ -82,7 +82,6 @@ public:
     cxView *View();
 public:
     cxEvent<cxAction> onInit;
-    cxEvent<cxAction> onStart;
     cxEvent<cxAction> onStop;
     cxEvent<cxAction> onExit;
     cxEvent<cxAction> onReset;
@@ -95,9 +94,9 @@ public:
     cxFloat Progress() const;
     //v = true,not invoke onStop
     virtual void Exit(cxBool v);
-    void Reset();
-    void Pause();
-    void Resume();
+    virtual void Reset();
+    virtual void Pause();
+    virtual void Resume();
     //invoke stop
     virtual void Stop();
     cxAction *AttachTo(cxView *pview);

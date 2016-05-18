@@ -191,11 +191,10 @@ void Controller::MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I 
     CX_ASSERT(view != nullptr, "view miss");
     for(cxInt i=0; i<ps.Size();i++){
         cxPoint2I sidx = ps.At(i);
-        CardItem *sv = ToView(sidx);
+        CardItem *sv = DropView(sidx);
         if(sv == nullptr){
             continue;
         }
-        DropView(sidx);
         cxMoveTo *to = cxMoveTo::Create(ToPos(idx), 3.0f);
         to->onExit += cxAction::Remove;
         to->AttachTo(sv);
@@ -243,10 +242,10 @@ cxMultiple *Controller::Scan()
         //idx为空位置
         CX_LOGGER("%d %d empty pos",idx.x,idx.y);
     }
-    m->AttachTo(this);
     m->onExit +=[this](cxAction *pav){
         SetEnableTouch(true);
     };
+    m->AttachTo(this);
     return m;
 }
 
@@ -412,8 +411,8 @@ CardItem *Controller::ToView(const cxPoint2I &idx)
 cxPoint2F Controller::ToPos(const cxPoint2I &idx)
 {
     cxSize2F siz = Size();
-    cxFloat x = -siz.w/2.0f + itemSize.w/2.0f + idx.x * itemSize.w;
-    cxFloat y = -siz.h/2.0f + itemSize.h/2.0f + idx.y * itemSize.h;
+    cxFloat x = (itemSize.w-siz.w)/2.0f + idx.x * itemSize.w;
+    cxFloat y = (itemSize.h-siz.h)/2.0f + idx.y * itemSize.h;
     return cxPoint2F(x, y);
 }
 

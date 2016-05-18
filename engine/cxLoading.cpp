@@ -51,11 +51,11 @@ void cxLoading::Async(cxAsync *async)
 void cxLoading::Run(std::function<void(cxLoading *pview)> func)
 {
     cxAsync *async = cxAsync::Create();
-    async->onUpdate += [this,func](cxAsync *pav){
+    async->onStep += [this,func](cxAction *pav,cxFloat dt){
         cxAutoPool::Push();
         func(this);
         cxAutoPool::Pop();
-        pav->SetFinished(true);
+        pav->To<cxAsync>()->SetFinished(true);
     };
     async->AttachTo(this);
     items->Append(async);

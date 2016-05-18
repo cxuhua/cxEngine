@@ -80,7 +80,6 @@ void cxAction::Reset()
     isexit = false;
     ispause = false;
     OnReset();
-    onReset.Fire(this);
 }
 
 cxBool cxAction::IsExit() const
@@ -107,7 +106,7 @@ void cxAction::Exit(cxBool v)
 
 void cxAction::OnReset()
 {
-    
+    onReset.Fire(this);
 }
 
 void cxAction::OnInit()
@@ -117,17 +116,17 @@ void cxAction::OnInit()
 
 void cxAction::OnStep(cxFloat dt)
 {
-    
+    onStep.Fire(this, dt);
 }
 
 void cxAction::OnExit()
 {
-    
+    onExit.Fire(this);
 }
 
 void cxAction::OnStop()
 {
-    
+    onStop.Fire(this);
 }
 
 void cxAction::Stop()
@@ -198,7 +197,6 @@ cxBool cxAction::Update(cxFloat dt)
         elapsedvar = 0.0f;
         prev = Progress() * time;
         OnInit();
-        onStart.Fire(this);
         isinit = true;
     }
     if(time <= 0 || isexit){
@@ -207,25 +205,21 @@ cxBool cxAction::Update(cxFloat dt)
     if(!isexit) {
         elapsed += dt;
         deltaTimeFix(dt);
-        
         curr = Progress() * time;
         delta = curr - prev;
         prev = curr;
         elapsedvar += delta;
         OnStep(delta);
-        onStep.Fire(this, delta);
     }
     if(elapsed >= time){
         repeat --;
         isexit = true;
         OnStop();
-        onStop.Fire(this);
         if(repeat > 0)Reset();
     }
 exit:
     if(isexit || repeat <= 0){
         OnExit();
-        onExit.Fire(this);
     }
     return isexit;
 }

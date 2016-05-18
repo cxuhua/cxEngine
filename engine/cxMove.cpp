@@ -28,6 +28,7 @@ void cxMoveBy::OnStep(cxFloat dt)
     const cxPoint2F &cpos = View()->Position();
     cxPoint2F pos = delta * dt + cpos;
     View()->SetPosition(pos);
+    cxAction::OnStep(dt);
 }
 
 cxAction *cxMoveBy::Reverse()
@@ -62,6 +63,7 @@ cxMoveTo::~cxMoveTo()
 
 void cxMoveTo::OnInit()
 {
+    cxAction::OnInit();
     from = View()->Position();
     delta = (to - from) / Time();
 }
@@ -71,6 +73,7 @@ void cxMoveTo::OnStep(cxFloat dt)
     const cxPoint2F &cpos = View()->Position();
     cxPoint2F pos = delta * dt + cpos;
     View()->SetPosition(pos);
+    cxAction::OnStep(dt);
 }
 
 cxAction *cxMoveTo::Reverse()

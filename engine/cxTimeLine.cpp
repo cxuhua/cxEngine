@@ -56,6 +56,7 @@ CX_IMPLEMENT(cxTimeLine);
 
 void cxTimeLine::OnInit()
 {
+    cxAction::OnInit();
     prev = -1;
     idx = 0;
     if(from < 0){
@@ -227,6 +228,7 @@ void cxTimeLine::OnStep(cxFloat dt)
         prev = i;
         OnTime(At(idx));
     }
+    cxAction::OnStep(dt);
 }
 
 CX_CPP_END

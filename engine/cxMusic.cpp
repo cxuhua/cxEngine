@@ -28,16 +28,19 @@ void cxMusic::OnInit()
 {
     CX_ASSERT(source != nullptr, "source not set");
     source->Play();
+    cxAction::OnInit();
 }
 
 void cxMusic::OnExit()
 {
     source->Stop();
+    cxAction::OnExit();
 }
 
 void cxMusic::OnStep(cxFloat dt)
 {
     source->Update(dt);
+    cxAction::OnStep(dt);
 }
 
 cxMusic *cxMusic::Create(const cxStr *data,cxALBuffer::DataType type)

@@ -53,12 +53,23 @@
 #include <engine/cxRand.h>
 
 #include "Controller.h"
+#include "Map.h"
+#include "Shader.h"
 
 CX_CPP_BEGIN
 
 cxClient *client = nullptr;
 
 CX_IMPLEMENT(Game);
+
+cxSprite *CreateRangeView(const cxSize2F &size)
+{
+    cxSprite *rv = cxSprite::Create();
+    rv->SetTexture("t.png");
+    cxShader *shader = RangeShader::Create(1.f/size.w, cxPoint2F(1.0f, 1.0));
+    rv->SetShader(shader);
+    return rv;
+}
 
 void Game::OnUpdate(cxFloat dt)
 {
@@ -131,6 +142,7 @@ void Game::OnMain()
     });
     loader->Run([this](cxLoading *pview){
         LoadTexture("t.png");
+        LoadTexture("grid.png");
 //        LoadTexture("c1.lqt");
     });
 //    loader->Run([this](cxLoading *pview){
@@ -188,9 +200,13 @@ void Game::OnMain()
 //        };
 //        Window()->Append(ms);
         
-        Controller *c = Controller::Create(5, 3);
-        c->SetResizeFlags(cxView::ResizeBottom);
-        Window()->Append(c);
+        Map *map = Map::Create();
+//        cxSprite *map = CreateRangeView(cxSize2F(400, 280));
+        Window()->Append(map);
+        
+//        Controller *c = Controller::Create(5, 3);
+//        c->SetResizeFlags(cxView::ResizeBottom);
+//        Window()->Append(c);
     };
     
     Window()->Append(loader);

@@ -57,6 +57,7 @@ void cxFollow::OnStep(cxFloat dt)
     if(View()->IsDirtyMode(cxView::DirtyModePosition)){
         onMoving.Fire(this);
     }
+    cxAction::OnStep(dt);
 }
 
 cxView *cxFollow::GetTarget()

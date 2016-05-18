@@ -41,7 +41,7 @@ cxAsync *cxAsync::SetError(cxInt v)
 
 void cxAsync::OnStep(cxFloat dt)
 {
-    onUpdate.Fire(this);
+    cxAction::OnStep(dt);
     if(isfinished){
         Exit(true);
     }

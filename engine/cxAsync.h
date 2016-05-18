@@ -32,7 +32,6 @@ public:
     cxAsync *SetError(cxInt v);
 public:
     cxEvent<cxAsync> onTimeout;
-    cxEvent<cxAsync> onUpdate;
 };
 
 CX_CPP_END

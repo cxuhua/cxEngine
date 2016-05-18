@@ -25,6 +25,7 @@ cxJump::~cxJump()
 
 void cxJump::OnInit()
 {
+    cxAction::OnInit();
     from = View()->Position();
     prev = from;
 }
@@ -38,6 +39,7 @@ void cxJump::OnStep(cxFloat dt)
     cxPoint2F diff = npos - prev;
     prev = npos;
     View()->AddPosition(diff);
+    cxAction::OnStep(dt);
 }
 
 cxAction *cxJump::Reverse()

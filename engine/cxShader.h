@@ -51,8 +51,8 @@ protected:
     glUint ump;
     glUint umv;
 private:
-    glUint CompileVSHShader(const cxStr *source);
-    glUint CompileFSHShader(const cxStr *source);
+    glUint CompileVSHShader(cchars source);
+    glUint CompileFSHShader(cchars source);
 public:
     
     void BindAttrib(glUint idx,cchars name);
@@ -75,8 +75,6 @@ public:
     void Free();
     //use file init
     cxShader *Init(cchars vsf,cchars fsf);
-    //use mem content init
-    cxShader *Init(const cxStr *vs,const cxStr *fs);
     
     virtual void Using(cxView *pview) const;
 };

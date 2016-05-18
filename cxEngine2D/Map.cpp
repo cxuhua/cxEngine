@@ -35,6 +35,8 @@ Map::Map()
     mapSize.h = itemSize.h * mapGrid.y;
     SetSize(mapSize);
     
+    
+    cxFloat ar = 7.0f;
     for(cxInt x=0;x<mapGrid.x;x++)
     for(cxInt y=0;y<mapGrid.y;y++){
         cxSprite *sp = cxSprite::Create();
@@ -62,11 +64,11 @@ Map::Map()
         cxSprite *sp = cxSprite::Create();
         sp->SetTexture("grid.png");
         sp->SetSize(itemSize * w);
-        sp->SetPosition(ToPos(cxPoint2I(1, 13), w));
+        sp->SetPosition(ToPos(cxPoint2I(2, 13), w));
         sp->SetColor(cxColor4F::RED);
         Append(sp);
         
-        cxSprite *r = CreateRangeView(6.5f);
+        cxSprite *r = CreateRangeView(ar);
         sp->Append(r);
     }
     //right
@@ -75,11 +77,11 @@ Map::Map()
         cxSprite *sp = cxSprite::Create();
         sp->SetTexture("grid.png");
         sp->SetSize(itemSize * w);
-        sp->SetPosition(ToPos(cxPoint2I(17, 13), w));
+        sp->SetPosition(ToPos(cxPoint2I(16, 13), w));
         sp->SetColor(cxColor4F::RED);
         Append(sp);
         
-        cxSprite *r = CreateRangeView(6.5f);
+        cxSprite *r = CreateRangeView(ar);
         sp->Append(r);
     }
     //top
@@ -88,11 +90,11 @@ Map::Map()
         cxSprite *sp = cxSprite::Create();
         sp->SetTexture("grid.png");
         sp->SetSize(itemSize * w);
-        sp->SetPosition(ToPos(cxPoint2I(9, 21), w));
+        sp->SetPosition(ToPos(cxPoint2I(9, 20), w));
         sp->SetColor(cxColor4F::RED);
         Append(sp);
         
-        cxSprite *r = CreateRangeView(6.5f);
+        cxSprite *r = CreateRangeView(ar);
         sp->Append(r);
     }
     //bottom
@@ -101,11 +103,11 @@ Map::Map()
         cxSprite *sp = cxSprite::Create();
         sp->SetTexture("grid.png");
         sp->SetSize(itemSize * w);
-        sp->SetPosition(ToPos(cxPoint2I(9, 5), w));
+        sp->SetPosition(ToPos(cxPoint2I(9, 6), w));
         sp->SetColor(cxColor4F::RED);
         Append(sp);
         
-        cxSprite *r = CreateRangeView(6.5f);
+        cxSprite *r = CreateRangeView(ar);
         sp->Append(r);
     }
 }

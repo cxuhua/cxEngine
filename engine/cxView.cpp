@@ -804,9 +804,7 @@ void cxView::transform()
     if(IsDirtyMode(DirtyModeLayout)){
         OnLayout();
     }
-    
     OnDirty();
-    
     if(IsDirtyMode(DirtyModeLayout)){
         OnLayout();
     }
@@ -815,7 +813,7 @@ void cxView::transform()
     }
     if(IsDirtyMode(DirtyModeNormal)){
         normalMatrix.InitTrans(Position() + Offset());
-        normalMatrix.Rotation(axis.x,axis.y,axis.z, angle);
+        normalMatrix.Rotation(axis.x, axis.y, axis.z, angle);
         normalMatrix.Scaling(TransScale());
     }
     if(IsDirtyMode(DirtyModeAnchor)){

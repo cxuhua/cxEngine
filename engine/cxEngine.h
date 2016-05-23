@@ -40,8 +40,6 @@ class cxEngine : public cxObject,public cxTouchable
     friend cxCore;
 private:
     CX_DECLARE(cxEngine);
-public:
-    static constexpr cxFloat DTM = 1.0f/30.0f;
 protected:
     
     static cxEngine *instance;

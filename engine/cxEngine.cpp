@@ -308,7 +308,7 @@ void cxEngine::Run()
 {
     cxAutoPool::Start();
     if(layout){
-        CX_LOGGER("opengl screen size:W=%f H=%f",winsize.w,winsize.h);
+        CX_LOGGER("window size:W=%f H=%f",winsize.w,winsize.h);
         cxOpenGL::Instance()->Set3DProject(winsize);
         if(!init){
             cxOpenGL::Instance()->Init();
@@ -331,9 +331,6 @@ void cxEngine::Run()
         if(pause || cxFloatIsEqual(dt, 0)){
             break;
         }
-        if(dt > DTM){
-            dt = DTM;
-        }
         if(iter != nextIter){
             iter = nextIter;
         }
@@ -350,7 +347,6 @@ void cxEngine::Run()
         break;
     };
     cxAutoPool::Update();
-    //
     if(isreset){
         cxEngine::Startup(true);
     }

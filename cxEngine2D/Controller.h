@@ -51,6 +51,8 @@ public:
     void SetIdx(const cxPoint2I &i);
     //两个item是否相等，相等意味着可合成
     virtual cxBool IsEqu(const CardItem *item);
+    //移动到新位置
+    cxAction *MoveTo(const cxPoint2I &dst);
 public:
     static CardItem *Create(Controller *c,const cxPoint2I &idx);
 };
@@ -72,19 +74,23 @@ private:
     //临时保存的坐标，当没有可消除的块时交换显示
     cxPoint2I srcTmp;
     cxPoint2I dstTmp;
+    cxPoint2IArray points;
 protected:
     cxBool OnDispatch(const cxengine::cxTouchable *e);
 public:
     //把ps中的view合并到idx位置
-    void MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I &idx);
+    cxInt MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I &idx);
     //获得类型 3x3 3x4 4x3 4x4 5x5
     BoxType ParseBoxType(const cxBox4I &box);
     //转换为坐标点集合
     cxPoint2IArray ToPoints(const cxBox4I &box,const cxPoint2I &idx);
     //查找底部最近的课上滑卡片,如果没有奖新创建
-    CardItem *Find(const cxPoint2I &idx);
+    cxAction *Find(const cxPoint2I &idx);
+    
     //扫描所有格子,返回并发动画
-    cxMultiple *Scan();
+    cxMultiple *ScanSwap();
+    //动画完成
+    void MultipleExit(cxMultiple *m);
     //计算idx位置处左右上下相等的元素数量，不包括idx
     cxBox4I Compute(const cxPoint2I &idx);
     //丢弃idx位置的view
@@ -107,8 +113,8 @@ public:
     void Init();
     static Controller *Create(cxInt c,cxInt r);
 public:
-    //计算是否可交换,idx为选中的坐标
-    virtual cxBool IsSwap(const cxPoint2I &idx);
+    //计算ps坐标内的点是否可以消除
+    virtual cxBool HasSwap(const cxPoint2IArray &ps);
     //可交换
     virtual cxBool OnSwap(const cxPoint2I &src,const cxPoint2I &dst);
     //进入战斗

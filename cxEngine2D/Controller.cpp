@@ -8,6 +8,7 @@
 
 #include <core/cxUtil.h>
 #include <engine/cxMove.h>
+#include <engine/cxFade.h>
 #include <engine/cxEngine.h>
 #include "Controller.h"
 
@@ -18,7 +19,16 @@ CX_IMPLEMENT(CardItem)
 CardItem::CardItem()
 {
     controller = nullptr;
-    type = cxUtil::Rand(0, 6);
+    type = cxUtil::Rand(0, 3);
+    if(type == 0){
+        SetColor(cxColor4F::RED);
+    }else if(type == 1){
+        SetColor(cxColor4F::GREEN);
+    }else if(type == 2){
+        SetColor(cxColor4F::WHITE);
+    }else {
+        SetColor(cxColor4F::BLUE);
+    }
 }
 
 CardItem::~CardItem()
@@ -47,20 +57,27 @@ void CardItem::Drop()
     Remove();
 }
 
+cxAction *CardItem::MoveTo(const cxPoint2I &dst)
+{
+    controller->DropView(idx);
+    CX_ASSERT(!controller->HasView(dst), "have view");
+    controller->SetView(dst, this);
+    cxPoint2F npos = controller->ToPos(dst);
+    cxMoveTo *a = cxMoveTo::Create(npos, 0.3f);
+    a->SetTiming(cxTiming::CubicOut);
+    a->AttachTo(this);
+    return a;
+}
+
 CardItem *CardItem::Create(Controller *c,const cxPoint2I &idx)
 {
     CardItem *ret = CardItem::Create();
+    ret->controller = c;
     ret->SetSize(c->ItemSize());
-    ret->SetTexture("t.png");
+    ret->SetTexture("grid.png");
     ret->SetPosition(c->ToPos(idx));
     ret->SetIdx(idx);
     c->SetView(idx, ret);
-    
-    cxLabel *label = cxLabel::FromUTF8("%d",ret->type);
-    label->SetBold(true);
-    label->SetFontSize(48);
-    ret->Append(label);
-    
     return ret;
 }
 
@@ -117,29 +134,35 @@ cxMultiple *Controller::SwapView(const cxPoint2I &src,const cxPoint2I &dst)
 }
 
 //如果有消除对象启动消除动画，直到没有可消除的卡
-cxBool Controller::IsSwap(const cxPoint2I &idx)
+cxBool Controller::HasSwap(const cxPoint2IArray &ps)
 {
-    CardItem *view = ToView(idx);
-    if(view == nullptr) {
-        return false;
-    }
-    cxBox4I box = Compute(idx);
-    BoxType bt = ParseBoxType(box);
-    if(bt == BoxTypeNone){
-        return false;
-    }
     cxMultiple *m = cxMultiple::Create();
+    for(cxInt i=0;i<ps.Size();i++){
+        const cxPoint2I &idx = ps.At(i);
+        CardItem *view = ToView(idx);
+        if(view == nullptr) {
+            continue;
+        }
+        cxBox4I box = Compute(idx);
+        BoxType bt = ParseBoxType(box);
+        if(bt == BoxTypeNone){
+            continue;
+        }
+        cxPoint2IArray ps = ToPoints(box, idx);
+        CX_ASSERT(ps.Size() > 0, "points error");
+        MergeTo(m, ps, idx);
+    }
+    if(m->Size() == 0){
+        return false;
+    }
     m->onInit +=[this](cxAction *pav){
         SetEnableTouch(false);
     };
-    cxPoint2IArray ps = ToPoints(box, idx);
-    CX_ASSERT(ps.Size() > 0, "points error");
-    MergeTo(m, ps, idx);
-    m->AttachTo(this);
     m->onExit +=[this](cxAction *pav){
         SetEnableTouch(true);
-        Scan();
+        MultipleExit(pav->To<cxMultiple>());
     };
+    m->AttachTo(this);
     return true;
 }
 
@@ -185,8 +208,9 @@ BoxType Controller::ParseBoxType(const cxBox4I &box)
     return BoxTypeNone;
 }
 
-void Controller::MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I &idx)
+cxInt Controller::MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I &idx)
 {
+    cxInt ret = 0;
     CardItem *view = ToView(idx);
     CX_ASSERT(view != nullptr, "view miss");
     for(cxInt i=0; i<ps.Size();i++){
@@ -195,25 +219,44 @@ void Controller::MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I 
         if(sv == nullptr){
             continue;
         }
-        cxMoveTo *to = cxMoveTo::Create(ToPos(idx), 3.0f);
-        to->onExit += cxAction::Remove;
-        to->AttachTo(sv);
-        m->Append(to);
+        cxFadeTo *fade = cxFadeTo::Create(0.0f, 0.1f);
+        fade->onExit += cxAction::Remove;
+        fade->AttachTo(sv);
+        m->Append(fade);
+        ret ++;
     }
+    return ret;
 }
 
-CardItem *Controller::Find(const cxPoint2I &idx)
+cxAction *Controller::Find(const cxPoint2I &idx)
 {
-    return nullptr;
+    cxPoint2I nidx = cxPoint2I(idx.x,idx.y - 1);
+    CardItem *view = nullptr;
+    if(nidx.y < 0){
+        view = CardItem::Create(this, idx);
+        view->SetPosition(ToPos(nidx));
+        Append(view);
+    }else{
+        view = ToView(nidx);
+    }
+    if(view == nullptr){
+        return nullptr;
+    }
+    return view->MoveTo(idx);
+}
+
+void Controller::MultipleExit(cxMultiple *m)
+{
+    if(m->Size() == 0){
+        return;
+    }
+    ScanSwap();
 }
 
 //从上到下扫描所有格子
-cxMultiple *Controller::Scan()
+cxMultiple *Controller::ScanSwap()
 {
     cxMultiple *m = cxMultiple::Create();
-    m->onInit +=[this](cxAction *pav){
-        SetEnableTouch(false);
-    };
     //扫描可消除的行
     for(cxInt i = 0; i < col; i++)
     for(cxInt j = row - 1;j >= 0; j--){
@@ -239,11 +282,18 @@ cxMultiple *Controller::Scan()
         if(view != nullptr) {
             continue;
         }
-        //idx为空位置
-        CX_LOGGER("%d %d empty pos",idx.x,idx.y);
+        cxAction *mv = Find(idx);
+        if(mv == nullptr){
+            continue;
+        }
+        m->Append(mv);
     }
+    m->onInit +=[this](cxAction *pav){
+        SetEnableTouch(false);
+    };
     m->onExit +=[this](cxAction *pav){
         SetEnableTouch(true);
+        MultipleExit(pav->To<cxMultiple>());
     };
     m->AttachTo(this);
     return m;
@@ -264,8 +314,11 @@ cxBool Controller::OnSwap(const cxPoint2I &src,const cxPoint2I &dst)
     //动画结束时检测
     m->onExit +=[this](cxAction *pav){
         SetEnableTouch(true);
+        points.Clear();
+        points.Append(dstTmp);
+        points.Append(srcTmp);
         //使用dstTmp是因为src点已经移动到dstTmp位置
-        if(IsSwap(dstTmp)){
+        if(HasSwap(points)){
             return;
         }
         cxMultiple *m = SwapView(srcTmp, dstTmp);
@@ -457,7 +510,7 @@ void Controller::Init()
         CardItem *sp = CardItem::Create(this, idx);
         Append(sp);
     }
-    Scan();
+    ScanSwap();
 }
 
 Controller *Controller::Create(cxInt c,cxInt r)

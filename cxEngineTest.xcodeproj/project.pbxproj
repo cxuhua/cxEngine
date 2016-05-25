@@ -40,7 +40,6 @@
 		83A34E521BEF899500DAEE91 /* goblins-ffd.json in Resources */ = {isa = PBXBuildFile; fileRef = 83A34E4F1BEF899500DAEE91 /* goblins-ffd.json */; };
 		83A34E531BEF899500DAEE91 /* goblins-ffd.png in Resources */ = {isa = PBXBuildFile; fileRef = 83A34E501BEF899500DAEE91 /* goblins-ffd.png */; };
 		83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0D3E1BF04EC200B0CC0B /* libz.tbd */; };
-		83BD3C2E1CE600B800F66794 /* data.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 83BD3C2D1CE600B800F66794 /* data.rtf */; };
 		83BE63751B311E0A0028B6E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BE63741B311E0A0028B6E7 /* main.m */; };
 		83C5BFA41CD8612500F0DA0B /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF9E1CD8612500F0DA0B /* libjansson.a */; };
 		83C5BFA51CD8612500F0DA0B /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF9F1CD8612500F0DA0B /* libjpeg.a */; };
@@ -161,7 +160,6 @@
 		83A34E4F1BEF899500DAEE91 /* goblins-ffd.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "goblins-ffd.json"; sourceTree = "<group>"; };
 		83A34E501BEF899500DAEE91 /* goblins-ffd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goblins-ffd.png"; sourceTree = "<group>"; };
 		83BA0D3E1BF04EC200B0CC0B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		83BD3C2D1CE600B800F66794 /* data.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = data.rtf; sourceTree = "<group>"; };
 		83BE63741B311E0A0028B6E7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83C5BF9E1CD8612500F0DA0B /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = libs/ios/lib/libjansson.a; sourceTree = "<group>"; };
 		83C5BF9F1CD8612500F0DA0B /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = libs/ios/lib/libjpeg.a; sourceTree = "<group>"; };
@@ -565,7 +563,6 @@
 				83377A5F1CEC2F5800CEB2D8 /* Shader.h */,
 				83377A571CEC25A600CEB2D8 /* Map.cpp */,
 				83377A581CEC25A600CEB2D8 /* Map.h */,
-				83BD3C2D1CE600B800F66794 /* data.rtf */,
 				836E30431B5E2ABF00ED8BDC /* Sea.cpp */,
 				836E30441B5E2ABF00ED8BDC /* Sea.h */,
 				8326D0DA1BE9F72000A15879 /* Images.xcassets */,
@@ -691,7 +688,6 @@
 				839B8AEB1B68D6EF009E0CF7 /* finch.wav in Resources */,
 				83F5D0C51CE5BE0400690B86 /* configs.csv in Resources */,
 				83F5D0B61CE570A600690B86 /* c1.lqt in Resources */,
-				83BD3C2E1CE600B800F66794 /* data.rtf in Resources */,
 				83A34E511BEF899500DAEE91 /* goblins-ffd.atlas in Resources */,
 				83A34E4A1BEF882100DAEE91 /* goblins.atlas in Resources */,
 				83A34E531BEF899500DAEE91 /* goblins-ffd.png in Resources */,

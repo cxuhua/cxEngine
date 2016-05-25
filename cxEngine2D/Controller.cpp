@@ -152,6 +152,7 @@ cxBool Controller::HasSwap(const cxPoint2IArray &ps)
         CX_ASSERT(ps.Size() > 0, "points error");
         MergeTo(m, ps, idx);
     }
+    //没有交换动作
     if(m->Size() == 0){
         return false;
     }
@@ -230,8 +231,10 @@ cxInt Controller::MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I
 
 cxAction *Controller::Find(const cxPoint2I &idx)
 {
+    CX_ASSERT(!HasView(idx), "find postion error");
     cxPoint2I nidx = cxPoint2I(idx.x,idx.y - 1);
     CardItem *view = nullptr;
+    //最底部将生成新卡
     if(nidx.y < 0){
         view = CardItem::Create(this, idx);
         view->SetPosition(ToPos(nidx));
@@ -242,14 +245,12 @@ cxAction *Controller::Find(const cxPoint2I &idx)
     if(view == nullptr){
         return nullptr;
     }
+    //移动的空位
     return view->MoveTo(idx);
 }
 
 void Controller::MultipleExit(cxMultiple *m)
 {
-    if(m->Size() == 0){
-        return;
-    }
     ScanSwap();
 }
 
@@ -288,6 +289,11 @@ cxMultiple *Controller::ScanSwap()
         }
         m->Append(mv);
     }
+    m->AttachTo(this);
+    //没有数据直接返回(onInit onExit 依然执行)
+    if(m->Size() == 0){
+        return m;
+    }
     m->onInit +=[this](cxAction *pav){
         SetEnableTouch(false);
     };
@@ -295,7 +301,27 @@ cxMultiple *Controller::ScanSwap()
         SetEnableTouch(true);
         MultipleExit(pav->To<cxMultiple>());
     };
-    m->AttachTo(this);
+    return m;
+}
+
+cxMultiple *Controller::CheckSwap(const cxPoint2I &src,const cxPoint2I &dst)
+{
+    points.Clear();
+    points.Append(dst);
+    points.Append(src);
+    //使用dstTmp是因为src点已经移动到dstTmp位置
+    if(HasSwap(points)){
+        return nullptr;
+    }
+    cxMultiple *m = SwapView(src, dst);
+    //动画时禁止键盘
+    m->onInit +=[this](cxAction *pav){
+        SetEnableTouch(false);
+    };
+    //结束时候开启键盘
+    m->onExit +=[this](cxAction *pav){
+        SetEnableTouch(true);
+    };
     return m;
 }
 
@@ -314,22 +340,7 @@ cxBool Controller::OnSwap(const cxPoint2I &src,const cxPoint2I &dst)
     //动画结束时检测
     m->onExit +=[this](cxAction *pav){
         SetEnableTouch(true);
-        points.Clear();
-        points.Append(dstTmp);
-        points.Append(srcTmp);
-        //使用dstTmp是因为src点已经移动到dstTmp位置
-        if(HasSwap(points)){
-            return;
-        }
-        cxMultiple *m = SwapView(srcTmp, dstTmp);
-        //动画时禁止键盘
-        m->onInit +=[this](cxAction *pav){
-            SetEnableTouch(false);
-        };
-        //结束时候开启键盘
-        m->onExit +=[this](cxAction *pav){
-            SetEnableTouch(true);
-        };
+        CheckSwap(srcTmp,dstTmp);
     };
     //重置
     Reset();

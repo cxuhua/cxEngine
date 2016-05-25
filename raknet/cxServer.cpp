@@ -11,6 +11,7 @@
 #include <core/cxUtil.h>
 #include "cxServer.h"
 #include "TCPInterface.h"
+#include "GetTime.h"
 
 CX_CPP_BEGIN
 
@@ -92,6 +93,7 @@ bool cxServer::Init(cxInt nt,cxInt port,cxInt max,cchars pass)
     socket = RakNet::SocketDescriptor(port,0);
     peer->Startup(max, &socket, 1);
     peer->SetMaximumIncomingConnections(max);
+    peer->SetOccasionalPing(true);
     peer->SetIncomingPassword(pass, (int)strlen(pass));
     CX_LOGGER("server start port=%d max=%d thread=%d",port,max,thread);
     return tcp->Start(port, max/8);

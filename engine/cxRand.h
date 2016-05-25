@@ -21,17 +21,12 @@ protected:
     explicit cxRand();
     virtual ~cxRand();
 private:
-    cxStr *data;
-    cxInt seed;
+    cxUInt32 randSeed;
 public:
-    //随机初始化一个seed
-    cxInt InitSeed();
-    //设置固定的seed
-    void SetSeed(cxInt v);
-    //获取一个随机值
-    cxFloat RandFloat();
-    cxByte RandByte();
-    cxInt Rand(cxInt min,cxInt max);
+    void SetSeed(cxUInt32 s = 0);
+    cxUInt32 Int();
+    cxUInt32 Int(cxUInt32 min,cxUInt32 max);
+    cxDouble Double();
 };
 
 CX_CPP_END

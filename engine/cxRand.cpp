@@ -13,52 +13,39 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxRand);
 
+const cxUInt32 maxshort = 65535U;
+const cxUInt32 multiplier = 1194211693U;
+const cxUInt32 adder = 12345U;
+
 cxRand::cxRand()
 {
-    data = nullptr;
-    seed = 0;
-    cxObject::swap(&data, cxUtil::Assets("data.rtf"));
-    CX_ASSERT(data != nullptr, "data.rtf miss");
+    randSeed = 0;
 }
 
 cxRand::~cxRand()
 {
-    cxObject::release(&data);
+    
 }
 
-cxInt cxRand::InitSeed()
+void cxRand::SetSeed(cxUInt32 s)
 {
-    cxUtil::SetRandSeed();
-    seed = cxUtil::Rand(0, data->Size() - 1);
-    return seed;
+    randSeed = s;
 }
 
-cxInt cxRand::Rand(cxInt min,cxInt max)
+cxUInt32 cxRand::Int()
 {
-    return min + (max - min) * RandFloat();
+    randSeed = multiplier * randSeed + adder;
+    return (cxUInt32)((randSeed >> 16) % maxshort);
 }
 
-void cxRand::SetSeed(cxInt v)
+cxUInt32 cxRand::Int(cxUInt32 min,cxUInt32 max)
 {
-    seed = v%data->Size();
+     return min + (max - min) * Double();
 }
 
-cxFloat cxRand::RandFloat()
+cxDouble cxRand::Double()
 {
-    return ((cxFloat)RandByte())/255.0f;
-}
-
-cxByte cxRand::RandByte()
-{
-    cxByte *buf = (cxByte *)data->Buffer();
-    cxByte v = buf[seed++];
-    if(seed >= data->Size()){
-        seed = 0;
-    }
-    if(seed < 0){
-        seed = data->Size() - 1;
-    }
-    return v;
+    return (cxDouble)Int()/(cxDouble)maxshort;
 }
 
 CX_CPP_END

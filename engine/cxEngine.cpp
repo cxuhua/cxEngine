@@ -255,10 +255,7 @@ const cxPoint2F &cxEngine::PlanScale() const
 
 void cxEngine::SetPlanSize(const cxSize2F &v)
 {
-    CX_ASSERT(!winsize.IsZero(), "win size not set");
     plansize = v;
-    planscale.x = winsize.w/plansize.w;
-    planscale.y = winsize.h/plansize.h;
 }
 
 cxInt cxEngine::FPS() const
@@ -314,6 +311,10 @@ void cxEngine::Run()
             cxOpenGL::Instance()->Init();
             OnMain();
             init = true;
+        }
+        if(!plansize.IsZero()){
+            planscale.x = winsize.w/plansize.w;
+            planscale.y = winsize.h/plansize.h;
         }
         cxOpenGL::Instance()->SetViewport(bound);
         window->SetSize(winsize);

@@ -113,6 +113,12 @@ void Game::OnDispatch(const cxTouchable *e)
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
+    float vv = tanf(cxDegreesToRadians(30)) * 9.5f;
+//    for(cxInt i=2;i <= 14;i++){
+//        cxInt x = ((cxInt)pow(i, 3)) % 15;
+//        CX_LOGGER("%d",x);
+//    }
+//    cxInt b = 0;
     
 //    w = cxBoxWorld::Create();
 //    w->SetSize(cxSize2F(2048, 1536));
@@ -191,12 +197,12 @@ void Game::OnMain()
 //        };
 //        Window()->Append(ms);
         
-//        Map *map = Map::Create();
-//        Window()->Append(map);
+        Map *map = Map::Create();
+        Window()->Append(map);
         
-        Controller *c = Controller::Create(5, 3);
-        c->SetResizeFlags(cxView::ResizeBottom);
-        Window()->Append(c);
+//        Controller *c = Controller::Create(5, 3);
+//        c->SetResizeFlags(cxView::ResizeBottom);
+//        Window()->Append(c);
     };
     
     Window()->Append(loader);

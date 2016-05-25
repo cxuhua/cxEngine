@@ -27,8 +27,9 @@ cxSprite *Map::CreateRangeView(cxFloat width)
 
 Map::Map()
 {
+    //11
     cxFloat angel = sinf(cxDegreesToRadians(60));
-    mapGrid = cxPoint2I(21, 27);
+    mapGrid = cxPoint2I(30, 50);
     cxSize2F wsiz = cxEngine::Instance()->WinSize();
     itemSize.w = wsiz.w/mapGrid.x;
     itemSize.h = itemSize.w * angel;
@@ -39,7 +40,7 @@ Map::Map()
     
 //    SetResizeFlags(ResizeTop);r
     
-    cxFloat ar = 8.0f;
+    cxFloat ar = 9.0f;
     
 //    {
 //        cxFloat w = 17.0f;
@@ -88,79 +89,55 @@ Map::Map()
 //    }
     //left
     {
-        cxFloat w = 3.0f;
+        cxFloat w = 4.0f;
         cxSprite *sp = cxSprite::Create();
         sp->SetTexture("grid.png");
         sp->SetSize(itemSize * w);
-        sp->SetPosition(ToPos(cxPoint2I(1, 13), w));
+        sp->SetPosition(ToPos(cxPoint2I(2, 23), w));
         sp->SetColor(cxColor4F::RED);
         Append(sp);
         
         cxSprite *r = CreateRangeView(ar);
         sp->Append(r);
-        
-        cxSprite *sp2 = cxSprite::Create();
-        sp2->SetTexture("grid.png");
-        sp2->SetSize(itemSize * 9);
-        sp2->SetColor(cxColor4F::YELLOW);
-        sp->Append(sp2);
     }
     //right
     {
-        cxFloat w = 3.0f;
+        cxFloat w = 4.0f;
         cxSprite *sp = cxSprite::Create();
         sp->SetTexture("grid.png");
         sp->SetSize(itemSize * w);
-        sp->SetPosition(ToPos(cxPoint2I(17, 13), w));
+        sp->SetPosition(ToPos(cxPoint2I(24, 23), w));
         sp->SetColor(cxColor4F::RED);
         Append(sp);
         
         cxSprite *r = CreateRangeView(ar);
         sp->Append(r);
-        
-        cxSprite *sp2 = cxSprite::Create();
-        sp2->SetTexture("grid.png");
-        sp2->SetSize(itemSize * 9);
-        sp2->SetColor(cxColor4F::YELLOW);
-        sp->Append(sp2);
     }
     //top
     {
-        cxFloat w = 3.0f;
+        cxFloat w = 4.0f;
         cxSprite *sp = cxSprite::Create();
         sp->SetTexture("grid.png");
         sp->SetSize(itemSize * w);
-        sp->SetPosition(ToPos(cxPoint2I(9, 23), w));
-        sp->SetColor(cxColor4F::RED);
-        Append(sp);
-        
-        cxSprite *r = CreateRangeView(6);
-        sp->Append(r);
-        
-        cxSprite *sp2 = cxSprite::Create();
-        sp2->SetTexture("grid.png");
-        sp2->SetSize(itemSize * 9);
-        sp2->SetColor(cxColor4F::YELLOW);
-        sp->Append(sp2);
-    }
-    //bottom
-    {
-        cxFloat w = 3.0f;
-        cxSprite *sp = cxSprite::Create();
-        sp->SetTexture("grid.png");
-        sp->SetSize(itemSize * w);
-        sp->SetPosition(ToPos(cxPoint2I(9, 1), w));
+        sp->SetPosition(ToPos(cxPoint2I(13, 42), w));
         sp->SetColor(cxColor4F::RED);
         Append(sp);
         
         cxSprite *r = CreateRangeView(ar);
         sp->Append(r);
+    }
+    //bottom
+    {
+        cxFloat w = 4.0f;
+        cxSprite *sp = cxSprite::Create();
+        sp->SetTexture("grid.png");
+        sp->SetSize(itemSize * w);
+        sp->SetPosition(ToPos(cxPoint2I(13, 4), w));
+        sp->SetColor(cxColor4F::RED);
+        Append(sp);
         
-        cxSprite *sp2 = cxSprite::Create();
-        sp2->SetTexture("grid.png");
-        sp2->SetSize(itemSize * 9);
-        sp2->SetColor(cxColor4F::YELLOW);
-        sp->Append(sp2);
+        cxSprite *r = CreateRangeView(ar);
+        sp->Append(r);
     }
     
 //    {

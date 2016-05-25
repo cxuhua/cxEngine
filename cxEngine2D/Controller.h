@@ -84,9 +84,8 @@ public:
     BoxType ParseBoxType(const cxBox4I &box);
     //转换为坐标点集合
     cxPoint2IArray ToPoints(const cxBox4I &box,const cxPoint2I &idx);
-    //查找底部最近的课上滑卡片,如果没有奖新创建
+    //查找空位处上面的卡片
     cxAction *Find(const cxPoint2I &idx);
-    
     //扫描所有格子,返回并发动画
     cxMultiple *ScanSwap();
     //动画完成
@@ -95,6 +94,8 @@ public:
     cxBox4I Compute(const cxPoint2I &idx);
     //丢弃idx位置的view
     CardItem *DropView(const cxPoint2I &idx);
+    
+    cxMultiple *CheckSwap(const cxPoint2I &src,const cxPoint2I &dst);
     cxMultiple *SwapView(const cxPoint2I &src,const cxPoint2I &dst);
     void Reset();
     //是否可以从src移动到dst

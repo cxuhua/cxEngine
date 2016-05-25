@@ -4,20 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>cxEngineCore.xcscheme</key>
+		<key>godwar.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>83BBF3D71B109452003CB004</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>83BBF3E21B109452003CB004</key>
+		<key>839A520F1CD854D30002BF77</key>
 		<dict>
 			<key>primary</key>
 			<true/>

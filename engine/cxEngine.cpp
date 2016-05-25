@@ -54,7 +54,7 @@ void cxEngine::Destroy()
 
 cxEngine *cxEngine::Instance()
 {
-    CX_ASSERT(instance != nullptr, "instance not init,use cxEngine::Init");
+    CX_ASSERT(instance != nullptr, "instance not init,use cxEngine::Startup");
     return instance;
 }
 
@@ -67,7 +67,6 @@ void cxEngine::Startup(cxBool layout)
         cxCore::Instance()->Clear();
     }
     instance = cxObject::alloc("Game")->To<cxEngine>();
-    CX_ASSERT(instance != nullptr, "instance error");
     if(layout && !winsiz.IsZero()){
         instance->Layout(winsiz.w, winsiz.h);
     }

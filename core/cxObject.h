@@ -168,6 +168,7 @@ CX_INLINE void cxObject::swap(T1 **ptr,T2 *dst)
         (*ptr)->Retain();
     }
 }
+
 template<class T>
 CX_INLINE void cxObject::release(T **ptr)
 {
@@ -177,6 +178,8 @@ CX_INLINE void cxObject::release(T **ptr)
     (*ptr)->Release();
     (*ptr) = nullptr;
 }
+
+
 template<class T>
 CX_INLINE T *cxObject::autorelease(T *ptr)
 {
@@ -185,6 +188,7 @@ CX_INLINE T *cxObject::autorelease(T *ptr)
     }
     return ptr->AutoRelease();
 }
+
 template<class T>
 CX_INLINE void cxObject::retain(T *ptr)
 {

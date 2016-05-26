@@ -61,6 +61,8 @@ public:
     ListServers *Init(const cxStr *txt);
     //查询最适合的服务器
     const ServerInfo *Query(cxInt attr);
+    //获取服务器信息
+    const ServerInfo *Query(cchars sid);
 };
 
 CX_CPP_END

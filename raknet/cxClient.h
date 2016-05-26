@@ -41,6 +41,7 @@ public:
     cxEvent<cxClient> onConnected;
     cxEvent<cxClient> onLost;
     cxEvent<cxClient,cxInt> onError;
+    cxEvent<cxClient,RakNet::RakNetGUID, const cxStr *> onMessage;
 };
 
 CX_CPP_END

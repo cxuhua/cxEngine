@@ -70,24 +70,21 @@ void cxClient::OnPacket(RakNet::Packet *packet)
 void cxClient::OnError(cxInt error)
 {
     onError.Fire(this, error);
-    CX_LOGGER("OnError:%d",error);
 }
 
 void cxClient::OnConnected()
 {
     onConnected.Fire(this);
-    CX_LOGGER("OnConnected");
 }
 
 void cxClient::OnLost()
 {
     onLost.Fire(this);
-    CX_LOGGER("OnLost");
 }
 
 void cxClient::OnMessage(RakNet::RakNetGUID clientId, const cxStr *message)
 {
-    CX_LOGGER("OnMessage %s",message->ToString());
+    onMessage.Fire(this, clientId, message);
 }
 
 void cxClient::Connect(const ServerInfo *info)

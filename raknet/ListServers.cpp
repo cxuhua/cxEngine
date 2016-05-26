@@ -35,18 +35,18 @@ ServerInfo::ServerInfo()
     Max = 0;
     Curr = 0;
     Time = 0;
-    Id = nullptr;
-    Host = nullptr;
-    Pass = nullptr;
-    Public = nullptr;
+    CX_SET_NULL(Id);
+    CX_SET_NULL(Host);
+    CX_SET_NULL(Pass);
+    CX_SET_NULL(Public);
 }
 
 ServerInfo::~ServerInfo()
 {
-    cxObject::release(&Public);
-    cxObject::release(&Id);
-    cxObject::release(&Host);
-    cxObject::release(&Pass);
+    CX_RELEASE(Public);
+    CX_RELEASE(Id);
+    CX_RELEASE(Host);
+    CX_RELEASE(Pass);
 }
 
 //192.168.199.244|9000
@@ -124,6 +124,17 @@ ListServers *ListServers::Init(const cxStr *txt)
         CX_LOGGER("Servers: + %s",item->Dumps()->ToString());
     }
     return this;
+}
+
+const ServerInfo *ListServers::Query(cchars sid)
+{
+    for(cxArray::FIter it=Items->FBegin();it!=Items->FEnd();it++){
+        ServerInfo *info = (*it)->To<ServerInfo>();
+        if(info->Id->IsEqu(sid)){
+            return info;
+        }
+    }
+    return nullptr;
 }
 
 const ServerInfo *ListServers::Query(cxInt attr)

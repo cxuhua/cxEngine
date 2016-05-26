@@ -80,26 +80,6 @@
 
 #define CX_EXTERN   extern
 
-#ifndef CX_MIN
-#define CX_MIN(v1,v2) (((v1) > (v2)) ? (v2) : (v1))
-#endif
-
-#ifndef CX_MAX
-#define CX_MAX(v1,v2) (((v1) < (v2)) ? (v2) : (v1))
-#endif
-
-#ifndef CX_SWAP
-#define CX_SWAP(v1, v2) {typeof(v1) _temp_=(v1);v1=v2;v2=_temp_;}
-#endif
-
-#ifndef CX_SWAP32
-#define CX_SWAP32(i)  ((i & 0x000000ff) << 24 | (i & 0x0000ff00) << 8 | (i & 0x00ff0000) >> 8 | (i & 0xff000000) >> 24)
-#endif
-
-#ifndef CX_SWAP16
-#define CX_SWAP16(i)  ((i & 0x00ff) << 8 | (i & 0xff00) >> 8)
-#endif
-
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
@@ -205,6 +185,26 @@ do{                                                             \
 
 #ifndef CX_SWAP16
 #define CX_SWAP16(i)  ((i & 0x00ff) << 8 | (i & 0xff00) >> 8)
+#endif
+
+#ifndef CX_SET_NULL
+#define CX_SET_NULL(_t1_)                _t1_=nullptr
+#endif
+
+#ifndef CX_MOVE
+#define CX_MOVE(_t2_,_t1_)              cxObject::swap(&(_t1_),_t2_)
+#endif
+
+#ifndef CX_RELEASE
+#define CX_RELEASE(_t1_)                cxObject::release(&(_t1_))
+#endif
+
+#ifndef CX_RETAIN
+#define CX_RETAIN(_t1_)                 cxObject::retain(_t1_)
+#endif
+
+#ifndef CX_AUTO
+#define CX_AUTO(_t1_)                   cxObject::autorelease(_t1_)
 #endif
 
 #define CX_INLINE                       inline

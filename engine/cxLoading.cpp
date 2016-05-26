@@ -15,20 +15,31 @@ CX_IMPLEMENT(cxLoading);
 
 cxLoading::cxLoading()
 {
+    error = 0;
     SetResizeFlags(ResizeFill);
+    
     items = cxSequence::Create();
     Append(items);
     items->onAction += [this](cxSequence *pav,cxAction *sub){
-        cxInt i = pav->Index();
-        cxInt a = pav->Size();
-        onProgress.Fire(this, i, a);
+        cxAsync *async = sub->To<cxAsync>();
+        if(error != 0){
+            return;
+        }
+        error = async->ErrorCode();
+        if(error != 0){
+            onError.Fire(this, async);
+            Stop();
+        }else{
+            cxInt i = pav->Index();
+            cxInt a = pav->Size();
+            onProgress.Fire(this, i, a);
+        }
     };
     items->onExit += [this](cxAction *pav){
-        cxSequence *seq = pav->To<cxSequence>();
-        cxInt i = seq->Index();
-        cxInt a = seq->Size();
+        if(error == 0){
+            onCompleted.Fire(this);
+        }
         Remove();
-        onCompleted.Fire(this, i == a);
     };
 }
 

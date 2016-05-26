@@ -29,7 +29,9 @@ CX_IMPLEMENT(ServerInfo)
 
 ServerInfo::ServerInfo()
 {
+    Ping = MAX_PING;
     Port = 0;
+    Attr = 0;
     Max = 0;
     Curr = 0;
     Time = 0;
@@ -47,6 +49,12 @@ ServerInfo::~ServerInfo()
     cxObject::release(&Pass);
 }
 
+//192.168.199.244|9000
+const cxStr *ServerInfo::ToString() const
+{
+    return cxStr::UTF8("%s|%d",Host->ToString(),Port);
+}
+
 ServerInfo *ServerInfo::Init(const cxJson *json)
 {
     cxObject::swap(&Id, json->Get("id"));
@@ -58,6 +66,7 @@ ServerInfo *ServerInfo::Init(const cxJson *json)
     Max     = json->Get("max", Max);
     Curr    = json->Get("curr", Curr);
     Time    = json->Get("time", Time);
+    Attr    = json->Get("attr", Attr);
     return this;
 }
 
@@ -73,6 +82,25 @@ ListServers::~ListServers()
 {
     Items->Release();
     cxObject::release(&Error);
+}
+
+cxInt ListServers::sortItem(const void *lp, const void *rp)
+{
+    ServerInfo *l = *(ServerInfo **)lp;
+    ServerInfo *r = *(ServerInfo **)rp;
+    return l->Ping < r->Ping;
+}
+
+void ListServers::SetPing(RakNet::SystemAddress addr,cxInt ping)
+{
+    for(cxArray::FIter it=Items->FBegin();it!=Items->FEnd();it++){
+        ServerInfo *info = (*it)->To<ServerInfo>();
+        if(info->ToString()->IsEqu(addr.ToString())){
+            info->Ping = ping;
+            break;
+        }
+    }
+    Items->Sort(ListServers::sortItem);
 }
 
 ListServers *ListServers::Init(const cxStr *txt)
@@ -98,12 +126,27 @@ ListServers *ListServers::Init(const cxStr *txt)
     return this;
 }
 
-const ServerInfo *ListServers::Query()
+const ServerInfo *ListServers::Query(cxInt attr)
 {
-    if(Items->Size() == 0){
-        return nullptr;
+    cxInt ping = MAX_PING;
+    ServerInfo *ret = nullptr;
+    for(cxArray::FIter it=Items->FBegin();it!=Items->FEnd();it++){
+        ServerInfo *info = (*it)->To<ServerInfo>();
+        if(attr > 0 && (info->Attr & attr) == 0){
+            continue;
+        }
+        if(info->Curr >= info->Max){
+            continue;
+        }
+        if(info->Ping >= MAX_PING){
+            continue;
+        }
+        if(info->Ping < ping){
+            ret = info;
+            ping = info->Ping;
+        }
     }
-    return Items->At(0)->To<ServerInfo>();
+    return ret;
 }
 CX_CPP_END
 

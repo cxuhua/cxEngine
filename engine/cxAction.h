@@ -100,6 +100,7 @@ public:
     //invoke stop
     virtual void Stop();
     cxAction *AttachTo(cxView *pview);
+    cxAction *AttachWindow();
     virtual cxAction *Clone();
     virtual cxAction *Reverse();
     //return true -> exit

@@ -23,15 +23,22 @@ protected:
 protected:
     void OnStep(cxFloat dt);
 private:
+    cxInt64 unix;
     cxBool isfinished;
     cxFloat timeout;
     cxInt error;
 public:
+    cxInt ErrorCode();
+    virtual const cxStr *Error();
+    
     cxAsync *SetTimeout(cxFloat v);
     cxAsync *SetFinished(cxBool v);
     cxAsync *SetError(cxInt v);
+protected:
+    virtual void OnUnix(cxInt64 unix);
 public:
     cxEvent<cxAsync> onTimeout;
+    cxEvent<cxAsync,cxInt64> onUnix;
 };
 
 CX_CPP_END

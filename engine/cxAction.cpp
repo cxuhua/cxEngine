@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
+#include "cxEngine.h"
 #include "cxView.h"
 #include "cxAction.h"
 
@@ -156,6 +157,12 @@ cxFloat cxAction::deltaTimeFix(cxFloat dt)
     return dt;
 }
 
+cxAction *cxAction::AttachWindow()
+{
+    cxEngine::Instance()->Window()->Append(this);
+    return this;
+}
+
 cxAction *cxAction::AttachTo(cxView *pview)
 {
     pview->Append(this);
@@ -181,8 +188,6 @@ cxBool cxAction::IsPause() const
 
 cxBool cxAction::Update(cxFloat dt)
 {
-    CX_ASSERT(pview != nullptr, "action view not set");
-    
     dt *= Speed();
     
     if(ispause){
@@ -192,7 +197,7 @@ cxBool cxAction::Update(cxFloat dt)
         delayvar -= dt;
         return false;
     }
-    if(!isinit){
+    if(!isinit && !isexit){
         elapsed = 0.0f;
         elapsedvar = 0.0f;
         prev = Progress() * time;

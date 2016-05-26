@@ -39,6 +39,7 @@
 #include "MessageIdentifiers.h"
 #include "BitStream.h"
 #include "SecureHandshake.h"
+#include "GetTime.h"
 
 CX_CPP_BEGIN
 
@@ -88,9 +89,17 @@ public:
     
     virtual void Process();
     virtual void OnPacket(RakNet::Packet *packet);
+    
+    //unconnect ping pong
+    void Ping(cchars host,cxInt port);
+    //time＝send time
+    virtual void OnPong(RakNet::SystemAddress addr,RakNet::TimeMS ping);
+    virtual void OnPing(RakNet::SystemAddress addr);
 public:
     cxUInt32 UDPWrite(const cxStr *message,bool broadcast=false);
     cxUInt32 UDPWrite(const cxStr *message,PacketPriority priority, PacketReliability reliability, char channel,bool broadcast=false);
+public:
+    cxEvent<cxRaknet,RakNet::SystemAddress,RakNet::TimeMS> onPong;
 };
 
 CX_CPP_END

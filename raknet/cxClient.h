@@ -22,9 +22,11 @@ protected:
     explicit cxClient();
     virtual ~cxClient();
 private:
+    ServerInfo *serverInfo;
     char publicKeyData[cat::EasyHandshake::PUBLIC_KEY_BYTES];
     RakNet::PublicKey publicKey;
 public:
+    const ServerInfo *GetServerInfo();
     void SetPublicKey(const cxStr *data);
     void OnPacket(RakNet::Packet *packet);
     
@@ -35,6 +37,10 @@ public:
     virtual void OnConnected();
     virtual void OnLost();
     virtual void OnError(cxInt error);
+public:
+    cxEvent<cxClient> onConnected;
+    cxEvent<cxClient> onLost;
+    cxEvent<cxClient,cxInt> onError;
 };
 
 CX_CPP_END

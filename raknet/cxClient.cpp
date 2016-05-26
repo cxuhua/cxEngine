@@ -16,13 +16,19 @@ CX_IMPLEMENT(cxClient);
 
 cxClient::cxClient()
 {
+    serverInfo = nullptr;
     memset(&publicKey, 0, sizeof(publicKey));
     peer->Startup(1, &socket, 1);
 }
 
 cxClient::~cxClient()
 {
-    
+    cxObject::release(&serverInfo);
+}
+
+const ServerInfo *cxClient::GetServerInfo()
+{
+    return serverInfo;
 }
 
 void cxClient::SetPublicKey(const cxStr *data)
@@ -63,16 +69,19 @@ void cxClient::OnPacket(RakNet::Packet *packet)
 
 void cxClient::OnError(cxInt error)
 {
+    onError.Fire(this, error);
     CX_LOGGER("OnError:%d",error);
 }
 
 void cxClient::OnConnected()
 {
+    onConnected.Fire(this);
     CX_LOGGER("OnConnected");
 }
 
 void cxClient::OnLost()
 {
+    onLost.Fire(this);
     CX_LOGGER("OnLost");
 }
 
@@ -89,6 +98,7 @@ void cxClient::Connect(const ServerInfo *info)
     CX_ASSERT(info->Port >0, "port error");
     CX_ASSERT(info->Pass!= nullptr, "pass null");
     Connect(info->Host->ToString(), info->Port, info->Pass->ToString());
+    cxObject::swap(&serverInfo, info);
 }
 
 void cxClient::Connect(cchars host,cxInt port,cchars pass)

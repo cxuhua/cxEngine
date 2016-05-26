@@ -24,9 +24,12 @@ protected:
     virtual ~cxLoading();
 private:
     cxSequence *items;
+    cxInt error;
 public:
+    //加载错误
+    cxEvent<cxLoading,cxAsync *> onError;
     //当加载完成 完成
-    cxEvent<cxLoading,cxBool> onCompleted;
+    cxEvent<cxLoading> onCompleted;
     //加载进度 当前/总数
     cxEvent<cxLoading,cxInt,cxInt> onProgress;
     //执行方法

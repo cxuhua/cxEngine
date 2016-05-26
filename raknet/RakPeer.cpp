@@ -4600,7 +4600,8 @@ bool ProcessOfflineNetworkPacket( SystemAddress systemAddress, const char *data,
 			RakNet::BitStream bsOut((unsigned char*) packet->data, packet->length, false);
 			bsOut.ResetWritePointer();
 			bsOut.Write((unsigned char)ID_UNCONNECTED_PONG);
-			RakNet::TimeMS pingMS=(RakNet::TimeMS)ping;
+            //current time sub send time
+			RakNet::TimeMS pingMS = GetTimeMS() - (RakNet::TimeMS)ping;
 			bsOut.Write(pingMS);
 			bsOut.WriteAlignedBytes(
 				(const unsigned char*)data+sizeof(unsigned char)+sizeof(RakNet::Time)+RakNetGUID::size()+sizeof(OFFLINE_MESSAGE_DATA_ID),

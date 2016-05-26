@@ -51,6 +51,22 @@ void cxRaknet::ReadMessage(RakNet::Packet *packet)
     OnMessage(packet->guid, cxStr::Create()->Init(buf, l));
 }
 
+void cxRaknet::Ping(cchars host,cxInt port)
+{
+    
+    peer->Ping(host, port, false);
+}
+
+void cxRaknet::OnPong(RakNet::SystemAddress addr,RakNet::TimeMS ping)
+{
+    onPong.Fire(this, addr, ping);
+}
+
+void cxRaknet::OnPing(RakNet::SystemAddress addr)
+{
+    //CX_LOGGER("PING %s",addr.ToString());
+}
+
 void cxRaknet::OnPacket(RakNet::Packet *packet)
 {
     RakNet::MessageID type = packet->data[0];
@@ -61,6 +77,18 @@ void cxRaknet::OnPacket(RakNet::Packet *packet)
         }
         case ID_PUBLIC_KEY_MISMATCH:{
             CX_LOGGER("public key mismatch");
+            break;
+        }
+        case ID_UNCONNECTED_PONG:{
+            RakNet::BitStream bs(packet->data, packet->length, false );
+            bs.IgnoreBytes(1);
+            RakNet::TimeMS ping;
+            bs.Read(ping);
+            OnPong(packet->systemAddress,ping);
+            break;
+        }
+        case ID_UNCONNECTED_PING:{
+            OnPing(packet->systemAddress);
             break;
         }
         default:{

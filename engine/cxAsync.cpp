@@ -16,7 +16,7 @@ CX_IMPLEMENT(cxAsync);
 cxAsync::cxAsync()
 {
     Forever();
-    unix = 0;
+    unixTime = 0;
     isfinished = false;
     timeout = 0;
     error = 0;
@@ -50,17 +50,17 @@ cxAsync *cxAsync::SetError(cxInt v)
     return this;
 }
 
-void cxAsync::OnUnix(cxInt64 unix)
+void cxAsync::OnUnixTime(cxInt64 unixTime)
 {
-    onUnix.Fire(this, unix);
+    onUnixTime.Fire(this, unixTime);
 }
 
 void cxAsync::OnStep(cxFloat dt)
 {
     cxInt64 now = cxUtil::Timestamp();
-    if(now != unix){
-        OnUnix(now);
-        unix = now;
+    if(now != unixTime){
+        OnUnixTime(now);
+        unixTime = now;
     }
     cxAction::OnStep(dt);
     if(isfinished){

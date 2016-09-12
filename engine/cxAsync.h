@@ -23,7 +23,7 @@ protected:
 protected:
     void OnStep(cxFloat dt);
 private:
-    cxInt64 unix;
+    cxInt64 unixTime;
     cxBool isfinished;
     cxFloat timeout;
     cxInt error;
@@ -34,10 +34,10 @@ public:
     cxAsync *SetFinished(cxBool v);
     cxAsync *SetError(cxInt v);
 protected:
-    virtual void OnUnix(cxInt64 unix);
+    virtual void OnUnixTime(cxInt64 unixTime);
 public:
     cxEvent<cxAsync> onTimeout;
-    cxEvent<cxAsync,cxInt64> onUnix;
+    cxEvent<cxAsync,cxInt64> onUnixTime;
 };
 
 CX_CPP_END

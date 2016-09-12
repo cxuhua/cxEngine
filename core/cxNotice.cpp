@@ -50,17 +50,18 @@ void cxNotice::Remove(cxLong key)
     instance.keys.erase(key);
 }
 
-void cxNotice::Post(cxLong key,cxAny src)
+cxInt cxNotice::Post(cxLong key,cxAny src)
 {
     Keys::iterator it = instance.keys.find(key);
     if(it == instance.keys.end()){
-        return;
+        return 0;
     }
     Notices &vs = it->second;
     for(cxInt i=0;i <vs.size(); i++){
         Notice &vt = vs.at(i);
         vt.func(src);
     }
+    return (cxInt)vs.size();
 }
 
 void cxNotice::Append(cxLong key,cxAny dst,NoticeFunc func)

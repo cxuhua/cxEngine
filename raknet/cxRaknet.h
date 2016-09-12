@@ -40,6 +40,7 @@
 #include "BitStream.h"
 #include "SecureHandshake.h"
 #include "GetTime.h"
+#include "cxPackage.h"
 
 CX_CPP_BEGIN
 
@@ -61,6 +62,9 @@ protected:
                    PacketPriority priority, PacketReliability reliability, char channel,
                    bool broadcast, uint32_t receipt);
     //
+    cxUInt32 UDPWrite(cxPackHeader *pack,RakNet::AddressOrGUID clientId,
+                      PacketPriority priority, PacketReliability reliability, char channel,
+                      bool broadcast, uint32_t receipt);
     RakNet::RakNetGUID remote;//client use
     RakNet::SocketDescriptor socket;
     RakNet::RakPeerInterface *peer;
@@ -77,17 +81,20 @@ public:
         return (T *)uv_key_get(&key);
     }
 public:
+    cxInt GetPing(const RakNet::AddressOrGUID guid);
+    cxUInt64 GUID();
+    
     void Shutdown(cxInt wait);
     cxInt UdpCount();
     cxInt UdpMax();
     void SetOccasionalPing(bool ping);
     
-    virtual void OnMessage(RakNet::RakNetGUID clientId, const cxStr *message);
+    virtual void OnUDPPackage(RakNet::Packet *packet,cchars data,cxInt size);
     
     virtual void ThreadBegin();
     virtual void ThreadExit();
     
-    virtual void Process();
+    virtual void Update();
     virtual void OnPacket(RakNet::Packet *packet);
     
     //unconnect ping pong
@@ -96,7 +103,11 @@ public:
     virtual void OnPong(RakNet::SystemAddress addr,RakNet::TimeMS ping);
     virtual void OnPing(RakNet::SystemAddress addr);
 public:
+    cxUInt32 UDPWrite(cxPackHeader *pack,RakNet::AddressOrGUID clientId,bool broadcast=false);
+public:
+    cxUInt32 UDPWrite(cxPackHeader *pack,bool broadcast=false);
     cxUInt32 UDPWrite(const cxStr *message,bool broadcast=false);
+    cxUInt32 UDPWrite(cxPackHeader *pack,PacketPriority priority, PacketReliability reliability, char channel, bool broadcast);
     cxUInt32 UDPWrite(const cxStr *message,PacketPriority priority, PacketReliability reliability, char channel,bool broadcast=false);
 public:
     cxEvent<cxRaknet,RakNet::SystemAddress,RakNet::TimeMS> onPong;

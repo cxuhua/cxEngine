@@ -25,7 +25,7 @@ protected:
     explicit cxFrames();
     virtual ~cxFrames();
 private:
-    std::vector<cxInt> repeats;//每帧的重复倍数
+    std::vector<cxFloat> repeats;//每帧的重复倍数
     cxSize2F size;//宽高
     cxInt repeat;
     BlendFunc blend;

@@ -37,7 +37,9 @@ public:
     cxStr *Public;
     const cxStr *ToString() const;
     cxInt Ping;
+    cxInt PingNum;
 public:
+    cxInt GetPing();
     ServerInfo *Init(const cxJson *json);
 };
 
@@ -55,14 +57,22 @@ public:
     cxStr *Error;
 public:
     static cxInt sortItem(const void *lp, const void *rp);
+    //
+    void Each(std::function<cxBool(ServerInfo *)> func);
+    //排序
+    void Sort();
     //设置ping
-    void SetPing(RakNet::SystemAddress addr,cxInt ping);
+    ServerInfo *SetPing(RakNet::SystemAddress addr,cxInt ping);
     //初始化
     ListServers *Init(const cxStr *txt);
     //查询最适合的服务器
-    const ServerInfo *Query(cxInt attr);
+    ServerInfo *Query(cxInt attr);
     //获取服务器信息
-    const ServerInfo *Query(cchars sid);
+    ServerInfo *Query(cchars sid);
+    //根据地质查询
+    ServerInfo *Query(RakNet::SystemAddress addr);
+public:
+    const cxJson *ToJson();
 };
 
 CX_CPP_END

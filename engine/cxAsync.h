@@ -30,7 +30,6 @@ private:
 public:
     cxInt ErrorCode();
     virtual const cxStr *Error();
-    
     cxAsync *SetTimeout(cxFloat v);
     cxAsync *SetFinished(cxBool v);
     cxAsync *SetError(cxInt v);

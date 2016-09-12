@@ -117,7 +117,7 @@ cxArray *cxArray::Remove(cxInt idx)
 cxArray *cxArray::Swap(cxInt src,cxInt dst)
 {
     cxObject **ptr = (cxObject **)mv.data();
-    CX_SWAP(ptr[src], ptr[dst]);
+    CX_SWAP_VAR(ptr[src], ptr[dst]);
     return this;
 }
 

@@ -3,4 +3,4 @@ Name,TID,Action,Repeat,Speed,Group,From,To,Key
 String,String,String,Int,Float,Int,Int,Int,Int
 Mage,法师,move,0,1,0,0,7,
 ,,static,,0.5,,8,9,
-,,attack1,1,1,,10,19,14
+,,attack1,0,1,,10,19,14

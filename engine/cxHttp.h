@@ -53,18 +53,18 @@ private:
     static int messageBegin(http_parser *parser);
     static int headCompleted(http_parser *parser);
     static int messageCompleted(http_parser *parser);
-    void connect(const char *url);
 public:
     cxEvent<cxHttp> onSuccess;
     cxEvent<cxHttp> onError;
 public:
+    void ConnectURL(cchars url);
     cxHash *ReqHeads();
     cxHash *ResHeads();
     const cxInt Status() const;
     const cxStr *Body() const;
     const cxBool Success() const;
 public:
-    static cxHttp *Post(cchars url,cxStr *post);
+    static cxHttp *Post(cchars url,const cxStr *post);
     static cxHttp *Get(cchars url);
 };
 

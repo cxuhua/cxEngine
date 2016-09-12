@@ -151,8 +151,8 @@ const cxBoxCoord2F &cxTexCoord::BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBoo
         cxFloat r = (frame.x + frame.h - pixel.t - pixel.b)/size.w;
         cxFloat t = (frame.y + pixel.l)/size.h;
         cxFloat b = (frame.y + frame.w - pixel.l - pixel.r)/size.h;
-        if(flipx)CX_SWAP(t,b);
-        if(flipy)CX_SWAP(l,r);
+        if(flipx)CX_SWAP_VAR(t,b);
+        if(flipy)CX_SWAP_VAR(l,r);
         coord.lb = cxCoord2F(l,t);
         coord.rb = cxCoord2F(l,b);
         coord.rt = cxCoord2F(r,b);
@@ -162,8 +162,8 @@ const cxBoxCoord2F &cxTexCoord::BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBoo
         cxFloat r = (frame.x + frame.w - pixel.l - pixel.r)/size.w;
         cxFloat t = (frame.y + pixel.t)/size.h;
         cxFloat b = (frame.y + frame.h - pixel.t - pixel.b)/size.h;
-        if(flipx)CX_SWAP(l,r);
-        if(flipy)CX_SWAP(t,b);
+        if(flipx)CX_SWAP_VAR(l,r);
+        if(flipy)CX_SWAP_VAR(t,b);
         coord.lb = cxCoord2F(l,b);
         coord.rb = cxCoord2F(r,b);
         coord.rt = cxCoord2F(r,t);
@@ -630,7 +630,7 @@ cxTexture *cxTexture::FromPKM(const cxStr *data)
 
 cxTexture *cxTexture::FromTXT(const cxStr *txt,const cxTextAttr &attr,cxUInt64 *key)
 {
-    cxStr *data = cxEngine::Instance()->TextImage(txt, attr, size);
+    const cxStr *data = cxEngine::Instance()->TextImage(txt, attr, size);
     if(!cxStr::IsOK(data)){
         success = false;
         return this;

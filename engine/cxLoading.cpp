@@ -22,9 +22,11 @@ cxLoading::cxLoading()
     Append(items);
     items->onAction += [this](cxSequence *pav,cxAction *sub){
         cxAsync *async = sub->To<cxAsync>();
+        //has error
         if(error != 0){
             return;
         }
+        //invoke error
         error = async->ErrorCode();
         if(error != 0){
             onError.Fire(this, async);
@@ -36,6 +38,7 @@ cxLoading::cxLoading()
         }
     };
     items->onExit += [this](cxAction *pav){
+        //not error invoke onCompleted
         if(error == 0){
             onCompleted.Fire(this);
         }

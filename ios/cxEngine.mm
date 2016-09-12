@@ -113,7 +113,7 @@ static void drawString(CGContextRef ctx,CTFrameRef frameRef,CGRect rect,UIFont *
     [image drawInRect:rect];
 }
 
-static NSString *spaceString(NSString *str,cxTextNumFormat format)
+static NSString *formatString(NSString *str,cxTextNumFormat format)
 {
     NSNumberFormatter *formatter = [[[NSNumberFormatter alloc] init] autorelease];
     formatter.locale = [NSLocale currentLocale];
@@ -131,7 +131,7 @@ void cxEngine::Exit()
     exit(0);
 }
 
-cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size)
+const cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size)
 {
     if(!cxStr::IsOK(txt)){
         return NULL;
@@ -141,7 +141,7 @@ cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &siz
         return NULL;
     }
     if(attr.format != cxTextNumFormatNone){
-        str = spaceString(str, attr.format);
+        str = formatString(str, attr.format);
     }
     UIFont *font = nil;
     if(attr.boldFont){
@@ -156,7 +156,7 @@ cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &siz
         return NULL;
     }
     //RGBA
-    cxInt bufsiz = (int)(dim.width * dim.height * 4);
+    cxInt bufsiz = (int)(dim.width * dim.height) * 4;
     cxStr *rv = cxStr::Create()->Init(bufsiz);
     chars buffer = rv->Buffer();
     CGBitmapInfo bitMapInfo = kCGImageAlphaPremultipliedLast|kCGBitmapByteOrderDefault;
@@ -171,8 +171,8 @@ cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &siz
     CGContextRelease(context);
     CFRelease(frameRef);
     CGColorSpaceRelease(colorSpace);
-    size.w = dim.width;
-    size.h = dim.height;
+    size.w = (int)dim.width;
+    size.h = (int)dim.height;
     return rv;
 }
 

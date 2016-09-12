@@ -143,7 +143,7 @@ void cxHttp::OnConnected()
     s->Release();
 }
 
-void cxHttp::connect(const char *url)
+void cxHttp::ConnectURL(cchars url)
 {
     char sserver[256]={0};
     char spath[1024]={0};
@@ -166,13 +166,13 @@ void cxHttp::connect(const char *url)
     Connect((cchars)sserver, port);
 }
 
-cxHttp *cxHttp::Post(cchars url,cxStr *post)
+cxHttp *cxHttp::Post(cchars url,const cxStr *post)
 {
     CX_ASSERT(cxStr::IsOK(url), "args error");
     cxHttp *rv = cxHttp::Create();
-    cxObject::swap(&rv->post, post);
+    CX_SWAP(rv->post,post);
     rv->method = HTTP_POST;
-    rv->connect(url);
+    rv->ConnectURL(url);
     rv->Forever();
     return rv;
 }
@@ -181,7 +181,7 @@ cxHttp *cxHttp::Get(cchars url)
 {
     CX_ASSERT(cxStr::IsOK(url), "args error");
     cxHttp *rv = cxHttp::Create();
-    rv->connect(url);
+    rv->ConnectURL(url);
     rv->Forever();
     return rv;
 }

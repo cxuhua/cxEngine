@@ -69,22 +69,30 @@ void cxClient::OnPacket(RakNet::Packet *packet)
 
 void cxClient::OnError(cxInt error)
 {
+    isclosed = true;
     onError.Fire(this, error);
 }
 
 void cxClient::OnConnected()
 {
+    isclosed = false;
     onConnected.Fire(this);
 }
 
 void cxClient::OnLost()
 {
+    isclosed = true;
     onLost.Fire(this);
 }
 
-void cxClient::OnMessage(RakNet::RakNetGUID clientId, const cxStr *message)
+cxBool cxClient::IsClosed()
 {
-    onMessage.Fire(this, clientId, message);
+    return isclosed;
+}
+
+void cxClient::OnUDPPackage(RakNet::Packet *packet,cchars data,cxInt size)
+{
+    onMessage.Fire(this, packet->guid, data, size);
 }
 
 void cxClient::Connect(const ServerInfo *info)
@@ -101,7 +109,7 @@ void cxClient::Connect(const ServerInfo *info)
 void cxClient::Connect(cchars host,cxInt port,cchars pass)
 {
     CX_ASSERT(publicKey.myPublicKey != NULL, "public key miss");
-    peer->SetOccasionalPing(true);
+    peer->SetOccasionalPing(false);
     peer->Connect(host, port, pass, (int)strlen(pass),&publicKey);
 }
 

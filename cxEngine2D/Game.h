@@ -22,8 +22,6 @@ public:
 protected:
     explicit Game();
     virtual ~Game();
-    void OnDispatch(const cxTouchable *e);
-    void OnUpdate(cxFloat dt);
 public:
     void OnMain();
 };

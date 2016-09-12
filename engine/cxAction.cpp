@@ -157,7 +157,7 @@ cxFloat cxAction::deltaTimeFix(cxFloat dt)
     return dt;
 }
 
-cxAction *cxAction::AttachWindow()
+cxAction *cxAction::Run()
 {
     cxEngine::Instance()->Window()->Append(this);
     return this;

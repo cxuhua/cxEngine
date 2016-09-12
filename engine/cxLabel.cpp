@@ -11,6 +11,43 @@
 
 CX_CPP_BEGIN
 
+cxBool cxTextAttr::operator==(const cxTextAttr &v) const
+{
+    if(!cxFloatIsEqual(size, v.size)){
+        return false;
+    }
+    if(align != v.align) {
+        return false;
+    }
+    if(color != v.color) {
+        return false;
+    }
+    if(!cxFloatIsEqual(strokeWidth, v.strokeWidth)){
+        return false;
+    }
+    if(strokeColor != v.strokeColor) {
+        return false;
+    }
+    if(strokeOffset != v.strokeOffset){
+        return false;
+    }
+    if(boldFont != v.boldFont){
+        return false;
+    }
+    if(cxFloatIsEqual(fixWidth, v.fixWidth)){
+        return false;
+    }
+    if(format != v.format){
+        return false;
+    }
+    return true;
+}
+
+cxBool cxTextAttr::operator!=(const cxTextAttr &v) const
+{
+    return !(*this == v);
+}
+
 CX_IMPLEMENT(cxLabel);
 
 cxLabel::cxLabel()

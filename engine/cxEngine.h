@@ -116,7 +116,7 @@ public:
     static void Startup(cxBool layout);
     
     //need platform imp
-    cxStr *TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size);
+    const cxStr *TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size);
     void Exit();
     
     void Reset();

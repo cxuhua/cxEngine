@@ -37,7 +37,7 @@ private:
 public:
     //must invoke remove(object)
     static void Append(cxLong key,cxAny dst,NoticeFunc func);
-    static void Post(cxLong key,cxAny src);
+    static cxInt Post(cxLong key,cxAny src);
     static void Remove(cxLong key);
     static void Remove(cxAny dst);
 };

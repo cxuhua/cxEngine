@@ -38,7 +38,7 @@ private:
     //用于服务器之间数据传输
     TcpServer *tcp;
 public:
-    virtual void OnTcpPacket(RakNet::Packet *packet);
+    virtual void OnTCPPacket(RakNet::Packet *packet);
     //有新连接
     virtual void OnTcpNewConnect(RakNet::SystemAddress addr);
     //连接关闭
@@ -52,6 +52,7 @@ public:
     void CloseTcp(RakNet::SystemAddress addr);
     //发送数据 broadcast == true,addr = UNASSIGNED_SYSTEM_ADDRESS
     void TcpWrite(RakNet::SystemAddress addr,const cxStr *data,bool broadcast=false);
+    void TcpWrite(RakNet::SystemAddress addr,cxPackHeader *pack,bool broadcast=false);
     //是否有此连接
     bool HasConnection(RakNet::SystemAddress addr);
     //连接数量
@@ -74,9 +75,9 @@ public:
     void Lock();
     void UnLock();
     //
-    void Process();
+    void Update();
     void OnPacket(RakNet::Packet *packet);
-    void OnMessage(RakNet::RakNetGUID clientId,const cxStr *message);
+    void OnUDPPackage(RakNet::Packet *packet,cchars data,cxInt size);
 public:
     virtual void Wait();
     virtual void Stop();

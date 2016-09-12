@@ -22,6 +22,7 @@ protected:
     explicit cxClient();
     virtual ~cxClient();
 private:
+    cxBool isclosed;
     ServerInfo *serverInfo;
     char publicKeyData[cat::EasyHandshake::PUBLIC_KEY_BYTES];
     RakNet::PublicKey publicKey;
@@ -33,7 +34,8 @@ public:
     void Connect(const ServerInfo *info);
     void Connect(cchars host,cxInt port,cchars pass);
 public:
-    void OnMessage(RakNet::RakNetGUID clientId, const cxStr *message);
+    cxBool IsClosed();
+    void OnUDPPackage(RakNet::Packet *packet,cchars data,cxInt size);
     virtual void OnConnected();
     virtual void OnLost();
     virtual void OnError(cxInt error);
@@ -41,7 +43,7 @@ public:
     cxEvent<cxClient> onConnected;
     cxEvent<cxClient> onLost;
     cxEvent<cxClient,cxInt> onError;
-    cxEvent<cxClient,RakNet::RakNetGUID, const cxStr *> onMessage;
+    cxEvent<cxClient,RakNet::RakNetGUID,cchars,cxInt> onMessage;
 };
 
 CX_CPP_END

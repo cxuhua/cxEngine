@@ -175,8 +175,8 @@ do{                                                             \
 #define CX_MAX(v1,v2) (((v1) < (v2)) ? (v2) : (v1))
 #endif
 
-#ifndef CX_SWAP
-#define CX_SWAP(v1, v2) {typeof(v1) _temp_=(v1);v1=v2;v2=_temp_;}
+#ifndef CX_SWAP_VAR
+#define CX_SWAP_VAR(v1, v2) {typeof(v1) _temp_=(v1);v1=v2;v2=_temp_;}
 #endif
 
 #ifndef CX_SWAP32
@@ -191,8 +191,8 @@ do{                                                             \
 #define CX_SET_NULL(_t1_)                _t1_=nullptr
 #endif
 
-#ifndef CX_MOVE
-#define CX_MOVE(_t2_,_t1_)              cxObject::swap(&(_t1_),_t2_)
+#ifndef CX_SWAP
+#define CX_SWAP(_t1_,_t2_)              cxObject::swap(&(_t1_),_t2_)
 #endif
 
 #ifndef CX_RELEASE

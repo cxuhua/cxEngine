@@ -217,13 +217,15 @@ void cxFrames::SetRepeats(cchars str)
         if(str[i] != ',')continue;
         memcpy(buffers, str + b, i-b);
         buffers[i - b] = 0;
-        repeats.push_back(atoi(buffers));
+        cxFloat v = atof(buffers);
+        repeats.push_back(v);
         b = i+1;
     }
     if(len > b){
         memcpy(buffers, str + b, len-b);
         buffers[len - b] = 0;
-        repeats.push_back(atoi(buffers));
+        cxFloat v = atof(buffers);
+        repeats.push_back(v);
     }
 }
 

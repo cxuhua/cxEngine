@@ -617,7 +617,7 @@
 				TargetAttributes = {
 					83E6F6431B0C97B5006839C8 = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = 52UNK6QLYG;
+						DevelopmentTeam = Q9F35643QK;
 					};
 				};
 			};
@@ -888,7 +888,7 @@
 					"$(SRCROOT)/libs/ios/lib",
 					"$(PROJECT_DIR)/libs/ios/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.cegou.test;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.debug;
 				PRODUCT_NAME = cxEngineTest;
 				PROVISIONING_PROFILE = "";
 				STRIP_PNG_TEXT = NO;
@@ -923,7 +923,7 @@
 					"$(SRCROOT)/libs/ios/lib",
 					"$(PROJECT_DIR)/libs/ios/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.cegou.test;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.debug;
 				PRODUCT_NAME = cxEngineTest;
 				PROVISIONING_PROFILE = "";
 				STRIP_PNG_TEXT = NO;

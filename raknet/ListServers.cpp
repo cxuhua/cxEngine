@@ -30,6 +30,7 @@ CX_IMPLEMENT(ServerInfo)
 ServerInfo::ServerInfo()
 {
     Ping = MAX_PING;
+    PingNum = 0;
     Port = 0;
     Attr = 0;
     Max = 0;
@@ -70,6 +71,14 @@ ServerInfo *ServerInfo::Init(const cxJson *json)
     return this;
 }
 
+cxInt ServerInfo::GetPing()
+{
+    if(PingNum == 0){
+        return Ping;
+    }
+    return Ping / PingNum;
+}
+
 CX_IMPLEMENT(ListServers);
 
 ListServers::ListServers()
@@ -88,19 +97,62 @@ cxInt ListServers::sortItem(const void *lp, const void *rp)
 {
     ServerInfo *l = *(ServerInfo **)lp;
     ServerInfo *r = *(ServerInfo **)rp;
-    return l->Ping < r->Ping;
+    return l->GetPing() < r->GetPing();
 }
 
-void ListServers::SetPing(RakNet::SystemAddress addr,cxInt ping)
+void ListServers::Sort()
+{
+    Items->Sort(ListServers::sortItem);
+}
+
+const cxJson *ListServers::ToJson()
+{
+    cxJson *ret = cxJson::CreateArray();
+    for(cxArray::FIter it=Items->FBegin();it!=Items->FEnd();it++){
+        ServerInfo *info = (*it)->To<ServerInfo>();
+        cxJson *item = cxJson::Alloc()->Object();
+        item->Set("id", info->Id);
+        item->Set("ping", info->Ping);
+        item->Set("host", info->Host);
+        item->Set("port", info->Port);
+        ret->Append(item);
+        item->Release();
+    }
+    return ret;
+}
+
+void ListServers::Each(std::function<cxBool(ServerInfo *)> func)
+{
+    for(cxArray::FIter it=Items->FBegin();it!=Items->FEnd();it++){
+        ServerInfo *info = (*it)->To<ServerInfo>();
+        if(!func(info)){
+            break;
+        }
+    }
+}
+
+ServerInfo *ListServers::Query(RakNet::SystemAddress addr)
 {
     for(cxArray::FIter it=Items->FBegin();it!=Items->FEnd();it++){
         ServerInfo *info = (*it)->To<ServerInfo>();
         if(info->ToString()->IsEqu(addr.ToString())){
-            info->Ping = ping;
-            break;
+            return info;
         }
     }
-    Items->Sort(ListServers::sortItem);
+    return nullptr;
+}
+
+ServerInfo *ListServers::SetPing(RakNet::SystemAddress addr,cxInt ping)
+{
+    ServerInfo *info = Query(addr);
+    CX_ASSERT(info != nullptr, "server info miss");
+    info->PingNum ++;
+    if(info->PingNum == 1){
+        info->Ping = ping;
+    }else{
+        info->Ping += ping;
+    }
+    return info;
 }
 
 ListServers *ListServers::Init(const cxStr *txt)
@@ -126,7 +178,7 @@ ListServers *ListServers::Init(const cxStr *txt)
     return this;
 }
 
-const ServerInfo *ListServers::Query(cchars sid)
+ServerInfo *ListServers::Query(cchars sid)
 {
     for(cxArray::FIter it=Items->FBegin();it!=Items->FEnd();it++){
         ServerInfo *info = (*it)->To<ServerInfo>();
@@ -137,7 +189,7 @@ const ServerInfo *ListServers::Query(cchars sid)
     return nullptr;
 }
 
-const ServerInfo *ListServers::Query(cxInt attr)
+ServerInfo *ListServers::Query(cxInt attr)
 {
     cxInt ping = MAX_PING;
     ServerInfo *ret = nullptr;
@@ -149,12 +201,12 @@ const ServerInfo *ListServers::Query(cxInt attr)
         if(info->Curr >= info->Max){
             continue;
         }
-        if(info->Ping >= MAX_PING){
+        if(info->GetPing() >= MAX_PING){
             continue;
         }
-        if(info->Ping < ping){
+        if(info->GetPing() < ping){
             ret = info;
-            ping = info->Ping;
+            ping = info->GetPing();
         }
     }
     return ret;

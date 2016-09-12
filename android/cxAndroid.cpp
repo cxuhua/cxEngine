@@ -85,7 +85,7 @@ void cxEngine::Exit()
     m.CallVoidMethod(app);
 }
 
-cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &texSize)
+const cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &texSize)
 {
     cxAndroid *app = cxAndroid::Instance();
     if(app == nullptr){

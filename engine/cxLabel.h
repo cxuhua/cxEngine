@@ -39,6 +39,8 @@ struct cxTextAttr
     cxBool boldFont;
     cxFloat fixWidth;
     cxTextNumFormat format;
+    cxBool operator==(const cxTextAttr &v) const;
+    cxBool operator!=(const cxTextAttr &v) const;
 };
 
 class cxLabel : public cxSprite

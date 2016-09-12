@@ -58,19 +58,12 @@
 
 CX_CPP_BEGIN
 
-cxClient *client = nullptr;
-
 CX_IMPLEMENT(Game);
 
-void Game::OnUpdate(cxFloat dt)
-{
-    client->Process();
-    cxEngine::OnUpdate(dt);
-}
 
 Game::Game()
 {
-    client = cxClient::Alloc();
+    
     
 }
 
@@ -79,157 +72,33 @@ Game::~Game()
     
 }
 
-cxBoxWorld *w = nullptr;
-
-void Game::OnDispatch(const cxTouchable *e)
-{
-//    if(w == nullptr){
-//        return;
-//    }
-//    float r = CX_RAND_01f();
-//    float g = CX_RAND_01f();
-//    float b = CX_RAND_01f();
-//    const cxTouchPoint *t1 = e->TouchPoint(0);
-//    if(t1->type == cxTouchPoint::Ended){
-//        cxCircleBody *body = cxCircleBody::Create();
-//        body->SetRadius(25);
-//        body->SetPosition(t1->wp);
-//        body->SetElasticity(1.0);
-//        
-//        body->Invoke([](cxView *pview){
-//            pview->To<cxCircleBody>()->ApplyForceToCenter(cxPoint2F(800, 0));
-//        });
-//        
-//        w->Append(body);
-//        
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetColor(cxColor4F(r, g, b, 1.0));
-//        sp->SetSize(cxSize2F(50, 50));
-//        sp->SetTexture("t.png");
-//        body->Append(sp);
-//    }
-}
-
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
-    float vv = tanf(cxDegreesToRadians(30)) * 9.5f;
-//    for(cxInt i=2;i <= 14;i++){
-//        cxInt x = ((cxInt)pow(i, 3)) % 15;
-//        CX_LOGGER("%d",x);
-//    }
-//    cxInt b = 0;
-    
-//    w = cxBoxWorld::Create();
-//    w->SetSize(cxSize2F(2048, 1536));
-//    w->SetGravity(cxPoint2F(0, -10));
-//    Window()->Append(w);
-//    
-//    cxChainBody *c = cxChainBody::Create();
-//    c->SetSize(cxSize2F(2048, 1536));
-//    c->SetStatic(true);
-//    w->Append(c);
-    
-    cxLoading *loader = cxLoading::Create();
-    loader->Run([this](cxLoading *pview){
-        LoadConfig("configs.csv");
-    });
-    loader->Run([this](cxLoading *pview){
-        LoadLocalized("texts.csv");
-    });
-    loader->Run([this](cxLoading *pview){
-        LoadTexture("t.png");
-        LoadTexture("grid.png");
-//        LoadTexture("c1.lqt");
-    });
-//    loader->Run([this](cxLoading *pview){
-//        LoadFrames("frames.csv");
-//    });
-//    loader->Run([this](cxLoading *pview){
-//        LoadActions("actions.csv");
-//    });
-    loader->onProgress+=[](cxLoading *pview,cxInt i,cxInt a){
-        CX_LOGGER("loader %d/%d",i,a);
+    LoadTexture("c1.lqt");
+    LoadFrames("frames.csv");
+    LoadActions("actions.csv");
+    //获取法师帧序列
+    const cxFrames *fs = GetFrames("Mage");
+    //获取法师的动作列表
+    const cxActionGroup *ag = GetActions("Mage");
+    //获得move动作
+    const cxActionAttr *move = ag->Action("move");
+    //创建动画
+    cxAnimate *animate = fs->Animate();
+    animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+        CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
     };
-    loader->onCompleted +=[this](cxLoading *pview,cxBool ok){
-//        CX_LOGGER("Port:=%d %d",Config("SERVER_PORT")->ToInt(),ok);
-//        CX_LOGGER("%s",cxLocalized::Text("TID_LOCALIZED_NAME")->ToString());
-//        //获取法师帧序列
-//        const cxFrames *fs = GetFrames("Mage");
-//        //获取法师的动作列表
-//        const cxActionGroup *ag = GetActions("Mage");
-//        //获得move动作
-//        const cxActionAttr *move = ag->Action("attack1");
-//        //创建动画
-//        cxAnimate *animate = fs->Animate();
-//        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-//            CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
-//        };
-//        //设置移动组1为当前播放组
-//        animate->SetAction(move, 1);
-//        animate->SetSpeed(1.5f);
-//        //
-//        cxAtlas *atlas = cxAtlas::Create();
-////        atlas->SetFlipX(true);
-//        atlas->SetSize(cxSize2F(600, 600));
-//        animate->AttachTo(atlas);
-//        
-//        Window()->Append(atlas);
-        
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetTexture("t.png");
-//        sp->SetSize(200);
-//        Window()->Append(sp);
-//        
-//        cxSequence *ms = cxSequence::Create();
-//        cxMultiple *ms = cxMultiple::Create();
-//        
-//        cxMoveTo *m1 = cxMoveTo::Create(cxPoint2F(0, 300), 3.0);
-//        m1->AttachTo(sp);
-//        cxRotateTo *r1 = cxRotateTo::Create(3.0, 5.0);
-//        r1->AttachTo(sp);
-//        
-//        ms->Append(m1);
-//        ms->Append(r1);
-//        
-//        ms->onAction+=[](cxMultiple *p,cxAction *a){
-//            CX_LOGGER("%p action exit",a);
-//        };
-//        Window()->Append(ms);
-        
-        Map *map = Map::Create();
-        Window()->Append(map);
-        
-//        Controller *c = Controller::Create(5, 3);
-//        c->SetResizeFlags(cxView::ResizeBottom);
-//        Window()->Append(c);
-    };
+    animate->SetAction(move, 1);
+    animate->SetSpeed(1.0f);
+    //
+    cxAtlas *atlas = cxAtlas::Create();
+    atlas->SetFlipX(true);
+    atlas->SetSize(cxSize2F(600, 600));
+    animate->AttachTo(atlas);
     
-    Window()->Append(loader);
-//    
-//    cxHttp *http = cxHttp::Get("http://192.168.199.244:9001");
-//    Window()->Append(http);
-//    http->onError +=[](cxHttp *http){
-//        CX_LOGGER("error");
-//    };
-//    http->onSuccess += [this](cxHttp *http){
-//        const cxStr *json = http->Body();
-//        CX_LOGGER("%s",json->ToString());
-//        ListServers *list = ListServers::Create()->Init(json);
-//        if(list == nullptr){
-//            return;
-//        }
-//        if(list->Code != 0){
-//            CX_ERROR("%s",list->Error->ToString());
-//            return;
-//        }
-//        const ServerInfo *info = list->Query();
-//        if(info == nullptr){
-//            CX_ERROR("query server info error");
-//            return;
-//        }
-//        client->Connect(info);
-//    };
+    Window()->Append(atlas);
+    
 }
 
 CX_CPP_END

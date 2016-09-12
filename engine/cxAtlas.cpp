@@ -172,10 +172,7 @@ void cxAtlas::updateScale9()
             offx = (bx2 - bx1)/2.0f + bx1 - size.w/2.0f;
             offy = (size.h - (by2 - by1))/2.0f - by1;
             cxBoxRender &bp = renders.Inc();
-            bp.lb.colors = color;
-            bp.lt.colors = color;
-            bp.rb.colors = color;
-            bp.rt.colors = color;
+            bp.SetColor(color);
             bp.lb.vertices = cxPoint3F(-hw + offx, -hh + offy, 0.0f);
             bp.rb.vertices = cxPoint3F( hw + offx, -hh + offy, 0.0f);
             bp.lt.vertices = cxPoint3F(-hw + offx,  hh + offy, 0.0f);
@@ -186,13 +183,10 @@ void cxAtlas::updateScale9()
             bp.rt.coords = coord->rotated?cxCoord2F(ty1, tx2):cxCoord2F(tx2, ty1);
         }
     }
-    if(IsDirtyMode(DirtyModeColor) && renders.Size() > 0){
+    if(IsDirtyMode(DirtyModeColor)){
         for(cxInt i=0; i < renders.Size();i++){
             cxBoxRender &bp = renders.At(i);
-            bp.lb.colors = color;
-            bp.lt.colors = color;
-            bp.rb.colors = color;
-            bp.rt.colors = color;
+            bp.SetColor(color);
         }
     }
 }

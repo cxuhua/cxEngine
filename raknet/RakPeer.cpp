@@ -383,15 +383,6 @@ StartupResult RakPeer::Startup( unsigned int maxConnections, SocketDescriptor *s
 		else
 			addrToBind=socketDescriptors[i].hostAddress;
 			*/
-
-
-
-
-
-
-
-
-
 		/*
 #if RAKNET_SUPPORT_IPV6==1
 		if (SocketLayer::IsSocketFamilySupported(addrToBind, socketDescriptors[i].socketFamily)==false)
@@ -4601,7 +4592,7 @@ bool ProcessOfflineNetworkPacket( SystemAddress systemAddress, const char *data,
 			bsOut.ResetWritePointer();
 			bsOut.Write((unsigned char)ID_UNCONNECTED_PONG);
             //current time sub send time
-			RakNet::TimeMS pingMS = GetTimeMS() - (RakNet::TimeMS)ping;
+			RakNet::TimeMS pingMS = (RakNet::TimeMS)ping;
 			bsOut.Write(pingMS);
 			bsOut.WriteAlignedBytes(
 				(const unsigned char*)data+sizeof(unsigned char)+sizeof(RakNet::Time)+RakNetGUID::size()+sizeof(OFFLINE_MESSAGE_DATA_ID),
@@ -5839,7 +5830,6 @@ bool RakPeer::RunUpdateCycle(BitStream &updateBitStream )
 				// Update again immediately after this tick so the ping goes out right away
 				quitAndDataEvents.SetEvent();
 			}
-
 			// Find whoever has the lowest player ID
 			//if (systemAddress < authoritativeClientSystemAddress)
 			// authoritativeClientSystemAddress=systemAddress;
@@ -6001,7 +5991,7 @@ bool RakPeer::RunUpdateCycle(BitStream &updateBitStream )
 						quitAndDataEvents.SetEvent();
 
 						rakFree_Ex(data, _FILE_AND_LINE_ );
-					}
+                    }
 					else if ( (unsigned char) data[ 0 ] == ID_DISCONNECTION_NOTIFICATION )
 					{
 						// We shouldn't close the connection immediately because we need to ack the ID_DISCONNECTION_NOTIFICATION

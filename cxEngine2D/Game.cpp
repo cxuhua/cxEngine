@@ -44,9 +44,6 @@
 #include <core/cxSqlite.h>
 #include <engine/cxScript.h>
 
-#include <raknet/cxClient.h>
-#include <raknet/ListServers.h>
-
 #include <engine/cxFrames.h>
 #include <engine/cxActionGroup.h>
 #include <engine/cxLoading.h>

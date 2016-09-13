@@ -10,7 +10,6 @@
 #define cxEngine2D_IOSEngine_h
 
 #include <engine/cxEngine.h>
-#include <raknet/RakPeerInterface.h>
 
 CX_CPP_BEGIN
 

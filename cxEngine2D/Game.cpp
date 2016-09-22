@@ -39,8 +39,6 @@
 #include "Game.h"
 #include <core/cxKDTree.h>
 #include "Sea.h"
-#include <engine/cxBox2D.h>
-#include <engine/cxSpine.h>
 #include <core/cxSqlite.h>
 #include <engine/cxScript.h>
 
@@ -60,7 +58,6 @@ CX_IMPLEMENT(Game);
 
 Game::Game()
 {
-    
     
 }
 

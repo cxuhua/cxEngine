@@ -44,8 +44,8 @@ private:
     cxFloat elapsedvar;
     cxFloat time;
     cxFloat delta;
-    cxDouble curr;
-    cxDouble prev;
+    cxFloat curr;
+    cxFloat prev;
     cxBool ispause;
     cxBool isinit;
     cxBool isexit;

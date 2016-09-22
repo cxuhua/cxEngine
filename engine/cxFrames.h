@@ -16,6 +16,8 @@
 
 CX_CPP_BEGIN
 
+#define MAX_FRAME_COUNT     16
+
 class cxAnimate;
 class cxFrames : public cxObject
 {
@@ -39,8 +41,8 @@ private:
     cxFloat speed;
     cxFloat delay;
     cxArray *points;
-    cxInt mapnum;           //层数量，最大16
-    cxInt map[16];          //层映射
+    cxInt mapnum;               //层数量，最大MAX_FRAME_COUNT
+    cxInt map[MAX_FRAME_COUNT]; //层映射
 private:
     cxTexCoord *layerEnd(cxInt group,cxInt count,cxInt layer);
     void loadlayers(cxArray *layers,cxInt c,cxInt g);

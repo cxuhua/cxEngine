@@ -178,7 +178,7 @@ void cxFrames::SetMaps(cchars maps)
     if(!cxStr::IsOK(maps)){
         return;
     }
-    char buffers[16]={0};
+    char buffers[MAX_FRAME_COUNT]={0};
     cxInt len = (cxInt)strlen(maps);
     cxInt b = 0;
     mapnum = 0;
@@ -209,7 +209,7 @@ void cxFrames::SetRepeats(cchars str)
     if(!cxStr::IsOK(str)){
         return;
     }
-    char buffers[16]={0};
+    char buffers[MAX_FRAME_COUNT]={0};
     cxInt len = (cxInt)strlen(str);
     cxInt b = 0;
     repeats.clear();
@@ -278,7 +278,6 @@ cxBool cxFrames::Init()
         //加载保存层
         cxArray *layers = cxArray::Alloc();
         tp->SetObject(layers);
-        //加载帧
         loadlayers(layers, c, g);
         layers->Release();
     }

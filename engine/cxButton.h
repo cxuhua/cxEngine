@@ -28,6 +28,7 @@ private:
     cxBool islong;
     cxTimer *timer;
     cxFloat longerTime;
+private:
     void timerArrive(cxAction *pav);
     void timerStart();
     void timerExit();

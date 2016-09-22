@@ -25,8 +25,8 @@ private:
     cxBool ispress;
     cxBool ispass;
     cxBool isenable;
+    cxBool islong;
     cxTimer *timer;
-    //
     cxFloat longerTime;
     void timerArrive(cxAction *pav);
     void timerStart();
@@ -34,13 +34,15 @@ private:
 protected:
     cxBool OnDispatch(const cxTouchable *e);
 public:
-    void SetLongerTime(cxFloat v);
     cxEvent<cxButton> onTap;
     cxEvent<cxButton> onPress;
     cxEvent<cxButton> onLonger;
     cxEvent<cxButton> onRelease;
     cxEvent<cxButton> onMove;
+public:
+    void SetLongerTime(cxFloat v);
     void SetIsPass(cxBool v);
+    void SetIsLong(cxBool v);
     void SetIsEnable(cxBool v);
 };
 

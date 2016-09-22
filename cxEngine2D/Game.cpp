@@ -55,7 +55,6 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(Game);
 
-
 Game::Game()
 {
     
@@ -77,21 +76,24 @@ void Game::OnMain()
     //获取法师的动作列表
     const cxActionGroup *ag = GetActions("Mage");
     //获得move动作
-    const cxActionAttr *move = ag->Action("move");
+    const cxActionAttr *move = ag->Action("attack1");
     //创建动画
-    cxAnimate *animate = fs->Animate();
-    animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-        CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
-    };
-    animate->SetAction(move, 1);
-    animate->SetSpeed(1.0f);
-    //
-    cxAtlas *atlas = cxAtlas::Create();
-    atlas->SetFlipX(true);
-    atlas->SetSize(cxSize2F(600, 600));
-    animate->AttachTo(atlas);
-    
-    Window()->Append(atlas);
+    const cxSize2F &size = WinSize();
+    for(int i=0;i < 2000; i++){
+        cxAnimate *animate = fs->Animate();
+    //    animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+    //        CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
+    //    };
+        animate->SetAction(move, 1);
+        animate->SetSpeed(1.0f);
+        //
+        cxAtlas *atlas = cxAtlas::Create();
+        atlas->SetFlipX(true);
+        atlas->SetSize(cxSize2F(200, 200));
+        animate->AttachTo(atlas);
+        atlas->SetPosition(cxPoint2F(CX_RAND_11f() * size.w/2.0f, CX_RAND_11f() * size.h/2.0f));
+        Window()->Append(atlas);
+    }
     
 }
 

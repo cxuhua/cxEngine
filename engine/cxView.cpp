@@ -930,7 +930,7 @@ const cxStr *cxView::ViewPath()
 }
 
 //this.0.0
-cxView *cxView::Selector(cchars path)
+cxView *cxView::Select(cchars path)
 {
     chars ckey = strdup(path);
     cxInt num = 0;
@@ -1056,6 +1056,7 @@ void cxView::OnLayout()
     if(parent == nullptr || resizeflags == ResizeNone){
         return;
     }
+    
     CX_ASSERT(!cxEngine::Instance()->PlanScale().IsZero(), "not set plansize");
     
     cxBox4F pbox = Parent()->BoxPoint().ToBox4F();
@@ -1185,10 +1186,7 @@ void cxView::Invoke(cxFloat delay,std::function<void(cxView *pview)>func)
 
 void cxView::Invoke(cxFloat delay,cxInt repeat,std::function<void(cxView *pview)>func)
 {
-    if(cxFloatIsEqual(delay,0)){
-        func(this);
-        return;
-    }
+    if(cxFloatIsEqual(delay,0)){func(this);return;}
     cxAction *timer = cxAction::Create();
     timer->SetTime(delay);
     timer->SetRepeat(repeat);

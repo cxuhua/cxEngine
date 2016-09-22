@@ -272,7 +272,7 @@ public:
     void ResetIdx();
     const cxBox4F ParentBox() const;
     const cxStr *ViewPath();
-    cxView *Selector(cchars path);
+    cxView *Select(cchars path);
     
     cxView *AttachTo(cxView *pview);
     

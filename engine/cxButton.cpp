@@ -20,6 +20,7 @@ cxButton::cxButton()
     ispass = false;
     ispress = false;
     timer = nullptr;
+    islong = false;
 }
 
 cxButton::~cxButton()
@@ -30,6 +31,11 @@ cxButton::~cxButton()
 void cxButton::SetIsPass(cxBool v)
 {
     ispass = v;
+}
+
+void cxButton::SetIsLong(cxBool v)
+{
+    islong = v;
 }
 
 void cxButton::SetIsEnable(cxBool v)
@@ -49,6 +55,9 @@ void cxButton::SetLongerTime(cxFloat v)
 
 void cxButton::timerStart()
 {
+    if(!islong){
+        return;
+    }
     timerExit();
     timer = cxTimer::Create(1.0, longerTime);
     timer->onArrive = CX_BIND_EVENT_A1(this,cxButton::timerArrive);

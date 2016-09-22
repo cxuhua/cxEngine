@@ -165,6 +165,7 @@ cxAction *cxAction::Run()
 
 cxAction *cxAction::AttachTo(cxView *pview)
 {
+    CX_ASSERT(pview != nullptr, "args null");
     pview->Append(this);
     return this;
 }

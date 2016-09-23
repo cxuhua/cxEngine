@@ -229,22 +229,20 @@ const cxColor4F cxStr::ToColor4F() const
     if(ps->Size() == 2){
         cxFloat r = ps->At(0)->To<cxStr>()->ToFloat();
         cxFloat g = ps->At(1)->To<cxStr>()->ToFloat();
-        return cxColor4F(r, g, 1, 1);
+        return cxColor4F(r, g, 1.0f, 1.0f);
     }
     if(ps->Size() == 3){
         cxFloat r = ps->At(0)->To<cxStr>()->ToFloat();
         cxFloat g = ps->At(1)->To<cxStr>()->ToFloat();
         cxFloat b = ps->At(2)->To<cxStr>()->ToFloat();
-        return cxColor4F(r, g, b, 1);
+        return cxColor4F(r, g, b, 1.0f);
     }
-    if(ps->Size() == 4){
-        cxFloat r = ps->At(0)->To<cxStr>()->ToFloat();
-        cxFloat g = ps->At(1)->To<cxStr>()->ToFloat();
-        cxFloat b = ps->At(2)->To<cxStr>()->ToFloat();
-        cxFloat a = ps->At(3)->To<cxStr>()->ToFloat();
-        return cxColor4F(r, g, b, a);
-    }
-    return cxColor4F::WHITE;
+    //>=4
+    cxFloat r = ps->At(0)->To<cxStr>()->ToFloat();
+    cxFloat g = ps->At(1)->To<cxStr>()->ToFloat();
+    cxFloat b = ps->At(2)->To<cxStr>()->ToFloat();
+    cxFloat a = ps->At(3)->To<cxStr>()->ToFloat();
+    return cxColor4F(r, g, b, a);
 }
 
 const cxFloat cxStr::ToFloat() const
@@ -262,7 +260,7 @@ cxStr *cxStr::ToLower()
     cxStr *ret = cxStr::Create();
     for(cxInt i=0;i<Size();i++){
         char c = tolower(At(i));
-        ret->Append(&c,1);
+        ret->Append(&c,sizeof(char));
     }
     return ret;
 }
@@ -272,7 +270,7 @@ cxStr *cxStr::ToUpper()
     cxStr *ret = cxStr::Create();
     for(cxInt i=0;i<Size();i++){
         char c = toupper(At(i));
-        ret->Append(&c,1);
+        ret->Append(&c,sizeof(char));
     }
     return ret;
 }
@@ -827,7 +825,7 @@ cxBool cxStr::IsEmpty() const
     return s.empty();
 }
 
-cxInt cxStr::EachUTF8(std::function<void(cchars cptr)> func) const
+cxInt cxStr::EachUTF8(std::function<void(cchars cptr,cxInt len)> func) const
 {
     cxInt ret = 0;
     char buf[8]={0};
@@ -837,7 +835,7 @@ cxInt cxStr::EachUTF8(std::function<void(cchars cptr)> func) const
         cxInt c = getNumBytesForUTF8(ptr[i]);
         memcpy(buf, ptr + i, c);
         buf[c] = 0;
-        func(buf);
+        func(buf,c);
         i+=c;
         ret++;
     }

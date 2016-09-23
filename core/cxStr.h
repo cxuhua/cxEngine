@@ -119,7 +119,7 @@ public:
     cxStr *Insert(cxInt pos,cchars data,cxInt n);
     cxStr *Insert(cxInt pos,const cxStr *str);
     
-    cxInt EachUTF8(std::function<void(cchars cptr)> func) const;
+    cxInt EachUTF8(std::function<void(cchars cptr,cxInt len)> func) const;
     
     cxStr *Clear();
     cxStr *Erase(cxInt p,cxInt n);

@@ -42,15 +42,18 @@ cxPoint3F::cxPoint3F(const cxPoint3F &v)
 cxPoint3F::cxPoint3F(const cxJson *json)
 {
     CX_ASSERT(json != nullptr && json->IsObject(), "json format error");
-    if(json->IsObject()){
-        x = json->Get("x", x);
-        y = json->Get("y", y);
-        z = json->Get("z", z);
-    }else if(json->IsArray()){
-        x = json->Get(0, x);
-        y = json->Get(1, y);
-        z = json->Get(2, z);
-    }
+    x = json->Get("x", x);
+    y = json->Get("y", y);
+    z = json->Get("z", z);
+}
+
+cxJson *cxPoint3F::ToJson()
+{
+    cxJson *json = cxJson::Create()->Object();
+    json->Set("x", x);
+    json->Set("y", y);
+    json->Set("z", z);
+    return json;
 }
 
 cxPoint3F::cxPoint3F(cxFloat ax,cxFloat ay,cxFloat az)

@@ -63,6 +63,9 @@ public:
     const cxInt Capacity() const;
     const cxInt Size() const;
     cxBool IsEmpty() const;
+public:
+    const cxBoxRender& operator [](cxInt idx) const;
+    cxBoxRender& operator [](cxInt idx);
 };
 
 CX_CPP_END

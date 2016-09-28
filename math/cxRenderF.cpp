@@ -164,6 +164,16 @@ const cxRenderF &cxRenderFArray::At(cxInt idx) const
     return at(idx);
 }
 
+const cxRenderF& cxRenderFArray::operator [](cxInt idx) const
+{
+    return at(idx);
+}
+
+cxRenderF& cxRenderFArray::operator [](cxInt idx)
+{
+    return at(idx);
+}
+
 //
 
 cxIndicesArray::cxIndicesArray()

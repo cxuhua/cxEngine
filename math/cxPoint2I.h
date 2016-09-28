@@ -99,6 +99,9 @@ public:
     const cxPoint2I &At(cxInt idx) const;
     const cxInt Size() const;
     cxBool IsEmpty() const;
+public:
+    const cxPoint2I& operator [](cxInt idx) const;
+    cxPoint2I& operator [](cxInt idx);
 };
 
 CX_CPP_END

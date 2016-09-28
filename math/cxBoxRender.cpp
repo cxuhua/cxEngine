@@ -225,6 +225,16 @@ const cxBoxRender &cxBoxRenderArray::At(cxInt idx) const
     return at(idx);
 }
 
+const cxBoxRender& cxBoxRenderArray::operator [](cxInt idx) const
+{
+    return at(idx);
+}
+
+cxBoxRender& cxBoxRenderArray::operator [](cxInt idx)
+{
+    return at(idx);
+}
+
 
 CX_CPP_END
 

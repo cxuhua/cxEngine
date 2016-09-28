@@ -59,6 +59,9 @@ public:
     const cxInt Capacity() const;
     const cxInt Size() const;
     cxBool IsEmpty() const;
+public:
+    const cxRenderF& operator [](cxInt idx) const;
+    cxRenderF& operator [](cxInt idx);
 };
 
 class cxIndicesArray : private std::vector<cxUInt16>

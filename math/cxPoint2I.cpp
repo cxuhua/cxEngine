@@ -294,6 +294,16 @@ cxPoint2I &cxPoint2IArray::At(cxInt idx)
     return at(idx);
 }
 
+cxPoint2I& cxPoint2IArray::operator [](cxInt idx)
+{
+    return at(idx);
+}
+
+const cxPoint2I& cxPoint2IArray::operator [](cxInt idx) const
+{
+    return at(idx);
+}
+
 const cxPoint2I &cxPoint2IArray::At(cxInt idx) const
 {
     return at(idx);

@@ -53,6 +53,8 @@ public:
     virtual cxBool IsEqu(const CardItem *item);
     //移动到新位置
     cxAction *MoveTo(const cxPoint2I &dst);
+    //有卡合并过来
+    virtual void MergeMe(const cxPoint2IArray &ps);
 public:
     static CardItem *Create(Controller *c,const cxPoint2I &idx);
 };

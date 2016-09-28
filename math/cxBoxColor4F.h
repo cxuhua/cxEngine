@@ -50,6 +50,9 @@ public:
     cxBoxColor4F &At(cxInt idx);
     const cxInt Size() const;
     cxBool IsEmpty() const;
+public:
+    const cxBoxColor4F& operator [](cxInt idx) const;
+    cxBoxColor4F& operator [](cxInt idx);
 };
 
 CX_CPP_END

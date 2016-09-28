@@ -381,6 +381,16 @@ cxPoint2F &cxPoint2FArray::At(cxInt idx)
     return at(idx);
 }
 
+const cxPoint2F& cxPoint2FArray::operator [](cxInt idx) const
+{
+    return at(idx);
+}
+
+cxPoint2F& cxPoint2FArray::operator [](cxInt idx)
+{
+    return at(idx);
+}
+
 const cxInt cxPoint2FArray::Size() const
 {
     return (cxInt)size();

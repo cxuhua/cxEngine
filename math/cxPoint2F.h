@@ -113,6 +113,9 @@ public:
     const cxPoint2F &At(cxInt idx) const;
     const cxInt Size() const;
     cxBool IsEmpty() const;
+public:
+    const cxPoint2F& operator [](cxInt idx) const;
+    cxPoint2F& operator [](cxInt idx);
 };
 
 struct cxRange2F

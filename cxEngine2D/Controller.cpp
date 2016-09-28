@@ -33,7 +33,7 @@ CardItem::CardItem()
 
 CardItem::~CardItem()
 {
-    CX_LOGGER("%d %d removed",idx.x,idx.y);
+//    CX_LOGGER("%d %d removed",idx.x,idx.y);
 }
 
 cxBool CardItem::IsEqu(const CardItem *item)
@@ -55,6 +55,14 @@ void CardItem::Drop()
 {
     controller->DropView(idx);
     Remove();
+}
+
+void CardItem::MergeMe(const cxPoint2IArray &ps)
+{
+    CX_LOGGER("x=%d y=%d,merge me %d",idx.x,idx.y, ps.Size());
+    for(cxInt i=0;i<ps.Size();i++){
+        CX_LOGGER("x=%d y=%d",ps[i].x,ps[i].y);
+    }
 }
 
 cxAction *CardItem::MoveTo(const cxPoint2I &dst)
@@ -150,6 +158,7 @@ cxBool Controller::HasSwap(const cxPoint2IArray &ps)
         }
         cxPoint2IArray ps = ToPoints(box, idx);
         CX_ASSERT(ps.Size() > 0, "points error");
+        view->MergeMe(ps);
         MergeTo(m, ps, idx);
     }
     //没有交换动作
@@ -273,6 +282,7 @@ cxMultiple *Controller::ScanSwap()
         }
         cxPoint2IArray ps = ToPoints(box, idx);
         CX_ASSERT(ps.Size() > 0, "points error");
+        view->MergeMe(ps);
         MergeTo(m, ps, idx);
     }
     //扫描空位置并补充新卡

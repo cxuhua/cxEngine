@@ -147,6 +147,16 @@ cxBoxColor4F &cxBoxColor4FArray::At(cxInt idx)
     return at(idx);
 }
 
+const cxBoxColor4F& cxBoxColor4FArray::operator [](cxInt idx) const
+{
+    return at(idx);
+}
+
+cxBoxColor4F& cxBoxColor4FArray::operator [](cxInt idx)
+{
+    return at(idx);
+}
+
 const cxInt cxBoxColor4FArray::Size() const
 {
     return (cxInt)size();

@@ -79,6 +79,7 @@ private:
     cxPoint2IArray points;
 protected:
     cxBool OnDispatch(const cxengine::cxTouchable *e);
+    void OnEnter();
 public:
     //把ps中的view合并到idx位置
     cxInt MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I &idx);

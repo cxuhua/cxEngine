@@ -69,7 +69,8 @@ cxInt cxObject::EachBindes(std::function<cxBool(cxObject *pobj)> func)
     while(it != bindes.end()){
         cxObject *obj = (cxObject *)it->first;
         if(!func(obj))break;
-        c++;it++;
+        c++;
+        it++;
     }
     return c;
 }
@@ -114,7 +115,8 @@ cxInt cxObject::EachBinded(std::function<cxBool(cxObject *pobj)> func)
     while(it != binded.end()){
         cxObject *obj = (cxObject *)it->first;
         if(!func(obj))break;
-        c++;it++;
+        c++;
+        it++;
     }
     return c;
 }

@@ -77,7 +77,7 @@ cxArray *cxArray::Append(cxObject *obj)
     return this;
 }
 
-cxArray *cxArray::Appends(const cxArray *vs)
+cxArray *cxArray::Append(const cxArray *vs)
 {
     if(vs->IsEmpty()){
         return this;

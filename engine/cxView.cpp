@@ -173,13 +173,13 @@ cxView *cxView::SetParent(cxView *v)
     return this;
 }
 
-cxView *cxView::At(cxInt idx)
+cxView *cxView::At(cxInt i)
 {
-    if(subviews->Size() > idx){
-        return subviews->At(idx)->To<cxView>();
+    if(subviews->Size() > i){
+        return subviews->At(i)->To<cxView>();
     }
-    if(viewapps->Size() > idx - subviews->Size()){
-        return viewapps->At(idx - subviews->Size())->To<cxView>();
+    if(viewapps->Size() > i - subviews->Size()){
+        return viewapps->At(i - subviews->Size())->To<cxView>();
     }
     return nullptr;
 }
@@ -187,8 +187,8 @@ cxView *cxView::At(cxInt idx)
 cxArray *cxView::Subviews() const
 {
     cxArray *vs = cxArray::Create();
-    vs->Appends(subviews);
-    vs->Appends(viewapps);
+    vs->Append(subviews);
+    vs->Append(viewapps);
     return vs;
 }
 
@@ -200,6 +200,12 @@ cxView *cxView::Parent() const
 cxView *cxView::SetDirty(DirtyMode mode)
 {
     dirtymode |= mode;
+    return this;
+}
+
+cxView *cxView::DelDirty(DirtyMode mode)
+{
+    dirtymode &= ~mode;
     return this;
 }
 
@@ -803,10 +809,12 @@ void cxView::transform()
 {
     if(IsDirtyMode(DirtyModeLayout)){
         OnLayout();
+        DelDirty(DirtyModeLayout);
     }
     OnDirty();
     if(IsDirtyMode(DirtyModeLayout)){
         OnLayout();
+        DelDirty(DirtyModeLayout);
     }
     if(EnableDir() && cxFloatIsOK(direction)){
         SetAngle(Direction());

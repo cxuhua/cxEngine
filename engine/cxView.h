@@ -213,6 +213,7 @@ public:
     
     cxBool IsDirtyMode(DirtyMode v) const;
     cxView *SetDirty(DirtyMode mode);
+    cxView *DelDirty(DirtyMode mode);
     void ClearDirty();
     
     const cxPoint3F &Axis() const;

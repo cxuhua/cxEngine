@@ -64,7 +64,7 @@ cxEmitter *cxEmitter::AppendFrameKey(const cxStr *key)
 
 cxEmitter *cxEmitter::AppendFrameKeys(const cxArray *keys)
 {
-    tkeys->Appends(keys);
+    tkeys->Append(keys);
     return this;
 }
 
@@ -77,7 +77,7 @@ cxView *cxEmitter::Clone()
     rv->autoRemove = autoRemove;
     rv->torotate = torotate;
     rv->frameTime = frameTime;
-    rv->tkeys->Appends(tkeys);
+    rv->tkeys->Append(tkeys);
     rv->max = max;
     rv->systemtime = systemtime;
     rv->type = type;

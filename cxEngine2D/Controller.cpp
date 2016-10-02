@@ -515,9 +515,9 @@ cxInt Controller::ToKey(const cxPoint2F &pos)
     return ToKey(ToIdx(pos));
 }
 
-void Controller::Init()
+void Controller::OnEnter()
 {
-    cxSize2F siz = cxEngine::Instance()->WinSize();
+    cxSize2F siz = Parent()->Size();
     itemSize.w = siz.w/col;
     itemSize.h = itemSize.w;
     cxSize2F nsiz;
@@ -525,13 +525,19 @@ void Controller::Init()
     nsiz.h = itemSize.w * row;
     SetSize(nsiz);
     //for test
-    for(cxInt i = 0; i < col; i++)
+    for(cxInt i = 0;i < col;i++)
     for(cxInt j = 0;j < row;j++){
         cxPoint2I idx = cxPoint2I(i, j);
         CardItem *sp = CardItem::Create(this, idx);
         Append(sp);
     }
     ScanSwap();
+    cxView::OnEnter();
+}
+
+void Controller::Init()
+{
+    
 }
 
 Controller *Controller::Create(cxInt c,cxInt r)

@@ -32,16 +32,13 @@ protected:
 public:
     typedef cxObject *(*AllocFunc)();
 private:
-    
     static cxCore *gCore;
-    
     struct cxCoreHasher
     {
         size_t operator()(const std::string &k) const;
         bool operator()(const std::string &lhs, const std::string &rhs) const;
     };
     typedef std::unordered_map<std::string,cxHelper&,cxCoreHasher,cxCoreHasher> cxTypes;
-    
     cxTypes classes;
     cxHash *caches;
     uv_key_t autoKey;
@@ -59,13 +56,10 @@ public:
     }
     static cxObject *alloc(cchars name);
     static void registerType(cchars name,cxHelper &helper);
-    //
     static cxCore *Instance();
     static void Destroy();
-    //
     cxStack *GetAutoPool();
     void SetAutoPool(cxStack *pool);
-    //cache opt
     void Clear();
     void Remove(cchars key);
     void Push(cchars key,cxObject *pobj);

@@ -23,13 +23,29 @@ protected:
     virtual ~cxList();
 public:
     typedef std::list<cxObject *>::iterator FIter;
+    typedef std::list<cxObject *>::const_iterator CFIter;
     typedef std::list<cxObject *>::reverse_iterator RIter;
+    typedef std::list<cxObject *>::const_reverse_iterator CRIter;
+public:
+    static cxBool IsOK(const cxList *v);
+public:
     RIter RBegin();
+    CRIter RBegin() const;
+    
     RIter REnd();
+    CRIter REnd() const;
+    
     FIter FBegin();
+    CFIter FBegin() const;
+    
     FIter FEnd();
+    CFIter FEnd() const;
+    
     FIter Remove(FIter &iter);
+    FIter Remove(CFIter &iter);
+    
     RIter Remove(RIter &iter);
+    RIter Remove(CRIter &iter);
 private:
     std::list<cxObject *> ml;
 public:

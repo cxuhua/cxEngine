@@ -23,7 +23,9 @@ public:
     CX_DECLARE(cxArray);
 public:
     typedef std::vector<cxObject *>::iterator FIter;
+    typedef std::vector<cxObject *>::const_iterator CFIter;
     typedef std::vector<cxObject *>::reverse_iterator RIter;
+    typedef std::vector<cxObject *>::const_reverse_iterator CRIter;
 protected:
     explicit cxArray();
     virtual ~cxArray();
@@ -31,12 +33,24 @@ private:
     std::vector<cxObject *> mv;
 public:
     static cxBool IsOK(const cxArray *v);
+public:
     RIter RBegin();
+    CRIter RBegin() const;
+    
     RIter REnd();
+    CRIter REnd() const;
+    
     FIter FBegin();
+    CFIter FBegin() const;
+    
     FIter FEnd();
+    CFIter FEnd() const;
+    
     FIter Remove(FIter &iter);
+    FIter Remove(CFIter &iter);
+    
     RIter Remove(RIter &iter);
+    RIter Remove(CRIter &iter);
 public:
     cxObject **Buffer();
     cxObject *Last() const;
@@ -47,7 +61,7 @@ public:
     cxArray *Swap(cxInt src,cxInt dst);
     cxArray *Replace(cxInt idx,cxObject *obj);
     cxArray *Append(cxObject *obj);
-    cxArray *Append(const cxArray *vs);
+    cxArray *AppendArray(const cxArray *vs);
     cxArray *Remove(cxObject *obj);
     cxArray *Remove(cxInt idx);
     cxArray *Sort(cxCmpFunc func);

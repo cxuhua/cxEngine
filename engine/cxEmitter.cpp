@@ -64,7 +64,7 @@ cxEmitter *cxEmitter::AppendFrameKey(const cxStr *key)
 
 cxEmitter *cxEmitter::AppendFrameKeys(const cxArray *keys)
 {
-    tkeys->Append(keys);
+    tkeys->AppendArray(keys);
     return this;
 }
 

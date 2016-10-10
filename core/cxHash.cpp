@@ -127,7 +127,17 @@ cxArray *cxHash::ToArray()
     return rv;
 }
 
+cxBool cxHash::IsOK(const cxArray *v)
+{
+    return v != nullptr && !v->IsEmpty();
+}
+
 cxHash::Iter cxHash::Remove(Iter &iter)
+{
+    return mh.erase(iter);
+}
+
+cxHash::Iter cxHash::Remove(CIter &iter)
 {
     return mh.erase(iter);
 }
@@ -137,7 +147,17 @@ cxHash::Iter cxHash::Begin()
     return mh.begin();
 }
 
+cxHash::CIter cxHash::Begin() const
+{
+    return mh.begin();
+}
+
 cxHash::Iter cxHash::End()
+{
+    return mh.end();
+}
+
+cxHash::CIter cxHash::End() const
 {
     return mh.end();
 }

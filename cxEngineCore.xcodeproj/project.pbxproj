@@ -49,7 +49,6 @@
 		833043C11B40FBE900636928 /* cxTiming.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043BF1B40FBE900636928 /* cxTiming.cpp */; };
 		833043C41B41109600636928 /* cxRotate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043C21B41109600636928 /* cxRotate.cpp */; };
 		833043C71B41149000636928 /* cxScale.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833043C51B41149000636928 /* cxScale.cpp */; };
-		8333ACD51C1EA86C00C185E7 /* cxSqlite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8333ACD31C1EA86C00C185E7 /* cxSqlite.cpp */; };
 		8338FD771B467AAE00C84032 /* cxHttp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD751B467AAE00C84032 /* cxHttp.cpp */; };
 		8338FD7A1B467B2A00C84032 /* http_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD781B467B2A00C84032 /* http_parser.c */; };
 		8338FD7D1B4695F300C84032 /* cxSpline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8338FD7B1B4695F300C84032 /* cxSpline.cpp */; };
@@ -103,7 +102,6 @@
 		839836E61B117475002B7C20 /* cxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836E41B117475002B7C20 /* cxObject.cpp */; };
 		839B8AB91B687DC8009E0CF7 /* cxOpenAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AB71B687DC8009E0CF7 /* cxOpenAL.cpp */; };
 		839B8AF41B68E877009E0CF7 /* cxMusic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839B8AF21B68E877009E0CF7 /* cxMusic.cpp */; };
-		839B936D1C1DC07F001B8C79 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 839B936B1C1DC07F001B8C79 /* sqlite3.c */; };
 		83A943A41B44DC3200F70FBA /* aes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439B1B44DC3200F70FBA /* aes_cbc.c */; };
 		83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439C1B44DC3200F70FBA /* aes_cfb.c */; };
 		83A943A61B44DC3200F70FBA /* aes_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A9439D1B44DC3200F70FBA /* aes_core.c */; };
@@ -238,8 +236,6 @@
 		833043C31B41109600636928 /* cxRotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxRotate.h; sourceTree = "<group>"; };
 		833043C51B41149000636928 /* cxScale.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxScale.cpp; sourceTree = "<group>"; };
 		833043C61B41149000636928 /* cxScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxScale.h; sourceTree = "<group>"; };
-		8333ACD31C1EA86C00C185E7 /* cxSqlite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSqlite.cpp; sourceTree = "<group>"; };
-		8333ACD41C1EA86C00C185E7 /* cxSqlite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSqlite.h; sourceTree = "<group>"; };
 		8338FD751B467AAE00C84032 /* cxHttp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxHttp.cpp; sourceTree = "<group>"; };
 		8338FD761B467AAE00C84032 /* cxHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxHttp.h; sourceTree = "<group>"; };
 		8338FD781B467B2A00C84032 /* http_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = http_parser.c; sourceTree = "<group>"; };
@@ -356,9 +352,6 @@
 		839B8ABA1B687DFA009E0CF7 /* OpenAL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenAL.h; sourceTree = "<group>"; };
 		839B8AF21B68E877009E0CF7 /* cxMusic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxMusic.cpp; sourceTree = "<group>"; };
 		839B8AF31B68E877009E0CF7 /* cxMusic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxMusic.h; sourceTree = "<group>"; };
-		839B936B1C1DC07F001B8C79 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
-		839B936C1C1DC07F001B8C79 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
-		839B936E1C1DC094001B8C79 /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
 		83A9439B1B44DC3200F70FBA /* aes_cbc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cbc.c; sourceTree = "<group>"; };
 		83A9439C1B44DC3200F70FBA /* aes_cfb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_cfb.c; sourceTree = "<group>"; };
 		83A9439D1B44DC3200F70FBA /* aes_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_core.c; sourceTree = "<group>"; };
@@ -676,9 +669,6 @@
 				831B93EE1B4A923200511A63 /* csv.h */,
 				8318C8BB1C32BC28002A85CF /* base64.c */,
 				8318C8BC1C32BC28002A85CF /* base64.h */,
-				839B936B1C1DC07F001B8C79 /* sqlite3.c */,
-				839B936C1C1DC07F001B8C79 /* sqlite3.h */,
-				839B936E1C1DC094001B8C79 /* sqlite3ext.h */,
 				8338FD851B477BD200C84032 /* fsa.h */,
 				8338FD841B477B7200C84032 /* stlastar.h */,
 				8338FD781B467B2A00C84032 /* http_parser.c */,
@@ -778,8 +768,6 @@
 				8302A3741B51078500C7209C /* cxLocalized.h */,
 				838345691B5A45B300921BE8 /* cxKDTree.cpp */,
 				8383456A1B5A45B300921BE8 /* cxKDTree.h */,
-				8333ACD31C1EA86C00C185E7 /* cxSqlite.cpp */,
-				8333ACD41C1EA86C00C185E7 /* cxSqlite.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -845,7 +833,6 @@
 				83C9D11B1B47E26100EC244C /* cxTint.cpp in Sources */,
 				836A2F651B19F644009B427B /* cxIOSUtil.mm in Sources */,
 				831189D61B2D728000C930B5 /* vec4.c in Sources */,
-				839B936D1C1DC07F001B8C79 /* sqlite3.c in Sources */,
 				83610B051B1CA6F700BD06B1 /* cxPoint2F.cpp in Sources */,
 				836730B51B4671AA00E333D9 /* cxTcp.cpp in Sources */,
 				831B9EC01B29255500B7A06B /* cxRect4F.cpp in Sources */,
@@ -893,7 +880,6 @@
 				836F3F061B1B70FA00E3E82C /* md5.c in Sources */,
 				831B93F41B4A970600511A63 /* cxCSV.cpp in Sources */,
 				8346501A1CD754460046BC55 /* cxScript.cpp in Sources */,
-				8333ACD51C1EA86C00C185E7 /* cxSqlite.cpp in Sources */,
 				83D5D31E1B6763B70051D99D /* cxLQT.cpp in Sources */,
 				831189D91B2D72F100C930B5 /* cxMatrixF.cpp in Sources */,
 				83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */,

@@ -382,7 +382,7 @@ static cxBool jsonKeyIsNumber(cchars ckey,cxInt *num)
         return false;
     }
     cxInt len = (cxInt)strlen(ckey);
-    for(cxInt i=0; i < len;i++){
+    for(cxInt i=0; i < len; i++){
         if(!isdigit(ckey[i])){
             return false;
         }

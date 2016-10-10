@@ -52,6 +52,7 @@ cxObject *cxArray::First() const
 
 cxObject *cxArray::At(cxInt idx) const
 {
+    CX_ASSERT(idx >= 0 && idx < Size(), "idx out bound");
     return mv.at(idx);
 }
 
@@ -77,13 +78,13 @@ cxArray *cxArray::Append(cxObject *obj)
     return this;
 }
 
-cxArray *cxArray::Append(const cxArray *vs)
+cxArray *cxArray::AppendArray(const cxArray *vs)
 {
+    CX_ASSERT(vs != nullptr, "vs args null");
     if(vs->IsEmpty()){
         return this;
     }
-    cxArray *vvs = (cxArray *)vs;
-    for(cxArray::FIter it=vvs->FBegin();it!=vvs->FEnd();it++){
+    for(cxArray::CFIter it=vs->FBegin();it!=vs->FEnd();it++){
         Append(*it);
     }
     return this;
@@ -108,6 +109,7 @@ cxArray *cxArray::Replace(cxInt idx,cxObject *obj)
 
 cxArray *cxArray::Remove(cxInt idx)
 {
+    CX_ASSERT(idx >= 0 && idx < Size(), "idx out bound");
     cxObject *srcObj = At(idx);
     srcObj->Release();
     mv.erase(mv.begin() + idx);
@@ -116,6 +118,8 @@ cxArray *cxArray::Remove(cxInt idx)
 
 cxArray *cxArray::Swap(cxInt src,cxInt dst)
 {
+    CX_ASSERT(src >= 0 && src < Size(), "src out bound");
+    CX_ASSERT(dst >= 0 && dst < Size(), "dst out bound");
     cxObject **ptr = (cxObject **)mv.data();
     CX_SWAP_VAR(ptr[src], ptr[dst]);
     return this;
@@ -123,6 +127,9 @@ cxArray *cxArray::Swap(cxInt src,cxInt dst)
 
 cxArray *cxArray::Remove(cxObject *obj)
 {
+    if(obj == nullptr){
+        return this;
+    }
     for(FIter it=FBegin();it!=FEnd();){
         if(*it == obj){
             it = Remove(it);
@@ -145,7 +152,19 @@ cxArray::RIter cxArray::Remove(RIter &iter)
     return RIter(mv.erase(iter.base()));
 }
 
+cxArray::RIter cxArray::Remove(CRIter &iter)
+{
+    (*iter)->Release();
+    return RIter(mv.erase(iter.base()));
+}
+
 cxArray::FIter cxArray::Remove(FIter &iter)
+{
+    (*iter)->Release();
+    return mv.erase(iter);
+}
+
+cxArray::FIter cxArray::Remove(CFIter &iter)
 {
     (*iter)->Release();
     return mv.erase(iter);
@@ -156,9 +175,24 @@ cxArray::RIter cxArray::RBegin()
     return mv.rbegin();
 }
 
+cxArray::CRIter cxArray::RBegin() const
+{
+    return mv.rbegin();
+}
+
 cxArray::RIter cxArray::REnd()
 {
     return mv.rend();
+}
+
+cxArray::CRIter cxArray::REnd() const
+{
+    return mv.rend();
+}
+
+cxArray::CFIter cxArray::FBegin() const
+{
+    return mv.begin();
 }
 
 cxArray::FIter cxArray::FBegin()
@@ -167,6 +201,11 @@ cxArray::FIter cxArray::FBegin()
 }
 
 cxArray::FIter cxArray::FEnd()
+{
+    return mv.end();
+}
+
+cxArray::CFIter cxArray::FEnd() const
 {
     return mv.end();
 }

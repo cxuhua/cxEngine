@@ -18,7 +18,6 @@ cxCSV::cxCSV()
 {
     row = cxArray::Alloc();
     rows = cxArray::Alloc();
-    csv_init(&parser, 0);
 }
 
 cxCSV::~cxCSV()
@@ -26,6 +25,12 @@ cxCSV::~cxCSV()
     rows->Release();
     row->Release();
     csv_free(&parser);
+}
+
+cxCSV *cxCSV::Init(cxUInt8 opt)
+{
+    csv_init(&parser, opt);
+    return this;
 }
 
 const cxInt cxCSV::Row() const
@@ -80,9 +85,9 @@ void cxCSV::rowcbfunc(int c, void *ud)
     newrow->Release();
 }
 
-cxCSV *cxCSV::Create(const cxStr *data)
+cxCSV *cxCSV::Create(const cxStr *data,cxUInt8 opt)
 {
-    cxCSV *rv = cxCSV::Create();
+    cxCSV *rv = cxCSV::Create()->Init(opt);
     csv_parse(&rv->parser, data->Data(), data->Size()+1, colcbfunc, rowcbfunc, rv);
     csv_fini(&rv->parser, colcbfunc, rowcbfunc, rv);
     return rv;

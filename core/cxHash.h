@@ -52,9 +52,18 @@ private:
     cxHashMap mh;
 public:
     typedef cxHashMap::iterator Iter;
+    typedef cxHashMap::const_iterator CIter;
+public:
+    static cxBool IsOK(const cxArray *v);
+public:
     Iter Begin();
+    CIter Begin() const;
+    
     Iter End();
+    CIter End() const;
+    
     Iter Remove(Iter &iter);
+    Iter Remove(CIter &iter);
 public:
     cxInt Size() const;
     cxBool IsEmpty() const;

@@ -39,7 +39,6 @@
 #include "Game.h"
 #include <core/cxKDTree.h>
 #include "Sea.h"
-#include <core/cxSqlite.h>
 #include <engine/cxScript.h>
 
 #include <engine/cxFrames.h>
@@ -67,15 +66,15 @@ Game::~Game()
 
 void Game::OnMain()
 {
-    SetPlanSize(cxSize2F(2048, 1536));
-    
-    LoadTexture("grid.png");
-    
-    Controller *cv = Controller::Create(6, 6);
-    cv->SetResizeFlags(cxView::ResizeBottom);
-    Window()->Append(cv);
-    
-    return;
+//    SetPlanSize(cxSize2F(2048, 1536));
+//    
+//    LoadTexture("grid.png");
+//    
+//    Controller *cv = Controller::Create(6, 6);
+//    cv->SetResizeFlags(cxView::ResizeBottom);
+//    Window()->Append(cv);
+//    
+//    return;
     LoadTexture("c1.lqt");
     LoadFrames("frames.csv");
     LoadActions("actions.csv");

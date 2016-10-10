@@ -35,7 +35,9 @@ public:
     const cxInt Col(cxInt row=0) const;
     const cxStr *At(cxInt row,cxInt col) const;
     cxStr *At(cxInt row,cxInt col);
-    static cxCSV *Create(const cxStr *data);
+    cxCSV *Init(cxUInt8 opt);
+public:
+    static cxCSV *Create(const cxStr *data,cxUInt8 opt=0);
 };
 
 CX_CPP_END

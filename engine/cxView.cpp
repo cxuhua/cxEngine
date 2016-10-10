@@ -187,8 +187,8 @@ cxView *cxView::At(cxInt i)
 cxArray *cxView::Subviews() const
 {
     cxArray *vs = cxArray::Create();
-    vs->Append(subviews);
-    vs->Append(viewapps);
+    vs->AppendArray(subviews);
+    vs->AppendArray(viewapps);
     return vs;
 }
 
@@ -923,7 +923,7 @@ const cxStr *cxView::ViewPath()
 {
     cxStr *ret = cxStr::Create();
     cxInt vc = 0;
-    cxView *vs[64]={0};
+    cxView *vs[64]={NULL};
     cxView *cp = this;
     while (cp != NULL) {
         vs[vc++] = cp;

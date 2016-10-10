@@ -485,12 +485,16 @@ cxStr *cxStr::Erase(cxInt p,cxInt n)
 
 cxStr *cxStr::KeepBytes(cxInt bytes)
 {
+    CX_ASSERT(abs(bytes) >= s.size(), "bytes over bound");
     if(bytes < 0){
         s.erase(s.end() + bytes , s.end());
         return this;
     }
     if(bytes == 0){
         Clear();
+        return this;
+    }
+    if(bytes == s.size()){
         return this;
     }
     s.erase(s.begin() + bytes, s.end());

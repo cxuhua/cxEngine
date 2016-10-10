@@ -36,6 +36,11 @@ cxObject *cxList::At(cxInt idx)
     return nullptr;
 }
 
+cxBool cxList::IsOK(const cxList *v)
+{
+    return v != nullptr && !v->IsEmpty();
+}
+
 cxBool cxList::IsEmpty() const
 {
     return ml.empty();
@@ -116,7 +121,17 @@ cxList::RIter cxList::RBegin()
     return ml.rbegin();
 }
 
+cxList::CRIter cxList::RBegin() const
+{
+    return ml.rbegin();
+}
+
 cxList::RIter cxList::REnd()
+{
+    return ml.rend();
+}
+
+cxList::CRIter cxList::REnd() const
 {
     return ml.rend();
 }
@@ -126,7 +141,17 @@ cxList::FIter cxList::FBegin()
     return ml.begin();
 }
 
+cxList::CFIter cxList::FBegin() const
+{
+    return ml.begin();
+}
+
 cxList::FIter cxList::FEnd()
+{
+    return ml.end();
+}
+
+cxList::CFIter cxList::FEnd() const
 {
     return ml.end();
 }
@@ -137,7 +162,19 @@ cxList::FIter cxList::Remove(FIter &iter)
     return ml.erase(iter);
 }
 
+cxList::FIter cxList::Remove(CFIter &iter)
+{
+    (*iter)->Release();
+    return ml.erase(iter);
+}
+
 cxList::RIter cxList::Remove(RIter &iter)
+{
+    (*iter)->Release();
+    return RIter(ml.erase(iter.base()));
+}
+
+cxList::RIter cxList::Remove(CRIter &iter)
 {
     (*iter)->Release();
     return RIter(ml.erase(iter.base()));

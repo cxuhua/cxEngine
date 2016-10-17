@@ -163,16 +163,14 @@ void cxTcp::resolved_cb(uv_getaddrinfo_t *resolver, int status, struct addrinfo 
     cxTcp *tcp = static_cast<cxTcp *>(resolver->data);
     cxBool flags = false;
     if(status == 0){
-        if(res->ai_protocol == IPPROTO_IPV4){
-            char addrs[17]={0};
-            uv_ip4_name((struct sockaddr_in*)res->ai_addr, addrs, 16);
-            tcp->OnIpAddr(addrs);
-        }else if(res->ai_protocol == IPPROTO_IPV6){
+        if(res->ai_protocol == IPPROTO_IPV6){
             char addrs[65]={0};
             uv_ip6_name((struct sockaddr_in6*)res->ai_addr, addrs, 64);
             tcp->OnIpAddr(addrs);
         }else{
-            CX_ASSERT(false, "ip proto error");
+            char addrs[17]={0};
+            uv_ip4_name((struct sockaddr_in*)res->ai_addr, addrs, 16);
+            tcp->OnIpAddr(addrs);
         }
         tcp->connreq.data = tcp;
         flags=(uv_tcp_connect(&tcp->connreq, &tcp->handle, (struct sockaddr *)res->ai_addr, connect_cb) == 0);

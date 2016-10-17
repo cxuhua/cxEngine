@@ -494,12 +494,17 @@ cxView *cxView::SetEnableVisible(cxBool v)
 
 cxView *cxView::RemoveSubviews()
 {
-    viewapps->Clear();
     for(cxArray::FIter it = subviews->FBegin();it != subviews->FEnd();it++){
         cxView *pview = (*it)->To<cxView>();
         OnRemove(pview);
     }
     subviews->Clear();
+    
+    for(cxArray::FIter it = viewapps->FBegin();it != viewapps->FEnd();it++){
+        cxView *pview = (*it)->To<cxView>();
+        OnRemove(pview);
+    }
+    viewapps->Clear();
     return this;
 }
 
@@ -528,10 +533,10 @@ cxView *cxView::Append(cxView *view)
 cxView *cxView::Append(cxAction *action)
 {
     CX_ASSERT(action != nullptr, "args error");
+    CX_ASSERT(action->View() == nullptr, "action repeat append");
     if(action->View() == this){
         return this;
     }
-    CX_ASSERT(action->View() == nullptr, "action repeat append");
     ExitAction(action->ID());
     action->SetView(this);
     actapps->Append(action);
@@ -666,7 +671,9 @@ void cxView::updateActions(cxFloat dt)
         actions->Append(action);
     }
     actapps->Clear();
-    for(cxArray::FIter it=actions->FBegin();it!=actions->FEnd();){
+
+    cxArray::FIter it = actions->FBegin();
+    while(it != actions->FEnd()){
         cxAction *action = (*it)->To<cxAction>();
         if(action->Update(dt)){
             it = actions->Remove(it);

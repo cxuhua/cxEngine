@@ -103,7 +103,7 @@ void cxAlert::OnEnter()
 
 cxView *cxAlert::Body()
 {
-    CX_ASSERT(!IsEmpty(), "body must append");
+    CX_ASSERT(!IsEmpty(), "body must append to 0");
     return At(0);
 }
 

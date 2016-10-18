@@ -1201,7 +1201,7 @@ void cxView::Invoke(cxFloat delay,std::function<void(cxView *pview)>func)
 
 void cxView::Invoke(cxFloat delay,cxInt repeat,std::function<void(cxView *pview)>func)
 {
-    if(cxFloatIsEqual(delay,0)){func(this);return;}
+    CX_ASSERT(delay > 0 , "delay args error");
     cxAction *timer = cxAction::Create();
     timer->SetTime(delay);
     timer->SetRepeat(repeat);

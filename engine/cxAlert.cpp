@@ -93,10 +93,9 @@ void cxAlert::OnEnter()
 {
     cxSprite::OnEnter();
     Body()->SetScale(0.95f);
-    cxScaleTo::Create(1.0f, 0.5f)->AttachTo(Body())->SetTiming(cxTiming::ElasticOut);
+    cxScaleTo::Create(1.0f, 0.5f)->SetTiming(cxTiming::ElasticOut)->AttachTo(Body());
     SetAlpha(0.0f);
-    cxAction *fade = cxFadeTo::Create(0.6, 0.1f)->AttachTo(this);
-    fade->onExit = [this](cxAction *pav){
+    cxFadeTo::Create(0.6, 0.1f)->AttachTo(this)->onExit = [this](cxAction *pav){
         onShow.Fire(this);
     };
 }

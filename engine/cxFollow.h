@@ -13,6 +13,8 @@
 
 CX_CPP_BEGIN
 
+#define CX_FOLLOW_MAX   4
+
 class cxFollow : public cxAction
 {
 public:

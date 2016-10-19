@@ -895,6 +895,11 @@ cxView *cxView::SetBlend(const BlendFunc &b)
     return this;
 }
 
+cxFloat cxView::Distance(cxView *target)
+{
+    return cxPoint2F::Distance(Position(), target->Position());
+}
+
 const BlendFunc &cxView::Blend() const
 {
     return state.blend;

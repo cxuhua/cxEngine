@@ -174,6 +174,8 @@ public:
     cxFloat Z() const;
     cxView *SetZ(cxFloat v);
     
+    cxFloat Distance(cxView *target);
+    
     cxView *SetBlend(const BlendFunc &b);
     const BlendFunc &Blend() const;
 

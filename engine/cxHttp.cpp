@@ -143,27 +143,30 @@ void cxHttp::OnConnected()
     s->Release();
 }
 
-void cxHttp::ConnectURL(cchars url)
+cxBool cxHttp::ConnectURL(cchars url)
 {
-    char sserver[256]={0};
-    char spath[1024]={0};
-    int serverlen = 0;
-    int sport;
-    int numread = 0;
-    url = url+7;
-    sscanf(url, "%255[^/:]", sserver);
-    serverlen = (int)strlen(sserver);
-    if(url[serverlen] == ':'){
-        sscanf(&url[serverlen+1], "%d%n", &sport, &numread);
-        numread++;
-    }else{
-        sport = 80;
+    struct http_parser_url data;
+    http_parser_url_init(&data);
+    if(http_parser_parse_url(url, strlen(url), 0, &data) != 0){
+        return false;
     }
-    strcpy(spath, &url[serverlen+numread]);
-    cxObject::swap(&path, cxStr::Create()->AppFmt("%s",strlen(spath)>0?spath:"/"));
-    cxObject::swap(&host, cxStr::Create()->Init(sserver));
-    port = sport;
-    Connect((cchars)sserver, port);
+    if(data.field_set & (1 << UF_PORT)){
+        port = data.port;
+    }else{
+        port = 80;
+    }
+    if(data.field_set & (1 << UF_HOST)){
+        cxStr *tmp = cxStr::Create()->Init((cxAny)(url+data.field_data[UF_HOST].off), data.field_data[UF_HOST].len);
+        cxObject::swap(&host, tmp);
+    }
+    if(data.field_set & (1 << UF_PATH)){
+        cxStr *tmp = cxStr::Create()->Init((cxAny)(url+data.field_data[UF_PATH].off), data.field_data[UF_PATH].len);
+        cxObject::swap(&path, tmp);
+    }else{
+        cxObject::swap(&path, cxStr::Create("/"));
+    }
+    Connect(host->ToString(), port);
+    return  true;
 }
 
 cxHttp *cxHttp::Post(cchars url,const cxStr *post)
@@ -172,7 +175,9 @@ cxHttp *cxHttp::Post(cchars url,const cxStr *post)
     cxHttp *rv = cxHttp::Create();
     CX_SWAP(rv->post,post);
     rv->method = HTTP_POST;
-    rv->ConnectURL(url);
+    if(!rv->ConnectURL(url)){
+        CX_ERROR("http url error");
+    }
     rv->Forever();
     return rv;
 }
@@ -181,7 +186,9 @@ cxHttp *cxHttp::Get(cchars url)
 {
     CX_ASSERT(cxStr::IsOK(url), "args error");
     cxHttp *rv = cxHttp::Create();
-    rv->ConnectURL(url);
+    if(!rv->ConnectURL(url)){
+        CX_ERROR("http url error");
+    }
     rv->Forever();
     return rv;
 }

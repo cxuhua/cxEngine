@@ -67,6 +67,11 @@ cxStr *cxStr::Localized(cchars key,...)
     return ret;
 }
 
+cxStr *cxStr::Create(cchars str)
+{
+    return cxStr::Create()->Init(str);
+}
+
 cxStr::cxStr()
 {
     s.clear();

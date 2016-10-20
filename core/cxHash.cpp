@@ -127,7 +127,7 @@ cxArray *cxHash::ToArray()
     return rv;
 }
 
-cxBool cxHash::IsOK(const cxArray *v)
+cxBool cxHash::IsOK(const cxHash *v)
 {
     return v != nullptr && !v->IsEmpty();
 }

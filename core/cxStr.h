@@ -136,6 +136,8 @@ public:
     cxBool HasPrefix(cchars str) const;
     cxBool HasSuffix(const cxStr *str) const;
     cxBool HasSuffix(cchars str) const;
+public:
+    static cxStr *Create(cchars str);
 };
 
 CX_CPP_END

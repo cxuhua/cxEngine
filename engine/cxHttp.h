@@ -57,7 +57,7 @@ public:
     cxEvent<cxHttp> onSuccess;
     cxEvent<cxHttp> onError;
 public:
-    void ConnectURL(cchars url);
+    cxBool ConnectURL(cchars url);
     cxHash *ReqHeads();
     cxHash *ResHeads();
     const cxInt Status() const;

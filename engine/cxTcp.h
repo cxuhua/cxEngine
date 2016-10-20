@@ -15,6 +15,8 @@
 
 CX_CPP_BEGIN
 
+#define CX_TCP_BUFFER_SIZE  4096
+
 class cxTcp : public cxAction
 {
 public:

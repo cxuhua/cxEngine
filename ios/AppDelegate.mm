@@ -32,12 +32,16 @@ using namespace cxengine;
 -(void)cxDisableDocumentBackup
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if(paths.count == 0){
+        NSLog(@"user document path error");
+        return;
+    }
     NSString *docPath = [paths objectAtIndex:0];
     NSURL *url = [NSURL fileURLWithPath:docPath];
     NSError *error = NULL;
     [url setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:&error];
     if(error != NULL){
-        NSLog(@"%@",error);
+        NSLog(@"setResourceValue error:%@",error);
     }
 }
 
@@ -48,18 +52,18 @@ using namespace cxengine;
 
 -(EAGLContext *)GLContext
 {
-    return [self.rootViewController GLContext];
+    return [self.window.rootViewController GLContext];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self cxDisableDocumentBackup];
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.contentScaleFactor = [UIScreen mainScreen].scale;
     
     IOSViewController *glController = [[IOSViewController alloc] init];
-    self.rootViewController = glController;
-    [self.window setRootViewController:glController];
+    self.window.rootViewController = glController;
     [glController release];
     
     [self.window makeKeyAndVisible];
@@ -78,13 +82,12 @@ using namespace cxengine;
 
 -(void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
-    cxEngine::Instance()->MemoryWarning();
+    cxEngine::Instance()->Warning();
 }
 
 -(void)dealloc
 {
     self.window = nil;
-    self.rootViewController = nil;
     [super dealloc];
 }
 

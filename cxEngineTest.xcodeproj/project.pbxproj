@@ -43,7 +43,6 @@
 		83E6F6701B0C97F7006839C8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */; };
 		83E886DC1B68F970001C0727 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83E886DB1B68F970001C0727 /* test.mp3 */; };
 		83F5D0B51CE570A600690B86 /* actions.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B21CE570A600690B86 /* actions.csv */; };
-		83F5D0B61CE570A600690B86 /* c1.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B31CE570A600690B86 /* c1.lqt */; };
 		83F5D0B71CE570A600690B86 /* frames.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B41CE570A600690B86 /* frames.csv */; };
 		83F5D0C31CE5BB5400690B86 /* texts.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0C21CE5BB5400690B86 /* texts.csv */; };
 		83F5D0C51CE5BE0400690B86 /* configs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0C41CE5BE0400690B86 /* configs.csv */; };
@@ -105,7 +104,6 @@
 		83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		83E886DB1B68F970001C0727 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = test.mp3; sourceTree = "<group>"; };
 		83F5D0B21CE570A600690B86 /* actions.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = actions.csv; sourceTree = "<group>"; };
-		83F5D0B31CE570A600690B86 /* c1.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = c1.lqt; sourceTree = "<group>"; };
 		83F5D0B41CE570A600690B86 /* frames.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = frames.csv; sourceTree = "<group>"; };
 		83F5D0C21CE5BB5400690B86 /* texts.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = texts.csv; sourceTree = "<group>"; };
 		83F5D0C41CE5BE0400690B86 /* configs.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = configs.csv; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 				83F5D0C41CE5BE0400690B86 /* configs.csv */,
 				83F5D0C21CE5BB5400690B86 /* texts.csv */,
 				83F5D0B21CE570A600690B86 /* actions.csv */,
-				83F5D0B31CE570A600690B86 /* c1.lqt */,
 				83F5D0B41CE570A600690B86 /* frames.csv */,
 				83D8C3561B69E46400155990 /* battle_lost_02.mp3 */,
 				83E886DB1B68F970001C0727 /* test.mp3 */,
@@ -322,7 +319,6 @@
 				83D8C3571B69E46400155990 /* battle_lost_02.mp3 in Resources */,
 				839B8AEB1B68D6EF009E0CF7 /* finch.wav in Resources */,
 				83F5D0C51CE5BE0400690B86 /* configs.csv in Resources */,
-				83F5D0B61CE570A600690B86 /* c1.lqt in Resources */,
 				83F5D0C31CE5BB5400690B86 /* texts.csv in Resources */,
 				8326D0D91BE9F43D00A15879 /* circle.png in Resources */,
 			);

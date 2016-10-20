@@ -387,9 +387,9 @@ void cxEngine::Resume()
     OnResume();
 }
 
-void cxEngine::MemoryWarning()
+void cxEngine::Warning()
 {
-    OnMemoryWarning();
+    OnWarning();
 }
 
 void cxEngine::OnMain()
@@ -407,7 +407,7 @@ void cxEngine::OnResume()
     
 }
 
-void cxEngine::OnMemoryWarning()
+void cxEngine::OnWarning()
 {
     
 }

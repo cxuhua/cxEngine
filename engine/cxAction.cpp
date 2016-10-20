@@ -292,7 +292,7 @@ cxView *cxAction::View()
 
 cxAction *cxAction::Forever()
 {
-    time = INT_MAX;
+    SetTime(INT_MAX);
     return this;
 }
 

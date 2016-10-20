@@ -66,7 +66,6 @@ Game::~Game()
 
 void Game::OnMain()
 {
-    cxHttp *http= cxHttp::Get("http://www.baidu.com");
     SetPlanSize(cxSize2F(2048, 1536));
     
     LoadTexture("grid.png","grid");

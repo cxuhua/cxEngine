@@ -241,6 +241,7 @@ const cxArray *cxFrames::Layers(cxInt idx) const
     return tp->Object()->To<cxArray>();
 }
 
+//获取
 cxTexCoord *cxFrames::layerEnd(cxInt group,cxInt count,cxInt layer)
 {
     cxInt idx = group * Count() + count - 1;
@@ -249,6 +250,10 @@ cxTexCoord *cxFrames::layerEnd(cxInt group,cxInt count,cxInt layer)
     return layers->At(layer)->To<cxTexCoord>();
 }
 
+//i.l.png
+//i ->帧名
+//l -> 层
+//例如:1701310.0.png
 void cxFrames::loadlayers(cxArray *layers,cxInt c,cxInt g)
 {
     const cxTexture *texture = Texture();

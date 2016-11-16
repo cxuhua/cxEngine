@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0810"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -63,7 +63,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/xuhua/Documents/cxengine/TextureTool/testfile/c1"
+            argument = "/Users/xuhua/cxengine/cxEngine2D/png/jl"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

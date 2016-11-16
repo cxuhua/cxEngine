@@ -121,31 +121,31 @@ void cxHttp::OnConnected()
 {
     offset = 0;
     reqHeads->Set("Host", host);
-    cxStr *s = cxStr::Alloc();
+    cxStr *header = cxStr::Alloc();
     if(method == HTTP_GET){
-        s->AppFmt("GET %s HTTP/1.1\r\n",path->Data());
+        header->AppFmt("GET %s HTTP/1.1\r\n",path->Data());
     }else if(method == HTTP_POST){
-        s->AppFmt("POST %s HTTP/1.1\r\n",path->Data());
+        header->AppFmt("POST %s HTTP/1.1\r\n",path->Data());
     }
     if(method == HTTP_POST && cxStr::IsOK(post)){
         reqHeads->Set("Content-Length", cxStr::Create()->AppFmt("%d", post->Size()));
     }
     for(cxHash::Iter it=reqHeads->Begin();it!=reqHeads->End();it++){
-        s->AppFmt("%s: %s\r\n", it->first.data,it->second->To<cxStr>()->Data());
+        header->AppFmt("%s: %s\r\n", it->first.data,it->second->To<cxStr>()->Data());
     }
-    s->AppFmt("\r\n");
-    if(!Write(s)){
+    header->AppFmt("\r\n");
+    if(!Write(header)){
         CX_ERROR("http write data error");
     }
     if(method == HTTP_POST && cxStr::IsOK(post)){
         Write(post);
     }
-    s->Release();
+    header->Release();
 }
 
 cxBool cxHttp::ConnectURL(cchars url)
 {
-    struct http_parser_url data;
+    struct http_parser_url data={0};
     http_parser_url_init(&data);
     if(http_parser_parse_url(url, strlen(url), 0, &data) != 0){
         return false;
@@ -156,11 +156,13 @@ cxBool cxHttp::ConnectURL(cchars url)
         port = 80;
     }
     if(data.field_set & (1 << UF_HOST)){
-        cxStr *tmp = cxStr::Create()->Init((cxAny)(url+data.field_data[UF_HOST].off), data.field_data[UF_HOST].len);
+        cxStr *tmp = cxStr::Create();
+        tmp->Init((cxAny)(url+data.field_data[UF_HOST].off), data.field_data[UF_HOST].len);
         cxObject::swap(&host, tmp);
     }
     if(data.field_set & (1 << UF_PATH)){
-        cxStr *tmp = cxStr::Create()->Init((cxAny)(url+data.field_data[UF_PATH].off), data.field_data[UF_PATH].len);
+        cxStr *tmp = cxStr::Create();
+        tmp->Init((cxAny)(url+data.field_data[UF_PATH].off), data.field_data[UF_PATH].len);
         cxObject::swap(&path, tmp);
     }else{
         cxObject::swap(&path, cxStr::Create("/"));

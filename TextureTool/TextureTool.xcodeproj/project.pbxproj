@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8393136F1C33B75A00DB9C0A /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 8393136A1C33B75A00DB9C0A /* base64.c */; };
-		839313701C33B75A00DB9C0A /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 8393136C1C33B75A00DB9C0A /* sqlite3.c */; };
 		839313B51C33B79A00DB9C0A /* cxBox4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839313721C33B79A00DB9C0A /* cxBox4F.cpp */; };
 		839313B61C33B79A00DB9C0A /* cxBoxColor4F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839313741C33B79A00DB9C0A /* cxBoxColor4F.cpp */; };
 		839313B71C33B79A00DB9C0A /* cxBoxCoord2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839313761C33B79A00DB9C0A /* cxBoxCoord2F.cpp */; };
@@ -102,9 +101,6 @@
 /* Begin PBXFileReference section */
 		8393136A1C33B75A00DB9C0A /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
 		8393136B1C33B75A00DB9C0A /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
-		8393136C1C33B75A00DB9C0A /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
-		8393136D1C33B75A00DB9C0A /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
-		8393136E1C33B75A00DB9C0A /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
 		839313721C33B79A00DB9C0A /* cxBox4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBox4F.cpp; sourceTree = "<group>"; };
 		839313731C33B79A00DB9C0A /* cxBox4F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxBox4F.h; sourceTree = "<group>"; };
 		839313741C33B79A00DB9C0A /* cxBoxColor4F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxColor4F.cpp; sourceTree = "<group>"; };
@@ -452,9 +448,6 @@
 			children = (
 				8393136A1C33B75A00DB9C0A /* base64.c */,
 				8393136B1C33B75A00DB9C0A /* base64.h */,
-				8393136C1C33B75A00DB9C0A /* sqlite3.c */,
-				8393136D1C33B75A00DB9C0A /* sqlite3.h */,
-				8393136E1C33B75A00DB9C0A /* sqlite3ext.h */,
 				83D5D2CA1B6735100051D99D /* aes.h */,
 				83D5D2CB1B6735100051D99D /* aes_cbc.c */,
 				83D5D2CC1B6735100051D99D /* aes_cfb.c */,
@@ -524,7 +517,7 @@
 		83D5D2821B6734BB0051D99D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = xuhua;
 				TargetAttributes = {
 					83D5D2891B6734BC0051D99D = {
@@ -625,7 +618,6 @@
 				839313C31C33B79A00DB9C0A /* cxRect4I.cpp in Sources */,
 				83D5D3061B6735100051D99D /* aes_ige.c in Sources */,
 				83D5D30B1B6735100051D99D /* LzFind.c in Sources */,
-				839313701C33B75A00DB9C0A /* sqlite3.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,8 +637,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -688,8 +682,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;

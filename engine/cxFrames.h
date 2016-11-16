@@ -89,7 +89,7 @@ public:
     //层数
     cxFrames *SetLayer(cxInt v);
     const cxInt Layer() const;
-    //帧总数
+    //每组帧总数
     cxFrames *SetCount(cxInt v);
     const cxInt Count() const;
     //单帧默认时间

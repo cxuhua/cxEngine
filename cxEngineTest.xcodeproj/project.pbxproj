@@ -26,6 +26,7 @@
 		839B8AEB1B68D6EF009E0CF7 /* finch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 839B8AEA1B68D6EF009E0CF7 /* finch.wav */; };
 		839B8AEF1B68DC2B009E0CF7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */; };
 		839B8AF11B68DD3A009E0CF7 /* o.wav in Resources */ = {isa = PBXBuildFile; fileRef = 839B8AF01B68DD3A009E0CF7 /* o.wav */; };
+		83B0AF4A1DDC435E003FAB82 /* jl.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 83B0AF491DDC435E003FAB82 /* jl.lqt */; };
 		83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0D3E1BF04EC200B0CC0B /* libz.tbd */; };
 		83BE63751B311E0A0028B6E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BE63741B311E0A0028B6E7 /* main.m */; };
 		83C5BFA41CD8612500F0DA0B /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF9E1CD8612500F0DA0B /* libjansson.a */; };
@@ -84,6 +85,7 @@
 		839B8AEA1B68D6EF009E0CF7 /* finch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = finch.wav; sourceTree = "<group>"; };
 		839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		839B8AF01B68DD3A009E0CF7 /* o.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = o.wav; sourceTree = "<group>"; };
+		83B0AF491DDC435E003FAB82 /* jl.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jl.lqt; sourceTree = "<group>"; };
 		83BA0D3E1BF04EC200B0CC0B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		83BE63741B311E0A0028B6E7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83C5BF9E1CD8612500F0DA0B /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = libs/ios/lib/libjansson.a; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
+				83B0AF491DDC435E003FAB82 /* jl.lqt */,
 				83F5D0C41CE5BE0400690B86 /* configs.csv */,
 				83F5D0C21CE5BB5400690B86 /* texts.csv */,
 				83F5D0B21CE570A600690B86 /* actions.csv */,
@@ -303,6 +306,7 @@
 				830157E21B3BD27C00ED46A8 /* t.png in Resources */,
 				8302A5851B535EC500C7209C /* grid.png in Resources */,
 				836E304C1B5E2B4C00ED8BDC /* foam.png in Resources */,
+				83B0AF4A1DDC435E003FAB82 /* jl.lqt in Resources */,
 				83F5D0B51CE570A600690B86 /* actions.csv in Resources */,
 				83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */,
 				836DD1211B2C26CE0094F5EF /* shader in Resources */,

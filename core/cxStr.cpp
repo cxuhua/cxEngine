@@ -87,6 +87,11 @@ const cxBool cxStr::ToBool() const
     return IsCaseEqu("true")?true:false;
 }
 
+const cxInt64 cxStr::ToInt64() const
+{
+    return atoll(ToString());
+}
+
 const cxInt cxStr::ToInt() const
 {
     return atoi(ToString());

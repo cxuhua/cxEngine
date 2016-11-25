@@ -60,6 +60,7 @@ public:
     const cxBool IsNumber() const;
     const cxBool ToBool() const;
     const cxInt ToInt() const;
+    const cxInt64 ToInt64() const;
     const cxFloat ToFloat() const;
     const cxPoint2F ToPoint2F() const;
     const cxSize2F ToSize2F() const;

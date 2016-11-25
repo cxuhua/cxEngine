@@ -125,6 +125,9 @@
 		83C9D1271B48CC1E00EC244C /* cxSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C9D1251B48CC1E00EC244C /* cxSequence.cpp */; };
 		83C9D1321B492A2300EC244C /* cxJump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83C9D1301B492A2300EC244C /* cxJump.cpp */; };
 		83D2666B1B345D6000077DB8 /* cxStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D266691B345D6000077DB8 /* cxStack.cpp */; };
+		83D589571DE7D8D9000D035F /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D589501DE7D8D9000D035F /* pb_common.c */; };
+		83D589581DE7D8D9000D035F /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D589521DE7D8D9000D035F /* pb_decode.c */; };
+		83D589591DE7D8D9000D035F /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D589541DE7D8D9000D035F /* pb_encode.c */; };
 		83D5D31E1B6763B70051D99D /* cxLQT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D31C1B6763B70051D99D /* cxLQT.cpp */; };
 		83D92D251B3151D200F061D6 /* cxBoxCoord2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D231B3151D200F061D6 /* cxBoxCoord2F.cpp */; };
 		83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D341B317C2000F061D6 /* cxBoxPoint2F.cpp */; };
@@ -394,6 +397,13 @@
 		83C9D1311B492A2300EC244C /* cxJump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxJump.h; sourceTree = "<group>"; };
 		83D266691B345D6000077DB8 /* cxStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxStack.cpp; sourceTree = "<group>"; };
 		83D2666A1B345D6000077DB8 /* cxStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxStack.h; sourceTree = "<group>"; };
+		83D589501DE7D8D9000D035F /* pb_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_common.c; sourceTree = "<group>"; };
+		83D589511DE7D8D9000D035F /* pb_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_common.h; sourceTree = "<group>"; };
+		83D589521DE7D8D9000D035F /* pb_decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_decode.c; sourceTree = "<group>"; };
+		83D589531DE7D8D9000D035F /* pb_decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_decode.h; sourceTree = "<group>"; };
+		83D589541DE7D8D9000D035F /* pb_encode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_encode.c; sourceTree = "<group>"; };
+		83D589551DE7D8D9000D035F /* pb_encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_encode.h; sourceTree = "<group>"; };
+		83D589561DE7D8D9000D035F /* pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
 		83D5D31C1B6763B70051D99D /* cxLQT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLQT.cpp; sourceTree = "<group>"; };
 		83D5D31D1B6763B70051D99D /* cxLQT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxLQT.h; sourceTree = "<group>"; };
 		83D92D231B3151D200F061D6 /* cxBoxCoord2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxCoord2F.cpp; sourceTree = "<group>"; };
@@ -664,6 +674,13 @@
 		83B23B4C1B17E0E9000D770A /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				83D589501DE7D8D9000D035F /* pb_common.c */,
+				83D589511DE7D8D9000D035F /* pb_common.h */,
+				83D589521DE7D8D9000D035F /* pb_decode.c */,
+				83D589531DE7D8D9000D035F /* pb_decode.h */,
+				83D589541DE7D8D9000D035F /* pb_encode.c */,
+				83D589551DE7D8D9000D035F /* pb_encode.h */,
+				83D589561DE7D8D9000D035F /* pb.h */,
 				838345681B5A457B00921BE8 /* KDTree.h */,
 				831B93ED1B4A923200511A63 /* csv.c */,
 				831B93EE1B4A923200511A63 /* csv.h */,
@@ -884,6 +901,7 @@
 				831189D91B2D72F100C930B5 /* cxMatrixF.cpp in Sources */,
 				83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */,
 				836A2F4B1B19869D009B427B /* LzmaEnc.c in Sources */,
+				83D589581DE7D8D9000D035F /* pb_decode.c in Sources */,
 				837BD88E1CEAE64B006DBF84 /* cxMultiple.cpp in Sources */,
 				839836D11B10B59C002B7C20 /* cxArray.cpp in Sources */,
 				83BE636F1B3117270028B6E7 /* cxGLView.mm in Sources */,
@@ -894,6 +912,7 @@
 				836A2F4A1B19869D009B427B /* LzmaDec.c in Sources */,
 				83D92D391B317E5900F061D6 /* cxRenderF.cpp in Sources */,
 				831B93EF1B4A923200511A63 /* csv.c in Sources */,
+				83D589571DE7D8D9000D035F /* pb_common.c in Sources */,
 				831189CC1B2D728000C930B5 /* matrix.c in Sources */,
 				8302A5831B535E3A00C7209C /* cxProgress.cpp in Sources */,
 				8357CB981B12079D0085E600 /* cxStr.cpp in Sources */,
@@ -913,6 +932,7 @@
 				836DD10F1B2AC72A0094F5EF /* cxShader.cpp in Sources */,
 				83F5D0CB1CE5CDB200690B86 /* cxLoading.cpp in Sources */,
 				839836E61B117475002B7C20 /* cxObject.cpp in Sources */,
+				83D589591DE7D8D9000D035F /* pb_encode.c in Sources */,
 				836A2F4C1B19869D009B427B /* LzmaLib.c in Sources */,
 				831B9EBD1B291F2700B7A06B /* cxSize2F.cpp in Sources */,
 				83C9D1211B48CA9C00EC244C /* cxCustom.cpp in Sources */,

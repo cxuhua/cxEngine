@@ -545,7 +545,7 @@ void cxAndroid::onAppCmd(int8_t cmd)
             break;
         }
         case APP_CMD_LOW_MEMORY:{
-            cxEngine::Instance()->MemoryWarning();
+            cxEngine::Instance()->Warning();
             break;
         }
         case APP_CMD_START:{

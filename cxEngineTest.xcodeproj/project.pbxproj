@@ -35,6 +35,7 @@
 		83C5BFA71CD8612500F0DA0B /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA11CD8612500F0DA0B /* libpcre.a */; };
 		83C5BFA81CD8612500F0DA0B /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA21CD8612500F0DA0B /* libpng.a */; };
 		83C5BFA91CD8612500F0DA0B /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA31CD8612500F0DA0B /* libuv.a */; };
+		83D5895C1DE81B27000D035F /* public.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D5895A1DE81B27000D035F /* public.pb.c */; };
 		83D8C3571B69E46400155990 /* battle_lost_02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83D8C3561B69E46400155990 /* battle_lost_02.mp3 */; };
 		83D92D281B315E7200F061D6 /* animate.json in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D261B315E7200F061D6 /* animate.json */; };
 		83D92D291B315E7200F061D6 /* animate.png in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D271B315E7200F061D6 /* animate.png */; };
@@ -94,6 +95,8 @@
 		83C5BFA11CD8612500F0DA0B /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = libs/ios/lib/libpcre.a; sourceTree = "<group>"; };
 		83C5BFA21CD8612500F0DA0B /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libs/ios/lib/libpng.a; sourceTree = "<group>"; };
 		83C5BFA31CD8612500F0DA0B /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = libs/ios/lib/libuv.a; sourceTree = "<group>"; };
+		83D5895A1DE81B27000D035F /* public.pb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = public.pb.c; sourceTree = "<group>"; };
+		83D5895B1DE81B27000D035F /* public.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = public.pb.h; sourceTree = "<group>"; };
 		83D8C3561B69E46400155990 /* battle_lost_02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = battle_lost_02.mp3; sourceTree = "<group>"; };
 		83D92D261B315E7200F061D6 /* animate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animate.json; sourceTree = "<group>"; };
 		83D92D271B315E7200F061D6 /* animate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = animate.png; sourceTree = "<group>"; };
@@ -179,6 +182,8 @@
 		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
+				83D5895A1DE81B27000D035F /* public.pb.c */,
+				83D5895B1DE81B27000D035F /* public.pb.h */,
 				83B0AF491DDC435E003FAB82 /* jl.lqt */,
 				83F5D0C41CE5BE0400690B86 /* configs.csv */,
 				83F5D0C21CE5BB5400690B86 /* texts.csv */,
@@ -338,6 +343,7 @@
 				8314210F1CE99DD300C140B2 /* Controller.cpp in Sources */,
 				83BE63751B311E0A0028B6E7 /* main.m in Sources */,
 				83377A591CEC25A600CEB2D8 /* Map.cpp in Sources */,
+				83D5895C1DE81B27000D035F /* public.pb.c in Sources */,
 				836E30451B5E2ABF00ED8BDC /* Sea.cpp in Sources */,
 				83377A601CEC2F5800CEB2D8 /* Shader.cpp in Sources */,
 				83546A471B3127F700FFE1E7 /* Game.cpp in Sources */,
@@ -469,6 +475,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(SRCROOT)/libs/ios/include",
+					"$(SRCROOT)/ext",
 				);
 				INFOPLIST_FILE = cxEngine2D/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -506,6 +513,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(SRCROOT)/libs/ios/include",
+					"$(SRCROOT)/ext",
 				);
 				INFOPLIST_FILE = cxEngine2D/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

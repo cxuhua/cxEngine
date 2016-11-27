@@ -1081,6 +1081,7 @@
 				GCC_WARN_UNUSED_LABEL = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
+					"$(SRCROOT)/ext",
 					"$(SRCROOT)/libs/ios/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
@@ -1106,6 +1107,7 @@
 				GCC_WARN_UNUSED_LABEL = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
+					"$(SRCROOT)/ext",
 					"$(SRCROOT)/libs/ios/include",
 				);
 				LIBRARY_SEARCH_PATHS = (

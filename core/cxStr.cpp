@@ -408,6 +408,23 @@ const cxStr *cxStr::AESDecode(const cxStr *key) const
     return rv;
 }
 
+const cxStr *cxStr::PBEncode(const pb_field_t fields[], const void *src,cxInt max)
+{
+    cxStr *ret = cxStr::Create()->Init(max);
+    pb_ostream_t stream = pb_ostream_from_buffer((pb_byte_t *)ret->Buffer(), (size_t)ret->Size());
+    if(!pb_encode(&stream, fields, src)){
+        return NULL;
+    }
+    ret->KeepBytes(stream.bytes_written);
+    return ret;
+}
+
+cxBool cxStr::PBDecode(const pb_field_t fields[], void *dst) const
+{
+    pb_istream_t stream = pb_istream_from_buffer((pb_byte_t *)Buffer(), (size_t)Size());
+    return pb_decode(&stream, fields, dst);
+}
+
 const cxStr *cxStr::TeaEncode(const cxStr *key) const
 {
     xxtea_long length = 0;
@@ -863,6 +880,41 @@ cxInt cxStr::UTF8Size() const
 cxInt cxStr::Size() const
 {
     return (cxInt)s.size();
+}
+
+bool cxStrPBEncode(pb_ostream_t *stream, const pb_field_t *field, void * const *arg)
+{
+    if(arg == nullptr){
+        CX_WARN("cxStrPBEncode arg null");
+        return false;
+    }
+    const cxStr *str = (const cxStr *)*arg;
+    if(str == nullptr) {
+        CX_WARN("cxStrPBEncode set null cxstr");
+        return false;
+    }
+    if (!pb_encode_tag_for_field(stream, field)){
+        return false;
+    }
+    return pb_encode_string(stream, (const pb_byte_t *)str->Buffer(), (size_t)str->Size());
+}
+
+bool cxStrPBDecode(pb_istream_t *stream, const pb_field_t *field, void **arg)
+{
+    if(arg == nullptr){
+        CX_WARN("cxStrPBEncode arg null");
+        return false;
+    }
+    cxStr *rs = (cxStr *)*arg;
+    if(rs == nullptr) {
+        CX_WARN("cxStrPBDecode set null cxstr");
+        return false;
+    }
+    if(stream->bytes_left <= 0){
+        return false;
+    }
+    rs->Init((cxInt)stream->bytes_left);
+    return pb_read(stream, (pb_byte_t *)rs->Buffer(), stream->bytes_left);
 }
 
 CX_CPP_END

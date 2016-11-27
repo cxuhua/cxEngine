@@ -31,6 +31,7 @@
 #include <engine/cxJump.h>
 #include <engine/cxResize.h>
 #include <engine/cxProgress.h>
+#include <core/cxNumber.h>
 #include <engine/cxTable.h>
 #include <engine/cxPath.h>
 #include <engine/cxTriangles.h>
@@ -49,6 +50,9 @@
 #include "Controller.h"
 #include "Map.h"
 #include "Shader.h"
+#include "public.pb.h"
+#include <pb_encode.h>
+#include <pb_decode.h>
 
 CX_CPP_BEGIN
 
@@ -64,12 +68,30 @@ Game::~Game()
     
 }
 
+
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
+//
+    const cxStr *data = nullptr;
+    {
+        cxStr *code = cxStr::UTF8("8347834");
+        IndexType message = IndexType_init_zero;
+        message.tid = 200;
+        message.code = CX_STR_PB_ENCODE(code);
+        data = cxStr::PBEncode(IndexType_fields, &message);
+        cxUtil::Instance()->WriteDocument("test.dat", data, true);
+    }
+    {
+        cxStr *code = cxStr::Create();
+        IndexType m2 = IndexType_init_zero;
+        m2.code = CX_STR_PB_DECODE(code);
+        cxBool ok = data->PBDecode(IndexType_fields, &m2);
+        CX_LOGGER("%d",ok);
+    }
     
 //    LoadTexture("grid.png","grid");
-//    
+//
 //    cxSprite *sp = cxSprite::Create();
 //    sp->SetSize(cxSize2F(64));
 //    sp->SetTexture("grid");

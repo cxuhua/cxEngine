@@ -10,6 +10,7 @@
 #import <OpenGLES/ES2/glext.h>
 #include "AppDelegate.h"
 #import "cxGLView.h"
+#import "AppDelegate.h"
 
 using namespace cxengine;
 
@@ -128,12 +129,14 @@ using namespace cxengine;
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskAll;
+    IOSDelegate *app = (IOSDelegate *)[[UIApplication sharedApplication] delegate];
+    return [app SupportOrientation];
 }
 
 - (BOOL) shouldAutorotate
 {
-    return YES;
+    IOSDelegate *app = (IOSDelegate *)[[UIApplication sharedApplication] delegate];
+    return [app shouldAutorotate];
 }
 
 - (BOOL)prefersStatusBarHidden

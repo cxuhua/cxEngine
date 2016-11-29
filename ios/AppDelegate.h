@@ -14,10 +14,17 @@
     
 }
 @end
+
 @interface IOSDelegate : UIResponder <UIApplicationDelegate>
+
 @property(retain,nonatomic)UIWindow *window;
 
 -(void)InitOK;
+
 -(EAGLContext *)GLContext;
+
+-(UIInterfaceOrientationMask)SupportOrientation;
+
+- (BOOL)shouldAutorotate;
 @end
 

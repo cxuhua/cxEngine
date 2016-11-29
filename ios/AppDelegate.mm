@@ -50,6 +50,16 @@ using namespace cxengine;
     
 }
 
+- (BOOL) shouldAutorotate
+{
+    return YES;
+}
+
+-(UIInterfaceOrientationMask)SupportOrientation
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 -(EAGLContext *)GLContext
 {
     return [self.window.rootViewController GLContext];

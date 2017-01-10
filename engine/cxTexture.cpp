@@ -250,7 +250,8 @@ cxTexture *cxTexture::From(cchars file)
 {
     cchars ext = strrchr(file, '.');
     if(!cxStr::IsOK(ext)){
-        return this;
+        CX_ASSERT(false, "file not ext name");
+        return nullptr;
     }
     if(cxStr::IsEqu(ext, ".png")){
         return FromPNG(file);
@@ -267,7 +268,7 @@ cxTexture *cxTexture::From(cchars file)
     if(cxStr::IsEqu(ext, ".lqt")){
         return FromLQT(file);
     }
-    return this;
+    return nullptr;
 }
 
 cxInt cxTexture::Type() const

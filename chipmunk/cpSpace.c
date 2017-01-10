@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "chipmunk_private.h"
+#include "chipmunk/chipmunk_private.h"
 
 //MARK: Contact Set Helpers
 
@@ -122,7 +122,7 @@ cpSpaceInit(cpSpace *space)
 #ifndef NDEBUG
 	static cpBool done = cpFalse;
 	if(!done){
-		printf("Initializing cpSpace - Chipmunk v%s (Debug Enabled)\n", cpVersionStr);
+		printf("Initializing cpSpace - Chipmunk v%s (Debug Enabled)\n", cpVersionString);
 		printf("Compile with -DNDEBUG defined to disable debug mode and runtime assertion checks\n");
 		done = cpTrue;
 	}
@@ -254,6 +254,12 @@ void
 cpSpaceSetGravity(cpSpace *space, cpVect gravity)
 {
 	space->gravity = gravity;
+	
+	// Wake up all of the bodies since the gravity changed.
+	cpArray *components = space->sleepingComponents;
+	for(int i=0; i<components->num; i++){
+		cpBodyActivate((cpBody *)components->arr[i]);
+	}
 }
 
 cpFloat
@@ -392,12 +398,8 @@ cpCollisionHandler *cpSpaceAddDefaultCollisionHandler(cpSpace *space)
 cpCollisionHandler *cpSpaceAddCollisionHandler(cpSpace *space, cpCollisionType a, cpCollisionType b)
 {
 	cpHashValue hash = CP_HASH_PAIR(a, b);
-	// TODO should use space->defaultHandler values instead?
-	cpCollisionHandler temp = {a, b, DefaultBegin, DefaultPreSolve, DefaultPostSolve, DefaultSeparate, NULL};
-	
-	cpHashSet *handlers = space->collisionHandlers;
-	cpCollisionHandler *handler = (cpCollisionHandler*)cpHashSetFind(handlers, hash, &temp);
-	return (handler ? handler : (cpCollisionHandler*)cpHashSetInsert(handlers, hash, &temp, (cpHashSetTransFunc)handlerSetTrans, NULL));
+	cpCollisionHandler handler = {a, b, DefaultBegin, DefaultPreSolve, DefaultPostSolve, DefaultSeparate, NULL};
+	return (cpCollisionHandler*)cpHashSetInsert(space->collisionHandlers, hash, &handler, (cpHashSetTransFunc)handlerSetTrans, NULL);
 }
 
 cpCollisionHandler *
@@ -406,11 +408,8 @@ cpSpaceAddWildcardHandler(cpSpace *space, cpCollisionType type)
 	cpSpaceUseWildcardDefaultHandler(space);
 	
 	cpHashValue hash = CP_HASH_PAIR(type, CP_WILDCARD_COLLISION_TYPE);
-	cpCollisionHandler temp = {type, CP_WILDCARD_COLLISION_TYPE, AlwaysCollide, AlwaysCollide, DoNothing, DoNothing, NULL};
-	
-	cpHashSet *handlers = space->collisionHandlers;
-	cpCollisionHandler *handler = (cpCollisionHandler*)cpHashSetFind(handlers, hash, &temp);
-	return (handler ? handler : (cpCollisionHandler*)cpHashSetInsert(handlers, hash, &temp, (cpHashSetTransFunc)handlerSetTrans, NULL));
+	cpCollisionHandler handler = {type, CP_WILDCARD_COLLISION_TYPE, AlwaysCollide, AlwaysCollide, DoNothing, DoNothing, NULL};
+	return (cpCollisionHandler*)cpHashSetInsert(space->collisionHandlers, hash, &handler, (cpHashSetTransFunc)handlerSetTrans, NULL);
 }
 
 

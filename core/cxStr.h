@@ -78,6 +78,7 @@ public:
     cxStr *ToUpper();
     
     static const cxStr *PBEncode(const pb_field_t fields[], const void *src,cxInt max=2048);
+    static cxBool PBDecode(cchars data, cxInt size, const pb_field_t fields[], void *dst);
     cxBool PBDecode(const pb_field_t fields[], void *dst) const;
     
     const cxStr *TeaEncode(const cxStr *key) const;

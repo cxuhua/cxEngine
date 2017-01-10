@@ -419,10 +419,15 @@ const cxStr *cxStr::PBEncode(const pb_field_t fields[], const void *src,cxInt ma
     return ret;
 }
 
+cxBool cxStr::PBDecode(cchars data, cxInt size, const pb_field_t fields[], void *dst)
+{
+    pb_istream_t stream = pb_istream_from_buffer((pb_byte_t *)data, (size_t)size);
+    return pb_decode(&stream, fields, dst);
+}
+
 cxBool cxStr::PBDecode(const pb_field_t fields[], void *dst) const
 {
-    pb_istream_t stream = pb_istream_from_buffer((pb_byte_t *)Buffer(), (size_t)Size());
-    return pb_decode(&stream, fields, dst);
+    return PBDecode(Buffer(), Size(), fields, dst);
 }
 
 const cxStr *cxStr::TeaEncode(const cxStr *key) const

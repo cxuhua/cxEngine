@@ -133,7 +133,11 @@ void cxEngine::LoadTexture(cchars file,cchars key)
     if(key == nullptr){
         key = file;
     }
-    cxTexture::Create()->From(file)->gcSet<cxTexture>(key);
+    cxTexture *ptex = cxTexture::Create()->From(file);
+    if(ptex == nullptr){
+        CX_ASSERT(false, "load texture failed,file=%s",file);
+    }
+    ptex->gcSet<cxTexture>(key);
 }
 
 void cxEngine::LoadFrames(cchars csv)

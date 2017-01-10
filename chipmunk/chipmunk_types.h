@@ -44,11 +44,17 @@
 	#elif TARGET_OS_MAC
 		#include <ApplicationServices/ApplicationServices.h>
 	#endif
+	
+	#if defined(__LP64__) && __LP64__
+		#define CP_USE_DOUBLES 1
+	#else
+		#define CP_USE_DOUBLES 0
+	#endif
 #endif
 
 #ifndef CP_USE_DOUBLES
 	// Use doubles by default for higher precision.
-	#define CP_USE_DOUBLES 0
+	#define CP_USE_DOUBLES 1
 #endif
 
 /// @defgroup basicTypes Basic Types
@@ -105,13 +111,8 @@
 	#endif
 #endif
 
-#ifndef M_PI
-	#define M_PI 3.14159265358979323846264338327950288
-#endif
 
-#ifndef M_E
-	#define M_E 2.71828182845904523536028747135266250
-#endif
+#define CP_PI ((cpFloat)3.14159265358979323846264338327950288)
 
 
 /// Return the max of two cpFloats.

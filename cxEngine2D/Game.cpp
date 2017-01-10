@@ -73,22 +73,22 @@ void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
 //
-    const cxStr *data = nullptr;
-    {
-        cxStr *code = cxStr::UTF8("8347834");
-        IndexType message = IndexType_init_zero;
-        message.tid = 200;
-        message.code = CX_STR_PB_ENCODE(code);
-        data = cxStr::PBEncode(IndexType_fields, &message);
-        cxUtil::Instance()->WriteDocument("test.dat", data, true);
-    }
-    {
-        cxStr *code = cxStr::Create();
-        IndexType m2 = IndexType_init_zero;
-        m2.code = CX_STR_PB_DECODE(code);
-        cxBool ok = data->PBDecode(IndexType_fields, &m2);
-        CX_LOGGER("%d",ok);
-    }
+//    const cxStr *data = nullptr;
+//    {
+//        cxStr *code = cxStr::UTF8("8347834");
+//        IndexType message = IndexType_init_zero;
+//        message.tid = 200;
+//        message.code = CX_STR_PB_ENCODE(code);
+//        data = cxStr::PBEncode(IndexType_fields, &message);
+//        cxUtil::Instance()->WriteDocument("test.dat", data, true);
+//    }
+//    {
+//        cxStr *code = cxStr::Create();
+//        IndexType m2 = IndexType_init_zero;
+//        m2.code = CX_STR_PB_DECODE(code);
+//        cxBool ok = data->PBDecode(IndexType_fields, &m2);
+//        CX_LOGGER("%d",ok);
+//    }
     
 //    LoadTexture("grid.png","grid");
 //

@@ -6,16 +6,10 @@
 
 #include <pthread.h>
 //#include <sys/param.h >
-//#include <sys/sysctl.h>
+#include <sys/sysctl.h>
 
-#ifdef __APPLE__
-    #include <sys/sysctl.h>
-#else
-    #include <sys/sysconf.h>
-#endif
-
-#include "chipmunk_private.h"
-#include "cpHastySpace.h"
+#include "chipmunk/chipmunk_private.h"
+#include "chipmunk/cpHastySpace.h"
 
 
 //MARK: ARM NEON Solver
@@ -326,7 +320,7 @@ cpHastySpaceSetThreads(cpSpace *space, unsigned long threads)
 		sysctlbyname("hw.ncpu", &threads, &size, NULL, 0);
 	}
 #else
-	if(threads == 0) threads = sysconf(_SC_NPROCESSORS_ONLN);
+	if(threads == 0) threads = 1;
 #endif
 	
 	hasty->num_threads = (threads < MAX_THREADS ? threads : MAX_THREADS);

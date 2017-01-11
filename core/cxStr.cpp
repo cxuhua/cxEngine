@@ -700,6 +700,19 @@ void cxStr::WriteInt64(cxInt64 v)
     Append((cchars)&v, sizeof(cxInt64));
 }
 
+cxUInt32 cxStr::ReadUInt32()
+{
+    CX_ASSERT(Size() >= sizeof(cxUInt32), "bytes not enough");
+    cxUInt32 v = *(cxUInt32 *)Buffer();
+    Erase(0, sizeof(cxUInt32));
+    return v;
+}
+
+void cxStr::WriteUInt32(cxUInt32 v)
+{
+    Append((cchars)&v, sizeof(cxUInt32));
+}
+
 cxInt32 cxStr::ReadInt32()
 {
     CX_ASSERT(Size() >= sizeof(cxInt32), "bytes not enough");

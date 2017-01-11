@@ -107,6 +107,9 @@ public:
     cxInt32 ReadInt32();
     void WriteInt32(cxInt32 v);
     
+    cxUInt32 ReadUInt32();
+    void WriteUInt32(cxUInt32 v);
+    
     cxInt64 ReadInt64();
     void WriteInt64(cxInt64 v);
     

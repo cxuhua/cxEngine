@@ -54,7 +54,42 @@
 #include <pb_encode.h>
 #include <pb_decode.h>
 
+#include <expat/expat.h>
+
 CX_CPP_BEGIN
+
+#define BUFFSIZE        8192
+
+char Buff[BUFFSIZE];
+
+int Depth;
+static void XMLCALL start(void *data, const char *el, const char **attr)
+{
+    int i;
+    (void)data;
+    
+    for (i = 0; i < Depth; i++)
+        printf("  ");
+    
+    printf("%s", el);
+    
+    for (i = 0; attr[i]; i += 2) {
+        printf(" %s='%s'", attr[i], attr[i + 1]);
+    }
+    
+    printf("\n");
+    Depth++;
+}
+
+static void XMLCALL
+end(void *data, const char *el)
+{
+    (void)data;
+    (void)el;
+    
+    Depth--;
+}
+
 
 CX_IMPLEMENT(Game);
 
@@ -72,6 +107,16 @@ Game::~Game()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
+    
+    XML_Parser p = XML_ParserCreate(NULL);
+    XML_SetElementHandler(p, start, end);
+    const cxStr *data = cxUtil::Content("penhuo1_xia.xml");
+    if (XML_Parse(p, data->Buffer(), data->Size(), true) == XML_STATUS_ERROR) {
+        XML_Size line = XML_GetCurrentLineNumber(p);
+        cchars error = XML_ErrorString(XML_GetErrorCode(p));
+        CX_ERROR("parse error");
+    }
+    XML_ParserFree(p);
 //
 //    const cxStr *data = nullptr;
 //    {

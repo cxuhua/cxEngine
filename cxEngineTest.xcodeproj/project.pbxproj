@@ -26,10 +26,11 @@
 		839B8AEB1B68D6EF009E0CF7 /* finch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 839B8AEA1B68D6EF009E0CF7 /* finch.wav */; };
 		839B8AEF1B68DC2B009E0CF7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */; };
 		839B8AF11B68DD3A009E0CF7 /* o.wav in Resources */ = {isa = PBXBuildFile; fileRef = 839B8AF01B68DD3A009E0CF7 /* o.wav */; };
+		83A74F861E28CB6C00827360 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A74F851E28CB6C00827360 /* libexpat.a */; };
 		83B0AF4A1DDC435E003FAB82 /* jl.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 83B0AF491DDC435E003FAB82 /* jl.lqt */; };
 		83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0D3E1BF04EC200B0CC0B /* libz.tbd */; };
 		83BE63751B311E0A0028B6E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BE63741B311E0A0028B6E7 /* main.m */; };
-		83C410DA1E28B3C90027FAFC /* penhuo1_xia.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83C410D91E28B3C90027FAFC /* penhuo1_xia.plist */; };
+		83C410DA1E28B3C90027FAFC /* penhuo1_xia.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */; };
 		83C5BFA41CD8612500F0DA0B /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF9E1CD8612500F0DA0B /* libjansson.a */; };
 		83C5BFA51CD8612500F0DA0B /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF9F1CD8612500F0DA0B /* libjpeg.a */; };
 		83C5BFA61CD8612500F0DA0B /* libmpg123.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA01CD8612500F0DA0B /* libmpg123.a */; };
@@ -87,10 +88,11 @@
 		839B8AEA1B68D6EF009E0CF7 /* finch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = finch.wav; sourceTree = "<group>"; };
 		839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		839B8AF01B68DD3A009E0CF7 /* o.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = o.wav; sourceTree = "<group>"; };
+		83A74F851E28CB6C00827360 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = libs/ios/lib/libexpat.a; sourceTree = "<group>"; };
 		83B0AF491DDC435E003FAB82 /* jl.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jl.lqt; sourceTree = "<group>"; };
 		83BA0D3E1BF04EC200B0CC0B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		83BE63741B311E0A0028B6E7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		83C410D91E28B3C90027FAFC /* penhuo1_xia.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = penhuo1_xia.plist; sourceTree = "<group>"; };
+		83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo1_xia.xml; sourceTree = "<group>"; wrapsLines = 1; };
 		83C5BF9E1CD8612500F0DA0B /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = libs/ios/lib/libjansson.a; sourceTree = "<group>"; };
 		83C5BF9F1CD8612500F0DA0B /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = libs/ios/lib/libjpeg.a; sourceTree = "<group>"; };
 		83C5BFA01CD8612500F0DA0B /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = libs/ios/lib/libmpg123.a; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83A74F861E28CB6C00827360 /* libexpat.a in Frameworks */,
 				839836BF1B109793002B7C20 /* libcxEngineCore.a in Frameworks */,
 				83C5BFA41CD8612500F0DA0B /* libjansson.a in Frameworks */,
 				83C5BFA51CD8612500F0DA0B /* libjpeg.a in Frameworks */,
@@ -154,6 +157,7 @@
 				83C5BFA01CD8612500F0DA0B /* libmpg123.a */,
 				83C5BFA11CD8612500F0DA0B /* libpcre.a */,
 				83C5BFA21CD8612500F0DA0B /* libpng.a */,
+				83A74F851E28CB6C00827360 /* libexpat.a */,
 				83C5BFA31CD8612500F0DA0B /* libuv.a */,
 				839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */,
 				83BA0D3E1BF04EC200B0CC0B /* libz.tbd */,
@@ -163,6 +167,13 @@
 			name = libs;
 			sourceTree = "<group>";
 		};
+		83A74F841E28CB6C00827360 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		83E6F63B1B0C97B5006839C8 = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +181,7 @@
 				839836CB1B10B021002B7C20 /* libs */,
 				83E6F6461B0C97B5006839C8 /* cxEngineTest */,
 				83E6F6451B0C97B5006839C8 /* Products */,
+				83A74F841E28CB6C00827360 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -184,7 +196,7 @@
 		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
-				83C410D91E28B3C90027FAFC /* penhuo1_xia.plist */,
+				83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */,
 				83D5895A1DE81B27000D035F /* public.pb.c */,
 				83D5895B1DE81B27000D035F /* public.pb.h */,
 				83B0AF491DDC435E003FAB82 /* jl.lqt */,
@@ -322,7 +334,7 @@
 				836E304D1B5E2B4C00ED8BDC /* water.fsh in Resources */,
 				836E304E1B5E2B4C00ED8BDC /* water.png in Resources */,
 				83D92D291B315E7200F061D6 /* animate.png in Resources */,
-				83C410DA1E28B3C90027FAFC /* penhuo1_xia.plist in Resources */,
+				83C410DA1E28B3C90027FAFC /* penhuo1_xia.xml in Resources */,
 				83D92D281B315E7200F061D6 /* animate.json in Resources */,
 				83F5D0B71CE570A600690B86 /* frames.csv in Resources */,
 				83E886DC1B68F970001C0727 /* test.mp3 in Resources */,
@@ -488,6 +500,7 @@
 					"$(SRCROOT)/libs/ios/lib",
 					"$(PROJECT_DIR)/libs/ios/lib",
 				);
+				PLIST_FILE_OUTPUT_FORMAT = binary;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.debug;
 				PRODUCT_NAME = cxEngineTest;
 				PROVISIONING_PROFILE = "";
@@ -526,6 +539,7 @@
 					"$(SRCROOT)/libs/ios/lib",
 					"$(PROJECT_DIR)/libs/ios/lib",
 				);
+				PLIST_FILE_OUTPUT_FORMAT = binary;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.debug;
 				PRODUCT_NAME = cxEngineTest;
 				PROVISIONING_PROFILE = "";

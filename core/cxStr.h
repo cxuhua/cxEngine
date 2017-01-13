@@ -14,10 +14,10 @@
 #include <math/cxPoint3F.h>
 #include <math/cxColor4F.h>
 #include <math/cxSize2F.h>
-#include <pb.h>
-#include <pb_common.h>
-#include <pb_decode.h>
-#include <pb_encode.h>
+#include <ext/pb.h>
+#include <ext/pb_common.h>
+#include <ext/pb_decode.h>
+#include <ext/pb_encode.h>
 #include "cxArray.h"
 
 CX_CPP_BEGIN

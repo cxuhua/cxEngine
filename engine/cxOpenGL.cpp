@@ -560,7 +560,7 @@ void cxRenderState::Set(cxTexture *t)
 {
     texture = t;
 }
-BlendFunc BlendFunc::NONE                   = BlendFunc(0, 0);
+BlendFunc BlendFunc::NONE                   = BlendFunc(GL_ZERO, GL_ZERO);
 BlendFunc BlendFunc::ADDITIVE               = BlendFunc(GL_ONE, GL_ONE);
 BlendFunc BlendFunc::ALPHA                  = BlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 BlendFunc BlendFunc::PREMULTIPLIED_ALPHA    = BlendFunc(GL_ONE,GL_ONE_MINUS_SRC_ALPHA);
@@ -581,6 +581,15 @@ const cxByte BlendFunc::ID() const
     }
     if(*this == BlendFunc::ALPHA){
         return 3;
+    }
+    if(*this == BlendFunc::MULTIPLICATIVE){
+        return 4;
+    }
+    if(*this == BlendFunc::PREMULTIPLIED_ALPHA){
+        return 5;
+    }
+    if(*this == BlendFunc::DODGE){
+        return 6;
     }
     return 0;
 }
@@ -622,8 +631,8 @@ BlendFunc::BlendFunc(glUint s,glUint d)
 
 BlendFunc::BlendFunc()
 {
-    src = 0;
-    dst = 0;
+    src = GL_ZERO;
+    dst = GL_ZERO;
 }
 
 cxBool BlendFunc::operator==(const BlendFunc &v) const

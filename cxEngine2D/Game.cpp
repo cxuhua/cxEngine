@@ -82,7 +82,8 @@ void Game::OnMain()
     cxEmitter *v = xml->Emitter();
     Window()->Append(v);
     
-    cxEmitter *v2 = xml->Emitter();
+    cxView *v2 = v->Clone();
+    v2->SetPosition(cxPoint2F(0, -300));
     Window()->Append(v2);
     
     

@@ -78,41 +78,41 @@ cxEmitter *cxEmitter::AppendFrameKeys(const cxArray *keys)
 cxView *cxEmitter::Clone()
 {
     cxEmitter *rv = cxEmitter::Create();
-    //
     rv->SetBlend(Blend());
+    rv->SetTexture(Texture());
+    rv->SetSystemTime(systemtime);
     
-    rv->autoRemove = autoRemove;
-    rv->torotate = torotate;
-    rv->frameTime = frameTime;
-    rv->tkeys->Append(tkeys);
-    rv->max = max;
-    rv->systemtime = systemtime;
-    rv->type = type;
-    rv->rate = rate;
-    rv->position = position;
-    rv->life = life;
-    rv->angle = angle;
+    rv->SetAutoRemove(autoRemove);
+    rv->SetToRotate(torotate);
+    rv->SetFrameTime(frameTime);
+    rv->tkeys->AppendArray(tkeys);
+    rv->SetMax(max);
+    rv->SetType(type);
+    rv->SetRate(rate);
+    rv->SetPosRange(position);
+    rv->SetLifeRange(life);
+    rv->SetAngleRange(angle);
     
-    rv->startsize = startsize;
-    rv->endsize = endsize;
+    rv->SetStartSize(startsize);
+    rv->SetEndSize(endsize);
     
-    rv->startcolor = startcolor;
-    rv->endcolor = endcolor;
+    rv->SetStartColor(startcolor);
+    rv->SetEndColor(endcolor);
     
-    rv->startspin = startspin;
-    rv->endspin =endspin;
+    rv->SetStartSpin(startspin);
+    rv->SetEndSpin(endspin);
     
-    rv->axisspin = axisspin;
+    rv->SetAxisSpin(axisspin);
     //gravity mode
-    rv->gravity = gravity;
-    rv->todir = todir;
-    rv->speed = speed;
-    rv->tanaccel = tanaccel;
-    rv->radaccel = radaccel;
+    rv->SetGravity(gravity);
+    rv->SetToDir(todir);
+    rv->SetSpeed(speed);
+    rv->SetTanAccel(tanaccel);
+    rv->SetRadAccel(radaccel);
     //radial mode
-    rv->startradius = startradius;
-    rv->endradius = endradius;
-    rv->rotatepers = rotatepers;
+    rv->SetStartRadius(startradius);
+    rv->SetEndRadius(endradius);
+    rv->SetRotatePers(rotatepers);
     return rv;
 }
 

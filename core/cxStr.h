@@ -96,6 +96,9 @@ public:
     const cxStr *LzmaCompress() const;
     const cxStr *LzmaUncompress() const;
     
+    const cxStr *ZlibCompress(int level=9) const;
+    const cxStr *ZlibUncompress() const;
+    
     const cxStr *MD5() const;
     
     cxBool WriteToFile(cchars file,cxBool replace);

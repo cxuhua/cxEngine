@@ -9,6 +9,7 @@
 #ifndef cxEngineCore_cxEmitter_h
 #define cxEngineCore_cxEmitter_h
 
+#include <core/cxXml.h>
 #include "cxAtlas.h"
 
 CX_CPP_BEGIN
@@ -141,10 +142,106 @@ public:
     cxEmitter *SetTanAccel(const cxFloatRange &v);
     cxEmitter *SetRadAccel(const cxFloatRange &v);
     
-    cxEmitter *SetStartradius(const cxFloatRange &v);
-    cxEmitter *SetEndradius(const cxFloatRange &v);
-    cxEmitter *SetRotatepers(const cxFloatRange &v);
+    cxEmitter *SetStartRadius(const cxFloatRange &v);
+    cxEmitter *SetEndRadius(const cxFloatRange &v);
+    cxEmitter *SetRotatePers(const cxFloatRange &v);
 };
+
+// xml format emitter
+class cxEmitterXml : public cxXml
+{
+public:
+    CX_DECLARE(cxEmitterXml);
+protected:
+    explicit cxEmitterXml();
+    virtual ~cxEmitterXml();
+private:
+    cxStr *skey;
+    cxStr *svalue;
+private:
+    const cxStr *ToStr(cchars name,const cxStr *value);
+    cxInt ToInt(cchars name,const cxStr *value);
+    cxUInt ToUInt(cchars name,const cxStr *value);
+    cxFloat ToFloat(cchars name,const cxStr *value);
+    
+    cxTexture *ptex;
+    cxStr *textureFileName;
+    
+    cxFloat angle;
+    cxFloat angleVariance;
+    
+    cxUInt blendFuncDestination;
+    cxUInt blendFuncSource;
+    
+    cxFloat duration;
+    cxInt emitterType;
+    cxFloat emissionRate;
+    
+    cxFloat finishColorAlpha;
+    cxFloat finishColorBlue;
+    cxFloat finishColorGreen;
+    cxFloat finishColorRed;
+    cxFloat finishColorVarianceAlpha;
+    cxFloat finishColorVarianceBlue;
+    cxFloat finishColorVarianceGreen;
+    cxFloat finishColorVarianceRed;
+    
+    cxFloat rotationStart;
+    cxFloat rotationStartVariance;
+    cxFloat rotationEnd;
+    cxFloat rotationEndVariance;
+    cxFloat finishParticleSize;
+    cxFloat finishParticleSizeVariance;
+    
+    cxFloat gravityx;
+    cxFloat gravityy;
+    
+    cxInt maxParticles;
+    cxFloat maxRadius;
+    cxFloat maxRadiusVariance;
+    
+    cxFloat minRadius;
+    cxFloat minRadiusVariance;
+    cxFloat particleLifespan;
+    cxFloat particleLifespanVariance;
+
+    cxFloat radialAcceleration;
+    cxFloat radialAccelVariance;
+    cxFloat rotatePerSecond;
+    cxFloat rotatePerSecondVariance;
+    
+    cxFloat sourcePositionVariancex;
+    cxFloat sourcePositionVariancey;
+    
+    cxFloat speed;
+    cxFloat speedVariance;
+    
+    cxFloat startColorAlpha;
+    cxFloat startColorBlue;
+    cxFloat startColorGreen;
+    cxFloat startColorRed;
+    cxFloat startColorVarianceAlpha;
+    cxFloat startColorVarianceBlue;
+    cxFloat startColorVarianceGreen;
+    cxFloat startColorVarianceRed;
+    
+    cxFloat startParticleSize;
+    cxFloat startParticleSizeVariance;
+    cxFloat tangentialAcceleration;
+    cxFloat tangentialAccelVariance;
+    
+protected:
+    void OnKeyValue(const cxStr *key,cchars name,const cxStr *value);
+    void OnElementStart(cchars name,cchars *attr);
+    void OnElementEnd(cchars name);
+    void OnCharacter(cchars data,cxInt len);
+public:
+    cxEmitter *Emitter();
+public:
+    static cxEmitterXml *Create(const cxStr *data);
+};
+
+// json format emitter
 
 CX_CPP_END
 

@@ -13,6 +13,7 @@
 #include <ext/aes.h>
 #include <ext/utf8.h>
 #include <ext/base64.h>
+#include <zlib.h>
 #include "cxStr.h"
 #include "cxUtil.h"
 #include "cxArray.h"
@@ -452,6 +453,34 @@ const cxStr *cxStr::TeaDecode(const cxStr *key) const
     cxStr *ret = cxStr::Create()->Init(rv, length);
     free(rv);
     return ret;
+}
+
+const cxStr *cxStr::ZlibCompress(int level) const
+{
+    int len = compressBound(Size());
+    cxStr *ret = cxStr::Create()->Init(len);
+    uLongf destLen = ret->Size();
+    if(compress2((Bytef *)ret->Buffer(), &destLen, (const Bytef *)Buffer(), (uLong)Size(), level) != Z_OK){
+        return nullptr;
+    }
+    return ret->KeepBytes(destLen);
+}
+
+const cxStr *cxStr::ZlibUncompress() const
+{
+    int b = 2;
+    cxStr *ret = cxStr::Create()->Init(Size() * (1 << b));
+    uLongf destLen = ret->Size();
+    int status = Z_OK;
+    while((status = uncompress((Bytef *)ret->Buffer(), &destLen, (const Bytef *)Buffer(), (uLong)Size())) == Z_BUF_ERROR){
+        b++;
+        ret->Init(Size() * (1 << b));
+        destLen = ret->Size();
+    }
+    if(status != Z_OK){
+        return nullptr;
+    }
+    return ret->KeepBytes(destLen);
 }
 
 const cxStr *cxStr::LzmaCompress() const

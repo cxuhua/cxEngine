@@ -54,42 +54,8 @@
 #include <pb_encode.h>
 #include <pb_decode.h>
 
-#include <expat/expat.h>
 
 CX_CPP_BEGIN
-
-#define BUFFSIZE        8192
-
-char Buff[BUFFSIZE];
-
-int Depth;
-static void XMLCALL start(void *data, const char *el, const char **attr)
-{
-    int i;
-    (void)data;
-    
-    for (i = 0; i < Depth; i++)
-        printf("  ");
-    
-    printf("%s", el);
-    
-    for (i = 0; attr[i]; i += 2) {
-        printf(" %s='%s'", attr[i], attr[i + 1]);
-    }
-    
-    printf("\n");
-    Depth++;
-}
-
-static void XMLCALL
-end(void *data, const char *el)
-{
-    (void)data;
-    (void)el;
-    
-    Depth--;
-}
-
 
 CX_IMPLEMENT(Game);
 
@@ -107,16 +73,19 @@ Game::~Game()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
-    
-    XML_Parser p = XML_ParserCreate(NULL);
-    XML_SetElementHandler(p, start, end);
+
     const cxStr *data = cxUtil::Content("penhuo1_xia.xml");
-    if (XML_Parse(p, data->Buffer(), data->Size(), true) == XML_STATUS_ERROR) {
-        XML_Size line = XML_GetCurrentLineNumber(p);
-        cchars error = XML_ErrorString(XML_GetErrorCode(p));
-        CX_ERROR("parse error");
-    }
-    XML_ParserFree(p);
+    
+    cxEmitterXml *xml = cxEmitterXml::Create(data);
+    
+    
+    cxEmitter *v = xml->Emitter();
+    Window()->Append(v);
+    
+    cxEmitter *v2 = xml->Emitter();
+    Window()->Append(v2);
+    
+    
 //
 //    const cxStr *data = nullptr;
 //    {
@@ -159,54 +128,54 @@ void Game::OnMain()
 //    Window()->Append(cv);
 //
 //    return;
-    //加载纹理
-    LoadTexture("jl.lqt");
-    //加载帧序列
-    LoadFrames("frames.csv");
-    //加载动作组
-    LoadActions("actions.csv");
-    //获取法师帧序列
-    const cxFrames *fs = GetFrames("Mage");
-    //获取法师的动作列表
-    const cxActionGroup *ag = GetActions("Mage");
-    //获得move动作
-    
-    //创建动画
-    {
-        //获得动作组
-        const cxActionAttr *move = ag->Action("attack");
-        //创建动画
-        cxAnimate *animate = fs->Animate();
-        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-            CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
-        };
-        animate->SetAction(move, 1);
-        animate->SetSpeed(1.0f);
-        //创建载体
-        cxAtlas *atlas = cxAtlas::Create();
-        atlas->SetFlipX(true);
-        atlas->SetSize(cxSize2F(200, 200));
-        atlas->Append(animate);//加入动画
-        //载体加入绘制
-        Window()->Append(atlas);
-    }
-    
-    {
-        const cxActionAttr *move = ag->Action("move");
-        cxAnimate *animate = fs->Animate();
-        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-            CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
-        };
-        animate->SetAction(move, 1);
-        animate->SetSpeed(1.0f);
-        //
-        cxAtlas *atlas = cxAtlas::Create();
-        atlas->SetFlipX(true);
-        atlas->SetSize(cxSize2F(200, 200));
-        atlas->SetPosition(cxPoint2F(0, 300));
-        animate->AttachTo(atlas);
-        Window()->Append(atlas);
-    }
+//    //加载纹理
+//    LoadTexture("jl.lqt");
+//    //加载帧序列
+//    LoadFrames("frames.csv");
+//    //加载动作组
+//    LoadActions("actions.csv");
+//    //获取法师帧序列
+//    const cxFrames *fs = GetFrames("Mage");
+//    //获取法师的动作列表
+//    const cxActionGroup *ag = GetActions("Mage");
+//    //获得move动作
+//    
+//    //创建动画
+//    {
+//        //获得动作组
+//        const cxActionAttr *move = ag->Action("attack");
+//        //创建动画
+//        cxAnimate *animate = fs->Animate();
+//        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+//            CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
+//        };
+//        animate->SetAction(move, 1);
+//        animate->SetSpeed(1.0f);
+//        //创建载体
+//        cxAtlas *atlas = cxAtlas::Create();
+//        atlas->SetFlipX(true);
+//        atlas->SetSize(cxSize2F(200, 200));
+//        atlas->Append(animate);//加入动画
+//        //载体加入绘制
+//        Window()->Append(atlas);
+//    }
+//    
+//    {
+//        const cxActionAttr *move = ag->Action("move");
+//        cxAnimate *animate = fs->Animate();
+//        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+//            CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
+//        };
+//        animate->SetAction(move, 1);
+//        animate->SetSpeed(1.0f);
+//        //
+//        cxAtlas *atlas = cxAtlas::Create();
+//        atlas->SetFlipX(true);
+//        atlas->SetSize(cxSize2F(200, 200));
+//        atlas->SetPosition(cxPoint2F(0, 300));
+//        animate->AttachTo(atlas);
+//        Window()->Append(atlas);
+//    }
 }
 
 CX_CPP_END

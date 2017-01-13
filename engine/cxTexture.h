@@ -114,6 +114,7 @@ public:
     cxTexture *From(cchars file);
     cxTexture *From(cxTextureId name,const cxSize2F &siz);
     cxTexture *From(cxInt type,const cxStr *data);
+    cxTexture *From(cchars file,const cxStr *data);
 };
 
 CX_CPP_END

@@ -246,6 +246,31 @@ cxTexCoord *cxTexture::At(const cxStr *key) const
     return At(key->ToString());
 }
 
+cxTexture *cxTexture::From(cchars file,const cxStr *data)
+{
+    cchars ext = strrchr(file, '.');
+    if(!cxStr::IsOK(ext)){
+        CX_ASSERT(false, "file not ext name");
+        return nullptr;
+    }
+    if(cxStr::IsEqu(ext, ".png")){
+        return FromPNG(data);
+    }
+    if(cxStr::IsEqu(ext, ".pvr")){
+        return FromPVR(data);
+    }
+    if(cxStr::IsEqu(ext, ".pkm")){
+        return FromPKM(data);
+    }
+    if(cxStr::IsEqu(ext, ".jpg")){
+        return FromJPG(data);
+    }
+    if(cxStr::IsEqu(ext, ".lqt")){
+        return FromLQT(data);
+    }
+    return nullptr;
+}
+
 cxTexture *cxTexture::From(cchars file)
 {
     cchars ext = strrchr(file, '.');

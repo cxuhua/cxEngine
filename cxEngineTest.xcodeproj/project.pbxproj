@@ -28,6 +28,7 @@
 		839B8AF11B68DD3A009E0CF7 /* o.wav in Resources */ = {isa = PBXBuildFile; fileRef = 839B8AF01B68DD3A009E0CF7 /* o.wav */; };
 		83A74F861E28CB6C00827360 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A74F851E28CB6C00827360 /* libexpat.a */; };
 		83B0AF4A1DDC435E003FAB82 /* jl.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 83B0AF491DDC435E003FAB82 /* jl.lqt */; };
+		83B6E3201E2A006A00C9C6AB /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 83B6E31F1E2A006A00C9C6AB /* bg.png */; };
 		83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0D3E1BF04EC200B0CC0B /* libz.tbd */; };
 		83BE63751B311E0A0028B6E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BE63741B311E0A0028B6E7 /* main.m */; };
 		83C410DA1E28B3C90027FAFC /* penhuo1_xia.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */; };
@@ -90,6 +91,7 @@
 		839B8AF01B68DD3A009E0CF7 /* o.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = o.wav; sourceTree = "<group>"; };
 		83A74F851E28CB6C00827360 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = libs/ios/lib/libexpat.a; sourceTree = "<group>"; };
 		83B0AF491DDC435E003FAB82 /* jl.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jl.lqt; sourceTree = "<group>"; };
+		83B6E31F1E2A006A00C9C6AB /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		83BA0D3E1BF04EC200B0CC0B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		83BE63741B311E0A0028B6E7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo1_xia.xml; sourceTree = "<group>"; wrapsLines = 1; };
@@ -196,6 +198,7 @@
 		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
+				83B6E31F1E2A006A00C9C6AB /* bg.png */,
 				83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */,
 				83D5895A1DE81B27000D035F /* public.pb.c */,
 				83D5895B1DE81B27000D035F /* public.pb.h */,
@@ -325,6 +328,7 @@
 			files = (
 				830157E21B3BD27C00ED46A8 /* t.png in Resources */,
 				8302A5851B535EC500C7209C /* grid.png in Resources */,
+				83B6E3201E2A006A00C9C6AB /* bg.png in Resources */,
 				836E304C1B5E2B4C00ED8BDC /* foam.png in Resources */,
 				83B0AF4A1DDC435E003FAB82 /* jl.lqt in Resources */,
 				83F5D0B51CE570A600690B86 /* actions.csv in Resources */,

@@ -73,18 +73,24 @@ Game::~Game()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
+    
+//    LoadTexture("bg.jpg");
+//    
+//    cxSprite *sp = cxSprite::Create();
+//    sp->SetResizeFlags(cxView::ResizeFill);
+//    sp->SetTexture("bg.jpg");
+//    Window()->Append(sp);
 
-    const cxStr *data = cxUtil::Content("penhuo1_xia.xml");
-    
-    cxEmitterXml *xml = cxEmitterXml::Create(data);
-    
+    cxEmitterXml *xml = cxEmitterXml::CreateXml("penhuo1_xia");
     
     cxEmitter *v = xml->Emitter();
+//    v->SetColor(cxColor4F(0.1, 0.1, 0.1, 0.1));
+//    v->SetBlend(BlendFunc::MULTIPLY);
     Window()->Append(v);
     
-    cxView *v2 = v->Clone();
-    v2->SetPosition(cxPoint2F(0, -300));
-    Window()->Append(v2);
+//    cxView *v2 = v->Clone();
+//    v2->SetPosition(cxPoint2F(0, -300));
+//    Window()->Append(v2);
     
     
 //

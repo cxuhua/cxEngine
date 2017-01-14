@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
-
+#include <core/cxUtil.h>
 #include "cxEmitter.h"
 
 CX_CPP_BEGIN
@@ -81,7 +81,6 @@ cxView *cxEmitter::Clone()
     rv->SetBlend(Blend());
     rv->SetTexture(Texture());
     rv->SetSystemTime(systemtime);
-    
     rv->SetAutoRemove(autoRemove);
     rv->SetToRotate(torotate);
     rv->SetFrameTime(frameTime);
@@ -92,16 +91,12 @@ cxView *cxEmitter::Clone()
     rv->SetPosRange(position);
     rv->SetLifeRange(life);
     rv->SetAngleRange(angle);
-    
     rv->SetStartSize(startsize);
     rv->SetEndSize(endsize);
-    
     rv->SetStartColor(startcolor);
     rv->SetEndColor(endcolor);
-    
     rv->SetStartSpin(startspin);
     rv->SetEndSpin(endspin);
-    
     rv->SetAxisSpin(axisspin);
     //gravity mode
     rv->SetGravity(gravity);
@@ -420,17 +415,17 @@ void cxEmitter::OnUpdate(cxFloat dt)
             tgv.y = newy;
             tgv *= p->tanaccel;
             //compute position
-            tmp = radial + tgv;
-            tmp += gravity;
-            tmp *= dt;
+            tmp = (radial + tgv + gravity) * dt;
             p->dir +=  tmp;
             tmp = p->dir * dt;
             p->position += tmp;
-        }else{
+        }else if(type == cxEmitterRadial){
             p->angle += p->degreespers * dt;
             p->radius += p->deltaradius * dt;
             p->position.x = -cosf(p->angle) * p->radius;
             p->position.y = -sinf(p->angle) * p->radius;
+        }else{
+            CX_ASSERT(false, "type error");
         }
         // color
         p->color += p->deltacolor * dt;
@@ -460,12 +455,16 @@ void cxEmitter::OnBoxRender(cxEmitterUnit *unit,cxBoxRender &box)
         box.SetCoords(BoxCoord());
         return;
     }
+    cxTexture *ptex = Texture();
+    if(ptex->CoordCount() < tkeys->Size()){
+        CX_WARN("texture coord count < tkeys count");
+        return;
+    }
     cxInt idx = (unit->time - unit->life)/frameTime;
     idx = idx % tkeys->Size();
     if(unit->idx == idx){
         return;
     }
-    cxTexture *ptex = Texture();
     CX_ASSERT(ptex != nullptr, "atlas texture null");
     const cxStr *key = tkeys->At(idx)->To<cxStr>();
     cxTexCoord *coord = ptex->At(key);
@@ -542,6 +541,7 @@ cxEmitterXml::cxEmitterXml()
     tangentialAccelVariance = 0;
     
     textureFileName = nullptr;
+    textureImageData = nullptr;
     ptex = nullptr;
     
     skey = cxStr::Alloc();
@@ -550,6 +550,7 @@ cxEmitterXml::cxEmitterXml()
 
 cxEmitterXml::~cxEmitterXml()
 {
+    cxObject::release(&textureImageData);
     cxObject::release(&textureFileName);
     cxObject::release(&ptex);
     skey->Release();
@@ -587,70 +588,80 @@ void cxEmitterXml::OnElementStart(cchars name,cchars *attr)
 
 void cxEmitterXml::OnKeyValue(const cxStr *key,cchars name,const cxStr *value)
 {
-    #define FIELD(_n_,_f_) if(key->IsEqu(#_n_)){_n_ = _f_(name, value);return;}
-    
-    FIELD(angle,ToFloat);
-    FIELD(angleVariance,ToFloat);
-    FIELD(blendFuncDestination,ToUInt);
-    FIELD(blendFuncSource,ToUInt);
-    FIELD(duration,ToFloat);
-    FIELD(emitterType,ToInt);
-    FIELD(emissionRate,ToFloat);
-    FIELD(finishColorAlpha,ToFloat);
-    FIELD(finishColorBlue,ToFloat);
-    FIELD(finishColorGreen,ToFloat);
-    FIELD(finishColorRed,ToFloat);
-    FIELD(finishColorVarianceAlpha,ToFloat);
-    FIELD(finishColorVarianceBlue,ToFloat);
-    FIELD(finishColorVarianceGreen,ToFloat);
-    FIELD(finishColorVarianceRed,ToFloat);
-    FIELD(rotationStart,ToFloat);
-    FIELD(rotationStartVariance,ToFloat);
-    FIELD(rotationEnd,ToFloat);
-    FIELD(rotationEndVariance,ToFloat);
-    FIELD(finishParticleSize,ToFloat);
-    FIELD(finishParticleSizeVariance,ToFloat);
-    FIELD(gravityx,ToFloat);
-    FIELD(gravityy,ToFloat);
-    FIELD(maxParticles,ToFloat);
-    FIELD(maxRadius,ToFloat);
-    FIELD(maxRadiusVariance,ToFloat);
-    FIELD(minRadius,ToFloat);
-    FIELD(minRadiusVariance,ToFloat);
-    FIELD(particleLifespan,ToFloat);
-    FIELD(particleLifespanVariance,ToFloat);
-    FIELD(radialAcceleration,ToFloat);
-    FIELD(radialAccelVariance,ToFloat);
-    FIELD(rotatePerSecond,ToFloat);
-    FIELD(rotatePerSecondVariance,ToFloat);
-    FIELD(sourcePositionVariancex,ToFloat);
-    FIELD(sourcePositionVariancey,ToFloat);
-    FIELD(speed,ToFloat);
-    FIELD(speedVariance,ToFloat);
-    FIELD(startColorAlpha,ToFloat);
-    FIELD(startColorBlue,ToFloat);
-    FIELD(startColorGreen,ToFloat);
-    FIELD(startColorRed,ToFloat);
-    FIELD(startColorVarianceAlpha,ToFloat);
-    FIELD(startColorVarianceBlue,ToFloat);
-    FIELD(startColorVarianceGreen,ToFloat);
-    FIELD(startColorVarianceRed,ToFloat);
-    FIELD(startParticleSize,ToFloat);
-    FIELD(startParticleSizeVariance,ToFloat);
-    FIELD(tangentialAcceleration,ToFloat);
-    FIELD(tangentialAccelVariance,ToFloat);
-    // 读取纹理数据
-    if(key->IsEqu("textureFileName")){
-        cxObject::swap(&textureFileName, ToStr(name, value));
+    #define SET_FIELD(_n_,_f_) if(key->IsEqu(#_n_)){_n_ = _f_(name, value);return;}
+    #define SWAP_FIELD(_n_,_f_) if(key->IsEqu(#_n_)){cxObject::swap(&_n_, _f_(name, value));return;}
+    SET_FIELD(angle,ToFloat);
+    SET_FIELD(angleVariance,ToFloat);
+    SET_FIELD(blendFuncDestination,ToUInt);
+    SET_FIELD(blendFuncSource,ToUInt);
+    SET_FIELD(duration,ToFloat);
+    SET_FIELD(emitterType,ToInt);
+    SET_FIELD(emissionRate,ToFloat);
+    SET_FIELD(finishColorAlpha,ToFloat);
+    SET_FIELD(finishColorBlue,ToFloat);
+    SET_FIELD(finishColorGreen,ToFloat);
+    SET_FIELD(finishColorRed,ToFloat);
+    SET_FIELD(finishColorVarianceAlpha,ToFloat);
+    SET_FIELD(finishColorVarianceBlue,ToFloat);
+    SET_FIELD(finishColorVarianceGreen,ToFloat);
+    SET_FIELD(finishColorVarianceRed,ToFloat);
+    SET_FIELD(rotationStart,ToFloat);
+    SET_FIELD(rotationStartVariance,ToFloat);
+    SET_FIELD(rotationEnd,ToFloat);
+    SET_FIELD(rotationEndVariance,ToFloat);
+    SET_FIELD(finishParticleSize,ToFloat);
+    SET_FIELD(finishParticleSizeVariance,ToFloat);
+    SET_FIELD(gravityx,ToFloat);
+    SET_FIELD(gravityy,ToFloat);
+    SET_FIELD(maxParticles,ToFloat);
+    SET_FIELD(maxRadius,ToFloat);
+    SET_FIELD(maxRadiusVariance,ToFloat);
+    SET_FIELD(minRadius,ToFloat);
+    SET_FIELD(minRadiusVariance,ToFloat);
+    SET_FIELD(particleLifespan,ToFloat);
+    SET_FIELD(particleLifespanVariance,ToFloat);
+    SET_FIELD(radialAcceleration,ToFloat);
+    SET_FIELD(radialAccelVariance,ToFloat);
+    SET_FIELD(rotatePerSecond,ToFloat);
+    SET_FIELD(rotatePerSecondVariance,ToFloat);
+    SET_FIELD(sourcePositionVariancex,ToFloat);
+    SET_FIELD(sourcePositionVariancey,ToFloat);
+    SET_FIELD(speed,ToFloat);
+    SET_FIELD(speedVariance,ToFloat);
+    SET_FIELD(startColorAlpha,ToFloat);
+    SET_FIELD(startColorBlue,ToFloat);
+    SET_FIELD(startColorGreen,ToFloat);
+    SET_FIELD(startColorRed,ToFloat);
+    SET_FIELD(startColorVarianceAlpha,ToFloat);
+    SET_FIELD(startColorVarianceBlue,ToFloat);
+    SET_FIELD(startColorVarianceGreen,ToFloat);
+    SET_FIELD(startColorVarianceRed,ToFloat);
+    SET_FIELD(startParticleSize,ToFloat);
+    SET_FIELD(startParticleSizeVariance,ToFloat);
+    SET_FIELD(tangentialAcceleration,ToFloat);
+    SET_FIELD(tangentialAccelVariance,ToFloat);
+    SWAP_FIELD(textureFileName,ToStr);
+    SWAP_FIELD(textureImageData,ToStr);
+}
+
+void cxEmitterXml::parseTexture()
+{
+    if(!cxStr::IsOK(textureImageData)){
         return;
     }
-    if(key->IsEqu("textureImageData")){
-        const cxStr *data = ToStr(name, value)->Base64Decode()->ZlibUncompress();
-        cxTexture *ctex = cxTexture::Create()->From(textureFileName->ToString(), data);
-        CX_ASSERT(ctex != nullptr && ctex->IsSuccess(), "create emitter texture failed");
-        cxObject::swap(&ptex, ctex);
+    const cxStr *data = textureImageData->Base64Decode();
+    if(!cxStr::IsOK(data)){
+        CX_ERROR("emitter data base64 decode failed");
         return;
     }
+    data = data->ZlibUncompress();
+    if(!cxStr::IsOK(data)){
+        CX_ERROR("emitter data zlib uncompress failed");
+        return;
+    }
+    cxTexture *ctex = cxTexture::Create()->From(textureFileName->ToString(), data);
+    CX_ASSERT(ctex != nullptr && ctex->IsSuccess(), "create emitter texture failed");
+    cxObject::swap(&ptex, ctex);
 }
 
 cxEmitter *cxEmitterXml::Emitter()
@@ -718,12 +729,20 @@ void cxEmitterXml::OnCharacter(cchars data,cxInt len)
     svalue->Append(data, len);
 }
 
-cxEmitterXml *cxEmitterXml::Create(const cxStr *data)
+cxEmitterXml *cxEmitterXml::CreateXml(cchars name)
 {
+    char path[1024]={0};
+    snprintf(path, 1024, "%s.xml",name);
+    const cxStr *data = cxUtil::Content(path);
+    if(!cxStr::IsOK(data)){
+        CX_ERROR("read xml file failed:%d",path);
+        return nullptr;
+    }
     cxEmitterXml *xml = cxEmitterXml::Create();
     if(!xml->Parse(data)){
         return nullptr;
     }
+    xml->parseTexture();
     return xml;
 }
 

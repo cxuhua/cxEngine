@@ -166,6 +166,9 @@ private:
     
     cxTexture *ptex;
     cxStr *textureFileName;
+    cxStr *textureImageData;
+    
+    void parseTexture();
     
     cxFloat angle;
     cxFloat angleVariance;
@@ -238,7 +241,7 @@ protected:
 public:
     cxEmitter *Emitter();
 public:
-    static cxEmitterXml *Create(const cxStr *data);
+    static cxEmitterXml *CreateXml(cchars name);
 };
 
 // json format emitter

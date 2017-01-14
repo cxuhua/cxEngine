@@ -236,6 +236,11 @@ cxTexture *cxTexture::Atlas(cchars file)
     return Atlas(data);
 }
 
+cxInt cxTexture::CoordCount() const
+{
+    return coords->Size();
+}
+
 cxTexCoord *cxTexture::At(cchars key) const
 {
     return static_cast<cxTexCoord *>(coords->Get(key));

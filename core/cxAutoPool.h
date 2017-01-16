@@ -28,7 +28,7 @@ private:
     cxArray *objects;
 public:
     static void Start();
-    static void Stop();
+    static void Clear();
     static cxObject *Append(cxObject *object);
     static void Update();
     static cxInt Size();

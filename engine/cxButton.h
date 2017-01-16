@@ -22,6 +22,7 @@ protected:
     explicit cxButton();
     virtual ~cxButton();
 private:
+    cxPoint2F point;
     cxBool ispress;
     cxBool ispass;
     cxBool isenable;
@@ -41,6 +42,7 @@ public:
     cxEvent<cxButton> onRelease;
     cxEvent<cxButton> onMove;
 public:
+    cxPoint2F GetPoint() const;
     void SetLongerTime(cxFloat v);
     void SetIsPass(cxBool v);
     void SetIsLong(cxBool v);

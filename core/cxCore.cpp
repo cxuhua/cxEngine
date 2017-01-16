@@ -136,7 +136,7 @@ void cxCore::Clear()
     //cache clear
     caches->Clear();
     //clean main thread auto release pool
-    cxAutoPool::Stop();
+    cxAutoPool::Clear();
 }
 
 void cxCore::Push(cchars key,cxObject *pobj)

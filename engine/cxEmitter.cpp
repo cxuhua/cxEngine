@@ -666,7 +666,6 @@ void cxEmitterXml::parseTexture()
 
 cxEmitter *cxEmitterXml::Emitter()
 {
-    CX_ASSERT(ptex != nullptr, "ptex null");
     cxEmitter *ret = cxEmitter::Create(maxParticles);
     
     ret->SetTexture(ptex);

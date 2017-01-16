@@ -58,11 +58,11 @@ void cxAutoPool::Start()
     getTopAutoPool();
 }
 
-void cxAutoPool::Stop()
+void cxAutoPool::Clear()
 {
     cxStack *pools = getThreadPoolStack();
-    CX_ASSERT(pools != nullptr, "not invoke Start");
-    pools->Release();
+    CX_ASSERT(pools != nullptr, "pool stack null");
+    pools->Clear();
 }
 
 cxInt cxAutoPool::Size()

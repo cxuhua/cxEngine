@@ -72,6 +72,11 @@ void cxButton::timerExit()
     }
 }
 
+cxPoint2F cxButton::GetPoint() const
+{
+    return point;
+}
+
 cxBool cxButton::OnDispatch(const cxTouchable *e)
 {
     if(e->TouchCount() != 1 || !isenable){
@@ -88,6 +93,7 @@ cxBool cxButton::OnDispatch(const cxTouchable *e)
         timerExit();
         return false;
     }
+    point = hit.point;
     if(ep->IsBegan()){
         onPress.Fire(this);
         timerStart();

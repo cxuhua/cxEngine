@@ -65,7 +65,7 @@ void cxTimeLine::OnInit()
     if(to < 0){
         to = points->Size() - 1;
     }
-    UpdateTime();
+    UpdateTimes();
 }
 
 void cxTimeLine::OnTime(const cxTimePoint *tp)
@@ -95,7 +95,7 @@ cxAction *cxTimeLine::Clone()
     return rv;
 }
 
-void cxTimeLine::UpdateTime()
+void cxTimeLine::UpdateTimes()
 {
     if(!isdirty){
         return;
@@ -199,13 +199,13 @@ void cxTimeLine::SetTimeType(TimeType v)
 
 cxTimeLine::cxTimeLine()
 {
+    points = cxArray::Alloc();
     timeType = TimeTypeFrame;
     looptime = 0;
     isdirty = true;
     idx = -1;
     from = -1;
     to = -1;
-    points = cxArray::Alloc();
     Forever();
 }
 
@@ -217,7 +217,7 @@ cxTimeLine::~cxTimeLine()
 void cxTimeLine::OnStep(cxFloat dt)
 {
     cxFloat elapsed = Elapsed();
-    for(cxInt i = idx;i<Length();i++){
+    for(cxInt i = idx;i < Length();i++){
         if(elapsed < times.at(i)){
             break;
         }

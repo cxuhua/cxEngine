@@ -16,7 +16,14 @@
 
 CX_CPP_BEGIN
 
-#define MAX_FRAME_COUNT     16
+// 最大层数 0-7
+#define MAX_LAYER_SIZE          8
+
+// 每组最大帧数 0-99
+#define MAX_GROUP_FRAME_SIZE    100
+
+// 最大组数0-9
+#define MAX_GROUP_SIZE          10
 
 class cxAnimate;
 class cxFrames : public cxObject
@@ -28,21 +35,21 @@ protected:
     virtual ~cxFrames();
 private:
     std::vector<cxFloat> repeats;//每帧的重复倍数
-    cxSize2F size;//宽高
+    cxSize2F size;  //宽高
     cxInt repeat;
     BlendFunc blend;
     cxSize2F scale;
     cxTexture *ptex;
     cxInt layer;
     cxInt offset;
-    cxInt group;
+    cxInt group;    //最大支持10组 每组100帧
     cxInt count;
     cxFloat time;
     cxFloat speed;
     cxFloat delay;
     cxArray *points;
-    cxInt mapnum;               //层数量，最大MAX_FRAME_COUNT
-    cxInt map[MAX_FRAME_COUNT]; //层映射
+    cxInt mapnum;               //层数量，最大MAX_LAYER_SIZE
+    cxInt map[MAX_LAYER_SIZE]; //层映射
 private:
     cxTexCoord *layerEnd(cxInt group,cxInt count,cxInt layer);
     void loadlayers(cxArray *layers,cxInt c,cxInt g);
@@ -103,7 +110,7 @@ public:
 public:
     cxAnimate *Animate() const;
 public:
-    static void Load(cxHash *values,cchars file);
+    static void Load(cxHash *values,cchars file,std::function<cxTexture *(cchars file)>loadTexture);
 };
 
 CX_CPP_END

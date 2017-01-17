@@ -128,21 +128,28 @@ void cxEngine::LoadLocalized(cchars file)
     cxLocalized::Load(file);
 }
 
-void cxEngine::LoadTexture(cchars file,cchars key)
+cxTexture *cxEngine::LoadTexture(cchars file,cchars key)
 {
     if(key == nullptr){
         key = file;
     }
-    cxTexture *ptex = cxTexture::Create()->From(file);
-    if(ptex == nullptr){
+    cxTexture *ptex = cxObject::gcGet<cxTexture>(key);
+    if(ptex != nullptr){
+        return ptex;
+    }
+    ptex = cxTexture::Create()->From(key);
+    if(ptex == nullptr || !ptex->IsSuccess()){
         CX_ASSERT(false, "load texture failed,file=%s",file);
     }
     ptex->gcSet<cxTexture>(key);
+    return ptex;
 }
 
 void cxEngine::LoadFrames(cchars csv)
 {
-    cxFrames::Load(frames, csv);
+    cxFrames::Load(frames, csv,[this](cchars file) -> cxTexture * {
+        return LoadTexture(file);
+    });
 }
 
 const cxFrames *cxEngine::GetFrames(cchars name,cxInt level)

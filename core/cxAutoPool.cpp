@@ -30,7 +30,7 @@ cxAutoPool *cxAutoPool::getTopAutoPool()
         pools->Push(pool);
         pool->Release();
     }
-    return static_cast<cxAutoPool *>(pools->Top());
+    return pools->Top()->To<cxAutoPool>();
 }
 
 cxAutoPool::cxAutoPool()

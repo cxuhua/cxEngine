@@ -127,11 +127,15 @@ const cxArray *cxStr::Split(cchars data, cchars cs)
         if(!ccharsHasChar(cs,(cxByte)data[i])){
             continue;
         }
-        rv->Append(cxStr::Create()->Append(data + b, i-b));
+        cxStr *item = cxStr::Alloc()->Append(data + b, i-b);
+        rv->Append(item);
+        item->Release();
         b = i+1;
     }
     if(len > b){
-        rv->Append(cxStr::Create()->Append(data + b, len - b));
+        cxStr *item = cxStr::Alloc()->Append(data + b, len-b);
+        rv->Append(item);
+        item->Release();
     }
     return rv;
 }

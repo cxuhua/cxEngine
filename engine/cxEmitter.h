@@ -241,6 +241,8 @@ protected:
 public:
     cxEmitter *Emitter();
 public:
+    // open {{name}}.xml file
+    // file ext must .xml
     static cxEmitterXml *CreateXml(cchars name);
 };
 

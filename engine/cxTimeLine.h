@@ -38,7 +38,9 @@ public:
 
 enum TimeType
 {
+    // 按每帧平均时间进行
     TimeTypeFrame = 1,
+    // 按每帧设置的时间线进行
     TimeTypeLine
 };
 
@@ -69,7 +71,7 @@ public:
 public:
     void SetTimeType(TimeType v);
     cxTimeLine *SetRange(cxInt afrom,cxInt ato);
-    void UpdateTime();
+    void UpdateTimes();
     
     void SetLoopTime(cxFloat v);
     

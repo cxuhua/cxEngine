@@ -16,7 +16,7 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxFrames);
 
-void cxFrames::Load(cxHash *values,cchars file)
+void cxFrames::Load(cxHash *values,cchars file,std::function<cxTexture *(cchars file)>loadTexture)
 {
     const cxStr *data = cxUtil::Content(file);
     CX_ASSERT(cxStr::IsOK(data), "get %s file data error",file);
@@ -45,7 +45,9 @@ void cxFrames::Load(cxHash *values,cchars file)
                 continue;
             }
             if(ktype->IsCaseEqu("Texture")){
-                attr->SetTexture(value->ToString());
+                cxTexture *ptex = loadTexture(value->ToString());
+                CX_ASSERT(ptex != nullptr, "frames load texture error");
+                attr->SetTexture(ptex);
                 continue;
             }
             if(ktype->IsCaseEqu("Size")){
@@ -90,6 +92,7 @@ void cxFrames::Load(cxHash *values,cchars file)
 
 cxFrames::cxFrames()
 {
+    points = cxArray::Alloc();
     speed = 1.0f;
     delay = 0.0f;
     repeat = 1;
@@ -103,7 +106,6 @@ cxFrames::cxFrames()
     time = 0.1f;
     count = 0;
     ptex = nullptr;
-    points = cxArray::Alloc();
     scale = 1.0f;
 }
 
@@ -178,7 +180,7 @@ void cxFrames::SetMaps(cchars maps)
     if(!cxStr::IsOK(maps)){
         return;
     }
-    char buffers[MAX_FRAME_COUNT]={0};
+    char buffers[MAX_LAYER_SIZE]={0};
     cxInt len = (cxInt)strlen(maps);
     cxInt b = 0;
     mapnum = 0;
@@ -209,7 +211,7 @@ void cxFrames::SetRepeats(cchars str)
     if(!cxStr::IsOK(str)){
         return;
     }
-    char buffers[MAX_FRAME_COUNT]={0};
+    char buffers[MAX_LAYER_SIZE]={0};
     cxInt len = (cxInt)strlen(str);
     cxInt b = 0;
     repeats.clear();
@@ -256,11 +258,12 @@ cxTexCoord *cxFrames::layerEnd(cxInt group,cxInt count,cxInt layer)
 //例如:1701310.0.png
 void cxFrames::loadlayers(cxArray *layers,cxInt c,cxInt g)
 {
+    char key[128]={0};
     const cxTexture *texture = Texture();
     for(cxInt l = 0;l < Layer();l++){
-        char key[128]={0};
         //每组最多100张
-        snprintf(key, 128, "%d.%d.png",Offset()+g*100+c,l);
+        cxInt pos = snprintf(key, 128, "%d.%d.png",Offset()+g*MAX_GROUP_FRAME_SIZE+c,l);
+        key[pos] = 0;
         cxTexCoord *coord = texture->At(key);
         //如果当前层丢失帧图片，使用最后一个存在的图片
         if(coord == nullptr && c > 0){
@@ -273,7 +276,17 @@ void cxFrames::loadlayers(cxArray *layers,cxInt c,cxInt g)
 
 cxBool cxFrames::Init()
 {
-    CX_ASSERT(Texture() != nullptr && Count() > 0 && Group() > 0 && Layer() > 0, "data format error");
+    CX_ASSERT(Texture() != nullptr, "texture data nullptr");
+    // 限制每组的数量
+    CX_ASSERT(Count() > 0, "count > 0");
+    CX_ASSERT(Count() < MAX_GROUP_FRAME_SIZE, "count <= MAX_GROUP_FRAME_SIZE");
+    // 限制组数量
+    CX_ASSERT(Group() > 0 , "group > 0");
+    CX_ASSERT(Group() < MAX_GROUP_SIZE , "group <= MAX_GROUP_SIZE");
+    // 限制层数量
+    CX_ASSERT(Layer() > 0 , "layer > 0");
+    CX_ASSERT(Layer() < MAX_LAYER_SIZE , "layer <= MAX_LAYER_SIZE");
+    // 加载帧数据
     for(cxInt g = 0;g < Group();g++)
     for(cxInt c = 0;c < Count();c++){
         //每帧的重复倍数

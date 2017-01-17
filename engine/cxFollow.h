@@ -30,6 +30,9 @@ private:
 public:
     cxView *GetTarget();
     cxFollow *SetOffset(const cxPoint2F &off);
+    // not imp Reverse
+    // cxAction *Reverse();
+    cxAction *Clone();
 public:
     cxEvent<cxFollow> onMoving;
     cxEvent<cxFollow> onMiss;

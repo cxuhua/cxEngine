@@ -24,6 +24,13 @@ cxFollow::~cxFollow()
     
 }
 
+cxAction *cxFollow::Clone()
+{
+    cxView *target = GetTarget();
+    CX_ASSERT(target != nullptr, "target miss,can't clone");
+    return cxFollow::Create(target, speed);
+}
+
 cxFollow *cxFollow::SetOffset(const cxPoint2F &off)
 {
     offset = off;

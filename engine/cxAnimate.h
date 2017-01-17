@@ -16,13 +16,19 @@ CX_CPP_BEGIN
 
 struct cxActionAttr
 {
-    cxInt   from;
-    cxInt   to;
-    cxInt   key;
+    // 从from播放到to帧
+    cxInt from;
+    cxInt to;
+    // 关键帧序号
+    cxInt key;
+    // 播放速度
     cxFloat speed;
+    // 播放延迟
     cxFloat delay;
-    cxInt   repeat;
+    // 重复次数0(无限)
+    cxInt repeat;
     cxActionAttr();
+    // 反向播放获取
     cxActionAttr Reverse();
 };
 

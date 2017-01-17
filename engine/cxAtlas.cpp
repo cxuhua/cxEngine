@@ -30,6 +30,7 @@ cxAtlas *cxAtlas::Create(const cxFrames *frames)
     cxAtlas *rv = cxAtlas::Create();
     rv->SetBlend(frames->Blend());
     rv->SetSize(frames->Size() * frames->Scale());
+    rv->SetFrames(frames);
     return rv;
 }
 
@@ -121,7 +122,7 @@ void cxAtlas::updateScale9()
         Clear();
         cxSize2F size = Size();
         cxBox4F box = scalebox;
-        
+        //
         if(size.w < scalebox.l + scalebox.r){
             box.l = (scalebox.l / scalebox.W()) * size.w;
             box.r = (scalebox.r / scalebox.W()) * size.w;

@@ -102,6 +102,7 @@ public:
     //单帧默认时间
     cxFrames *SetTime(cxFloat v);
     const cxFloat Time() const;
+    //
     cxTimePoint *Append(cxFloat time);
     const cxTimePoint *At(cxInt idx) const;
     const cxArray *Points() const;
@@ -110,7 +111,7 @@ public:
 public:
     cxAnimate *Animate() const;
 public:
-    static void Load(cxHash *values,cchars file,std::function<cxTexture *(cchars file)>loadTexture);
+    static void Load(cxHash *values, cchars file, std::function<cxTexture *(cchars file)>loadTexture);
 };
 
 CX_CPP_END

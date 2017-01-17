@@ -289,14 +289,17 @@ cxBool cxFrames::Init()
     // 加载帧数据
     for(cxInt g = 0;g < Group();g++)
     for(cxInt c = 0;c < Count();c++){
-        //每帧的重复倍数
+        // 每帧的重复倍数
         cxFloat repeat = (c < repeats.size())?repeats.at(c):1;
-        //添加时间点
+        // 添加时间点
         cxTimePoint *tp = Append(Time() * repeat);
-        //加载保存层
+        // 加载保存层
         cxArray *layers = cxArray::Alloc();
-        tp->SetObject(layers);
+        // 时间点对象保存成层序列帧数组
+        tp->SetArray(layers);
+        // 加载层序列帧纹理对象
         loadlayers(layers, c, g);
+        //
         layers->Release();
     }
     return true;

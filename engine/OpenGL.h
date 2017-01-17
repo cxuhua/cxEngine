@@ -10,6 +10,7 @@
 #define cxEngineCore_OpenGL_h
 
 #if (CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID)
+
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
 #include <GLES2/gl2.h>
@@ -23,7 +24,9 @@ static PFNGLUNMAPBUFFEROESPROC          glUnmapBuffer;
 static PFNGLGETBUFFERPOINTERVOESPROC    glGetBufferPointerv;
 #define GL_DEPTH24_STENCIL8             GL_DEPTH24_STENCIL8_OES
 #define GL_WRITE_ONLY                   GL_WRITE_ONLY_OES
+
 #elif (CX_TARGET_PLATFORM == CX_PLATFORM_IOS)
+
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
 #define glDeleteVertexArrays            glDeleteVertexArraysOES
@@ -35,6 +38,7 @@ static PFNGLGETBUFFERPOINTERVOESPROC    glGetBufferPointerv;
 #define glGetBufferPointerv             glGetBufferPointervOES
 #define GL_DEPTH24_STENCIL8             GL_DEPTH24_STENCIL8_OES
 #define GL_WRITE_ONLY                   GL_WRITE_ONLY_OES
+
 #else
 #error "not define CX_TARGET_PLATFORM"
 #endif

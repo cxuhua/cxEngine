@@ -36,6 +36,16 @@ cxFloat cxTimePoint::Time() const
     return time;
 }
 
+cxArray *cxTimePoint::Array() const
+{
+    return object->To<cxArray>();
+}
+
+void cxTimePoint::SetArray(cxArray *parray)
+{
+    SetObject(parray);
+}
+
 cxObject *cxTimePoint::Object() const
 {
     return object;

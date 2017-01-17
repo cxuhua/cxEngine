@@ -90,11 +90,12 @@ void cxAnimate::OnInit()
 
 void cxAnimate::OnTime(const cxTimePoint *tp)
 {
-    View()->To<cxAtlas>()->SetCoords(tp->Object()->To<cxArray>(),frames);
-    //计算组中的第几帧
+    View()->To<cxAtlas>()->SetCoords(tp->Array(),frames);
+    // 计算组中的第几帧
     cxInt idx = Index() - group * frames->Count();
-    //是否是关键帧
+    // 是否是关键帧
     iskeyframe = (idx == attr.key);
+    //
     onFrame.Fire(this, idx);
 }
 
@@ -119,9 +120,9 @@ cxAction *cxAnimate::Reverse()
 {
     cxAnimate *rv = cxAnimate::Create();
     cxActionAttr vattr = attr.Reverse();
-    rv->SetFrames(frames);
     rv->SetAction(&vattr, group);
     rv->SetSpeed(Speed());
+    rv->SetFrames(frames);
     return rv;
 }
 

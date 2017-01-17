@@ -32,6 +32,9 @@ public:
     cxObject *Object() const;
     void SetObject(cxObject *pobj);
     
+    cxArray *Array() const;
+    void SetArray(cxArray *parray);
+    
     cxBool SetTime(cxFloat v);
     cxFloat Time() const;
 };

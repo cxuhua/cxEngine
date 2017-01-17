@@ -77,6 +77,7 @@ void cxTintTo::OnStep(cxFloat dt)
 
 void cxTintTo::OnInit()
 {
+    cxFloat t = Time();
     from = View()->Color();
     to.a = from.a;
     delta = (to - from)/Time();

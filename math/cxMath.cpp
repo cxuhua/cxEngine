@@ -128,10 +128,19 @@ cxFloat cxRadiansToDegrees(cxFloat radians)
     return kmRadiansToDegrees(radians);
 }
 
-cxInt cxCharToInt(cxUInt8 c)
+cxInt cxHexCharToInt(cxUInt8 c)
 {
     cxInt v = tolower(c);
-    return v >= 'a' ? (v - 'a' + 10) : (v - '0');
+    if(v >= 'a' && v <= 'f'){
+        return (v - 'a' + 10);
+    }
+    if(v >= 'A' && v <= 'F'){
+        return (v - 'A' + 10);
+    }
+    if(v >= '0' && v <= '9'){
+        return (v - '0');
+    }
+    return 0;
 }
 
 cxBool cxFloatIsEqual(cxFloat a, cxFloat b)
@@ -180,8 +189,6 @@ cxFloat cxBezier3(cxFloat a, cxFloat b, cxFloat c, cxFloat d, cxFloat t)
 {
     return powf(1.0f-t,3.0f)*a+3.0f*t*(powf(1.0f-t,2.0f))*b+3.0f*powf(t,2.0f)*(1.0f-t)*c+powf(t,3.0f)*d;
 }
-
-cxPoint2F cxBezier3(cxPoint2F a, cxPoint2F b, cxPoint2F c, cxPoint2F d, cxFloat t);
 
 cxFloat cxFloatBezier(cxFloat eq0, cxFloat eq1, cxFloat eq2, cxFloat eq3, cxFloat from, cxFloat vout, cxFloat to, cxFloat vin)
 {

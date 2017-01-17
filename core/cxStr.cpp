@@ -109,14 +109,21 @@ static cxBool ccharsHasChar(cchars cs,cxByte c)
     return false;
 }
 
-const cxArray *cxStr::Split(cchars cs) const
+const cxArray *cxStr::Split(cchars data,cxInt c)
+{
+    char cs[1]={static_cast<char>(c & 0xFF)};
+    return cxStr::Split(data, cs);
+}
+
+const cxArray *cxStr::Split(cchars data, cchars cs)
 {
     cxArray *rv = cxArray::Create();
-    cchars data = Data();
-    cxInt len = Size();
+    if(!cxStr::IsOK(data)){
+        return rv;
+    }
+    cxInt len = strlen(data);
     cxInt b = 0;
-    cxInt i = 0;
-    for(;i<len;i++){
+    for(cxInt i = 0;i < len;i++){
         if(!ccharsHasChar(cs,(cxByte)data[i])){
             continue;
         }
@@ -129,30 +136,46 @@ const cxArray *cxStr::Split(cchars cs) const
     return rv;
 }
 
-const cxArray *cxStr::Split(cxInt c) const
+const cxArray *cxStr::Split(cchars cs) const
 {
-    cxArray *rv = cxArray::Create();
-    cchars data = Data();
-    cxInt len = Size();
-    cxInt b = 0;
-    cxInt i = 0;
-    for(;i<len;i++){
-        if(data[i] != c){
-            continue;
-        }
-        rv->Append(cxStr::Create()->Append(data + b, i-b));
-        b = i+1;
-    }
-    if(len > b){
-        rv->Append(cxStr::Create()->Append(data + b, len - b));
-    }
-    return rv;
+    return cxStr::Split(ToString(), cs);
 }
 
-const cxBool cxStr::IsNumber() const
+const cxArray *cxStr::Split(cxInt c) const
 {
-    for(cxInt i=0;i<Size();i++){
-        char c = At(i);
+    char cs[1]={static_cast<char>(c & 0xFF)};
+    return cxStr::Split(ToString(), cs);
+}
+
+const cxBool cxStr::IsInt() const
+{
+    return cxStr::IsInt(ToString());
+}
+
+cxBool cxStr::IsInt(cchars cs)
+{
+    if(!cxStr::IsOK(cs)){
+        return false;
+    }
+    cxInt len = strlen(cs);
+    for(cxInt i = 0;i < len;i++){
+        char c = cs[i];
+        if(c >= '0' && c <= '9'){
+            continue;
+        }
+        return false;
+    }
+    return true;
+}
+
+cxBool cxStr::IsNumber(cchars cs)
+{
+    if(!cxStr::IsOK(cs)){
+        return false;
+    }
+    cxInt len = strlen(cs);
+    for(cxInt i = 0;i < len;i++){
+        char c = cs[i];
         if(c >= '0' && c <= '9'){
             continue;
         }
@@ -165,6 +188,11 @@ const cxBool cxStr::IsNumber() const
         return false;
     }
     return true;
+}
+
+const cxBool cxStr::IsNumber() const
+{
+    return cxStr::IsNumber(ToString());
 }
 
 const cxSize2F cxStr::ToSize2F() const
@@ -229,31 +257,7 @@ const cxPoint3F cxStr::ToPoint3F() const
 
 const cxColor4F cxStr::ToColor4F() const
 {
-    const cxArray *ps = Split(',');
-    if(ps->IsEmpty()){
-        return cxColor4F::WHITE;
-    }
-    if(ps->Size() == 1){
-        cxFloat v = ps->At(0)->To<cxStr>()->ToFloat();
-        return cxColor4F(v, v, v, 1.0f);
-    }
-    if(ps->Size() == 2){
-        cxFloat r = ps->At(0)->To<cxStr>()->ToFloat();
-        cxFloat g = ps->At(1)->To<cxStr>()->ToFloat();
-        return cxColor4F(r, g, 1.0f, 1.0f);
-    }
-    if(ps->Size() == 3){
-        cxFloat r = ps->At(0)->To<cxStr>()->ToFloat();
-        cxFloat g = ps->At(1)->To<cxStr>()->ToFloat();
-        cxFloat b = ps->At(2)->To<cxStr>()->ToFloat();
-        return cxColor4F(r, g, b, 1.0f);
-    }
-    //>=4
-    cxFloat r = ps->At(0)->To<cxStr>()->ToFloat();
-    cxFloat g = ps->At(1)->To<cxStr>()->ToFloat();
-    cxFloat b = ps->At(2)->To<cxStr>()->ToFloat();
-    cxFloat a = ps->At(3)->To<cxStr>()->ToFloat();
-    return cxColor4F(r, g, b, a);
+    return cxColor4F(ToString());
 }
 
 const cxFloat cxStr::ToFloat() const

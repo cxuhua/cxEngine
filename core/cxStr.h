@@ -51,6 +51,8 @@ public:
     
     const cxArray *Split(cxInt c) const;
     const cxArray *Split(cchars cs) const;
+    static const cxArray *Split(cchars data,cchars cs);
+    static const cxArray *Split(cchars data,cxInt c);
     
     cxULong Hash() const;
     
@@ -62,6 +64,11 @@ public:
     chars Buffer() const;
     
     const cxBool IsNumber() const;
+    static cxBool IsNumber(cchars cs);
+    
+    const cxBool IsInt() const;
+    static cxBool IsInt(cchars cs);
+    
     const cxBool ToBool() const;
     const cxInt ToInt() const;
     const cxInt64 ToInt64() const;

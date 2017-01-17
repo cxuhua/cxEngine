@@ -35,6 +35,7 @@ struct cxColor4F
     cxColor4F();
     cxColor4F(const cxColor4F &v);
     cxColor4F(const cxJson *json);
+    cxColor4F(cchars v);
     cxColor4F(cxUInt32 color);
     cxColor4F(cxFloat ar,cxFloat ag,cxFloat ab,cxFloat aa);
     cxColor4F(cxFloat ar,cxFloat ag,cxFloat ab);

@@ -69,23 +69,45 @@ Game::~Game()
     
 }
 
+void aa(cxView *pview){
+    cxTintTo *by = cxTintTo::Create(cxStr::Create("2.0,0.0,0.0")->ToColor4F(), 0.4f);
+    by->onExit +=[](cxAction *pav){
+        cxAction *rev = pav->Reverse();
+        rev->AttachTo(pav->View());
+        rev->onExit +=[](cxAction *pav){
+            aa(pav->View());
+        };
+    };
+    by->AttachTo(pview);
+}
+
 
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     
-//    LoadTexture("bg.jpg");
-//    
-//    cxSprite *sp = cxSprite::Create();
-//    sp->SetResizeFlags(cxView::ResizeFill);
-//    sp->SetTexture("bg.jpg");
-//    Window()->Append(sp);
-
-    cxEmitterXml *xml = cxEmitterXml::CreateXml("penhuo1_xia");
+    LoadTexture("1.png");
+    LoadTexture("bg.jpg");
     
+    cxSprite *sp = cxSprite::Create();
+    sp->SetResizeFlags(cxView::ResizeFill);
+    sp->SetTexture("bg.jpg");
+    sp->SetColor("#0000F0ff");
+    Window()->Append(sp);
+    
+    cxSprite *b = cxSprite::Create();
+
+//    aa(b);
+
+//    b->SetColor(cxColor4F::RED)
+    
+    b->SetSize(cxSize2F(350, 350));
+    b->SetTexture("1.png");
+    b->SetPosition(cxPoint2F(0, 50));
+    Window()->Append(b);
+
+    cxEmitterXml *xml = cxEmitterXml::CreateXml("penhuo1_1");    
     cxEmitter *v = xml->Emitter();
-//    v->SetColor(cxColor4F(0.1, 0.1, 0.1, 0.1));
-//    v->SetBlend(BlendFunc::MULTIPLY);
     Window()->Append(v);
     
 //    cxView *v2 = v->Clone();

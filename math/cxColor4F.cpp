@@ -117,6 +117,79 @@ cxJson *cxColor4F::ToJson()
     return json;
 }
 
+cxColor4F parseHexColor(cchars color)
+{
+    cxFloat r = 1.0f;
+    cxFloat g = 1.0f;
+    cxFloat b = 1.0f;
+    cxFloat a = 1.0f;
+    cxInt len = (cxInt)strlen(color);
+    if(len >= 2){
+        r = (cxHexCharToInt(color[0]) << 4) | cxHexCharToInt(color[1]);
+        r = r/255.0f;
+    }
+    if(len >= 4){
+        g = (cxHexCharToInt(color[2]) << 4) | cxHexCharToInt(color[3]);
+        g = g/255.0f;
+    }
+    if(len >= 6){
+        b = (cxHexCharToInt(color[4]) << 4) | cxHexCharToInt(color[5]);
+        b = b/255.0f;
+    }
+    if(len >= 8){
+        a = (cxHexCharToInt(color[6]) << 4) | cxHexCharToInt(color[7]);
+        a = a/255.0f;
+    }
+    return cxColor4F(r, g, b, a);
+}
+
+cxColor4F parseArrayColor(const cxArray *ps)
+{
+    cxFloat r = 1.0f;
+    cxFloat g = 1.0f;
+    cxFloat b = 1.0f;
+    cxFloat a = 1.0f;
+    cxInt len = ps->Size();
+    if(len >= 1){
+        r = ps->At(0)->To<cxStr>()->ToFloat();
+    }
+    if(len >= 2){
+        g = ps->At(1)->To<cxStr>()->ToFloat();
+    }
+    if(len >= 3){
+        b = ps->At(2)->To<cxStr>()->ToFloat();
+    }
+    if(len >= 4){
+        a = ps->At(3)->To<cxStr>()->ToFloat();
+    }
+    return cxColor4F(r, g, b, a);
+}
+
+cxColor4F::cxColor4F(cchars v)
+{
+    if(!cxStr::IsOK(v)){
+        *this = cxColor4F::WHITE;
+        return;
+    }
+    // hex color(#FF0000FF)
+    if(v[0] == '#'){
+        *this = parseHexColor(v + 1);
+        return;
+    }
+    // int color(11121212)
+    if(cxStr::IsInt(v)){
+        *this = cxColor4F((cxUInt32)atoi(v));
+        return;
+    }
+    // array color(1.0,1.0,1.0,1.0)
+    const cxArray *ps = cxStr::Split(v, ",");
+    if(!ps->IsEmpty()){
+        *this = parseArrayColor(ps);
+        return;
+    }
+    *this = cxColor4F::WHITE;
+}
+
 cxColor4F::cxColor4F(const cxJson *json)
 {
     CX_ASSERT(json != nullptr, "json format error");
@@ -128,25 +201,8 @@ cxColor4F::cxColor4F(const cxJson *json)
     }else if(json->IsInt()){
         cxColor4F(json->ToInt());
     }else if(json->IsString()){
-        cchars color = json->ToString();
-        cxInt len = (cxInt)strlen(color);
-        cxFloat v = 0;
-        if(len >= 2){
-            v = (cxCharToInt(color[0]) << 4) | cxCharToInt(color[1]);
-            r = v/255.0f;
-        }
-        if(len >= 4){
-            v = (cxCharToInt(color[2]) << 4) | cxCharToInt(color[3]);
-            g = v/255.0f;
-        }
-        if(len >= 6){
-            v = (cxCharToInt(color[4]) << 4) | cxCharToInt(color[5]);
-            b = v/255.0f;
-        }
-        if(len >= 8){
-            v = (cxCharToInt(color[6]) << 4) | cxCharToInt(color[7]);
-            a = v/255.0f;
-        }
+        const cxStr *color = json->ToStr();
+        *this = color->ToColor4F();
     }else{
         CX_ASSERT(false, "color format error");
     }

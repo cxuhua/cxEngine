@@ -53,7 +53,7 @@ cxEmitter *cxEmitter::SetFrameTime(cxFloat v)
 
 cxEmitter *cxEmitter::AppendFrameKey(cchars fmt,...)
 {
-    CX_ASSERT(cxStr::IsOK(fmt), "args error");
+    CX_ASSERT(cxStr::IsOK(fmt), "fmt args error");
     va_list ap;
     va_start(ap, fmt);
     cxStr *key = cxStr::Create()->AppFmt(fmt, ap);
@@ -64,13 +64,14 @@ cxEmitter *cxEmitter::AppendFrameKey(cchars fmt,...)
 
 cxEmitter *cxEmitter::AppendFrameKey(const cxStr *key)
 {
-    CX_ASSERT(cxStr::IsOK(key), "args error");
-    tkeys->Append((cxObject *)key);
+    CX_ASSERT(cxStr::IsOK(key), "key args error");
+    tkeys->Append(key->Clone());
     return this;
 }
 
 cxEmitter *cxEmitter::AppendFrameKeys(const cxArray *keys)
 {
+    CX_ASSERT(keys != nullptr, "keys args error");
     tkeys->AppendArray(keys);
     return this;
 }
@@ -84,7 +85,7 @@ cxView *cxEmitter::Clone()
     rv->SetAutoRemove(autoRemove);
     rv->SetToRotate(torotate);
     rv->SetFrameTime(frameTime);
-    rv->tkeys->AppendArray(tkeys);
+    rv->AppendFrameKeys(tkeys);
     rv->SetMax(max);
     rv->SetType(type);
     rv->SetRate(rate);
@@ -647,6 +648,7 @@ void cxEmitterXml::OnKeyValue(const cxStr *key,cchars name,const cxStr *value)
 void cxEmitterXml::parseTexture()
 {
     if(!cxStr::IsOK(textureImageData)){
+        CX_WARN("not set texture image data");
         return;
     }
     const cxStr *data = textureImageData->Base64Decode();
@@ -660,15 +662,19 @@ void cxEmitterXml::parseTexture()
         return;
     }
     cxTexture *ctex = cxTexture::Create()->From(textureFileName->ToString(), data);
-    CX_ASSERT(ctex != nullptr && ctex->IsSuccess(), "create emitter texture failed");
+    if(ctex == nullptr || !ctex->IsSuccess()){
+        CX_ERROR("create emitter texture failed");
+        return;
+    }
     cxObject::swap(&ptex, ctex);
 }
 
 cxEmitter *cxEmitterXml::Emitter()
 {
     cxEmitter *ret = cxEmitter::Create(maxParticles);
-    
-    ret->SetTexture(ptex);
+    if(ptex != nullptr){
+        ret->SetTexture(ptex);
+    }
     ret->SetBlend(BlendFunc(blendFuncSource, blendFuncDestination));
     
     ret->SetAngleRange(cxFloatRange(angle, angleVariance));

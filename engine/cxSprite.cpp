@@ -158,7 +158,7 @@ cxTexture *cxSprite::Texture() const
 
 cxSprite *cxSprite::SetTexture(const cxTexture *ptex)
 {
-    CX_ASSERT(ptex != nullptr, "ptex error");
+    CX_ASSERT(ptex != nullptr, "ptex args error");
     if(texture != ptex){
         cxObject::swap(&texture, ptex);
         SetDirty(DirtyModeTexture);
@@ -168,13 +168,13 @@ cxSprite *cxSprite::SetTexture(const cxTexture *ptex)
 
 cxSprite *cxSprite::SetTexture(const cxStr *tkey)
 {
-    CX_ASSERT(cxStr::IsOK(tkey), "args error");
+    CX_ASSERT(cxStr::IsOK(tkey), "tkey args error");
     return SetTexture(tkey->ToString());
 }
 
 cxSprite *cxSprite::SetTexture(cchars key)
 {
-    CX_ASSERT(cxStr::IsOK(key), "args error");
+    CX_ASSERT(cxStr::IsOK(key), "key args error");
     cxTexture *ptex = cxObject::gcGet<cxTexture>(key);
     if(ptex == nullptr){
         CX_WARN("texture %s not exists",key);

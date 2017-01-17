@@ -38,6 +38,7 @@
 		83C5BFA71CD8612500F0DA0B /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA11CD8612500F0DA0B /* libpcre.a */; };
 		83C5BFA81CD8612500F0DA0B /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA21CD8612500F0DA0B /* libpng.a */; };
 		83C5BFA91CD8612500F0DA0B /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA31CD8612500F0DA0B /* libuv.a */; };
+		83CD01A71E2CEB60006FC20F /* penhuo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83CD01A61E2CEB60006FC20F /* penhuo.xml */; };
 		83D5895C1DE81B27000D035F /* public.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D5895A1DE81B27000D035F /* public.pb.c */; };
 		83D8C3571B69E46400155990 /* battle_lost_02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83D8C3561B69E46400155990 /* battle_lost_02.mp3 */; };
 		83D92D281B315E7200F061D6 /* animate.json in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D261B315E7200F061D6 /* animate.json */; };
@@ -47,6 +48,8 @@
 		83E6F66F1B0C97F7006839C8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66D1B0C97F7006839C8 /* GLKit.framework */; };
 		83E6F6701B0C97F7006839C8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */; };
 		83E886DC1B68F970001C0727 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83E886DB1B68F970001C0727 /* test.mp3 */; };
+		83F45E8A1E2CECB20083C886 /* penhuo1_1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83F45E891E2CECB20083C886 /* penhuo1_1.xml */; };
+		83F45E8D1E2CEF8E0083C886 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F45E8C1E2CEF8E0083C886 /* 1.png */; };
 		83F5D0B51CE570A600690B86 /* actions.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B21CE570A600690B86 /* actions.csv */; };
 		83F5D0B71CE570A600690B86 /* frames.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B41CE570A600690B86 /* frames.csv */; };
 		83F5D0C31CE5BB5400690B86 /* texts.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0C21CE5BB5400690B86 /* texts.csv */; };
@@ -101,6 +104,7 @@
 		83C5BFA11CD8612500F0DA0B /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = libs/ios/lib/libpcre.a; sourceTree = "<group>"; };
 		83C5BFA21CD8612500F0DA0B /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libs/ios/lib/libpng.a; sourceTree = "<group>"; };
 		83C5BFA31CD8612500F0DA0B /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = libs/ios/lib/libuv.a; sourceTree = "<group>"; };
+		83CD01A61E2CEB60006FC20F /* penhuo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo.xml; sourceTree = "<group>"; };
 		83D5895A1DE81B27000D035F /* public.pb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = public.pb.c; sourceTree = "<group>"; };
 		83D5895B1DE81B27000D035F /* public.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = public.pb.h; sourceTree = "<group>"; };
 		83D8C3561B69E46400155990 /* battle_lost_02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = battle_lost_02.mp3; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 		83E6F66D1B0C97F7006839C8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		83E886DB1B68F970001C0727 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = test.mp3; sourceTree = "<group>"; };
+		83F45E891E2CECB20083C886 /* penhuo1_1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo1_1.xml; sourceTree = "<group>"; };
+		83F45E8C1E2CEF8E0083C886 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		83F5D0B21CE570A600690B86 /* actions.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = actions.csv; sourceTree = "<group>"; };
 		83F5D0B41CE570A600690B86 /* frames.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = frames.csv; sourceTree = "<group>"; };
 		83F5D0C21CE5BB5400690B86 /* texts.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = texts.csv; sourceTree = "<group>"; };
@@ -198,6 +204,9 @@
 		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
+				83F45E8C1E2CEF8E0083C886 /* 1.png */,
+				83F45E891E2CECB20083C886 /* penhuo1_1.xml */,
+				83CD01A61E2CEB60006FC20F /* penhuo.xml */,
 				83B6E31F1E2A006A00C9C6AB /* bg.png */,
 				83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */,
 				83D5895A1DE81B27000D035F /* public.pb.c */,
@@ -342,10 +351,13 @@
 				83D92D281B315E7200F061D6 /* animate.json in Resources */,
 				83F5D0B71CE570A600690B86 /* frames.csv in Resources */,
 				83E886DC1B68F970001C0727 /* test.mp3 in Resources */,
+				83F45E8A1E2CECB20083C886 /* penhuo1_1.xml in Resources */,
 				8326D0DB1BE9F72000A15879 /* Images.xcassets in Resources */,
+				83F45E8D1E2CEF8E0083C886 /* 1.png in Resources */,
 				836E304F1B5E2B4C00ED8BDC /* water.vsh in Resources */,
 				839B8AF11B68DD3A009E0CF7 /* o.wav in Resources */,
 				83D8C3571B69E46400155990 /* battle_lost_02.mp3 in Resources */,
+				83CD01A71E2CEB60006FC20F /* penhuo.xml in Resources */,
 				839B8AEB1B68D6EF009E0CF7 /* finch.wav in Resources */,
 				83F5D0C51CE5BE0400690B86 /* configs.csv in Resources */,
 				83F5D0C31CE5BB5400690B86 /* texts.csv in Resources */,

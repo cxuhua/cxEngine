@@ -13,7 +13,6 @@ void main() {
     vTexCoord = aTexcoord;
     gl_Position = uMP * vec4(aPosition,1.0);
 });
-
 static cchars DefaultFSH = STRINGIFY(
 precision highp float;
 varying mediump vec4 vFragmentColor;
@@ -23,7 +22,6 @@ void main() {
     vec4 color = texture2D(uTexture0, vTexCoord);
     gl_FragColor = vFragmentColor * color;
 });
-
 ////////////gray shader///////////////////////////
 static cchars GrayVSH = STRINGIFY(
 precision highp float;
@@ -38,7 +36,6 @@ void main() {
     vTexCoord = aTexcoord;
     gl_Position = uMP * vec4(aPosition,1.0);
 });
-
 static cchars GrayFSH = STRINGIFY(
 precision highp float;
 varying mediump vec4 vFragmentColor;
@@ -51,7 +48,6 @@ void main() {
     vec4 gray = vec4(vscale, vscale, vscale, color.a);
     gl_FragColor = vFragmentColor * mix(color, gray, vFragmentColor.a);
 });
-
 ////////////color shader///////////////////////////
 static cchars ColorVSH = STRINGIFY(
 precision highp float;
@@ -65,7 +61,6 @@ void main() {
     gl_Position = mvp * vec4(aPosition,1.0);
     vColor = aColor;
 });
-
 static cchars ColorFSH = STRINGIFY(
 precision highp float;
 varying mediump vec4 vColor;

@@ -70,9 +70,9 @@ void cxOpenGL::Init()
     glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &maxVertexTextureUnits);
     CX_LOGGER("GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS: %d",maxVertexTextureUnits);
     //init system shader
-    cxShader::Create()->Init(DefaultVSH,DefaultFSH)->gcSet<cxShader>(DefaultShader);
-    cxShader::Create()->Init(GrayVSH,GrayFSH)->gcSet<cxShader>(GrayShader);
-    cxColorShader::Create()->Init(ColorVSH,ColorFSH)->gcSet<cxShader>(ColorShader);
+    cxShader::Create()->Init(DefaultVSH,DefaultFSH)->gcSet<cxShader>(cxShader::Default);
+    cxShader::Create()->Init(GrayVSH,GrayFSH)->gcSet<cxShader>(cxShader::Gray);
+    cxColorShader::Create()->Init(ColorVSH,ColorFSH)->gcSet<cxShader>(cxShader::Color);
     //init system color
     SetClearColor(cxColor4F::BLACK);
     glDisable(GL_DEPTH_TEST);
@@ -671,7 +671,7 @@ void TDrawable::UseBlend(BlendFunc &b)
 
 void TDrawable::DrawBoxShape(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)
 {
-    cxObject::gcGet<cxShader>(ColorShader)->Using(nullptr);
+    cxObject::gcGet<cxShader>(cxShader::Color)->Using(nullptr);
     
     glEnableVertexAttribArray(cxVertexAttribPosition);
     glVertexAttribPointer(cxVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(cxPoint3F), &vs);
@@ -684,7 +684,7 @@ void TDrawable::DrawBoxShape(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)
 
 void TDrawable::DrawLine(const cxLineF &line,const cxColor4F &color)
 {
-    cxObject::gcGet<cxShader>(ColorShader)->Using(nullptr);
+    cxObject::gcGet<cxShader>(cxShader::Color)->Using(nullptr);
     
     cxPoint3F ps[2];
     ps[0] = cxPoint3F(line.a.x, line.a.y, 0);
@@ -703,7 +703,7 @@ void TDrawable::DrawLine(const cxLineF &line,const cxColor4F &color)
 
 void TDrawable::DrawBoxLine(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)
 {
-    cxObject::gcGet<cxShader>(ColorShader)->Using(nullptr);
+    cxObject::gcGet<cxShader>(cxShader::Color)->Using(nullptr);
     
     cxBoxPoint3F bp = vs.ToLoop();
     glEnableVertexAttribArray(cxVertexAttribPosition);

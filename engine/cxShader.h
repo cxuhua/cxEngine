@@ -38,6 +38,10 @@ class cxShader : public cxObject
 {
 public:
     CX_DECLARE(cxShader);
+public:
+    const static cchars Color;
+    const static cchars Default;
+    const static cchars Gray;
 protected:
     explicit cxShader();
     virtual ~cxShader();

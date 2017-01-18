@@ -140,10 +140,25 @@ cxBox4F &cxTexCoord::Trimmed(cxBox4F &vbox,const cxSize2F &size,cxBool flipx,cxB
     return vbox;
 }
 
+const cxBoxCoord2F &cxTexCoord::FlipCoord(const cxBoxCoord2F &ov,cxBool flipx,cxBool flipy)
+{
+    cxFloat l = ov.lt.u;
+    cxFloat r = ov.rb.u;
+    cxFloat t = ov.lt.v;
+    cxFloat b = ov.rb.v;
+    if(flipx)CX_SWAP_VAR(l,r);
+    if(flipy)CX_SWAP_VAR(t,b);
+    coord.lb = cxCoord2F(l,b);
+    coord.rb = cxCoord2F(r,b);
+    coord.rt = cxCoord2F(r,t);
+    coord.lt = cxCoord2F(l,t);
+    return coord;
+}
+
 const cxBoxCoord2F &cxTexCoord::BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy)
 {
     if(texture == nullptr){
-        return cxBoxCoord2F::Default;
+        return FlipCoord(cxBoxCoord2F::Default, flipx, flipy);
     }
     cxSize2F size = texture->Size();
     if(rotated){

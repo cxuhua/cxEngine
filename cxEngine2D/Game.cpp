@@ -82,19 +82,22 @@ void aa(cxView *pview){
 }
 
 
+cxFloat t=0;
+cxInt idx = 0;
+
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     
 //    LoadTexture("1.png");
-//    LoadTexture("bg.jpg");
-//    
-//    cxSprite *sp = cxSprite::Create();
-//    sp->SetResizeFlags(cxView::ResizeFill);
-//    sp->SetTexture("bg.jpg");
+    LoadTexture("bg.jpg");
+    
+    cxSprite *sp = cxSprite::Create();
+    sp->SetResizeFlags(cxView::ResizeFill);
+    sp->SetTexture("bg.jpg");
 //    sp->SetColor("#0000F0");
-//    Window()->Append(sp);
-//    
+    Window()->Append(sp);
+//
 //    cxSprite *b = cxSprite::Create();
 //
 ////    aa(b);
@@ -169,10 +172,52 @@ void Game::OnMain()
     const cxActionGroup *ag = GetActions("Mage");
     //获得move动作
     
+//    cxOpenGL::Instance()->SetClearColor(cxColor4F::RED);
+    LoadTexture("0.png");
+    LoadTexture("1.png");
+    LoadTexture("2.png");
+    LoadTexture("3.png");
+    LoadTexture("4.png");
+    LoadTexture("5.png");
+    LoadTexture("6.png");
+    
+    {
+        
+    }
+    {
+        cxSprite *sp1 = cxSprite::Create();
+        sp1->SetSize(350);
+        sp1->SetTexture("1.png");
+        Window()->Append(sp1);
+        
+        cxSprite *sp2 = cxSprite::Create();
+        sp2->SetSize(350);
+        sp2->SetTexture("1.png");
+        sp2->SetFlipY(true);
+        sp2->SetPosition(cxPoint2F(-10, -10));
+        sp2->SetScale(cxPoint2F(0.7, 0.6));
+        sp2->SetColor(cxColor4F(0.0, 0.0, 0.0, 0.7));
+        Window()->Append(sp2);
+        
+        cxTimer *timer = cxTimer::Forever(0.1);
+        timer->onArrive +=[sp1,sp2](cxTimer *pav){
+            char file[32]={0};
+            snprintf(file, 32, "%d.png",idx);
+            sp1->SetTexture(file);
+            sp2->SetTexture(file);
+            idx ++;
+            if(idx >= 6) {
+                idx = 0;
+            }
+        };
+        timer->Run();
+    }
+    
+    return;
     //创建动画
     {
         //获得动作组
-        const cxActionAttr *move = ag->Action("attack");
+        const cxActionAttr *move = ag->Action("move");
         //创建动画
         cxAnimate *animate = fs->Animate();
         animate->onFrame+=[](cxAnimate *pav,cxInt frame){
@@ -182,7 +227,7 @@ void Game::OnMain()
         animate->SetSpeed(1.0f);
         //创建载体
         cxAtlas *atlas = cxAtlas::Create();
-        atlas->SetFlipX(true);
+//        atlas->SetFlipX(true);
         atlas->SetSize(cxSize2F(200, 200));
         atlas->Append(animate);//加入动画
         //载体加入绘制
@@ -199,11 +244,26 @@ void Game::OnMain()
         animate->SetSpeed(1.0f);
         //
         cxAtlas *atlas = cxAtlas::Create();
-        atlas->SetFlipX(true);
+        atlas->SetFlipY(true);
+        atlas->SetPosition(cxPoint2F(-10, -90));
+        atlas->SetScale(cxPoint2F(0.7, 0.6));
+        atlas->SetColor(cxColor4F(0.0, 0.0, 0.0, 0.7));
+//        atlas->SetAnchor(cxPoint2F(0, -0.5f));
+//        atlas->SetAxis(cxPoint3F::AxisX);
+//        atlas->SetAngle(cxDegreesToRadians(-240));
+//        atlas->SetFlipX(true);
         atlas->SetSize(cxSize2F(200, 200));
-        atlas->SetPosition(cxPoint2F(0, 300));
         animate->AttachTo(atlas);
+        atlas->SetShader(cxShader::Gray);
         Window()->Append(atlas);
+        
+//        cxTimer *timer = cxTimer::Create(360, 0.1);
+//        timer->onArrive +=[atlas](cxTimer *pav){
+//            atlas->SetAngle(cxDegreesToRadians(t));
+//            t--;
+//            CX_LOGGER("%f",t);
+//        };
+//        timer->Run();
     }
 }
 

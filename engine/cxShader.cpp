@@ -14,6 +14,11 @@
 
 CX_CPP_BEGIN
 
+
+const cchars cxShader::Color     = "ColorShaderKey";
+const cchars cxShader::Default   = "DefaultShaderKey";
+const cchars cxShader::Gray      = "GrayShaderKey";
+
 //
 CX_IMPLEMENT(cxShader);
 

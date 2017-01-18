@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <core/cxArray.h>
+#include <core/cxHash.h>
 #include "cxTexture.h"
 #include "cxAction.h"
 
@@ -34,6 +35,9 @@ public:
     
     cxArray *Array() const;
     void SetArray(cxArray *parray);
+    
+    cxHash *HashMap() const;
+    void SetHashMap(cxHash *phash);
     
     cxBool SetTime(cxFloat v);
     cxFloat Time() const;
@@ -66,8 +70,8 @@ private:
     cxBool isdirty; //
     cxInt prev;     //
     cxInt idx;      //0-n
-    cxInt from;     //0-(size-1);
-    cxInt to;       //0-(size-1)
+    cxInt from;     //0-(n-1);
+    cxInt to;       //0-(n-1)
     TimeType timeType;
 public:
     cxEvent<cxTimeLine,const cxTimePoint *> onTime;

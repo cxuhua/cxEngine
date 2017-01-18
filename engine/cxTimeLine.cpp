@@ -46,6 +46,16 @@ void cxTimePoint::SetArray(cxArray *parray)
     SetObject(parray);
 }
 
+cxHash *cxTimePoint::HashMap() const
+{
+    return object->To<cxHash>();
+}
+
+void cxTimePoint::SetHashMap(cxHash *phash)
+{
+    SetObject(phash);
+}
+
 cxObject *cxTimePoint::Object() const
 {
     return object;
@@ -154,8 +164,9 @@ cxTimeLine *cxTimeLine::SetPoints(const cxArray *ps)
 
 cxTimePoint *cxTimeLine::Append(cxFloat time)
 {
-    cxTimePoint *p = cxTimePoint::Create()->Init(time);
+    cxTimePoint *p = cxTimePoint::Alloc()->Init(time);
     points->Append(p);
+    p->Release();
     return p;
 }
 
@@ -184,6 +195,10 @@ cxTimeLine *cxTimeLine::SetRange(cxInt afrom,cxInt ato)
 
 void cxTimeLine::SetLoopTime(cxFloat v)
 {
+    if(cxFloatIsEqual(looptime, v)){
+        return;
+    }
+    isdirty = true;
     looptime = v;
 }
 
@@ -204,6 +219,10 @@ const cxInt cxTimeLine::To() const
 
 void cxTimeLine::SetTimeType(TimeType v)
 {
+    if(timeType == v){
+        return;
+    }
+    isdirty = true;
     timeType = v;
 }
 

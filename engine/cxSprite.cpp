@@ -19,7 +19,7 @@ cxSprite::cxSprite()
     flipx = false;
     flipy = false;
     texture = nullptr;
-    SetShader(DefaultShader);
+    SetShader(cxShader::Default);
     SetBlend(BlendFunc::ALPHA);
 }
 

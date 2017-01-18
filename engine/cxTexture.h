@@ -19,7 +19,7 @@
 
 CX_CPP_BEGIN
 
-typedef int32_t cxTextureId;
+typedef cxInt32 cxTextureId;
 
 class cxTexture;
 class cxTexCoord : public cxObject
@@ -47,14 +47,15 @@ public:
     cxBox4F Trimmed(const cxBoxPoint3F &box,const cxSize2F &size,cxBool flipx,cxBool flipy) const;
     cxBox4F &Trimmed(cxBox4F &vbox,const cxSize2F &size,cxBool flipx,cxBool flipy) const;
     const cxBoxCoord2F &BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy);
+    const cxBoxCoord2F &FlipCoord(const cxBoxCoord2F &ov,cxBool flipx,cxBool flipy);
 };
 
 struct cxTextureParams
 {
-    uint32_t minFilter;
-    uint32_t magFilter;
-    uint32_t wrapS;
-    uint32_t wrapT;
+    cxUInt32 minFilter;
+    cxUInt32 magFilter;
+    cxUInt32 wrapS;
+    cxUInt32 wrapT;
     static const cxTextureParams Default;
     static const cxTextureParams Repeat;
 };

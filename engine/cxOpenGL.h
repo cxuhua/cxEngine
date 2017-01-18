@@ -27,10 +27,6 @@
 
 CX_CPP_BEGIN
 
-#define ColorShader     "cxShader_Color"
-#define DefaultShader   "cxShader_Default"
-#define GrayShader      "cxShader_Gray"
-
 #define MAX_TEXTURES    32
 
 #define STRINGIFY(A)  #A

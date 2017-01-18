@@ -15,6 +15,12 @@
 		833043D01B424A1C00636928 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 833043CF1B424A1C00636928 /* bg.jpg */; };
 		83377A591CEC25A600CEB2D8 /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83377A571CEC25A600CEB2D8 /* Map.cpp */; };
 		83377A601CEC2F5800CEB2D8 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83377A5E1CEC2F5800CEB2D8 /* Shader.cpp */; };
+		833E7E2A1E2F5F3000094E18 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 833E7E241E2F5F3000094E18 /* 0.png */; };
+		833E7E2B1E2F5F3000094E18 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 833E7E251E2F5F3000094E18 /* 2.png */; };
+		833E7E2C1E2F5F3000094E18 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 833E7E261E2F5F3000094E18 /* 3.png */; };
+		833E7E2D1E2F5F3000094E18 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 833E7E271E2F5F3000094E18 /* 4.png */; };
+		833E7E2E1E2F5F3000094E18 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 833E7E281E2F5F3000094E18 /* 5.png */; };
+		833E7E2F1E2F5F3000094E18 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 833E7E291E2F5F3000094E18 /* 6.png */; };
 		83546A471B3127F700FFE1E7 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83546A451B3127F700FFE1E7 /* Game.cpp */; };
 		836DD1211B2C26CE0094F5EF /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 836DD1201B2C26CE0094F5EF /* shader */; };
 		836E30451B5E2ABF00ED8BDC /* Sea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836E30431B5E2ABF00ED8BDC /* Sea.cpp */; };
@@ -79,6 +85,12 @@
 		83377A5C1CEC2E6000CEB2D8 /* game.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = game.shader; sourceTree = "<group>"; };
 		83377A5E1CEC2F5800CEB2D8 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		83377A5F1CEC2F5800CEB2D8 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		833E7E241E2F5F3000094E18 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
+		833E7E251E2F5F3000094E18 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		833E7E261E2F5F3000094E18 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		833E7E271E2F5F3000094E18 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
+		833E7E281E2F5F3000094E18 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
+		833E7E291E2F5F3000094E18 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
 		83546A451B3127F700FFE1E7 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		83546A461B3127F700FFE1E7 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		836DD1201B2C26CE0094F5EF /* shader */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shader; sourceTree = "<group>"; };
@@ -204,7 +216,13 @@
 		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
+				833E7E241E2F5F3000094E18 /* 0.png */,
 				83F45E8C1E2CEF8E0083C886 /* 1.png */,
+				833E7E251E2F5F3000094E18 /* 2.png */,
+				833E7E261E2F5F3000094E18 /* 3.png */,
+				833E7E271E2F5F3000094E18 /* 4.png */,
+				833E7E281E2F5F3000094E18 /* 5.png */,
+				833E7E291E2F5F3000094E18 /* 6.png */,
 				83F45E891E2CECB20083C886 /* penhuo1_1.xml */,
 				83CD01A61E2CEB60006FC20F /* penhuo.xml */,
 				83B6E31F1E2A006A00C9C6AB /* bg.png */,
@@ -335,8 +353,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				833E7E2F1E2F5F3000094E18 /* 6.png in Resources */,
 				830157E21B3BD27C00ED46A8 /* t.png in Resources */,
 				8302A5851B535EC500C7209C /* grid.png in Resources */,
+				833E7E2B1E2F5F3000094E18 /* 2.png in Resources */,
 				83B6E3201E2A006A00C9C6AB /* bg.png in Resources */,
 				836E304C1B5E2B4C00ED8BDC /* foam.png in Resources */,
 				83B0AF4A1DDC435E003FAB82 /* jl.lqt in Resources */,
@@ -347,8 +367,10 @@
 				836E304D1B5E2B4C00ED8BDC /* water.fsh in Resources */,
 				836E304E1B5E2B4C00ED8BDC /* water.png in Resources */,
 				83D92D291B315E7200F061D6 /* animate.png in Resources */,
+				833E7E2E1E2F5F3000094E18 /* 5.png in Resources */,
 				83C410DA1E28B3C90027FAFC /* penhuo1_xia.xml in Resources */,
 				83D92D281B315E7200F061D6 /* animate.json in Resources */,
+				833E7E2C1E2F5F3000094E18 /* 3.png in Resources */,
 				83F5D0B71CE570A600690B86 /* frames.csv in Resources */,
 				83E886DC1B68F970001C0727 /* test.mp3 in Resources */,
 				83F45E8A1E2CECB20083C886 /* penhuo1_1.xml in Resources */,
@@ -359,6 +381,8 @@
 				83D8C3571B69E46400155990 /* battle_lost_02.mp3 in Resources */,
 				83CD01A71E2CEB60006FC20F /* penhuo.xml in Resources */,
 				839B8AEB1B68D6EF009E0CF7 /* finch.wav in Resources */,
+				833E7E2D1E2F5F3000094E18 /* 4.png in Resources */,
+				833E7E2A1E2F5F3000094E18 /* 0.png in Resources */,
 				83F5D0C51CE5BE0400690B86 /* configs.csv in Resources */,
 				83F5D0C31CE5BB5400690B86 /* texts.csv in Resources */,
 				8326D0D91BE9F43D00A15879 /* circle.png in Resources */,

@@ -1191,7 +1191,7 @@ void cxView::Each(std::function<void(cxView *pview)> func)
 
 void cxView::OnUpdate(cxFloat dt)
 {
-    
+    onUpdate.Fire(this, dt);
 }
 
 void cxView::Invoke(std::function<void(cxView *pview)>func)

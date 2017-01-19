@@ -14,6 +14,13 @@
 
 CX_CPP_BEGIN
 
+/* CVS例子
+ ID,名字,纹理,帧大小,帧缩放,帧偏移,组数,每组帧数,层数,层映射,帧重复
+ Name,TID,Texture,Size,Scale,Offset,Group,Count,Layer,Map,Repeats
+ String,String,String,String,String,Int,Int,Int,Int,String,String
+ Mage,精灵,jl.lqt,50:50,1:1,1701100,3,16,1,0,
+ */
+
 CX_IMPLEMENT(cxFrames);
 
 void cxFrames::Load(cxHash *values,cchars file,std::function<cxTexture *(cchars file)>loadTexture)

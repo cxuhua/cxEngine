@@ -219,53 +219,44 @@ void Game::OnMain()
     //创建动画
     {
         //获得动作组
-        const cxActionAttr *move = ag->Action("move");
+        const cxActionAttr *move = ag->Action("attack");
         //创建动画
         cxAnimate *animate = fs->Animate();
         animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-            CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
+            
+        };
+        animate->onKey+=[](cxAnimate *pav,cxInt key){
+            CX_LOGGER("%d",key);
         };
         animate->SetAction(move, 1);
-        animate->SetSpeed(1.0f);
+//        animate->SetSpeed(1.0f);
         //创建载体
         cxAtlas *atlas = cxAtlas::Create();
 //        atlas->SetFlipX(true);
         atlas->SetSize(cxSize2F(200, 200));
         atlas->Append(animate);//加入动画
-        //载体加入绘制
-        Window()->Append(atlas);
-    }
-    
-    {
-        const cxActionAttr *move = ag->Action("move");
-        cxAnimate *animate = fs->Animate();
-        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-            CX_LOGGER("%d %d",frame,pav->IsKeyFrame());
-        };
-        animate->SetAction(move, 1);
-        animate->SetSpeed(1.0f);
-        //
-        cxAtlas *atlas = cxAtlas::Create();
-        atlas->SetFlipY(true);
-        atlas->SetPosition(cxPoint2F(-10, -90));
-        atlas->SetScale(cxPoint2F(0.7, 0.6));
-        atlas->SetColor(cxColor4F(0.0, 0.0, 0.0, 0.7));
-//        atlas->SetAnchor(cxPoint2F(0, -0.5f));
-//        atlas->SetAxis(cxPoint3F::AxisX);
-//        atlas->SetAngle(cxDegreesToRadians(-240));
-//        atlas->SetFlipX(true);
-        atlas->SetSize(cxSize2F(200, 200));
-        animate->AttachTo(atlas);
-        atlas->SetShader(cxShader::Gray);
-        Window()->Append(atlas);
         
-//        cxTimer *timer = cxTimer::Create(360, 0.1);
-//        timer->onArrive +=[atlas](cxTimer *pav){
-//            atlas->SetAngle(cxDegreesToRadians(t));
-//            t--;
-//            CX_LOGGER("%f",t);
-//        };
-//        timer->Run();
+        cxSprite *sp = cxSprite::Create();
+        sp->SetSize(atlas->Size());
+        sp->SetFlipY(true);
+        sp->SetPosition(cxPoint2F(0, -90));
+        sp->SetScale(cxPoint2F(0.7, 0.6));
+        sp->SetColor(cxColor4F(0.0, 0.0, 0.0, 0.5));
+        // 取出当前纹理做阴处理
+        sp->onUpdate +=[atlas](cxView *pview,cxFloat dt){
+            cxInt num = atlas->TexCoordSize();
+            if(num == 0){
+                return;
+            }
+            cxSprite *sp = pview->To<cxSprite>();
+            sp->SetTexture(atlas->Texture());
+            cxTexCoord *coord = atlas->TexCoord(0);
+            sp->SetTexCoord(coord);
+        };
+        
+        Window()->Append(sp);
+        
+        Window()->Append(atlas);
     }
 }
 

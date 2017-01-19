@@ -18,9 +18,52 @@ cxActionAttr::cxActionAttr()
     delay = 0.0f;
     from = -1;
     to = -1;
-    key = -1;
+    keynum = 0;
     speed = 1.0f;
     repeat = -1;
+}
+
+void cxActionAttr::SetKey(const cxStr *value)
+{
+    CX_ASSERT(from >= 0 && to >= 0, "from to not set");
+    const cxArray *keys = value->Split(',');
+    for(cxArray::CFIter it=keys->FBegin();it != keys->FEnd();it++){
+        cxInt v = (*it)->To<cxStr>()->ToInt();
+        CX_ASSERT(v >= from && v <= to, "v range error");
+        keyvar[keynum] = v;
+        keynum++;
+    }
+}
+
+void cxActionAttr::SetRepeat(const cxStr *value)
+{
+    CX_ASSERT(cxStr::IsOK(value), "value nullptr");
+    cxInt v = value->ToInt();
+    repeat = (v <= 0) ? INT_MAX : v;
+}
+
+void cxActionAttr::SetSpeed(const cxStr *value)
+{
+    CX_ASSERT(cxStr::IsOK(value), "value nullptr");
+    cxFloat v = value->ToFloat();
+    CX_ASSERT(v >= 0, "value error");
+    speed = v;
+}
+
+void cxActionAttr::SetFrom(const cxStr *value)
+{
+    CX_ASSERT(cxStr::IsOK(value), "value nullptr");
+    cxInt v = value->ToInt();
+    CX_ASSERT(v >= 0, "value error");
+    from = v;
+}
+
+void cxActionAttr::SetTo(const cxStr *value)
+{
+    CX_ASSERT(cxStr::IsOK(value), "value nullptr");
+    cxInt v = value->ToInt();
+    CX_ASSERT(v >= 0, "value error");
+    to = v;
 }
 
 cxActionAttr cxActionAttr::Reverse()
@@ -35,7 +78,7 @@ CX_IMPLEMENT(cxAnimate);
 
 cxAnimate::cxAnimate()
 {
-    iskeyframe = false;
+    keyframe = -1;
     group = 0;
     frames = nullptr;
 }
@@ -90,18 +133,35 @@ void cxAnimate::OnInit()
 
 void cxAnimate::OnTime(const cxTimePoint *tp)
 {
+    // view 应该基于cxAtlas
     View()->To<cxAtlas>()->SetCoords(tp->Array(),frames->Map());
     // 计算组中的第几帧
     cxInt idx = Index() - group * frames->Count();
     // 是否是关键帧
-    iskeyframe = (idx == attr.key);
-    //
+    keyframe = -1;
+    for(cxInt i=0;i<attr.keynum;i++){
+        if(idx != attr.keyvar[i]){
+            continue;
+        }
+        keyframe = i;
+        onKey.Fire(this, attr.keyvar[i]);
+        break;
+    }
+    // onevent
     onFrame.Fire(this, idx);
 }
 
-const cxBool cxAnimate::IsKeyFrame() const
+const cxInt cxAnimate::KeyValue() const
 {
-    return iskeyframe;
+    if(keyframe < 0){
+        return -1;
+    }
+    return attr.keyvar[keyframe];
+}
+
+const cxInt cxAnimate::KeyIndex() const
+{
+    return keyframe;
 }
 
 const cxActionAttr &cxAnimate::ActionAttr() const

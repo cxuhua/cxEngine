@@ -13,6 +13,12 @@
 
 CX_CPP_BEGIN
 
+/* 语言文件CVS例子
+ TID,EN,CN
+ String,String,String
+ TID_LOCALIZED_NAME,English,中文
+ */
+
 CX_IMPLEMENT(cxLocalized);
 
 cxLocalized *cxLocalized::instance = nullptr;

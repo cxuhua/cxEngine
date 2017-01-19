@@ -13,6 +13,14 @@
 
 CX_CPP_BEGIN
 
+/* CVS 格式例子
+ ID,名字ID,动作,播放次数,播放速度,组编码,开始帧,结束帧,关键帧
+ Name,TID,Action,Repeat,Speed,Group,From,To,Key
+ String,String,String,Int,Float,Int,Int,Int,Int
+ Mage,精灵,move,0,1,0,0,7,
+ ,,attack,,1,,8,15,"9,13"
+*/
+
 CX_IMPLEMENT(cxActionGroup);
 
 cxActionGroup::cxActionGroup()
@@ -48,7 +56,7 @@ void cxActionGroup::Load(cxHash *values,cchars file)
             const cxStr *ktype = csv->At(1, j);
             const cxStr *value = csv->At(i, j);
             cxInt c  = i;
-            //向后查找
+            //向上查找
             while(!cxStr::IsOK(value) && c > nrow){
                 value = csv->At(--c, j);
             }
@@ -58,15 +66,15 @@ void cxActionGroup::Load(cxHash *values,cchars file)
             if(ktype->IsCaseEqu("Action")){
                 aname = value->ToString();//动作名称
             }else if(ktype->IsCaseEqu("Repeat")){
-                av.repeat = value->ToInt();//播放次数 =0表示循环播放
+                av.SetRepeat(value);//播放次数 =0表示循环播放
             }else if(ktype->IsCaseEqu("Speed")){
-                av.speed = value->ToFloat();//播放速度
+                av.SetSpeed(value);//播放速度
             }else if(ktype->IsCaseEqu("From")){
-                av.from = value->ToInt();//开始帧
+                av.SetFrom(value);//开始帧
             }else if(ktype->IsCaseEqu("To")){
-                av.to = value->ToInt();//结束帧
+                av.SetTo(value);//结束帧
             }else if(ktype->IsCaseEqu("Key")){
-                av.key = value->ToInt();//关键帧
+                av.SetKey(value);//设置关键帧
             }
         }
         if(av.from < 0 || av.to < 0){

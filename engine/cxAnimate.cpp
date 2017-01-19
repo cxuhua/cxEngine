@@ -90,7 +90,7 @@ void cxAnimate::OnInit()
 
 void cxAnimate::OnTime(const cxTimePoint *tp)
 {
-    View()->To<cxAtlas>()->SetCoords(tp->Array(),frames);
+    View()->To<cxAtlas>()->SetCoords(tp->Array(),frames->Map());
     // 计算组中的第几帧
     cxInt idx = Index() - group * frames->Count();
     // 是否是关键帧

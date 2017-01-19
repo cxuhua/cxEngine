@@ -141,7 +141,12 @@ cxSprite *cxSprite::SetTexKey(cchars fmt,...)
     return this;
 }
 
-cxTexCoord *cxSprite::TexCoord() const
+cxInt cxSprite::TexCoordSize() const
+{
+    return (coord == nullptr)?0:1;
+}
+
+cxTexCoord *cxSprite::TexCoord(cxInt idx) const
 {
     return coord;
 }

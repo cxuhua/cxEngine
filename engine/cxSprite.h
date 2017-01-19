@@ -60,7 +60,8 @@ public:
     cxSprite *SetTexture(const cxStr *tkey);
     cxSprite *SetTexture(const cxTexture *ptex);
     
-    cxTexCoord *TexCoord() const;
+    virtual cxInt TexCoordSize() const;
+    virtual cxTexCoord *TexCoord(cxInt idx=0) const;
     const cxBoxCoord2F &BoxCoord() const;
 };
 

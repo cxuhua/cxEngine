@@ -98,8 +98,7 @@ cxFrames::cxFrames()
     repeat = 1;
     blend = BlendFunc::ALPHA;
     scale = 1.0f;
-    mapnum = 1;
-    map[0] = 0;
+    map.num = 0;
     layer = 1;
     group = 1;
     offset = 0;
@@ -142,14 +141,9 @@ cxFloat cxFrames::Speed() const
     return speed;
 }
 
-const cxInt cxFrames::Num() const
+const cxFrameMap *cxFrames::Map() const
 {
-    return mapnum;
-}
-
-const cxInt *cxFrames::Map() const
-{
-    return map;
+    return &map;
 }
 
 void cxFrames::SetMaps(cxInt count,...)
@@ -157,12 +151,12 @@ void cxFrames::SetMaps(cxInt count,...)
     if(count == 0){
         return;
     }
-    mapnum = count;
+    map.num = count;
     va_list ap;
     va_start(ap, count);
     cxInt i = 0;
     do{
-        map[i++] = va_arg(ap, cxInt);
+        map.values[i++] = va_arg(ap, cxInt);
     }while(--count > 0);
     va_end(ap);
 }
@@ -183,18 +177,18 @@ void cxFrames::SetMaps(cchars maps)
     char buffers[MAX_LAYER_SIZE]={0};
     cxInt len = (cxInt)strlen(maps);
     cxInt b = 0;
-    mapnum = 0;
+    map.num = 0;
     for(cxInt i=0;i<len;i++){
         if(maps[i] != ',')continue;
         memcpy(buffers, maps + b, i-b);
         buffers[i - b] = 0;
-        map[mapnum++] = atoi(buffers);
+        map.values[map.num++] = atoi(buffers);
         b = i+1;
     }
     if(len > b){
         memcpy(buffers, maps + b, len-b);
         buffers[len - b] = 0;
-        map[mapnum++] = atoi(buffers);
+        map.values[map.num++] = atoi(buffers);
     }
 }
 

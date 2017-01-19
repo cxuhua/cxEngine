@@ -173,47 +173,49 @@ void Game::OnMain()
     //获得move动作
     
 //    cxOpenGL::Instance()->SetClearColor(cxColor4F::RED);
-    LoadTexture("0.png");
-    LoadTexture("1.png");
-    LoadTexture("2.png");
-    LoadTexture("3.png");
-    LoadTexture("4.png");
-    LoadTexture("5.png");
-    LoadTexture("6.png");
-    
-    {
-        
-    }
-    {
-        cxSprite *sp1 = cxSprite::Create();
-        sp1->SetSize(350);
-        sp1->SetTexture("1.png");
-        Window()->Append(sp1);
-        
-        cxSprite *sp2 = cxSprite::Create();
-        sp2->SetSize(350);
-        sp2->SetTexture("1.png");
-        sp2->SetFlipY(true);
-        sp2->SetPosition(cxPoint2F(-10, -10));
-        sp2->SetScale(cxPoint2F(0.7, 0.6));
-        sp2->SetColor(cxColor4F(0.0, 0.0, 0.0, 0.7));
-        Window()->Append(sp2);
-        
-        cxTimer *timer = cxTimer::Forever(0.1);
-        timer->onArrive +=[sp1,sp2](cxTimer *pav){
-            char file[32]={0};
-            snprintf(file, 32, "%d.png",idx);
-            sp1->SetTexture(file);
-            sp2->SetTexture(file);
-            idx ++;
-            if(idx >= 6) {
-                idx = 0;
-            }
-        };
-        timer->Run();
-    }
-    
-    return;
+//    LoadTexture("0.png");
+//    LoadTexture("1.png");
+//    LoadTexture("2.png");
+//    LoadTexture("3.png");
+//    LoadTexture("4.png");
+//    LoadTexture("5.png");
+//    LoadTexture("6.png");
+//    
+//    {
+//        
+//    }
+//    {
+//        
+//        
+//        cxSprite *sp2 = cxSprite::Create();
+//        sp2->SetSize(350);
+//        sp2->SetTexture("1.png");
+//        sp2->SetFlipY(true);
+//        sp2->SetPosition(cxPoint2F(-10, 0));
+//        sp2->SetScale(cxPoint2F(0.7, 0.6));
+//        sp2->SetColor(cxColor4F(0.0, 0.0, 0.0, 0.4));
+//        Window()->Append(sp2);
+//        
+//        cxSprite *sp1 = cxSprite::Create();
+//        sp1->SetSize(350);
+//        sp1->SetTexture("1.png");
+//        Window()->Append(sp1);
+//        
+//        cxTimer *timer = cxTimer::Forever(0.1);
+//        timer->onArrive +=[sp1,sp2](cxTimer *pav){
+//            char file[32]={0};
+//            snprintf(file, 32, "%d.png",idx);
+//            sp1->SetTexture(file);
+//            sp2->SetTexture(file);
+//            idx ++;
+//            if(idx >= 6) {
+//                idx = 0;
+//            }
+//        };
+//        timer->Run();
+//    }
+//    
+//    return;
     //创建动画
     {
         //获得动作组

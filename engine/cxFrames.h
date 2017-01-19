@@ -25,6 +25,12 @@ CX_CPP_BEGIN
 // 最大组数0-9
 #define MAX_GROUP_SIZE          10
 
+struct cxFrameMap
+{
+    cxInt num;
+    cxInt values[MAX_LAYER_SIZE];
+};
+
 class cxAnimate;
 class cxFrames : public cxObject
 {
@@ -48,8 +54,7 @@ private:
     cxFloat speed;
     cxFloat delay;
     cxArray *points;
-    cxInt mapnum;               //层数量，最大MAX_LAYER_SIZE
-    cxInt map[MAX_LAYER_SIZE]; //层映射
+    cxFrameMap map;
 private:
     cxTexCoord *layerEnd(cxInt group,cxInt count,cxInt layer);
     void loadlayers(cxArray *layers,cxInt c,cxInt g);
@@ -60,8 +65,7 @@ public:
     cxFrames *SetBlend(const cxStr *name);
     const BlendFunc Blend() const;
     //多层映射设置
-    const cxInt  Num() const;
-    const cxInt *Map() const;
+    const cxFrameMap *Map() const;
     void SetMaps(const cxStr *str);
     void SetMaps(cchars maps);
     void SetMaps(cxInt count,...);    //first = mapnum end SetMaps(2,0,1)

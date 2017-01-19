@@ -15,6 +15,7 @@ CX_IMPLEMENT(cxAtlas);
 
 cxAtlas::cxAtlas()
 {
+    coords = nullptr;
     cframes = nullptr;
     cidx = -1;
     isscale9 = false;
@@ -22,6 +23,7 @@ cxAtlas::cxAtlas()
 
 cxAtlas::~cxAtlas()
 {
+    cxObject::release(&coords);
     cxObject::release(&cframes);
 }
 
@@ -34,17 +36,15 @@ cxAtlas *cxAtlas::Create(const cxFrames *frames)
     return rv;
 }
 
-cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
+cxAtlas *cxAtlas::SetCoords(const cxArray *acoords,const cxFrameMap *map)
 {
+    CX_ASSERT(acoords != nullptr, "coords args  error");
     CX_ASSERT(!Size().IsZero(), "size not set");
-    cxInt size = frames->Num();
-    SetCapacity(size);
-    const cxInt *map = frames->Map();
-    for(cxInt i = 0;i < size;i++){
-        cxInt mapIdx = map[i];
-        CX_ASSERT(mapIdx < coords->Size(), "map idx error");
+    SetCapacity((map!=nullptr)?map->num:acoords->Size());
+    for(cxInt i = 0;i < map->num;i++){
+        cxInt idx = (map != nullptr)?map->values[i]:i;
         //get map tex
-        cxTexCoord *coord = coords->At(mapIdx)->To<cxTexCoord>();
+        cxTexCoord *coord = acoords->At(idx)->To<cxTexCoord>();
         if(coord->IsEmpty()){
             continue;
         }
@@ -61,7 +61,19 @@ cxAtlas *cxAtlas::SetCoords(const cxArray *coords,const cxFrames *frames)
         const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
         render.SetCoords(tbox);
     }
+    cxObject::swap(&coords, acoords);
     return this;
+}
+
+cxInt cxAtlas::TexCoordSize() const
+{
+    return (coords == nullptr)?0:coords->Size();
+}
+
+cxTexCoord *cxAtlas::TexCoord(cxInt idx) const
+{
+    CX_ASSERT(coords != nullptr && idx >= 0 && idx < coords->Size(), "idx error");
+    return coords->At(idx)->To<cxTexCoord>();
 }
 
 const cxFrames *cxAtlas::GetFrames()
@@ -76,7 +88,7 @@ cxAtlas *cxAtlas::SetFramesIdx(cxInt idx)
     const cxArray *layers = cframes->Layers(idx);
     CX_ASSERT(layers != nullptr, "frames null");
     SetTexture(cframes->Texture());
-    SetCoords(layers, cframes);
+    SetCoords(layers, cframes->Map());
     return this;
 }
 
@@ -91,22 +103,6 @@ cxAtlas *cxAtlas::SetFrames(const cxFrames *frames,cxInt idx)
     }
     cxObject::swap(&cframes, frames);
     SetFramesIdx(idx);
-    return this;
-}
-
-cxAtlas *cxAtlas::SetCoords(const cxArray *coords)
-{
-    cxInt size = coords->Size();
-    SetCapacity(size);
-    for(cxInt i = 0;i < size;i++){
-        cxBoxRender &render = renders.Inc();
-        cxTexCoord *coord = coords->At(i)->To<cxTexCoord>();
-        cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), FlipX(), FlipY());
-        const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
-        render.SetVertices(bp);
-        render.SetColor(Color());
-        render.SetCoords(tbox);
-    }
     return this;
 }
 

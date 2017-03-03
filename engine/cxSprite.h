@@ -15,6 +15,7 @@
 
 CX_CPP_BEGIN
 
+class cxFrameMap;
 class cxSprite : public cxView
 {
 public:
@@ -32,6 +33,9 @@ private:
 protected:
     void OnDirty();
     void OnRender(cxRender *render,const cxMatrixF &model);
+public:
+    virtual void SetTexture(const cxTexture *ptex);
+    virtual void SetCoords(const cxArray *acoords,const cxFrameMap *map);
 public:
     
     static cxSprite *Create(cchars fkey,...);
@@ -58,7 +62,6 @@ public:
     cxTexture *Texture() const;
     cxSprite *SetTexture(cchars key);
     cxSprite *SetTexture(const cxStr *tkey);
-    cxSprite *SetTexture(const cxTexture *ptex);
     
     virtual cxInt TexCoordSize() const;
     virtual cxTexCoord *TexCoord(cxInt idx=0) const;

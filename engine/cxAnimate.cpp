@@ -7,7 +7,6 @@
 //
 
 #include "cxSprite.h"
-#include "cxAtlas.h"
 #include "cxAnimate.h"
 #include "cxFrames.h"
 
@@ -126,7 +125,7 @@ cxAnimate *cxAnimate::SetRange(cxInt afrom,cxInt ato)
 void cxAnimate::OnInit()
 {
     CX_ASSERT(frames != nullptr, "frames not set");
-    cxAtlas *sp = View()->To<cxAtlas>();
+    cxSprite *sp = View()->To<cxSprite>();
     sp->SetTexture(frames->Texture());
     cxTimeLine::OnInit();
 }
@@ -134,7 +133,7 @@ void cxAnimate::OnInit()
 void cxAnimate::OnTime(const cxTimePoint *tp)
 {
     // view 应该基于cxAtlas
-    View()->To<cxAtlas>()->SetCoords(tp->Array(),frames->Map());
+    View()->To<cxSprite>()->SetCoords(tp->Array(),frames->Map());
     // 计算组中的第几帧
     cxInt idx = Index() - group * frames->Count();
     // 是否是关键帧

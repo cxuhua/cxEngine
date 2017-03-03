@@ -21,6 +21,9 @@
 		833E7E2D1E2F5F3000094E18 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 833E7E271E2F5F3000094E18 /* 4.png */; };
 		833E7E2E1E2F5F3000094E18 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 833E7E281E2F5F3000094E18 /* 5.png */; };
 		833E7E2F1E2F5F3000094E18 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 833E7E291E2F5F3000094E18 /* 6.png */; };
+		834A1D001E69AEC900751690 /* jlbox.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 834A1CFF1E69AEC900751690 /* jlbox.lqt */; };
+		834A1D021E69AF3C00751690 /* jl1000.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 834A1D011E69AF3C00751690 /* jl1000.lqt */; };
+		834A1D061E69AFE800751690 /* jl.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 834A1D051E69AFE800751690 /* jl.lqt */; };
 		83546A471B3127F700FFE1E7 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83546A451B3127F700FFE1E7 /* Game.cpp */; };
 		836DD1211B2C26CE0094F5EF /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 836DD1201B2C26CE0094F5EF /* shader */; };
 		836E30451B5E2ABF00ED8BDC /* Sea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836E30431B5E2ABF00ED8BDC /* Sea.cpp */; };
@@ -33,7 +36,6 @@
 		839B8AEF1B68DC2B009E0CF7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */; };
 		839B8AF11B68DD3A009E0CF7 /* o.wav in Resources */ = {isa = PBXBuildFile; fileRef = 839B8AF01B68DD3A009E0CF7 /* o.wav */; };
 		83A74F861E28CB6C00827360 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A74F851E28CB6C00827360 /* libexpat.a */; };
-		83B0AF4A1DDC435E003FAB82 /* jl.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 83B0AF491DDC435E003FAB82 /* jl.lqt */; };
 		83B6E3201E2A006A00C9C6AB /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 83B6E31F1E2A006A00C9C6AB /* bg.png */; };
 		83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0D3E1BF04EC200B0CC0B /* libz.tbd */; };
 		83BE63751B311E0A0028B6E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BE63741B311E0A0028B6E7 /* main.m */; };
@@ -91,6 +93,9 @@
 		833E7E271E2F5F3000094E18 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
 		833E7E281E2F5F3000094E18 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
 		833E7E291E2F5F3000094E18 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
+		834A1CFF1E69AEC900751690 /* jlbox.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jlbox.lqt; sourceTree = "<group>"; };
+		834A1D011E69AF3C00751690 /* jl1000.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jl1000.lqt; sourceTree = "<group>"; };
+		834A1D051E69AFE800751690 /* jl.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jl.lqt; sourceTree = "<group>"; };
 		83546A451B3127F700FFE1E7 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		83546A461B3127F700FFE1E7 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		836DD1201B2C26CE0094F5EF /* shader */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shader; sourceTree = "<group>"; };
@@ -105,7 +110,6 @@
 		839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		839B8AF01B68DD3A009E0CF7 /* o.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = o.wav; sourceTree = "<group>"; };
 		83A74F851E28CB6C00827360 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = libs/ios/lib/libexpat.a; sourceTree = "<group>"; };
-		83B0AF491DDC435E003FAB82 /* jl.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jl.lqt; sourceTree = "<group>"; };
 		83B6E31F1E2A006A00C9C6AB /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		83BA0D3E1BF04EC200B0CC0B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		83BE63741B311E0A0028B6E7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -229,8 +233,10 @@
 				83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */,
 				83D5895A1DE81B27000D035F /* public.pb.c */,
 				83D5895B1DE81B27000D035F /* public.pb.h */,
-				83B0AF491DDC435E003FAB82 /* jl.lqt */,
 				83F5D0C41CE5BE0400690B86 /* configs.csv */,
+				834A1CFF1E69AEC900751690 /* jlbox.lqt */,
+				834A1D011E69AF3C00751690 /* jl1000.lqt */,
+				834A1D051E69AFE800751690 /* jl.lqt */,
 				83F5D0C21CE5BB5400690B86 /* texts.csv */,
 				83F5D0B21CE570A600690B86 /* actions.csv */,
 				83F5D0B41CE570A600690B86 /* frames.csv */,
@@ -353,13 +359,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				834A1D021E69AF3C00751690 /* jl1000.lqt in Resources */,
 				833E7E2F1E2F5F3000094E18 /* 6.png in Resources */,
 				830157E21B3BD27C00ED46A8 /* t.png in Resources */,
 				8302A5851B535EC500C7209C /* grid.png in Resources */,
 				833E7E2B1E2F5F3000094E18 /* 2.png in Resources */,
+				834A1D061E69AFE800751690 /* jl.lqt in Resources */,
 				83B6E3201E2A006A00C9C6AB /* bg.png in Resources */,
 				836E304C1B5E2B4C00ED8BDC /* foam.png in Resources */,
-				83B0AF4A1DDC435E003FAB82 /* jl.lqt in Resources */,
 				83F5D0B51CE570A600690B86 /* actions.csv in Resources */,
 				83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */,
 				836DD1211B2C26CE0094F5EF /* shader in Resources */,
@@ -378,6 +385,7 @@
 				83F45E8D1E2CEF8E0083C886 /* 1.png in Resources */,
 				836E304F1B5E2B4C00ED8BDC /* water.vsh in Resources */,
 				839B8AF11B68DD3A009E0CF7 /* o.wav in Resources */,
+				834A1D001E69AEC900751690 /* jlbox.lqt in Resources */,
 				83D8C3571B69E46400155990 /* battle_lost_02.mp3 in Resources */,
 				83CD01A71E2CEB60006FC20F /* penhuo.xml in Resources */,
 				839B8AEB1B68D6EF009E0CF7 /* finch.wav in Resources */,

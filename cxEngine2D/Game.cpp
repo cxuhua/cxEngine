@@ -77,11 +77,95 @@ void Game::test()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
-    test();
-    
-//    LoadTexture("1.png");
+//    test();
+
 //    LoadTexture("bg.jpg");
-//    
+//    {
+//        cxTriangles *v1 = cxTriangles::Create();
+//        v1->SetTexture("bg.jpg");
+//        v1->SetType(cxRenderState::TrianglesVBO);
+//        v1->SetSize(cxSize2F(600, 600));
+//        v1->SetPosition(cxPoint2F(0, 300));
+//        {
+//            cxRenderF p1;
+//            p1.colors = cxColor4F::RED;
+//            p1.vertices = cxPoint3F(-200,0,0);
+//            p1.coords = cxCoord2F(0,0.5);
+//            v1->Append(0);
+//            v1->Append(p1);
+//            
+//            cxRenderF p2;
+//            p2.colors = cxColor4F::GREEN;
+//            p2.vertices = cxPoint3F(0,300,0);
+//            p2.coords = cxCoord2F(0.5,0.0);
+//            v1->Append(1);
+//            v1->Append(p2);
+//            
+//            cxRenderF p3;
+//            p3.colors = cxColor4F::BLUE;
+//            p3.vertices = cxPoint3F(200,0,0);
+//            p3.coords = cxCoord2F(1.0,0.5);
+//            v1->Append(2);
+//            v1->Append(p3);
+//        }
+//        {
+//            cxRenderF p1;
+//            p1.colors = cxColor4F::RED;
+//            p1.vertices = cxPoint3F(-200,0,0);
+//            p1.coords = cxCoord2F(0,0.5);
+//            v1->Append(3);
+//            v1->Append(p1);
+//            
+//            cxRenderF p2;
+//            p2.colors = cxColor4F::GREEN;
+//            p2.vertices = cxPoint3F(0,-300,0);
+//            p2.coords = cxCoord2F(0.5,1.0);
+//            v1->Append(4);
+//            v1->Append(p2);
+//            
+//            cxRenderF p3;
+//            p3.colors = cxColor4F::BLUE;
+//            p3.vertices = cxPoint3F(200,0,0);
+//            p3.coords = cxCoord2F(1.0,0.5);
+//            v1->Append(5);
+//            v1->Append(p3);
+//        }
+//        
+//        Window()->Append(v1);
+//    }
+//
+//    {
+//        cxTriangles *v1 = cxTriangles::Create();
+//        v1->SetTexture("bg.jpg");
+//        v1->SetType(cxRenderState::TrianglesVBO);
+//        v1->SetSize(cxSize2F(600, 600));
+//        v1->SetPosition(cxPoint2F(0, -300));
+//        v1->SetColor(cxColor4F::RED);
+//        
+//        cxRenderF p1;
+//        p1.colors = cxColor4F::WHITE;
+//        p1.vertices = cxPoint3F(-200,0,0);
+//        p1.coords = cxCoord2F(0,0.5);
+//        v1->Append(0);
+//        v1->Append(p1);
+//        
+//        cxRenderF p2;
+//        p2.colors = cxColor4F::WHITE;
+//        p2.vertices = cxPoint3F(0,-300,0);
+//        p2.coords = cxCoord2F(0.5,1.0);
+//        v1->Append(1);
+//        v1->Append(p2);
+//        
+//        cxRenderF p3;
+//        p3.colors = cxColor4F::WHITE;
+//        p3.vertices = cxPoint3F(200,0,0);
+//        p3.coords = cxCoord2F(1.0,0.5);
+//        v1->Append(2);
+//        v1->Append(p3);
+//        
+//        Window()->Append(v1);
+//    }
+//
 //    cxSprite *sp = cxSprite::Create();
 //    sp->SetResizeFlags(cxView::ResizeFill);
 //    sp->SetTexture("bg.jpg");
@@ -151,103 +235,32 @@ void Game::OnMain()
 //
 //    return;
     //加载纹理
-//    LoadTexture("jl.lqt");
-//    //加载帧序列
-//    LoadFrames("frames.csv");
-//    //加载动作组
-//    LoadActions("actions.csv");
-//    //获取法师帧序列
-//    const cxFrames *fs = GetFrames("Mage");
-//    //获取法师的动作列表
-//    const cxActionGroup *ag = GetActions("Mage");
-//    //获得move动作
-//    
-////    cxOpenGL::Instance()->SetClearColor(cxColor4F::RED);
-////    LoadTexture("0.png");
-////    LoadTexture("1.png");
-////    LoadTexture("2.png");
-////    LoadTexture("3.png");
-////    LoadTexture("4.png");
-////    LoadTexture("5.png");
-////    LoadTexture("6.png");
-////    
-////    {
-////        
-////    }
-////    {
-////        
-////        
-////        cxSprite *sp2 = cxSprite::Create();
-////        sp2->SetSize(350);
-////        sp2->SetTexture("1.png");
-////        sp2->SetFlipY(true);
-////        sp2->SetPosition(cxPoint2F(-10, 0));
-////        sp2->SetScale(cxPoint2F(0.7, 0.6));
-////        sp2->SetColor(cxColor4F(0.0, 0.0, 0.0, 0.4));
-////        Window()->Append(sp2);
-////        
-////        cxSprite *sp1 = cxSprite::Create();
-////        sp1->SetSize(350);
-////        sp1->SetTexture("1.png");
-////        Window()->Append(sp1);
-////        
-////        cxTimer *timer = cxTimer::Forever(0.1);
-////        timer->onArrive +=[sp1,sp2](cxTimer *pav){
-////            char file[32]={0};
-////            snprintf(file, 32, "%d.png",idx);
-////            sp1->SetTexture(file);
-////            sp2->SetTexture(file);
-////            idx ++;
-////            if(idx >= 6) {
-////                idx = 0;
-////            }
-////        };
-////        timer->Run();
-////    }
-////    
-////    return;
-//    //创建动画
-//    {
-//        //获得动作组
-//        const cxActionAttr *move = ag->Action("attack");
-//        //创建动画
-//        cxAnimate *animate = fs->Animate();
-//        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-//            
-//        };
-//        animate->onKey+=[](cxAnimate *pav,cxInt key){
-//            CX_LOGGER("%d",key);
-//        };
-//        animate->SetAction(move, 1);
-////        animate->SetSpeed(1.0f);
-//        //创建载体
-//        cxAtlas *atlas = cxAtlas::Create();
-////        atlas->SetFlipX(true);
-//        atlas->SetSize(cxSize2F(200, 200));
-//        atlas->Append(animate);//加入动画
-//        
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetSize(atlas->Size());
-//        sp->SetFlipY(true);
-//        sp->SetPosition(cxPoint2F(0, -90));
-//        sp->SetScale(cxPoint2F(0.7, 0.6));
-//        sp->SetColor(cxColor4F(0.0, 0.0, 0.0, 0.5));
-//        // 取出当前纹理做阴处理
-//        sp->onUpdate +=[atlas](cxView *pview,cxFloat dt){
-//            cxInt num = atlas->TexCoordSize();
-//            if(num == 0){
-//                return;
-//            }
-//            cxSprite *sp = pview->To<cxSprite>();
-//            sp->SetTexture(atlas->Texture());
-//            cxTexCoord *coord = atlas->TexCoord(0);
-//            sp->SetTexCoord(coord);
-//        };
-//        
-//        Window()->Append(sp);
-//        
-//        Window()->Append(atlas);
-//    }
+    LoadTexture("jlbox.lqt");
+    LoadTexture("jl1000.lqt");
+    //加载帧序列
+    LoadFrames("frames.csv");
+    //加载动作组
+    LoadActions("actions.csv");
+    //获取法师帧序列
+    const cxFrames *fs = GetFrames("Mage");
+    //获取法师的动作列表
+    const cxActionGroup *ag = GetActions("Mage");
+    //获得move动作
+    const cxActionAttr *move = ag->Action("attack");
+    //创建动画
+    cxAnimate *animate = fs->Animate();
+    animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+        
+    };
+    animate->onKey+=[](cxAnimate *pav,cxInt key){
+        CX_LOGGER("%d",key);
+    };
+    animate->SetAction(move, 0);
+    //创建载体
+    cxAtlas *atlas = cxAtlas::Create();
+    atlas->SetSize(cxSize2F(500, 500));
+    atlas->Append(animate);//加入动画
+    Window()->Append(atlas);
 }
 
 CX_CPP_END

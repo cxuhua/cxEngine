@@ -65,8 +65,8 @@ public:
     const cxSize2F FrameSize() const;
     const cxBool IsEmpty() const;
     const cxSize2F &Size() const;
-    cxBox4F Trimmed(const cxBoxPoint3F &box,const cxSize2F &size,cxBool flipx,cxBool flipy) const;
-    cxBox4F &Trimmed(cxBox4F &vbox,const cxSize2F &size,cxBool flipx,cxBool flipy) const;
+    cxBox4F Trimmed(const cxBoxPoint3F &box,cxBool flipx,cxBool flipy) const;
+    cxBox4F &Trimmed(cxBox4F &vbox,cxBool flipx,cxBool flipy) const;
     const cxBoxCoord2F &BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy);
     const cxBoxCoord2F &FlipCoord(const cxBoxCoord2F &ov,cxBool flipx,cxBool flipy);
 };

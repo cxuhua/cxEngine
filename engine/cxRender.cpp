@@ -185,6 +185,7 @@ void cxRender::Draw()
         }
     }
     DrawAllRenders(prev);
+    CX_LOGGER("Draw Count=%d,Vertices Count=%d",vdc,vsc);
 }
 
 CX_CPP_END

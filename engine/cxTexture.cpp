@@ -187,16 +187,18 @@ const cxBool cxTexCoord::IsEmpty() const
     return bx && by && bw && bh;
 }
 
-cxBox4F cxTexCoord::Trimmed(const cxBoxPoint3F &box,const cxSize2F &size,cxBool flipx,cxBool flipy) const
+cxBox4F cxTexCoord::Trimmed(const cxBoxPoint3F &box,cxBool flipx,cxBool flipy) const
 {
     cxBox4F b = box.ToBox4F();
-    return Trimmed(b, size,flipx, flipy);
+    return Trimmed(b,flipx, flipy);
 }
 
-cxBox4F &cxTexCoord::Trimmed(cxBox4F &vbox,const cxSize2F &size,cxBool flipx,cxBool flipy) const
+cxBox4F &cxTexCoord::Trimmed(cxBox4F &vbox,cxBool flipx,cxBool flipy) const
 {
     cxFloat xs = 1.0f;
     cxFloat ys = 1.0f;
+    cxFloat w = vbox.W();
+    cxFloat h = vbox.H();
     if(trimmed){
         vbox.l = spriteSourceSize.x - sourceSize.w/2.0f;
         if(flipx){
@@ -208,8 +210,8 @@ cxBox4F &cxTexCoord::Trimmed(cxBox4F &vbox,const cxSize2F &size,cxBool flipx,cxB
             vbox.t = -vbox.t + spriteSourceSize.h;
         }
         vbox.b = vbox.t - spriteSourceSize.h;
-        xs = size.w / sourceSize.w;
-        ys = size.h / sourceSize.h;
+        xs = w / sourceSize.w;
+        ys = h / sourceSize.h;
     }
     vbox.l = vbox.l * xs;
     vbox.r = vbox.r * xs;

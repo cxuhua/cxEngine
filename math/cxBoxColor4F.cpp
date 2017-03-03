@@ -68,17 +68,27 @@ const cxFloat cxBoxColor4F::Alpha() const
 
 cxBool cxBoxColor4F::operator==(const cxColor4F &v) const
 {
-    return lt == v;
+    return lt == v && lb == v && rt == v && rb == v;
 }
 
 cxBool cxBoxColor4F::operator!=(const cxColor4F &v) const
 {
-    return lt != v;
+    return lt != v || lb != v || rt != v || rb != v;
 }
 
 const cxColor4F &cxBoxColor4F::Color() const
 {
     return lt;
+}
+
+cxBool cxBoxColor4F::operator==(const cxBoxColor4F &v) const
+{
+    return lt == v.lt && lb == v.lb && rt == v.rt && rb == v.rb;
+}
+
+cxBool cxBoxColor4F::operator!=(const cxBoxColor4F &v) const
+{
+    return lt != v.lt || lb != v.lb || rt != v.rt || rb == v.rb;
 }
 
 cxBoxColor4FArray::cxBoxColor4FArray()

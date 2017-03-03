@@ -32,12 +32,12 @@ cxSprite::~cxSprite()
 void cxSprite::OnDirty()
 {
     if(IsDirtyMode(DirtyModeSize|DirtyModeTexture)){
-        cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), Size(), flipx, flipy);
+        cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), flipx, flipy);
         box.SetVertices(bp);
         box.SetCoords(BoxCoord());
     }
     if(IsDirtyMode(DirtyModeColor)) {
-        box.SetColor(BoxColor());
+        box.MulColor(BoxColor());
     }
 }
 
@@ -161,14 +161,18 @@ cxTexture *cxSprite::Texture() const
     return texture;
 }
 
-cxSprite *cxSprite::SetTexture(const cxTexture *ptex)
+void cxSprite::SetCoords(const cxArray *acoords,const cxFrameMap *map)
+{
+    CX_ASSERT(false, "cxSprite not imp SetCoords");
+}
+
+void cxSprite::SetTexture(const cxTexture *ptex)
 {
     CX_ASSERT(ptex != nullptr, "ptex args error");
     if(texture != ptex){
         cxObject::swap(&texture, ptex);
         SetDirty(DirtyModeTexture);
     }
-    return this;
 }
 
 cxSprite *cxSprite::SetTexture(const cxStr *tkey)

@@ -29,6 +29,8 @@ struct cxBoxColor4F
     const cxFloat Alpha() const;
     cxBool operator==(const cxColor4F &v) const;
     cxBool operator!=(const cxColor4F &v) const;
+    cxBool operator==(const cxBoxColor4F &v) const;
+    cxBool operator!=(const cxBoxColor4F &v) const;
     const cxColor4F &Color() const;
 };
 

@@ -33,12 +33,28 @@ void cxBoxRender::SetColor(const cxBoxColor4F &v)
     rb.colors = v.rb;
 }
 
+void cxBoxRender::MulColor(const cxBoxColor4F &v)
+{
+    lt.colors *= v.lt;
+    lb.colors *= v.lb;
+    rt.colors *= v.rt;
+    rb.colors *= v.rb;
+}
+
 void cxBoxRender::SetColor(const cxColor4F &v)
 {
     lt.colors = v;
     lb.colors = v;
     rt.colors = v;
     rb.colors = v;
+}
+
+void cxBoxRender::MulColor(const cxColor4F &v)
+{
+    lt.colors *= v;
+    lb.colors *= v;
+    rt.colors *= v;
+    rb.colors *= v;
 }
 
 void cxBoxRender::SetAlpha(const cxFloat &v)
@@ -187,6 +203,13 @@ void cxBoxRenderArray::SetColor(const cxColor4F &v)
 {
     for(cxInt i=0;i < Size();i++){
         At(i).SetColor(v);
+    }
+}
+
+void cxBoxRenderArray::MulColor(const cxColor4F &v)
+{
+    for(cxInt i=0;i < Size();i++){
+        At(i).MulColor(v);
     }
 }
 

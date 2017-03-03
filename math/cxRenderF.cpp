@@ -77,6 +77,13 @@ cxInt cxRenderFArray::Inc(cxInt inc)
     return number;
 }
 
+void cxRenderFArray::MulColor(const cxColor4F &v)
+{
+    for(cxInt i=0;i<Size();i++){
+        At(i).colors *= v;
+    }
+}
+
 cxRenderF &cxRenderFArray::Inc()
 {
     return At(number++);

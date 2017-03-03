@@ -50,6 +50,8 @@ public:
     cxInt Inc(cxInt inc);
     cxRenderF &Inc();
     void Clear();
+    
+    void MulColor(const cxColor4F &v);
 
     cxInt DataBytes() const;
     cxInt BufferBytes() const;

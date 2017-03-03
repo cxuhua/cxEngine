@@ -29,7 +29,9 @@ void cxTriangles::SetType(cxStateType v)
 
 void cxTriangles::OnDirty()
 {
-    
+    if(IsDirtyMode(DirtyModeColor)){
+        rs.MulColor(Color());
+    }
 }
 
 cxRenderFArray &cxTriangles::Renders()
@@ -45,6 +47,12 @@ cxIndicesArray &cxTriangles::Indices()
 cxTriangles *cxTriangles::Append(const cxRenderF &p)
 {
     rs.Append(p);
+    return this;
+}
+
+cxTriangles *cxTriangles::Append(const cxUInt16 &v)
+{
+    is.Append(v);
     return this;
 }
 

@@ -32,6 +32,7 @@ public:
     cxRenderFArray &Renders();
     cxIndicesArray &Indices();
     cxTriangles *Append(const cxRenderF &p);
+    cxTriangles *Append(const cxUInt16 &v);
 };
 
 CX_CPP_END

@@ -26,7 +26,9 @@ struct cxBoxRender
     cxBoxRender();
     cxBoxRender(const cxBoxRender &v);
     void SetColor(const cxBoxColor4F &v);
+    void MulColor(const cxBoxColor4F &v);
     void SetColor(const cxColor4F &v);
+    void MulColor(const cxColor4F &v);
     void SetVertices(const cxBoxPoint3F &v);
     void SetCoords(const cxBoxCoord2F &v);
     void SetAlpha(const cxFloat &v);
@@ -55,6 +57,7 @@ public:
     void SetAlpha(cxInt idx,cxFloat alpha);
     void SetAlpha(cxInt idx,cxInt n,cxFloat alpha);
     void SetColor(const cxColor4F &v);
+    void MulColor(const cxColor4F &v);
     cxInt DataBytes() const;
     cxInt BufferBytes() const;
     const cxBoxRender *Buffer() const;

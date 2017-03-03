@@ -209,6 +209,7 @@ public:
     cxView *SetEnableSleep(cxBool v);
     
     cxView *SetColor(const cxColor4F &v);
+    cxView *SetColor(const cxBoxColor4F &v);
     cxView *SetAlpha(const cxFloat a);
     const cxFloat Alpha() const;
     const cxColor4F &Color() const;

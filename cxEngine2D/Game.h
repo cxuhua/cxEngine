@@ -23,6 +23,8 @@ protected:
     virtual ~Game();
 public:
     void OnMain();
+private:
+    void test();
 };
 
 CX_CPP_END

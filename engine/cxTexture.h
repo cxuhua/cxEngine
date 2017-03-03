@@ -15,11 +15,28 @@
 #include <math/cxBoxCoord2F.h>
 #include <math/cxBox4F.h>
 #include <math/cxBoxPoint3F.h>
+#include <math/cxRenderF.h>
 #include <core/cxJson.h>
 
 CX_CPP_BEGIN
 
 typedef cxInt32 cxTextureId;
+
+class cxTexCoord;
+class cxTexTriangles : public cxObject
+{
+public:
+    CX_DECLARE(cxTexTriangles);
+protected:
+    explicit cxTexTriangles();
+    virtual ~cxTexTriangles();
+public:
+    cxPoint2FArray vts;
+    cxPoint2FArray uvs;
+    cxIndicesArray ats;
+public:
+    cxBool Init(cxTexCoord *coord,const cxJson *avts,const cxJson *auvs,const cxJson *aats);
+};
 
 class cxTexture;
 class cxTexCoord : public cxObject
@@ -39,7 +56,10 @@ public:
     cxSize2F sourceSize;
     cxRect4F spriteSourceSize;
     cxPoint2F pivot;
+    cxTexTriangles *triangles;
 public:
+    void ParseTriangles(const cxJson *item);
+    cxBool HasTriangles();
     void SetTexture(cxTexture *v);
     cxTexture *Texture();
     const cxSize2F FrameSize() const;
@@ -84,6 +104,7 @@ private:
     cxHash *coords;
     cxTextureId texId;
     cxSize2F size;
+    cxTexture *parseFrames(const cxStr *data);
 public:
     cxInt CoordCount() const;
     cxTexCoord *At(cchars key) const;
@@ -97,11 +118,8 @@ public:
     cxTexture *GenTexture();
     cxTexture *Bind();
     cxTexture *SetParams(const cxTextureParams &params);
-    
     cxInt Type() const;
 public:
-    cxTexture *AtlasMaxRects(const cxStr *data);
-    cxTexture *AtlasMaxRects(cchars file);
     
     cxTexture *FromRGB(cchars data,cxInt width,cxInt height);
     cxTexture *UpdateRGB(cchars data);

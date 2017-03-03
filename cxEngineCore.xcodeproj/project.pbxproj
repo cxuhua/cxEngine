@@ -69,11 +69,6 @@
 		83610B051B1CA6F700BD06B1 /* cxPoint2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83610B031B1CA6F700BD06B1 /* cxPoint2F.cpp */; };
 		83610B0A1B1CA8EA00BD06B1 /* cxMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83610B081B1CA8EA00BD06B1 /* cxMath.cpp */; };
 		83610B0D1B1CB68000BD06B1 /* cxPoint2I.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83610B0B1B1CB68000BD06B1 /* cxPoint2I.cpp */; };
-		836124361CE343FD00D07CCC /* advancing_front.cc in Sources */ = {isa = PBXBuildFile; fileRef = 8361242A1CE343FD00D07CCC /* advancing_front.cc */; };
-		836124371CE343FD00D07CCC /* cdt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 8361242C1CE343FD00D07CCC /* cdt.cc */; };
-		836124381CE343FD00D07CCC /* shapes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 8361242F1CE343FD00D07CCC /* shapes.cc */; };
-		836124391CE343FD00D07CCC /* sweep.cc in Sources */ = {isa = PBXBuildFile; fileRef = 836124311CE343FD00D07CCC /* sweep.cc */; };
-		8361243A1CE343FD00D07CCC /* sweep_context.cc in Sources */ = {isa = PBXBuildFile; fileRef = 836124331CE343FD00D07CCC /* sweep_context.cc */; };
 		83639F6F1B30270E006A61B7 /* cxAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83639F6D1B30270E006A61B7 /* cxAction.cpp */; };
 		83639F721B302E16006A61B7 /* cxWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83639F701B302E16006A61B7 /* cxWindow.cpp */; };
 		836730AE1B465A6A00E333D9 /* cxAnimate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836730AC1B465A6A00E333D9 /* cxAnimate.cpp */; };
@@ -282,18 +277,6 @@
 		83610B091B1CA8EA00BD06B1 /* cxMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxMath.h; sourceTree = "<group>"; };
 		83610B0B1B1CB68000BD06B1 /* cxPoint2I.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxPoint2I.cpp; sourceTree = "<group>"; };
 		83610B0C1B1CB68000BD06B1 /* cxPoint2I.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxPoint2I.h; sourceTree = "<group>"; };
-		8361242A1CE343FD00D07CCC /* advancing_front.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = advancing_front.cc; sourceTree = "<group>"; };
-		8361242B1CE343FD00D07CCC /* advancing_front.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = advancing_front.h; sourceTree = "<group>"; };
-		8361242C1CE343FD00D07CCC /* cdt.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cdt.cc; sourceTree = "<group>"; };
-		8361242D1CE343FD00D07CCC /* cdt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cdt.h; sourceTree = "<group>"; };
-		8361242E1CE343FD00D07CCC /* poly2tri.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poly2tri.h; sourceTree = "<group>"; };
-		8361242F1CE343FD00D07CCC /* shapes.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shapes.cc; sourceTree = "<group>"; };
-		836124301CE343FD00D07CCC /* shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shapes.h; sourceTree = "<group>"; };
-		836124311CE343FD00D07CCC /* sweep.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sweep.cc; sourceTree = "<group>"; };
-		836124321CE343FD00D07CCC /* sweep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep.h; sourceTree = "<group>"; };
-		836124331CE343FD00D07CCC /* sweep_context.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sweep_context.cc; sourceTree = "<group>"; };
-		836124341CE343FD00D07CCC /* sweep_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep_context.h; sourceTree = "<group>"; };
-		836124351CE343FD00D07CCC /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		83639F6D1B30270E006A61B7 /* cxAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAction.cpp; sourceTree = "<group>"; };
 		83639F6E1B30270E006A61B7 /* cxAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAction.h; sourceTree = "<group>"; };
 		83639F701B302E16006A61B7 /* cxWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxWindow.cpp; sourceTree = "<group>"; };
@@ -600,25 +583,6 @@
 			path = GL;
 			sourceTree = "<group>";
 		};
-		836124291CE343FD00D07CCC /* poly2tri */ = {
-			isa = PBXGroup;
-			children = (
-				8361242A1CE343FD00D07CCC /* advancing_front.cc */,
-				8361242B1CE343FD00D07CCC /* advancing_front.h */,
-				8361242C1CE343FD00D07CCC /* cdt.cc */,
-				8361242D1CE343FD00D07CCC /* cdt.h */,
-				8361242E1CE343FD00D07CCC /* poly2tri.h */,
-				8361242F1CE343FD00D07CCC /* shapes.cc */,
-				836124301CE343FD00D07CCC /* shapes.h */,
-				836124311CE343FD00D07CCC /* sweep.cc */,
-				836124321CE343FD00D07CCC /* sweep.h */,
-				836124331CE343FD00D07CCC /* sweep_context.cc */,
-				836124341CE343FD00D07CCC /* sweep_context.h */,
-				836124351CE343FD00D07CCC /* utils.h */,
-			);
-			path = poly2tri;
-			sourceTree = "<group>";
-		};
 		836A2F621B19F636009B427B /* ios */ = {
 			isa = PBXGroup;
 			children = (
@@ -636,7 +600,6 @@
 		836F3F0A1B1B89A000E3E82C /* math */ = {
 			isa = PBXGroup;
 			children = (
-				836124291CE343FD00D07CCC /* poly2tri */,
 				831189AA1B2D727F00C930B5 /* kazmath */,
 				83610B031B1CA6F700BD06B1 /* cxPoint2F.cpp */,
 				83610B041B1CA6F700BD06B1 /* cxPoint2F.h */,
@@ -891,7 +854,6 @@
 				831189C91B2D728000C930B5 /* aabb2.c in Sources */,
 				833043C11B40FBE900636928 /* cxTiming.cpp in Sources */,
 				83F7BAD81B42D97F00C644B9 /* cxEvent.cpp in Sources */,
-				8361243A1CE343FD00D07CCC /* sweep_context.cc in Sources */,
 				830ECB1D1B3DA38F002EBE56 /* tools.c in Sources */,
 				836A2F3B1B198662009B427B /* xxtea.c in Sources */,
 				831B93FA1B4B833700511A63 /* cxResize.cpp in Sources */,
@@ -922,7 +884,6 @@
 				8302A5831B535E3A00C7209C /* cxProgress.cpp in Sources */,
 				8357CB981B12079D0085E600 /* cxStr.cpp in Sources */,
 				83639F721B302E16006A61B7 /* cxWindow.cpp in Sources */,
-				836124371CE343FD00D07CCC /* cdt.cc in Sources */,
 				831189D41B2D728000C930B5 /* vec2.c in Sources */,
 				83C9D1271B48CC1E00EC244C /* cxSequence.cpp in Sources */,
 				833043B31B40246E00636928 /* cxEmitter.cpp in Sources */,
@@ -953,14 +914,12 @@
 				838D1BE41B79905500CA4C8B /* cxAlert.cpp in Sources */,
 				831189CB1B2D728000C930B5 /* mat4stack.c in Sources */,
 				8345E1621B37138200A46A47 /* cxList.cpp in Sources */,
-				836124391CE343FD00D07CCC /* sweep.cc in Sources */,
 				8302541E1B453E8B0070D2E5 /* cxTimeLine.cpp in Sources */,
 				83F5D0C01CE58B6D00690B86 /* cxActionGroup.cpp in Sources */,
 				83BE636E1B3117270028B6E7 /* AppDelegate.mm in Sources */,
 				83C9D1121B47C63600EC244C /* cxFollow.cpp in Sources */,
 				831189CD1B2D728000C930B5 /* mat3.c in Sources */,
 				8318C8BD1C32BC28002A85CF /* base64.c in Sources */,
-				836124381CE343FD00D07CCC /* shapes.cc in Sources */,
 				833043C71B41149000636928 /* cxScale.cpp in Sources */,
 				831189D51B2D728000C930B5 /* vec3.c in Sources */,
 				833043B91B4024E900636928 /* cxContainer.cpp in Sources */,
@@ -970,7 +929,6 @@
 				836DD1061B29BBDF0094F5EF /* cxBox4F.cpp in Sources */,
 				830157DC1B3B006400ED46A8 /* cxRender.cpp in Sources */,
 				83A943A61B44DC3200F70FBA /* aes_core.c in Sources */,
-				836124361CE343FD00D07CCC /* advancing_front.cc in Sources */,
 				83EA27E31B15540600370757 /* cxHash.cpp in Sources */,
 				833B40691B31AF2800920A06 /* cxBoxColor4F.cpp in Sources */,
 				83A943A91B44DC3200F70FBA /* aes_ige.c in Sources */,

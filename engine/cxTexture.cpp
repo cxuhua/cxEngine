@@ -65,6 +65,56 @@ typedef struct{
 
 CX_CPP_BEGIN
 
+CX_IMPLEMENT(cxTexTriangles)
+
+cxTexTriangles::cxTexTriangles()
+{
+    
+}
+
+cxTexTriangles::~cxTexTriangles()
+{
+    
+}
+
+cxBool cxTexTriangles::Init(cxTexCoord *coord,const cxJson *avts,const cxJson *auvs,const cxJson *aats)
+{
+    //parse vertices
+    vts.Clear();
+    for(cxJson::Iter it=avts->Begin();it!=avts->End();it++){
+        cxJson *item = it.Alloc();
+        CX_ASSERT(item->Size() == 2, "vertices format error");
+        cxFloat x = item->At(0)->ToFloat();
+        cxFloat y = item->At(1)->ToFloat();
+        vts.Append(cxPoint2F(x, y));
+        item->Release();
+    }
+    //parse verticesUV
+    uvs.Clear();
+    for(cxJson::Iter it=auvs->Begin();it!=auvs->End();it++){
+        cxJson *item = it.Alloc();
+        CX_ASSERT(item->Size() == 2, "verticesUV format error");
+        cxFloat u = item->At(0)->ToFloat();
+        cxFloat v = item->At(1)->ToFloat();
+        uvs.Append(cxPoint2F(u, v));
+        item->Release();
+    }
+    //parse triangles
+    ats.Clear();
+    for(cxJson::Iter it=aats->Begin();it!=aats->End();it++){
+        cxJson *item = it.Alloc();
+        CX_ASSERT(item->Size() == 3, "triangles format error");
+        cxInt p1 = item->At(0)->ToInt();
+        ats.Append(p1);
+        cxInt p2 = item->At(1)->ToInt();
+        ats.Append(p2);
+        cxInt p3 = item->At(2)->ToInt();
+        ats.Append(p3);
+        item->Release();
+    }
+    return true;
+}
+
 CX_IMPLEMENT(cxTexCoord);
 
 cxTexCoord::cxTexCoord()
@@ -74,11 +124,38 @@ cxTexCoord::cxTexCoord()
     rotated = false;
     trimmed = false;
     pivot = cxPoint2F(0.5, 0.5);
+    triangles = nullptr;
 }
 
 cxTexCoord::~cxTexCoord()
 {
-    
+    cxObject::release(&triangles);
+}
+
+void cxTexCoord::ParseTriangles(const cxJson *item)
+{
+    const cxJson *vts = item->At("vertices");
+    if(vts == nullptr || !vts->IsArray()){
+        return;
+    }
+    const cxJson *uvs = item->At("verticesUV");
+    if(uvs == nullptr || !uvs->IsArray()){
+        return;
+    }
+    const cxJson *ats = item->At("triangles");
+    if(ats == nullptr || !ats->IsArray()){
+        return;
+    }
+    cxTexTriangles *tv = cxTexTriangles::Alloc();
+    if(tv->Init(this,vts, uvs, ats)){
+        cxObject::swap(&triangles, tv);
+    }
+    tv->Release();
+}
+
+cxBool cxTexCoord::HasTriangles()
+{
+    return triangles != nullptr;
 }
 
 void cxTexCoord::SetTexture(cxTexture *v)
@@ -243,16 +320,6 @@ const cxTextureId cxTexture::ID() const
     return texId;
 }
 
-cxTexture *cxTexture::AtlasMaxRects(cchars file)
-{
-    CX_ASSERT(IsSuccess(), "not load texture,first use FromPNG...");
-    const cxStr *data = cxUtil::Assets(file);
-    if(!cxStr::IsOK(data)){
-        return this;
-    }
-    return AtlasMaxRects(data);
-}
-
 cxInt cxTexture::CoordCount() const
 {
     return coords->Size();
@@ -337,7 +404,7 @@ cxTexture *cxTexture::From(cxInt type,const cxStr *data)
     return this;
 }
 
-cxTexture *cxTexture::AtlasMaxRects(const cxStr *data)
+cxTexture *cxTexture::parseFrames(const cxStr *data)
 {
     CX_ASSERT(cxStr::IsOK(data), "data error");
     cxJson *json = cxJson::Create()->From(data);
@@ -370,9 +437,8 @@ cxTexture *cxTexture::AtlasMaxRects(const cxStr *data)
         coord->frame = cxRect4F(item->At("frame"));
         coord->sourceSize = cxSize2F(item->At("sourceSize"));
         coord->spriteSourceSize = cxRect4F(item->At("spriteSourceSize"));
-        const cxJson *pivot = item->At("pivot");
-        CX_ASSERT(pivot != nullptr, "pivot node miss");
-        coord->pivot = cxPoint2F(pivot);
+        coord->pivot = cxPoint2F(item->At("pivot"));
+        coord->ParseTriangles(item);
         coords->Set(key, coord);
         coord->Release();
         
@@ -558,12 +624,12 @@ cxTexture *cxTexture::FromLQT(const cxStr *data)
         success = false;
         return this;
     }
-    const cxStr *atlasdata = tmp->LzmaUncompress();
-    if(!cxStr::IsOK(atlasdata)){
+    const cxStr *framesdata = tmp->LzmaUncompress();
+    if(!cxStr::IsOK(framesdata)){
         CX_WARN("atlas data unzip error");
         return this;
     }
-    return AtlasMaxRects(atlasdata);
+    return parseFrames(framesdata);
 }
 
 cxTexture *cxTexture::From(cxTextureId name,const cxSize2F &siz)

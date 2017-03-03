@@ -73,6 +73,7 @@ cxTexCoord::cxTexCoord()
     coord = cxBoxCoord2F::Default;
     rotated = false;
     trimmed = false;
+    pivot = cxPoint2F(0.5, 0.5);
 }
 
 cxTexCoord::~cxTexCoord()
@@ -199,6 +200,7 @@ cxTexture::cxTexture()
     texId = 0;
     size = cxSize2F(0, 0);
     coords = cxHash::Alloc();
+    atlasType = ATLAS_MAXRECTS;
 }
 
 cxTexture::~cxTexture()
@@ -241,14 +243,14 @@ const cxTextureId cxTexture::ID() const
     return texId;
 }
 
-cxTexture *cxTexture::Atlas(cchars file)
+cxTexture *cxTexture::AtlasMaxRects(cchars file)
 {
     CX_ASSERT(IsSuccess(), "not load texture,first use FromPNG...");
     const cxStr *data = cxUtil::Assets(file);
     if(!cxStr::IsOK(data)){
         return this;
     }
-    return Atlas(data);
+    return AtlasMaxRects(data);
 }
 
 cxInt cxTexture::CoordCount() const
@@ -335,7 +337,7 @@ cxTexture *cxTexture::From(cxInt type,const cxStr *data)
     return this;
 }
 
-cxTexture *cxTexture::Atlas(const cxStr *data)
+cxTexture *cxTexture::AtlasMaxRects(const cxStr *data)
 {
     CX_ASSERT(cxStr::IsOK(data), "data error");
     cxJson *json = cxJson::Create()->From(data);
@@ -357,8 +359,8 @@ cxTexture *cxTexture::Atlas(const cxStr *data)
         return this;
     }
     for(cxJson::Iter it=frames->Begin();it != frames->End();it++){
-        cxJson *item = cxJson::Alloc();
-        it.Value(item);
+        cxJson *item = it.Alloc();
+        
         cxTexCoord *coord = cxTexCoord::Alloc();
         cchars key = item->Get("filename", nullptr);
         CX_ASSERT(key != nullptr, "filename node miss");
@@ -368,8 +370,12 @@ cxTexture *cxTexture::Atlas(const cxStr *data)
         coord->frame = cxRect4F(item->At("frame"));
         coord->sourceSize = cxSize2F(item->At("sourceSize"));
         coord->spriteSourceSize = cxRect4F(item->At("spriteSourceSize"));
+        const cxJson *pivot = item->At("pivot");
+        CX_ASSERT(pivot != nullptr, "pivot node miss");
+        coord->pivot = cxPoint2F(pivot);
         coords->Set(key, coord);
         coord->Release();
+        
         item->Release();
     }
     return this;
@@ -557,7 +563,7 @@ cxTexture *cxTexture::FromLQT(const cxStr *data)
         CX_WARN("atlas data unzip error");
         return this;
     }
-    return Atlas(atlasdata);
+    return AtlasMaxRects(atlasdata);
 }
 
 cxTexture *cxTexture::From(cxTextureId name,const cxSize2F &siz)

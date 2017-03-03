@@ -740,7 +740,7 @@ cxEmitterXml *cxEmitterXml::CreateXml(cchars name)
     snprintf(path, 1024, "%s.xml",name);
     const cxStr *data = cxUtil::Content(path);
     if(!cxStr::IsOK(data)){
-        CX_ERROR("read xml file failed:%d",path);
+        CX_ERROR("read xml file failed:%s",path);
         return nullptr;
     }
     cxEmitterXml *xml = cxEmitterXml::Create();

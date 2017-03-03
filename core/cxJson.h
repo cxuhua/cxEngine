@@ -40,6 +40,7 @@ public:
         cxBool IsOK();
         Iter &Next();
         cxBool Value(cxJson *j);
+        cxJson *Alloc();
         cxJson *Value();
         cxInt Index();
         cchars Key();

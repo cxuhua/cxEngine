@@ -38,6 +38,7 @@ public:
     cxRect4F frame;
     cxSize2F sourceSize;
     cxRect4F spriteSourceSize;
+    cxPoint2F pivot;
 public:
     void SetTexture(cxTexture *v);
     cxTexture *Texture();
@@ -71,11 +72,14 @@ public:
     static const cxInt PVR = 3;
     static const cxInt PKM = 4;
     static const cxInt TXT = 5;
+    static const cxInt ATLAS_MAXRECTS   = 1;
+    static const cxInt ATLAS_POLYGON    = 2;
 protected:
     explicit cxTexture();
     virtual ~cxTexture();
 private:
     cxInt type;
+    cxInt atlasType;
     cxBool success;
     cxHash *coords;
     cxTextureId texId;
@@ -96,22 +100,26 @@ public:
     
     cxInt Type() const;
 public:
-    cxTexture *Atlas(const cxStr *data);
+    cxTexture *AtlasMaxRects(const cxStr *data);
+    cxTexture *AtlasMaxRects(cchars file);
+    
     cxTexture *FromRGB(cchars data,cxInt width,cxInt height);
     cxTexture *UpdateRGB(cchars data);
     cxTexture *FromRGBA(cchars data,cxInt width,cxInt height);
     cxTexture *UpdateRGBA(cchars data);
+    
     cxTexture *FromLQT(const cxStr *data);
     cxTexture *FromPNG(const cxStr *data);
     cxTexture *FromJPG(const cxStr *data);
     cxTexture *FromPVR(const cxStr *data);
     cxTexture *FromPKM(const cxStr *data);
-    cxTexture *Atlas(cchars file);
+    
     cxTexture *FromLQT(cchars file);
     cxTexture *FromPNG(cchars file);
     cxTexture *FromJPG(cchars file);
     cxTexture *FromPVR(cchars file);
     cxTexture *FromPKM(cchars file);
+    
     cxTexture *FromTXT(const cxStr *txt,const cxTextAttr &attr,cxUInt64 *key=nullptr);
     cxTexture *From(cchars file);
     cxTexture *From(cxTextureId name,const cxSize2F &siz);

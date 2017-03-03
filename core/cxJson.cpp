@@ -72,17 +72,18 @@ cxBool cxJson::Iter::Value(cxJson *value)
     return true;
 }
 
+cxJson *cxJson::Iter::Alloc()
+{
+    cxJson *ret = cxJson::Alloc();
+    Value(ret);
+    return ret;
+}
+
 cxJson *cxJson::Iter::Value()
 {
-    if(json_is_array(json)){
-        json_t *j = json_array_get(json, step);
-        return cxJson::Create()->From(j);
-    }
-    if(json_is_object(json)){
-        json_t *j = json_object_iter_value(objIt);
-        return cxJson::Create()->From(j);
-    }
-    return cxJson::Create()->From(json);
+    cxJson *ret = cxJson::Create();
+    Value(ret);
+    return ret;
 }
 
 cxInt cxJson::Iter::Index()

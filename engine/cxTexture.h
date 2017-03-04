@@ -22,22 +22,6 @@ CX_CPP_BEGIN
 
 typedef cxInt32 cxTextureId;
 
-class cxTexCoord;
-class cxTexTriangles : public cxObject
-{
-public:
-    CX_DECLARE(cxTexTriangles);
-protected:
-    explicit cxTexTriangles();
-    virtual ~cxTexTriangles();
-public:
-    cxPoint2FArray vts;
-    cxPoint2FArray uvs;
-    cxIndicesArray ats;
-public:
-    cxBool Init(cxTexCoord *coord,const cxJson *avts,const cxJson *auvs,const cxJson *aats);
-};
-
 class cxTexture;
 class cxTexCoord : public cxObject
 {
@@ -49,6 +33,7 @@ protected:
 private:
     cxTexture *texture;
     cxBoxCoord2F coord;
+    void initTriangles(const cxJson *avts,const cxJson *auvs,const cxJson *aats);
 public:
     cxBool rotated;
     cxBool trimmed;
@@ -56,17 +41,24 @@ public:
     cxSize2F sourceSize;
     cxRect4F spriteSourceSize;
     cxPoint2F pivot;
-    cxTexTriangles *triangles;
+    //renders
+    cxRenderFArray rts;
+    //vertices
+    cxPoint2FArray vts;
+    //verticesUV
+    cxPoint2FArray uvs;
+    //triangles
+    cxIndicesArray ats;
 public:
-    void ParseTriangles(const cxJson *item);
     cxBool HasTriangles();
+    void ParseTriangles(const cxJson *item);
     void SetTexture(cxTexture *v);
     cxTexture *Texture();
     const cxSize2F FrameSize() const;
     const cxBool IsEmpty() const;
     const cxSize2F &Size() const;
-    cxBox4F Trimmed(const cxBoxPoint3F &box,cxBool flipx,cxBool flipy) const;
-    cxBox4F &Trimmed(cxBox4F &vbox,cxBool flipx,cxBool flipy) const;
+    cxBox4F TrimmedBox(cxBox4F &vbox,cxBool flipx,cxBool flipy);
+    cxBool TrimmedTriangles(cxColor4F &color,cxBox4F &vbox,cxBool flipx,cxBool flipy);
     const cxBoxCoord2F &BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy);
     const cxBoxCoord2F &FlipCoord(const cxBoxCoord2F &ov,cxBool flipx,cxBool flipy);
 };

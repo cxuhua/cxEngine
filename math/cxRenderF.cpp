@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
-
 #include "cxBoxRender.h"
 #include "cxRenderF.h"
 

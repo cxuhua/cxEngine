@@ -32,7 +32,8 @@ cxSprite::~cxSprite()
 void cxSprite::OnDirty()
 {
     if(IsDirtyMode(DirtyModeSize|DirtyModeTexture)){
-        cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), flipx, flipy);
+        cxBox4F bv = BoxPoint().ToBox4F();
+        cxBoxPoint3F bp = coord->TrimmedBox(bv, flipx, flipy);
         box.SetVertices(bp);
         box.SetCoords(BoxCoord());
     }
@@ -141,12 +142,7 @@ cxSprite *cxSprite::SetTexKey(cchars fmt,...)
     return this;
 }
 
-cxInt cxSprite::TexCoordSize() const
-{
-    return (coord == nullptr)?0:1;
-}
-
-cxTexCoord *cxSprite::TexCoord(cxInt idx) const
+cxTexCoord *cxSprite::TexCoord() const
 {
     return coord;
 }

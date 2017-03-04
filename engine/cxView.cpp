@@ -706,6 +706,15 @@ cxBox4F cxView::ToBox4F()
     return cxBox4F(l, r, t, b);
 }
 
+cxBox4F cxView::Box()
+{
+    cxFloat l = -size.w/2.0f;
+    cxFloat r = +size.w/2.0f;
+    cxFloat b = -size.h/2.0f;
+    cxFloat t = +size.h/2.0f;
+    return cxBox4F(l, r, t, b);
+}
+
 cxBoxPoint3F &cxView::BoxPoint()
 {
     cxFloat l = -size.w/2.0f;

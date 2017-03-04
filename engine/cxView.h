@@ -192,6 +192,7 @@ public:
     
     cxBoxColor4F &BoxColor();
     cxBoxPoint3F &BoxPoint();
+    cxBox4F Box();
     cxBox4F ToBox4F();
     
     cxView *SetParent(cxView *v);

@@ -15,7 +15,7 @@ CX_IMPLEMENT(cxAtlas);
 
 cxAtlas::cxAtlas()
 {
-    coords = nullptr;
+    coords = cxArray::Alloc();
     cframes = nullptr;
     cidx = -1;
     isscale9 = false;
@@ -23,7 +23,7 @@ cxAtlas::cxAtlas()
 
 cxAtlas::~cxAtlas()
 {
-    cxObject::release(&coords);
+    coords->Release();
     cxObject::release(&cframes);
 }
 
@@ -41,6 +41,11 @@ void cxAtlas::SetCoords(const cxArray *acoords,const cxFrameMap *map)
     CX_ASSERT(acoords != nullptr && map != nullptr, "coords or map args error");
     CX_ASSERT(!Size().IsZero(), "size not set");
     SetCapacity(map->num);
+    coords->Clear();
+    cxBox4F box = Box();
+    cxBool fx = FlipX();
+    cxBool fy = FlipY();
+    cxBox4F pixel = Pixel();
     for(cxInt i = 0;i < map->num;i++){
         cxInt idx = map->values[i];
         //get map tex
@@ -48,40 +53,29 @@ void cxAtlas::SetCoords(const cxArray *acoords,const cxFrameMap *map)
         if(coord->IsEmpty()){
             continue;
         }
-        CX_ASSERT(!coord->HasTriangles(), "error,coord has triangles");
         //trimmed box
-        cxBoxPoint3F bp = coord->Trimmed(BoxPoint(), FlipX(), FlipY());
+        cxBoxPoint3F bp = coord->TrimmedBox(box, fx, fy);
         if(bp.Size().IsZero()){
             continue;
         }
         //add render
         cxBoxRender &render = renders.Inc();
         render.SetVertices(bp);
-        render.SetColor(Color());
+        render.MulColor(BoxColor());
         //get coord box
-        const cxBoxCoord2F &tbox = coord->BoxCoord(Pixel(), FlipX(), FlipY());
+        const cxBoxCoord2F &tbox = coord->BoxCoord(pixel, fx, fy);
         render.SetCoords(tbox);
+        // save current render texture coord
+        coords->Append(coord);
     }
-    cxObject::swap(&coords, acoords);
 }
 
-cxInt cxAtlas::TexCoordSize() const
-{
-    return (coords == nullptr)?0:coords->Size();
-}
-
-cxTexCoord *cxAtlas::TexCoord(cxInt idx) const
-{
-    CX_ASSERT(coords != nullptr && idx >= 0 && idx < coords->Size(), "idx error");
-    return coords->At(idx)->To<cxTexCoord>();
-}
-
-const cxFrames *cxAtlas::GetFrames()
+const cxFrames *cxAtlas::Frames()
 {
     return cframes;
 }
 
-cxAtlas *cxAtlas::SetFramesIdx(cxInt idx)
+cxAtlas *cxAtlas::SetFrames(cxInt idx)
 {
     CX_ASSERT(cframes != nullptr, "frames not set");
     cidx = idx;
@@ -102,8 +96,16 @@ cxAtlas *cxAtlas::SetFrames(const cxFrames *frames,cxInt idx)
         return this;
     }
     cxObject::swap(&cframes, frames);
-    SetFramesIdx(idx);
+    SetFrames(idx);
     return this;
+}
+
+cxTexCoord *cxAtlas::TexCoord() const
+{
+    if(coords == nullptr || coords->Size() == 0){
+        return cxSprite::TexCoord();
+    }
+    return coords->At(0)->To<cxTexCoord>();
 }
 
 void cxAtlas::updateScale9()
@@ -169,7 +171,7 @@ void cxAtlas::updateScale9()
             offx = (bx2 - bx1)/2.0f + bx1 - size.w/2.0f;
             offy = (size.h - (by2 - by1))/2.0f - by1;
             cxBoxRender &bp = renders.Inc();
-            bp.SetColor(color);
+            bp.MulColor(color);
             bp.lb.vertices = cxPoint3F(-hw + offx, -hh + offy, 0.0f);
             bp.rb.vertices = cxPoint3F( hw + offx, -hh + offy, 0.0f);
             bp.lt.vertices = cxPoint3F(-hw + offx,  hh + offy, 0.0f);
@@ -183,7 +185,7 @@ void cxAtlas::updateScale9()
     if(IsDirtyMode(DirtyModeColor)){
         for(cxInt i=0; i < renders.Size();i++){
             cxBoxRender &bp = renders.At(i);
-            bp.SetColor(color);
+            bp.MulColor(color);
         }
     }
 }

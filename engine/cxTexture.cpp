@@ -65,19 +65,23 @@ typedef struct{
 
 CX_CPP_BEGIN
 
-CX_IMPLEMENT(cxTexTriangles)
+CX_IMPLEMENT(cxTexCoord);
 
-cxTexTriangles::cxTexTriangles()
+cxTexCoord::cxTexCoord()
+{
+    texture = nullptr;
+    coord = cxBoxCoord2F::Default;
+    rotated = false;
+    trimmed = false;
+    pivot = cxPoint2F(0.5, 0.5);
+}
+
+cxTexCoord::~cxTexCoord()
 {
     
 }
 
-cxTexTriangles::~cxTexTriangles()
-{
-    
-}
-
-cxBool cxTexTriangles::Init(cxTexCoord *coord,const cxJson *avts,const cxJson *auvs,const cxJson *aats)
+void cxTexCoord::initTriangles(const cxJson *avts,const cxJson *auvs,const cxJson *aats)
 {
     //parse vertices
     vts.Clear();
@@ -112,50 +116,28 @@ cxBool cxTexTriangles::Init(cxTexCoord *coord,const cxJson *avts,const cxJson *a
         ats.Append(p3);
         item->Release();
     }
-    return true;
-}
-
-CX_IMPLEMENT(cxTexCoord);
-
-cxTexCoord::cxTexCoord()
-{
-    texture = nullptr;
-    coord = cxBoxCoord2F::Default;
-    rotated = false;
-    trimmed = false;
-    pivot = cxPoint2F(0.5, 0.5);
-    triangles = nullptr;
-}
-
-cxTexCoord::~cxTexCoord()
-{
-    cxObject::release(&triangles);
-}
-
-void cxTexCoord::ParseTriangles(const cxJson *item)
-{
-    const cxJson *vts = item->At("vertices");
-    if(vts == nullptr || !vts->IsArray()){
-        return;
-    }
-    const cxJson *uvs = item->At("verticesUV");
-    if(uvs == nullptr || !uvs->IsArray()){
-        return;
-    }
-    const cxJson *ats = item->At("triangles");
-    if(ats == nullptr || !ats->IsArray()){
-        return;
-    }
-    cxTexTriangles *tv = cxTexTriangles::Alloc();
-    if(tv->Init(this,vts, uvs, ats)){
-        cxObject::swap(&triangles, tv);
-    }
-    tv->Release();
 }
 
 cxBool cxTexCoord::HasTriangles()
 {
-    return triangles != nullptr;
+    return vts.Size() > 0 && uvs.Size() > 0 && ats.Size() > 0;
+}
+
+void cxTexCoord::ParseTriangles(const cxJson *item)
+{
+    const cxJson *avts = item->At("vertices");
+    if(avts == nullptr || !avts->IsArray()){
+        return;
+    }
+    const cxJson *auvs = item->At("verticesUV");
+    if(auvs == nullptr || !auvs->IsArray()){
+        return;
+    }
+    const cxJson *aats = item->At("triangles");
+    if(aats == nullptr || !aats->IsArray()){
+        return;
+    }
+    initTriangles(avts, auvs, aats);
 }
 
 void cxTexCoord::SetTexture(cxTexture *v)
@@ -187,32 +169,55 @@ const cxBool cxTexCoord::IsEmpty() const
     return bx && by && bw && bh;
 }
 
-cxBox4F cxTexCoord::Trimmed(const cxBoxPoint3F &box,cxBool flipx,cxBool flipy) const
+cxBool cxTexCoord::TrimmedTriangles(cxColor4F &color, cxBox4F &vbox,cxBool flipx,cxBool flipy)
 {
-    cxBox4F b = box.ToBox4F();
-    return Trimmed(b,flipx, flipy);
-}
-
-cxBox4F &cxTexCoord::Trimmed(cxBox4F &vbox,cxBool flipx,cxBool flipy) const
-{
-    cxFloat xs = 1.0f;
-    cxFloat ys = 1.0f;
     cxFloat w = vbox.W();
     cxFloat h = vbox.H();
-    if(trimmed){
-        vbox.l = spriteSourceSize.x - sourceSize.w/2.0f;
+    cxFloat xs = w / sourceSize.w;
+    cxFloat ys = h / sourceSize.h;
+    cxPoint2F cp = cxPoint2F(sourceSize.w * pivot.x, sourceSize.h * pivot.y);
+    cxSize2F tsiz = texture->Size();
+    rts.Clear();
+    for(cxInt i=0;i<vts.Size();i++){
+        cxPoint2F vv = vts.At(i);
+        cxFloat x = (vv.x - cp.x) * xs;
+        cxFloat y = (sourceSize.h - (vv.y - cp.y)) * ys;
         if(flipx){
-            vbox.l = -vbox.l - spriteSourceSize.w;
+            x = -x;
         }
-        vbox.r = vbox.l + spriteSourceSize.w;
-        vbox.t = sourceSize.h/2.0f - spriteSourceSize.y;
         if(flipy){
-            vbox.t = -vbox.t + spriteSourceSize.h;
+            y = -y;
         }
-        vbox.b = vbox.t - spriteSourceSize.h;
-        xs = w / sourceSize.w;
-        ys = h / sourceSize.h;
+        y -= sourceSize.h * ys;
+        cxRenderF r;
+        r.colors = color;
+        r.vertices = cxPoint3F(x, y, 0.0f);
+        cxPoint2F cv = uvs.At(i);
+        r.coords = cxCoord2F(cv.x/tsiz.w, cv.y/tsiz.h);
+        rts.Append(r);
     }
+    return rts.Size() > 0;
+}
+
+cxBox4F cxTexCoord::TrimmedBox(cxBox4F &vbox,cxBool flipx,cxBool flipy)
+{
+    if(!trimmed){
+        return vbox;
+    }
+    cxFloat w = vbox.W();
+    cxFloat h = vbox.H();
+    cxFloat xs = w / sourceSize.w;
+    cxFloat ys = h / sourceSize.h;
+    vbox.l = spriteSourceSize.x - sourceSize.w/2.0f;
+    if(flipx){
+        vbox.l = -vbox.l - spriteSourceSize.w;
+    }
+    vbox.r = vbox.l + spriteSourceSize.w;
+    vbox.t = sourceSize.h/2.0f - spriteSourceSize.y;
+    if(flipy){
+        vbox.t = -vbox.t + spriteSourceSize.h;
+    }
+    vbox.b = vbox.t - spriteSourceSize.h;
     vbox.l = vbox.l * xs;
     vbox.r = vbox.r * xs;
     vbox.t = vbox.t * ys;

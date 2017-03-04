@@ -36,10 +36,11 @@ protected:
 public:
     virtual void SetTexture(const cxTexture *ptex);
     virtual void SetCoords(const cxArray *acoords,const cxFrameMap *map);
+    virtual cxTexCoord *TexCoord() const;
 public:
     
     static cxSprite *Create(cchars fkey,...);
-    
+
     cxSprite *UseTextureSize();
     
     cxBoxRender &BoxRender();
@@ -63,8 +64,6 @@ public:
     cxSprite *SetTexture(cchars key);
     cxSprite *SetTexture(const cxStr *tkey);
     
-    virtual cxInt TexCoordSize() const;
-    virtual cxTexCoord *TexCoord(cxInt idx=0) const;
     const cxBoxCoord2F &BoxCoord() const;
 };
 

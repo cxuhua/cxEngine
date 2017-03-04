@@ -213,6 +213,13 @@ void cxBoxRenderArray::MulColor(const cxColor4F &v)
     }
 }
 
+void cxBoxRenderArray::MulColor(const cxBoxColor4F &v)
+{
+    for(cxInt i=0;i < Size();i++){
+        At(i).MulColor(v);
+    }
+}
+
 const cxInt cxBoxRenderArray::Capacity() const
 {
     return (cxInt)size();

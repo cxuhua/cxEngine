@@ -58,6 +58,7 @@ public:
     void SetAlpha(cxInt idx,cxInt n,cxFloat alpha);
     void SetColor(const cxColor4F &v);
     void MulColor(const cxColor4F &v);
+    void MulColor(const cxBoxColor4F &v);
     cxInt DataBytes() const;
     cxInt BufferBytes() const;
     const cxBoxRender *Buffer() const;

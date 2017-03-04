@@ -34,9 +34,8 @@ protected:
     void OnRender(cxRender *render,const cxMatrixF &model);
 public:
     void SetCoords(const cxArray *acoords,const cxFrameMap *map);
+    cxTexCoord *TexCoord() const;
 public:
-    cxInt TexCoordSize() const;
-    cxTexCoord *TexCoord(cxInt idx=0) const;
     
     cxAtlas *SetCapacity(cxInt cap);
     cxInt Capacity() const;
@@ -47,9 +46,9 @@ public:
     cxInt Inc(cxInt inc);
     cxBoxRender &At(cxInt idx);
 
-    cxAtlas *SetFramesIdx(cxInt idx);
+    cxAtlas *SetFrames(cxInt idx);
     cxAtlas *SetFrames(const cxFrames *frames,cxInt idx=0);
-    const cxFrames *GetFrames();
+    const cxFrames *Frames();
     
     cxAtlas *SetScale9(const cxBox4F &sb);
     

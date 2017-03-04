@@ -234,7 +234,12 @@ void Game::OnMain()
 //    Window()->Append(cv);
 //
 //    return;
+    
+    cxSprite *sp = cxSprite::Create("t.png");
+    sp->SetSize(800);
+    Window()->Append(sp);
     //加载纹理
+    LoadTexture("jl.lqt");
     LoadTexture("jlbox.lqt");
     LoadTexture("jl1000.lqt");
     //加载帧序列
@@ -245,22 +250,70 @@ void Game::OnMain()
     const cxFrames *fs = GetFrames("Mage");
     //获取法师的动作列表
     const cxActionGroup *ag = GetActions("Mage");
-    //获得move动作
-    const cxActionAttr *move = ag->Action("attack");
-    //创建动画
-    cxAnimate *animate = fs->Animate();
-    animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-        
-    };
-    animate->onKey+=[](cxAnimate *pav,cxInt key){
-        CX_LOGGER("%d",key);
-    };
-    animate->SetAction(move, 0);
-    //创建载体
-    cxAtlas *atlas = cxAtlas::Create();
-    atlas->SetSize(cxSize2F(500, 500));
-    atlas->Append(animate);//加入动画
-    Window()->Append(atlas);
+    {
+        //获得move动作
+        const cxActionAttr *move = ag->Action("move");
+        //创建动画
+        cxAnimate *animate = fs->Animate();
+        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+            
+        };
+        animate->onKey+=[](cxAnimate *pav,cxInt key){
+            CX_LOGGER("%d",key);
+        };
+        animate->SetAction(move, 1);
+        //创建载体
+    //    cxAtlas *atlas = cxAtlas::Create();
+        cxTriangles *atlas = cxTriangles::Create();
+    //    atlas->SetFlipX(true);
+        atlas->SetSize(800);
+        atlas->Append(animate);//加入动画
+        Window()->Append(atlas);
+    }
+    
+    {
+        //获得move动作
+        const cxActionAttr *move = ag->Action("move");
+        //创建动画
+        cxAnimate *animate = fs->Animate();
+        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+            
+        };
+        animate->onKey+=[](cxAnimate *pav,cxInt key){
+            CX_LOGGER("%d",key);
+        };
+        animate->SetAction(move, 0);
+        //创建载体
+        //    cxAtlas *atlas = cxAtlas::Create();
+        cxTriangles *atlas = cxTriangles::Create();
+        //    atlas->SetFlipX(true);
+        atlas->SetPosition(cxPoint2F(0, 800));
+        atlas->SetSize(800);
+        atlas->Append(animate);//加入动画
+        Window()->Append(atlas);
+    }
+    
+    {
+        //获得move动作
+        const cxActionAttr *move = ag->Action("move");
+        //创建动画
+        cxAnimate *animate = fs->Animate();
+        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+            
+        };
+        animate->onKey+=[](cxAnimate *pav,cxInt key){
+            CX_LOGGER("%d",key);
+        };
+        animate->SetAction(move, 2);
+        //创建载体
+        //    cxAtlas *atlas = cxAtlas::Create();
+        cxTriangles *atlas = cxTriangles::Create();
+        //    atlas->SetFlipX(true);
+        atlas->SetPosition(cxPoint2F(0, -800));
+        atlas->SetSize(800);
+        atlas->Append(animate);//加入动画
+        Window()->Append(atlas);
+    }
 }
 
 CX_CPP_END

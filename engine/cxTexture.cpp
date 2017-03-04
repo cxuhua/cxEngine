@@ -181,14 +181,13 @@ cxBool cxTexCoord::TrimmedTriangles(cxColor4F &color, cxBox4F &vbox,cxBool flipx
     for(cxInt i=0;i<vts.Size();i++){
         cxPoint2F vv = vts.At(i);
         cxFloat x = (vv.x - cp.x) * xs;
-        cxFloat y = (sourceSize.h - (vv.y - cp.y)) * ys;
+        cxFloat y = (cp.y - vv.y) * ys;
         if(flipx){
             x = -x;
         }
         if(flipy){
             y = -y;
         }
-        y -= sourceSize.h * ys;
         cxRenderF r;
         r.colors = color;
         r.vertices = cxPoint3F(x, y, 0.0f);

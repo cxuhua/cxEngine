@@ -265,7 +265,7 @@ void Game::OnMain()
         //创建载体
     //    cxAtlas *atlas = cxAtlas::Create();
         cxTriangles *atlas = cxTriangles::Create();
-    //    atlas->SetFlipX(true);
+//        atlas->SetFlipX(true);
         atlas->SetSize(800);
         atlas->Append(animate);//加入动画
         Window()->Append(atlas);
@@ -286,7 +286,7 @@ void Game::OnMain()
         //创建载体
         //    cxAtlas *atlas = cxAtlas::Create();
         cxTriangles *atlas = cxTriangles::Create();
-        //    atlas->SetFlipX(true);
+//        atlas->SetFlipY(true);
         atlas->SetPosition(cxPoint2F(0, 800));
         atlas->SetSize(800);
         atlas->Append(animate);//加入动画
@@ -308,7 +308,8 @@ void Game::OnMain()
         //创建载体
         //    cxAtlas *atlas = cxAtlas::Create();
         cxTriangles *atlas = cxTriangles::Create();
-        //    atlas->SetFlipX(true);
+//        atlas->SetFlipX(true);
+//        atlas->SetFlipY(true);
         atlas->SetPosition(cxPoint2F(0, -800));
         atlas->SetSize(800);
         atlas->Append(animate);//加入动画

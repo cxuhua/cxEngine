@@ -207,20 +207,11 @@ cxBox4F cxTexCoord::TrimmedBox(cxBox4F &vbox,cxBool flipx,cxBool flipy)
     cxFloat h = vbox.H();
     cxFloat xs = w / sourceSize.w;
     cxFloat ys = h / sourceSize.h;
-    vbox.l = spriteSourceSize.x - sourceSize.w/2.0f;
-    if(flipx){
-        vbox.l = -vbox.l - spriteSourceSize.w;
-    }
-    vbox.r = vbox.l + spriteSourceSize.w;
-    vbox.t = sourceSize.h/2.0f - spriteSourceSize.y;
-    if(flipy){
-        vbox.t = -vbox.t + spriteSourceSize.h;
-    }
-    vbox.b = vbox.t - spriteSourceSize.h;
-    vbox.l = vbox.l * xs;
-    vbox.r = vbox.r * xs;
-    vbox.t = vbox.t * ys;
-    vbox.b = vbox.b * ys;
+    cxPoint2F cp = cxPoint2F(sourceSize.w * pivot.x, sourceSize.h * pivot.y);
+    vbox.l = (spriteSourceSize.x - cp.x) * xs;
+    vbox.r = (spriteSourceSize.x + spriteSourceSize.w - cp.x) * xs;
+    vbox.t = (cp.y - spriteSourceSize.y) * ys;
+    vbox.b = (cp.y - (spriteSourceSize.y + spriteSourceSize.h)) * ys;
     return vbox;
 }
 

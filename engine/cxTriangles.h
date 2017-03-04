@@ -30,7 +30,6 @@ private:
     cxRenderFArray rs;
     cxIndicesArray is;
     cxStateType type;       //default TriangleFan
-    
     cxFrames *cframes;
     cxInt cidx;
     cxArray *coords;

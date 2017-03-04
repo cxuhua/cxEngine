@@ -1,10 +1,1 @@
-TexturePacker \
---format phaser-json-array  \
---texture-format png \
---size-constraints POT \
---enable-rotation \
---trim-mode Trim \
---opt RGBA8888 \
---data jl.json png
-
 ./TextureTool jl RGBA8888

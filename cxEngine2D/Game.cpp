@@ -263,7 +263,7 @@ void Game::OnMain()
         };
         animate->SetAction(move, 1);
         //创建载体
-    //    cxAtlas *atlas = cxAtlas::Create();
+//        cxAtlas *atlas = cxAtlas::Create();
         cxTriangles *atlas = cxTriangles::Create();
 //        atlas->SetFlipX(true);
         atlas->SetSize(800);
@@ -284,7 +284,7 @@ void Game::OnMain()
         };
         animate->SetAction(move, 0);
         //创建载体
-        //    cxAtlas *atlas = cxAtlas::Create();
+//            cxAtlas *atlas = cxAtlas::Create();
         cxTriangles *atlas = cxTriangles::Create();
 //        atlas->SetFlipY(true);
         atlas->SetPosition(cxPoint2F(0, 800));
@@ -306,7 +306,7 @@ void Game::OnMain()
         };
         animate->SetAction(move, 2);
         //创建载体
-        //    cxAtlas *atlas = cxAtlas::Create();
+//            cxAtlas *atlas = cxAtlas::Create();
         cxTriangles *atlas = cxTriangles::Create();
 //        atlas->SetFlipX(true);
 //        atlas->SetFlipY(true);

@@ -48,24 +48,24 @@ void cxAtlas::SetCoords(const cxArray *acoords,const cxFrameMap *map)
     cxBox4F pixel = Pixel();
     for(cxInt i = 0;i < map->num;i++){
         cxInt idx = map->values[i];
+        cxPoint2F off = map->off[i];
         //get map tex
         cxTexCoord *coord = acoords->At(idx)->To<cxTexCoord>();
         if(coord->IsEmpty()){
             continue;
         }
         //trimmed box
-        cxBoxPoint3F bp = coord->TrimmedBox(box, fx, fy);
-        if(bp.Size().IsZero()){
+        if(!coord->TrimmedBox(box, pixel, off, fx, fy)){
+            continue;
+        }
+        if(!OnCoord(idx, coord)){
             continue;
         }
         //add render
         cxBoxRender &render = renders.Inc();
-        render.SetVertices(bp);
+        render.SetVertices(coord->box);
         render.MulColor(BoxColor());
-        //get coord box
-        const cxBoxCoord2F &tbox = coord->BoxCoord(pixel, fx, fy);
-        render.SetCoords(tbox);
-        // save current render texture coord
+        render.SetCoords(coord->coord);
         coords->Append(coord);
     }
 }
@@ -194,6 +194,7 @@ cxAtlas *cxAtlas::Clear()
 {
     cidx = -1;
     renders.Clear();
+    coords->Clear();
     return this;
 }
 

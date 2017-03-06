@@ -169,7 +169,7 @@ const cxBool cxTexCoord::IsEmpty() const
     return bx && by && bw && bh;
 }
 
-cxBool cxTexCoord::TrimmedTriangles(cxColor4F &color, cxBox4F &vbox,cxBool flipx,cxBool flipy)
+cxBool cxTexCoord::TrimmedTriangles(const cxColor4F &color, const cxBox4F &vbox, cxPoint2F off, cxBool flipx,cxBool flipy)
 {
     cxFloat w = vbox.W();
     cxFloat h = vbox.H();
@@ -190,7 +190,7 @@ cxBool cxTexCoord::TrimmedTriangles(cxColor4F &color, cxBox4F &vbox,cxBool flipx
         }
         cxRenderF r;
         r.colors = color;
-        r.vertices = cxPoint3F(x, y, 0.0f);
+        r.vertices = cxPoint3F(x + off.x, y + off.y, 0.0f);
         cxPoint2F cv = uvs.At(i);
         r.coords = cxCoord2F(cv.x/tsiz.w, cv.y/tsiz.h);
         rts.Append(r);
@@ -198,21 +198,27 @@ cxBool cxTexCoord::TrimmedTriangles(cxColor4F &color, cxBox4F &vbox,cxBool flipx
     return rts.Size() > 0;
 }
 
-cxBox4F cxTexCoord::TrimmedBox(cxBox4F &vbox,cxBool flipx,cxBool flipy)
+cxBool cxTexCoord::TrimmedBox(const cxBox4F &vbox, const cxBox4F &pixel, cxPoint2F off, cxBool flipx,cxBool flipy)
 {
+    box = vbox;
     if(!trimmed){
-        return vbox;
+        return true;
     }
     cxFloat w = vbox.W();
     cxFloat h = vbox.H();
     cxFloat xs = w / sourceSize.w;
     cxFloat ys = h / sourceSize.h;
     cxPoint2F cp = cxPoint2F(sourceSize.w * pivot.x, sourceSize.h * pivot.y);
-    vbox.l = (spriteSourceSize.x - cp.x) * xs;
-    vbox.r = (spriteSourceSize.x + spriteSourceSize.w - cp.x) * xs;
-    vbox.t = (cp.y - spriteSourceSize.y) * ys;
-    vbox.b = (cp.y - (spriteSourceSize.y + spriteSourceSize.h)) * ys;
-    return vbox;
+    cxBox4F tmp;
+    tmp.l = (spriteSourceSize.x - cp.x) * xs;
+    tmp.r = (spriteSourceSize.x + spriteSourceSize.w - cp.x) * xs;
+    tmp.t = (cp.y - spriteSourceSize.y) * ys;
+    tmp.b = (cp.y - (spriteSourceSize.y + spriteSourceSize.h)) * ys;
+    box = tmp + off;
+    if(box.Size().IsZero()){
+        return false;
+    }
+    return TrimmedCoord(pixel, flipx, flipy);
 }
 
 const cxBoxCoord2F &cxTexCoord::FlipCoord(const cxBoxCoord2F &ov,cxBool flipx,cxBool flipy)
@@ -230,10 +236,11 @@ const cxBoxCoord2F &cxTexCoord::FlipCoord(const cxBoxCoord2F &ov,cxBool flipx,cx
     return coord;
 }
 
-const cxBoxCoord2F &cxTexCoord::BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy)
+cxBool cxTexCoord::TrimmedCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy)
 {
     if(texture == nullptr){
-        return FlipCoord(cxBoxCoord2F::Default, flipx, flipy);
+        coord = FlipCoord(cxBoxCoord2F::Default, flipx, flipy);
+        return true;
     }
     cxSize2F size = texture->Size();
     if(rotated){
@@ -259,7 +266,7 @@ const cxBoxCoord2F &cxTexCoord::BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBoo
         coord.rt = cxCoord2F(r,t);
         coord.lt = cxCoord2F(l,t);
     }
-    return coord;
+    return true;
 }
 
 CX_IMPLEMENT(cxTexture);

@@ -21,13 +21,14 @@ void cxCircle::OnDirty()
     cxTriangles::OnDirty();
     cxRenderFArray &rs = Renders();
     rs.Clear();
-    
-    cxBoxCoord2F tbox = TexCoord()->BoxCoord(Pixel(), FlipX(), FlipY());
-    
-    cxFloat tw = tbox.rb.u - tbox.lb.u;
-    cxFloat th = tbox.rb.v - tbox.rt.v;
-    cxFloat tx = tbox.lt.u;
-    cxFloat ty = tbox.lt.v;
+    cxTexCoord *coord = TexCoord();
+    if(!coord->TrimmedCoord(Pixel(), FlipX(), FlipY())){
+        return;
+    }
+    cxFloat tw = coord->coord.rb.u - coord->coord.lb.u;
+    cxFloat th = coord->coord.rb.v - coord->coord.rt.v;
+    cxFloat tx = coord->coord.lt.u;
+    cxFloat ty = coord->coord.lt.v;
     cxFloat cu = tx + tw / 2.0f;
     cxFloat cv = ty + th / 2.0f;
     

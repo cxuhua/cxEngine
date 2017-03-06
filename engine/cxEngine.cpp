@@ -138,16 +138,14 @@ cxTexture *cxEngine::LoadTexture(cchars file,cchars key)
         return ptex;
     }
     ptex = cxTexture::Create()->From(key);
-    if(ptex == nullptr || !ptex->IsSuccess()){
-        CX_ASSERT(false, "load texture failed,file=%s",file);
-    }
+    CX_ASSERT(ptex != nullptr && ptex->IsSuccess(), "load texture failed,file=%s",file);
     ptex->gcSet<cxTexture>(key);
     return ptex;
 }
 
 void cxEngine::LoadFrames(cchars csv)
 {
-    cxFrames::Load(frames, csv,[this](cchars file) -> cxTexture * {
+    cxFrames::Load(frames, csv, [this](cchars file) -> cxTexture * {
         return LoadTexture(file);
     });
 }

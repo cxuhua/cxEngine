@@ -77,6 +77,8 @@ public:
     void Init(cxInt n);
     void Append(const cxIndicesArray &v);
     void Append(const cxUInt16 &v);
+    void Append(const cxIndicesArray &v,cxInt start);
+    void Append(const cxUInt16 &v,cxInt start);
     
     void Remove(cxInt idx);
     void Remove(cxInt idx,cxInt n);

@@ -32,6 +32,7 @@ cxTriangles *cxTriangles::Clear()
     cidx = -1;
     rs.Clear();
     is.Clear();
+    coords->Clear();
     return this;
 }
 
@@ -65,7 +66,6 @@ cxTriangles *cxTriangles::SetFrames(const cxFrames *frames,cxInt idx)
     return this;
 }
 
-
 void cxTriangles::SetCoords(const cxArray *acoords,const cxFrameMap *map)
 {
     CX_ASSERT(acoords != nullptr && map != nullptr, "coords or map args error");
@@ -79,16 +79,19 @@ void cxTriangles::SetCoords(const cxArray *acoords,const cxFrameMap *map)
     cxColor4F color = Color();
     for(cxInt i = 0;i < map->num;i++){
         cxInt idx = map->values[i];
+        cxPoint2F off = map->off[i];
         cxTexCoord *coord = acoords->At(idx)->To<cxTexCoord>();
         if(coord->IsEmpty()){
             continue;
         }
-        if(!coord->TrimmedTriangles(color , box, fx, fy)){
+        if(!coord->TrimmedTriangles(color , box, off, fx, fy)){
+            continue;
+        }
+        if(!OnCoord(idx, coord)){
             continue;
         }
         rs.Append(coord->rts);
-        is.Append(coord->ats);
-        // save current render texture coord
+        is.Append(coord->ats,is.Size());
         coords->Append(coord);
     }
 }

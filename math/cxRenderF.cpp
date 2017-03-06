@@ -218,10 +218,27 @@ void cxIndicesArray::Append(const cxUInt16 &v)
     number ++;
 }
 
+void cxIndicesArray::Append(const cxUInt16 &v,cxInt start)
+{
+    if(size() > number){
+        At(number) = v + start;
+    }else{
+        push_back(v + start);
+    }
+    number ++;
+}
+
 void cxIndicesArray::Append(const cxIndicesArray &v)
 {
     for(cxInt i=0;i<v.Size();i++){
         Append(v.At(i));
+    }
+}
+
+void cxIndicesArray::Append(const cxIndicesArray &v,cxInt start)
+{
+    for(cxInt i=0;i<v.Size();i++){
+        Append(v.At(i),start);
     }
 }
 

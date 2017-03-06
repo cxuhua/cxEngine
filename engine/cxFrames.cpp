@@ -176,12 +176,63 @@ void cxFrames::SetMaps(const cxStr *str)
     SetMaps(str->ToString());
 }
 
+cxPoint2F cxFrames::parseMapItemOff(cchars buf){
+    cxInt idx = -1;
+    cxInt len = strlen(buf);
+    for(cxInt i=0;i < len; i++){
+        if(buf[i] == ':'){
+            idx = i;
+            break;
+        }
+    }
+    if(idx < 0){
+        return cxPoint2F(atof(buf));
+    }
+    char xs[8]={0};
+    char ys[8]={0};
+    memcpy(xs, buf, idx);
+    memcpy(ys, buf + idx + 1, len - idx -1);
+    return cxPoint2F(atof(xs), atof(ys));
+}
+
+void cxFrames::parseMapItem(cchars buf)
+{
+    cxInt len = strlen(buf);
+    cxInt li = -1;
+    cxInt ri = -1;
+    for(cxInt i=0;i < len; i++){
+        if(buf[i] == '['){
+            li = i;
+        }
+        if(buf[i] == ']'){
+            ri = i;
+        }
+    }
+    if(li < 0 && ri < 0){
+        map.values[map.num++] = atoi(buf);
+        return;
+    }
+    if(li >= 0 && ri >= 0){
+        cxInt num = map.num;
+        char offs[32]={0};
+        memcpy(offs, buf + li + 1, ri - li - 1);
+        map.off[num] = parseMapItemOff(offs);
+        char idxs[8]={0};
+        memcpy(idxs, buf, li);
+        map.values[num] = atoi(idxs);
+        map.num ++;
+        return;
+    }
+    CX_ASSERT(false, "map item format error");
+}
+
+// 0[0(x):0(y)],1[0] idx[层偏移]
 void cxFrames::SetMaps(cchars maps)
 {
     if(!cxStr::IsOK(maps)){
         return;
     }
-    char buffers[MAX_LAYER_SIZE]={0};
+    char buffers[64]={0};
     cxInt len = (cxInt)strlen(maps);
     cxInt b = 0;
     map.num = 0;
@@ -189,13 +240,13 @@ void cxFrames::SetMaps(cchars maps)
         if(maps[i] != ',')continue;
         memcpy(buffers, maps + b, i-b);
         buffers[i - b] = 0;
-        map.values[map.num++] = atoi(buffers);
-        b = i+1;
+        parseMapItem(buffers);
+        b = i + 1;
     }
     if(len > b){
-        memcpy(buffers, maps + b, len-b);
+        memcpy(buffers, maps + b, len - b);
         buffers[len - b] = 0;
-        map.values[map.num++] = atoi(buffers);
+        parseMapItem(buffers);
     }
 }
 

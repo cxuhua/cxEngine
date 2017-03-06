@@ -32,9 +32,9 @@ protected:
     virtual ~cxTexCoord();
 private:
     cxTexture *texture;
-    cxBoxCoord2F coord;
     void initTriangles(const cxJson *avts,const cxJson *auvs,const cxJson *aats);
 public:
+    //atrs
     cxBool rotated;
     cxBool trimmed;
     cxRect4F frame;
@@ -43,6 +43,9 @@ public:
     cxPoint2F pivot;
     //renders
     cxRenderFArray rts;
+    //box
+    cxBoxPoint3F box;
+    cxBoxCoord2F coord;
     //vertices
     cxPoint2FArray vts;
     //verticesUV
@@ -57,9 +60,9 @@ public:
     const cxSize2F FrameSize() const;
     const cxBool IsEmpty() const;
     const cxSize2F &Size() const;
-    cxBox4F TrimmedBox(cxBox4F &vbox,cxBool flipx,cxBool flipy);
-    cxBool TrimmedTriangles(cxColor4F &color,cxBox4F &vbox,cxBool flipx,cxBool flipy);
-    const cxBoxCoord2F &BoxCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy);
+    cxBool TrimmedBox(const cxBox4F &vbox, const cxBox4F &pixel, cxPoint2F off, cxBool flipx,cxBool flipy);
+    cxBool TrimmedTriangles(const cxColor4F &color,const cxBox4F &vbox, cxPoint2F off, cxBool flipx,cxBool flipy);
+    cxBool TrimmedCoord(const cxBox4F &pixel,cxBool flipx,cxBool flipy);
     const cxBoxCoord2F &FlipCoord(const cxBoxCoord2F &ov,cxBool flipx,cxBool flipy);
 };
 

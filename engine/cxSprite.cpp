@@ -32,10 +32,9 @@ cxSprite::~cxSprite()
 void cxSprite::OnDirty()
 {
     if(IsDirtyMode(DirtyModeSize|DirtyModeTexture)){
-        cxBox4F bv = BoxPoint().ToBox4F();
-        cxBoxPoint3F bp = coord->TrimmedBox(bv, flipx, flipy);
-        box.SetVertices(bp);
-        box.SetCoords(BoxCoord());
+        coord->TrimmedBox(Box(), pixel, cxPoint2F(0.0), flipx, flipy);
+        box.SetVertices(coord->box);
+        box.SetCoords(coord->coord);
     }
     if(IsDirtyMode(DirtyModeColor)) {
         box.MulColor(BoxColor());
@@ -149,12 +148,18 @@ cxTexCoord *cxSprite::TexCoord() const
 
 const cxBoxCoord2F &cxSprite::BoxCoord() const
 {
-    return coord->BoxCoord(pixel, flipx, flipy);
+    coord->TrimmedCoord(pixel, flipx, flipy);
+    return coord->coord;
 }
 
 cxTexture *cxSprite::Texture() const
 {
     return texture;
+}
+
+cxBool cxSprite::OnCoord(cxInt idx, cxTexCoord *coord)
+{
+    return true;
 }
 
 void cxSprite::SetCoords(const cxArray *acoords,const cxFrameMap *map)

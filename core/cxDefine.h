@@ -97,6 +97,8 @@
 
 CX_C_BEGIN
 
+#define PCRE2_CODE_UNIT_WIDTH   8
+#include <pcre/pcre.h>
 #include <ext/xxhash.h>
 #include <ext/atomic.h>
 
@@ -157,7 +159,7 @@ typedef unsigned char   cxByte;
 #define CX_LOGGER(format,...)           cxUtilInfo(__FILE__,__LINE__,format, ##__VA_ARGS__)
 #define CX_ASSERT(cond,format,...)                              \
 do{                                                             \
-    cxBool _ret_= (cond);                                       \
+    cxBool _ret_=(cond);                                        \
     if(!_ret_)                                                  \
     cxUtilAssert(__FILE__,__LINE__,format, ##__VA_ARGS__);      \
     assert(_ret_);                                              \
@@ -212,12 +214,6 @@ do{                                                             \
 #define CX_CPP_BEGIN                    namespace cxengine {
 #define CX_CPP_END                      }
 
-CX_C_BEGIN
-
-#include <ext/xxhash.h>
-#include <ext/atomic.h>
-
-CX_C_END
 
 #define CX_DECLARE(T)                                               \
 static CX_INLINE T *Alloc()                                         \

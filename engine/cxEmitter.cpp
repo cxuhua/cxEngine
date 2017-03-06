@@ -471,7 +471,10 @@ void cxEmitter::OnBoxRender(cxEmitterUnit *unit,cxBoxRender &box)
     cxTexCoord *coord = ptex->At(key);
     CX_ASSERT(coord != nullptr, "texuture key %s miss",key->ToString());
     unit->idx = idx;
-    box.SetCoords(coord->BoxCoord(Pixel(), FlipX(), FlipY()));
+    if(!coord->TrimmedCoord(Pixel(), FlipX(), FlipY())){
+        return;
+    }
+    box.SetCoords(coord->coord);
 }
 
 CX_IMPLEMENT(cxEmitterXml);

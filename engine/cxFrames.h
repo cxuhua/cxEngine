@@ -16,8 +16,8 @@
 
 CX_CPP_BEGIN
 
-// 最大层数 0-7
-#define MAX_LAYER_SIZE          8
+// 最大层数 0-9
+#define MAX_LAYER_SIZE          10
 
 // 每组最大帧数 0-99
 #define MAX_GROUP_FRAME_SIZE    100
@@ -28,6 +28,7 @@ CX_CPP_BEGIN
 struct cxFrameMap
 {
     cxInt num;
+    cxPoint2F off[MAX_LAYER_SIZE];  //layer offset
     cxInt values[MAX_LAYER_SIZE];
 };
 
@@ -58,6 +59,8 @@ private:
 private:
     cxTexCoord *layerEnd(cxInt group,cxInt count,cxInt layer);
     void loadlayers(cxArray *layers,cxInt c,cxInt g);
+    void parseMapItem(cchars buf);
+    cxPoint2F parseMapItemOff(cchars buf);
 public:
     cxBool Init();
     //混合方式

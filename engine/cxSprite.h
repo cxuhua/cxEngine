@@ -37,6 +37,7 @@ public:
     virtual void SetTexture(const cxTexture *ptex);
     virtual void SetCoords(const cxArray *acoords,const cxFrameMap *map);
     virtual cxTexCoord *TexCoord() const;
+    virtual cxBool OnCoord(cxInt idx, cxTexCoord *coord);
 public:
     
     static cxSprite *Create(cchars fkey,...);

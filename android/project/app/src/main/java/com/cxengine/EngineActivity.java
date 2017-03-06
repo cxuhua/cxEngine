@@ -28,6 +28,7 @@ public class EngineActivity extends NativeActivity {
 	public String NewUUID() {
 		UUID uuid = UUID.randomUUID();
 		return uuid.toString();
+
 	}
 
 	//退出程序
@@ -51,15 +52,15 @@ public class EngineActivity extends NativeActivity {
 	private byte[] getPixels(Bitmap pBitmap) {
 		int width = pBitmap.getWidth();
 		int height = pBitmap.getHeight();
-		int isize = width * height * 4;
+		int size = width * height * 4;
 		byte[] wb = packInt(width);
 		byte[] hb = packInt(height);
-		byte[] pixels = new byte[isize + 8];
+		byte[] pixels = new byte[size + 8];
 		ByteBuffer buf = ByteBuffer.wrap(pixels);
 		buf.order(ByteOrder.nativeOrder());
 		pBitmap.copyPixelsToBuffer(buf);
-		System.arraycopy(wb, 0, pixels, isize, 4);
-		System.arraycopy(hb, 0, pixels, isize + 4, 4);
+		System.arraycopy(wb, 0, pixels, size, 4);
+		System.arraycopy(hb, 0, pixels, size + 4, 4);
 		return pixels;
 	}
 
@@ -149,27 +150,27 @@ public class EngineActivity extends NativeActivity {
 		}
 		int height = 0;
 		int width = 0;
-		int fixwidth = 0;
+		int fwidth = 0;
 		if (paint != null) {
 			int iw = (int) Math.ceil(paint.measureText(pString));
-			if (iw > fixwidth) fixwidth = iw;
+			if (iw > fwidth) fwidth = iw;
 		}
 		if (stroke != null) {
 			int iw = (int) Math.ceil(stroke.measureText(pString));
-			if (iw > fixwidth) fixwidth = iw;
+			if (iw > fwidth) fwidth = iw;
 		}
 		if (fw > 0) {
-			fixwidth = (int) Math.ceil(fw);
+			fwidth = (int) Math.ceil(fw);
 		}
 		StaticLayout strokesl = null;
 		if (stroke != null) {
-			strokesl = new StaticLayout(pString, stroke, fixwidth, textAlign, 1.0f, 0.0f, false);
+			strokesl = new StaticLayout(pString, stroke, fwidth, textAlign, 1.0f, 0.0f, false);
 			if (strokesl.getWidth() > width) width = strokesl.getWidth();
 			if (strokesl.getHeight() > height) height = strokesl.getHeight();
 		}
 		StaticLayout paintsl = null;
 		if (paint != null) {
-			paintsl = new StaticLayout(pString, paint, fixwidth, textAlign, 1.0f, 0.0f, false);
+			paintsl = new StaticLayout(pString, paint, fwidth, textAlign, 1.0f, 0.0f, false);
 			if (paintsl.getWidth() > width) width = paintsl.getWidth();
 			if (paintsl.getHeight() > height) height = paintsl.getHeight();
 		}

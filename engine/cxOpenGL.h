@@ -33,6 +33,33 @@ CX_CPP_BEGIN
 
 typedef uint32_t glUint;
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+struct BlendFunc
+{
+    glUint src;
+    glUint dst;
+    
+    static BlendFunc NONE;
+    static BlendFunc ADDITIVE;
+    static BlendFunc ALPHA;
+    static BlendFunc PREMULTIPLIED_ALPHA;
+    static BlendFunc MULTIPLY;
+    static BlendFunc SCREEN;
+    static BlendFunc MULTIPLICATIVE;
+    static BlendFunc DODGE;
+    
+    static BlendFunc To(cchars name);
+    BlendFunc();
+    const cxByte ID() const;
+    BlendFunc(glUint s,glUint d);
+    cxBool operator==(const BlendFunc &v) const;
+    void Using();
+};
+
+
+
 class cxView;
 class cxShader;
 struct cxBox4F;
@@ -67,7 +94,11 @@ private:
     cxHash *shaders;
     cxMatrixF modelproject;
     cxMatrixF modelview;
+    BlendFunc blend;
 public:
+    
+    void UseBlend(BlendFunc &b);
+    BlendFunc &Blend();
     
     void SetClearColor(const cxColor4F &clear);
     
@@ -100,30 +131,6 @@ public:
     
     static cxOpenGL *Instance();
 };
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-struct BlendFunc
-{
-    glUint src;
-    glUint dst;
-    
-    static BlendFunc NONE;
-    static BlendFunc ADDITIVE;
-    static BlendFunc ALPHA;
-    static BlendFunc PREMULTIPLIED_ALPHA;
-    static BlendFunc MULTIPLY;
-    static BlendFunc SCREEN;
-    static BlendFunc MULTIPLICATIVE;
-    static BlendFunc DODGE;
-    
-    static BlendFunc To(cchars name);
-    BlendFunc();
-    const cxByte ID() const;
-    BlendFunc(glUint s,glUint d);
-    cxBool operator==(const BlendFunc &v) const;
-};
-
 typedef cxByte cxStateType;
 
 struct cxRenderState
@@ -159,8 +166,6 @@ class TDrawable
 protected:
     explicit TDrawable();
     virtual ~TDrawable();
-private:
-    static BlendFunc blend;
 public:
     static void UseBlend(BlendFunc &b);
     static BlendFunc &Blend();

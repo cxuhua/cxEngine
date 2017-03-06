@@ -17,6 +17,7 @@ import android.text.TextPaint;
 import android.text.Layout;
 
 public class EngineActivity extends NativeActivity {
+
 	static {
 		System.loadLibrary("cxEngineAndroid");
 	}

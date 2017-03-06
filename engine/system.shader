@@ -56,8 +56,8 @@ attribute mediump vec4 aColor;
 varying mediump vec4 vColor;
 uniform highp mat4 uMP;
 uniform highp mat4 uMV;
-mat4 mvp = uMP * uMV;
 void main() {
+    mat4 mvp = uMP * uMV;
     gl_Position = mvp * vec4(aPosition,1.0);
     vColor = aColor;
 });

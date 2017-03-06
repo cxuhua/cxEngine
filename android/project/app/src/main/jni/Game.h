@@ -13,6 +13,7 @@
 
 CX_CPP_BEGIN
 
+class cxButton;
 class Game : public cxEngine
 {
 public:
@@ -22,6 +23,8 @@ protected:
     virtual ~Game();
 public:
     void OnMain();
+private:
+    void test();
 };
 
 CX_CPP_END

@@ -100,7 +100,7 @@ cxBool cxDraw::Clip(cxStateType type,const cxBox4F &box)
 
 void cxDraw::Using()
 {
-    TDrawable::UseBlend(state.blend);
+    state.blend.Using();
     state.shader->Using(state.view);
     state.texture->Bind();
 }

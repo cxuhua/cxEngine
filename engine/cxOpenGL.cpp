@@ -48,13 +48,13 @@ void cxOpenGL::Init()
     CX_GL_SUPPORT(GL_OES_packed_depth_stencil);
 
 #if (CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID)
-    //support GL_OES_vertex_array_object
+    // support GL_OES_vertex_array_object
     glGenVertexArrays = (PFNGLGENVERTEXARRAYSOESPROC)eglGetProcAddress("glGenVertexArraysOES");
     glBindVertexArray = (PFNGLBINDVERTEXARRAYOESPROC)eglGetProcAddress("glBindVertexArrayOES");
     glDeleteVertexArrays = (PFNGLDELETEVERTEXARRAYSOESPROC)eglGetProcAddress("glDeleteVertexArraysOES" );
     glIsVertexArray = (PFNGLISVERTEXARRAYOESPROC)eglGetProcAddress ("glIsVertexArrayOES");
     support_GL_OES_vertex_array_object = false;
-    //support GL_OES_mapbuffer
+    // support GL_OES_mapbuffer
     glMapBuffer = (PFNGLMAPBUFFEROESPROC)eglGetProcAddress("glMapBufferOES");
     glUnmapBuffer = (PFNGLUNMAPBUFFEROESPROC)eglGetProcAddress("glUnmapBufferOES");
     glGetBufferPointerv = (PFNGLGETBUFFERPOINTERVOESPROC)eglGetProcAddress("glGetBufferPointervOES");
@@ -69,15 +69,17 @@ void cxOpenGL::Init()
     
     glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &maxVertexTextureUnits);
     CX_LOGGER("GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS: %d",maxVertexTextureUnits);
-    //init system shader
+    // init system shader
     cxShader::Create()->Init(DefaultVSH,DefaultFSH)->gcSet<cxShader>(cxShader::Default);
     cxShader::Create()->Init(GrayVSH,GrayFSH)->gcSet<cxShader>(cxShader::Gray);
     cxColorShader::Create()->Init(ColorVSH,ColorFSH)->gcSet<cxShader>(cxShader::Color);
-    //init system color
+    // init system color
     SetClearColor(cxColor4F::BLACK);
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_SCISSOR_TEST);
     glDisable(GL_STENCIL_TEST);
+    // init blend
+    blend = BlendFunc::NONE;
 }
 
 void cxOpenGL::SetClearColor(const cxColor4F &clear)
@@ -230,6 +232,25 @@ void cxOpenGL::Set3DProject(const cxSize2F &winsiz)
     kmGLMultMatrix(&lookAt);
     kmGLMatrixMode(KM_GL_MODELVIEW);
     kmGLLoadIdentity();
+}
+
+BlendFunc &cxOpenGL::Blend()
+{
+    return blend;
+}
+
+void cxOpenGL::UseBlend(BlendFunc &b)
+{
+    if(b == BlendFunc::NONE){
+        glDisable(GL_BLEND);
+        return;
+    }
+    if(blend == b){
+        return;
+    }
+    blend = b;
+    glEnable(GL_BLEND);
+    glBlendFunc(blend.src, blend.dst);
 }
 
 void cxOpenGL::MatrixMode(kmGLEnum mode)
@@ -554,8 +575,6 @@ BlendFunc BlendFunc::SCREEN                 = BlendFunc(GL_ONE_MINUS_DST_COLOR,G
 BlendFunc BlendFunc::MULTIPLICATIVE         = BlendFunc(GL_DST_COLOR,GL_ONE_MINUS_SRC_ALPHA);
 BlendFunc BlendFunc::DODGE                  = BlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_ONE);
 
-BlendFunc TDrawable::blend = BlendFunc::NONE;
-
 const cxByte BlendFunc::ID() const
 {
     if(*this == BlendFunc::ADDITIVE){
@@ -625,6 +644,11 @@ cxBool BlendFunc::operator==(const BlendFunc &v) const
     return src == v.src && dst == v.dst;
 }
 
+void BlendFunc::Using()
+{
+    cxOpenGL::Instance()->UseBlend(*this);
+}
+
 TDrawable::TDrawable()
 {
     gl = cxOpenGL::Instance();
@@ -633,25 +657,6 @@ TDrawable::TDrawable()
 TDrawable::~TDrawable()
 {
     
-}
-
-BlendFunc &TDrawable::Blend()
-{
-    return blend;
-}
-
-void TDrawable::UseBlend(BlendFunc &b)
-{
-    if(b == BlendFunc::NONE){
-        glDisable(GL_BLEND);
-        return;
-    }
-    if(blend == b){
-        return;
-    }
-    blend = b;
-    glEnable(GL_BLEND);
-    glBlendFunc(blend.src, blend.dst);
 }
 
 void TDrawable::DrawBoxShape(const cxBoxPoint3F &vs,const cxBoxColor4F &cs)

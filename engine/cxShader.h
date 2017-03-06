@@ -57,6 +57,7 @@ protected:
 private:
     glUint CompileVSHShader(cchars source);
     glUint CompileFSHShader(cchars source);
+    glUint CompileShader(GLenum type,cchars source);
 public:
     
     void BindAttrib(glUint idx,cchars name);

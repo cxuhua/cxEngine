@@ -326,36 +326,21 @@ const glUint cxShader::GetUniform(cchars name) const
 
 glUint cxShader::CompileVSHShader(cchars source)
 {
-    CX_ASSERT(cxStr::IsOK(source), "source error");
-    GLint status = 0;
-    CX_ASSERT(source != NULL,"shader sources NULL");
-    const GLchar *sources[] = {source};
-    glUint shader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(shader, sizeof(sources)/sizeof(*sources), sources, NULL);
-    glCompileShader(shader);
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-    if(status == GL_FALSE){
-        GLsizei length = 0;
-        glGetShaderiv(shader, GL_SHADER_SOURCE_LENGTH, &length);
-        GLchar* src = (GLchar *)malloc(sizeof(GLchar) * length);
-        glGetShaderSource(shader, length, NULL, src);
-        CX_ERROR("Failed to compile shader:%s\n", src);
-        char *log = cxShaderGetLog(shader);
-        CX_ERROR("compile shader error:%s",log);
-        free(log);
-        free(src);
-        abort();
-    }
-    return shader;
+    return CompileShader(GL_VERTEX_SHADER, source);
 }
 
 glUint cxShader::CompileFSHShader(cchars source)
+{
+    return CompileShader(GL_FRAGMENT_SHADER, source);
+}
+
+glUint cxShader::CompileShader(GLenum type,cchars source)
 {
     CX_ASSERT(cxStr::IsOK(source), "source error");
     GLint status = 0;
     CX_ASSERT(source != NULL,"shader sources NULL");
     const GLchar *sources[] = {source};
-    glUint shader = glCreateShader(GL_FRAGMENT_SHADER);
+    glUint shader = glCreateShader(type);
     glShaderSource(shader, sizeof(sources)/sizeof(*sources), sources, NULL);
     glCompileShader(shader);
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status);

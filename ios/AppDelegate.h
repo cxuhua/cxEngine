@@ -19,7 +19,7 @@
 
 @property(retain,nonatomic)UIWindow *window;
 
--(void)InitOK;
+-(void)OnLoad;
 
 -(EAGLContext *)GLContext;
 

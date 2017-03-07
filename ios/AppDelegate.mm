@@ -45,7 +45,7 @@ using namespace cxengine;
     }
 }
 
--(void)InitOK
+-(void)OnLoad
 {
     
 }

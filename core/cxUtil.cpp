@@ -26,7 +26,7 @@ cxUtil *cxUtil::instance = nullptr;
 
 cxUtil::cxUtil()
 {
-    
+    SetRandSeed();
 }
 
 cxUtil::~cxUtil()

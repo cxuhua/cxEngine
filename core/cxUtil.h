@@ -29,9 +29,9 @@ private:
     const cxStr *ReadFileData(const cxStr *path);
 public:
     static void SetRandSeed();
-    //-1 <---> +1
+    //-1 <---> +1 随机数
     static cxFloat Rand();
-    //
+    //随机数
     static cxInt Rand(cxInt min,cxInt max);
     //当前时间
     static cxDouble Timestamp();

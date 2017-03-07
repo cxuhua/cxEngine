@@ -86,7 +86,7 @@ using namespace cxengine;
     self.view = glview;
     [glview release];
     
-    [self.view setMultipleTouchEnabled:YES];
+    self.view.multipleTouchEnabled = YES;
     self.delegate = self;
     self.preferredFramesPerSecond = 60;
 
@@ -103,7 +103,7 @@ using namespace cxengine;
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderBuffer);
     
     IOSDelegate *app = (IOSDelegate *)[[UIApplication sharedApplication] delegate];
-    [app InitOK];
+    [app OnLoad];
 }
 
 - (void)viewDidUnload

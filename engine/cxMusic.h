@@ -25,6 +25,7 @@ protected:
     void OnInit();
     void OnExit();
     void OnStep(cxFloat dt);
+    void OnReset();
 private:
     cxALSource *source;
 public:

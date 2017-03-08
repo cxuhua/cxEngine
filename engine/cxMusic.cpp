@@ -31,6 +31,12 @@ void cxMusic::OnInit()
     cxAction::OnInit();
 }
 
+void cxMusic::OnReset()
+{
+    source->Reset();
+    cxAction::OnReset();
+}
+
 void cxMusic::OnExit()
 {
     source->Stop();

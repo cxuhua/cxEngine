@@ -25,6 +25,8 @@ class cxAction : public cxObject
     friend cxView;
 public:
     CX_DECLARE(cxAction);
+public:
+    const static cxInt MAX_REPEAT = INT32_MAX;
 protected:
     explicit cxAction();
     virtual ~cxAction();

@@ -17,7 +17,7 @@
 
 CX_CPP_BEGIN
 
-#define MAX_BUFFER  16
+#define MAX_BUFFER  64
 
 class cxALBuffer : public cxObject
 {
@@ -69,6 +69,7 @@ private:
 
     cxBool newformat();
     cxBool isopen;
+    cxBool isfinished;
 public:
     cxBool IsOpen();
     cxBool Open();
@@ -76,6 +77,7 @@ public:
     void Close();
     cxBool NextALBuffer(ALuint b);
     cxBool Init(const cxStr *data);
+    cxBool IsFinished();
 };
 
 class cxALSource : public cxObject
@@ -95,6 +97,7 @@ public:
     virtual cxBool Init(cxALBuffer *ab);
     virtual void Play();
     virtual void Stop();
+    virtual void Reset();
     void SetGain(cxFloat v);
     void SetPitch(cxFloat v);
     void SetPosition(const cxPoint3F &v);
@@ -119,6 +122,7 @@ public:
     cxBool Init(cxALBuffer *ab);
     void Play();
     void Stop();
+    void Reset();
     void Update(cxFloat dt);
 };
 

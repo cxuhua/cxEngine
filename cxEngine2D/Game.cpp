@@ -77,6 +77,11 @@ void Game::test()
 void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
+    
+    cxMusic *m = cxMusic::Create("test.mp3");
+    m->SetRepeat(cxAction::MAX_REPEAT);
+    m->AttachTo(Window());
+    return;
 //    test();
 
 //    LoadTexture("bg.jpg");

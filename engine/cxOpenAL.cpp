@@ -60,6 +60,7 @@ CX_IMPLEMENT(cxMP3Buffer)
 
 cxMP3Buffer::cxMP3Buffer()
 {
+    isfinished = false;
     isopen = false;
     duration = INT_MAX;
     mp3data = nullptr;
@@ -124,6 +125,7 @@ cxInt cxMP3Buffer::mp3Seek(cxInt off,cxInt where)
 
 void cxMP3Buffer::mp3Clear()
 {
+    isfinished = false;
     mp3position = 0;
 }
 
@@ -155,7 +157,7 @@ cxBool cxMP3Buffer::newformat()
 
 cxBool cxMP3Buffer::Open()
 {
-    mp3position = 0;
+    mp3Clear();
     mp3hand = mpg123_new(nullptr, nullptr);
     CX_ASSERT(mp3hand != nullptr, "mpg123 new error");
     mpg123_replace_reader_handle(mp3hand, mp3read, mp3seek, mp3cleanup);
@@ -198,6 +200,11 @@ cxBool cxMP3Buffer::IsOpen()
     return isopen;
 }
 
+cxBool cxMP3Buffer::IsFinished()
+{
+    return isfinished;
+}
+
 cxBool cxMP3Buffer::NextALBuffer(ALuint idx)
 {
     size_t bytes = 0;
@@ -207,6 +214,9 @@ cxBool cxMP3Buffer::NextALBuffer(ALuint idx)
     if(ret == MPG123_NEW_FORMAT){
         newformat();
         ret = mpg123_decode_frame(mp3hand, &framenum, (unsigned char **)&buf, (size_t *)&bytes);
+    }
+    if(ret == MPG123_DONE){
+        isfinished = true;
     }
     if(ret != MPG123_OK){
         return false;
@@ -257,6 +267,13 @@ void cxMP3Source::Play()
     }
 }
 
+void cxMP3Source::Reset()
+{
+    cxMP3Buffer *mb = Buffer()->To<cxMP3Buffer>();
+    mb->Reset();
+    alSourceStop(handle);
+}
+
 void cxMP3Source::Stop()
 {
     cxMP3Buffer *mb = Buffer()->To<cxMP3Buffer>();
@@ -291,18 +308,24 @@ void cxMP3Source::Update(cxFloat dt)
     cxMP3Buffer *mb = Buffer()->To<cxMP3Buffer>();
     ALint processed = 0;
     alGetSourceiv(handle, AL_BUFFERS_PROCESSED, &processed);
+    alClearError();
     while(processed > 0){
-        ALuint b;
+        ALuint b = 0;
         alSourceUnqueueBuffers(handle, 1, &b);
+        if(alGetError() != AL_NO_ERROR){
+            continue;
+        }
+        if(b == 0){
+            continue;
+        }
         if(mb->NextALBuffer(b)){
             alSourceQueueBuffers(handle, 1, &b);
+            alClearError();
         }
         processed--;
     }
-    ALint queued = 0;
-    alGetSourceiv(handle, AL_BUFFERS_QUEUED, &queued);
-    if(queued == 0){
-        mb->Close();
+    if(processed == 0 && mb->IsFinished()){
+        Stop();
     }
 }
 
@@ -482,10 +505,14 @@ cxALBuffer *cxALSource::Buffer()
 
 void cxALSource::Play()
 {
+    alSourcePlay(handle);
+}
+
+void cxALSource::Reset()
+{
     if(IsPlaying()){
         Stop();
     }
-    alSourcePlay(handle);
 }
 
 void cxALSource::Stop()

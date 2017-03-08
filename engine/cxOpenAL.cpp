@@ -324,9 +324,6 @@ void cxMP3Source::Update(cxFloat dt)
         }
         processed--;
     }
-    if(processed == 0 && mb->IsFinished()){
-        Stop();
-    }
 }
 
 CX_IMPLEMENT(cxALBuffer);

@@ -78,7 +78,7 @@ void Game::OnMain()
 {
     SetPlanSize(cxSize2F(2048, 1536));
     
-    cxMusic *m = cxMusic::Create("test.mp3");
+    cxMusic *m = cxMusic::Create("battle_lost_02.mp3");
     m->SetRepeat(cxAction::MAX_REPEAT);
     m->AttachTo(Window());
     return;

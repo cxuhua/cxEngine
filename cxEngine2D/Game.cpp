@@ -76,16 +76,6 @@ void Game::test()
 
 void Game::OnMain()
 {
-    
-    cxPoint2IArray s;
-    s.Append(cxPoint2I(0, 0));
-    s.Append(cxPoint2I(1, 1));
-    s.Append(cxPoint2I(2, 2));
-    s.Append(cxPoint2I(5, 3));
-//    s.Append(cxPoint2I(3, 3));
-    cxPoint2IArray ret = s.Combine();
-    SetPlanSize(cxSize2F(2048, 1536));
-    
     cxMusic *m = cxMusic::Create("battle_lost_02.mp3");
     m->SetRepeat(cxAction::MAX_REPEAT);
     m->AttachTo(Window());

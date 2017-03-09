@@ -589,7 +589,7 @@ cxALSource *cxOpenAL::Source(const cxStr *data,cxALBuffer::DataType type)
     return cxALSource::Create(data, type);
 }
 
-cxALSource *cxOpenAL::Source(cchars key,cchars file)
+cxALSource *cxOpenAL::Source(cchars file,cchars key)
 {
     cxALSource *s = Source(key);
     if(s != nullptr){

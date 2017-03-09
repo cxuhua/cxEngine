@@ -29,7 +29,7 @@ protected:
 private:
     cxALSource *source;
 public:
-    static cxMusic *Create(cchars file);
+    static cxMusic *Create(cchars file,cchars key=nullptr);
     static cxMusic *Create(const cxStr *data,cxALBuffer::DataType type);
 };
 

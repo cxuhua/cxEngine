@@ -61,10 +61,13 @@ cxMusic *cxMusic::Create(const cxStr *data,cxALBuffer::DataType type)
     return ret;
 }
 
-cxMusic *cxMusic::Create(cchars file)
+cxMusic *cxMusic::Create(cchars file,cchars key)
 {
+    if(key == nullptr){
+        key = file;
+    }
     cxMusic *ret = cxMusic::Create();
-    cxALSource *source = cxOpenAL::Instance()->Source(file, file);
+    cxALSource *source = cxOpenAL::Instance()->Source(file, key);
     if(source == nullptr){
         return ret;
     }

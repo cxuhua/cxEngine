@@ -63,6 +63,16 @@ const cxPoint2F cxPoint2I::ToFloat(const cxFloat &add) const
     return cxPoint2F(x,y) + add;
 }
 
+const cxFloat cxPoint2I::Angle() const
+{
+    return ToFloat().Angle();
+}
+
+const cxFloat cxPoint2I::Angle(const cxPoint2I &p) const
+{
+    return ToFloat().Angle(p.ToFloat());
+}
+
 const cxPoint2F cxPoint2I::ToFloat() const
 {
     return cxPoint2F(x,y);
@@ -265,51 +275,50 @@ cxPoint2IArray::~cxPoint2IArray()
 
 cxBool floatIsEqu(cxFloat a,cxFloat b,cxFloat equa)
 {
-    if(cxFloatIsINF(a) && cxFloatIsINF(b)){
-        return true;
-    }
-    if(cxFloatIsNAN(a) && cxFloatIsNAN(b)){
-        return true;
-    }
     return fabsf(a - b) < equa;
 }
 
-cxPoint2IArray cxPoint2IArray::Combine(cxFloat equa) const
+cxInt cxPoint2IArray::CombineAngle(cxFloat equa)
 {
     cxInt siz = Size();
     cxPoint2IArray ret;
     if(siz < 3){
-        return *this;
+        return siz;
     }
     cxPoint2I p1 = At(0);
     ret.Append(p1);
     cxPoint2I p2 = At(1);
     for(cxInt i=2; i<siz; i++){
         cxPoint2I p3 = At(i);
-        cxFloat k1 = p1.Slope(p2);
-        cxFloat k2 = p2.Slope(p3);
-        cxBool eq = floatIsEqu(k1, k2, equa);
+        cxFloat a1 = p1.Angle(p2);
+        cxFloat a2 = p2.Angle(p3);
+        cxBool eq = floatIsEqu(a1, a2, equa);
         if(!eq){
             ret.Append(p2);
         }
-        if(i == (siz - 1) && !eq){
-            ret.Append(p3);
-            break;
-        }
-        if(i == (siz - 1) && ret.Size() == 1){
+        if(i == (siz - 1) && (!eq || ret.Size() == 1)){
             ret.Append(p3);
             break;
         }
         p1 = p2;
         p2 = p3;
     }
-    return ret;
+    Clear();
+    Append(ret);
+    return ret.Size();
 }
 
 void cxPoint2IArray::Append(cxInt n)
 {
     for(cxInt i=0;i<n;i++){
         push_back(cxPoint2F());
+    }
+}
+
+void cxPoint2IArray::Append(const cxPoint2IArray &v)
+{
+    for(cxInt i=0; i<v.Size(); i++){
+        Append(v.At(i));
     }
 }
 

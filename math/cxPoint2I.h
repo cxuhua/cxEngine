@@ -41,6 +41,8 @@ struct cxPoint2I
     cxJson *ToJson();
     const cxPoint2F ToFloat() const;
     const cxPoint2F ToFloat(const cxFloat &add) const;
+    const cxFloat Angle() const;
+    const cxFloat Angle(const cxPoint2I &p) const;
     
     cxBool IsZero() const;
     cxFloat Length() const;
@@ -94,6 +96,7 @@ public:
     void Clear();
     void Append(cxInt n);
     void Append(const cxPoint2I &v);
+    void Append(const cxPoint2IArray &v);
     void Remove(cxInt idx);
     void Remove(cxInt idx,cxInt n);
     const cxPoint2I *Buffer()const ;
@@ -101,7 +104,8 @@ public:
     const cxPoint2I &At(cxInt idx) const;
     const cxInt Size() const;
     cxBool IsEmpty() const;
-    cxPoint2IArray Combine(cxFloat equa = cxEqualFloat) const;
+    //combine angle equ point
+    cxInt CombineAngle(cxFloat equa = cxEqualFloat);
 public:
     const cxPoint2I& operator [](cxInt idx) const;
     cxPoint2I& operator [](cxInt idx);

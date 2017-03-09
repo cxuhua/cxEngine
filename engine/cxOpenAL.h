@@ -141,7 +141,7 @@ private:
     cxHash *sources;
 public:
     static cxOpenAL *Instance();
-    cxALSource *Source(cchars key,cchars file);
+    cxALSource *Source(cchars file,cchars key);
     cxALSource *Source(cchars key);
     cxALSource *Source(const cxStr *data,cxALBuffer::DataType type);
 };

@@ -26,7 +26,7 @@ class cxAction : public cxObject
 public:
     CX_DECLARE(cxAction);
 public:
-    const static cxInt MAX_REPEAT = INT32_MAX;
+    const static cxInt MAX_REPEAT = INT_MAX;
 protected:
     explicit cxAction();
     virtual ~cxAction();

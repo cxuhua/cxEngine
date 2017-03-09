@@ -99,7 +99,7 @@ const cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2
     
     jint size = attr.size;
     jint align = attr.align;
-    jint format = attr.format;
+    jint fmt = attr.format;
     //fixwidth
     jfloat fw = attr.fixWidth;
     //font color
@@ -120,7 +120,7 @@ const cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2
     //bold
     jboolean bold = attr.boldFont;
     jsize length = 0;
-    jbyteArray bytes=(jbyteArray)m.CallObjectMethod(app,strText,fontName,bold,size,align,format,fw,tr,tg,tb,ta,sw,sr,sg,sb,sa,sx,sy);
+    jbyteArray bytes=(jbyteArray)m.CallObjectMethod(app,strText,fontName,bold,size,align,fmt,fw,tr,tg,tb,ta,sw,sr,sg,sb,sa,sx,sy);
     if(bytes == nullptr){
         goto finished;
     }
@@ -298,11 +298,11 @@ int cxAndroid::InitSurface()
         return -1;
     }
     if(!eglQuerySurface(display, surface, EGL_WIDTH, &w)){
-        CX_ERROR("eglQuerySurface error");
+        CX_ERROR("eglQuerySurface w error");
         return -1;
     }
     if(!eglQuerySurface(display, surface, EGL_HEIGHT, &h)){
-        CX_ERROR("eglQuerySurface error");
+        CX_ERROR("eglQuerySurface h error");
         return -1;
     }
     width = w;
@@ -312,10 +312,7 @@ int cxAndroid::InitSurface()
 
 void cxAndroid::DrawFrame()
 {
-    if(display == EGL_NO_DISPLAY) {
-        return;
-    }
-    if(surface == EGL_NO_SURFACE){
+    if(display == EGL_NO_DISPLAY || surface == EGL_NO_SURFACE) {
         return;
     }
     cxEngine *engine = cxEngine::Instance();

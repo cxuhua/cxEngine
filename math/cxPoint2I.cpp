@@ -52,6 +52,12 @@ cxJson *cxPoint2I::ToJson()
     return json;
 }
 
+// (y1-y2)/(x1-x2)
+cxFloat cxPoint2I::Slope(const cxPoint2I &p) const
+{
+    return (cxFloat)(y - p.y) / (cxFloat)(x - p.x);
+}
+
 const cxPoint2F cxPoint2I::ToFloat(const cxFloat &add) const
 {
     return cxPoint2F(x,y) + add;
@@ -255,6 +261,49 @@ cxPoint2IArray::cxPoint2IArray()
 cxPoint2IArray::~cxPoint2IArray()
 {
     
+}
+
+cxBool floatIsEqu(cxFloat a,cxFloat b,cxFloat equa)
+{
+    if(cxFloatIsINF(a) && cxFloatIsINF(b)){
+        return true;
+    }
+    if(cxFloatIsNAN(a) && cxFloatIsNAN(b)){
+        return true;
+    }
+    return fabsf(a - b) < equa;
+}
+
+cxPoint2IArray cxPoint2IArray::Combine(cxFloat equa) const
+{
+    cxInt siz = Size();
+    cxPoint2IArray ret;
+    if(siz < 3){
+        return *this;
+    }
+    cxPoint2I p1 = At(0);
+    ret.Append(p1);
+    cxPoint2I p2 = At(1);
+    for(cxInt i=2; i<siz; i++){
+        cxPoint2I p3 = At(i);
+        cxFloat k1 = p1.Slope(p2);
+        cxFloat k2 = p2.Slope(p3);
+        cxBool eq = floatIsEqu(k1, k2, equa);
+        if(!eq){
+            ret.Append(p2);
+        }
+        if(i == (siz - 1) && !eq){
+            ret.Append(p3);
+            break;
+        }
+        if(i == (siz - 1) && ret.Size() == 1){
+            ret.Append(p3);
+            break;
+        }
+        p1 = p2;
+        p2 = p3;
+    }
+    return ret;
 }
 
 void cxPoint2IArray::Append(cxInt n)

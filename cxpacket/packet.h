@@ -17,11 +17,16 @@ void *cx_packet_malloc(size_t size);
 void *cx_packet_realloc(void *ptr,size_t size);
 void cx_packet_free(void *ptr);
 
-typedef struct cx_packet_piece cx_packet_piece;
 struct cx_packet_piece {
     
 };
 
+struct cx_packet_data {
+    
+};
+
 void cx_packet_init();
+
+void cx_packet_destroy();
 
 #endif /* packet_h */

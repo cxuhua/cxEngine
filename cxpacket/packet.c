@@ -27,3 +27,8 @@ void cx_packet_init()
 {
     
 }
+
+void cx_packet_destroy()
+{
+    
+}

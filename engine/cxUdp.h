@@ -15,6 +15,26 @@
 
 CX_CPP_BEGIN
 
+#pragma pack(1)
+#define PACKET_MAX_BYTES    512
+struct cxPacketInfo
+{
+    cxUInt16 len;                       // packet total length
+    cxUInt32 seq;                       // 0->n
+    cxUInt8  opt;                       // option
+    cxByte  data[PACKET_MAX_BYTES];     // max packet bytes
+};
+#pragma pack()
+
+class cxPacket : public cxObject
+{
+public:
+    CX_DECLARE(cxPacket);
+protected:
+    explicit cxPacket();
+    virtual ~cxPacket();
+};
+
 class cxUdp : public cxAction
 {
 public:
@@ -23,13 +43,16 @@ protected:
     explicit cxUdp();
     virtual ~cxUdp();
 private:
+    cxArray *packets;
+    cxInt port;
+    cxStr *host;
     uv_loop_t looper;
     uv_udp_t handle;
     struct addrinfo hints;
 protected:
     void OnStep(cxFloat dt);
 public:
-    cxBool Init(cchars host,cxInt port);
+    cxBool Init(cchars ahost,cxInt aport);
     static cxUdp *Create(cchars host,cxInt port);
 };
 

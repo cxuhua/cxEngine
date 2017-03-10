@@ -1,0 +1,21 @@
+//用户相关服务定义
+
+syntax = "proto3";
+
+package game;
+
+//首页分类显示
+message IndexType {
+	// 分类id
+	int32 tid = 1;
+	// 分类编码
+	string code = 2;
+	// 分类名称
+	string name = 3;
+	// 主图片地址
+	string icon_m = 4;
+	// 选中图地址
+	string icon_s = 5;
+}
+
+

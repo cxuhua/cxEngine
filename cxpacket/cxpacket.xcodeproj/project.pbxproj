@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		835F74A01E7272E000997F14 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F749D1E7272E000997F14 /* main.c */; };
-		835F74A11E7272E000997F14 /* packet.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F749E1E7272E000997F14 /* packet.c */; };
+		835F74A71E728CDD00997F14 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 835F74A61E728CDD00997F14 /* libuv.a */; };
+		835F75501E74053F00997F14 /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F754F1E74053F00997F14 /* xxhash.c */; };
+		835F75551E7405A000997F14 /* packet.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F75511E7405A000997F14 /* packet.c */; };
+		835F75561E7405A000997F14 /* udp.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F75531E7405A000997F14 /* udp.c */; };
+		835F75711E74132B00997F14 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F75701E74132B00997F14 /* md5.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,8 +29,13 @@
 
 /* Begin PBXFileReference section */
 		835F749D1E7272E000997F14 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		835F749E1E7272E000997F14 /* packet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = packet.c; sourceTree = "<group>"; };
-		835F749F1E7272E000997F14 /* packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = packet.h; sourceTree = "<group>"; };
+		835F74A61E728CDD00997F14 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../libs/osx/lib/libuv.a; sourceTree = "<group>"; };
+		835F754F1E74053F00997F14 /* xxhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xxhash.c; path = ../ext/xxhash.c; sourceTree = "<group>"; };
+		835F75511E7405A000997F14 /* packet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = packet.c; path = ../ext/packet.c; sourceTree = "<group>"; };
+		835F75521E7405A000997F14 /* packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = packet.h; path = ../ext/packet.h; sourceTree = "<group>"; };
+		835F75531E7405A000997F14 /* udp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = udp.c; path = ../ext/udp.c; sourceTree = "<group>"; };
+		835F75541E7405A000997F14 /* udp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = udp.h; path = ../ext/udp.h; sourceTree = "<group>"; };
+		835F75701E74132B00997F14 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = md5.c; path = ../ext/md5.c; sourceTree = "<group>"; };
 		83FED4FC1E72713700B39CE9 /* cxpacket */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cxpacket; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -35,19 +44,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				835F74A71E728CDD00997F14 /* libuv.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		835F74A51E728CDC00997F14 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				835F74A61E728CDD00997F14 /* libuv.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		83FED4F31E72713700B39CE9 = {
 			isa = PBXGroup;
 			children = (
+				835F75701E74132B00997F14 /* md5.c */,
+				835F754F1E74053F00997F14 /* xxhash.c */,
 				835F749D1E7272E000997F14 /* main.c */,
-				835F749E1E7272E000997F14 /* packet.c */,
-				835F749F1E7272E000997F14 /* packet.h */,
+				835F75511E7405A000997F14 /* packet.c */,
+				835F75521E7405A000997F14 /* packet.h */,
+				835F75531E7405A000997F14 /* udp.c */,
+				835F75541E7405A000997F14 /* udp.h */,
 				83FED4FD1E72713700B39CE9 /* Products */,
+				835F74A51E728CDC00997F14 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,8 +140,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				835F75501E74053F00997F14 /* xxhash.c in Sources */,
+				835F75711E74132B00997F14 /* md5.c in Sources */,
 				835F74A01E7272E000997F14 /* main.c in Sources */,
-				835F74A11E7272E000997F14 /* packet.c in Sources */,
+				835F75551E7405A000997F14 /* packet.c in Sources */,
+				835F75561E7405A000997F14 /* udp.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +242,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = Q9F35643QK;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"CLIENT=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../",
+					"$(SRCROOT)/../libs/osx/include",
+				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../libs/osx/lib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -224,6 +260,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_TEAM = Q9F35643QK;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../",
+					"$(SRCROOT)/../libs/osx/include",
+				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../libs/osx/lib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

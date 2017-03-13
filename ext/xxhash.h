@@ -75,13 +75,12 @@ typedef enum { XXH_OK=0, XXH_ERROR } XXH_errorcode;
 
 unsigned int XXH32 (const void* input, int len, unsigned int seed);
 
-    //for uthash
-#define HASH_XXH(key,keylen,num_bkts,hashv,bkt) \
-do {                                            \
-    unsigned _hb_keylen=keylen;                 \
-    char *_hb_key=(char*)(key);                 \
-    hashv = XXH32(_hb_key,_hb_keylen,0);        \
-    bkt = (hashv) & (num_bkts-1);               \
+//for uthash
+#define HASH_XXH(key,keylen,hashv)      \
+do {                                    \
+    unsigned _hb_keylen=keylen;         \
+    char *_hb_key=(char*)(key);         \
+    hashv=XXH32(_hb_key,_hb_keylen,0);  \
 } while (0)
     
 #define HASH_FUNCTION   HASH_XXH

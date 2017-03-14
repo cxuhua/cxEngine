@@ -209,7 +209,7 @@ void cxObject::SetTag(cxLong value)
 void cxObject::Retain()
 {
     CX_ASSERT(refcount > 0, "error refcount retain > 0");
-    cxAtomicAddInt32(&refcount, 1);
+    refcount.fetch_add(1);
 }
 
 cxInt cxObject::Refcount() const
@@ -288,8 +288,7 @@ cxObject *cxObject::create(cchars name)
 void cxObject::Release()
 {
     CX_ASSERT(refcount > 0, "error,retain count must > 0");
-    cxAtomicSubInt32(&refcount, 1);
-    if(refcount == 0){
+    if(refcount.fetch_sub(1) == 1){
         delete this;
     }
 }

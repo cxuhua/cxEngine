@@ -53,9 +53,9 @@ cxObject *cxAutoPool::Append(cxObject *object)
     return object;
 }
 
-void cxAutoPool::Start()
+cxAutoPool *cxAutoPool::Start()
 {
-    getTopAutoPool();
+    return getTopAutoPool();
 }
 
 void cxAutoPool::Clear()

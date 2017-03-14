@@ -66,12 +66,6 @@
 		8357CB981B12079D0085E600 /* cxStr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8357CB961B12079D0085E600 /* cxStr.cpp */; };
 		835B40261BEF457700A7A4AC /* cxCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 835B40221BEF457700A7A4AC /* cxCircle.cpp */; };
 		835B40271BEF457700A7A4AC /* cxTriangles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 835B40241BEF457700A7A4AC /* cxTriangles.cpp */; };
-		835F75681E7405D800997F14 /* libut.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F75571E7405D800997F14 /* libut.c */; };
-		835F75691E7405D800997F14 /* packet.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F75591E7405D800997F14 /* packet.c */; };
-		835F756A1E7405D800997F14 /* ringbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F755B1E7405D800997F14 /* ringbuf.c */; };
-		835F756B1E7405D800997F14 /* udp.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F755D1E7405D800997F14 /* udp.c */; };
-		835F756C1E7405D800997F14 /* utmm.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F75621E7405D800997F14 /* utmm.c */; };
-		835F756D1E7405D800997F14 /* utvector.c in Sources */ = {isa = PBXBuildFile; fileRef = 835F75661E7405D800997F14 /* utvector.c */; };
 		83610B051B1CA6F700BD06B1 /* cxPoint2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83610B031B1CA6F700BD06B1 /* cxPoint2F.cpp */; };
 		83610B0A1B1CA8EA00BD06B1 /* cxMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83610B081B1CA8EA00BD06B1 /* cxMath.cpp */; };
 		83610B0D1B1CB68000BD06B1 /* cxPoint2I.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83610B0B1B1CB68000BD06B1 /* cxPoint2I.cpp */; };
@@ -277,23 +271,6 @@
 		835B40231BEF457700A7A4AC /* cxCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxCircle.h; sourceTree = "<group>"; };
 		835B40241BEF457700A7A4AC /* cxTriangles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxTriangles.cpp; sourceTree = "<group>"; };
 		835B40251BEF457700A7A4AC /* cxTriangles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTriangles.h; sourceTree = "<group>"; };
-		835F75571E7405D800997F14 /* libut.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libut.c; sourceTree = "<group>"; };
-		835F75581E7405D800997F14 /* libut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libut.h; sourceTree = "<group>"; };
-		835F75591E7405D800997F14 /* packet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = packet.c; sourceTree = "<group>"; };
-		835F755A1E7405D800997F14 /* packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = packet.h; sourceTree = "<group>"; };
-		835F755B1E7405D800997F14 /* ringbuf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ringbuf.c; sourceTree = "<group>"; };
-		835F755C1E7405D800997F14 /* ringbuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ringbuf.h; sourceTree = "<group>"; };
-		835F755D1E7405D800997F14 /* udp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = udp.c; sourceTree = "<group>"; };
-		835F755E1E7405D800997F14 /* udp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udp.h; sourceTree = "<group>"; };
-		835F755F1E7405D800997F14 /* utarray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utarray.h; sourceTree = "<group>"; };
-		835F75601E7405D800997F14 /* uthash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uthash.h; sourceTree = "<group>"; };
-		835F75611E7405D800997F14 /* utlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utlist.h; sourceTree = "<group>"; };
-		835F75621E7405D800997F14 /* utmm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utmm.c; sourceTree = "<group>"; };
-		835F75631E7405D800997F14 /* utmm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utmm.h; sourceTree = "<group>"; };
-		835F75641E7405D800997F14 /* utringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utringbuffer.h; sourceTree = "<group>"; };
-		835F75651E7405D800997F14 /* utstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utstring.h; sourceTree = "<group>"; };
-		835F75661E7405D800997F14 /* utvector.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utvector.c; sourceTree = "<group>"; };
-		835F75671E7405D800997F14 /* utvector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utvector.h; sourceTree = "<group>"; };
 		83610B031B1CA6F700BD06B1 /* cxPoint2F.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxPoint2F.cpp; sourceTree = "<group>"; };
 		83610B041B1CA6F700BD06B1 /* cxPoint2F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxPoint2F.h; sourceTree = "<group>"; };
 		83610B081B1CA8EA00BD06B1 /* cxMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxMath.cpp; sourceTree = "<group>"; };
@@ -663,23 +640,6 @@
 		83B23B4C1B17E0E9000D770A /* ext */ = {
 			isa = PBXGroup;
 			children = (
-				835F75571E7405D800997F14 /* libut.c */,
-				835F75581E7405D800997F14 /* libut.h */,
-				835F75591E7405D800997F14 /* packet.c */,
-				835F755A1E7405D800997F14 /* packet.h */,
-				835F755B1E7405D800997F14 /* ringbuf.c */,
-				835F755C1E7405D800997F14 /* ringbuf.h */,
-				835F755D1E7405D800997F14 /* udp.c */,
-				835F755E1E7405D800997F14 /* udp.h */,
-				835F755F1E7405D800997F14 /* utarray.h */,
-				835F75601E7405D800997F14 /* uthash.h */,
-				835F75611E7405D800997F14 /* utlist.h */,
-				835F75621E7405D800997F14 /* utmm.c */,
-				835F75631E7405D800997F14 /* utmm.h */,
-				835F75641E7405D800997F14 /* utringbuffer.h */,
-				835F75651E7405D800997F14 /* utstring.h */,
-				835F75661E7405D800997F14 /* utvector.c */,
-				835F75671E7405D800997F14 /* utvector.h */,
 				83D589501DE7D8D9000D035F /* pb_common.c */,
 				83D589511DE7D8D9000D035F /* pb_common.h */,
 				83D589521DE7D8D9000D035F /* pb_decode.c */,
@@ -853,7 +813,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				835F75681E7405D800997F14 /* libut.c in Sources */,
 				83610B0A1B1CA8EA00BD06B1 /* cxMath.cpp in Sources */,
 				836DD10A1B2AAF160094F5EF /* cxTexture.cpp in Sources */,
 				83C9D11B1B47E26100EC244C /* cxTint.cpp in Sources */,
@@ -876,7 +835,6 @@
 				835B40271BEF457700A7A4AC /* cxTriangles.cpp in Sources */,
 				83AABB281B45910F0035A9F0 /* cxTimer.cpp in Sources */,
 				831189CA1B2D728000C930B5 /* aabb3.c in Sources */,
-				835F756A1E7405D800997F14 /* ringbuf.c in Sources */,
 				83610B0D1B1CB68000BD06B1 /* cxPoint2I.cpp in Sources */,
 				836A2F521B1987B7009B427B /* cxUtil.cpp in Sources */,
 				831189D21B2D728000C930B5 /* ray3.c in Sources */,
@@ -918,7 +876,6 @@
 				8338FD7A1B467B2A00C84032 /* http_parser.c in Sources */,
 				835B40261BEF457700A7A4AC /* cxCircle.cpp in Sources */,
 				833043B61B4024AE00636928 /* cxButton.cpp in Sources */,
-				835F756C1E7405D800997F14 /* utmm.c in Sources */,
 				836A2F4A1B19869D009B427B /* LzmaDec.c in Sources */,
 				83D92D391B317E5900F061D6 /* cxRenderF.cpp in Sources */,
 				831B93EF1B4A923200511A63 /* csv.c in Sources */,
@@ -934,7 +891,6 @@
 				83B23B4F1B17E0E9000D770A /* xxhash.c in Sources */,
 				833B40631B31ABD900920A06 /* cxSprite.cpp in Sources */,
 				833043C41B41109600636928 /* cxRotate.cpp in Sources */,
-				835F75691E7405D800997F14 /* packet.c in Sources */,
 				830ECB291B3EF54F002EBE56 /* cxAtlas.cpp in Sources */,
 				83C9D1321B492A2300EC244C /* cxJump.cpp in Sources */,
 				83F7BADA1B42D9E900C644B9 /* cxLabel.cpp in Sources */,
@@ -953,7 +909,6 @@
 				83A943A51B44DC3200F70FBA /* aes_cfb.c in Sources */,
 				831189CE1B2D728000C930B5 /* mat4.c in Sources */,
 				839B8AB91B687DC8009E0CF7 /* cxOpenAL.cpp in Sources */,
-				835F756B1E7405D800997F14 /* udp.c in Sources */,
 				839836CE1B10B3F7002B7C20 /* cxAutoPool.cpp in Sources */,
 				831189CF1B2D728000C930B5 /* plane.c in Sources */,
 				838D1BE41B79905500CA4C8B /* cxAlert.cpp in Sources */,
@@ -966,7 +921,6 @@
 				831189CD1B2D728000C930B5 /* mat3.c in Sources */,
 				8318C8BD1C32BC28002A85CF /* base64.c in Sources */,
 				833043C71B41149000636928 /* cxScale.cpp in Sources */,
-				835F756D1E7405D800997F14 /* utvector.c in Sources */,
 				831189D51B2D728000C930B5 /* vec3.c in Sources */,
 				833043B91B4024E900636928 /* cxContainer.cpp in Sources */,
 				83BD3C311CE6037800F66794 /* cxRand.cpp in Sources */,

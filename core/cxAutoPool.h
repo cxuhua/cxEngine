@@ -27,7 +27,7 @@ private:
     static cxAutoPool *getTopAutoPool();
     cxArray *objects;
 public:
-    static void Start();
+    static cxAutoPool *Start();
     static void Clear();
     static cxObject *Append(cxObject *object);
     static void Update();

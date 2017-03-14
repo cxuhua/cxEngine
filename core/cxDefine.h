@@ -98,7 +98,6 @@
 CX_C_BEGIN
 
 #include <ext/xxhash.h>
-#include <ext/atomic.h>
 
 CX_C_END
 

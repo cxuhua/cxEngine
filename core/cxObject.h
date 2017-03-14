@@ -13,6 +13,7 @@
 #include <set>
 #include <string>
 #include <math.h>
+#include <atomic>
 #include <float.h>
 #include "cxCore.h"
 #include "cxEvent.h"
@@ -42,7 +43,7 @@ private:
     typedef std::map<void *,cxLong> BindMap;
     BindMap bindes;
     BindMap binded;
-    cxInt refcount;
+    std::atomic_int refcount;
     cxLong tag;
     cxObject *initFromJson(const cxJson *json);
 public:

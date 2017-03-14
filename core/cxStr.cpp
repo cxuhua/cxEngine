@@ -73,6 +73,21 @@ cxStr *cxStr::Create(cchars str)
     return cxStr::Create()->Init(str);
 }
 
+cxStr *cxStr::Create(cxAny ptr,cxInt size)
+{
+    return cxStr::Create()->Init(ptr, size);
+}
+
+cxStr *cxStr::Alloc(cchars str)
+{
+    return cxStr::Alloc()->Init(str);
+}
+
+cxStr *cxStr::Alloc(cxAny ptr,cxInt size)
+{
+    return cxStr::Alloc()->Init(ptr, size);
+}
+
 cxStr::cxStr()
 {
     s.clear();
@@ -83,17 +98,17 @@ cxStr::~cxStr()
     s.clear();
 }
 
-const cxBool cxStr::ToBool() const
+cxBool cxStr::ToBool() const
 {
     return IsCaseEqu("true")?true:false;
 }
 
-const cxInt64 cxStr::ToInt64() const
+cxInt64 cxStr::ToInt64() const
 {
     return atoll(ToString());
 }
 
-const cxInt cxStr::ToInt() const
+cxInt cxStr::ToInt() const
 {
     return atoi(ToString());
 }
@@ -109,13 +124,13 @@ static cxBool ccharsHasChar(cchars cs,cxByte c)
     return false;
 }
 
-const cxArray *cxStr::Split(cchars data,cxInt c)
+cxArray *cxStr::Split(cchars data,cxInt c)
 {
     char cs[1]={static_cast<char>(c & 0xFF)};
     return cxStr::Split(data, cs);
 }
 
-const cxArray *cxStr::Split(cchars data, cchars cs)
+cxArray *cxStr::Split(cchars data, cchars cs)
 {
     cxArray *rv = cxArray::Create();
     if(!cxStr::IsOK(data)){
@@ -140,18 +155,18 @@ const cxArray *cxStr::Split(cchars data, cchars cs)
     return rv;
 }
 
-const cxArray *cxStr::Split(cchars cs) const
+cxArray *cxStr::Split(cchars cs) const
 {
     return cxStr::Split(ToString(), cs);
 }
 
-const cxArray *cxStr::Split(cxInt c) const
+cxArray *cxStr::Split(cxInt c) const
 {
     char cs[1]={static_cast<char>(c & 0xFF)};
     return cxStr::Split(ToString(), cs);
 }
 
-const cxBool cxStr::IsInt() const
+cxBool cxStr::IsInt() const
 {
     return cxStr::IsInt(ToString());
 }
@@ -194,12 +209,12 @@ cxBool cxStr::IsNumber(cchars cs)
     return true;
 }
 
-const cxBool cxStr::IsNumber() const
+cxBool cxStr::IsNumber() const
 {
     return cxStr::IsNumber(ToString());
 }
 
-const cxSize2F cxStr::ToSize2F() const
+cxSize2F cxStr::ToSize2F() const
 {
     const cxArray *ps = Split(':');
     if(ps->IsEmpty()){
@@ -217,7 +232,7 @@ const cxSize2F cxStr::ToSize2F() const
     return cxSize2F(0, 0);
 }
 
-const cxPoint2F cxStr::ToPoint2F() const
+cxPoint2F cxStr::ToPoint2F() const
 {
     const cxArray *ps = Split(',');
     if(ps->IsEmpty()){
@@ -235,7 +250,7 @@ const cxPoint2F cxStr::ToPoint2F() const
     return cxPoint2F(0, 0);
 }
 
-const cxPoint3F cxStr::ToPoint3F() const
+cxPoint3F cxStr::ToPoint3F() const
 {
     const cxArray *ps = Split(',');
     if(ps->IsEmpty()){
@@ -259,12 +274,12 @@ const cxPoint3F cxStr::ToPoint3F() const
     return cxPoint3F(0, 0, 0);
 }
 
-const cxColor4F cxStr::ToColor4F() const
+cxColor4F cxStr::ToColor4F() const
 {
     return cxColor4F(ToString());
 }
 
-const cxFloat cxStr::ToFloat() const
+cxFloat cxStr::ToFloat() const
 {
     return atof(ToString());
 }
@@ -327,7 +342,7 @@ cxStr *cxStr::Init(cchars str)
     return this;
 }
 
-const cxStr *cxStr::Base64Encode() const
+cxStr *cxStr::Base64Encode() const
 {
     cxInt l = Size();
     cxInt len = BASE64_ENCODE_OUT_SIZE(l);
@@ -337,7 +352,7 @@ const cxStr *cxStr::Base64Encode() const
     return ret;
 }
 
-const cxStr *cxStr::Base64Decode() const
+cxStr *cxStr::Base64Decode() const
 {
     cxInt l = Size();
     cxInt len = BASE64_DECODE_OUT_SIZE(l);
@@ -347,7 +362,7 @@ const cxStr *cxStr::Base64Decode() const
     return ret;
 }
 
-const cxStr *cxStr::AESEncode(const cxStr *key) const
+cxStr *cxStr::AESEncode(const cxStr *key) const
 {
     cxUtil::SetRandSeed();
     cxUChar iv[AES_KEY_LENGTH]={0};
@@ -387,7 +402,7 @@ const cxStr *cxStr::AESEncode(const cxStr *key) const
     return rv;
 }
 
-const cxStr *cxStr::AESDecode(const cxStr *key) const
+cxStr *cxStr::AESDecode(const cxStr *key) const
 {
     cxUChar iv[AES_KEY_LENGTH]={0};
     cxUChar ik[AES_KEY_LENGTH]={0};
@@ -417,7 +432,7 @@ const cxStr *cxStr::AESDecode(const cxStr *key) const
     return rv;
 }
 
-const cxStr *cxStr::PBEncode(const pb_field_t fields[], const void *src,cxInt max)
+cxStr *cxStr::PBEncode(const pb_field_t fields[], const void *src,cxInt max)
 {
     cxStr *ret = cxStr::Create()->Init(max);
     pb_ostream_t stream = pb_ostream_from_buffer((pb_byte_t *)ret->Buffer(), (size_t)ret->Size());
@@ -439,7 +454,7 @@ cxBool cxStr::PBDecode(const pb_field_t fields[], void *dst) const
     return PBDecode(Buffer(), Size(), fields, dst);
 }
 
-const cxStr *cxStr::TeaEncode(const cxStr *key) const
+cxStr *cxStr::TeaEncode(const cxStr *key) const
 {
     xxtea_long length = 0;
     cxByte *rv = xxtea_encrypt((cxByte *)Data(),(xxtea_long)Size(),(cxByte *)key->Data(),(xxtea_long)key->Size(),&length);
@@ -451,7 +466,7 @@ const cxStr *cxStr::TeaEncode(const cxStr *key) const
     return ret;
 }
 
-const cxStr *cxStr::TeaDecode(const cxStr *key) const
+cxStr *cxStr::TeaDecode(const cxStr *key) const
 {
     xxtea_long length = 0;
     cxByte *rv = xxtea_decrypt((cxByte *)Data(),(xxtea_long)Size(),(cxByte *)key->Data(),(xxtea_long)key->Size(),&length);
@@ -463,7 +478,7 @@ const cxStr *cxStr::TeaDecode(const cxStr *key) const
     return ret;
 }
 
-const cxStr *cxStr::ZlibCompress(int level) const
+cxStr *cxStr::ZlibCompress(int level) const
 {
     int len = (int)compressBound(Size());
     cxStr *ret = cxStr::Create()->Init(len);
@@ -474,7 +489,7 @@ const cxStr *cxStr::ZlibCompress(int level) const
     return ret->KeepBytes((cxInt)destLen);
 }
 
-const cxStr *cxStr::ZlibUncompress() const
+cxStr *cxStr::ZlibUncompress() const
 {
     int b = 2;
     cxStr *ret = cxStr::Create()->Init(Size() * (1 << b));
@@ -491,7 +506,7 @@ const cxStr *cxStr::ZlibUncompress() const
     return ret->KeepBytes((cxInt)destLen);
 }
 
-const cxStr *cxStr::LzmaCompress() const
+cxStr *cxStr::LzmaCompress() const
 {
     cxInt desLen = cxLzmaGetCompressLen(Size());
     cxStr *rv = cxStr::Create()->Init(desLen);
@@ -502,7 +517,7 @@ const cxStr *cxStr::LzmaCompress() const
     return rv->KeepBytes(desLen);
 }
 
-const cxStr *cxStr::LzmaUncompress() const
+cxStr *cxStr::LzmaUncompress() const
 {
     cxInt desLen = cxLzmaGetUncompressLen(Buffer());
     cxStr *rv = cxStr::Create()->Init(desLen);
@@ -763,7 +778,7 @@ void cxStr::WriteInt32(cxInt32 v)
     Append((cchars)&v, sizeof(cxInt32));
 }
 
-const cxStr *cxStr::ReadBytes(cxInt bytes)
+cxStr *cxStr::ReadBytes(cxInt bytes)
 {
     CX_ASSERT(Size() >= bytes, "bytes not enough");
     cxStr *v = cxStr::Create();
@@ -791,7 +806,7 @@ void cxStr::WriteByte(cxByte v)
     Append((cchars)&v,sizeof(cxByte));
 }
 
-const cxStr *cxStr::HexEncode() const
+cxStr *cxStr::HexEncode() const
 {
     cchars data = Data();
     cxInt len = Size();
@@ -819,7 +834,7 @@ static cxUInt8 fromHexChar(cxUInt8 c)
 }
 
 
-const cxStr *cxStr::HexDecode() const
+cxStr *cxStr::HexDecode() const
 {
     cchars data = Data();
     cxInt len = Size();
@@ -835,7 +850,17 @@ const cxStr *cxStr::HexDecode() const
     return ret;
 }
 
-const cxStr *cxStr::MD5() const
+cxStr *cxStr::BinMD5() const
+{
+    mongo_md5_state_t state={0};
+    mongo_md5_byte_t digest[MD5_DIGEST_LENGTH+1]={0};
+    mongo_md5_init(&state);
+    mongo_md5_append(&state, (const mongo_md5_byte_t *)Data(), Size());
+    mongo_md5_finish(&state, digest);
+    return cxStr::Create(digest, MD5_DIGEST_LENGTH);
+}
+
+cxStr *cxStr::MD5() const
 {
     mongo_md5_state_t state={0};
     mongo_md5_byte_t digest[MD5_DIGEST_LENGTH+1]={0};
@@ -850,7 +875,7 @@ const cxStr *cxStr::MD5() const
     return cxStr::UTF8(md5);
 }
 
-const cxStr *cxStr::NewObjectId()
+cxStr *cxStr::NewObjectId()
 {
     struct timeval val = {0};
     gettimeofday(&val, NULL);
@@ -885,7 +910,7 @@ cxBool cxStr::WriteToFile(cchars file,cxBool replace)
     return cxUtil::Instance()->WriteDocument(file, this, replace);
 }
 
-const cxStr *cxStr::ReadFromFile(cchars file)
+cxStr *cxStr::ReadFromFile(cchars file)
 {
     return cxUtil::Instance()->DocumentData(file);
 }

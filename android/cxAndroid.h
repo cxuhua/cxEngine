@@ -181,11 +181,11 @@ public:
     jstring Tojstring(const cxStr *str);
 public:
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
-    const cxStr *GetLang() const;
-    const cxStr *GetCountry() const;
-    const cxStr *DocumentPath(cchars file);
-    const cxStr *AssetsData(cchars file);
-    const cxStr *UUID();
+    cxStr *GetLang();
+    cxStr *GetCountry();
+    cxStr *DocumentPath(cchars file);
+    cxStr *AssetsData(cchars file);
+    cxStr *UUID();
 };
 
 CX_CPP_END

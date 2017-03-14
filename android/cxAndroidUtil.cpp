@@ -24,12 +24,12 @@ cxAndroidUtil::~cxAndroidUtil()
     
 }
 
-const cxStr *cxAndroidUtil::UUID() const
+cxStr *cxAndroidUtil::UUID()
 {
     return cxAndroid::Instance()->UUID();
 }
 
-const cxStr *cxAndroidUtil::AssetsData(cchars file)
+cxStr *cxAndroidUtil::AssetsData(cchars file)
 {
     return cxAndroid::Instance()->AssetsData(file);
 }
@@ -39,17 +39,17 @@ void cxAndroidUtil::Logger(const char* type,const char*file,int line,const char*
     cxAndroid::Instance()->Logger(type, file, line, format, ap);
 }
 
-const cxStr *cxAndroidUtil::GetLang() const
+cxStr *cxAndroidUtil::GetLang()
 {
     return cxAndroid::Instance()->GetLang();
 }
 
-const cxStr *cxAndroidUtil::GetCountry() const
+cxStr *cxAndroidUtil::GetCountry()
 {
     return cxAndroid::Instance()->GetCountry();
 }
 
-const cxStr *cxAndroidUtil::DocumentPath(cchars file)
+cxStr *cxAndroidUtil::DocumentPath(cchars file)
 {
     return cxAndroid::Instance()->DocumentPath(file);
 }

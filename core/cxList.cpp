@@ -84,7 +84,7 @@ cxList *cxList::Clear()
     return this;
 }
 
-cxObject *cxList::PopFront()
+cxList *cxList::PopFront()
 {
     if(IsEmpty()){
         return this;
@@ -94,7 +94,7 @@ cxObject *cxList::PopFront()
     return this;
 }
 
-cxObject *cxList::PopBack()
+cxList *cxList::PopBack()
 {
     if(IsEmpty()){
         return this;

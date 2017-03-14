@@ -387,7 +387,7 @@ jstring cxAndroid::Tojstring(const cxStr *str)
     return env->NewStringUTF(str->ToString());
 }
 
-const cxStr *cxAndroid::UUID()
+cxStr *cxAndroid::UUID()
 {
     JNIMethodInfo m = JNIMethod("NewUUID", "()Ljava/lang/String;");
     jstring uuid = (jstring)m.CallObjectMethod(this);
@@ -396,25 +396,25 @@ const cxStr *cxAndroid::UUID()
     return ret;
 }
 
-const cxStr *cxAndroid::GetLang() const
+cxStr *cxAndroid::GetLang()
 {
     AConfiguration_getLanguage(config, (char *)Language);
     return cxStr::Create()->Init(Language);
 }
 
-const cxStr *cxAndroid::GetCountry() const
+cxStr *cxAndroid::GetCountry()
 {
     AConfiguration_getCountry(config, (char *)Country);
     return cxStr::Create()->Init(Country);
 }
 
-const cxStr *cxAndroid::DocumentPath(cchars file)
+cxStr *cxAndroid::DocumentPath(cchars file)
 {
     CX_ASSERT(activity->internalDataPath != nullptr, "activity internal data path null");
     return cxStr::Create()->AppFmt("%s/%s",activity->internalDataPath,file);
 }
 
-const cxStr *cxAndroid::AssetsData(cchars file)
+cxStr *cxAndroid::AssetsData(cchars file)
 {
     AAsset *asset = AAssetManager_open(activity->assetManager, file, AASSET_MODE_UNKNOWN);
     if(asset == nullptr){

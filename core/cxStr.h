@@ -34,7 +34,7 @@ protected:
 private:
     std::string s;
 public:
-    static const cxStr *NewObjectId();
+    static cxStr *NewObjectId();
     static cxStr *Localized(cchars key,...);
     static cxStr *UTF8(cchars fmt,...);
     static cxBool IsOK(const cxStr *str);
@@ -49,10 +49,10 @@ public:
 
     void Print() const;
     
-    const cxArray *Split(cxInt c) const;
-    const cxArray *Split(cchars cs) const;
-    static const cxArray *Split(cchars data,cchars cs);
-    static const cxArray *Split(cchars data,cxInt c);
+    cxArray *Split(cxInt c) const;
+    cxArray *Split(cchars cs) const;
+    static cxArray *Split(cchars data,cchars cs);
+    static cxArray *Split(cchars data,cxInt c);
     
     cxULong Hash() const;
     
@@ -63,20 +63,20 @@ public:
     cchars Data() const;
     chars Buffer() const;
     
-    const cxBool IsNumber() const;
+    cxBool IsNumber() const;
     static cxBool IsNumber(cchars cs);
     
-    const cxBool IsInt() const;
+    cxBool IsInt() const;
     static cxBool IsInt(cchars cs);
     
-    const cxBool ToBool() const;
-    const cxInt ToInt() const;
-    const cxInt64 ToInt64() const;
-    const cxFloat ToFloat() const;
-    const cxPoint2F ToPoint2F() const;
-    const cxSize2F ToSize2F() const;
-    const cxPoint3F ToPoint3F() const;
-    const cxColor4F ToColor4F() const;
+    cxBool ToBool() const;
+    cxInt ToInt() const;
+    cxInt64 ToInt64() const;
+    cxFloat ToFloat() const;
+    cxPoint2F ToPoint2F() const;
+    cxSize2F ToSize2F() const;
+    cxPoint3F ToPoint3F() const;
+    cxColor4F ToColor4F() const;
     cchars ToString() const;
     
     cxObject *ToObject();
@@ -84,32 +84,33 @@ public:
     cxStr *ToLower();
     cxStr *ToUpper();
     
-    static const cxStr *PBEncode(const pb_field_t fields[], const void *src,cxInt max=2048);
+    static cxStr *PBEncode(const pb_field_t fields[], const void *src,cxInt max=2048);
     static cxBool PBDecode(cchars data, cxInt size, const pb_field_t fields[], void *dst);
     cxBool PBDecode(const pb_field_t fields[], void *dst) const;
     
-    const cxStr *TeaEncode(const cxStr *key) const;
-    const cxStr *TeaDecode(const cxStr *key) const;
+    cxStr *TeaEncode(const cxStr *key) const;
+    cxStr *TeaDecode(const cxStr *key) const;
     
-    const cxStr *AESEncode(const cxStr *key) const;
-    const cxStr *AESDecode(const cxStr *key) const;
+    cxStr *AESEncode(const cxStr *key) const;
+    cxStr *AESDecode(const cxStr *key) const;
     
-    const cxStr *Base64Encode() const;
-    const cxStr *Base64Decode() const;
+    cxStr *Base64Encode() const;
+    cxStr *Base64Decode() const;
     
-    const cxStr *HexEncode() const;
-    const cxStr *HexDecode() const;
+    cxStr *HexEncode() const;
+    cxStr *HexDecode() const;
     
-    const cxStr *LzmaCompress() const;
-    const cxStr *LzmaUncompress() const;
+    cxStr *LzmaCompress() const;
+    cxStr *LzmaUncompress() const;
     
-    const cxStr *ZlibCompress(int level=9) const;
-    const cxStr *ZlibUncompress() const;
+    cxStr *ZlibCompress(int level=9) const;
+    cxStr *ZlibUncompress() const;
     
-    const cxStr *MD5() const;
+    cxStr *MD5() const;
+    cxStr *BinMD5() const;
     
     cxBool WriteToFile(cchars file,cxBool replace);
-    static const cxStr *ReadFromFile(cchars file);
+    static cxStr *ReadFromFile(cchars file);
     
     cxInt16 ReadInt16();
     void WriteInt16(cxInt16 v);
@@ -123,7 +124,7 @@ public:
     cxInt64 ReadInt64();
     void WriteInt64(cxInt64 v);
     
-    const cxStr *ReadBytes(cxInt bytes);
+    cxStr *ReadBytes(cxInt bytes);
     void WriteBytes(const cxStr *bytes);
     
     cxByte ReadByte();
@@ -160,6 +161,9 @@ public:
     cxBool HasSuffix(cchars str) const;
 public:
     static cxStr *Create(cchars str);
+    static cxStr *Create(cxAny ptr,cxInt size);
+    static cxStr *Alloc(cchars str);
+    static cxStr *Alloc(cxAny ptr,cxInt size);
 };
 
 // for nanopb callback

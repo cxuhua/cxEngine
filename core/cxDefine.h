@@ -217,6 +217,10 @@ static CX_INLINE T *Alloc()                                         \
 {                                                                   \
     return static_cast<T *>(new T());                               \
 }                                                                   \
+static CX_INLINE T *_Alloc_()                                       \
+{                                                                   \
+    return T::Alloc();                                              \
+}                                                                   \
 static CX_INLINE T *Create()                                        \
 {                                                                   \
     return static_cast<T *>(T::Alloc()->AutoRelease());             \
@@ -227,7 +231,7 @@ public:                                                             \
 virtual const cxHelper &GetHelper() const;
 
 #define CX_IMPLEMENT(T)                                             \
-cxHelper T::__helper__=cxHelper(#T,(cxCore::AllocFunc)T::Alloc);    \
+cxHelper T::__helper__=cxHelper(#T,(cxCore::AllocFunc)T::_Alloc_);  \
 const cxHelper &T::GetHelper() const                                \
 {                                                                   \
     return T::__helper__;                                           \

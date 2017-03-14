@@ -34,7 +34,7 @@ cxUtil::~cxUtil()
     
 }
 
-const cxFloat cxUtil::ScaleFactor() const
+cxFloat cxUtil::ScaleFactor()
 {
     return 1.0f;
 }
@@ -56,37 +56,37 @@ cxUtil *cxUtil::Instance()
 }
 #endif
 
-const cxStr *cxUtil::GetLang() const
+cxStr *cxUtil::GetLang()
 {
     return cxStr::UTF8("zh");
 }
 
-const cxStr *cxUtil::GetCountry() const
+cxStr *cxUtil::GetCountry()
 {
     return cxStr::UTF8("CN");
 }
 
-const cxStr *cxUtil::LocalizedKey() const
+cxStr *cxUtil::LocalizedKey()
 {
     return GetCountry();
 }
 
-const cxStr *cxUtil::Assets(cchars file)
+cxStr *cxUtil::Assets(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "args error");
     return Instance()->AssetsData(file);
 }
 
-const cxStr *cxUtil::Document(cchars file)
+cxStr *cxUtil::Document(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "args error");
     return Instance()->DocumentData(file);
 }
 
-const cxStr *cxUtil::Content(cchars file)
+cxStr *cxUtil::Content(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "args error");
-    const cxStr *data = Document(file);
+    cxStr *data = Document(file);
     if(cxStr::IsOK(data)){
         return data;
     }
@@ -142,7 +142,7 @@ cxBool cxUtil::WriteFileData(const cxStr *path,const cxStr *data,cxBool replace)
     return true;
 }
 
-const cxStr *cxUtil::ReadFileData(const cxStr *path)
+cxStr *cxUtil::ReadFileData(const cxStr *path)
 {
     CX_ASSERT(cxStr::IsOK(path), "path error");
     int length = 0;
@@ -161,7 +161,7 @@ const cxStr *cxUtil::ReadFileData(const cxStr *path)
     return ret;
 }
 
-cxBool cxUtil::FileExists(const cxStr *path,cxInt *length) const
+cxBool cxUtil::FileExists(const cxStr *path,cxInt *length)
 {
     CX_ASSERT(cxStr::IsOK(path), "path error");
     struct stat stat={0};
@@ -172,18 +172,19 @@ cxBool cxUtil::FileExists(const cxStr *path,cxInt *length) const
     return rv;
 }
 
-const cxStr *cxUtil::UUID() const
+cxStr *cxUtil::UUID()
 {
-    CX_ASSERT(false, "uuid error");
-    return nullptr;
+    char buf[64]={0};
+    snprintf(buf, 64, "%llu",uv_hrtime);
+    return cxStr::Create(buf);
 }
 
-const cxStr *cxUtil::AssetsPath(cchars file)
+cxStr *cxUtil::AssetsPath(cchars file)
 {
     return cxStr::UTF8(file);
 }
 
-const cxStr *cxUtil::AssetsData(cchars file)
+cxStr *cxUtil::AssetsData(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "path error");
     const cxStr *path = AssetsPath(file);
@@ -193,7 +194,7 @@ const cxStr *cxUtil::AssetsData(cchars file)
     return ReadFileData(path);
 }
 
-const cxStr *cxUtil::DocumentPath(cchars file)
+cxStr *cxUtil::DocumentPath(cchars file)
 {
     return cxStr::UTF8(file);
 }
@@ -215,7 +216,7 @@ cxBool cxUtil::WriteDocument(cchars file,const cxStr *data,cxBool replace)
     return WriteFileData(path, data, replace);
 }
 
-const cxStr *cxUtil::DocumentData(cchars file)
+cxStr *cxUtil::DocumentData(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "path error");
     const cxStr *path = DocumentPath(file);

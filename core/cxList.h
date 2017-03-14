@@ -58,8 +58,8 @@ public:
     cxList *Append(cxObject *obj);
     cxList *Prepend(cxObject *obj);
     cxList *Remove(cxObject *obj);
-    cxObject *PopFront();
-    cxObject *PopBack();
+    cxList *PopFront();
+    cxList *PopBack();
 };
 
 CX_CPP_END

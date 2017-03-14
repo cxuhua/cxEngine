@@ -89,6 +89,7 @@
 		83ECEDD11E77A635007B2667 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83ECEDD01E77A635007B2667 /* libexpat.a */; };
 		83EDDACA1E77C661009C9302 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EDDAC91E77C661009C9302 /* main.cpp */; };
 		83EDDACD1E77D3C8009C9302 /* cxUdpBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EDDACB1E77D3C8009C9302 /* cxUdpBase.cpp */; };
+		83EDDAD01E780583009C9302 /* cxSync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EDDACE1E780583009C9302 /* cxSync.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -264,6 +265,8 @@
 		83EDDAC91E77C661009C9302 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		83EDDACB1E77D3C8009C9302 /* cxUdpBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUdpBase.cpp; sourceTree = "<group>"; };
 		83EDDACC1E77D3C8009C9302 /* cxUdpBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUdpBase.h; sourceTree = "<group>"; };
+		83EDDACE1E780583009C9302 /* cxSync.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSync.cpp; sourceTree = "<group>"; };
+		83EDDACF1E780583009C9302 /* cxSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSync.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -435,6 +438,8 @@
 				83D5D2C81B6735100051D99D /* cxUtil.h */,
 				83D5D3171B6756D70051D99D /* cxLQT.cpp */,
 				83D5D3181B6756D70051D99D /* cxLQT.h */,
+				83EDDACE1E780583009C9302 /* cxSync.cpp */,
+				83EDDACF1E780583009C9302 /* cxSync.h */,
 			);
 			name = core;
 			path = ../core;
@@ -596,6 +601,7 @@
 				83D5D2F91B6735100051D99D /* cxLocalized.cpp in Sources */,
 				839313CB1C33B79A00DB9C0A /* mat4.c in Sources */,
 				839313B91C33B79A00DB9C0A /* cxBoxPoint3F.cpp in Sources */,
+				83EDDAD01E780583009C9302 /* cxSync.cpp in Sources */,
 				83D5D2F01B6735100051D99D /* cxArray.cpp in Sources */,
 				83ECEDC91E77A48C007B2667 /* pb_common.c in Sources */,
 				839313BF1C33B79A00DB9C0A /* cxPoint2F.cpp in Sources */,

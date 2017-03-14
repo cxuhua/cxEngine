@@ -24,12 +24,12 @@ protected:
     virtual ~cxAndroidUtil();
 private:
 public:
-    const cxStr *GetLang() const;
-    const cxStr *GetCountry() const;
-    const cxStr *DocumentPath(cchars file);
+    cxStr *GetLang();
+    cxStr *GetCountry();
+    cxStr *DocumentPath(cchars file);
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
-    const cxStr *AssetsData(cchars file);
-    const cxStr *UUID() const;
+    cxStr *AssetsData(cchars file);
+    cxStr *UUID();
 };
 
 CX_CPP_END

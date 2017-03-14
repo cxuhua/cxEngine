@@ -9,7 +9,9 @@
 #ifndef udp_cxUdpBase_h
 #define udp_cxUdpBase_h
 
+#include "cxList.h"
 #include "cxStr.h"
+#include "cxSync.h"
 
 CX_CPP_BEGIN
 
@@ -21,11 +23,18 @@ protected:
     explicit cxUdpBase();
     virtual ~cxUdpBase();
 private:
-    uv_mutex_t mutex;
+    
+    cxStr *datakey;
+    
+    cxRWLock  rLock;
+    cxList *rQueue;
+    
+    cxUInt64 uid;
+    uint64_t recvnum;
+    cxMutex mutex;
     cxInt framemax;
     uv_loop_t looper;
     uv_udp_t handle;
-    struct addrinfo hints;
     struct sockaddr_in sin;
     cxAny buffer;
     cxInt bufsiz;
@@ -33,12 +42,12 @@ private:
     static void udp_udp_recv_cb(uv_udp_t* handle,ssize_t nread,const uv_buf_t* buf,const struct sockaddr* addr,unsigned flags);
     static void udp_send_cb(uv_udp_send_t* req, int status);
 public:
-    virtual void OnRecv(const struct sockaddr* addr,cxAny data,cxInt size);
+    virtual void OnRecv();
 public:
     void Update();
-    cxInt Init(cchars host,cxInt port);
+    cxInt Init(cchars host,cxInt port,cxUInt64 uid);
     cxInt Start();
-    cxBool WriteFrame(struct sockaddr *addr,cxStr *frame);
+    cxInt WriteFrame(struct sockaddr *addr,const cxStr *frame);
 };
 
 CX_CPP_END

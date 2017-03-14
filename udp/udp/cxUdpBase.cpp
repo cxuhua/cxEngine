@@ -15,31 +15,31 @@ CX_IMPLEMENT(cxUdpBase);
 
 cxUdpBase::cxUdpBase()
 {
-    uv_mutex_init(&mutex);
+    datakey = cxStr::Alloc("#&&43476_)FV121");
+    rQueue = cxList::Alloc();
+    uid = 0;
+    recvnum = 0;
     framemax = 512;
     bufsiz = 65536;
     buffer = malloc(bufsiz);
     uv_loop_init(&looper);
     uv_udp_init(&looper, &handle);
     handle.data = this;
-    hints.ai_family = AF_INET;
-    hints.ai_socktype = SOCK_DGRAM;
-    hints.ai_protocol = IPPROTO_UDP;
-    hints.ai_flags = 0;
 }
 
 cxUdpBase::~cxUdpBase()
 {
-    uv_mutex_destroy(&mutex);
+    datakey->Release();
+    rQueue->Release();
     free(buffer);
     uv_loop_close(&looper);
 }
 
 void cxUdpBase::Update()
 {
-    uv_mutex_lock(&mutex);
+    mutex.Lock();
     uv_run(&looper, UV_RUN_NOWAIT);
-    uv_mutex_unlock(&mutex);
+    mutex.Unlock();
 }
 
 void cxUdpBase::udp_alloc_cb(uv_handle_t* handle,size_t suggested,uv_buf_t *buf)
@@ -53,42 +53,52 @@ void cxUdpBase::udp_alloc_cb(uv_handle_t* handle,size_t suggested,uv_buf_t *buf)
     buf->len = pudp->bufsiz;
 }
 
-void cxUdpBase::OnRecv(const struct sockaddr* addr,cxAny data,cxInt size)
+void cxUdpBase::OnRecv()
 {
-    CX_LOGGER("UDP RECV DATA %d",size);
+    CX_LOGGER("UDP RECV DATA %llu",recvnum);
 }
 
 void cxUdpBase::udp_send_cb(uv_udp_send_t* req, int status)
 {
-    cxStr *d = static_cast<cxStr *>(req->data);
-    d->Release();
-    free(req);
+    cxStr *data = static_cast<cxStr *>(req->data);
+    data->Release();
+    delete req;
 }
 
-cxBool cxUdpBase::WriteFrame(struct sockaddr *addr,cxStr *frame)
+cxInt cxUdpBase::WriteFrame(struct sockaddr *addr,const cxStr *frame)
 {
-    uv_udp_send_t *req = (uv_udp_send_t *)malloc(sizeof(uv_udp_send_t));
-    frame->Retain();
-    req->data = frame;
-    uv_buf_t buf = uv_buf_init((char *)frame->Buffer(),frame->Size());
-    uv_mutex_lock(&mutex);
-    cxInt ret = uv_udp_send(req, &handle, &buf, 1, addr, cxUdpBase::udp_send_cb);
-    uv_mutex_unlock(&mutex);
+    CX_ASSERT(frame->Size() > 0, "frame error");
+    cxInt ret = 0;
+    cxStr *data = (cxStr *)frame->TeaEncode(datakey);
+    data->Retain();
+    uv_udp_send_t *req = new uv_udp_send_t();
+    req->data = data;
+    uv_buf_t buf = uv_buf_init(data->Buffer(), data->Size());
+    mutex.Lock();
+    ret = uv_udp_send(req, &handle, &buf, 1, addr, cxUdpBase::udp_send_cb);
+    mutex.Unlock();
     if(ret != 0){
-        frame->Release();
+        data->Release();
+        delete req;
     }
-    
-    return true;
+    return ret;
 }
 
 void cxUdpBase::udp_udp_recv_cb(uv_udp_t* handle,ssize_t nread,const uv_buf_t *buf,const struct sockaddr* addr,unsigned flags)
 {
     cxUdpBase *pudp = static_cast<cxUdpBase *>(handle->data);
     if(nread <= 0){
-        CX_ERROR("%ld",nread);
         return;
     }
-    pudp->OnRecv(addr, buf->base, (cxInt)nread);
+    pudp->recvnum++;
+    
+    pudp->rLock.WLock();
+    cxStr *data = cxStr::Alloc(buf->base, (cxInt)nread);
+    pudp->rQueue->Append(data);
+    data->Release();
+    pudp->rLock.WUnlock();
+
+    pudp->OnRecv();
 }
 
 cxInt cxUdpBase::Start()
@@ -101,7 +111,7 @@ cxInt cxUdpBase::Start()
     return ret;
 }
 
-cxInt cxUdpBase::Init(cchars host,cxInt port)
+cxInt cxUdpBase::Init(cchars host,cxInt port,cxUInt64 id)
 {
     cxInt ret = uv_ip4_addr(host, port, &sin);
     if(ret != 0){
@@ -113,6 +123,7 @@ cxInt cxUdpBase::Init(cchars host,cxInt port)
         CX_ERROR("UDP bind error:%d",ret);
         return ret;
     }
+    uid = id;
     return ret;
 }
 

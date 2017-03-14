@@ -18,14 +18,14 @@ class cxIOSUtil : public cxUtil
 public:
     CX_DECLARE(cxIOSUtil);
 public:
-    const cxFloat ScaleFactor() const;
-    const cxStr *UUID() const;
+    cxFloat ScaleFactor() const;
+    cxStr *UUID() const;
     
-    const cxStr *GetLang() const;
-    const cxStr *GetCountry() const;
+    cxStr *GetLang() const;
+    cxStr *GetCountry() const;
     
-    const cxStr *DocumentPath(cchars file);
-    const cxStr *AssetsPath(cchars file);
+    cxStr *DocumentPath(cchars file);
+    cxStr *AssetsPath(cchars file);
     
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
 };

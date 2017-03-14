@@ -17,13 +17,13 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxIOSUtil);
 
-const cxStr *cxIOSUtil::GetLang() const
+cxStr *cxIOSUtil::GetLang() const
 {
     NSLocale *locale = [NSLocale currentLocale];
     return cxStr::UTF8([[locale objectForKey:NSLocaleLanguageCode] UTF8String]);
 }
 
-const cxStr *cxIOSUtil::GetCountry() const
+cxStr *cxIOSUtil::GetCountry() const
 {
     NSLocale *locale = [NSLocale currentLocale];
     return cxStr::UTF8([[locale objectForKey:NSLocaleCountryCode] UTF8String]);
@@ -38,7 +38,7 @@ void cxIOSUtil::Logger(const char* type,const char*file,int line,const char* for
     free(buffer);
 }
 
-const cxStr *cxIOSUtil::DocumentPath(cchars file)
+cxStr *cxIOSUtil::DocumentPath(cchars file)
 {
     cxStr *rv = cxStr::Create();
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -51,19 +51,19 @@ const cxStr *cxIOSUtil::DocumentPath(cchars file)
     return rv;
 }
 
-const cxStr *cxIOSUtil::UUID() const
+cxStr *cxIOSUtil::UUID() const
 {
     uuid_t uuid;
     uuid_generate(uuid);
     return cxStr::Create()->Init(uuid, sizeof(uuid_t));
 }
 
-const cxFloat cxIOSUtil::ScaleFactor() const
+cxFloat cxIOSUtil::ScaleFactor() const
 {
     return (cxFloat)[UIScreen mainScreen].scale;
 }
 
-const cxStr *cxIOSUtil::AssetsPath(cchars file)
+cxStr *cxIOSUtil::AssetsPath(cchars file)
 {
     cxStr *rv = cxStr::Create();
     NSString *path = [[NSBundle mainBundle] resourcePath];

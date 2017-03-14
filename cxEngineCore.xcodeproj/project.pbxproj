@@ -108,7 +108,6 @@
 		83A943AE1B44E57600F70FBA /* utf8.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A943AC1B44E57600F70FBA /* utf8.c */; };
 		83AABB281B45910F0035A9F0 /* cxTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83AABB261B45910F0035A9F0 /* cxTimer.cpp */; };
 		83B23B4F1B17E0E9000D770A /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 83B23B4D1B17E0E9000D770A /* xxhash.c */; };
-		83B23B521B17E14E000D770A /* atomic.c in Sources */ = {isa = PBXBuildFile; fileRef = 83B23B501B17E14E000D770A /* atomic.c */; };
 		83BBF3FF1B10954E003CB004 /* cxCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BBF3FD1B10954E003CB004 /* cxCore.cpp */; };
 		83BD3C311CE6037800F66794 /* cxRand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83BD3C2F1CE6037800F66794 /* cxRand.cpp */; };
 		83BE636E1B3117270028B6E7 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83BE636B1B3117270028B6E7 /* AppDelegate.mm */; };
@@ -129,6 +128,7 @@
 		83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D341B317C2000F061D6 /* cxBoxPoint2F.cpp */; };
 		83D92D391B317E5900F061D6 /* cxRenderF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D92D371B317E5800F061D6 /* cxRenderF.cpp */; };
 		83EA27E31B15540600370757 /* cxHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EA27E11B15540600370757 /* cxHash.cpp */; };
+		83EDDAD41E781EE7009C9302 /* cxSync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83EDDAD21E781EE7009C9302 /* cxSync.cpp */; };
 		83F54B5F1B54BD5700AC5844 /* cxAsync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F54B5D1B54BD5700AC5844 /* cxAsync.cpp */; };
 		83F5D0C01CE58B6D00690B86 /* cxActionGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F5D0BC1CE58B6D00690B86 /* cxActionGroup.cpp */; };
 		83F5D0CB1CE5CDB200690B86 /* cxLoading.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F5D0C91CE5CDB200690B86 /* cxLoading.cpp */; };
@@ -356,8 +356,6 @@
 		83AABB271B45910F0035A9F0 /* cxTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTimer.h; sourceTree = "<group>"; };
 		83B23B4D1B17E0E9000D770A /* xxhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxhash.c; sourceTree = "<group>"; };
 		83B23B4E1B17E0E9000D770A /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
-		83B23B501B17E14E000D770A /* atomic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atomic.c; sourceTree = "<group>"; };
-		83B23B511B17E14E000D770A /* atomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = atomic.h; sourceTree = "<group>"; };
 		83BBF3D81B109452003CB004 /* libcxEngineCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcxEngineCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		83BBF3FD1B10954E003CB004 /* cxCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxCore.cpp; sourceTree = "<group>"; };
 		83BBF3FE1B10954E003CB004 /* cxCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxCore.h; sourceTree = "<group>"; };
@@ -401,6 +399,8 @@
 		83EA27D91B14C3DF00370757 /* cxDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxDefine.h; sourceTree = "<group>"; };
 		83EA27E11B15540600370757 /* cxHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxHash.cpp; sourceTree = "<group>"; };
 		83EA27E21B15540600370757 /* cxHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxHash.h; sourceTree = "<group>"; };
+		83EDDAD21E781EE7009C9302 /* cxSync.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxSync.cpp; sourceTree = "<group>"; };
+		83EDDAD31E781EE7009C9302 /* cxSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxSync.h; sourceTree = "<group>"; };
 		83F54B5D1B54BD5700AC5844 /* cxAsync.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAsync.cpp; sourceTree = "<group>"; };
 		83F54B5E1B54BD5700AC5844 /* cxAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAsync.h; sourceTree = "<group>"; };
 		83F5D0BC1CE58B6D00690B86 /* cxActionGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxActionGroup.cpp; sourceTree = "<group>"; };
@@ -685,8 +685,6 @@
 				836A2F3A1B198662009B427B /* xxtea.h */,
 				83B23B4D1B17E0E9000D770A /* xxhash.c */,
 				83B23B4E1B17E0E9000D770A /* xxhash.h */,
-				83B23B501B17E14E000D770A /* atomic.c */,
-				83B23B511B17E14E000D770A /* atomic.h */,
 			);
 			path = ext;
 			sourceTree = "<group>";
@@ -714,6 +712,8 @@
 		83BBF3FC1B109531003CB004 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				83EDDAD21E781EE7009C9302 /* cxSync.cpp */,
+				83EDDAD31E781EE7009C9302 /* cxSync.h */,
 				83D5D31C1B6763B70051D99D /* cxLQT.cpp */,
 				83D5D31D1B6763B70051D99D /* cxLQT.h */,
 				83F7BAD61B42D97F00C644B9 /* cxEvent.cpp */,
@@ -877,6 +877,7 @@
 				835B40261BEF457700A7A4AC /* cxCircle.cpp in Sources */,
 				833043B61B4024AE00636928 /* cxButton.cpp in Sources */,
 				836A2F4A1B19869D009B427B /* LzmaDec.c in Sources */,
+				83EDDAD41E781EE7009C9302 /* cxSync.cpp in Sources */,
 				83D92D391B317E5900F061D6 /* cxRenderF.cpp in Sources */,
 				831B93EF1B4A923200511A63 /* csv.c in Sources */,
 				83D589571DE7D8D9000D035F /* pb_common.c in Sources */,
@@ -936,7 +937,6 @@
 				83A943AA1B44DC3200F70FBA /* aes_ofb.c in Sources */,
 				836A2F491B19869D009B427B /* lzma.c in Sources */,
 				831189DC1B2D779C00C930B5 /* cxPoint3F.cpp in Sources */,
-				83B23B521B17E14E000D770A /* atomic.c in Sources */,
 				83FB15A81B293C1000E5ECFE /* cxOpenGL.cpp in Sources */,
 				8354C3071B3C620C00AC9F3C /* cxTouch.cpp in Sources */,
 				83A943AE1B44E57600F70FBA /* utf8.c in Sources */,

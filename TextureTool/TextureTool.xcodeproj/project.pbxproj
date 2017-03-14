@@ -87,6 +87,8 @@
 		83ECEDC91E77A48C007B2667 /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 83ECEDC21E77A48C007B2667 /* pb_common.c */; };
 		83ECEDCA1E77A48C007B2667 /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 83ECEDC41E77A48C007B2667 /* pb_decode.c */; };
 		83ECEDCB1E77A48C007B2667 /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 83ECEDC61E77A48C007B2667 /* pb_encode.c */; };
+		83ECEDCE1E77A5F6007B2667 /* cxXml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83ECEDCC1E77A5F6007B2667 /* cxXml.cpp */; };
+		83ECEDD11E77A635007B2667 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83ECEDD01E77A635007B2667 /* libexpat.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -259,6 +261,9 @@
 		83ECEDC61E77A48C007B2667 /* pb_encode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_encode.c; sourceTree = "<group>"; };
 		83ECEDC71E77A48C007B2667 /* pb_encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_encode.h; sourceTree = "<group>"; };
 		83ECEDC81E77A48C007B2667 /* pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
+		83ECEDCC1E77A5F6007B2667 /* cxXml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxXml.cpp; sourceTree = "<group>"; };
+		83ECEDCD1E77A5F6007B2667 /* cxXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxXml.h; sourceTree = "<group>"; };
+		83ECEDD01E77A635007B2667 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = ../libs/osx/lib/libexpat.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +271,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83ECEDD11E77A635007B2667 /* libexpat.a in Frameworks */,
 				83D4CD491CD863FB00D1FE34 /* libjansson.a in Frameworks */,
 				83D4CD4A1CD863FB00D1FE34 /* libjpeg.a in Frameworks */,
 				83D4CD4B1CD863FB00D1FE34 /* libpcre.a in Frameworks */,
@@ -373,9 +379,9 @@
 				839313711C33B79A00DB9C0A /* math */,
 				83D5D2A51B6735100051D99D /* core */,
 				83D5D2C91B6735100051D99D /* ext */,
-				83D5D2A21B6734DB0051D99D /* libs */,
 				83D5D28C1B6734BC0051D99D /* TextureTool */,
 				83D5D28B1B6734BC0051D99D /* Products */,
+				83ECEDCF1E77A634007B2667 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -395,22 +401,11 @@
 			path = TextureTool;
 			sourceTree = "<group>";
 		};
-		83D5D2A21B6734DB0051D99D /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				83D4CD441CD863FB00D1FE34 /* libjansson.a */,
-				83D4CD451CD863FB00D1FE34 /* libjpeg.a */,
-				83D4CD461CD863FB00D1FE34 /* libpcre.a */,
-				83D4CD471CD863FB00D1FE34 /* libpng.a */,
-				83D4CD481CD863FB00D1FE34 /* libuv.a */,
-				83D4E34F1BB2AADC00E10AF9 /* libz.tbd */,
-			);
-			name = libs;
-			sourceTree = "<group>";
-		};
 		83D5D2A51B6735100051D99D /* core */ = {
 			isa = PBXGroup;
 			children = (
+				83ECEDCC1E77A5F6007B2667 /* cxXml.cpp */,
+				83ECEDCD1E77A5F6007B2667 /* cxXml.h */,
 				83D5D2A61B6735100051D99D /* cxArray.cpp */,
 				83D5D2A71B6735100051D99D /* cxArray.h */,
 				83D5D2A81B6735100051D99D /* cxAutoPool.cpp */,
@@ -508,6 +503,20 @@
 			path = ../ext;
 			sourceTree = "<group>";
 		};
+		83ECEDCF1E77A634007B2667 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				83D4CD441CD863FB00D1FE34 /* libjansson.a */,
+				83D4CD451CD863FB00D1FE34 /* libjpeg.a */,
+				83D4CD461CD863FB00D1FE34 /* libpcre.a */,
+				83D4CD471CD863FB00D1FE34 /* libpng.a */,
+				83D4CD481CD863FB00D1FE34 /* libuv.a */,
+				83D4E34F1BB2AADC00E10AF9 /* libz.tbd */,
+				83ECEDD01E77A635007B2667 /* libexpat.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -591,6 +600,7 @@
 				839313BF1C33B79A00DB9C0A /* cxPoint2F.cpp in Sources */,
 				839313B61C33B79A00DB9C0A /* cxBoxColor4F.cpp in Sources */,
 				83D5D30F1B6735100051D99D /* LzmaLib.c in Sources */,
+				83ECEDCE1E77A5F6007B2667 /* cxXml.cpp in Sources */,
 				839313C61C33B79A00DB9C0A /* aabb2.c in Sources */,
 				839313D01C33B79A00DB9C0A /* tools.c in Sources */,
 				839313C21C33B79A00DB9C0A /* cxRect4F.cpp in Sources */,

@@ -121,7 +121,7 @@ const cxArray *cxStr::Split(cchars data, cchars cs)
     if(!cxStr::IsOK(data)){
         return rv;
     }
-    cxInt len = strlen(data);
+    cxInt len = (cxInt)strlen(data);
     cxInt b = 0;
     for(cxInt i = 0;i < len;i++){
         if(!ccharsHasChar(cs,(cxByte)data[i])){
@@ -161,7 +161,7 @@ cxBool cxStr::IsInt(cchars cs)
     if(!cxStr::IsOK(cs)){
         return false;
     }
-    cxInt len = strlen(cs);
+    cxInt len = (cxInt)strlen(cs);
     for(cxInt i = 0;i < len;i++){
         char c = cs[i];
         if(c >= '0' && c <= '9'){
@@ -177,7 +177,7 @@ cxBool cxStr::IsNumber(cchars cs)
     if(!cxStr::IsOK(cs)){
         return false;
     }
-    cxInt len = strlen(cs);
+    cxInt len = (cxInt)strlen(cs);
     for(cxInt i = 0;i < len;i++){
         char c = cs[i];
         if(c >= '0' && c <= '9'){
@@ -424,7 +424,7 @@ const cxStr *cxStr::PBEncode(const pb_field_t fields[], const void *src,cxInt ma
     if(!pb_encode(&stream, fields, src)){
         return NULL;
     }
-    ret->KeepBytes(stream.bytes_written);
+    ret->KeepBytes((cxInt)stream.bytes_written);
     return ret;
 }
 
@@ -465,13 +465,13 @@ const cxStr *cxStr::TeaDecode(const cxStr *key) const
 
 const cxStr *cxStr::ZlibCompress(int level) const
 {
-    int len = compressBound(Size());
+    int len = (int)compressBound(Size());
     cxStr *ret = cxStr::Create()->Init(len);
     uLongf destLen = ret->Size();
     if(compress2((Bytef *)ret->Buffer(), &destLen, (const Bytef *)Buffer(), (uLong)Size(), level) != Z_OK){
         return nullptr;
     }
-    return ret->KeepBytes(destLen);
+    return ret->KeepBytes((cxInt)destLen);
 }
 
 const cxStr *cxStr::ZlibUncompress() const
@@ -488,7 +488,7 @@ const cxStr *cxStr::ZlibUncompress() const
     if(status != Z_OK){
         return nullptr;
     }
-    return ret->KeepBytes(destLen);
+    return ret->KeepBytes((cxInt)destLen);
 }
 
 const cxStr *cxStr::LzmaCompress() const

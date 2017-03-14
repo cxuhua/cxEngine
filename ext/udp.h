@@ -13,7 +13,6 @@
 #include <uv/uv.h>
 #include "xxhash.h"
 #include "uthash.h"
-#include "utarray.h"
 #include "packet.h"
 
 struct udp_host;
@@ -26,9 +25,11 @@ struct udp_host;
 
 #define HOST_KEY_SIZE   32
 
-#define PING_TIMEOUT    5000000        //5000000 us
+#define TRY_COUNT       5
 
-#define PING_TIME       1000           //1000 ms
+#define PING_TIMEOUT    3000000L      //3000000 us
+
+#define PING_TIME       500           //500 ms
 
 #define WRITER_TIME     1              // 5ms
 
@@ -37,38 +38,51 @@ enum udp_data_state {
     DATA_STATE_SEND,    //send to remote,wait ack
     DATA_STATE_ACK,     //ack data,send success
     DATA_STATE_RECV,    //recv data
-    DATA_STATE_DROP,    //process ok
-    DATA_STATE_TIMEOUT, //not ack timeout
+    DATA_STATE_DROP,    //process ok,will drop
+};
+
+enum udp_data_attr {
+    DATA_ATTR_NONE = 0,
+    DATA_ATTR_BROADCAST = 1,    //broadcast all host
+    DATA_ATTR_TO_UID = 2,       //uid must > 0
+    DATA_ATTR_NOT_SENDER = 3,   //broadcast all host,not sender
 };
 
 struct udp_data {
     uint32_t seq;
     void *data;
     int size;
+    uint8_t attr;
     uint8_t state;
     uint64_t time;
+    int8_t trynum;
     bool ack;   //if sended ack
-    int ping;
+    uint64_t uid;
+    uint64_t src;
+    UT_hash_handle hh;
 };
 
-struct udp_data *udp_data_new(void *data,int size,uint seq);
+struct udp_data *udp_data_clone(struct udp_data *dv);
+struct udp_data *udp_data_new(void *data,int size,uint seq,uint64_t uid,uint8_t attr);
+void udp_data_try(struct udp_data *dv);
 int udp_data_send(struct udp_data *dv,struct udp_host *hv);
 void udp_data_free(struct udp_data *d);
 
 struct udp_data_array {
-    uv_rwlock_t mutex;
-    UT_array *ds;
+    uv_mutex_t mutex;
+    struct udp_data *items;
 };
 
-#define EACH_DATA_ARRAY(_v_,_e_)    struct udp_data **_e_=NULL;while((_e_ = udp_data_array_next(_e_, &(_v_))) != NULL)
+void udp_data_array_lock(struct udp_data_array *a);
+
+void udp_data_array_unlock(struct udp_data_array *a);
 
 void udp_data_array_init(struct udp_data_array *a);
-//sort by time
-void udp_data_array_sort(struct udp_data_array *a);
 
 int udp_data_array_size(struct udp_data_array *a);
 
-struct udp_data **udp_data_array_next(struct udp_data **e,struct udp_data_array *a);
+struct udp_data *udp_data_array_find(struct udp_data_array *a,uint32_t seq);
+void udp_data_array_remove(struct udp_data_array *a,uint32_t seq);
 
 void udp_data_array_clear(struct udp_data_array *a);
 
@@ -76,52 +90,42 @@ void udp_data_array_append(struct udp_data_array *a,struct udp_data *v);
 
 void udp_data_array_free(struct udp_data_array *a);
 
-void udp_data_array_rdlock(struct udp_data_array *a);
-
-void udp_data_array_rdunlock(struct udp_data_array *a);
-
-void udp_data_array_wrlock(struct udp_data_array *a);
-
-void udp_data_array_wrunlock(struct udp_data_array *a);
-
 struct udp_host {
     udp_id uid;
     struct udp *udp;
     struct sockaddr addr;
     uint64_t uptime;
     int ping;
+    int subtime;
     uint64_t prev;  //prev ping time
     bool actived;
     bool closed;
-    uv_mutex_t mutex;
     struct udp_data_array rb;       //read buf
     uint wseq;
+    uint pseq;  //prev seq
     struct udp_data_array wb;       //write buf
-    uint send_num;
-    uint init_num;
-    uint ack_num;
+    uv_mutex_t mutex;
+    uint sendnum;
+    uint recvnum;
     UT_hash_handle hh;
 };
 
 struct udp_host *udp_host_new(struct udp *udp,const struct sockaddr *addr,udp_id uid);
-void udp_host_uptime(struct udp_host *host,uint64_t time,int ping);
+uint64_t udp_host_now(struct udp_host *host);
 void udp_host_reset(struct udp_host *host);
+void udp_host_clear(struct udp_host *host);
 bool udp_host_is_active(struct udp_host *host);
 void udp_host_closed(struct udp_host *host);
 void udp_host_active(struct udp_host *host);
-void udp_host_push_write(struct udp_host *host,void *data,int size);
+struct udp_data *udp_host_push(struct udp_host *host,struct udp_data *data);
+struct udp_data *udp_host_push_write(struct udp_host *host,void *data,int size,uint64_t uid,uint8_t attr);
 void udp_host_push_read(struct udp_host *host,struct udp_data *v);
 void udp_host_free(struct udp_host *host);
 void udp_host_sync(struct udp_host *host);
 void udp_host_recv_data(struct udp_host *host,struct UDP_DATA *d);
-void udp_host_write_data(struct udp_host *host,struct udp_data *d);
 void udp_host_ack_data(struct udp_host *host,struct UDP_ACK *d);
+void udp_host_resend_data(struct udp_host *host,struct UDP_RESEND *d);
 
-struct upd_work_req {
-    uv_work_t req;
-    struct sockaddr addr;
-    int size;
-};
 
 enum work_opt {
     WORK_OPT_NONE = 0,
@@ -132,10 +136,7 @@ enum work_opt {
 struct udp {
     udp_id uid;               //udp id
     uv_thread_t pid;            //use thread run
-    uv_mutex_t mutex;         //socket write mutex
     struct udp_host *hosts;
-    uv_rwlock_t hmutex;         //hosts add del mutext
-    uv_rwlock_t dmutex;         //data buffer mutex
     uv_loop_t looper;
     uv_udp_t handle;
     struct addrinfo hints;
@@ -144,8 +145,9 @@ struct udp {
     char ip[HOST_KEY_SIZE];
     int port;
     bool closed;
+    uv_idle_t idle;
     uv_timer_t timer;
-    uv_timer_t writer;
+    bool (*on_data)(struct udp_host *,struct udp_data *d);
 };
 
 int udp_cnt_host(struct udp *p);
@@ -157,7 +159,7 @@ struct udp_host *udp_find_host(struct udp *p,udp_id uid);
 
 void udp_run_opt_work(struct udp *p,uint8_t opt);
 
-int udp_ping_addr(struct udp *p,const struct sockaddr *addr);
+int udp_ping_host(struct udp *p,struct udp_host *h);
 
 bool udp_equ_host(struct udp *p1,struct udp_host *p2);
 

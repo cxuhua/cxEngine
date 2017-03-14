@@ -8,19 +8,33 @@
 
 #include "udp.h"
 
-struct udp_data *udp_data_new(void *data,int size,uint seq)
+struct udp_data *udp_data_new(void *data,int size,uint seq,uint64_t uid,uint8_t attr)
 {
     assert(data != NULL && size > 0 && size <= MAX_UDP_DATA_SIZE);
     struct udp_data *d = malloc(sizeof(struct udp_data) + size);
     d->size = size;
     d->seq = seq;
-    d->time = 0;
+    d->attr = attr;
+    d->uid = uid;
+    d->src = 0;
+    d->time = time_now();
     d->ack = false;
-    d->ping = 0;
     d->state = DATA_STATE_INIT;
     d->data = (void *)d + sizeof(struct udp_data);
+    d->trynum = TRY_COUNT;
     memcpy(d->data, data, d->size);
     return d;
+}
+
+struct udp_data *udp_data_clone(struct udp_data *dv)
+{
+    return udp_data_new(dv->data, dv->size, dv->seq, dv->uid,dv->attr);
+}
+
+void udp_data_try(struct udp_data *dv)
+{
+    assert(dv != NULL);
+    dv->state = DATA_STATE_INIT;
 }
 
 int udp_data_send(struct udp_data *dv,struct udp_host *hv)
@@ -32,11 +46,14 @@ int udp_data_send(struct udp_data *dv,struct udp_host *hv)
     d->h.opt = UDP_OPT_DATA;
     d->seq = dv->seq;
     d->size = dv->size;
+    d->uid = dv->uid;
+    d->attr = dv->attr;
     memcpy(d->data, dv->data, dv->size);
     int ret = udp_write_addr(hv->udp, &hv->addr, d, sizeof(struct UDP_DATA) + dv->size);
     if(ret == 0){
         dv->state = DATA_STATE_SEND;
         dv->time = time_now();
+        dv->trynum--;
     }
     return ret;
 }
@@ -46,97 +63,83 @@ void udp_data_free(struct udp_data *d)
     free(d);
 }
 
-static void utarray_udp_data_dtor(void *elt)
-{
-    struct udp_data **eltc = (struct udp_data **)elt;
-    udp_data_free(*eltc);
-}
-
-static const UT_icd ut_udp_data_icd = {sizeof(char*),NULL,NULL,utarray_udp_data_dtor};
-
 void udp_data_array_init(struct udp_data_array *a)
 {
     assert(a != NULL);
-    a->ds = NULL;
-    utarray_new(a->ds, &ut_udp_data_icd);
-    uv_rwlock_init(&a->mutex);
+    uv_mutex_init(&a->mutex);
+    a->items = NULL;
 }
 
-static int udp_data_sort_func(const void *src,const void *dst)
-{
-    struct udp_data **d1 = (struct udp_data **)src;
-    struct udp_data **d2 = (struct udp_data **)dst;
-    return (*d1)->seq - (*d2)->seq;
-}
-
-void udp_data_array_sort(struct udp_data_array *a)
+void udp_data_array_lock(struct udp_data_array *a)
 {
     assert(a != NULL);
-    uv_rwlock_wrlock(&a->mutex);
-    utarray_sort(a->ds, udp_data_sort_func);
-    uv_rwlock_wrunlock(&a->mutex);
+    uv_mutex_lock(&a->mutex);
+}
+
+void udp_data_array_unlock(struct udp_data_array *a)
+{
+    assert(a != NULL);
+    uv_mutex_unlock(&a->mutex);
 }
 
 int udp_data_array_size(struct udp_data_array *a)
 {
     assert(a != NULL);
-    uv_rwlock_rdlock(&a->mutex);
-    int size = utarray_len(a->ds);
-    uv_rwlock_rdunlock(&a->mutex);
+    uv_mutex_lock(&a->mutex);
+    int size = HASH_COUNT(a->items);
+    uv_mutex_unlock(&a->mutex);
     return size;
 }
 
-void udp_data_array_rdlock(struct udp_data_array *a)
+struct udp_data *udp_data_array_find(struct udp_data_array *a,uint32_t seq)
 {
     assert(a != NULL);
-    uv_rwlock_rdlock(&a->mutex);
+    struct udp_data *item = NULL;
+    uv_mutex_lock(&a->mutex);
+    HASH_FIND(hh, a->items, &seq, sizeof(uint32_t), item);
+    uv_mutex_unlock(&a->mutex);
+    return item;
 }
 
-void udp_data_array_rdunlock(struct udp_data_array *a)
+void udp_data_array_remove(struct udp_data_array *a,uint32_t seq)
 {
     assert(a != NULL);
-    uv_rwlock_rdunlock(&a->mutex);
-}
-
-void udp_data_array_wrlock(struct udp_data_array *a)
-{
-    assert(a != NULL);
-    uv_rwlock_wrlock(&a->mutex);
-}
-
-void udp_data_array_wrunlock(struct udp_data_array *a)
-{
-    assert(a != NULL);
-    uv_rwlock_wrunlock(&a->mutex);
-}
-
-struct udp_data **udp_data_array_next(struct udp_data **e,struct udp_data_array *a)
-{
-    assert(a != NULL);
-    return (struct udp_data **)utarray_next(a->ds, e);
+    struct udp_data *item = NULL;
+    uv_mutex_lock(&a->mutex);
+    HASH_FIND(hh, a->items, &seq, sizeof(uint32_t), item);
+    if(item != NULL){
+        HASH_DEL(a->items, item);
+        udp_data_free(item);
+    }
+    uv_mutex_unlock(&a->mutex);
 }
 
 void udp_data_array_clear(struct udp_data_array *a)
 {
     assert(a != NULL);
-    uv_rwlock_wrlock(&a->mutex);
-    utarray_clear(a->ds);
-    uv_rwlock_wrunlock(&a->mutex);
+    uv_mutex_lock(&a->mutex);
+    struct udp_data *e = NULL;
+    struct udp_data *t = NULL;
+    HASH_ITER(hh, a->items, e, t){
+        HASH_DEL(a->items, e);
+        udp_data_free(e);
+    }
+    uv_mutex_unlock(&a->mutex);
 }
 
 void udp_data_array_append(struct udp_data_array *a,struct udp_data *v)
 {
     assert(a != NULL && v != NULL);
-    uv_rwlock_wrlock(&a->mutex);
-    utarray_push_back(a->ds, &v);
-    uv_rwlock_wrunlock(&a->mutex);
+    uv_mutex_lock(&a->mutex);
+    HASH_ADD(hh, a->items, seq, sizeof(uint32_t), v);
+    uv_mutex_unlock(&a->mutex);
 }
 
 void udp_data_array_free(struct udp_data_array *a)
 {
     assert(a != NULL);
-    uv_rwlock_destroy(&a->mutex);
-    utarray_free(a->ds);
+    udp_data_array_clear(a);
+    uv_mutex_destroy(&a->mutex);
 }
 
 struct udp_host *udp_host_new(struct udp *udp,const struct sockaddr *addr,udp_id uid)
@@ -155,73 +158,69 @@ struct udp_host *udp_host_new(struct udp *udp,const struct sockaddr *addr,udp_id
 bool udp_host_is_active(struct udp_host *host)
 {
     uint64_t now = time_now();
-    uv_mutex_lock(&host->mutex);
     bool active = host->uptime > 0 && now - host->uptime <= PING_TIMEOUT;
-    uv_mutex_unlock(&host->mutex);
     return active;
 }
 
-void udp_host_uptime(struct udp_host *host,uint64_t time, int ping)
+void udp_host_clear(struct udp_host *host)
 {
-    uv_mutex_lock(&host->mutex);
-    host->uptime = time_now();
-    if(time > 0 && time > host->prev){
-        host->ping = (int)ping;
-        host->prev = time;
-    }
-    uv_mutex_unlock(&host->mutex);
+    udp_data_array_clear(&host->wb);
+    udp_data_array_clear(&host->rb);
+}
+
+uint64_t udp_host_now(struct udp_host *host)
+{
+    assert(host != NULL);
+    return time_now() + host->subtime - host->ping/2;
 }
 
 void udp_host_reset(struct udp_host *host)
 {
+    host->sendnum = 0;
+    host->recvnum = 0;
+    host->subtime = 0;
     host->closed = true;
     host->actived = false;
     host->ping = 0;
     host->uptime = 0;
     host->prev = 0;
     host->wseq = 0;
-    host->send_num = 0;
-    host->init_num = 0;
-    host->ack_num = 0;
-    udp_data_array_clear(&host->rb);
-    udp_data_array_clear(&host->wb);
+    host->pseq = 0;
+    udp_host_clear(host);
 }
 
 void udp_host_active(struct udp_host *host)
 {
-    uv_mutex_lock(&host->mutex);
     if(!host->actived){
         UDP_LOG("ACTIVE UDP %llu",host->uid);
         host->actived = true;
         host->closed = false;
     }
-    uv_mutex_unlock(&host->mutex);
 }
 
 void udp_host_closed(struct udp_host *host)
 {
-    uv_mutex_lock(&host->mutex);
     if(!host->closed){
         UDP_LOG("CLOSED UDP %llu",host->uid);
         udp_host_reset(host);
     }
-    uv_mutex_unlock(&host->mutex);
 }
 
-void udp_host_push_write(struct udp_host *host,void *data,int size)
+struct udp_data *udp_host_push(struct udp_host *host,struct udp_data *data)
+{
+    return udp_host_push_write(host, data->data, data->size, data->src, data->attr);
+}
+
+struct udp_data *udp_host_push_write(struct udp_host *host,void *data,int size,uint64_t uid,uint8_t attr)
 {
     assert(host != NULL);
     assert(data != NULL && size > 0 && size <= MAX_UDP_DATA_SIZE);
-    bool active = false;
     uv_mutex_lock(&host->mutex);
     host->wseq++;
-    active = host->actived;
+    struct udp_data *v = udp_data_new(data, size, host->wseq, uid, attr);
     uv_mutex_unlock(&host->mutex);
-    struct udp_data *v = udp_data_new(data, size, host->wseq);
-    if(active){
-        udp_host_write_data(host, v);
-    }
     udp_data_array_append(&host->wb, v);
+    return v;
 }
 
 void udp_host_push_read(struct udp_host *host,struct udp_data *v)
@@ -231,84 +230,134 @@ void udp_host_push_read(struct udp_host *host,struct udp_data *v)
     udp_data_array_append(&host->rb, v);
 }
 
+void udp_host_resend_data(struct udp_host *host,struct UDP_RESEND *d)
+{
+    assert(false);
+}
+
 void udp_host_ack_data(struct udp_host *host,struct UDP_ACK *d)
 {
     assert(host != NULL && d != NULL);
-    struct udp_data **tmp = NULL;
-    struct udp_data *data = NULL;
-    udp_data_array_wrlock(&host->wb);
-    while((tmp = udp_data_array_next(tmp, &host->wb)) != NULL){
-        if((*tmp)->seq == d->seq){
-            data = *tmp;
-            data->state = DATA_STATE_ACK;
-            data->ping = (int)(time_now() - data->time);
-            break;
-        }
-    }
-    udp_data_array_wrunlock(&host->wb);
+    struct udp_data *data = udp_data_array_find(&host->wb, d->seq);
     if(data == NULL){
         return;
     }
-    UDP_LOG("DATA SEQ=%d ACK DATA_PING=%d HOST_PING=%d",data->seq,data->ping,host->ping);
+    data->state = DATA_STATE_ACK;
 }
 
 void udp_host_recv_data(struct udp_host *host,struct UDP_DATA *d)
 {
     assert(host != NULL && d != NULL);
+    struct udp_data *data = udp_data_array_find(&host->rb, d->seq);
+    if(data != NULL && data->state == DATA_STATE_DROP){
+        return;
+    }
     //send ack data
+    int ret = 0;
     struct UDP_ACK ack;
     ack.h.opt = UDP_OPT_ACK;
     ack.seq = d->seq;
     ack.time = d->h.time;
-    int ret = udp_write_addr(host->udp, &host->addr, &ack, sizeof(struct UDP_ACK));
+    ret = udp_write_addr(host->udp, &host->addr, &ack, sizeof(struct UDP_ACK));
     //read data push read buf
-    struct udp_data *data = udp_data_new(d->data, d->size, d->seq);
-    data->time = d->h.time;
+    data = udp_data_new(d->data, d->size, d->seq, d->uid,d->attr);
+    data->time = time_now();
     data->state = DATA_STATE_RECV;
     data->ack = (ret == 0);
+    data->src = d->h.uid;
     udp_host_push_read(host, data);
-    UDP_LOG("%llu RECV data %u SEQ=%d ReadBufferSize=%d",host->uid,d->size,data->seq,udp_data_array_size(&host->rb));
 }
 
-void udp_host_write_data(struct udp_host *host,struct udp_data *d)
+static bool is_try_send(struct udp_data *d,struct udp_host *h)
 {
-    assert(host != NULL && d != NULL);
-    assert(host->actived);
-    udp_data_array_wrlock(&host->wb);
-    udp_data_send(d, host);
-    udp_data_array_wrunlock(&host->wb);
+    if(h->ping == 0){
+        return false;
+    }
+    uint64_t now = time_now();
+    float t = (float)(now - d->time)/1000.0f;//ms
+    float p = (float)h->ping/1000.0f;//ms
+    return t > p * 2.0f;
+}
+
+static bool is_del_data(struct udp_data *d,struct udp_host *h)
+{
+    uint64_t now = time_now();
+    return (now - d->time) > PING_TIMEOUT;
+}
+
+static int udp_data_sort(struct udp_data *d1,struct udp_data *d2)
+{
+    return d1->seq - d2->seq;
 }
 
 void udp_host_sync(struct udp_host *host)
 {
     assert(host != NULL);
     //write buffer
-    udp_data_array_wrlock(&host->wb);
-    EACH_DATA_ARRAY(host->wb, wv){
-        struct udp_data *data = *wv;
-        if(data->state == DATA_STATE_INIT){
-            udp_data_send(data, host);
-            host->init_num ++;
-        }else if(data->state == DATA_STATE_SEND){
-            host->send_num ++;
-        }else if(data->state == DATA_STATE_ACK){
-            host->ack_num ++;
+    struct udp_data *e = NULL,*t = NULL;
+    udp_data_array_lock(&host->wb);
+    HASH_ITER(hh, host->wb.items, e, t){
+        if(is_del_data(e,host)){
+            e->state = DATA_STATE_DROP;
+            UDP_LOG("DATA TIMEOUT DROP %d",e->seq);
+        }
+        if(e->state == DATA_STATE_INIT && host->actived){
+            if(e->trynum > 0){
+                udp_data_send(e, host);
+            }else{
+                e->state = DATA_STATE_DROP;
+                UDP_LOG("DATA TRY COUNT DROP %d",e->seq);
+            }
+        }else if(e->state == DATA_STATE_SEND){
+            if(is_try_send(e,host)){
+                UDP_LOG("TRY SEND SEQ=%u",e->seq);
+                udp_data_try(e);
+            }
+        }else if(e->state == DATA_STATE_ACK){
+            host->sendnum++;
+            e->state = DATA_STATE_DROP;
+        }
+        if(e->state == DATA_STATE_DROP){
+            HASH_DEL(host->wb.items, e);
+            udp_data_free(e);
         }
     }
-    udp_data_array_wrunlock(&host->wb);
-    //read buffer
-    udp_data_array_wrlock(&host->rb);
-    EACH_DATA_ARRAY(host->rb, rv){
-        struct udp_data *data = *rv;
+    udp_data_array_unlock(&host->wb);
+    e = NULL;t = NULL;
+    udp_data_array_lock(&host->rb);
+    HASH_SORT(host->rb.items, udp_data_sort);
+    HASH_ITER(hh, host->rb.items, e, t){
+        if(is_del_data(e,host)){
+            HASH_DEL(host->rb.items, e);
+            udp_data_free(e);
+            continue;
+        }
+        if(e->state != DATA_STATE_RECV){
+            continue;
+        }
+        bool ret = true;
+        int sub = host->pseq + 1 - e->seq;
+        if(sub != 0){
+            UDP_LOG("DATA NOT CONTINUE %d",sub);
+        }
+        host->pseq = e->seq;
+        if(host->udp->on_data != NULL){
+            ret = host->udp->on_data(host,e);
+        }
+        if(ret){
+            host->recvnum++;
+            e->state = DATA_STATE_DROP;
+        }
     }
-    udp_data_array_wrunlock(&host->rb);
+    udp_data_array_unlock(&host->rb);
 }
+
 
 void udp_host_free(struct udp_host *host)
 {
+    uv_mutex_destroy(&host->mutex);
     udp_data_array_free(&host->rb);
     udp_data_array_free(&host->wb);
-    uv_mutex_destroy(&host->mutex);
     free(host);
 }
 
@@ -344,35 +393,32 @@ static void udp_alloc_cb(uv_handle_t* handle,size_t suggested,uv_buf_t* buf)
     buf->len = p->bufsiz;
 }
 
-int udp_ping_addr(struct udp *p,const struct sockaddr *addr)
+int udp_ping_host(struct udp *p,struct udp_host *h)
 {
     assert(p != NULL);
     struct UDP_PING d;
     d.h.opt = UDP_OPT_PING;
-    return udp_write_addr(p, addr, &d, sizeof(struct UDP_PING));
+    d.ping = h->ping;
+    return udp_write_addr(p, &h->addr, &d, sizeof(struct UDP_PING));
 }
 
 int udp_cnt_host(struct udp *p)
 {
     assert(p != NULL);
     int count = 0;
-    uv_rwlock_rdlock(&p->hmutex);
     count = HASH_COUNT(p->hosts);
-    uv_rwlock_rdunlock(&p->hmutex);
     return count;
 }
 
 void udp_clear_host(struct udp *p)
 {
     assert(p != NULL);
-    uv_rwlock_wrlock(&p->hmutex);
     struct udp_host *e = NULL;
     struct udp_host *t = NULL;
     HASH_ITER(hh, p->hosts, e, t){
         udp_host_free(e);
     }
     HASH_CLEAR(hh, p->hosts);
-    uv_rwlock_wrunlock(&p->hmutex);
 }
 
 struct udp_host *udp_add_host_with_addr(struct udp *p,const struct sockaddr *addr,udp_id uid)
@@ -385,9 +431,7 @@ struct udp_host *udp_add_host_with_addr(struct udp *p,const struct sockaddr *add
     }
     h = udp_host_new(p, addr, uid);
     assert(!udp_equ_host(p, h));
-    uv_rwlock_wrlock(&p->hmutex);
     HASH_ADD(hh, p->hosts, uid, sizeof(udp_id), h);
-    uv_rwlock_wrunlock(&p->hmutex);
     return h;
 }
 
@@ -404,9 +448,7 @@ struct udp_host *udp_add_host(struct udp *p,char *ip,int port,udp_id uid)
     }
     h = udp_host_new(p, addr, uid);
     assert(!udp_equ_host(p, h));
-    uv_rwlock_wrlock(&p->hmutex);
     HASH_ADD(hh, p->hosts, uid, sizeof(udp_id), h);
-    uv_rwlock_wrunlock(&p->hmutex);
     return h;
 }
 
@@ -414,9 +456,7 @@ struct udp_host *udp_find_host(struct udp *p,udp_id uid)
 {
     assert(p != NULL && uid > 0);
     struct udp_host *h = NULL;
-    uv_rwlock_rdlock(&p->hmutex);
     HASH_FIND(hh, p->hosts, &uid, sizeof(udp_id), h);
-    uv_rwlock_rdunlock(&p->hmutex);
     return h;
 }
 
@@ -426,12 +466,9 @@ int udp_del_host(struct udp *p,udp_id uid)
     if(h == NULL){
         return udp_cnt_host(p);
     }
-    uv_rwlock_wrlock(&p->hmutex);
     HASH_DEL(p->hosts, h);
     udp_host_free(h);
-    int count = HASH_COUNT(p->hosts);
-    uv_rwlock_wrunlock(&p->hmutex);
-    return count;
+    return HASH_COUNT(p->hosts);
 }
 
 #define DEFINE_VALUE(_t_) struct _t_ *v = (struct _t_ *)data
@@ -447,42 +484,62 @@ static void udp_recv_cb(uv_udp_t* handle,ssize_t nread,const uv_buf_t* buf,const
     if(!packet_check_sum(data, datasiz)){
         return;
     }
+    uint64_t now = time_now();
     switch (data[0]) {
         case UDP_OPT_PING:{
             DEFINE_VALUE(UDP_PING);
+            struct udp_host *h = udp_add_host_with_addr(p, addr, v->h.uid);
+            assert(h != NULL);
             struct UDP_PONG d;
             d.h.opt = UDP_OPT_PONG;
             d.time = v->h.time;
+            d.ping = h->ping;
             udp_write_addr(p, addr, &d, sizeof(struct UDP_PONG));
-            struct udp_host *h = udp_add_host_with_addr(p, addr, v->h.uid);
-            assert(h != NULL);
-            udp_host_uptime(h,0,0);
+            h->uptime = now;
+            if(v->ping > 0){
+                h->subtime = (int)(v->h.time - now + v->ping/2);
+            }
             break;
         }
         case UDP_OPT_PONG:{
             DEFINE_VALUE(UDP_PONG);
-            int ping = (int)(time_now() - v->time);
             struct udp_host *h = udp_add_host_with_addr(p, addr,v->h.uid);
             assert(h != NULL);
-            udp_host_uptime(h, v->h.time, ping);
+            int ping = (int)(time_now() - v->time);
+            h->uptime = now;
+            if(v->h.time > 0 && v->h.time > h->prev){
+                h->ping = (int)ping;
+                h->prev = v->h.time;
+            }
+            if(v->ping > 0){
+                h->subtime = (int)(v->h.time - now + v->ping/2);
+            }
             break;
         }
         case UDP_OPT_DATA:{
             DEFINE_VALUE(UDP_DATA);
             struct udp_host *h = udp_find_host(p, v->h.uid);
             if(h != NULL){
-                udp_host_uptime(h,0,0);
+                h->uptime = now;
                 udp_host_recv_data(h, v);
             }
             break;
         }
         case UDP_OPT_ACK:{
             DEFINE_VALUE(UDP_ACK);
-            int ping = (int)(time_now() - v->time);
             struct udp_host *h = udp_find_host(p, v->h.uid);
             if(h != NULL){
-                udp_host_uptime(h,v->h.time,ping);
+                h->uptime = now;
                 udp_host_ack_data(h, v);
+            }
+            break;
+        }
+        case UDP_OPT_RESEND:{
+            DEFINE_VALUE(UDP_RESEND);
+            struct udp_host *h = udp_find_host(p, v->h.uid);
+            if(h != NULL){
+                h->uptime = now;
+                udp_host_resend_data(h, v);
             }
             break;
         }
@@ -512,9 +569,7 @@ int udp_write_addr(struct udp *p,const struct sockaddr *addr,void *data, int siz
     //fill data sum data
     packet_attach_sum(pdata, dsiz);
     uv_buf_t buf = uv_buf_init(pdata,dsiz);
-    uv_mutex_lock(&p->mutex);
     int ret = uv_udp_send(req, &p->handle, &buf, 1, addr, udp_send_cb);
-    uv_mutex_unlock(&p->mutex);
     if(ret != 0){
         free(req);
     }
@@ -528,40 +583,28 @@ int udp_write(struct udp *p,char *ip,int port,void *data,int size)
     return udp_write_addr(p, ADDR(addr), data, size);
 }
 
-static void uv_opt_work_update_host(struct udp *p,struct udp_host *h)
-{
-    if(udp_host_is_active(h)){
-        udp_host_active(h);
-    }else{
-        udp_host_closed(h);
-    }
-}
 
 static void uv_opt_work_ping(struct udp *p)
 {
-    uv_rwlock_rdlock(&p->hmutex);
     struct udp_host *e = NULL;
     struct udp_host *t = NULL;
     HASH_ITER(hh, p->hosts, e, t){
-        udp_ping_addr(p, &e->addr);
-        uv_opt_work_update_host(p, e);
+        udp_ping_host(p, e);
+        if(udp_host_is_active(e)){
+            udp_host_active(e);
+        }else{
+            udp_host_closed(e);
+        }
     }
-    uv_rwlock_rdunlock(&p->hmutex);
 }
 
 static void uv_opt_work_write(struct udp *p)
 {
-    uv_rwlock_rdlock(&p->hmutex);
     struct udp_host *e = NULL;
     struct udp_host *t = NULL;
     HASH_ITER(hh, p->hosts, e, t){
-        uv_mutex_lock(&e->mutex);
-        if(e->actived){
-            udp_host_sync(e);
-        }
-        uv_mutex_unlock(&e->mutex);
+        udp_host_sync(e);
     }
-    uv_rwlock_rdunlock(&p->hmutex);
 }
 
 void udp_run_opt_work(struct udp *p,uint8_t opt)
@@ -582,17 +625,38 @@ void udp_run_opt_work(struct udp *p,uint8_t opt)
     }
 }
 
-static void timer_cb(uv_timer_t* handle)
-{
-    struct udp *p = handle->data;
-    udp_run_opt_work(p, WORK_OPT_PING);
-}
-
-static void writer_cb(uv_timer_t* handle)
+static void udp_idle_cb(uv_idle_t* handle)
 {
     struct udp *p = handle->data;
     udp_run_opt_work(p, WORK_OPT_WRITE);
+    usleep(100);
 }
+
+static void udp_status(struct udp *p)
+{
+    struct udp_host *e=NULL,*t=NULL;
+    HASH_ITER(hh, p->hosts, e, t){
+        UDP_LOG("UID=%llu PING=%d SUBTIME=%d NOW=%llu WB=%d RB=%d SEND=%d RECV=%d",
+                e->uid,
+                e->ping,
+                e->subtime,
+                udp_host_now(e),
+                udp_data_array_size(&e->wb),
+                udp_data_array_size(&e->rb),
+                e->sendnum,
+                e->recvnum);
+    }
+}
+
+static void udp_ping_cb(uv_timer_t* handle)
+{
+    struct udp *p = handle->data;
+    udp_run_opt_work(p, WORK_OPT_PING);
+    
+//    udp_status(p);
+}
+
+
 
 int udp_bind(struct udp *p,char *ip,int port)
 {
@@ -605,11 +669,11 @@ int udp_bind(struct udp *p,char *ip,int port)
     p->handle.data = p;
     ret = uv_udp_recv_start(&p->handle, udp_alloc_cb, udp_recv_cb);
     if(ret != 0)return ret;
-    ret = uv_timer_start(&p->timer, timer_cb, PING_TIME, PING_TIME);
+    ret = uv_idle_start(&p->idle, udp_idle_cb);
     if(ret != 0)return ret;
     p->port = port;
     strcpy(p->ip, ip);
-    ret = uv_timer_start(&p->writer, writer_cb, WRITER_TIME, WRITER_TIME);
+    ret = uv_timer_start(&p->timer, udp_ping_cb, 0, PING_TIME);
     if(ret != 0)return ret;
     return ret;
 }
@@ -620,10 +684,40 @@ bool udp_equ_host(struct udp *p1,struct udp_host *p2)
     return p1->uid == p2->uid;
 }
 
+static bool server_on_data_cb(struct udp_host *h,struct udp_data *d)
+{
+    if(d->attr == DATA_ATTR_TO_UID){
+        struct udp_host *c = udp_find_host(h->udp, d->uid);
+        if(c != NULL){
+            udp_host_push(c, d);
+        }
+        return true;
+    }
+    if(d->attr == DATA_ATTR_BROADCAST){
+        struct udp_host *e=NULL,*t=NULL;
+        HASH_ITER(hh, h->udp->hosts, e, t){
+            udp_host_push(e, d);
+        }
+        return true;
+    }
+    if(d->attr == DATA_ATTR_NOT_SENDER){
+        struct udp_host *e=NULL,*t=NULL;
+        HASH_ITER(hh, h->udp->hosts, e, t){
+            if(e->uid == h->uid){
+                continue;
+            }
+            udp_host_push(e, d);
+        }
+        return true;
+    }
+    return true;
+}
+
 void udp_init(struct udp *p,udp_id uid)
 {
     assert(uid > 0);
     int ret = 0;
+    p->on_data = server_on_data_cb;
     p->closed = false;
     p->uid = uid;
     p->ip[0] = 0;
@@ -631,26 +725,20 @@ void udp_init(struct udp *p,udp_id uid)
     p->hosts = NULL;
     p->bufsiz = 1024;
     p->buffer = malloc(p->bufsiz);
-    ret = uv_mutex_init(&p->mutex);
-    assert(ret == 0);
-    ret = uv_rwlock_init(&p->hmutex);
-    assert(ret == 0);
-    ret = uv_rwlock_init(&p->dmutex);
-    assert(ret == 0);
     ret = uv_loop_init(&p->looper);
     assert(ret == 0);
     ret = uv_udp_init(&p->looper, &p->handle);
     assert(ret == 0);
+    ret = uv_idle_init(&p->looper, &p->idle);
+    assert(ret == 0);
+    p->idle.data = p;
+    ret = uv_timer_init(&p->looper, &p->timer);
+    assert(ret == 0);
+    p->timer.data = p;
     p->hints.ai_family = AF_INET;
     p->hints.ai_socktype = SOCK_DGRAM;
     p->hints.ai_protocol = IPPROTO_UDP;
     p->hints.ai_flags = 0;
-    ret = uv_timer_init(&p->looper, &p->timer);
-    assert(ret == 0);
-    p->timer.data = p;
-    ret = uv_timer_init(&p->looper, &p->writer);
-    assert(ret == 0);
-    p->writer.data = p;
 }
 
 void udp_close(struct udp *p)
@@ -661,11 +749,8 @@ void udp_close(struct udp *p)
 void udp_free(struct udp *p)
 {
     uv_timer_stop(&p->timer);
-    uv_timer_stop(&p->writer);
+    uv_idle_stop(&p->idle);
     uv_udp_recv_stop(&p->handle);
     uv_loop_close(&p->looper);
     free(p->buffer);
-    uv_mutex_destroy(&p->mutex);
-    uv_rwlock_destroy(&p->hmutex);
-    uv_rwlock_destroy(&p->dmutex);
 }

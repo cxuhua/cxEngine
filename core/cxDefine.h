@@ -97,8 +97,6 @@
 
 CX_C_BEGIN
 
-#define PCRE2_CODE_UNIT_WIDTH   8
-#include <pcre/pcre.h>
 #include <ext/xxhash.h>
 #include <ext/atomic.h>
 

@@ -84,6 +84,9 @@
 		83D5D3121B6735100051D99D /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D2EC1B6735100051D99D /* xxhash.c */; };
 		83D5D3131B6735100051D99D /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D2EE1B6735100051D99D /* xxtea.c */; };
 		83D5D3191B6756D70051D99D /* cxLQT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83D5D3171B6756D70051D99D /* cxLQT.cpp */; };
+		83ECEDC91E77A48C007B2667 /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 83ECEDC21E77A48C007B2667 /* pb_common.c */; };
+		83ECEDCA1E77A48C007B2667 /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 83ECEDC41E77A48C007B2667 /* pb_decode.c */; };
+		83ECEDCB1E77A48C007B2667 /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 83ECEDC61E77A48C007B2667 /* pb_encode.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -249,6 +252,13 @@
 		83D5D2EF1B6735100051D99D /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
 		83D5D3171B6756D70051D99D /* cxLQT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLQT.cpp; sourceTree = "<group>"; };
 		83D5D3181B6756D70051D99D /* cxLQT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxLQT.h; sourceTree = "<group>"; };
+		83ECEDC21E77A48C007B2667 /* pb_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_common.c; sourceTree = "<group>"; };
+		83ECEDC31E77A48C007B2667 /* pb_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_common.h; sourceTree = "<group>"; };
+		83ECEDC41E77A48C007B2667 /* pb_decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_decode.c; sourceTree = "<group>"; };
+		83ECEDC51E77A48C007B2667 /* pb_decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_decode.h; sourceTree = "<group>"; };
+		83ECEDC61E77A48C007B2667 /* pb_encode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_encode.c; sourceTree = "<group>"; };
+		83ECEDC71E77A48C007B2667 /* pb_encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_encode.h; sourceTree = "<group>"; };
+		83ECEDC81E77A48C007B2667 /* pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -446,6 +456,13 @@
 		83D5D2C91B6735100051D99D /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				83ECEDC21E77A48C007B2667 /* pb_common.c */,
+				83ECEDC31E77A48C007B2667 /* pb_common.h */,
+				83ECEDC41E77A48C007B2667 /* pb_decode.c */,
+				83ECEDC51E77A48C007B2667 /* pb_decode.h */,
+				83ECEDC61E77A48C007B2667 /* pb_encode.c */,
+				83ECEDC71E77A48C007B2667 /* pb_encode.h */,
+				83ECEDC81E77A48C007B2667 /* pb.h */,
 				8393136A1C33B75A00DB9C0A /* base64.c */,
 				8393136B1C33B75A00DB9C0A /* base64.h */,
 				83D5D2CA1B6735100051D99D /* aes.h */,
@@ -548,6 +565,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				839313CA1C33B79A00DB9C0A /* mat3.c in Sources */,
+				83ECEDCA1E77A48C007B2667 /* pb_decode.c in Sources */,
 				83D5D2F61B6735100051D99D /* cxJson.cpp in Sources */,
 				83D5D2F51B6735100051D99D /* cxHash.cpp in Sources */,
 				83D5D2FA1B6735100051D99D /* cxNotice.cpp in Sources */,
@@ -569,6 +587,7 @@
 				839313CB1C33B79A00DB9C0A /* mat4.c in Sources */,
 				839313B91C33B79A00DB9C0A /* cxBoxPoint3F.cpp in Sources */,
 				83D5D2F01B6735100051D99D /* cxArray.cpp in Sources */,
+				83ECEDC91E77A48C007B2667 /* pb_common.c in Sources */,
 				839313BF1C33B79A00DB9C0A /* cxPoint2F.cpp in Sources */,
 				839313B61C33B79A00DB9C0A /* cxBoxColor4F.cpp in Sources */,
 				83D5D30F1B6735100051D99D /* LzmaLib.c in Sources */,
@@ -592,6 +611,7 @@
 				839313C41C33B79A00DB9C0A /* cxRenderF.cpp in Sources */,
 				839313C51C33B79A00DB9C0A /* cxSize2F.cpp in Sources */,
 				83D5D2F31B6735100051D99D /* cxCSV.cpp in Sources */,
+				83ECEDCB1E77A48C007B2667 /* pb_encode.c in Sources */,
 				839313CC1C33B79A00DB9C0A /* plane.c in Sources */,
 				839313B71C33B79A00DB9C0A /* cxBoxCoord2F.cpp in Sources */,
 				839313C11C33B79A00DB9C0A /* cxPoint3F.cpp in Sources */,

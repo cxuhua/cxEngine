@@ -30,6 +30,7 @@ enum udp_opt {
     UDP_OPT_PONG,
     UDP_OPT_DATA,
     UDP_OPT_ACK,
+    UDP_OPT_RESEND,//re send packet
     UDP_OPT_MAX,
 };
 
@@ -43,15 +44,19 @@ typedef uint8_t UDP_SUM[MD5_DIGEST_LENGTH];
 
 struct UDP_PING {
     struct UDP_HEAD h;
+    uint32_t ping;
 };
 
 struct UDP_PONG {
     struct UDP_HEAD h;
     uint64_t time;      //sender local time
+    uint32_t ping;
 };
 
 struct UDP_DATA {
     struct UDP_HEAD h;
+    uint8_t attr;
+    uint64_t uid;
     uint32_t seq;
     uint16_t size;
     uint8_t data[0];
@@ -61,6 +66,11 @@ struct UDP_ACK {
     struct UDP_HEAD h;
     uint32_t seq;
     uint64_t time;
+};
+
+struct UDP_RESEND {
+    struct UDP_HEAD h;
+    uint32_t seq;
 };
 
 #pragma pack()

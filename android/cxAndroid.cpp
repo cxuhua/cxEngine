@@ -150,8 +150,9 @@ finished:
 
 extern "C" void ANativeActivity_onCreate(ANativeActivity* activity,void* savedState, size_t savedStateSize)
 {
-    activity->instance = cxAndroid::Instance();
-    cxAndroid::Instance()->Init(activity, savedState, savedStateSize);
+    cxAndroid *android = cxAndroid::Instance();
+    activity->instance = android;
+    android->Init(activity, savedState, savedStateSize);
 }
 
 CX_IMPLEMENT(cxAndroid)
@@ -201,9 +202,6 @@ cxAndroid::cxAndroid()
     memset(Language, 0, 3);
     memset(Country, 0, 3);
     
-    pthread_mutex_init(&mutex, NULL);
-    pthread_cond_init(&cond, NULL);
-    
     int msgpipe[2];
     pipe(msgpipe);
     msgread = msgpipe[0];
@@ -234,8 +232,6 @@ cxAndroid::~cxAndroid()
 {
     close(msgread);
     close(msgwrite);
-    pthread_cond_destroy(&cond);
-    pthread_mutex_destroy(&mutex);
     AConfiguration_delete(config);
     free(state);
 }
@@ -354,12 +350,12 @@ int8_t cxAndroid::readcmd()
 
 void cxAndroid::SetActivityState(int8_t cmd)
 {
-    pthread_mutex_lock(&mutex);
+    mutex.Lock();
     writecmd(cmd);
     while (activityState != cmd) {
-        pthread_cond_wait(&cond, &mutex);
+        cond.Wait(mutex);
     }
-    pthread_mutex_unlock(&mutex);
+    mutex.Unlock();
 }
 
 void cxAndroid::writecmd(int8_t cmd)
@@ -448,7 +444,7 @@ void cxAndroid::cxAndroidPreExec(cxAndroid *app, int8_t cmd)
 {
     switch (cmd) {
         case APP_CMD_INPUT_CHANGED:{
-            pthread_mutex_lock(&app->mutex);
+            app->mutex.Lock();
             if (app->inputQueue != NULL) {
                 AInputQueue_detachLooper(app->inputQueue);
             }
@@ -456,29 +452,29 @@ void cxAndroid::cxAndroidPreExec(cxAndroid *app, int8_t cmd)
             if (app->inputQueue != NULL) {
                 AInputQueue_attachLooper(app->inputQueue,app->looper, LOOPER_ID_INPUT, NULL,&app->input);
             }
-            pthread_cond_broadcast(&app->cond);
-            pthread_mutex_unlock(&app->mutex);
+            app->cond.Broadcast();
+            app->mutex.Unlock();
             break;
         }
         case APP_CMD_INIT_WINDOW:{
-            pthread_mutex_lock(&app->mutex);
+            app->mutex.Lock();
             app->window = app->pendingWindow;
-            pthread_cond_broadcast(&app->cond);
-            pthread_mutex_unlock(&app->mutex);
+            app->cond.Broadcast();
+            app->mutex.Unlock();
             break;
         }
         case APP_CMD_TERM_WINDOW:{
-            pthread_cond_broadcast(&app->cond);
+            app->cond.Broadcast();
             break;
         }
         case APP_CMD_RESUME:
         case APP_CMD_START:
         case APP_CMD_PAUSE:
         case APP_CMD_STOP:{
-            pthread_mutex_lock(&app->mutex);
+            app->mutex.Lock();
             app->activityState = cmd;
-            pthread_cond_broadcast(&app->cond);
-            pthread_mutex_unlock(&app->mutex);
+            app->cond.Broadcast();
+            app->mutex.Unlock();
             break;
         }
         case APP_CMD_CONFIG_CHANGED:{
@@ -496,10 +492,10 @@ void cxAndroid::cxAndroidPostExec(cxAndroid *app, int8_t cmd)
 {
     switch (cmd) {
         case APP_CMD_TERM_WINDOW:{
-            pthread_mutex_lock(&app->mutex);
+            app->mutex.Lock();
             app->window = NULL;
-            pthread_cond_broadcast(&app->cond);
-            pthread_mutex_unlock(&app->mutex);
+            app->cond.Broadcast();
+            app->mutex.Unlock();
             break;
         }
     }
@@ -662,7 +658,7 @@ int32_t cxAndroid::HandleInput(AInputEvent* event)
     if(type == AINPUT_EVENT_TYPE_KEY){
         return HandleKeyInput(event);
     }
-    return 0;    return 0;
+    return 0;
 }
 
 cxBool cxAndroid::ProcessInput()
@@ -693,7 +689,7 @@ void cxAndroid::cxAndroidInputExec(cxAndroid *app, AndroidPollSource *source)
     }
 }
 
-void *cxAndroid::AndroidEntry(void *data)
+void cxAndroid::AndroidEntry(void *data)
 {
     cxAndroid *app = (cxAndroid *)data;
     AConfiguration_fromAssetManager(app->config, app->activity->assetManager);
@@ -709,14 +705,14 @@ void *cxAndroid::AndroidEntry(void *data)
     app->looper = ALooper_prepare(ALOOPER_PREPARE_ALLOW_NON_CALLBACKS);
     ALooper_addFd(app->looper, app->msgread, LOOPER_ID_MAIN, ALOOPER_EVENT_INPUT, NULL,&app->cmd);
     
-    pthread_mutex_lock(&app->mutex);
+    app->mutex.Lock();
     app->running = true;
-    pthread_cond_broadcast(&app->cond);
-    pthread_mutex_unlock(&app->mutex);
+    app->cond.Broadcast();
+    app->mutex.Unlock();
     
     app->cxAndroidMain();
     
-    pthread_mutex_lock(&app->mutex);
+    app->mutex.Lock();
     if (app->inputQueue != NULL) {
         AInputQueue_detachLooper(app->inputQueue);
         app->inputQueue = NULL;
@@ -724,14 +720,13 @@ void *cxAndroid::AndroidEntry(void *data)
     AConfiguration_delete(app->config);
     app->config = NULL;
     app->destroyed = true;
-    pthread_cond_broadcast(&app->cond);
-    pthread_mutex_unlock(&app->mutex);
-    return data;
+    app->cond.Broadcast();
+    app->mutex.Unlock();
 }
 
 void cxAndroid::SetWindow(ANativeWindow* window)
 {
-    pthread_mutex_lock(&mutex);
+    mutex.Lock();
     if (pendingWindow != NULL) {
         writecmd(APP_CMD_TERM_WINDOW);
     }
@@ -740,20 +735,20 @@ void cxAndroid::SetWindow(ANativeWindow* window)
         writecmd(APP_CMD_INIT_WINDOW);
     }
     while (window != pendingWindow) {
-        pthread_cond_wait(&cond, &mutex);
+        cond.Wait(mutex);
     }
-    pthread_mutex_unlock(&mutex);
+    mutex.Unlock();
 }
 
 void cxAndroid::SetInput(AInputQueue* inputQueue)
 {
-    pthread_mutex_lock(&mutex);
+    mutex.Lock();
     pendingInputQueue = inputQueue;
     writecmd(APP_CMD_INPUT_CHANGED);
     while (inputQueue != pendingInputQueue) {
-        pthread_cond_wait(&cond, &mutex);
+        cond.Wait(mutex);
     }
-    pthread_mutex_unlock(&mutex);
+    mutex.Unlock();
 }
 
 void cxAndroid::cxAndroidMain()
@@ -785,12 +780,12 @@ void cxAndroid::cxAndroidMain()
 void cxAndroid::onDestroy(ANativeActivity* activity)
 {
     cxAndroid *app = (cxAndroid *)activity->instance;
-    pthread_mutex_lock(&app->mutex);
+    app->mutex.Lock();
     app->writecmd(APP_CMD_DESTROY);
     while (!app->destroyed) {
-        pthread_cond_wait(&app->cond, &app->mutex);
+        app->cond.Wait(app->mutex);
     }
-    pthread_mutex_unlock(&app->mutex);
+    app->mutex.Unlock();
     cxAndroid::Destroy();
 }
 
@@ -885,7 +880,6 @@ void cxAndroid::Init(ANativeActivity *a,void *d, size_t l)
         state = malloc(l);
         memcpy(state, d, l);
     }
-    //set event
     activity->callbacks->onDestroy = cxAndroid::onDestroy;
     activity->callbacks->onStart = cxAndroid::onStart;
     activity->callbacks->onResume = cxAndroid::onResume;
@@ -901,17 +895,12 @@ void cxAndroid::Init(ANativeActivity *a,void *d, size_t l)
     activity->callbacks->onNativeWindowDestroyed = cxAndroid::onNativeWindowDestroyed;
     activity->callbacks->onInputQueueCreated = cxAndroid::onInputQueueCreated;
     activity->callbacks->onInputQueueDestroyed = cxAndroid::onInputQueueDestroyed;
-    //
-    pthread_attr_t attr;
-    pthread_attr_init(&attr);
-    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-    pthread_create(&thread, &attr, cxAndroid::AndroidEntry, this);
-    //wait AndroidEntry run
-    pthread_mutex_lock(&mutex);
+    uv_thread_create(&thread, cxAndroid::AndroidEntry, this);
+    mutex.Lock();
     while (!running) {
-        pthread_cond_wait(&cond, &mutex);
+        cond.Wait(mutex);
     }
-    pthread_mutex_unlock(&mutex);
+    mutex.Unlock();
 }
 
 CX_CPP_END

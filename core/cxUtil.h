@@ -35,6 +35,7 @@ public:
     static cxInt Rand(cxInt min,cxInt max);
     //当前时间
     static cxDouble Timestamp();
+    static cxUInt64 Now();
     //获取工具类实例
     static cxUtil *Instance();
     //获取assets数据

@@ -13,7 +13,6 @@
 #include <core/cxObject.h>
 #include <jni.h>
 #include <unistd.h>
-#include <pthread.h>
 #include <errno.h>
 #include <stdio.h>
 #include <EGL/egl.h>
@@ -23,6 +22,7 @@
 #include <android/native_activity.h>
 #include <android/configuration.h>
 #include <engine/cxEngine.h>
+#include <core/cxSync.h>
 
 CX_CPP_BEGIN
 
@@ -63,7 +63,6 @@ struct JNIMethodInfo
     jobject     object;
     JNIMethodInfo();
     virtual ~JNIMethodInfo();
-    
     jobject CallObjectMethod(cxAndroid *app,...);
     void CallVoidMethod(cxAndroid *app,...);
 };
@@ -91,8 +90,8 @@ private:
     size_t size;
     char Language[3];
     char Country[3];
-    pthread_mutex_t mutex;
-    pthread_cond_t cond;
+    cxMutex mutex;
+    cxCond cond;
     int msgread;
     int msgwrite;
     
@@ -106,8 +105,8 @@ private:
     
     ALooper *looper;
     bool running;
-    pthread_t thread;
-    static void *AndroidEntry(void *data);
+    uv_thread_t thread;
+    static void AndroidEntry(void *data);
     
     AndroidPollSource cmd;
     AndroidPollSource input;

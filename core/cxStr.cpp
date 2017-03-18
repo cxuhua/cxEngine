@@ -633,6 +633,12 @@ cxStr *cxStr::Append(cchars data,cxInt n)
     return this;
 }
 
+cxStr *cxStr::Append(cxAny data,cxInt n)
+{
+    s = s.append((cchars)data, n);
+    return this;
+}
+
 cxStr *cxStr::Append(cchars data)
 {
     s = s.append(data);

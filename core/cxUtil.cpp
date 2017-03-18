@@ -108,6 +108,13 @@ cxDouble cxUtil::Timestamp()
     return val.tv_sec + (cxDouble)val.tv_usec/(cxDouble)1000000.0;
 }
 
+cxUInt64 cxUtil::Now()
+{
+    struct timeval val = {0};
+    gettimeofday(&val, NULL);
+    return val.tv_sec * 1000000L + val.tv_usec;
+}
+
 void cxUtil::SetRandSeed()
 {
     srandom((unsigned int)time(nullptr));
@@ -175,7 +182,7 @@ cxBool cxUtil::FileExists(const cxStr *path,cxInt *length)
 cxStr *cxUtil::UUID()
 {
     char buf[64]={0};
-    snprintf(buf, 64, "%llu",uv_hrtime);
+    snprintf(buf, 64, "%llu", uv_hrtime());
     return cxStr::Create(buf);
 }
 

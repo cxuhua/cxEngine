@@ -56,8 +56,8 @@ cxUdpServer::~cxUdpServer()
 
 void cxUdpServer::RecvData(cxUdpHost *h,const cxUdpData *d)
 {
-    CX_LOGGER("%llu RECV %llu DATA SEQ=%u",d->Dst(),d->Src(), d->Seq());
-    h->WriteData(cxStr::Create("123456"));
+//    CX_LOGGER("%llu RECV %llu DATA SEQ=%u",d->Dst(),d->Src(), d->Seq());
+    cxUdpBase::RecvData(h, d);
 }
 
 void cxUdpServer::RecvFrame(UdpAddr *addr,cxAny data,cxInt size)
@@ -70,7 +70,7 @@ void cxUdpServer::RecvFrame(UdpAddr *addr,cxAny data,cxInt size)
     dMutex.Unlock();
 }
 
-void cxUdpServer::WorkData()
+void cxUdpServer::WorkRun()
 {
     dMutex.Lock();
     while(rQueue->Size() == 0){

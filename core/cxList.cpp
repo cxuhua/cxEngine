@@ -162,7 +162,7 @@ cxList::FIter cxList::Remove(FIter &iter)
     return ml.erase(iter);
 }
 
-cxList::FIter cxList::Remove(CFIter &iter)
+cxList::CFIter cxList::Remove(CFIter &iter)
 {
     (*iter)->Release();
     return ml.erase(iter);
@@ -174,10 +174,10 @@ cxList::RIter cxList::Remove(RIter &iter)
     return RIter(ml.erase(iter.base()));
 }
 
-cxList::RIter cxList::Remove(CRIter &iter)
+cxList::CRIter cxList::Remove(CRIter &iter)
 {
     (*iter)->Release();
-    return RIter(ml.erase(iter.base()));
+    return CRIter(ml.erase(iter.base()));
 }
 
 CX_CPP_END

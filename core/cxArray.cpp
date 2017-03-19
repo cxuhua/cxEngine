@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
-#include <vector>
 #include <algorithm>
 #include "cxArray.h"
 
@@ -152,10 +151,10 @@ cxArray::RIter cxArray::Remove(RIter &iter)
     return RIter(mv.erase(iter.base()));
 }
 
-cxArray::RIter cxArray::Remove(CRIter &iter)
+cxArray::CRIter cxArray::Remove(CRIter &iter)
 {
     (*iter)->Release();
-    return RIter(mv.erase(iter.base()));
+    return CRIter(mv.erase(iter.base()));
 }
 
 cxArray::FIter cxArray::Remove(FIter &iter)
@@ -164,7 +163,7 @@ cxArray::FIter cxArray::Remove(FIter &iter)
     return mv.erase(iter);
 }
 
-cxArray::FIter cxArray::Remove(CFIter &iter)
+cxArray::CFIter cxArray::Remove(CFIter &iter)
 {
     (*iter)->Release();
     return mv.erase(iter);

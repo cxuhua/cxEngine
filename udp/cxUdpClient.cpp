@@ -26,6 +26,7 @@ cxUdpClient::~cxUdpClient()
 void cxUdpClient::RecvData(cxUdpHost *h,const cxUdpData *d)
 {
     CX_LOGGER("%llu RECV %llu DATA SEQ=%u",d->Dst(),d->Src(), d->Seq());
+    cxUdpBase::RecvData(h, d);
 }
 
 void cxUdpClient::RecvFrame(UdpAddr *addr,cxAny data,cxInt size)

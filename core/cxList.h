@@ -42,10 +42,10 @@ public:
     CFIter FEnd() const;
     
     FIter Remove(FIter &iter);
-    FIter Remove(CFIter &iter);
+    CFIter Remove(CFIter &iter);
     
     RIter Remove(RIter &iter);
-    RIter Remove(CRIter &iter);
+    CRIter Remove(CRIter &iter);
 private:
     std::list<cxObject *> ml;
 public:

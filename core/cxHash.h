@@ -9,6 +9,7 @@
 #ifndef cxEngineCore_cxHash_h
 #define cxEngineCore_cxHash_h
 
+#include <ext/xxhash.h>
 #include <unordered_map>
 #include "cxObject.h"
 #include "cxStr.h"
@@ -38,7 +39,7 @@ struct cxHasher
     bool operator()(const cxHashKey &lhs, const cxHashKey &rhs) const;
 };
 
-typedef std::unordered_map<cxHashKey, cxObject *,cxHasher,cxHasher> cxHashMap;
+typedef std::unordered_map<cxHashKey, cxObject *, cxHasher, cxHasher> cxHashMap;
 
 class cxArray;
 class cxHash : public cxObject

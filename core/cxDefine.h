@@ -95,12 +95,6 @@
 #include <ctype.h>
 #include <uv/uv.h>
 
-CX_C_BEGIN
-
-#include <ext/xxhash.h>
-
-CX_C_END
-
 typedef void *          cxAny;
 typedef const char *    cchars;
 typedef char *          chars;

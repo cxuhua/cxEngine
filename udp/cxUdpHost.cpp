@@ -9,6 +9,7 @@
 
 #include "cxUdpBase.h"
 #include "cxUdpHost.h"
+#include "cxUdpData.h"
 
 CX_CPP_BEGIN
 
@@ -16,69 +17,167 @@ CX_IMPLEMENT(cxUdpHost);
 
 cxUdpHost::cxUdpHost()
 {
-    seq = 0;
+    rds.reset();
+    wds = cxHash::Alloc();
     Reset();
     base = nullptr;
 }
 
 cxUdpHost::~cxUdpHost()
 {
-    
+    wds->Release();
 }
 
 cxUInt32 cxUdpHost::SeqInc()
 {
     mutex.Lock();
     seq ++;
+    CX_ASSERT(seq < MAX_SEQ, "seq too big");
     mutex.Unlock();
     return seq;
 }
 
 void cxUdpHost::Reset()
 {
+    rds.reset();
+    wds->Clear();
+    seq = 0;
     isactived = false;
     isclosed = true;
     uptime = 0;
-    ping = -1;
+    ping = 0;
+    maxseq = 0;
 }
 
-cxInt cxUdpHost::WriteData(const cxStr *data)
+cxBool cxUdpHost::SaveRecvData(cxUdpData *data)
+{
+    cxBool ret = false;
+    cxUInt32 dseq = data->Seq();
+    rlocker.WLock();
+    ret = rds[dseq];
+    if(!ret){
+        rds[dseq] = true;
+    }
+    if(dseq > maxseq){
+        maxseq = dseq;
+    }
+    rlocker.WUnlock();
+    return ret;
+}
+
+void cxUdpHost::AckSendData(cxUInt32 seq)
+{
+    wlocker.WLock();
+    wds->Del(seq);
+    wlocker.WUnlock();
+}
+
+void cxUdpHost::SaveSendData(cxUInt32 seq,const cxStr *data)
+{
+    wlocker.WLock();
+    cxUdpData *d = cxUdpData::Alloc();
+    if(d->Init(seq, data, uid, base->Now())){
+        wds->Set(seq, d);
+    }
+    d->Release();
+    wlocker.WUnlock();
+}
+
+void cxUdpHost::Update()
+{
+    CX_ASSERT(base != nullptr, "base nullptr");
+    if(!IsActived()){
+        return;
+    }
+    cxUInt64 now = base->Now();
+    // > 2*ping repeat send
+    wlocker.WLock();
+    cxHash::Iter it = wds->Begin();
+    while(it != wds->End()){
+        cxUdpData *data = it->second->To<cxUdpData>();
+        cxInt v = (cxInt)(now - data->Time());
+        if(v >= 1000000){
+            it = wds->Remove(it);
+            continue;
+        }
+        if(v < ping * 2){
+            it++;
+            continue;
+        }
+        if(data->DecMaxTry() == 0){
+            it = wds->Remove(it);
+            continue;
+        }
+        WriteData(data);
+        data->SetTime(now);
+        it++;
+    }
+    wlocker.WUnlock();
+}
+
+void cxUdpHost::WriteData(const cxUdpData *data)
 {
     CX_ASSERT(base != nullptr, "base not set");
     if(!IsActived()){
-        return -1;
+        CX_ERROR("Write data error,upd not actived");
+        return;
     }
-    SeqInc();
-    return base->WriteData(Addr(), seq, uid, data);
+    base->WriteData(Addr(), data->Seq(), data->Dst(), data->Data());
+}
+
+void  cxUdpHost::WriteData(const cxStr *data)
+{
+    CX_ASSERT(base != nullptr, "base not set");
+    if(!IsActived()){
+        CX_ERROR("Write data error,upd not actived");
+        return;
+    }
+    cxUInt32 seq = SeqInc();
+    base->WriteData(Addr(), seq, uid, data);
+    SaveSendData(seq, data);
 }
 
 cxBool cxUdpHost::IsClosed()
 {
-    return isclosed;
+    mutex.Lock();
+    cxBool ret = isclosed;
+    mutex.Unlock();
+    return ret;
 }
 
 cxBool cxUdpHost::IsActived()
 {
-    return isactived;
+    mutex.Lock();
+    cxBool ret = isactived;
+    mutex.Unlock();
+    return ret;
 }
 
 cxBool cxUdpHost::CheckClosed(cxUInt64 time)
 {
+    cxBool ret = false;
+    mutex.Lock();
     if(uptime > 0 && !isclosed && time - uptime > 3000000L){
         isclosed = true;
         isactived = false;
         uptime = 0;
+        ret = true;
     }
-    return IsClosed();
+    mutex.Unlock();
+    return ret;
 }
 
 cxBool cxUdpHost::CheckActived(cxUInt64 time)
 {
+    cxBool ret = false;
+    mutex.Lock();
     if(!isactived){
         isactived = true;
         isclosed = false;
+        ret = true;
     }
-    return IsActived();
+    mutex.Unlock();
+    return ret;
 }
 
 void cxUdpHost::UpdatePing(cxUInt64 time,cxUInt64 value)

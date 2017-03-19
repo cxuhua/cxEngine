@@ -17,33 +17,6 @@
 
 CX_CPP_BEGIN
 
-#pragma pack(1)
-//opt == 1
-struct udp_ping_t {
-    cxUInt8 opt;
-    cxUInt64 src;
-    cxUInt64 time;
-    cxUInt64 ptime;
-};
-//opt == 2
-struct udp_pong_t {
-    cxUInt8 opt;
-    cxUInt64 src;
-    cxUInt64 time;
-    cxUInt64 ptime;
-};
-//opt == 3
-struct udp_data_t {
-    cxUInt8     opt;
-    cxUInt32    seq;
-    cxUInt64    src;
-    cxUInt64    time;
-    cxUInt64    dst;
-    cxUInt16    size;
-    cxInt8      data[0];
-};
-#pragma pack()
-
 class cxUdpData;
 class cxUdpBase : public cxObject
 {
@@ -53,6 +26,9 @@ protected:
     explicit cxUdpBase();
     virtual ~cxUdpBase();
 private:
+    cxRWLock wlocker;
+    cxArray *wqueue;
+    
     cxHash *hosts;
     cxRWLock hlocker;
     cxStr *datakey;
@@ -78,21 +54,22 @@ protected:
     void DecodeData(const UdpAddr *addr,cxAny data,cxInt size);
     void DecodeData(const UdpAddr *addr,const cxStr *data);
     cxStr *EncodeData(const cxStr *data);
-    cxUInt64 Now();
     virtual void OnHostActived(cxUdpHost *h);
     virtual void OnHostClosed(cxUdpHost *h);
 public:
+    cxUInt64 Now();
     cxUInt64 UID();
     cxUdpHost *FindHost(cxUInt64 id,const UdpAddr *addr);
     cxUdpHost *FindHost(cxUInt64 id);
-    cxUdpHost *AppendHost(cchars ip,cxInt port,cxUInt64 id);
-    cxUdpHost *AppendHost(cxUInt64 id,const UdpAddr *addr);
-    virtual void WorkData();
+    cxUdpHost *ConnectHost(cchars ip,cxInt port,cxUInt64 id);
+    cxUdpHost *ConnectHost(cxUInt64 id,const UdpAddr *addr);
+    virtual void WorkRun();
     void Update();
     cxInt Init(cchars host,cxInt port,cxUInt64 uid);
     cxInt Start();
-    cxInt WriteFrame(const UdpAddr *addr,const cxStr *frame);
-    cxInt WriteData(const UdpAddr *addr,cxUInt32 seq, cxUInt64 dst,const cxStr *data);
+    void WriteFrame(const UdpAddr *addr,const cxStr *frame);
+    cxInt WriteFrame(const cxUdpData *data);
+    void WriteData(const UdpAddr *addr,cxUInt32 seq, cxUInt64 dst,const cxStr *data);
 };
 
 CX_CPP_END

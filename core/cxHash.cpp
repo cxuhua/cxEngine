@@ -134,11 +134,13 @@ cxBool cxHash::IsOK(const cxHash *v)
 
 cxHash::Iter cxHash::Remove(Iter &iter)
 {
+    iter->second->Release();
     return mh.erase(iter);
 }
 
 cxHash::Iter cxHash::Remove(CIter &iter)
 {
+    iter->second->Release();
     return mh.erase(iter);
 }
 

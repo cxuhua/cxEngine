@@ -9,13 +9,18 @@
 #ifndef udp_cxUdpHost_h
 #define udp_cxUdpHost_h
 
+#include <core/cxHash.h>
 #include <core/cxStr.h>
 #include <core/cxSync.h>
+#include <bitset>
 
 CX_CPP_BEGIN
 
+#define MAX_SEQ         1024*1024
+
 typedef struct sockaddr UdpAddr;
 
+class cxUdpData;
 class cxUdpBase;
 class cxUdpHost : public cxObject
 {
@@ -34,7 +39,22 @@ private:
     UdpAddr addr;
     cxInt ping;
     cxUInt64 uptime;
+    
+    cxRWLock rlocker;
+    std::bitset<MAX_SEQ> rds;
+    cxUInt32 maxseq;
+    
+    cxRWLock wlocker;
+    cxHash *wds;
 public:
+    cxEvent<cxUdpHost> onActived;
+    cxEvent<cxUdpHost> onClosed;
+public:
+    void Update();
+    // ack send data
+    void AckSendData(cxUInt32 seq);
+    void SaveSendData(cxUInt32 seq,const cxStr *data);
+    cxBool SaveRecvData(cxUdpData *data);
     cxUInt32 SeqInc();
     cxBool IsClosed();
     cxBool IsActived();
@@ -47,7 +67,8 @@ public:
     UdpAddr *Addr();
     cxBool Init(cxUdpBase *pb,cchars ip,cxInt port,cxUInt64 id);
     cxBool Init(cxUdpBase *pb,const UdpAddr *paddr,cxUInt64 id);
-    cxInt WriteData(const cxStr *data);
+    void WriteData(const cxStr *data);
+    void WriteData(const cxUdpData *data);
 };
 
 CX_CPP_END

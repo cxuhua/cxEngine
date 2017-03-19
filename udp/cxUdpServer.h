@@ -45,7 +45,7 @@ private:
     cxCond  dCond;
     cxList *rQueue;
 public:
-    void WorkData();
+    void WorkRun();
 };
 
 CX_CPP_END

@@ -20,9 +20,9 @@ Library('libkazmath.a',Glob('math/kazmath/*.c'),CFLAGS=[env['CCFLAGS'],'-std=gnu
 
 Library('libcore.a',Glob('core/*.cpp'),CCFLAGS=[env['CCFLAGS'],'-std=gnu++11'])
 
-Library('libraknet.a',Glob('raknet/*.cpp'),CCFLAGS=[env['CCFLAGS'],'-std=gnu++11'])
-
 Library('libmath.a',Glob('math/*.cpp'),CCFLAGS=[env['CCFLAGS'],'-std=gnu++11'])
+
+Library('libudp.a',Glob('udp/*.cpp'),CCFLAGS=[env['CCFLAGS'],'-std=gnu++11'])
 
 
 

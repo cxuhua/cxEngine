@@ -118,7 +118,7 @@ cxHash *cxHash::Clear()
     return this;
 }
 
-cxArray *cxHash::ToArray()
+cxArray *cxHash::Values()
 {
     cxArray *rv = cxArray::Create();
     for(Iter it=Begin();it!=End();it++){
@@ -170,8 +170,8 @@ void cxHash::Del(const cxHashKey &key)
     if(it == mh.end()){
         return;
     }
-    it->second->Release();
     mh.erase(it);
+    it->second->Release();
 }
 
 cxBool cxHash::Has(const cxHashKey &key)
@@ -196,10 +196,10 @@ cxHash *cxHash::Set(const cxHashKey &key,cxObject *nobj)
         return this;
     }
     if(oobj != nullptr){
-        Del(key);
+        oobj->Release();
     }
-    mh.emplace(key,nobj);
     nobj->Retain();
+    mh.emplace(key,nobj);
     return this;
 }
 

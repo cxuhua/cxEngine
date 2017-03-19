@@ -75,7 +75,7 @@ public:
     cxObject *Get(const cxHashKey &key);
     template<class T>
     T *At(const cxHashKey &key);
-    cxArray *ToArray();
+    cxArray *Values();
 };
 
 template<class T>

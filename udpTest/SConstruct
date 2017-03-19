@@ -1,10 +1,9 @@
 
-
 SConscript(['../SConscript'])
-Import('env')
-# env.Append(LINKFLAGS=['-static'])
-env.Program("test", "udp/main.cpp",LIBS=['z','uv','pthread','udp','core','math','kazmath','ext','jansson'])
 
+Import('env')
+
+env.Program("test", "udp/main.cpp",LIBS=['-lstdc++','z','uv','pthread','udp','core','math','kazmath','ext','jansson'])
 
 
 

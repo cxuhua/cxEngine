@@ -98,6 +98,7 @@ void cxUtil::Logger(const char* type,const char*file,int line,const char* format
     char *buffer = nullptr;
     vasprintf(&buffer, format, ap);
     printf("[%s:%d] %s:%s\n",file,line,type,buffer);
+    fflush(stdout);
     free(buffer);
 }
 

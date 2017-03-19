@@ -56,7 +56,7 @@ cxUdpServer::~cxUdpServer()
 
 void cxUdpServer::RecvData(cxUdpHost *h,const cxUdpData *d)
 {
-//    CX_LOGGER("%llu RECV %llu DATA SEQ=%u",d->Dst(),d->Src(), d->Seq());
+    CX_LOGGER("%llu RECV %llu DATA SEQ=%u",d->Dst(),d->Src(), d->Seq());
     cxUdpBase::RecvData(h, d);
 }
 

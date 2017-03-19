@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0820"
+   LastUpgradeVersion = "0810"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83FED4FB1E72713700B39CE9"
-               BuildableName = "cxpacket"
-               BlueprintName = "cxpacket"
-               ReferencedContainer = "container:cxpacket.xcodeproj">
+               BlueprintIdentifier = "83D5D2891B6734BC0051D99D"
+               BuildableName = "udp"
+               BlueprintName = "udp"
+               ReferencedContainer = "container:udp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "83FED4FB1E72713700B39CE9"
-            BuildableName = "cxpacket"
-            BlueprintName = "cxpacket"
-            ReferencedContainer = "container:cxpacket.xcodeproj">
+            BlueprintIdentifier = "83D5D2891B6734BC0051D99D"
+            BuildableName = "udp"
+            BlueprintName = "udp"
+            ReferencedContainer = "container:udp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -55,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "83FED4FB1E72713700B39CE9"
-            BuildableName = "cxpacket"
-            BlueprintName = "cxpacket"
-            ReferencedContainer = "container:cxpacket.xcodeproj">
+            BlueprintIdentifier = "83D5D2891B6734BC0051D99D"
+            BuildableName = "udp"
+            BlueprintName = "udp"
+            ReferencedContainer = "container:udp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -74,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "83FED4FB1E72713700B39CE9"
-            BuildableName = "cxpacket"
-            BlueprintName = "cxpacket"
-            ReferencedContainer = "container:cxpacket.xcodeproj">
+            BlueprintIdentifier = "83D5D2891B6734BC0051D99D"
+            BuildableName = "udp"
+            BlueprintName = "udp"
+            ReferencedContainer = "container:udp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

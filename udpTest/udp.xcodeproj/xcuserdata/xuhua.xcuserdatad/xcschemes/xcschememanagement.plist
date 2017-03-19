@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>cxpacket.xcscheme</key>
+		<key>udp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>83FED4FB1E72713700B39CE9</key>
+		<key>83D5D2891B6734BC0051D99D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

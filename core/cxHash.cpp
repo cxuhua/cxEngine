@@ -170,8 +170,8 @@ void cxHash::Del(const cxHashKey &key)
     if(it == mh.end()){
         return;
     }
-    mh.erase(it);
     it->second->Release();
+    mh.erase(it);
 }
 
 cxBool cxHash::Has(const cxHashKey &key)
@@ -198,8 +198,8 @@ cxHash *cxHash::Set(const cxHashKey &key,cxObject *nobj)
     if(oobj != nullptr){
         oobj->Release();
     }
-    nobj->Retain();
     mh.emplace(key,nobj);
+    nobj->Retain();
     return this;
 }
 

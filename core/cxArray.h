@@ -53,8 +53,8 @@ public:
     CRIter Remove(CRIter &iter);
 public:
     cxObject **Buffer();
-    cxObject *Last() const;
-    cxObject *First() const;
+    cxObject *Back() const;
+    cxObject *Front() const;
     cxObject *At(cxInt idx) const;
     cxBool IsEmpty() const;
     cxInt Size() const;

@@ -52,7 +52,6 @@ struct udp_data_t {
 struct udp_ack_t {
     cxUInt8     opt;
     cxUInt64    uid;
-    cxUInt64    time;
     cxUInt32    seq;
 };
 #pragma pack()

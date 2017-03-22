@@ -33,20 +33,14 @@ cxInt cxArray::Size() const
     return (cxInt)mv.size();
 }
 
-cxObject *cxArray::Last() const
+cxObject *cxArray::Back() const
 {
-    if(Size() == 0){
-        return nullptr;
-    }
-    return At(Size() - 1);
+    return IsEmpty()?nullptr:mv.back();
 }
 
-cxObject *cxArray::First() const
+cxObject *cxArray::Front() const
 {
-    if(Size() == 0){
-        return nullptr;
-    }
-    return At(0);
+    return IsEmpty()?nullptr:mv.front();
 }
 
 cxObject *cxArray::At(cxInt idx) const

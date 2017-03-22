@@ -96,13 +96,15 @@ void cxUdpBase::Update()
     hlocker.RUnlock();
     
     wlocker.WLock();
-    cxArray::FIter it=wqueue->FBegin();
+    cxArray::FIter it = wqueue->FBegin();
     while(it != wqueue->FEnd()){
         cxUdpData *data = (*it)->To<cxUdpData>();
-        WriteFrame(data);
-        it++;
+        if(WriteFrame(data) == 0){
+            it = wqueue->Remove(it);
+        }else{
+            it++;
+        }
     }
-    wqueue->Clear();
     wlocker.WUnlock();
     
     mutex.Lock();
@@ -288,7 +290,6 @@ void cxUdpBase::RecvData(cxUdpHost *h,const cxUdpData *d)
     udp_ack_t ack;
     ack.opt = UDP_OPT_ACKD;
     ack.uid = uid;
-    ack.time = Now();
     ack.seq = d->Seq();
     cxStr *data = cxStr::Alloc(&ack, sizeof(udp_ack_t));
     WriteFrame(h->Addr(), data);

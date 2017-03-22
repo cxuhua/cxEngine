@@ -23,30 +23,25 @@ void DataSegments::Merge()
 {
     Items::iterator it = ds.begin();
     Items::iterator pt = it;
-    while(it != ds.end()){
-        if(pt == it){
-            pt = it;
-            it++;
-            continue;
-        }
+    while(it != ds.end() && pt != ds.end()){
         Item *i1 = *pt;
         Item *i2 = *it;
-        //i1 -> i2
-        if(i1->beg + i1->len == i2->beg){
+        if(pt == it){
+            pt = it++;
+        }else if(i1->beg + i1->len == i2->beg){
+            //i1 -> i2
             i1->len += i2->len;
             delete i2;
             it = ds.erase(it);
-            continue;
-        }
-        //i2 <- i1
-        if(i2->beg + i2->len == i1->beg){
+        }else if(i2->beg + i2->len == i1->beg){
+            //i2 <- i1
             i1->beg -= i2->len;
             i1->len += i2->len;
             delete i2;
             it = ds.erase(it);
-            continue;
+        }else{
+            pt = it++;
         }
-        pt = it++;
     }
 }
 
@@ -92,7 +87,7 @@ cxBool DataSegments::Has(cxUInt32 v)
 {
     for(Items::iterator it=ds.begin();it!=ds.end();it++){
         Item *i = *it;
-        if(v >= i->beg && v <= i->beg + i->len - 1){
+        if(v >= i->beg && v < i->beg + i->len){
             return true;
         }
     }

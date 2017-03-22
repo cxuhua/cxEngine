@@ -52,7 +52,7 @@ static void client_write(void *arg)
             data->Release();
         }
         cxAutoPool::Update();
-        usleep(100);
+        usleep(100000);
     }
 }
 

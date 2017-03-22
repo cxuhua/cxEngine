@@ -10,10 +10,11 @@
 #define udp_cxUdpData_h
 
 #include <core/cxStr.h>
-#include "cxUdpBase.h"
+#include "cxUdpHost.h"
 
 CX_CPP_BEGIN
 
+//try send count
 #define MAX_TRY_SEND    5
 
 enum udp_opt_t {
@@ -43,11 +44,9 @@ struct udp_pong_t {
 struct udp_data_t {
     cxUInt8     opt;
     cxUInt32    seq;
-    cxUInt64    src;
-    cxUInt64    time;
+    cxUInt64    src;        //sender uid
     cxUInt64    dst;
-    cxUInt16    size;
-    cxInt8      data[0];
+    cxUInt8     data[0];
 };
 //opt == UDP_OPT_ACKD
 struct udp_ack_t {
@@ -76,7 +75,7 @@ private:
     cxUInt64    dst;
 public:
     // init for recv data
-    cxBool Init(const udp_data_t *data);
+    cxBool Init(const udp_data_t *data,cxInt size);
     // init for send data
     cxBool Init(cxUInt32 aseq, const cxStr *data,cxUInt64 adst,cxUInt64 atime);
     // init raw data for send

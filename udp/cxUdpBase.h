@@ -13,7 +13,7 @@
 #include <core/cxStr.h>
 #include <core/cxSync.h>
 #include <core/cxHash.h>
-#include "cxUdpHost.h"
+#include "cxUdpData.h"
 
 CX_CPP_BEGIN
 
@@ -28,7 +28,6 @@ protected:
 private:
     cxRWLock wlocker;
     cxArray *wqueue;
-    
     cxHash *hosts;
     cxRWLock hlocker;
     cxStr *datakey;
@@ -44,6 +43,7 @@ private:
     static void udp_alloc_cb(uv_handle_t* handle,size_t suggested,uv_buf_t* buf);
     static void udp_udp_recv_cb(uv_udp_t* handle,ssize_t nread,const uv_buf_t* buf,const struct sockaddr* addr,unsigned flags);
     static void udp_send_cb(uv_udp_send_t* req, int status);
+    void recvData(const UdpAddr *addr,const udp_data_t *data,cxInt size);
 private:
     uv_timer_t timer;
     static void udp_timer_cb(uv_timer_t* handle);

@@ -135,8 +135,6 @@ void cxUdpBase::WriteData(const UdpAddr *addr,cxUInt32 seq,cxUInt64 dst,const cx
     dptr.seq = seq;
     dptr.src = uid;
     dptr.dst = dst;
-    dptr.time = Now();
-    dptr.size = data->Size();
     cxStr *d = cxStr::Alloc()->Init(&dptr, sizeof(udp_data_t));
     d->Append(data);
     WriteFrame(addr, d);
@@ -255,16 +253,7 @@ void cxUdpBase::DecodeData(const UdpAddr *addr,const cxStr *data)
         }
         case UDP_OPT_DATA:{
             udp_data_t *p = (udp_data_t *)d->Buffer();
-            cxUdpHost *h = FindHost(p->src,addr);
-            if(h == nullptr){
-                break;
-            }
-            cxUdpData *data = cxUdpData::Alloc();
-            if(data->Init(p) && !h->SaveRecvData(data)){
-                RecvData(h,data);
-            }
-            data->Release();
-            h->UpdateTime(now);
+            recvData(addr, p, data->Size());
             break;
         }
         case UDP_OPT_ACKD:{
@@ -314,6 +303,20 @@ void cxUdpBase::udp_udp_recv_cb(uv_udp_t* handle,ssize_t nread,const uv_buf_t *b
     }
     pudp->recvnum++;
     pudp->RecvFrame((UdpAddr *)addr, buf->base, (cxInt)nread);
+}
+
+void cxUdpBase::recvData(const UdpAddr *addr,const udp_data_t *data,cxInt size)
+{
+    cxUdpHost *h = FindHost(data->src,addr);
+    if(h == nullptr){
+        return;
+    }
+    cxUdpData *ud = cxUdpData::Alloc();
+    if(ud->Init(data,size) && !h->SaveRecvData(ud)){
+        RecvData(h,ud);
+    }
+    ud->Release();
+    h->UpdateTime(Now());
 }
 
 cxUInt64 cxUdpBase::Now()

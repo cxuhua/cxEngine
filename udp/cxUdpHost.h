@@ -12,11 +12,28 @@
 #include <core/cxHash.h>
 #include <core/cxStr.h>
 #include <core/cxSync.h>
-#include <bitset>
+#include <vector>
 
 CX_CPP_BEGIN
 
-#define MAX_SEQ         1024*1024
+#define MAX_TIMEOUT     3000000
+
+class DataSegments
+{
+private:
+    struct Item {
+        cxUInt32 beg;
+        cxUInt32 len;
+        Item(cxUInt32 abeg);
+    };
+    typedef std::vector<Item *> Items;
+    Items ds;
+public:
+    void Merge();
+    void Put(cxUInt32 v);
+    cxBool Has(cxUInt32 v);
+    void Clear();
+};
 
 typedef struct sockaddr UdpAddr;
 
@@ -41,12 +58,12 @@ private:
     cxUInt64 uptime;
     
     cxRWLock rlocker;
-    std::bitset<MAX_SEQ> rds;
-    cxUInt32 maxseq;
+    DataSegments rds;
     
     cxRWLock wlocker;
     cxHash *wds;
 public:
+    cxEvent<cxUdpHost, cxUdpData *> onMiss;
     cxEvent<cxUdpHost> onActived;
     cxEvent<cxUdpHost> onClosed;
 public:

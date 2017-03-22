@@ -13,11 +13,96 @@
 
 CX_CPP_BEGIN
 
+DataSegments::Item::Item(cxUInt32 abeg)
+{
+    beg = abeg;
+    len = 1;
+}
+
+void DataSegments::Merge()
+{
+    Items::iterator it = ds.begin();
+    Items::iterator pt = it;
+    while(it != ds.end()){
+        if(pt == it){
+            pt = it;
+            it++;
+            continue;
+        }
+        Item *i1 = *pt;
+        Item *i2 = *it;
+        //i1 -> i2
+        if(i1->beg + i1->len == i2->beg){
+            i1->len += i2->len;
+            delete i2;
+            it = ds.erase(it);
+            continue;
+        }
+        //i2 <- i1
+        if(i2->beg + i2->len == i1->beg){
+            i1->beg -= i2->len;
+            i1->len += i2->len;
+            delete i2;
+            it = ds.erase(it);
+            continue;
+        }
+        pt = it++;
+    }
+}
+
+void DataSegments::Put(cxUInt32 v)
+{
+    Items::iterator it = ds.begin();
+    while(it != ds.end()){
+        Item *i = *it;
+        //middle
+        if(v >= i->beg && v < i->beg + i->len){
+            Merge();
+            return;
+        }
+        //after
+        if(i->beg + i->len == v){
+            i->len ++;
+            Merge();
+            return;
+        }
+        //before
+        if(i->beg - 1 == v){
+            i->beg --;
+            i->len ++;
+            Merge();
+            return;
+        }
+        it ++;
+    }
+    ds.push_back(new Item(v));
+}
+
+void DataSegments::Clear()
+{
+    Items::iterator it = ds.begin();
+    while(it != ds.end()){
+        delete *it;
+        it++;
+    }
+    ds.clear();
+}
+
+cxBool DataSegments::Has(cxUInt32 v)
+{
+    for(Items::iterator it=ds.begin();it!=ds.end();it++){
+        Item *i = *it;
+        if(v >= i->beg && v <= i->beg + i->len - 1){
+            return true;
+        }
+    }
+    return false;
+}
+
 CX_IMPLEMENT(cxUdpHost);
 
 cxUdpHost::cxUdpHost()
 {
-    rds.reset();
     wds = cxHash::Alloc();
     Reset();
     base = nullptr;
@@ -32,21 +117,25 @@ cxUInt32 cxUdpHost::SeqInc()
 {
     mutex.Lock();
     seq ++;
-    CX_ASSERT(seq < MAX_SEQ, "seq too big");
     mutex.Unlock();
     return seq;
 }
 
 void cxUdpHost::Reset()
 {
-    rds.reset();
+    rlocker.WLock();
+    rds.Clear();
+    rlocker.WUnlock();
+    
+    wlocker.WLock();
     wds->Clear();
+    wlocker.WUnlock();
+    
     seq = 0;
     isactived = false;
     isclosed = true;
     uptime = 0;
     ping = 0;
-    maxseq = 0;
 }
 
 cxBool cxUdpHost::SaveRecvData(cxUdpData *data)
@@ -54,12 +143,9 @@ cxBool cxUdpHost::SaveRecvData(cxUdpData *data)
     cxBool ret = false;
     cxUInt32 dseq = data->Seq();
     rlocker.WLock();
-    ret = rds[dseq];
+    ret = rds.Has(dseq);
     if(!ret){
-        rds[dseq] = true;
-    }
-    if(dseq > maxseq){
-        maxseq = dseq;
+        rds.Put(dseq);
     }
     rlocker.WUnlock();
     return ret;
@@ -96,7 +182,8 @@ void cxUdpHost::Update()
     while(it != wds->End()){
         cxUdpData *data = it->second->To<cxUdpData>();
         cxInt v = (cxInt)(now - data->Time());
-        if(v >= 1000000){
+        if(v >= MAX_TIMEOUT){
+            onMiss.Fire(this, data);
             it = wds->Remove(it);
             continue;
         }
@@ -105,6 +192,7 @@ void cxUdpHost::Update()
             continue;
         }
         if(data->DecMaxTry() == 0){
+            onMiss.Fire(this, data);
             it = wds->Remove(it);
             continue;
         }

@@ -89,13 +89,12 @@ cxBool cxUdpData::Init(cxUInt32 aseq, const cxStr *data,cxUInt64 adst,cxUInt64 a
 }
 
 // init for recv data
-cxBool cxUdpData::Init(const udp_data_t *data)
+cxBool cxUdpData::Init(const udp_data_t *data,cxInt size)
 {
     buffer->Clear();
-    buffer->Append((cchars)data->data, data->size);
+    buffer->Append((cchars)data->data, size - sizeof(udp_data_t));
     seq = data->seq;
     src = data->src;
-    time = data->time;
     dst = data->dst;
     return true;
 }

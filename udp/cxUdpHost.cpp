@@ -101,6 +101,8 @@ cxUdpHost::cxUdpHost()
     wds = cxHash::Alloc();
     Reset();
     base = nullptr;
+    trytime = 300000L;//0.3s
+    maxtime = 3000000L;//3s
 }
 
 cxUdpHost::~cxUdpHost()
@@ -164,6 +166,11 @@ void cxUdpHost::SaveSendData(cxUInt32 seq,const cxStr *data)
     wlocker.WUnlock();
 }
 
+void cxUdpHost::SetTryTime(cxInt v)
+{
+    trytime = v;
+}
+
 void cxUdpHost::Update()
 {
     CX_ASSERT(base != nullptr, "base nullptr");
@@ -171,23 +178,22 @@ void cxUdpHost::Update()
         return;
     }
     cxUInt64 now = base->Now();
-    // > 2*ping repeat send
     wlocker.WLock();
     cxHash::Iter it = wds->Begin();
     while(it != wds->End()){
         cxUdpData *data = it->second->To<cxUdpData>();
         cxInt v = (cxInt)(now - data->Time());
-        if(v >= MAX_TIMEOUT){
-            onMiss.Fire(this, data);
+        if(v >= maxtime){
+            base->onMiss.Fire(base, this, data);
             it = wds->Remove(it);
             continue;
         }
-        if(v < ping * 2){
+        if(v < trytime){
             it++;
             continue;
         }
         if(data->DecMaxTry() == 0){
-            onMiss.Fire(this, data);
+            base->onMiss.Fire(base, this, data);
             it = wds->Remove(it);
             continue;
         }

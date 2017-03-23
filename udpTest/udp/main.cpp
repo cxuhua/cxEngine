@@ -72,10 +72,6 @@ int main(int argc, const char * argv[])
     client->Init("0.0.0.0", 9977, 2);
     
     chost = client->ConnectHost("0.0.0.0", 9988, 1);
-//    chost->onActived=[](cxUdpHost *h){
-//        cxStr *data = cxStr::Create("1234");
-//        h->WriteData(data);
-//    };
     client->Start();
     
     uv_thread_t cid;

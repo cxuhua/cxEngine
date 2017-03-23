@@ -18,7 +18,8 @@ cxUdpData::cxUdpData()
     maxtry = MAX_TRY_SEND;
     seq = 0;
     src = 0;
-    time = 0;
+    vtime = 0;
+    itime = 0;
     dst = 0;
     buffer = cxStr::Alloc();
 }
@@ -61,12 +62,12 @@ cxUInt32 cxUdpData::Seq() const
 
 cxUInt64 cxUdpData::Time()
 {
-    return time;
+    return vtime;
 }
 
 void cxUdpData::SetTime(cxUInt64 v)
 {
-    time = v;
+    vtime = v;
 }
 
 cxBool cxUdpData::Init(const UdpAddr *paddr,const cxStr *data)
@@ -83,7 +84,8 @@ cxBool cxUdpData::Init(cxUInt32 aseq, const cxStr *data,cxUInt64 adst,cxUInt64 a
     seq = aseq;
     buffer->Clear();
     buffer->Append(data);
-    time = atime;
+    itime = atime;
+    vtime = atime;
     dst = adst;
     return true;
 }

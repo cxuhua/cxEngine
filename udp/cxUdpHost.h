@@ -16,8 +16,6 @@
 
 CX_CPP_BEGIN
 
-#define MAX_TIMEOUT     3000000
-
 class DataSegments
 {
 private:
@@ -62,11 +60,10 @@ private:
     
     cxRWLock wlocker;
     cxHash *wds;
+    cxInt trytime;
+    cxInt maxtime;
 public:
-    cxEvent<cxUdpHost, cxUdpData *> onMiss;
-    cxEvent<cxUdpHost> onActived;
-    cxEvent<cxUdpHost> onClosed;
-public:
+    void SetTryTime(cxInt v);
     void Update();
     // ack send data
     void AckSendData(cxUInt32 seq);

@@ -70,8 +70,9 @@ private:
     cxUInt8     maxtry;
     cxUInt32    seq;
     cxUInt64    src;
-    cxUInt64    time;
     cxUInt64    dst;
+    cxUInt64    itime;
+    cxUInt64    vtime;
 public:
     // init for recv data
     cxBool Init(const udp_data_t *data,cxInt size);

@@ -49,20 +49,26 @@ private:
     static void udp_timer_cb(uv_timer_t* handle);
     void sendPing();
 protected:
-    virtual void RecvFrame(UdpAddr *addr,cxAny data,cxInt size);
-    virtual void RecvData(cxUdpHost *h,const cxUdpData *d);
     void DecodeData(const UdpAddr *addr,cxAny data,cxInt size);
     void DecodeData(const UdpAddr *addr,const cxStr *data);
     cxStr *EncodeData(const cxStr *data);
+protected:
+    virtual void OnRecvFrame(UdpAddr *addr,cxAny data,cxInt size);
+    virtual void OnRecvData(cxUdpHost *h,const cxUdpData *d);
     virtual void OnHostActived(cxUdpHost *h);
     virtual void OnHostClosed(cxUdpHost *h);
 public:
+    cxEvent<cxUdpBase, cxUdpHost *, const cxUdpData *> onData;
+    cxEvent<cxUdpBase, cxUdpHost *, const cxUdpData *> onMiss;
+    cxEvent<cxUdpBase, cxUdpHost *> onActived;
+    cxEvent<cxUdpBase, cxUdpHost *> onClosed;
+public:
     cxUInt64 Now();
     cxUInt64 UID();
-    cxUdpHost *FindHost(cxUInt64 id,const UdpAddr *addr);
-    cxUdpHost *FindHost(cxUInt64 id);
-    cxUdpHost *ConnectHost(cchars ip,cxInt port,cxUInt64 id);
-    cxUdpHost *ConnectHost(cxUInt64 id,const UdpAddr *addr);
+    cxUdpHost *FindHost(cxUInt64 uid,const UdpAddr *addr);
+    cxUdpHost *FindHost(cxUInt64 uid);
+    cxUdpHost *ConnectHost(cchars ip,cxInt port,cxUInt64 uid);
+    cxUdpHost *ConnectHost(cxUInt64 uid,const UdpAddr *addr);
     virtual void WorkRun();
     void Update();
     cxInt Init(cchars host,cxInt port,cxUInt64 uid);

@@ -54,13 +54,13 @@ cxUdpServer::~cxUdpServer()
     rQueue->Release();
 }
 
-void cxUdpServer::RecvData(cxUdpHost *h,const cxUdpData *d)
+void cxUdpServer::OnRecvData(cxUdpHost *h,const cxUdpData *d)
 {
-    CX_LOGGER("%llu RECV %llu DATA SEQ=%u",d->Dst(),d->Src(), d->Seq());
-    cxUdpBase::RecvData(h, d);
+    onData.Fire(this, h, d);
+    cxUdpBase::OnRecvData(h, d);
 }
 
-void cxUdpServer::RecvFrame(UdpAddr *addr,cxAny data,cxInt size)
+void cxUdpServer::OnRecvFrame(UdpAddr *addr,cxAny data,cxInt size)
 {
     dMutex.Lock();
     UdpFrame *d = UdpFrame::Alloc(addr, data, size);

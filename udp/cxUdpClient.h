@@ -21,10 +21,10 @@ protected:
     explicit cxUdpClient();
     virtual ~cxUdpClient();
 protected:
-    void RecvFrame(UdpAddr *addr,cxAny data,cxInt size);
-    void RecvData(cxUdpHost *h,const cxUdpData *d);
-private:
+    void OnRecvFrame(UdpAddr *addr,cxAny data,cxInt size);
+    void OnRecvData(cxUdpHost *h,const cxUdpData *d);
 public:
+   
 };
 
 CX_CPP_END

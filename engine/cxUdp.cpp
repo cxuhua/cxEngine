@@ -11,59 +11,70 @@
 
 CX_CPP_BEGIN
 
-CX_IMPLEMENT(cxPacket)
-
-cxPacket::cxPacket()
-{
-    
-}
-
-cxPacket::~cxPacket()
-{
-    
-}
-
 CX_IMPLEMENT(cxUdp);
 
 cxUdp::cxUdp()
 {
-    packets = cxArray::Alloc();
-    host = nullptr;
-    port = 0;
-    uv_loop_init(&looper);
-    uv_udp_init(&looper, &handle);
-    hints.ai_family = AF_INET;
-    hints.ai_socktype = SOCK_DGRAM;
-    hints.ai_protocol = IPPROTO_UDP;
-    hints.ai_flags = 0;
+    c = nullptr;
 }
 
 cxUdp::~cxUdp()
 {
-    packets->Release();
-    cxObject::release(&host);
-    uv_loop_close(&looper);
+    cxObject::release(&c);
 }
 
 void cxUdp::OnStep(cxFloat dt)
 {
-    uv_run(&looper, UV_RUN_NOWAIT);
+    CX_ASSERT(c != nullptr, "c null");
+    c->Update();
 }
 
-cxBool cxUdp::Init(cchars ahost,cxInt aport)
+void cxUdp::OnData(cxUdpHost *h,const cxUdpData *d)
 {
-    cxObject::swap(&host, cxStr::Create(ahost));
-    port = aport;
-    return true;
+    
 }
 
-cxUdp *Create(cchars host,cxInt port)
+void cxUdp::OnMiss(cxUdpHost *h,const cxUdpData *d)
+{
+    
+}
+
+void cxUdp::OnHostActived(cxUdpHost *h)
+{
+    
+}
+
+void cxUdp::OnHostClosed(cxUdpHost *h)
+{
+    
+}
+
+cxUdpHost *cxUdp::ConnectHost(cchars ip,cxInt port,cxUInt64 uid)
+{
+    return c->ConnectHost(ip, port, uid);
+}
+
+cxUdp *cxUdp::Create(cchars host,cxInt port,cxUInt64 uid)
 {
     cxUdp *udp = cxUdp::Create();
-    if(!udp->Init(host, port)){
-        CX_ERROR("init udp error");
+    cxUdpClient *c = cxUdpClient::Create();
+    if(c->Init(host, port, uid) != 0){
         return nullptr;
     }
+    cxObject::swap(&udp->c, c);
+    udp->Forever();
+    c->onData+=[udp](cxUdpBase *c,cxUdpHost *h,const cxUdpData *data){
+        udp->OnData(h,data);
+    };
+    c->onMiss+=[udp](cxUdpBase *c,cxUdpHost *h,const cxUdpData *data){
+        udp->OnMiss(h,data);
+    };
+    c->onActived+=[udp](cxUdpBase *c,cxUdpHost *h){
+        udp->OnHostActived(h);
+    };
+    c->onClosed+=[udp](cxUdpBase *c,cxUdpHost *h){
+        udp->OnHostClosed(h);
+    };
     return udp;
 }
 

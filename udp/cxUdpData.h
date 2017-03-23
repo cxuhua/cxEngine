@@ -29,6 +29,7 @@ enum udp_opt_t {
 //opt == UDP_OPT_PING
 struct udp_ping_t {
     cxUInt8 opt;
+    cxUInt32 group;
     cxUInt64 src;
     cxUInt64 time;
     cxUInt64 ptime;

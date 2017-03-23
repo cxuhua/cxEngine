@@ -62,7 +62,9 @@ private:
     cxHash *wds;
     cxInt trytime;
     cxInt maxtime;
+    cxUInt32 group;
 public:
+    cxUInt32 Group();
     void SetTryTime(cxInt v);
     void Update();
     // ack send data
@@ -75,13 +77,17 @@ public:
     cxBool CheckClosed(cxUInt64 time);
     cxBool CheckActived(cxUInt64 time);
     void Reset();
+    void SetGroup(cxUInt32 v);
     void UpdatePing(cxUInt64 time,cxUInt64 value);
     void UpdateTime(cxUInt64 time);
+    void UpdateGroup(cxUInt64 tv,cxUInt32 gv);
     cxUInt64 UID();
     UdpAddr *Addr();
     cxBool Init(cxUdpBase *pb,cchars ip,cxInt port,cxUInt64 id);
     cxBool Init(cxUdpBase *pb,const UdpAddr *paddr,cxUInt64 id);
     void WriteData(const cxStr *data);
+    void WriteData(const cxStr *data,cxUInt64 dst);
+    void WriteData(const cxStr *data,cxUInt64 src,cxUInt64 dst);
     void WriteData(const cxUdpData *data);
 };
 

@@ -98,6 +98,7 @@ CX_IMPLEMENT(cxUdpHost);
 
 cxUdpHost::cxUdpHost()
 {
+    group = 0;
     wds = cxHash::Alloc();
     Reset();
     base = nullptr;
@@ -135,6 +136,11 @@ void cxUdpHost::Reset()
     ping = 0;
 }
 
+void cxUdpHost::SetGroup(cxUInt32 v)
+{
+    group = v;
+}
+
 cxBool cxUdpHost::SaveRecvData(cxUdpData *data)
 {
     cxBool ret = false;
@@ -169,6 +175,11 @@ void cxUdpHost::SaveSendData(cxUInt32 seq,const cxStr *data)
 void cxUdpHost::SetTryTime(cxInt v)
 {
     trytime = v;
+}
+
+cxUInt32 cxUdpHost::Group()
+{
+    return group;
 }
 
 void cxUdpHost::Update()
@@ -216,13 +227,30 @@ void cxUdpHost::WriteData(const cxUdpData *data)
 
 void  cxUdpHost::WriteData(const cxStr *data)
 {
+    WriteData(data,uid);
+}
+
+void cxUdpHost::WriteData(const cxStr *data,cxUInt64 dst)
+{
     CX_ASSERT(base != nullptr, "base not set");
     if(!IsActived()){
         CX_ERROR("Write data error,upd not actived");
         return;
     }
     cxUInt32 seq = SeqInc();
-    base->WriteData(Addr(), seq, uid, data);
+    base->WriteData(Addr(), seq, dst, data);
+    SaveSendData(seq, data);
+}
+
+void cxUdpHost::WriteData(const cxStr *data,cxUInt64 src,cxUInt64 dst)
+{
+    CX_ASSERT(base != nullptr, "base not set");
+    if(!IsActived()){
+        CX_ERROR("Write data error,upd not actived");
+        return;
+    }
+    cxUInt32 seq = SeqInc();
+    base->WriteData(Addr(), seq, src, dst, data);
     SaveSendData(seq, data);
 }
 
@@ -278,6 +306,12 @@ void cxUdpHost::UpdatePing(cxUInt64 time,cxUInt64 value)
 void cxUdpHost::UpdateTime(cxUInt64 time)
 {
     uptime = time;
+}
+
+void cxUdpHost::UpdateGroup(cxUInt64 tv,cxUInt32 gv)
+{
+    uptime = tv;
+    group = gv;
 }
 
 UdpAddr *cxUdpHost::Addr()

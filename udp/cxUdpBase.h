@@ -43,6 +43,7 @@ private:
     static void udp_alloc_cb(uv_handle_t* handle,size_t suggested,uv_buf_t* buf);
     static void udp_udp_recv_cb(uv_udp_t* handle,ssize_t nread,const uv_buf_t* buf,const struct sockaddr* addr,unsigned flags);
     static void udp_send_cb(uv_udp_send_t* req, int status);
+    void hostRecvData(cxUdpHost *h,cxUdpData *d);
     void recvData(const UdpAddr *addr,const udp_data_t *data,cxInt size);
 private:
     uv_timer_t timer;
@@ -76,6 +77,7 @@ public:
     void WriteFrame(const UdpAddr *addr,const cxStr *frame);
     cxInt WriteFrame(const cxUdpData *data);
     void WriteData(const UdpAddr *addr,cxUInt32 seq, cxUInt64 dst,const cxStr *data);
+    void WriteData(const UdpAddr *addr,cxUInt32 seq,cxUInt64 src,cxUInt64 dst,const cxStr *data);
 };
 
 CX_CPP_END

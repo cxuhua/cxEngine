@@ -22,7 +22,6 @@ protected:
     virtual ~cxUdpClient();
 protected:
     void OnRecvFrame(UdpAddr *addr,cxAny data,cxInt size);
-    void OnRecvData(cxUdpHost *h,const cxUdpData *d);
 public:
    
 };

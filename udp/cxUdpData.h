@@ -30,30 +30,29 @@ enum udp_opt_t {
 struct udp_ping_t {
     cxUInt8 opt;
     cxUInt32 group;
-    cxUInt64 src;
+    cxUInt64 uid;
     cxUInt64 time;
     cxUInt64 ptime;
 };
 //opt == UDP_OPT_PONG
 struct udp_pong_t {
     cxUInt8 opt;
-    cxUInt64 src;
+    cxUInt64 uid;
     cxUInt64 time;
     cxUInt64 ptime;
 };
 //opt == UDP_OPT_DATA
 struct udp_data_t {
     cxUInt8     opt;
-    cxUInt32    seq;
-    cxUInt64    src;        //sender uid
-    cxUInt64    dst;
+    cxUInt64    seq;
+    cxUInt64    uid;
     cxUInt8     data[0];
 };
 //opt == UDP_OPT_ACKD
 struct udp_ack_t {
     cxUInt8     opt;
     cxUInt64    uid;
-    cxUInt32    seq;
+    cxUInt64    seq;
 };
 #pragma pack()
 
@@ -69,16 +68,13 @@ private:
 private:
     UdpAddr     addr;
     cxUInt8     maxtry;
-    cxUInt32    seq;
-    cxUInt64    src;
-    cxUInt64    dst;
-    cxUInt64    itime;
-    cxUInt64    vtime;
+    cxUInt64    seq;
+    cxUInt64    time;
 public:
     // init for recv data
     cxBool Init(const udp_data_t *data,cxInt size);
     // init for send data
-    cxBool Init(cxUInt32 aseq, const cxStr *data,cxUInt64 adst,cxUInt64 atime);
+    cxBool Init(cxUInt64 aseq, const cxStr *data, cxUInt64 atime);
     // init raw data for send
     cxBool Init(const UdpAddr *paddr,const cxStr *data);
 public:
@@ -86,9 +82,7 @@ public:
     cxUInt8 DecMaxTry();
     cxUInt64 Time();
     void SetTime(cxUInt64 v);
-    cxUInt32 Seq() const;
-    cxUInt64 Src() const;
-    cxUInt64 Dst() const;
+    cxUInt64 Seq() const;
     cxStr *Data() const;
 };
 

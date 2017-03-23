@@ -23,12 +23,6 @@ cxUdpClient::~cxUdpClient()
     
 }
 
-void cxUdpClient::OnRecvData(cxUdpHost *h,const cxUdpData *d)
-{
-    onData.Fire(this, h, d);
-    cxUdpBase::OnRecvData(h, d);
-}
-
 void cxUdpClient::OnRecvFrame(UdpAddr *addr,cxAny data,cxInt size)
 {
     DecodeData(addr, data, size);

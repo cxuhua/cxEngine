@@ -17,10 +17,7 @@ cxUdpData::cxUdpData()
 {
     maxtry = MAX_TRY_SEND;
     seq = 0;
-    src = 0;
-    vtime = 0;
-    itime = 0;
-    dst = 0;
+    time = 0;
     buffer = cxStr::Alloc();
 }
 
@@ -40,34 +37,24 @@ cxStr *cxUdpData::Data() const
     return buffer;
 }
 
-cxUInt64 cxUdpData::Src() const
-{
-    return src;
-}
-
-cxUInt64 cxUdpData::Dst() const
-{
-    return dst;
-}
-
 const UdpAddr *cxUdpData::Addr() const
 {
     return &addr;
 }
 
-cxUInt32 cxUdpData::Seq() const
+cxUInt64 cxUdpData::Seq() const
 {
     return seq;
 }
 
 cxUInt64 cxUdpData::Time()
 {
-    return vtime;
+    return time;
 }
 
 void cxUdpData::SetTime(cxUInt64 v)
 {
-    vtime = v;
+    time = v;
 }
 
 cxBool cxUdpData::Init(const UdpAddr *paddr,const cxStr *data)
@@ -79,14 +66,12 @@ cxBool cxUdpData::Init(const UdpAddr *paddr,const cxStr *data)
 }
 
 // init for send data
-cxBool cxUdpData::Init(cxUInt32 aseq, const cxStr *data,cxUInt64 adst,cxUInt64 atime)
+cxBool cxUdpData::Init(cxUInt64 aseq, const cxStr *data,cxUInt64 atime)
 {
     seq = aseq;
     buffer->Clear();
     buffer->Append(data);
-    itime = atime;
-    vtime = atime;
-    dst = adst;
+    time = atime;
     return true;
 }
 
@@ -96,8 +81,6 @@ cxBool cxUdpData::Init(const udp_data_t *data,cxInt size)
     buffer->Clear();
     buffer->Append((cchars)data->data, size - sizeof(udp_data_t));
     seq = data->seq;
-    src = data->src;
-    dst = data->dst;
     return true;
 }
 

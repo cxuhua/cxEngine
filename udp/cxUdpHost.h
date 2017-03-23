@@ -20,16 +20,16 @@ class DataSegments
 {
 private:
     struct Item {
-        cxUInt32 beg;
-        cxUInt32 len;
-        Item(cxUInt32 abeg);
+        cxUInt64 beg;
+        cxUInt64 len;
+        Item(cxUInt64 abeg);
     };
     typedef std::vector<Item *> Items;
     Items ds;
 public:
     void Merge();
-    void Put(cxUInt32 v);
-    cxBool Has(cxUInt32 v);
+    void Put(cxUInt64 v);
+    cxBool Has(cxUInt64 v);
     void Clear();
 };
 
@@ -46,7 +46,7 @@ protected:
     virtual ~cxUdpHost();
 private:
     cxMutex mutex;
-    cxUInt32 seq;
+    cxUInt64 seq;
     cxBool isactived;
     cxBool isclosed;
     cxUdpBase *base;
@@ -64,14 +64,17 @@ private:
     cxInt maxtime;
     cxUInt32 group;
 public:
+    cxEvent<cxUdpHost, const cxUdpData *> onData;
+    cxEvent<cxUdpHost, const cxUdpData *> onMiss;
+public:
     cxUInt32 Group();
     void SetTryTime(cxInt v);
     void Update();
     // ack send data
-    void AckSendData(cxUInt32 seq);
-    void SaveSendData(cxUInt32 seq,const cxStr *data);
+    void AckSendData(cxUInt64 seq);
+    void SaveSendData(cxUInt64 seq,const cxStr *data);
     cxBool SaveRecvData(cxUdpData *data);
-    cxUInt32 SeqInc();
+    cxUInt64 SeqInc();
     cxBool IsClosed();
     cxBool IsActived();
     cxBool CheckClosed(cxUInt64 time);
@@ -86,8 +89,6 @@ public:
     cxBool Init(cxUdpBase *pb,cchars ip,cxInt port,cxUInt64 id);
     cxBool Init(cxUdpBase *pb,const UdpAddr *paddr,cxUInt64 id);
     void WriteData(const cxStr *data);
-    void WriteData(const cxStr *data,cxUInt64 dst);
-    void WriteData(const cxStr *data,cxUInt64 src,cxUInt64 dst);
     void WriteData(const cxUdpData *data);
 };
 

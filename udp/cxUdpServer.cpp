@@ -56,7 +56,7 @@ cxUdpServer::~cxUdpServer()
 
 void cxUdpServer::OnRecvData(cxUdpHost *h,const cxUdpData *d)
 {
-    onData.Fire(this, h, d);
+    CX_LOGGER("%llu RECV %llu data %s SEQ:%llu",UID(), h->UID(),d->Data()->ToString(),d->Seq());
     cxUdpBase::OnRecvData(h, d);
 }
 

@@ -13,7 +13,7 @@
 
 CX_CPP_BEGIN
 
-DataSegments::Item::Item(cxUInt32 abeg)
+DataSegments::Item::Item(cxUInt64 abeg)
 {
     beg = abeg;
     len = 1;
@@ -45,7 +45,7 @@ void DataSegments::Merge()
     }
 }
 
-void DataSegments::Put(cxUInt32 v)
+void DataSegments::Put(cxUInt64 v)
 {
     Items::iterator it = ds.begin();
     while(it != ds.end()){
@@ -83,7 +83,7 @@ void DataSegments::Clear()
     ds.clear();
 }
 
-cxBool DataSegments::Has(cxUInt32 v)
+cxBool DataSegments::Has(cxUInt64 v)
 {
     for(Items::iterator it=ds.begin();it!=ds.end();it++){
         Item *i = *it;
@@ -111,7 +111,7 @@ cxUdpHost::~cxUdpHost()
     wds->Release();
 }
 
-cxUInt32 cxUdpHost::SeqInc()
+cxUInt64 cxUdpHost::SeqInc()
 {
     mutex.Lock();
     seq ++;
@@ -144,7 +144,7 @@ void cxUdpHost::SetGroup(cxUInt32 v)
 cxBool cxUdpHost::SaveRecvData(cxUdpData *data)
 {
     cxBool ret = false;
-    cxUInt32 dseq = data->Seq();
+    cxUInt64 dseq = data->Seq();
     rlocker.WLock();
     ret = rds.Has(dseq);
     if(!ret){
@@ -154,22 +154,22 @@ cxBool cxUdpHost::SaveRecvData(cxUdpData *data)
     return ret;
 }
 
-void cxUdpHost::AckSendData(cxUInt32 seq)
+void cxUdpHost::AckSendData(cxUInt64 seq)
 {
     wlocker.WLock();
     wds->Del(seq);
     wlocker.WUnlock();
 }
 
-void cxUdpHost::SaveSendData(cxUInt32 seq,const cxStr *data)
+void cxUdpHost::SaveSendData(cxUInt64 seq,const cxStr *data)
 {
-    wlocker.WLock();
     cxUdpData *d = cxUdpData::Alloc();
-    if(d->Init(seq, data, uid, base->Now())){
+    if(d->Init(seq, data, base->Now())){
+        wlocker.WLock();
         wds->Set(seq, d);
+        wlocker.WUnlock();
     }
     d->Release();
-    wlocker.WUnlock();
 }
 
 void cxUdpHost::SetTryTime(cxInt v)
@@ -195,6 +195,7 @@ void cxUdpHost::Update()
         cxUdpData *data = it->second->To<cxUdpData>();
         cxInt v = (cxInt)(now - data->Time());
         if(v >= maxtime){
+            onMiss.Fire(this, data);
             base->onMiss.Fire(base, this, data);
             it = wds->Remove(it);
             continue;
@@ -204,6 +205,7 @@ void cxUdpHost::Update()
             continue;
         }
         if(data->DecMaxTry() == 0){
+            onMiss.Fire(this, data);
             base->onMiss.Fire(base, this, data);
             it = wds->Remove(it);
             continue;
@@ -222,36 +224,19 @@ void cxUdpHost::WriteData(const cxUdpData *data)
         CX_ERROR("Write data error,upd not actived");
         return;
     }
-    base->WriteData(Addr(), data->Seq(), data->Dst(), data->Data());
+    base->WriteData(Addr(), data->Seq(), data->Data());
 }
 
 void  cxUdpHost::WriteData(const cxStr *data)
 {
-    WriteData(data,uid);
-}
-
-void cxUdpHost::WriteData(const cxStr *data,cxUInt64 dst)
-{
     CX_ASSERT(base != nullptr, "base not set");
     if(!IsActived()){
         CX_ERROR("Write data error,upd not actived");
         return;
     }
-    cxUInt32 seq = SeqInc();
-    base->WriteData(Addr(), seq, dst, data);
+    cxUInt64 seq = SeqInc();
     SaveSendData(seq, data);
-}
-
-void cxUdpHost::WriteData(const cxStr *data,cxUInt64 src,cxUInt64 dst)
-{
-    CX_ASSERT(base != nullptr, "base not set");
-    if(!IsActived()){
-        CX_ERROR("Write data error,upd not actived");
-        return;
-    }
-    cxUInt32 seq = SeqInc();
-    base->WriteData(Addr(), seq, src, dst, data);
-    SaveSendData(seq, data);
+    base->WriteData(Addr(), seq, data);
 }
 
 cxBool cxUdpHost::IsClosed()

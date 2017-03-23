@@ -130,26 +130,12 @@ void cxUdpBase::udp_send_cb(uv_udp_send_t* req, int status)
     delete req;
 }
 
-void cxUdpBase::WriteData(const UdpAddr *addr,cxUInt32 seq,cxUInt64 dst,const cxStr *data)
+void cxUdpBase::WriteData(const UdpAddr *addr,cxUInt64 seq,const cxStr *data)
 {
     udp_data_t dptr;
     dptr.opt = UDP_OPT_DATA;
     dptr.seq = seq;
-    dptr.src = uid;
-    dptr.dst = dst;
-    cxStr *d = cxStr::Alloc()->Init(&dptr, sizeof(udp_data_t));
-    d->Append(data);
-    WriteFrame(addr, d);
-    d->Release();
-}
-
-void cxUdpBase::WriteData(const UdpAddr *addr,cxUInt32 seq,cxUInt64 src,cxUInt64 dst,const cxStr *data)
-{
-    udp_data_t dptr;
-    dptr.opt = UDP_OPT_DATA;
-    dptr.seq = seq;
-    dptr.src = src;
-    dptr.dst = dst;
+    dptr.uid = uid;
     cxStr *d = cxStr::Alloc()->Init(&dptr, sizeof(udp_data_t));
     d->Append(data);
     WriteFrame(addr, d);
@@ -202,12 +188,12 @@ void cxUdpBase::DecodeData(const UdpAddr *addr,cxAny data,cxInt size)
     DecodeData(addr,cxStr::Create(data, size));
 }
 
-void cxUdpBase::OnHostActived(cxUdpHost *h)
+void cxUdpBase::OnActived(cxUdpHost *h)
 {
     onActived.Fire(this, h);
 }
 
-void cxUdpBase::OnHostClosed(cxUdpHost *h)
+void cxUdpBase::OnClosed(cxUdpHost *h)
 {
     onClosed.Fire(this, h);
 }
@@ -219,11 +205,11 @@ void cxUdpBase::sendPing()
     for(cxHash::Iter it=hosts->Begin();it!=hosts->End();it++){
         cxUdpHost *h = it->second->To<cxUdpHost>();
         if(h->CheckClosed(now)){
-            OnHostClosed(h);
+            OnClosed(h);
         }
         udp_ping_t p;
         p.opt = UDP_OPT_PING;
-        p.src = uid;
+        p.uid = uid;
         p.time = now;
         p.ptime = p.time;
         p.group = h->Group();
@@ -245,10 +231,10 @@ void cxUdpBase::DecodeData(const UdpAddr *addr,const cxStr *data)
     switch (opt) {
         case UDP_OPT_PING:{
             udp_ping_t *p = (udp_ping_t *)d->Buffer();
-            cxUdpHost *h = FindHost(p->src,addr);
+            cxUdpHost *h = FindHost(p->uid,addr);
             udp_pong_t pong;
             pong.opt = UDP_OPT_PONG;
-            pong.src = uid;
+            pong.uid = uid;
             pong.time = Now();
             pong.ptime = p->ptime;
             cxStr *d = cxStr::Alloc(&pong, sizeof(udp_ping_t));
@@ -260,16 +246,16 @@ void cxUdpBase::DecodeData(const UdpAddr *addr,const cxStr *data)
         case UDP_OPT_PONG:{
             udp_pong_t *p = (udp_pong_t *)d->Buffer();
             cxUInt64 ping = now - p->ptime;
-            cxUdpHost *h = FindHost(p->src,addr);
+            cxUdpHost *h = FindHost(p->uid,addr);
             h->UpdatePing(now, ping);
             if(h->CheckActived(now)){
-                OnHostActived(h);
+                OnActived(h);
             }
             break;
         }
         case UDP_OPT_DATA:{
             udp_data_t *p = (udp_data_t *)d->Buffer();
-            recvData(addr, p, data->Size());
+            recvData(addr, p, d->Size());
             break;
         }
         case UDP_OPT_ACKD:{
@@ -301,6 +287,8 @@ void cxUdpBase::OnRecvFrame(UdpAddr *addr,cxAny data,cxInt size)
 
 void cxUdpBase::OnRecvData(cxUdpHost *h,const cxUdpData *d)
 {
+    h->onData.Fire(h, d);
+    onData.Fire(this, h, d);
     udp_ack_t ack;
     ack.opt = UDP_OPT_ACKD;
     ack.uid = uid;
@@ -320,51 +308,18 @@ void cxUdpBase::udp_udp_recv_cb(uv_udp_t* handle,ssize_t nread,const uv_buf_t *b
     pudp->OnRecvFrame((UdpAddr *)addr, buf->base, (cxInt)nread);
 }
 
-void cxUdpBase::hostRecvData(cxUdpHost *h,cxUdpData *d)
-{
-    if(!h->SaveRecvData(d)){
-        OnRecvData(h,d);
-    }
-    h->UpdateTime(Now());
-}
-
 void cxUdpBase::recvData(const UdpAddr *addr,const udp_data_t *data,cxInt size)
 {
-    if(data->dst == uid){
-        cxUdpHost *h = FindHost(data->src,addr);
-        if(h == nullptr){
-            return;
-        }
-        cxUdpData *ud = cxUdpData::Alloc();
-        if(ud->Init(data, size)){
-            hostRecvData(h, ud);
-        }
-        ud->Release();
-    }else if(data->dst == 0){
-        cxUdpHost *src = FindHost(data->src,addr);
-        if(src == nullptr){
-            return;
-        }
-        cxStr *d = cxStr::Alloc((cxAny)data, size);
-        hlocker.RLock();
-        for(cxHash::Iter it=hosts->Begin();it!=hosts->End();it++){
-            cxUdpHost *h = it->second->To<cxUdpHost>();
-            if(h->Group() != src->Group()){
-                continue;
-            }
-            h->WriteData(d,data->src,h->UID());
-        }
-        hlocker.RUnlock();
-        d->Release();
-    }else {
-        cxUdpHost *h = FindHost(data->dst,addr);
-        if(h == nullptr){
-            return;
-        }
-        cxStr *d = cxStr::Alloc((cxAny)data, size);
-        h->WriteData(d,data->src,h->UID());
-        d->Release();
+    cxUdpHost *h = FindHost(data->uid,addr);
+    if(h == nullptr){
+        return;
     }
+    cxUdpData *ud = cxUdpData::Alloc();
+    if(ud->Init(data, size) && !h->SaveRecvData(ud)){
+        OnRecvData(h, ud);
+    }
+    h->UpdateTime(Now());
+    ud->Release();
 }
 
 cxUInt64 cxUdpBase::Now()
@@ -378,23 +333,10 @@ void cxUdpBase::udp_timer_cb(uv_timer_t* handle)
     pudp->sendPing();
 }
 
-cxInt cxUdpBase::Start()
-{
-    cxInt ret = uv_udp_recv_start(&handle, cxUdpBase::udp_alloc_cb, cxUdpBase::udp_udp_recv_cb);
-    if(ret != 0){
-        CX_ERROR("uv_udp_recv_start error:%s",uv_err_name(ret));
-        return ret;
-    }
-    ret = uv_timer_start(&timer, cxUdpBase::udp_timer_cb, 1000, 1000);
-    if(ret != 0){
-        CX_ERROR("udp timer start error:%s",uv_err_name(ret));
-        return ret;
-    }
-    return ret;
-}
-
 cxInt cxUdpBase::Init(cchars host,cxInt port,cxUInt64 id)
 {
+    CX_ASSERT(id > 0, "id args error");
+    uid = id;
     cxInt ret = uv_ip4_addr(host, port, &sin);
     if(ret != 0){
         CX_ERROR("UDP ip4 addr error:%s",uv_err_name(ret));
@@ -405,7 +347,16 @@ cxInt cxUdpBase::Init(cchars host,cxInt port,cxUInt64 id)
         CX_ERROR("UDP bind error:%s",uv_err_name(ret));
         return ret;
     }
-    uid = id;
+    ret = uv_udp_recv_start(&handle, cxUdpBase::udp_alloc_cb, cxUdpBase::udp_udp_recv_cb);
+    if(ret != 0){
+        CX_ERROR("uv_udp_recv_start error:%s",uv_err_name(ret));
+        return ret;
+    }
+    ret = uv_timer_start(&timer, cxUdpBase::udp_timer_cb, 300, 1000);
+    if(ret != 0){
+        CX_ERROR("udp timer start error:%s",uv_err_name(ret));
+        return ret;
+    }
     return ret;
 }
 

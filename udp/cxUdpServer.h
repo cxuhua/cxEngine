@@ -38,8 +38,8 @@ protected:
     explicit cxUdpServer();
     virtual ~cxUdpServer();
 protected:
-    void OnRecvFrame(UdpAddr *addr,cxAny data,cxInt size);
     void OnRecvData(cxUdpHost *h,const cxUdpData *d);
+    void OnRecvFrame(UdpAddr *addr,cxAny data,cxInt size);
 private:
     cxMutex dMutex;
     cxCond  dCond;

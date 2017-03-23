@@ -15,17 +15,29 @@ CX_IMPLEMENT(cxUdp);
 
 cxUdp::cxUdp()
 {
-    c = nullptr;
+    c = cxUdpClient::Alloc();
+    c->onData = [this](cxUdpBase *v,cxUdpHost *h,const cxUdpData *d){
+        OnData(h,d);
+    };
+    c->onMiss = [this](cxUdpBase *v,cxUdpHost *h,const cxUdpData *d){
+        OnMiss(h,d);
+    };
+    c->onActived =[this](cxUdpBase *v,cxUdpHost *h){
+        OnActived(h);
+    };
+    c->onClosed =[this](cxUdpBase *v,cxUdpHost *h){
+        OnClosed(h);
+    };
+    Forever();
 }
 
 cxUdp::~cxUdp()
 {
-    cxObject::release(&c);
+    c->Release();
 }
 
 void cxUdp::OnStep(cxFloat dt)
 {
-    CX_ASSERT(c != nullptr, "c null");
     c->Update();
 }
 
@@ -39,12 +51,12 @@ void cxUdp::OnMiss(cxUdpHost *h,const cxUdpData *d)
     
 }
 
-void cxUdp::OnHostActived(cxUdpHost *h)
+void cxUdp::OnActived(cxUdpHost *h)
 {
     
 }
 
-void cxUdp::OnHostClosed(cxUdpHost *h)
+void cxUdp::OnClosed(cxUdpHost *h)
 {
     
 }
@@ -54,27 +66,17 @@ cxUdpHost *cxUdp::ConnectHost(cchars ip,cxInt port,cxUInt64 uid)
     return c->ConnectHost(ip, port, uid);
 }
 
+cxUdpHost *cxUdp::FindHost(cxUInt64 uid)
+{
+    return c->FindHost(uid);
+}
+
 cxUdp *cxUdp::Create(cchars host,cxInt port,cxUInt64 uid)
 {
     cxUdp *udp = cxUdp::Create();
-    cxUdpClient *c = cxUdpClient::Create();
-    if(c->Init(host, port, uid) != 0){
-        return nullptr;
+    if(udp->c->Init(host, port, uid) != 0){
+        CX_ASSERT(false, "udp init error");
     }
-    cxObject::swap(&udp->c, c);
-    udp->Forever();
-    c->onData+=[udp](cxUdpBase *c,cxUdpHost *h,const cxUdpData *data){
-        udp->OnData(h,data);
-    };
-    c->onMiss+=[udp](cxUdpBase *c,cxUdpHost *h,const cxUdpData *data){
-        udp->OnMiss(h,data);
-    };
-    c->onActived+=[udp](cxUdpBase *c,cxUdpHost *h){
-        udp->OnHostActived(h);
-    };
-    c->onClosed+=[udp](cxUdpBase *c,cxUdpHost *h){
-        udp->OnHostClosed(h);
-    };
     return udp;
 }
 

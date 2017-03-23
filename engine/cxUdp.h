@@ -29,10 +29,11 @@ protected:
     void OnStep(cxFloat dt);
     virtual void OnData(cxUdpHost *h,const cxUdpData *d);
     virtual void OnMiss(cxUdpHost *h,const cxUdpData *d);
-    virtual void OnHostActived(cxUdpHost *h);
-    virtual void OnHostClosed(cxUdpHost *h);
+    virtual void OnActived(cxUdpHost *h);
+    virtual void OnClosed(cxUdpHost *h);
 public:
     cxUdpHost *ConnectHost(cchars ip,cxInt port,cxUInt64 uid);
+    cxUdpHost *FindHost(cxUInt64 uid);
 public:
     static cxUdp *Create(cchars host,cxInt port,cxUInt64 uid);
 };

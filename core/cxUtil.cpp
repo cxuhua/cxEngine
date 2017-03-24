@@ -14,13 +14,29 @@
 
 #if CX_TARGET_PLATFORM == CX_PLATFORM_IOS
 #include <ios/cxIOSUtil.h>
+cxengine::cxUtil *cxengine::cxUtil::Instance()
+{
+    return cxCore::One<cxIOSUtil>(&instance);
+}
 #elif CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID
 #include <android/cxAndroidUtil.h>
+cxengine::cxUtil *cxengine::cxUtil::Instance()
+{
+    return cxCore::One<cxAndroidUtil>(&instance);
+}
 #elif CX_TARGET_PLATFORM == CX_PLATFORM_MAC
 #include <mac/cxMACUtil.h>
+cxengine::cxUtil *cxengine::cxUtil::Instance()
+{
+    return cxCore::One<cxMACUtil>(&instance);
+}
 #else
-#error "not define CX_TARGET_PLATFORM"
+cxengine::cxUtil *cxengine::cxUtil::Instance()
+{
+    return cxCore::One<cxUtil>(&instance);
+}
 #endif
+
 
 CX_CPP_BEGIN
 
@@ -42,28 +58,6 @@ cxFloat cxUtil::ScaleFactor()
 {
     return 1.0f;
 }
-
-#if CX_TARGET_PLATFORM == CX_PLATFORM_IOS
-cxUtil *cxUtil::Instance()
-{
-    return cxCore::One<cxIOSUtil>(&instance);
-}
-#elif CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID
-cxUtil *cxUtil::Instance()
-{
-    return cxCore::One<cxAndroidUtil>(&instance);
-}
-#elif CX_TARGET_PLATFORM == CX_PLATFORM_MAC
-cxUtil *cxUtil::Instance()
-{
-    return cxCore::One<cxMACUtil>(&instance);
-}
-#else
-cxUtil *cxUtil::Instance()
-{
-    return cxCore::One<cxUtil>(&instance);
-}
-#endif
 
 cxStr *cxUtil::GetLang()
 {

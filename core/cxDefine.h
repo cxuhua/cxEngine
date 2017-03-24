@@ -21,7 +21,7 @@
 #define CX_PLATFORM_BADA               6
 #define CX_PLATFORM_BLACKBERRY         7
 #define CX_PLATFORM_MAC                8
-#define CX_PLATFORM_NACL               9
+#define CX_PLATFORM_POSIX              9
 
 // mac
 #if defined(CX_TARGET_MAC)
@@ -63,9 +63,9 @@
 #define CX_TARGET_PLATFORM          CX_PLATFORM_BLACKBERRY
 #endif
 
-// native client
-#if defined(__native_client__)
-#define CX_TARGET_PLATFORM          CX_PLATFORM_NACL
+// posix
+#if defined(POSIX)
+#define CX_TARGET_PLATFORM          CX_PLATFORM_POSIX
 #endif
 
 #define CX_UNUSED_PARAM(p) (void)p

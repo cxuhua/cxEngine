@@ -772,7 +772,7 @@
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
-					"CX_TARGET_MAC=1",
+					"POSIX=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../",
@@ -790,7 +790,7 @@
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"NDEBUG=1",
-					"CX_TARGET_MAC=1",
+					"POSIX=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../",

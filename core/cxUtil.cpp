@@ -16,6 +16,10 @@
 #include <ios/cxIOSUtil.h>
 #elif CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID
 #include <android/cxAndroidUtil.h>
+#elif CX_TARGET_PLATFORM == CX_PLATFORM_MAC
+#include <mac/cxMACUtil.h>
+#else
+#error "not define CX_TARGET_PLATFORM"
 #endif
 
 CX_CPP_BEGIN
@@ -48,6 +52,11 @@ cxUtil *cxUtil::Instance()
 cxUtil *cxUtil::Instance()
 {
     return cxCore::One<cxAndroidUtil>(&instance);
+}
+#elif CX_TARGET_PLATFORM == CX_PLATFORM_MAC
+cxUtil *cxUtil::Instance()
+{
+    return cxCore::One<cxMACUtil>(&instance);
 }
 #else
 cxUtil *cxUtil::Instance()

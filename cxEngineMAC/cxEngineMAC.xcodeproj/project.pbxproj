@@ -144,6 +144,14 @@
 		831CF8CD1E85180100222592 /* system.shader in Resources */ = {isa = PBXBuildFile; fileRef = 831CF8991E85180100222592 /* system.shader */; };
 		831CF8CF1E85182700222592 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831CF8CE1E85182700222592 /* OpenGL.framework */; };
 		831CF8D11E85182E00222592 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831CF8D01E85182E00222592 /* OpenAL.framework */; };
+		831CF8DD1E851B4B00222592 /* cxUdpBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831CF8D31E851B4B00222592 /* cxUdpBase.cpp */; };
+		831CF8DE1E851B4B00222592 /* cxUdpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831CF8D51E851B4B00222592 /* cxUdpClient.cpp */; };
+		831CF8DF1E851B4B00222592 /* cxUdpData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831CF8D71E851B4B00222592 /* cxUdpData.cpp */; };
+		831CF8E01E851B4B00222592 /* cxUdpHost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831CF8D91E851B4B00222592 /* cxUdpHost.cpp */; };
+		831CF8E11E851B4B00222592 /* cxUdpServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831CF8DB1E851B4B00222592 /* cxUdpServer.cpp */; };
+		831CF8E31E851B6100222592 /* libmpg123.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 831CF8E21E851B6100222592 /* libmpg123.a */; };
+		831CF8E71E851BD100222592 /* cxMACUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 831CF8E61E851BD100222592 /* cxMACUtil.mm */; };
+		831CF8E91E851CA500222592 /* cxEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 831CF8E81E851CA500222592 /* cxEngine.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -417,6 +425,20 @@
 		831CF8991E85180100222592 /* system.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = system.shader; sourceTree = "<group>"; };
 		831CF8CE1E85182700222592 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		831CF8D01E85182E00222592 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		831CF8D31E851B4B00222592 /* cxUdpBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUdpBase.cpp; sourceTree = "<group>"; };
+		831CF8D41E851B4B00222592 /* cxUdpBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUdpBase.h; sourceTree = "<group>"; };
+		831CF8D51E851B4B00222592 /* cxUdpClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUdpClient.cpp; sourceTree = "<group>"; };
+		831CF8D61E851B4B00222592 /* cxUdpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUdpClient.h; sourceTree = "<group>"; };
+		831CF8D71E851B4B00222592 /* cxUdpData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUdpData.cpp; sourceTree = "<group>"; };
+		831CF8D81E851B4B00222592 /* cxUdpData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUdpData.h; sourceTree = "<group>"; };
+		831CF8D91E851B4B00222592 /* cxUdpHost.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUdpHost.cpp; sourceTree = "<group>"; };
+		831CF8DA1E851B4B00222592 /* cxUdpHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUdpHost.h; sourceTree = "<group>"; };
+		831CF8DB1E851B4B00222592 /* cxUdpServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUdpServer.cpp; sourceTree = "<group>"; };
+		831CF8DC1E851B4B00222592 /* cxUdpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUdpServer.h; sourceTree = "<group>"; };
+		831CF8E21E851B6100222592 /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = ../libs/osx/lib/libmpg123.a; sourceTree = "<group>"; };
+		831CF8E51E851BD100222592 /* cxMACUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxMACUtil.h; sourceTree = "<group>"; };
+		831CF8E61E851BD100222592 /* cxMACUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxMACUtil.mm; sourceTree = "<group>"; };
+		831CF8E81E851CA500222592 /* cxEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cxEngine.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -424,6 +446,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				831CF8E31E851B6100222592 /* libmpg123.a in Frameworks */,
 				831CF8D11E85182E00222592 /* OpenAL.framework in Frameworks */,
 				831CF8CF1E85182700222592 /* OpenGL.framework in Frameworks */,
 				831CD7D11E85161C00222592 /* libz.tbd in Frameworks */,
@@ -479,6 +502,7 @@
 		831CD6DD1E85142D00222592 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				831CF8E21E851B6100222592 /* libmpg123.a */,
 				831CF8D01E85182E00222592 /* OpenAL.framework */,
 				831CF8CE1E85182700222592 /* OpenGL.framework */,
 				831CD7D01E85161C00222592 /* libz.tbd */,
@@ -494,6 +518,8 @@
 		831CD6E81E85143900222592 /* cxEngine */ = {
 			isa = PBXGroup;
 			children = (
+				831CF8E41E851B7500222592 /* mac */,
+				831CF8D21E851B4B00222592 /* udp */,
 				831CF8301E85180000222592 /* engine */,
 				831CD76C1E8515FD00222592 /* math */,
 				831CD7281E8515E500222592 /* ext */,
@@ -806,6 +832,35 @@
 			path = ../engine;
 			sourceTree = "<group>";
 		};
+		831CF8D21E851B4B00222592 /* udp */ = {
+			isa = PBXGroup;
+			children = (
+				831CF8D31E851B4B00222592 /* cxUdpBase.cpp */,
+				831CF8D41E851B4B00222592 /* cxUdpBase.h */,
+				831CF8D51E851B4B00222592 /* cxUdpClient.cpp */,
+				831CF8D61E851B4B00222592 /* cxUdpClient.h */,
+				831CF8D71E851B4B00222592 /* cxUdpData.cpp */,
+				831CF8D81E851B4B00222592 /* cxUdpData.h */,
+				831CF8D91E851B4B00222592 /* cxUdpHost.cpp */,
+				831CF8DA1E851B4B00222592 /* cxUdpHost.h */,
+				831CF8DB1E851B4B00222592 /* cxUdpServer.cpp */,
+				831CF8DC1E851B4B00222592 /* cxUdpServer.h */,
+			);
+			name = udp;
+			path = ../udp;
+			sourceTree = "<group>";
+		};
+		831CF8E41E851B7500222592 /* mac */ = {
+			isa = PBXGroup;
+			children = (
+				831CF8E81E851CA500222592 /* cxEngine.mm */,
+				831CF8E51E851BD100222592 /* cxMACUtil.h */,
+				831CF8E61E851BD100222592 /* cxMACUtil.mm */,
+			);
+			name = mac;
+			path = ../mac;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -904,10 +959,12 @@
 				831CD7681E8515E600222592 /* pb_encode.c in Sources */,
 				831CD7B71E8515FD00222592 /* cxLineF.cpp in Sources */,
 				831CF8AC1E85180100222592 /* cxHttp.cpp in Sources */,
+				831CF8E71E851BD100222592 /* cxMACUtil.mm in Sources */,
 				831CD7BA1E8515FD00222592 /* cxPoint2F.cpp in Sources */,
 				831CD7251E85145C00222592 /* cxUtil.cpp in Sources */,
 				831CF89E1E85180100222592 /* cxAstar.cpp in Sources */,
 				831CD7B21E8515FD00222592 /* cxBoxCoord2F.cpp in Sources */,
+				831CF8DF1E851B4B00222592 /* cxUdpData.cpp in Sources */,
 				831CF8A11E85180100222592 /* cxBezier.cpp in Sources */,
 				831CD6D11E8512E900222592 /* main.m in Sources */,
 				831CD7571E8515E600222592 /* aes_cfb.c in Sources */,
@@ -927,6 +984,7 @@
 				831CF8C01E85180100222592 /* cxSprite.cpp in Sources */,
 				831CD71B1E85145C00222592 /* cxList.cpp in Sources */,
 				831CD7BC1E8515FD00222592 /* cxPoint3F.cpp in Sources */,
+				831CF8DE1E851B4B00222592 /* cxUdpClient.cpp in Sources */,
 				831CD76B1E8515E600222592 /* xxtea.c in Sources */,
 				831CD7181E85145C00222592 /* cxHash.cpp in Sources */,
 				831CD7C41E8515FD00222592 /* matrix.c in Sources */,
@@ -963,10 +1021,12 @@
 				831CD7C31E8515FD00222592 /* mat4stack.c in Sources */,
 				831CD7B51E8515FD00222592 /* cxBoxRender.cpp in Sources */,
 				831CF8A31E85180100222592 /* cxCircle.cpp in Sources */,
+				831CF8E91E851CA500222592 /* cxEngine.mm in Sources */,
 				831CF8A71E85180100222592 /* cxEmitter.cpp in Sources */,
 				831CD7BD1E8515FD00222592 /* cxRect4F.cpp in Sources */,
 				831CF8B31E85180100222592 /* cxOpenAL.cpp in Sources */,
 				831CD7651E8515E600222592 /* md5.c in Sources */,
+				831CF8E11E851B4B00222592 /* cxUdpServer.cpp in Sources */,
 				831CD7CA1E8515FD00222592 /* ray3.c in Sources */,
 				831CD71E1E85145C00222592 /* cxNotice.cpp in Sources */,
 				831CF89F1E85180100222592 /* cxAsync.cpp in Sources */,
@@ -987,6 +1047,7 @@
 				831CF8BF1E85180100222592 /* cxSpline.cpp in Sources */,
 				831CD7581E8515E600222592 /* aes_core.c in Sources */,
 				831CD75A1E8515E600222592 /* aes_ecb.c in Sources */,
+				831CF8E01E851B4B00222592 /* cxUdpHost.cpp in Sources */,
 				831CF8A81E85180100222592 /* cxEngine.cpp in Sources */,
 				831CF8C51E85180100222592 /* cxTimer.cpp in Sources */,
 				831CD75C1E8515E600222592 /* aes_ofb.c in Sources */,
@@ -1003,6 +1064,7 @@
 				831CD7C01E8515FD00222592 /* cxSize2F.cpp in Sources */,
 				831CD7201E85145C00222592 /* cxObject.cpp in Sources */,
 				831CD7561E8515E600222592 /* aes_cbc.c in Sources */,
+				831CF8DD1E851B4B00222592 /* cxUdpBase.cpp in Sources */,
 				831CF8B21E85180100222592 /* cxMusic.cpp in Sources */,
 				831CD7241E85145C00222592 /* cxSync.cpp in Sources */,
 			);

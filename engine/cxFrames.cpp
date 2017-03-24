@@ -178,7 +178,7 @@ void cxFrames::SetMaps(const cxStr *str)
 
 cxPoint2F cxFrames::parseMapItemOff(cchars buf){
     cxInt idx = -1;
-    cxInt len = strlen(buf);
+    cxInt len = (cxInt)strlen(buf);
     for(cxInt i=0;i < len; i++){
         if(buf[i] == ':'){
             idx = i;
@@ -197,7 +197,7 @@ cxPoint2F cxFrames::parseMapItemOff(cchars buf){
 
 void cxFrames::parseMapItem(cchars buf)
 {
-    cxInt len = strlen(buf);
+    cxInt len = (cxInt)strlen(buf);
     cxInt li = -1;
     cxInt ri = -1;
     for(cxInt i=0;i < len; i++){

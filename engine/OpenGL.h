@@ -41,6 +41,13 @@ static PFNGLGETBUFFERPOINTERVOESPROC    glGetBufferPointerv;
 #elif (CX_TARGET_PLATFORM == CX_PLATFORM_MAC)
 #include <OpenGL/gl.h>
 #include <OpenGL/glext.h>
+
+#define glDeleteVertexArrays            glDeleteVertexArraysAPPLE
+#define glGenVertexArrays               glGenVertexArraysAPPLE
+#define glBindVertexArray               glBindVertexArrayAPPLE
+#define glClearDepthf                   glClearDepth
+#define glDepthRangef                   glDepthRange
+
 #define GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG GL_COMPRESSED_RGBA
 #define GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG GL_COMPRESSED_RGBA
 #define GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG  GL_COMPRESSED_RGB

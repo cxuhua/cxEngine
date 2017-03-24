@@ -19,6 +19,11 @@
 #include <OpenAL/al.h>
 #include <OpenAL/alc.h>
 
+#elif (CX_TARGET_PLATFORM == CX_PLATFORM_MAC)
+
+#include <OpenAL/al.h>
+#include <OpenAL/alc.h>
+
 #else
 #error "not define CX_TARGET_PLATFORM"
 #endif

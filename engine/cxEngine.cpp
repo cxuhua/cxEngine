@@ -21,7 +21,11 @@ CX_CPP_BEGIN
 cxAsyncEvent::cxAsyncEvent(cxLong akey,cchars adata,cxInt length)
 {
     key = akey;
-    data.assign(adata, length);
+    if(adata != nullptr && length > 0){
+        data.assign(adata, length);
+    }else{
+        data.clear();
+    }
 }
 
 cxLong cxAsyncEvent::Key()
@@ -29,12 +33,20 @@ cxLong cxAsyncEvent::Key()
     return key;
 }
 
-const cxStr *cxAsyncEvent::Data()
+cchars cxAsyncEvent::Data()
 {
     if(data.length() == 0){
         return nullptr;
     }
-    return cxStr::Create()->Append(data.data(), (cxInt)data.length());
+    return data.data();
+}
+
+const cxJson *cxAsyncEvent::Json()
+{
+    if(data.length() == 0){
+        return nullptr;
+    }
+    return cxJson::Create(data.c_str());
 }
 
 cxEngine *cxEngine::instance = nullptr;
@@ -48,6 +60,7 @@ void cxEngine::Reset()
 
 void cxEngine::Destroy()
 {
+    cxCore::Instance()->Clear();
     cxObject::release(&instance);
     instance = nullptr;
 }
@@ -58,15 +71,14 @@ cxEngine *cxEngine::Instance()
     return instance;
 }
 
-void cxEngine::Startup(cxBool layout)
+void cxEngine::Startup(cxBool layout,cchars clasz)
 {
     cxSize2F winsiz = 0.0f;
     if(instance != nullptr){
         winsiz = instance->WinSize();
         cxEngine::Destroy();
-        cxCore::Instance()->Clear();
     }
-    instance = cxObject::alloc("Game")->To<cxEngine>();
+    instance = cxObject::alloc(clasz)->To<cxEngine>();
     if(layout && !winsiz.IsZero()){
         instance->Layout(winsiz.w, winsiz.h);
     }
@@ -99,12 +111,10 @@ cxEngine::cxEngine()
     configs = cxHash::Alloc();
     frames = cxHash::Alloc();
     actions = cxHash::Alloc();
-    uv_mutex_init(&mutex);
 }
 
 cxEngine::~cxEngine()
 {
-    uv_mutex_destroy(&mutex);
     frames->Release();
     actions->Release();
     configs->Release();
@@ -284,17 +294,18 @@ void cxEngine::OnEvent(cxAsyncEvent *e)
 
 void cxEngine::runEvents()
 {
-    uv_mutex_lock(&mutex);
-    bool empty = events.empty();
-    uv_mutex_unlock(&mutex);
-    if(empty)return;
-    
-    uv_mutex_lock(&mutex);
-    cxAsyncEvent info = events.front();
-    events.pop();
-    uv_mutex_unlock(&mutex);
-    
-    OnEvent(&info);
+    mutex.WLock();
+    while(!events.empty()){
+        cxAsyncEvent info = events.front();
+        OnEvent(&info);
+        events.pop();
+    }
+    mutex.WUnlock();
+}
+
+void cxEngine::PushEvent(cxLong key)
+{
+    PushEvent(key,nullptr, 0);
 }
 
 void cxEngine::PushEvent(cxLong key,const cxStr *data)
@@ -304,9 +315,9 @@ void cxEngine::PushEvent(cxLong key,const cxStr *data)
 
 void cxEngine::PushEvent(cxLong key,cchars data,cxInt length)
 {
-    uv_mutex_lock(&mutex);
+    mutex.WLock();
     events.push(cxAsyncEvent(key,data,length));
-    uv_mutex_unlock(&mutex);
+    mutex.WUnlock();
 }
 
 void cxEngine::Run()
@@ -324,7 +335,7 @@ void cxEngine::Run()
             planscale.x = winsize.w/plansize.w;
             planscale.y = winsize.h/plansize.h;
         }
-        cxOpenGL::Instance()->SetViewport(bound);
+        cxOpenGL::Instance()->SetViewport(WinBound());
         window->SetSize(winsize);
         window->Layout();
         layout = false;

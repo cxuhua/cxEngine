@@ -15,11 +15,13 @@
 #include <math/cxSize2F.h>
 #include <math/cxBox4F.h>
 #include <math/cxRect4F.h>
+#include <core/cxSync.h>
 #include "cxWindow.h"
 #include "cxRender.h"
 #include "cxTouch.h"
 #include "cxFrames.h"
 #include "cxActionGroup.h"
+
 
 CX_CPP_BEGIN
 
@@ -31,7 +33,8 @@ private:
 public:
     cxAsyncEvent(cxLong akey,cchars adata,cxInt length);
     cxLong Key();
-    const cxStr *Data();
+    cchars Data();
+    const cxJson *Json();
 };
 
 struct cxTextAttr;
@@ -76,7 +79,7 @@ private:
     cxBool isreset;
     cxHash *configs;
     //
-    uv_mutex_t mutex;
+    cxRWLock mutex;
     void runEvents();
     std::queue<cxAsyncEvent> events;
     //帧序列和帧动画
@@ -102,6 +105,7 @@ public:
     void SetWindow(cxWindow *win);
     
     // 推送一个事件
+    void PushEvent(cxLong key);
     void PushEvent(cxLong key,const cxStr *data);
     void PushEvent(cxLong key,cchars data,cxInt length);
     
@@ -127,7 +131,7 @@ public:
     
     static void Destroy();
     static cxEngine *Instance();
-    static void Startup(cxBool layout);
+    static void Startup(cxBool layout,cchars clasz="Game");
     
     //need platform imp
     const cxStr *TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size);

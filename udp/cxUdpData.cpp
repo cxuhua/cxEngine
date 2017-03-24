@@ -15,10 +15,16 @@ CX_IMPLEMENT(cxUdpData);
 
 cxUdpData::cxUdpData()
 {
+    Reset();
+    buffer = cxStr::Alloc();
+}
+
+void cxUdpData::Reset()
+{
+    isRemoved = true;
     maxtry = MAX_TRY_SEND;
     seq = 0;
     time = 0;
-    buffer = cxStr::Alloc();
 }
 
 cxUdpData::~cxUdpData()

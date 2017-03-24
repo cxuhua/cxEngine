@@ -182,6 +182,17 @@ cxUInt32 cxUdpHost::Group()
     return group;
 }
 
+cxHash::Iter cxUdpHost::isMissRemove(cxUdpData *data,cxHash::Iter it)
+{
+    onMiss.Fire(this, data);
+    base->onMiss.Fire(base, this, data);
+    if(data->isRemoved){
+        return wds->Remove(it);
+    }
+    data->Reset();
+    return ++it;
+}
+
 void cxUdpHost::Update()
 {
     CX_ASSERT(base != nullptr, "base nullptr");
@@ -195,9 +206,7 @@ void cxUdpHost::Update()
         cxUdpData *data = it->second->To<cxUdpData>();
         cxInt v = (cxInt)(now - data->Time());
         if(v >= maxtime){
-            onMiss.Fire(this, data);
-            base->onMiss.Fire(base, this, data);
-            it = wds->Remove(it);
+            it = isMissRemove(data,it);
             continue;
         }
         if(v < trytime){
@@ -205,9 +214,7 @@ void cxUdpHost::Update()
             continue;
         }
         if(data->DecMaxTry() == 0){
-            onMiss.Fire(this, data);
-            base->onMiss.Fire(base, this, data);
-            it = wds->Remove(it);
+            it = isMissRemove(data,it);
             continue;
         }
         WriteData(data);

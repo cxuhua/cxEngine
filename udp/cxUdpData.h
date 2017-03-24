@@ -71,6 +71,8 @@ private:
     cxUInt64    seq;
     cxUInt64    time;
 public:
+    void Reset();
+    cxBool isRemoved;
     // init for recv data
     cxBool Init(const udp_data_t *data,cxInt size);
     // init for send data

@@ -63,6 +63,7 @@ private:
     cxInt trytime;
     cxInt maxtime;
     cxUInt32 group;
+    cxHash::Iter isMissRemove(cxUdpData *data,cxHash::Iter it);
 public:
     cxEvent<cxUdpHost, const cxUdpData *> onData;
     cxEvent<cxUdpHost, const cxUdpData *> onMiss;

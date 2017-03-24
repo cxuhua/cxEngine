@@ -16,7 +16,7 @@
 using namespace cxengine;
 
 cxUdpServer *server = nullptr;
-cxUdpClient *client = nullptr;
+cxUdpClient *client1 = nullptr;
 
 static void pull_work_data(void *arg)
 {
@@ -26,22 +26,12 @@ static void pull_work_data(void *arg)
         server->WorkRun();
         
         cxAutoPool::Update();
-        usleep(1);
+        usleep(50);
     }
 }
 
 cxUdpHost *chost1 = nullptr;
 cxUdpHost *chost2 = nullptr;
-
-static void update_client(void *arg)
-{
-    while (true) {
-        cxAutoPool::Start();
-        client->Update();
-        cxAutoPool::Update();
-        usleep(1);
-    }
-}
 
 static void client_write(void *arg)
 {
@@ -70,19 +60,16 @@ int main(int argc, const char * argv[])
     for(int i=0; i < 5 ; i++){
         uv_thread_create(&pid2[i], pull_work_data, &i);
     }
-    client = cxUdpClient::Alloc();
-    chost1 = client->ConnectHost("0.0.0.0", 9988, 1);
-    client->onData +=[](cxUdpBase *udp,cxUdpHost *shost,const cxUdpData *data){
+    client1 = cxUdpClient::Alloc();
+    chost1 = client1->ConnectHost("0.0.0.0", 9988, 1);
+    client1->onData +=[](cxUdpBase *udp,cxUdpHost *shost,const cxUdpData *data){
         CX_LOGGER("%llu -> %llu",shost->UID(),udp->UID());
     };
     
-    client->Init("0.0.0.0", 9977, 2);
-
-    uv_thread_t cid;
-    uv_thread_create(&cid, update_client, client);
+    client1->Init("0.0.0.0", 9977, 2);
     
     uv_thread_t wid;
-    uv_thread_create(&wid, client_write, client);
+    uv_thread_create(&wid, client_write, client1);
     
     cxUdpClient *client2 = cxUdpClient::Alloc();
     chost2 = client2->ConnectHost("0.0.0.0", 9988, 1);
@@ -90,14 +77,14 @@ int main(int argc, const char * argv[])
         CX_LOGGER("%llu -> %llu",shost->UID(),udp->UID());
     };
     client2->Init("0.0.0.0", 9976, 3);
-    
-    
+   
     while (true) {
         cxAutoPool::Start();
         client2->Update();
+        client1->Update();
         server->Update();
         cxAutoPool::Update();
-        usleep(1);
+        usleep(50);
     }
     return 0;
 }

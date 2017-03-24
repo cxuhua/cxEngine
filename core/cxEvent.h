@@ -41,6 +41,10 @@ private:
     typedef std::vector<Event> Events;
     Events es;
 public:
+    cxBool IsEmpty()
+    {
+        return es.empty();
+    }
     cxEvent &operator+=(const Event &v)
     {
         es.push_back(v);
@@ -63,7 +67,7 @@ public:
     }
     void Fire(T *sender,A...args)
     {
-        if(es.empty())return;
+        if(IsEmpty())return;
         typename Events::iterator it = es.begin();
         while(it!=es.end()){(*it)(sender,args...);it++;}
     }

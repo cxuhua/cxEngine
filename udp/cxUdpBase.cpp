@@ -96,15 +96,11 @@ void cxUdpBase::Update()
     hlocker.RUnlock();
     
     wlocker.WLock();
-    cxArray::FIter it = wqueue->FBegin();
-    while(it != wqueue->FEnd()){
+    for(cxArray::FIter it = wqueue->FBegin();it!=wqueue->FEnd();it++){
         cxUdpData *data = (*it)->To<cxUdpData>();
-        if(WriteFrame(data) == 0){
-            it = wqueue->Remove(it);
-        }else{
-            it++;
-        }
+        WriteFrame(data);
     }
+    wqueue->Clear();
     wlocker.WUnlock();
     
     mutex.Lock();

@@ -56,7 +56,7 @@ cxUdpServer::~cxUdpServer()
 
 void cxUdpServer::OnRecvData(cxUdpHost *h,const cxUdpData *d)
 {
-    CX_LOGGER("%llu RECV %llu data %s SEQ:%llu",UID(), h->UID(),d->Data()->ToString(),d->Seq());
+    CX_LOGGER("%llu RECV %llu data %s SEQ:%llu %p",UID(), h->UID(),d->Data()->ToString(),d->Seq(),uv_thread_self());
     cxUdpBase::OnRecvData(h, d);
 }
 
@@ -66,7 +66,7 @@ void cxUdpServer::OnRecvFrame(UdpAddr *addr,cxAny data,cxInt size)
     UdpFrame *d = UdpFrame::Alloc(addr, data, size);
     rQueue->Append(d);
     d->Release();
-    dCond.Signal();
+    dCond.Broadcast();
     dMutex.Unlock();
 }
 
@@ -77,10 +77,13 @@ void cxUdpServer::WorkRun()
         dCond.Wait(dMutex);
     }
     UdpFrame *d = rQueue->Front()->To<UdpFrame>();
-    CX_ASSERT(d != nullptr, "d nullptr");
-    DecodeData(d->Addr(),d->Buffer());
+    CX_ASSERT(d != nullptr, "queue empty");
+    d->Retain();
     rQueue->PopFront();
     dMutex.Unlock();
+    
+    DecodeData(d->Addr(),d->Buffer());
+    d->Release();
 }
 
 CX_CPP_END

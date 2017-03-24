@@ -6,7 +6,8 @@
 //  Copyright © 2017 xuhua. All rights reserved.
 //
 
-
+#include <unistd.h>
+#include <core/cxAutoPool.h>
 #include "cxUdpData.h"
 #include "cxUdpServer.h"
 
@@ -44,13 +45,17 @@ UdpFrame *UdpFrame::Alloc(UdpAddr *addr, cxAny data,cxInt size)
 
 CX_IMPLEMENT(cxUdpServer);
 
-cxUdpServer::cxUdpServer()
+cxUdpServer::cxUdpServer(int anum) : bar(anum + 1)
 {
+    num = anum;
+    isexit = false;
+    pid = nullptr;
     rQueue = cxList::Alloc();
 }
 
 cxUdpServer::~cxUdpServer()
 {
+    free(pid);
     rQueue->Release();
 }
 
@@ -68,6 +73,48 @@ void cxUdpServer::OnRecvFrame(UdpAddr *addr,cxAny data,cxInt size)
     d->Release();
     dCond.Broadcast();
     dMutex.Unlock();
+}
+
+void cxUdpServer::workRunFunc(void *arg)
+{
+    cxUdpServer *srv = (cxUdpServer *)arg;
+    srv->bar.Wait();
+    while(!srv->isexit){
+        cxAutoPool::Start();
+        srv->WorkRun();
+        cxAutoPool::Update();
+        usleep(100);
+    }
+}
+
+void cxUdpServer::workUpdateFunc(void *arg)
+{
+    cxUdpServer *srv = (cxUdpServer *)arg;
+    srv->bar.Wait();
+    while(!srv->isexit){
+        cxAutoPool::Start();
+        srv->Update();
+        cxAutoPool::Update();
+        usleep(100);
+    }
+}
+
+void cxUdpServer::Stop()
+{
+    isexit = true;
+    for(cxInt i=0;i<num;i++){
+        uv_thread_join(&pid[i]);
+    }
+    uv_thread_join(&upid);
+}
+
+void cxUdpServer::Start()
+{
+    pid = (uv_thread_t *)malloc(sizeof(uv_thread_t) * num);
+    uv_thread_create(&upid, workUpdateFunc, this);
+    for(cxInt i=0;i<num;i++){
+        uv_thread_create(&pid[i], workRunFunc, this);
+    }
 }
 
 void cxUdpServer::WorkRun()

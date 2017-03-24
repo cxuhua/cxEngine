@@ -18,18 +18,6 @@ using namespace cxengine;
 cxUdpServer *server = nullptr;
 cxUdpClient *client1 = nullptr;
 
-static void pull_work_data(void *arg)
-{
-    while(true){
-        cxAutoPool::Start();
-        
-        server->WorkRun();
-        
-        cxAutoPool::Update();
-        usleep(50);
-    }
-}
-
 cxUdpHost *chost1 = nullptr;
 cxUdpHost *chost2 = nullptr;
 
@@ -56,10 +44,8 @@ int main(int argc, const char * argv[])
     server = cxUdpServer::Alloc();
     server->Init("0.0.0.0", 9988, 1);
     
-    uv_thread_t pid2[5];
-    for(int i=0; i < 5 ; i++){
-        uv_thread_create(&pid2[i], pull_work_data, &i);
-    }
+    server->Start();
+    
     client1 = cxUdpClient::Alloc();
     chost1 = client1->ConnectHost("0.0.0.0", 9988, 1);
     client1->onData +=[](cxUdpBase *udp,cxUdpHost *shost,const cxUdpData *data){
@@ -82,7 +68,6 @@ int main(int argc, const char * argv[])
         cxAutoPool::Start();
         client2->Update();
         client1->Update();
-        server->Update();
         cxAutoPool::Update();
         usleep(50);
     }

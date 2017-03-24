@@ -35,17 +35,29 @@ class cxUdpServer : public cxUdpBase
 public:
     CX_DECLARE(cxUdpServer);
 protected:
-    explicit cxUdpServer();
+    explicit cxUdpServer(int anum=10);
     virtual ~cxUdpServer();
 protected:
     void OnRecvData(cxUdpHost *h,const cxUdpData *d);
     void OnRecvFrame(UdpAddr *addr,cxAny data,cxInt size);
 private:
+    cxBool isexit;
     cxMutex dMutex;
     cxCond  dCond;
     cxList *rQueue;
+    
+    cxBarrier bar;
+    
+    cxInt num;
+    static void workRunFunc(void *arg);
+    uv_thread_t *pid;
+    
+    static void workUpdateFunc(void *arg);
+    uv_thread_t upid;
 public:
+    void Stop();
     void WorkRun();
+    void Start();
 };
 
 CX_CPP_END

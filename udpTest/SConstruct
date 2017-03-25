@@ -3,15 +3,4 @@ SConscript(['../SConscript'])
 
 Import('env')
 
-env.Append(LIBS=['udp'])
-env.Append(LIBS=['core'])
-env.Append(LIBS=['math'])
-env.Append(LIBS=['kazmath'])
-env.Append(LIBS=['ext'])
-env.Append(LIBS=['stdc++'])
-env.Append(LIBS=['jansson'])
-env.Append(LIBS=['z'])
-env.Append(LIBS=['uv'])
-env.Append(LIBS=['pthread'])
-
-env.Program("test", "udp/main.cpp", CFLAGS=[])
+env.Program("test", [Glob('udp/*.cpp'), env['OBJS']],CFLAGS=[])

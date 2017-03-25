@@ -61,7 +61,7 @@ cxUdpServer::~cxUdpServer()
 
 void cxUdpServer::OnRecvData(cxUdpHost *h,const cxUdpData *d)
 {
-    CX_LOGGER("%llu RECV %llu data %s SEQ:%llu %p",UID(), h->UID(),d->Data()->ToString(),d->Seq(),uv_thread_self());
+    CX_ERROR("%llu RECV %llu data %s SEQ:%llu %p",UID(), h->UID(),d->Data()->ToString(),d->Seq(),uv_thread_self());
     cxUdpBase::OnRecvData(h, d);
 }
 

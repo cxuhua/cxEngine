@@ -49,6 +49,7 @@ cxUdpHost *cxUdpBase::FindHost(cxUInt64 aid,const UdpAddr *addr)
     cxUdpHost *h = hosts->Get(aid)->To<cxUdpHost>();
     hlocker.RUnlock();
     if(h != nullptr){
+        h->SetAddr(addr);
         return h;
     }
     return ConnectHost(aid,addr);
@@ -96,11 +97,15 @@ void cxUdpBase::Update()
     hlocker.RUnlock();
     
     wlocker.WLock();
-    for(cxArray::FIter it = wqueue->FBegin();it!=wqueue->FEnd();it++){
+    cxArray::FIter it = wqueue->FBegin();
+    while(it != wqueue->FEnd()){
         cxUdpData *data = (*it)->To<cxUdpData>();
-        WriteFrame(data);
+        if(WriteFrame(data) == 0){
+            it = wqueue->Remove(it);
+            continue;
+        }
+        it ++;
     }
-    wqueue->Clear();
     wlocker.WUnlock();
     
     mutex.Lock();
@@ -149,7 +154,7 @@ cxInt cxUdpBase::WriteFrame(const cxUdpData *ud)
     cxInt ret = uv_udp_send(req, &handle, &buf, 1, ud->Addr(), cxUdpBase::udp_send_cb);
     mutex.Unlock();
     if(ret != 0){
-        CX_LOGGER("write frame error:%s",uv_err_name(ret));
+        CX_ERROR("write frame error:%s",uv_err_name(ret));
         data->Release();
         delete req;
     }
@@ -162,6 +167,7 @@ void cxUdpBase::WriteFrame(const UdpAddr *addr,const cxStr *frame)
     cxStr *data = EncodeData(frame);
     cxUdpData *d = cxUdpData::Alloc();
     if(d->Init(addr, data)){
+        // join write queue
         wlocker.WLock();
         wqueue->Append(d);
         wlocker.WUnlock();
@@ -223,7 +229,7 @@ void cxUdpBase::DecodeData(const UdpAddr *addr,const cxStr *data)
         return;
     }
     cxUInt64 now = Now();
-    char opt = d->At(0);
+    cxUInt8 opt = d->At(0);
     switch (opt) {
         case UDP_OPT_PING:{
             udp_ping_t *p = (udp_ping_t *)d->Buffer();
@@ -306,7 +312,7 @@ void cxUdpBase::udp_udp_recv_cb(uv_udp_t* handle,ssize_t nread,const uv_buf_t *b
 
 void cxUdpBase::recvData(const UdpAddr *addr,const udp_data_t *data,cxInt size)
 {
-    cxUdpHost *h = FindHost(data->uid,addr);
+    cxUdpHost *h = FindHost(data->uid, addr);
     if(h == nullptr){
         return;
     }

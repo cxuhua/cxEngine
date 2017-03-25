@@ -35,7 +35,7 @@ class cxUdpServer : public cxUdpBase
 public:
     CX_DECLARE(cxUdpServer);
 protected:
-    explicit cxUdpServer(int anum=10);
+    explicit cxUdpServer(cxInt anum=10);
     virtual ~cxUdpServer();
 protected:
     void OnRecvData(cxUdpHost *h,const cxUdpData *d);
@@ -53,7 +53,7 @@ private:
     uv_thread_t *pid;
     
     static void workUpdateFunc(void *arg);
-    uv_thread_t upid;
+    uv_thread_t mpid;
 public:
     void Stop();
     void WorkRun();

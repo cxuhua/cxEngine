@@ -87,8 +87,7 @@ cxBool cxXml::Parse(const cxStr *data)
     XML_Status ret = XML_Parse(parser, data->Buffer(), data->Size(), true);
     if(ret == XML_STATUS_ERROR){
         XML_Size line = XML_GetCurrentLineNumber(parser);
-        cchars error = XML_ErrorString(XML_GetErrorCode(parser));
-        CX_ERROR("parse xml error%ld %s",line,error);
+        CX_ERROR("parse xml error: %ld %s", line, XML_ErrorString(XML_GetErrorCode(parser)));
         return false;
     }
     return true;

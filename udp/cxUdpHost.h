@@ -87,6 +87,7 @@ public:
     void UpdateGroup(cxUInt64 tv,cxUInt32 gv);
     cxUInt64 UID();
     UdpAddr *Addr();
+    void SetAddr(const UdpAddr *aaddr);
     cxBool Init(cxUdpBase *pb,cchars ip,cxInt port,cxUInt64 id);
     cxBool Init(cxUdpBase *pb,const UdpAddr *paddr,cxUInt64 id);
     void WriteData(const cxStr *data);

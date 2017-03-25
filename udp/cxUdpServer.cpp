@@ -45,11 +45,11 @@ UdpFrame *UdpFrame::Alloc(UdpAddr *addr, cxAny data,cxInt size)
 
 CX_IMPLEMENT(cxUdpServer);
 
-cxUdpServer::cxUdpServer(int anum) : bar(anum + 1)
+cxUdpServer::cxUdpServer(cxInt anum) : bar(anum + 1)
 {
     num = anum;
     isexit = false;
-    pid = nullptr;
+    pid = (uv_thread_t *)malloc(sizeof(uv_thread_t) * num);
     rQueue = cxList::Alloc();
 }
 
@@ -105,13 +105,12 @@ void cxUdpServer::Stop()
     for(cxInt i=0;i<num;i++){
         uv_thread_join(&pid[i]);
     }
-    uv_thread_join(&upid);
+    uv_thread_join(&mpid);
 }
 
 void cxUdpServer::Start()
 {
-    pid = (uv_thread_t *)malloc(sizeof(uv_thread_t) * num);
-    uv_thread_create(&upid, workUpdateFunc, this);
+    uv_thread_create(&mpid, workUpdateFunc, this);
     for(cxInt i=0;i<num;i++){
         uv_thread_create(&pid[i], workRunFunc, this);
     }

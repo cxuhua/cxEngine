@@ -311,6 +311,11 @@ UdpAddr *cxUdpHost::Addr()
     return &addr;
 }
 
+void cxUdpHost::SetAddr(const UdpAddr *aaddr)
+{
+    addr = *aaddr;
+}
+
 cxUInt64 cxUdpHost::UID()
 {
     return uid;

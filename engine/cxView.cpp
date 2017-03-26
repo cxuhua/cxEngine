@@ -284,11 +284,12 @@ cxView *cxView::SetRelative(Relative v)
 }
 
 // will set wp postion,if view arrive to np -> true
-cxBool cxView::SetPosition(const cxPoint2F &np,const cxPoint2F &wp)
+// equ distance value
+cxBool cxView::SetPosition(const cxPoint2F &np,const cxPoint2F &wp,const cxFloat equ)
 {
     cxPoint2F cp = Position();
     cxFloat dis = cp.Distance(np);
-    if(cxFloatIsEqual(dis, 0.0f)){
+    if(cxFloatIsEqual(dis, equ)){
         SetPosition(np);
         return true;
     }

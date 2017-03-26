@@ -233,7 +233,7 @@ public:
     const cxPoint2F &Position() const;
     cxView *AddPosition(const cxPoint2F &v);
     virtual cxView *SetPosition(const cxPoint2F &v);
-    cxBool SetPosition(const cxPoint2F &np,const cxPoint2F &wp);
+    cxBool SetPosition(const cxPoint2F &np,const cxPoint2F &wp,const cxFloat equ=0.0f);
     cxView *SetX(cxFloat x);
     cxView *SetY(cxFloat y);
     

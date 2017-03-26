@@ -143,9 +143,9 @@ cxInt cxHexCharToInt(cxUInt8 c)
     return 0;
 }
 
-cxBool cxFloatIsEqual(cxFloat a, cxFloat b)
+cxBool cxFloatIsEqual(cxFloat a, cxFloat b, cxFloat equ)
 {
-    return fabsf(a - b) < cxEqualFloat;
+    return fabsf(a - b) < equ;
 }
 
 cxBool cxFloatIsZero(cxFloat a)

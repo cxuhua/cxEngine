@@ -53,6 +53,7 @@
 #include "public.pb.h"
 #include <pb_encode.h>
 #include <pb_decode.h>
+#include <engine/cxPoints.h>
 
 
 CX_CPP_BEGIN
@@ -77,8 +78,37 @@ void Game::test()
 void Game::OnMain()
 {
     cxSprite *sp = cxSprite::Create("t.png");
-    sp->SetSize(800);
+    sp->SetSize(50);
     Window()->Append(sp);
+    cxPoint2IArray ps;
+    ps.Append(cxPoint2I(0, 0));
+    ps.Append(cxPoint2I(3, 0));
+    ps.Append(cxPoint2I(5, 0));
+    ps.Append(cxPoint2I(5, 5));
+    ps.Append(cxPoint2I(0, 5));
+    ps.Append(cxPoint2I(0, 4));
+    ps.Append(cxPoint2I(0, 0));
+    
+    sp->SetEnableDir(true);
+    
+    cxPoints *a = cxPoints::Create();
+    a->SetPoints(ps);
+    a->SetSpeed(100.0f);
+    
+    a->onExit +=[sp](cxAction *pav){
+        cxPoint2IArray ps2;
+        ps2.Append(cxPoint2I(0, 0));
+        ps2.Append(cxPoint2I(5, 0));
+        ps2.Append(cxPoint2I(5, 15));
+        ps2.Append(cxPoint2I(-5, -15));
+        cxPoints *b = cxPoints::Create();
+        b->SetPoints(ps2);
+        b->SetSpeed(100.0f);
+        b->AttachTo(sp);
+    };
+    
+    sp->Append(a);
+    return;
     //加载纹理
     LoadTexture("jl.lqt");
     LoadTexture("jlbox.lqt");

@@ -278,12 +278,12 @@ cxBool floatIsEqu(cxFloat a,cxFloat b,cxFloat equa)
     return fabsf(a - b) < equa;
 }
 
-cxInt cxPoint2IArray::CombineAngle(cxFloat equa)
+cxPoint2IArray cxPoint2IArray::CombineAngle(cxFloat equa) const
 {
     cxInt siz = Size();
     cxPoint2IArray ret;
     if(siz < 3){
-        return siz;
+        return ret;
     }
     cxPoint2I p1 = At(0);
     ret.Append(p1);
@@ -296,16 +296,13 @@ cxInt cxPoint2IArray::CombineAngle(cxFloat equa)
         if(!eq){
             ret.Append(p2);
         }
-        if(i == (siz - 1) && (!eq || ret.Size() == 1)){
+        if(i == siz - 1){
             ret.Append(p3);
-            break;
         }
         p1 = p2;
         p2 = p3;
     }
-    Clear();
-    Append(ret);
-    return ret.Size();
+    return ret;
 }
 
 void cxPoint2IArray::Append(cxInt n)

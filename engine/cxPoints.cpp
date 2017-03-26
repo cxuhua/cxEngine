@@ -72,9 +72,9 @@ const cxFloat cxPoints::Speed()
     return speed;
 }
 
-void cxPoints::SetPoints(const cxPoint2IArray &v)
+void cxPoints::SetPoints(const cxPoint2IArray &v,cxBool combine)
 {
-    ps = v.CombineAngle();
+    ps = combine ? v.CombineAngle() : v;
     if(ps.Size() == 0){
         Exit(true);
         return;
@@ -89,6 +89,7 @@ cxBool cxPoints::OnArrive(const cxInt &v)
 
 cxBool cxPoints::next(cxInt i)
 {
+    cxBool ret = OnArrive(i);
     if(i >= ps.Size()){
         return true;
     }
@@ -97,14 +98,18 @@ cxBool cxPoints::next(cxInt i)
     cxFloat av = cp.Angle(np);
     angle.x = cosf(av);
     angle.y = sinf(av);
-    return OnArrive(i);
+    return ret;
 }
 
 void cxPoints::OnInit()
 {
-    idx = -1;
     cxAction::OnInit();
-    if(ps.Size() == 0 || next(++idx)){
+    idx = -1;
+    if(ps.IsEmpty()){
+        Exit(true);
+        return;
+    }
+    if(next(++idx)){
         Exit(true);
         return;
     }

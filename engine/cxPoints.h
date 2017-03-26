@@ -39,7 +39,7 @@ public:
     const cxInt Index();
     const cxPoint2IArray &Points();
     const cxFloat Speed();
-    void SetPoints(const cxPoint2IArray &v);
+    void SetPoints(const cxPoint2IArray &v,cxBool combine);
     void SetSpeed(const cxFloat &v);
 };
 

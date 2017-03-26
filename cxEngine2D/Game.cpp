@@ -82,7 +82,7 @@ void Game::OnMain()
     Window()->Append(sp);
     cxPoint2IArray ps;
     
-    for(cxInt i=0;i<50;i++){
+    for(cxInt i=0;i<10;i++){
         cxInt x = CX_RAND_11f() * 12;
         cxInt y = CX_RAND_11f() * 15;
         ps.Append(cxPoint2I(x, y));
@@ -91,8 +91,8 @@ void Game::OnMain()
     sp->SetEnableDir(true);
     
     cxPoints *a = cxPoints::Create();
-    a->SetPoints(ps);
-    a->SetSpeed(500.0f);
+    a->SetPoints(ps,true);
+    a->SetSpeed(1000.0f);
     
     const cxPoint2IArray &pv = a->Points();
     for(cxInt i=0;i<pv.Size();i++){

@@ -34,21 +34,6 @@ cxPoint2I cxPoints::ToIdx(const cxPoint2F &v)
     return cxPoint2I(v.x/50.0f, v.y/50.0f);
 }
 
-cxBool cxPoints::isArrive(cxView *v,const cxPoint2F &wp)
-{
-    cxPoint2F cp = v->Position();
-    cxFloat dis = cp.Distance(np);
-    if(cxFloatIsEqual(dis, 0.0f)){
-        return true;
-    }
-    cxFloat a1 = cp.Angle(np);
-    cxFloat a2 = wp.Angle(np);
-    if(!cxFloatIsEqual(a1, a2)){
-        return true;
-    }
-    return false;
-}
-
 void cxPoints::OnStep(cxFloat dt)
 {
     cxAction::OnStep(dt);
@@ -56,15 +41,11 @@ void cxPoints::OnStep(cxFloat dt)
         return;
     }
     cxView *pv = View();
-    cxPoint2F cp = pv->Position();
-    cxPoint2F wp = cp;
-    wp.x += dt * speed * angle.x;
-    wp.y += dt * speed * angle.y;
-    if(!isArrive(pv, wp)){
-        pv->SetPosition(wp);
+    cxPoint2F wp = pv->Position();
+    wp += angle * (dt * speed);
+    if(!pv->SetPosition(np, wp)){
         return;
     }
-    pv->SetPosition(np);
     if(next(++idx)){
         Exit(true);
         return;
@@ -74,6 +55,21 @@ void cxPoints::OnStep(cxFloat dt)
 void cxPoints::SetSpeed(const cxFloat &v)
 {
     speed = v;
+}
+
+const cxPoint2IArray &cxPoints::Points()
+{
+    return ps;
+}
+
+const cxInt cxPoints::Index()
+{
+    return idx;
+}
+
+const cxFloat cxPoints::Speed()
+{
+    return speed;
 }
 
 void cxPoints::SetPoints(const cxPoint2IArray &v)

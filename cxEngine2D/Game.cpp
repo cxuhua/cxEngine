@@ -81,31 +81,28 @@ void Game::OnMain()
     sp->SetSize(50);
     Window()->Append(sp);
     cxPoint2IArray ps;
-    ps.Append(cxPoint2I(0, 0));
-    ps.Append(cxPoint2I(3, 0));
-    ps.Append(cxPoint2I(5, 0));
-    ps.Append(cxPoint2I(5, 5));
-    ps.Append(cxPoint2I(0, 5));
-    ps.Append(cxPoint2I(0, 4));
-    ps.Append(cxPoint2I(0, 0));
+    
+    for(cxInt i=0;i<50;i++){
+        cxInt x = CX_RAND_11f() * 12;
+        cxInt y = CX_RAND_11f() * 15;
+        ps.Append(cxPoint2I(x, y));
+    }
     
     sp->SetEnableDir(true);
     
     cxPoints *a = cxPoints::Create();
     a->SetPoints(ps);
-    a->SetSpeed(100.0f);
+    a->SetSpeed(500.0f);
     
-    a->onExit +=[sp](cxAction *pav){
-        cxPoint2IArray ps2;
-        ps2.Append(cxPoint2I(0, 0));
-        ps2.Append(cxPoint2I(5, 0));
-        ps2.Append(cxPoint2I(5, 15));
-        ps2.Append(cxPoint2I(-5, -15));
-        cxPoints *b = cxPoints::Create();
-        b->SetPoints(ps2);
-        b->SetSpeed(100.0f);
-        b->AttachTo(sp);
-    };
+    const cxPoint2IArray &pv = a->Points();
+    for(cxInt i=0;i<pv.Size();i++){
+        cxPoint2I v = pv.At(i);
+        cxPoint2F fv = a->ToPos(v);
+        cxSprite *sp = cxSprite::Create("t.png");
+        sp->SetSize(10);
+        sp->SetPosition(fv);
+        Window()->Append(sp);
+    }
     
     sp->Append(a);
     return;

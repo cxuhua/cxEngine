@@ -24,9 +24,10 @@ protected:
 protected:
     void OnStep(cxFloat dt);
     void OnInit();
+    virtual cxBool OnArrive(const cxInt &v);
+public:
     virtual cxPoint2F ToPos(const cxPoint2I &v);
     virtual cxPoint2I ToIdx(const cxPoint2F &v);
-    virtual cxBool OnArrive(const cxInt &v);
 private:
     cxPoint2IArray ps;
     cxFloat speed;
@@ -34,8 +35,10 @@ private:
     cxPoint2F np;
     cxPoint2F angle;
     cxBool next(cxInt i);
-    cxBool isArrive(cxView *v,const cxPoint2F &p);
 public:
+    const cxInt Index();
+    const cxPoint2IArray &Points();
+    const cxFloat Speed();
     void SetPoints(const cxPoint2IArray &v);
     void SetSpeed(const cxFloat &v);
 };

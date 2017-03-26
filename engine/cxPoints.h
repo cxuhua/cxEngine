@@ -34,7 +34,7 @@ private:
     cxInt idx;
     cxPoint2F np;
     cxPoint2F angle;
-    cxBool next(cxInt i);
+    cxBool nextPoint(cxInt i);
 public:
     const cxInt Index();
     const cxPoint2IArray &Points();

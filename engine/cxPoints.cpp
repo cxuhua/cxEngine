@@ -46,7 +46,7 @@ void cxPoints::OnStep(cxFloat dt)
     if(!pv->SetPosition(np, wp)){
         return;
     }
-    if(next(++idx)){
+    if(nextPoint(++idx)){
         Exit(true);
         return;
     }
@@ -87,7 +87,7 @@ cxBool cxPoints::OnArrive(const cxInt &v)
     return false;
 }
 
-cxBool cxPoints::next(cxInt i)
+cxBool cxPoints::nextPoint(cxInt i)
 {
     cxBool ret = OnArrive(i);
     if(i >= ps.Size()){
@@ -109,7 +109,7 @@ void cxPoints::OnInit()
         Exit(true);
         return;
     }
-    if(next(++idx)){
+    if(nextPoint(++idx)){
         Exit(true);
         return;
     }

@@ -278,7 +278,7 @@ cxBool floatIsEqu(cxFloat a,cxFloat b,cxFloat equa)
     return fabsf(a - b) < equa;
 }
 
-cxPoint2IArray cxPoint2IArray::CombineAngle(cxFloat equa) const
+cxPoint2IArray cxPoint2IArray::Combine(cxFloat equa) const
 {
     cxInt siz = Size();
     cxPoint2IArray ret;

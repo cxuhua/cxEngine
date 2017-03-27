@@ -77,12 +77,14 @@ void Game::test()
 
 void Game::OnMain()
 {
-    cxSprite *sp = cxSprite::Create("t.png");
+    LoadTexture("t.png");
+    cxSprite *sp = cxSprite::Create();
+    sp->SetTexture("t.png");
     sp->SetSize(50);
     Window()->Append(sp);
     cxPoint2IArray ps;
     
-    for(cxInt i=0;i<10;i++){
+    for(cxInt i=0;i<100;i++){
         cxInt x = CX_RAND_11f() * 12;
         cxInt y = CX_RAND_11f() * 15;
         ps.Append(cxPoint2I(x, y));
@@ -91,15 +93,16 @@ void Game::OnMain()
     sp->SetEnableDir(true);
     
     cxPoints *a = cxPoints::Create();
-    a->SetPoints(ps,true);
-    a->SetSpeed(1000.0f);
+    a->SetPoints(ps);
+    a->SetSpeed(500.0f);
     
     const cxPoint2IArray &pv = a->Points();
     for(cxInt i=0;i<pv.Size();i++){
         cxPoint2I v = pv.At(i);
         cxPoint2F fv = a->ToPos(v);
-        cxSprite *sp = cxSprite::Create("t.png");
-        sp->SetSize(10);
+        cxSprite *sp = cxSprite::Create();
+        sp->SetTexture("t.png");
+        sp->SetSize(15);
         sp->SetPosition(fv);
         Window()->Append(sp);
     }

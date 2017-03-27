@@ -15,7 +15,8 @@ CX_IMPLEMENT(cxPoints);
 
 cxPoints::cxPoints()
 {
-    speed = 100;
+    equ = 0.0f;
+    speed = 100.0f;
     Forever();
 }
 
@@ -43,13 +44,18 @@ void cxPoints::OnStep(cxFloat dt)
     cxView *pv = View();
     cxPoint2F wp = pv->Position();
     wp += angle * (dt * speed);
-    if(!pv->SetPosition(np, wp)){
+    if(!pv->SetPosition(np, wp, equ)){
         return;
     }
     if(nextPoint(++idx)){
         Exit(true);
         return;
     }
+}
+
+void cxPoints::SetEqu(const cxFloat &v)
+{
+    equ = v;
 }
 
 void cxPoints::SetSpeed(const cxFloat &v)
@@ -74,11 +80,7 @@ const cxFloat cxPoints::Speed()
 
 void cxPoints::SetPoints(const cxPoint2IArray &v,cxBool combine)
 {
-    ps = combine ? v.CombineAngle() : v;
-    if(ps.Size() == 0){
-        Exit(true);
-        return;
-    }
+    ps = combine ? v.Combine() : v;
 }
 
 // if exit return true

@@ -105,7 +105,7 @@ public:
     const cxInt Size() const;
     cxBool IsEmpty() const;
     //combine angle equ point
-    cxPoint2IArray CombineAngle(cxFloat equa = cxEqualFloat) const;
+    cxPoint2IArray Combine(cxFloat equa = cxEqualFloat) const;
 public:
     const cxPoint2I& operator [](cxInt idx) const;
     cxPoint2I& operator [](cxInt idx);

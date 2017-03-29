@@ -29,7 +29,7 @@ public:
     virtual cxPoint2F ToPos(const cxPoint2I &v);
     virtual cxPoint2I ToIdx(const cxPoint2F &v);
 private:
-    cxFloat equ;
+    cxFloat min;
     cxPoint2IArray ps;
     cxFloat speed;
     cxInt idx;
@@ -37,7 +37,7 @@ private:
     cxPoint2F angle;
     cxBool nextPoint(cxInt i);
 public:
-    void SetEqu(const cxFloat &v);
+    void SetMin(const cxFloat &v);
     const cxInt Index();
     const cxPoint2IArray &Points();
     const cxFloat Speed();

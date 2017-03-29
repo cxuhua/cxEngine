@@ -15,7 +15,7 @@ CX_IMPLEMENT(cxPoints);
 
 cxPoints::cxPoints()
 {
-    equ = 0.0f;
+    min = 0.0f;
     speed = 100.0f;
     Forever();
 }
@@ -42,9 +42,8 @@ void cxPoints::OnStep(cxFloat dt)
         return;
     }
     cxView *pv = View();
-    cxPoint2F wp = pv->Position();
-    wp += angle * (dt * speed);
-    if(!pv->SetPosition(np, wp, equ)){
+    cxPoint2F wp = pv->Position() + angle * (dt * speed);
+    if(!pv->SetPosition(np, wp, min)){
         return;
     }
     if(nextPoint(++idx)){
@@ -53,9 +52,9 @@ void cxPoints::OnStep(cxFloat dt)
     }
 }
 
-void cxPoints::SetEqu(const cxFloat &v)
+void cxPoints::SetMin(const cxFloat &v)
 {
-    equ = v;
+    min = v;
 }
 
 void cxPoints::SetSpeed(const cxFloat &v)

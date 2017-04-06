@@ -28,6 +28,8 @@ LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/kazmath/GL/*.c)
 
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/*.cpp)
 
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/udp/*.cpp)
+
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/android/*.cpp)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/core/*.cpp)
 

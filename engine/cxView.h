@@ -22,7 +22,7 @@
 #include <math/cxMatrixF.h>
 #include <math/cxBox4F.h>
 #include <math/cxBoxPoint3F.h>
-#include <math/cxboxColor4F.h>
+#include <math/cxBoxColor4F.h>
 
 #include "cxOpenGL.h"
 #include "cxAction.h"

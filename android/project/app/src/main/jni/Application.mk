@@ -1,7 +1,7 @@
 
 #set ndk path and src root path
 
-NDK_PATH := /Users/xuhua/android/android-ndk
+NDK_PATH := /Users/xuhua/android/android-sdk-macosx/ndk-bundle
 CX_ENGINE_PATH := /Users/xuhua/cxengine
 
 NDK_TOOLCHAIN_VERSION := clang

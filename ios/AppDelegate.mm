@@ -62,7 +62,8 @@ using namespace cxengine;
 
 -(EAGLContext *)GLContext
 {
-    return [self.window.rootViewController GLContext];
+    IOSViewController *root = (IOSViewController *)self.window.rootViewController;
+    return [root GLContext];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

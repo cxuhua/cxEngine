@@ -33,6 +33,9 @@ private:
     std::vector<cxObject *> mv;
 public:
     static cxBool IsOK(const cxArray *v);
+    
+    //move src[idx] to dst
+    static void Move(cxInt idx,cxArray *src,cxArray *dst);
 public:
     RIter RBegin();
     CRIter RBegin() const;

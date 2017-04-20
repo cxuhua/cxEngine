@@ -23,6 +23,15 @@ cxArray::~cxArray()
     Clear();
 }
 
+void cxArray::Move(cxInt idx,cxArray *src,cxArray *dst)
+{
+    CX_ASSERT(src != nullptr && dst != nullptr, "src or dst args error");
+    CX_ASSERT(idx < src->Size(), "idx out bound");
+    cxObject *obj = src->At(idx);
+    dst->Append(obj);
+    src->Remove(idx);
+}
+
 cxBool cxArray::IsEmpty() const
 {
     return mv.empty();
@@ -113,7 +122,7 @@ cxArray *cxArray::Swap(cxInt src,cxInt dst)
 {
     CX_ASSERT(src >= 0 && src < Size(), "src out bound");
     CX_ASSERT(dst >= 0 && dst < Size(), "dst out bound");
-    cxObject **ptr = (cxObject **)mv.data();
+    cxObject **ptr = Buffer();
     CX_SWAP_VAR(ptr[src], ptr[dst]);
     return this;
 }

@@ -208,7 +208,7 @@ void cxObject::SetTag(cxLong value)
 
 void cxObject::Retain()
 {
-    CX_ASSERT(refcount > 0, "error refcount retain > 0");
+    CX_ASSERT(refcount > 0, "error refcount should > 0");
     refcount.fetch_add(1);
 }
 

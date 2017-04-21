@@ -501,42 +501,35 @@ cxJson *cxJson::Append(const cxJson *value)
 
 cxBool cxJson::IsObject() const
 {
-    if(json == nullptr)return false;
     return json_is_object(json);
 }
 cxBool cxJson::IsArray() const
 {
-    if(json == nullptr)return false;
     return json_is_array(json);
 }
 
 cxBool cxJson::IsBool() const
 {
-    if(json == nullptr)return false;
     return json_is_boolean(json);
 }
 
 cxBool cxJson::IsString() const
 {
-    if(json == nullptr)return false;
     return json_is_string(json);
 }
 
 cxBool cxJson::IsFloat() const
 {
-    if(json == nullptr)return false;
     return json_is_real(json);
 }
 
 cxBool cxJson::IsInt() const
 {
-    if(json == nullptr)return false;
     return json_is_integer(json);
 }
 
 cxBool cxJson::IsNull() const
 {
-    if(json == nullptr)return false;
     return json_is_null(json);
 }
 

@@ -127,6 +127,17 @@ cxArray *cxHash::Values()
     return rv;
 }
 
+void cxHash::Move(const cxHashKey &key,cxHash *src,cxHash *dst)
+{
+    CX_ASSERT(src != nullptr && dst != nullptr, "src or dst error");
+    cxObject *obj = src->Get(key);
+    if(obj == nullptr){
+        return;
+    }
+    dst->Set(key, obj);
+    src->Del(key);
+}
+
 cxBool cxHash::IsOK(const cxHash *v)
 {
     return v != nullptr && !v->IsEmpty();

@@ -21,7 +21,7 @@ protected:
     explicit cxNumber();
     virtual ~cxNumber();
 private:
-    union{
+    union {
         cxBool bv;
         cxInt i32;
         cxInt64 i64;
@@ -51,8 +51,8 @@ public:
     cxNumber *Init(cxInt value);
     cxNumber *Init(cxBool value);
     cxNumber *Init(cxInt64 value);
-    cxNumber *Init(float value);
-    cxNumber *Init(double value);
+    cxNumber *Init(cxFloat value);
+    cxNumber *Init(cxDouble value);
     //
     cxInt ToInt() const;
     cxBool ToBool() const;

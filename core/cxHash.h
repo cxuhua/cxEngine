@@ -56,6 +56,8 @@ public:
     typedef cxHashMap::const_iterator CIter;
 public:
     static cxBool IsOK(const cxHash *v);
+    //move src[key] to dst
+    static void Move(const cxHashKey &key,cxHash *src,cxHash *dst);
 public:
     Iter Begin();
     CIter Begin() const;

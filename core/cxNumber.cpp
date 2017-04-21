@@ -51,14 +51,14 @@ cxNumber *cxNumber::Init(cxInt64 value)
     return this;
 }
 
-cxNumber *cxNumber::Init(float value)
+cxNumber *cxNumber::Init(cxFloat value)
 {
     v.fv = value;
     type = Float;
     return this;
 }
 
-cxNumber *cxNumber::Init(double value)
+cxNumber *cxNumber::Init(cxDouble value)
 {
     v.dv = value;
     type = Double;

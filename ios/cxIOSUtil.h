@@ -18,11 +18,11 @@ class cxIOSUtil : public cxUtil
 public:
     CX_DECLARE(cxIOSUtil);
 public:
-    cxFloat ScaleFactor() const;
-    cxStr *UUID() const;
+    cxFloat ScaleFactor();
+    cxStr *UUID();
     
-    cxStr *GetLang() const;
-    cxStr *GetCountry() const;
+    cxStr *GetLang();
+    cxStr *GetCountry();
     
     cxStr *DocumentPath(cchars file);
     cxStr *AssetsPath(cchars file);

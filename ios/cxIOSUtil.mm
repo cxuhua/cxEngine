@@ -17,13 +17,13 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxIOSUtil);
 
-cxStr *cxIOSUtil::GetLang() const
+cxStr *cxIOSUtil::GetLang()
 {
     NSLocale *locale = [NSLocale currentLocale];
     return cxStr::UTF8([[locale objectForKey:NSLocaleLanguageCode] UTF8String]);
 }
 
-cxStr *cxIOSUtil::GetCountry() const
+cxStr *cxIOSUtil::GetCountry()
 {
     NSLocale *locale = [NSLocale currentLocale];
     return cxStr::UTF8([[locale objectForKey:NSLocaleCountryCode] UTF8String]);
@@ -51,14 +51,14 @@ cxStr *cxIOSUtil::DocumentPath(cchars file)
     return rv;
 }
 
-cxStr *cxIOSUtil::UUID() const
+cxStr *cxIOSUtil::UUID()
 {
     uuid_t uuid;
     uuid_generate(uuid);
     return cxStr::Create()->Init(uuid, sizeof(uuid_t));
 }
 
-cxFloat cxIOSUtil::ScaleFactor() const
+cxFloat cxIOSUtil::ScaleFactor()
 {
     return (cxFloat)[UIScreen mainScreen].scale;
 }

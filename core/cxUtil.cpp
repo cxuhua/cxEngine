@@ -166,8 +166,7 @@ cxStr *cxUtil::ReadFileData(const cxStr *path)
         return nullptr;
     }
     cxStr *ret = cxStr::Create()->Init(length, 0);
-    chars buffer = ret->Buffer();
-    fs.read(buffer, length);
+    fs.read(ret->Buffer(), length);
     fs.close();
     return ret;
 }

@@ -106,6 +106,7 @@ public:
     cxBool IsEmpty() const;
     //combine angle equ point
     cxPoint2IArray Combine(cxFloat equa = cxEqualFloat) const;
+    cxPoint2IArray Reverse() const;
 public:
     const cxPoint2I& operator [](cxInt idx) const;
     cxPoint2I& operator [](cxInt idx);

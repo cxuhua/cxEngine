@@ -36,6 +36,7 @@ public:
 public:
     cxEvent<cxFollow> onMoving;
     cxEvent<cxFollow> onMiss;
+    cxEvent<cxFollow> onArrive;
 public:
     static cxFollow *Create(cxView *target,cxFloat speed);
 };

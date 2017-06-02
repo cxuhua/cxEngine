@@ -25,14 +25,26 @@ cxPoints::~cxPoints()
     
 }
 
-cxPoint2F cxPoints::ToPos(const cxPoint2I &v)
+cxAction *cxPoints::Reverse()
 {
-    return cxPoint2F(v.x * 50, v.y * 50);
+    cxPoints *ret = cxPoints::Create();
+    cxPoint2FArray rps;
+    for(cxInt i=ps.Size()-1; i >= 0; i--){
+        rps.Append(ps.At(i));
+    }
+    ret->SetPoints(rps);
+    ret->SetSpeed(speed);
+    ret->SetMin(min);
+    return ret;
 }
 
-cxPoint2I cxPoints::ToIdx(const cxPoint2F &v)
+cxAction *cxPoints::Clone()
 {
-    return cxPoint2I(v.x/50.0f, v.y/50.0f);
+    cxPoints *ret = cxPoints::Create();
+    ret->SetPoints(ps,false);
+    ret->SetSpeed(speed);
+    ret->SetMin(min);
+    return ret;
 }
 
 void cxPoints::OnStep(cxFloat dt)
@@ -62,7 +74,7 @@ void cxPoints::SetSpeed(const cxFloat &v)
     speed = v;
 }
 
-const cxPoint2IArray &cxPoints::Points()
+const cxPoint2FArray &cxPoints::Points()
 {
     return ps;
 }
@@ -77,9 +89,9 @@ const cxFloat cxPoints::Speed()
     return speed;
 }
 
-void cxPoints::SetPoints(const cxPoint2IArray &v,cxBool combine)
+void cxPoints::SetPoints(const cxPoint2FArray &v,cxBool combine)
 {
-    ps = combine ? v.Combine() : v;
+    ps = v;
 }
 
 // if exit return true
@@ -90,16 +102,21 @@ cxBool cxPoints::OnArrive(const cxInt &v)
 
 cxBool cxPoints::nextPoint(cxInt i)
 {
-    cxBool ret = OnArrive(i);
     if(i >= ps.Size()){
         return true;
     }
     cxPoint2F cp = View()->Position();
-    np = ToPos(ps.At(i));
+    np = At(i);
     cxFloat av = cp.Angle(np);
     angle.x = cosf(av);
     angle.y = sinf(av);
-    return ret;
+    return OnArrive(i);
+}
+
+cxPoint2F cxPoints::At(cxInt i)
+{
+    CX_ASSERT(i >= 0 && i < ps.Size(), "i out bound");
+    return ps.At(i);
 }
 
 void cxPoints::OnInit()

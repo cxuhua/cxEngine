@@ -278,6 +278,15 @@ cxBool floatIsEqu(cxFloat a,cxFloat b,cxFloat equa)
     return fabsf(a - b) < equa;
 }
 
+cxPoint2IArray cxPoint2IArray::Reverse() const
+{
+    cxPoint2IArray ret;
+    for(cxInt i = Size()-1; i>=0; i--){
+        ret.Append(At(i));
+    }
+    return ret;
+}
+
 cxPoint2IArray cxPoint2IArray::Combine(cxFloat equa) const
 {
     cxInt siz = Size();

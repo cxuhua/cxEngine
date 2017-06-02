@@ -131,7 +131,7 @@ cxFloat cxPoint2F::Distance(const cxPoint2F &d) const
 cxFloat cxPoint2F::Angle(const cxPoint2F &d) const
 {
     cxPoint2F sub = d - *this;
-    return atan2f(sub.y, sub.x);
+    return sub.Angle();
 }
 
 cxFloat cxPoint2F::Angle() const

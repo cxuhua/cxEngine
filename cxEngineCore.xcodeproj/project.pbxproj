@@ -92,11 +92,6 @@
 		838073C91B564FDB00A1098A /* cxTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838073C71B564FDB00A1098A /* cxTable.cpp */; };
 		8383456B1B5A45B300921BE8 /* cxKDTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838345691B5A45B300921BE8 /* cxKDTree.cpp */; };
 		838ACB2C1E87AFBC00F27E17 /* cxPoints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838ACB2A1E87AFBC00F27E17 /* cxPoints.cpp */; };
-		838BCAB41E82853C0026C41D /* cxUdpBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838BCAA51E82853C0026C41D /* cxUdpBase.cpp */; };
-		838BCAB61E82853C0026C41D /* cxUdpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838BCAA81E82853C0026C41D /* cxUdpClient.cpp */; };
-		838BCAB81E82853C0026C41D /* cxUdpData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838BCAAB1E82853C0026C41D /* cxUdpData.cpp */; };
-		838BCABA1E82853C0026C41D /* cxUdpHost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838BCAAE1E82853C0026C41D /* cxUdpHost.cpp */; };
-		838BCABC1E82853C0026C41D /* cxUdpServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838BCAB11E82853C0026C41D /* cxUdpServer.cpp */; };
 		838D1BE41B79905500CA4C8B /* cxAlert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838D1BE21B79905500CA4C8B /* cxAlert.cpp */; };
 		839836CE1B10B3F7002B7C20 /* cxAutoPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CC1B10B3F7002B7C20 /* cxAutoPool.cpp */; };
 		839836D11B10B59C002B7C20 /* cxArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839836CF1B10B59C002B7C20 /* cxArray.cpp */; };
@@ -334,16 +329,6 @@
 		8383456A1B5A45B300921BE8 /* cxKDTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxKDTree.h; sourceTree = "<group>"; };
 		838ACB2A1E87AFBC00F27E17 /* cxPoints.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxPoints.cpp; sourceTree = "<group>"; };
 		838ACB2B1E87AFBC00F27E17 /* cxPoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxPoints.h; sourceTree = "<group>"; };
-		838BCAA51E82853C0026C41D /* cxUdpBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUdpBase.cpp; sourceTree = "<group>"; };
-		838BCAA61E82853C0026C41D /* cxUdpBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUdpBase.h; sourceTree = "<group>"; };
-		838BCAA81E82853C0026C41D /* cxUdpClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUdpClient.cpp; sourceTree = "<group>"; };
-		838BCAA91E82853C0026C41D /* cxUdpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUdpClient.h; sourceTree = "<group>"; };
-		838BCAAB1E82853C0026C41D /* cxUdpData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUdpData.cpp; sourceTree = "<group>"; };
-		838BCAAC1E82853C0026C41D /* cxUdpData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUdpData.h; sourceTree = "<group>"; };
-		838BCAAE1E82853C0026C41D /* cxUdpHost.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUdpHost.cpp; sourceTree = "<group>"; };
-		838BCAAF1E82853C0026C41D /* cxUdpHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUdpHost.h; sourceTree = "<group>"; };
-		838BCAB11E82853C0026C41D /* cxUdpServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxUdpServer.cpp; sourceTree = "<group>"; };
-		838BCAB21E82853C0026C41D /* cxUdpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxUdpServer.h; sourceTree = "<group>"; };
 		838D1BE21B79905500CA4C8B /* cxAlert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAlert.cpp; sourceTree = "<group>"; };
 		838D1BE31B79905500CA4C8B /* cxAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxAlert.h; sourceTree = "<group>"; };
 		839836CC1B10B3F7002B7C20 /* cxAutoPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxAutoPool.cpp; sourceTree = "<group>"; };
@@ -662,23 +647,6 @@
 			path = math;
 			sourceTree = "<group>";
 		};
-		838BCAA41E82853C0026C41D /* udp */ = {
-			isa = PBXGroup;
-			children = (
-				838BCAA51E82853C0026C41D /* cxUdpBase.cpp */,
-				838BCAA61E82853C0026C41D /* cxUdpBase.h */,
-				838BCAA81E82853C0026C41D /* cxUdpClient.cpp */,
-				838BCAA91E82853C0026C41D /* cxUdpClient.h */,
-				838BCAAB1E82853C0026C41D /* cxUdpData.cpp */,
-				838BCAAC1E82853C0026C41D /* cxUdpData.h */,
-				838BCAAE1E82853C0026C41D /* cxUdpHost.cpp */,
-				838BCAAF1E82853C0026C41D /* cxUdpHost.h */,
-				838BCAB11E82853C0026C41D /* cxUdpServer.cpp */,
-				838BCAB21E82853C0026C41D /* cxUdpServer.h */,
-			);
-			path = udp;
-			sourceTree = "<group>";
-		};
 		83B23B4C1B17E0E9000D770A /* ext */ = {
 			isa = PBXGroup;
 			children = (
@@ -734,7 +702,6 @@
 		83BBF3CF1B109452003CB004 = {
 			isa = PBXGroup;
 			children = (
-				838BCAA41E82853C0026C41D /* udp */,
 				83079B5D1B292F1B00275F1F /* engine */,
 				836F3F0A1B1B89A000E3E82C /* math */,
 				836A2F621B19F636009B427B /* ios */,
@@ -896,7 +863,6 @@
 				8302A3751B51078500C7209C /* cxLocalized.cpp in Sources */,
 				831189C91B2D728000C930B5 /* aabb2.c in Sources */,
 				833043C11B40FBE900636928 /* cxTiming.cpp in Sources */,
-				838BCABA1E82853C0026C41D /* cxUdpHost.cpp in Sources */,
 				83F7BAD81B42D97F00C644B9 /* cxEvent.cpp in Sources */,
 				830ECB1D1B3DA38F002EBE56 /* tools.c in Sources */,
 				836A2F3B1B198662009B427B /* xxtea.c in Sources */,
@@ -906,12 +872,10 @@
 				836A2F5F1B19CDD2009B427B /* cxNumber.cpp in Sources */,
 				836A2F481B19869D009B427B /* LzFind.c in Sources */,
 				838073C91B564FDB00A1098A /* cxTable.cpp in Sources */,
-				838BCAB81E82853C0026C41D /* cxUdpData.cpp in Sources */,
 				836F3F061B1B70FA00E3E82C /* md5.c in Sources */,
 				831B93F41B4A970600511A63 /* cxCSV.cpp in Sources */,
 				8346501A1CD754460046BC55 /* cxScript.cpp in Sources */,
 				83D5D31E1B6763B70051D99D /* cxLQT.cpp in Sources */,
-				838BCAB41E82853C0026C41D /* cxUdpBase.cpp in Sources */,
 				831189D91B2D72F100C930B5 /* cxMatrixF.cpp in Sources */,
 				83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */,
 				836A2F4B1B19869D009B427B /* LzmaEnc.c in Sources */,
@@ -932,7 +896,6 @@
 				8302A5831B535E3A00C7209C /* cxProgress.cpp in Sources */,
 				8357CB981B12079D0085E600 /* cxStr.cpp in Sources */,
 				83639F721B302E16006A61B7 /* cxWindow.cpp in Sources */,
-				838BCABC1E82853C0026C41D /* cxUdpServer.cpp in Sources */,
 				831189D41B2D728000C930B5 /* vec2.c in Sources */,
 				83C9D1271B48CC1E00EC244C /* cxSequence.cpp in Sources */,
 				833043B31B40246E00636928 /* cxEmitter.cpp in Sources */,
@@ -965,7 +928,6 @@
 				8345E1621B37138200A46A47 /* cxList.cpp in Sources */,
 				8302541E1B453E8B0070D2E5 /* cxTimeLine.cpp in Sources */,
 				83F5D0C01CE58B6D00690B86 /* cxActionGroup.cpp in Sources */,
-				838BCAB61E82853C0026C41D /* cxUdpClient.cpp in Sources */,
 				83BE636E1B3117270028B6E7 /* AppDelegate.mm in Sources */,
 				83C9D1121B47C63600EC244C /* cxFollow.cpp in Sources */,
 				831189CD1B2D728000C930B5 /* mat3.c in Sources */,

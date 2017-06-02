@@ -86,43 +86,54 @@ void Game::OnMain()
     sp->SetEnableDir(true);
     Window()->Append(sp);
     
-    cxForward *a = cxForward::Create();
-    a->SetSpeed(100);
-    a->SetAngle(cxDegreesToRadians(30));
-    sp->Append(a);
-    
-    cxTimer *t = cxTimer::Forever(3.0f);
-    t->onArrive +=[a](cxTimer *pav){
-        a->SetAngle(cxDegreesToRadians(CX_RAND_01f() * 360));
-    };
-    Window()->Append(t);
-    
-//    cxPoint2IArray ps;
-//    
-//    for(cxInt i=0;i<100;i++){
-//        cxInt x = CX_RAND_11f() * 12;
-//        cxInt y = CX_RAND_11f() * 15;
-//        ps.Append(cxPoint2I(x, y));
-//    }
-//    
-//    sp->SetEnableDir(true);
-//    
-//    cxPoints *a = cxPoints::Create();
-//    a->SetPoints(ps);
-//    a->SetSpeed(500.0f);
-//    
-//    const cxPoint2IArray &pv = a->Points();
-//    for(cxInt i=0;i<pv.Size();i++){
-//        cxPoint2I v = pv.At(i);
-//        cxPoint2F fv = a->ToPos(v);
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetTexture("t.png");
-//        sp->SetSize(15);
-//        sp->SetPosition(fv);
-//        Window()->Append(sp);
-//    }
-//    
+//    cxForward *a = cxForward::Create();
+//    a->SetSpeed(100);
+//    a->SetAngle(cxDegreesToRadians(30));
 //    sp->Append(a);
+//    
+//    cxTimer *t = cxTimer::Forever(3.0f);
+//    t->onArrive +=[a](cxTimer *pav){
+//        a->SetAngle(cxDegreesToRadians(CX_RAND_01f() * 360));
+//    };
+//    Window()->Append(t);
+    
+    cxPoint2FArray ps;
+    
+    for(cxInt i=0;i<50;i++){
+        cxFloat x = CX_RAND_11f() * 500;
+        cxFloat y = CX_RAND_11f() * 500;
+        ps.Append(cxPoint2F(x, y));
+    }
+    
+//    ps.Append(cxPoint2F(0, 0));
+//    ps.Append(cxPoint2F(200, 0));
+//    ps.Append(cxPoint2F(400, 0));
+//    ps.Append(cxPoint2F(600, 0));
+//    ps.Append(cxPoint2F(-200, 0));
+    
+    sp->SetEnableDir(true);
+//    sp->SetPosition(cxPoint2F(600, 0));
+    
+    cxPoints *a = cxPoints::Create();
+    a->SetPoints(ps);
+    a->SetSpeed(1800.0f);
+
+    a->onExit +=[sp](cxAction *pav){
+        sp->SetColor(cxColor4F::RED);
+        sp->Append(pav->Reverse());
+    };
+    
+    const cxPoint2FArray &pv = a->Points();
+    for(cxInt i=0;i<pv.Size();i++){
+        cxPoint2F v = pv.At(i);
+        cxSprite *sp = cxSprite::Create();
+        sp->SetTexture("t.png");
+        sp->SetSize(15);
+        sp->SetPosition(v);
+        Window()->Append(sp);
+    }
+    
+    sp->Append(a);
     return;
     //加载纹理
     LoadTexture("jl.lqt");

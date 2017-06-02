@@ -288,12 +288,12 @@ cxView *cxView::SetRelative(Relative v)
 cxBool cxView::SetPosition(const cxPoint2F &np,const cxPoint2F &wp,const cxFloat min)
 {
     cxPoint2F cp = Position();
-    cxFloat dis = cp.Distance(np);
-    if(dis <= min){
+    cxFloat cdis = cp.Distance(np);
+    if(cdis <= min){
         return true;
     }
-    cxFloat a1 = cp.Angle(np);
-    cxFloat a2 = wp.Angle(np);
+    cxFloat a1 = fabsf(cp.Angle(np));
+    cxFloat a2 = fabsf(wp.Angle(np));
     if(!cxFloatIsEqual(a1, a2)){
         SetPosition(np);
         return true;

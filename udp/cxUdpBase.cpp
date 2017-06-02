@@ -67,7 +67,7 @@ cxUdpHost *cxUdpBase::ConnectHost(cxUInt64 aid,const UdpAddr *addr)
 {
     cxUdpHost *host = cxUdpHost::Create();
     if(!host->Init(this, addr, aid)){
-        return  nullptr;
+        return nullptr;
     }
     hlocker.WLock();
     hosts->Set(aid, host);
@@ -79,7 +79,7 @@ cxUdpHost *cxUdpBase::ConnectHost(cchars ip,cxInt port,cxUInt64 aid)
 {
     cxUdpHost *host = cxUdpHost::Create();
     if(!host->Init(this, ip, port, aid)){
-        return  nullptr;
+        return nullptr;
     }
     hlocker.WLock();
     hosts->Set(aid, host);
@@ -89,13 +89,14 @@ cxUdpHost *cxUdpBase::ConnectHost(cchars ip,cxInt port,cxUInt64 aid)
 
 void cxUdpBase::Update()
 {
+    // update host
     hlocker.RLock();
     for(cxHash::Iter it=hosts->Begin();it!=hosts->End();it++){
         cxUdpHost *h = it->second->To<cxUdpHost>();
         h->Update();
     }
     hlocker.RUnlock();
-    
+    // write queue
     wlocker.WLock();
     cxArray::FIter it = wqueue->FBegin();
     while(it != wqueue->FEnd()){
@@ -107,7 +108,7 @@ void cxUdpBase::Update()
         it ++;
     }
     wlocker.WUnlock();
-    
+    // no wait run
     mutex.Lock();
     uv_run(&looper, UV_RUN_NOWAIT);
     mutex.Unlock();

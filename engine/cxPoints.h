@@ -26,11 +26,10 @@ protected:
     void OnInit();
     virtual cxBool OnArrive(const cxInt &v);
 public:
-    virtual cxPoint2F ToPos(const cxPoint2I &v);
-    virtual cxPoint2I ToIdx(const cxPoint2F &v);
+    virtual cxPoint2F At(cxInt i);
 private:
     cxFloat min;
-    cxPoint2IArray ps;
+    cxPoint2FArray ps;
     cxFloat speed;
     cxInt idx;
     cxPoint2F np;
@@ -39,10 +38,12 @@ private:
 public:
     void SetMin(const cxFloat &v);
     const cxInt Index();
-    const cxPoint2IArray &Points();
+    const cxPoint2FArray &Points();
     const cxFloat Speed();
-    void SetPoints(const cxPoint2IArray &v,cxBool combine=true);
+    void SetPoints(const cxPoint2FArray &v,cxBool combine=true);
     void SetSpeed(const cxFloat &v);
+    cxAction *Reverse();
+    cxAction *Clone();
 };
 
 CX_CPP_END

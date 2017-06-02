@@ -44,23 +44,30 @@ void cxFollow::OnStep(cxFloat dt)
         return;
     }
     cxView *target = GetTarget();
-    //target miss
+    // target miss
     if(target == nullptr){
         onMiss.Fire(this);
         Exit(true);
         return;
     }
+    // current pos
     cxPoint2F cpos = View()->Position();
     cxPoint2F tpos = target->Position() + offset;
     cxFloat angle = cpos.Angle(tpos);
     if(!cxFloatIsOK(angle)){
         return;
     }
+    // new pos
     cxFloat dv = dt * speed;
     cpos.x += cosf(angle) * dv;
     cpos.y += sinf(angle) * dv;
     View()->SetPosition(cpos);
-    //if position changed
+    if(View()->SetPosition(cpos, tpos)){
+        onArrive.Fire(this);
+        Exit(true);
+        return;
+    }
+    // if position changed
     if(View()->IsDirtyMode(cxView::DirtyModePosition)){
         onMoving.Fire(this);
     }

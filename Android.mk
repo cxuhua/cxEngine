@@ -28,7 +28,13 @@ LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/kazmath/GL/*.c)
 
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/*.cpp)
 
-LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/udp/*.cpp)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/Box2D/Collision/*.cpp)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/Box2D/Collision/Shapes/*.cpp)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/Box2D/Common/*.cpp)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/Box2D/Dynamics/*.cpp)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/Box2D/Dynamics/Contacts/*.cpp)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/Box2D/Dynamics/Joints/*.cpp)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/Box2D/Rope/*.cpp)
 
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/android/*.cpp)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/core/*.cpp)

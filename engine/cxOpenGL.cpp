@@ -22,7 +22,7 @@ CX_CPP_BEGIN
 #include "system.shader"
 
 #define CX_GL_SUPPORT(t)                          \
-support_##t = strstr(extensions,#t) > 0;          \
+support_##t = strstr(extensions,#t) != NULL;      \
 if(support_##t){CX_LOGGER("%s = YES",#t);}        \
 else {CX_LOGGER("%s = NO",#t);}
 

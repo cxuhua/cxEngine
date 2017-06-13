@@ -86,6 +86,7 @@ public:
     
     static cxStr *PBEncode(const pb_field_t fields[], const void *src,cxInt max=2048);
     static cxBool PBDecode(cchars data, cxInt size, const pb_field_t fields[], void *dst);
+    static cxBool PBDecode(const cxStr *data, const pb_field_t fields[], void *dst);
     cxBool PBDecode(const pb_field_t fields[], void *dst) const;
     
     cxStr *TeaEncode(const cxStr *key) const;

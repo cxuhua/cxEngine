@@ -84,10 +84,9 @@ cxView *cxView::SetSortFunc(cxCmpFunc func)
 cxView *cxView::BringFront()
 {
     cxView *p = Parent();
-    if(p == nullptr){
-        return this;
+    if(p != nullptr){
+        SetZ(p->maxz + 1);
     }
-    SetZ(p->maxz + 1);
     return this;
 }
 

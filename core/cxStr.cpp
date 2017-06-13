@@ -449,9 +449,14 @@ cxBool cxStr::PBDecode(cchars data, cxInt size, const pb_field_t fields[], void 
     return pb_decode(&stream, fields, dst);
 }
 
+cxBool cxStr::PBDecode(const cxStr *data, const pb_field_t fields[], void *dst)
+{
+    return cxStr::PBDecode(data->Buffer(), data->Size(), fields, dst);
+}
+
 cxBool cxStr::PBDecode(const pb_field_t fields[], void *dst) const
 {
-    return PBDecode(Buffer(), Size(), fields, dst);
+    return PBDecode(this, fields, dst);
 }
 
 cxStr *cxStr::TeaEncode(const cxStr *key) const

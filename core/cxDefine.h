@@ -207,22 +207,35 @@ do{                                                             \
 
 
 #define CX_DECLARE(T)                                               \
+template <typename... Args>                                         \
+static CX_INLINE T *AllocWithArgs(Args... args)                     \
+{                                                                   \
+    return new T(args...);                                          \
+}                                                                   \
 static CX_INLINE T *Alloc()                                         \
 {                                                                   \
-    return static_cast<T *>(new T());                               \
-}                                                                   \
-static CX_INLINE T *__Alloc__()                                     \
-{                                                                   \
-    return T::Alloc();                                              \
+    return new T();                                                 \
 }                                                                   \
 static CX_INLINE T *Create()                                        \
 {                                                                   \
     return static_cast<T *>(T::Alloc()->AutoRelease());             \
 }                                                                   \
+template <typename... Args>                                         \
+static CX_INLINE T *CreateWithArgs(Args... args)                    \
+{                                                                   \
+    T *ptr = new T(args...);                                        \
+    return static_cast<T *>(ptr->AutoRelease());                    \
+}                                                                   \
 private:                                                            \
 static cxHelper __helper__;                                         \
+static CX_INLINE T *__Alloc__()                                     \
+{                                                                   \
+    return T::Alloc();                                              \
+}                                                                   \
 public:                                                             \
 virtual const cxHelper &GetHelper() const;
+
+
 
 #define CX_IMPLEMENT(T)                                             \
 cxHelper T::__helper__=cxHelper(#T,(cxCore::AllocFunc)T::__Alloc__);\

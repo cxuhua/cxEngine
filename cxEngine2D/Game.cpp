@@ -56,14 +56,17 @@
 #include <pb_encode.h>
 #include <pb_decode.h>
 #include "protos/public.pb.h"
+#include "protos/driver.pb.h"
 
 
 CX_CPP_BEGIN
+
 
 CX_IMPLEMENT(Game);
 
 Game::Game()
 {
+    
     ttmall::TypeInfo info;
     info.set_id("aa");
     info.set_name("bb");
@@ -92,6 +95,7 @@ Game::~Game()
 
 void Game::test()
 {
+    Game::Create();
     LoadTexture("jl.lqt");
 }
 

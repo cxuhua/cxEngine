@@ -26,6 +26,7 @@ protected:
     cxSize2F itemSize;
 private:
 public:
+    virtual void Read(){};
     cxPoint2F ToPos(const cxPoint2I &idx);
     //radians为物体半径 width,3=3x3 4=4x4
     cxPoint2F ToPos(const cxPoint2I &idx,cxFloat width);

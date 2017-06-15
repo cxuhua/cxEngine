@@ -66,26 +66,11 @@ CX_IMPLEMENT(Game);
 
 Game::Game()
 {
-    
+
     ttmall::TypeInfo info;
     info.set_id("aa");
     info.set_name("bb");
     std::string x = info.SerializeAsString();
-    int l = x.size();
-    ttmall::TypeInfo info2;
-    bool vv = info2.ParsePartialFromString(x);
-    vv = false;
-    
-    ttmall::PriceInfo pi;
-    int s2 = pi.ranges_size();
-    ttmall::PriceRange*r = pi.add_ranges();
-    r->set_beg(1);
-    r->set_end(2);
-    r->set_price(100);
-    
-    int s1 = pi.ranges_size();
-    
-    CX_LOGGER("a");
 }
 
 Game::~Game()

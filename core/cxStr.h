@@ -14,10 +14,6 @@
 #include <math/cxPoint3F.h>
 #include <math/cxColor4F.h>
 #include <math/cxSize2F.h>
-#include <ext/pb.h>
-#include <ext/pb_common.h>
-#include <ext/pb_decode.h>
-#include <ext/pb_encode.h>
 #include "cxArray.h"
 
 CX_CPP_BEGIN
@@ -83,11 +79,6 @@ public:
     
     cxStr *ToLower();
     cxStr *ToUpper();
-    
-    static cxStr *PBEncode(const pb_field_t fields[], const void *src,cxInt max=2048);
-    static cxBool PBDecode(cchars data, cxInt size, const pb_field_t fields[], void *dst);
-    static cxBool PBDecode(const cxStr *data, const pb_field_t fields[], void *dst);
-    cxBool PBDecode(const pb_field_t fields[], void *dst) const;
     
     cxStr *TeaEncode(const cxStr *key) const;
     cxStr *TeaDecode(const cxStr *key) const;
@@ -167,16 +158,6 @@ public:
     static cxStr *Alloc(cchars str);
     static cxStr *Alloc(cxAny ptr,cxInt size);
 };
-
-// for nanopb callback
-
-bool cxStrPBEncode(pb_ostream_t *stream, const pb_field_t *field, void * const *arg);
-
-bool cxStrPBDecode(pb_istream_t *stream, const pb_field_t *field, void **arg);
-
-#define CX_STR_PB_ENCODE(_s_)   {.funcs.encode=&cxStrPBEncode,.arg=_s_}
-
-#define CX_STR_PB_DECODE(_s_)   {.funcs.decode=&cxStrPBDecode,.arg=_s_}
 
 CX_CPP_END
 

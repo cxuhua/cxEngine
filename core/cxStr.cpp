@@ -432,32 +432,6 @@ cxStr *cxStr::AESDecode(const cxStr *key) const
     return rv;
 }
 
-cxStr *cxStr::PBEncode(const pb_field_t fields[], const void *src,cxInt max)
-{
-    cxStr *ret = cxStr::Create()->Init(max);
-    pb_ostream_t stream = pb_ostream_from_buffer((pb_byte_t *)ret->Buffer(), (size_t)ret->Size());
-    if(!pb_encode(&stream, fields, src)){
-        return NULL;
-    }
-    ret->KeepBytes((cxInt)stream.bytes_written);
-    return ret;
-}
-
-cxBool cxStr::PBDecode(cchars data, cxInt size, const pb_field_t fields[], void *dst)
-{
-    pb_istream_t stream = pb_istream_from_buffer((pb_byte_t *)data, (size_t)size);
-    return pb_decode(&stream, fields, dst);
-}
-
-cxBool cxStr::PBDecode(const cxStr *data, const pb_field_t fields[], void *dst)
-{
-    return cxStr::PBDecode(data->Buffer(), data->Size(), fields, dst);
-}
-
-cxBool cxStr::PBDecode(const pb_field_t fields[], void *dst) const
-{
-    return PBDecode(this, fields, dst);
-}
 
 cxStr *cxStr::TeaEncode(const cxStr *key) const
 {
@@ -972,40 +946,4 @@ cxInt cxStr::Size() const
 {
     return (cxInt)s.size();
 }
-
-bool cxStrPBEncode(pb_ostream_t *stream, const pb_field_t *field, void * const *arg)
-{
-    if(arg == nullptr){
-        CX_WARN("cxStrPBEncode arg null");
-        return false;
-    }
-    const cxStr *str = (const cxStr *)*arg;
-    if(str == nullptr) {
-        CX_WARN("cxStrPBEncode set null cxstr");
-        return false;
-    }
-    if (!pb_encode_tag_for_field(stream, field)){
-        return false;
-    }
-    return pb_encode_string(stream, (const pb_byte_t *)str->Buffer(), (size_t)str->Size());
-}
-
-bool cxStrPBDecode(pb_istream_t *stream, const pb_field_t *field, void **arg)
-{
-    if(arg == nullptr){
-        CX_WARN("cxStrPBEncode arg null");
-        return false;
-    }
-    cxStr *rs = (cxStr *)*arg;
-    if(rs == nullptr) {
-        CX_WARN("cxStrPBDecode set null cxstr");
-        return false;
-    }
-    if(stream->bytes_left <= 0){
-        return false;
-    }
-    rs->Init((cxInt)stream->bytes_left);
-    return pb_read(stream, (pb_byte_t *)rs->Buffer(), stream->bytes_left);
-}
-
 CX_CPP_END

@@ -287,7 +287,7 @@ cxFloat cxTiming::QuinOutIn(cxFloat t)
 
 cxFloat cxTiming::SineIn(cxFloat t)
 {
-    t = -(cos(t * MATH_PIOVER2) - 1.0f);
+    t = -(cos(t * MATH_PIO2) - 1.0f);
     return t;
 }
 
@@ -308,7 +308,7 @@ cxFloat cxTiming::SineOutIn(cxFloat t)
     if (t < 0.5f){
         t = 0.5f * sin(MATH_PI * t);
     }else{
-        t = -0.5f * cos(MATH_PIOVER2 * (2.0f * t - 1.0f)) + 1.0f;
+        t = -0.5f * cos(MATH_PIO2 * (2.0f * t - 1.0f)) + 1.0f;
     }
     return t;
 }

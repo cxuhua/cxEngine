@@ -28,7 +28,6 @@ public class EngineActivity extends NativeActivity {
 	public String NewUUID() {
 		UUID uuid = UUID.randomUUID();
 		return uuid.toString();
-
 	}
 
 	//退出程序

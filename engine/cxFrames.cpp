@@ -57,6 +57,10 @@ void cxFrames::Load(cxHash *values,cchars file,std::function<cxTexture *(cchars 
                 attr->SetTexture(ptex);
                 continue;
             }
+            if(ktype->IsCaseEqu("Blend")){
+                attr->SetBlend(value);
+                continue;
+            }
             if(ktype->IsCaseEqu("Size")){
                 attr->SetSize(value->ToSize2F());
                 continue;
@@ -226,7 +230,7 @@ void cxFrames::parseMapItem(cchars buf)
     CX_ASSERT(false, "map item format error");
 }
 
-// 0[0(x):0(y)],1[0] idx[层偏移]
+// idx[off-x:off-y] or idx[off-xy]
 void cxFrames::SetMaps(cchars maps)
 {
     if(!cxStr::IsOK(maps)){

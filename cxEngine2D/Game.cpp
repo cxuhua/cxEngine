@@ -52,9 +52,6 @@
 #include "Controller.h"
 #include "Map.h"
 #include "Shader.h"
-#include "public.pb.h"
-#include "protos/public.pb.h"
-#include "protos/driver.pb.h"
 
 
 CX_CPP_BEGIN
@@ -65,10 +62,6 @@ CX_IMPLEMENT(Game);
 Game::Game()
 {
 
-    ttmall::TypeInfo info;
-    info.set_id("aa");
-    info.set_name("bb");
-    std::string x = info.SerializeAsString();
 }
 
 Game::~Game()
@@ -91,87 +84,92 @@ void Game::OnMain()
 //    sp->SetEnableDir(true);
 //    Window()->Append(sp);
 //
-////    cxForward *a = cxForward::Create();
-////    a->SetSpeed(100);
-////    a->SetAngle(cxDegreesToRadians(30));
-////    sp->Append(a);
-////    
-////    cxTimer *t = cxTimer::Forever(3.0f);
-////    t->onArrive +=[a](cxTimer *pav){
-////        a->SetAngle(cxDegreesToRadians(CX_RAND_01f() * 360));
-////    };
-////    Window()->Append(t);
-//    
-//    cxPoint2FArray ps;
-//    
-//    for(cxInt i=0;i<50;i++){
-//        cxFloat x = CX_RAND_11f() * 500;
-//        cxFloat y = CX_RAND_11f() * 500;
-//        ps.Append(cxPoint2F(x, y));
-//    }
-//    
-////    ps.Append(cxPoint2F(0, 0));
-////    ps.Append(cxPoint2F(200, 0));
-////    ps.Append(cxPoint2F(400, 0));
-////    ps.Append(cxPoint2F(600, 0));
-////    ps.Append(cxPoint2F(-200, 0));
-//    
-//    sp->SetEnableDir(true);
-////    sp->SetPosition(cxPoint2F(600, 0));
-//    
-//    cxPoints *a = cxPoints::Create();
-//    a->SetPoints(ps);
-//    a->SetSpeed(1800.0f);
-//
-//    a->onExit +=[sp](cxAction *pav){
-//        sp->SetColor(cxColor4F::RED);
-//        sp->Append(pav->Reverse());
-//    };
-//    
-//    const cxPoint2FArray &pv = a->Points();
-//    for(cxInt i=0;i<pv.Size();i++){
-//        cxPoint2F v = pv.At(i);
-//        cxSprite *sp = cxSprite::Create();
-//        sp->SetTexture("t.png");
-//        sp->SetSize(15);
-//        sp->SetPosition(v);
-//        Window()->Append(sp);
-//    }
-//    
+//    cxForward *a = cxForward::Create();
+//    a->SetSpeed(100);
+//    a->SetAngle(cxDegreesToRadians(30));
 //    sp->Append(a);
-//    return;
+//
+//    cxTimer *t = cxTimer::Forever(3.0f);
+//    t->onArrive +=[a](cxTimer *pav){
+//        a->SetAngle(cxDegreesToRadians(CX_RAND_01f() * 360));
+//    };
+//    Window()->Append(t);
+//
+////
+////    cxPoint2FArray ps;
+////
+////    for(cxInt i=0;i<50;i++){
+////        cxFloat x = CX_RAND_11f() * 500;
+////        cxFloat y = CX_RAND_11f() * 500;
+////        ps.Append(cxPoint2F(x, y));
+////    }
+////
+//////    ps.Append(cxPoint2F(0, 0));
+//////    ps.Append(cxPoint2F(200, 0));
+//////    ps.Append(cxPoint2F(400, 0));
+//////    ps.Append(cxPoint2F(600, 0));
+//////    ps.Append(cxPoint2F(-200, 0));
+////
+////    sp->SetEnableDir(true);
+//////    sp->SetPosition(cxPoint2F(600, 0));
+////
+////    cxPoints *a = cxPoints::Create();
+////    a->SetPoints(ps);
+////    a->SetSpeed(1800.0f);
+////
+////    a->onExit +=[sp](cxAction *pav){
+////        sp->SetColor(cxColor4F::RED);
+////        sp->Append(pav->Reverse());
+////    };
+////
+////    const cxPoint2FArray &pv = a->Points();
+////    for(cxInt i=0;i<pv.Size();i++){
+////        cxPoint2F v = pv.At(i);
+////        cxSprite *sp = cxSprite::Create();
+////        sp->SetTexture("t.png");
+////        sp->SetSize(15);
+////        sp->SetPosition(v);
+////        Window()->Append(sp);
+////    }
+////
+////    sp->Append(a);
+////    return;
+    
+//    cxMusic *m = cxMusic::Create("o.wav");
+//    m->SetRepeat(3);
+//    Window()->Append(m);
     //加载纹理
-//    LoadTexture("jl.lqt");
+    LoadTexture("jl.lqt");
 //    LoadTexture("jlbox.lqt");
 //    LoadTexture("jl1000.lqt");
-//    //加载帧序列
-//    LoadFrames("frames.csv");
-//    //加载动作组
-//    LoadActions("actions.csv");
-//    //获取法师帧序列
-//    const cxFrames *fs = GetFrames("Mage");
-//    //获取法师的动作列表
-//    const cxActionGroup *ag = GetActions("Mage");
-//    {
-//        //获得move动作
-//        const cxActionAttr *move = ag->Action("move");
-//        //创建动画
-//        cxAnimate *animate = fs->Animate();
-//        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-//            
-//        };
-//        animate->onKey+=[](cxAnimate *pav,cxInt key){
-//            CX_LOGGER("%d",key);
-//        };
-//        animate->SetAction(move, 1);
-//        //创建载体
-////        cxAtlas *atlas = cxAtlas::Create();
-//        cxTriangles *atlas = cxTriangles::Create();
-////        atlas->SetFlipX(true);
-//        atlas->SetSize(800);
-//        atlas->Append(animate);//加入动画
-//        Window()->Append(atlas);
-//    }
+    //加载帧序列
+    LoadFrames("frames.csv");
+    //加载动作组
+    LoadActions("actions.csv");
+    //获取法师帧序列
+    const cxFrames *fs = GetFrames("Mage");
+    //获取法师的动作列表
+    const cxActionGroup *ag = GetActions("Mage");
+    {
+        //获得move动作
+        const cxActionAttr *attack = ag->Action("attack");
+        //创建动画
+        cxAnimate *animate = fs->Animate();
+        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+            
+        };
+        animate->onKey+=[](cxAnimate *pav,cxInt key){
+            CX_LOGGER("%d",key);
+        };
+        animate->SetAction(attack, 1);
+        //创建载体
+//        cxAtlas *atlas = cxAtlas::Create();
+        cxTriangles *atlas = cxTriangles::Create();
+        atlas->SetFlipX(true);
+        atlas->SetSize(100);
+        atlas->Append(animate);//加入动画
+        Window()->Append(atlas);
+    }
 }
 
 CX_CPP_END

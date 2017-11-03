@@ -40,8 +40,8 @@ extern "C" {
 #endif
     
 /* Added by Tobias Lensing for icedcoffee-framework.org*/
-void kmGLSetCurrentContext();
-void kmGLClearCurrentContext();
+void kmGLSetCurrentContext(void);
+void kmGLClearCurrentContext(void);
 
 void kmGLPushMatrix(void);
 void kmGLPopMatrix(void);

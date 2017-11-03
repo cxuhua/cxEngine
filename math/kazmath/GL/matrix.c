@@ -45,7 +45,7 @@ typedef struct km_mat4_stack_context {
 
 static km_mat4_stack_context *current_context = NULL;
 
-void kmGLSetCurrentContext()
+void kmGLSetCurrentContext(void)
 {
     if (current_context == NULL) {
         current_context = malloc(sizeof(km_mat4_stack_context));
@@ -71,7 +71,7 @@ void kmGLClearContext(km_mat4_stack_context *context)
     context->entry = NULL;
 }
 
-void kmGLClearCurrentContext()
+void kmGLClearCurrentContext(void)
 {
     if(current_context != NULL){
         kmGLClearContext(current_context);

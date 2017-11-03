@@ -42,7 +42,7 @@ protected:
     virtual ~cxFrames();
 private:
     std::vector<cxFloat> repeats;//每帧的重复倍数
-    cxSize2F size;  //宽高
+    cxSize2F size;  //宽高 cxAtlas *cxAtlas::Create(const cxFrames *frames) 使用作为默认宽高
     cxInt repeat;
     BlendFunc blend;
     cxSize2F scale;

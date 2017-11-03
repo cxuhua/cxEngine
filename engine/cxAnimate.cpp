@@ -22,13 +22,14 @@ cxActionAttr::cxActionAttr()
     repeat = -1;
 }
 
+// user : set array 1:4:6
 void cxActionAttr::SetKey(const cxStr *value)
 {
     CX_ASSERT(from >= 0 && to >= 0, "from to not set");
-    const cxArray *keys = value->Split(',');
+    const cxArray *keys = value->Split(':');
     for(cxArray::CFIter it=keys->FBegin();it != keys->FEnd();it++){
         cxInt v = (*it)->To<cxStr>()->ToInt();
-        CX_ASSERT(v >= from && v <= to, "v range error");
+        CX_ASSERT(v >= from && v <= to, "action key range error");
         keyvar[keynum] = v;
         keynum++;
     }

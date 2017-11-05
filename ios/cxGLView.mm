@@ -123,6 +123,7 @@ using namespace cxengine;
 
 - (void)glkViewControllerUpdate:(GLKViewController *)controller
 {
+    [EAGLContext setCurrentContext:context];
     cxEngine::Instance()->Run();
     [context presentRenderbuffer:GL_RENDERBUFFER];
 }

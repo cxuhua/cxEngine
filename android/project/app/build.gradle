@@ -7,7 +7,7 @@ android {
         applicationId "cn.cxengine.test"
         versionCode 1
         versionName "1.0"
-        minSdkVersion 10
+        minSdkVersion 22
         targetSdkVersion 22
     }
     buildTypes {

@@ -7,7 +7,7 @@
 //
 
 #include <core/cxJson.h>
-#include "kazmath/kazmath.h"
+#include <ext/kazmath.h>
 #include "cxPoint3F.h"
 #include "cxPoint2F.h"
 #include "cxMatrixF.h"

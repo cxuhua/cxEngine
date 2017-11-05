@@ -19,7 +19,7 @@
 #include <math/cxBoxCoord2F.h>
 #include <math/cxLineF.h>
 #include <math/cxMatrixF.h>
-#include <math/kazmath/GL/matrix.h>
+#include <ext/matrix.h>
 #include <math/cxBoxRender.h>
 #include <math/cxRenderF.h>
 #include "OpenGL.h"

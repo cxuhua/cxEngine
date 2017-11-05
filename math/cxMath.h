@@ -13,7 +13,7 @@
 #include <float.h>
 #include <math.h>
 #include <vector>
-#include "kazmath/kazmath.h"
+#include <ext/kazmath.h>
 
 CX_CPP_BEGIN
 

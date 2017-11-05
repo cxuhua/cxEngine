@@ -23,49 +23,31 @@
 #define CX_PLATFORM_MAC                8
 #define CX_PLATFORM_POSIX              9
 
-// mac
-#if defined(CX_TARGET_MAC)
-#define CX_TARGET_PLATFORM         CX_PLATFORM_MAC
-#endif
-
-// iphone
-#if defined(CX_TARGET_IOS)
-#define CX_TARGET_PLATFORM         CX_PLATFORM_IOS
-#endif
-
-// android
-#if defined(ANDROID)
-#define CX_TARGET_PLATFORM         CX_PLATFORM_ANDROID
-#endif
-
-// win32
-#if defined(WIN32) && defined(_WINDOWS)
-#define CX_TARGET_PLATFORM         CX_PLATFORM_WIN32
-#endif
-
-// linux
-#if defined(LINUX)
-#define CX_TARGET_PLATFORM         CX_PLATFORM_LINUX
-#endif
-
-// marmalade
-#if defined(MARMALADE)
-#define CX_TARGET_PLATFORM         CX_PLATFORM_MARMALADE
-#endif
-
-// bada
-#if defined(SHP)
-#define CX_TARGET_PLATFORM         CX_PLATFORM_BADA
-#endif
-
-// qnx
-#if defined(__QNCX__)
-#define CX_TARGET_PLATFORM          CX_PLATFORM_BLACKBERRY
-#endif
-
-// posix
-#if defined(POSIX)
-#define CX_TARGET_PLATFORM          CX_PLATFORM_POSIX
+#ifdef _WIN32
+    #define CX_TARGET_PLATFORM          CX_PLATFORM_WINDOWS
+    #define WIN32                       1
+    #define WIN64                       0
+#elif _WIN64
+    #define CX_TARGET_PLATFORM          CX_PLATFORM_WINDOWS
+    #define WIN32                       0
+    #define WIN64                       1
+#elif __APPLE__
+    #include <TargetConditionals.h>
+    #if TARGET_IPHONE_SIMULATOR
+        #define CX_TARGET_PLATFORM      CX_PLATFORM_IOS
+        #define IOS_SIMULATOR           1
+    #elif TARGET_OS_IPHONE
+        #define CX_TARGET_PLATFORM      CX_PLATFORM_IOS
+        #define IOS_SIMULATOR           0
+    #elif TARGET_OS_MAC
+        #define CX_TARGET_PLATFORM      CX_PLATFORM_OSX
+    #else
+        #error "Unknown Apple platform"
+    #endif
+#elif __ANDROID__
+    #define CX_TARGET_PLATFORM          CX_PLATFORM_ANDROID
+#else
+    #error "Unknown platform"
 #endif
 
 #define CX_UNUSED_PARAM(p) (void)p

@@ -29,12 +29,12 @@ cxObject::cxObject():refcount(1),tag(0)
 
 const cxInt cxObject::BindesSize() const
 {
-    return bindes.empty()?0:(cxInt)bindes.size();
+    return (cxInt)bindes.size();
 }
 
 const cxInt cxObject::BindedSize() const
 {
-    return binded.empty()?0:(cxInt)binded.size();
+    return (cxInt)binded.size();
 }
 
 void cxObject::Bind(cxObject *pobj,cxLong tag)
@@ -51,11 +51,13 @@ void cxObject::Bind(cxObject *pobj,cxLong tag)
 
 const cxBool cxObject::HasBindes(cxObject *pobj) const
 {
+    CX_ASSERT(pobj !=  nullptr, "pobj args error");
     return bindes.find(pobj) != bindes.end();
 }
 
 const cxBool cxObject::HasBinded(cxObject *pobj) const
 {
+    CX_ASSERT(pobj !=  nullptr, "pobj args error");
     return binded.find(pobj) != binded.end();
 }
 
@@ -156,12 +158,8 @@ void cxObject::UnBind(cxObject *pobj)
     if(pobj == nullptr){
         return;
     }
-    if(!bindes.empty()){
-        bindes.erase(pobj);
-    }
-    if(!pobj->binded.empty()){
-        pobj->binded.erase(this);
-    }
+    bindes.erase(pobj);
+    pobj->binded.erase(this);
 }
 
 void cxObject::UnBind()
@@ -172,18 +170,14 @@ void cxObject::UnBind()
         pobj->binded.erase(this);
         it++;
     }
-    if(!bindes.empty()){
-        bindes.clear();
-    }
+    bindes.clear();
     it = binded.begin();
     while(it != binded.end()){
         cxObject *pobj = (cxObject *)it->first;
         pobj->bindes.erase(this);
         it++;
     }
-    if(!binded.empty()){
-        binded.clear();
-    }
+    binded.clear();
 }
 
 cxJson *cxObject::Serialize()

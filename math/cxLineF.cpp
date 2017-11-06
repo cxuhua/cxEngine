@@ -30,21 +30,17 @@ cxLineF::cxLineF(cxFloat x1,cxFloat y1,cxFloat x2,cxFloat y2)
 
 cxInt cxLineF::AtLineLR(const cxPoint2F &v) const
 {
-    cxFloat ax = a.x;
-    cxFloat ay = a.y;
-    cxFloat bx = b.x;
-    cxFloat by = b.y;
-    ax -= v.x;
-    ay -= v.y;
-    bx -= v.x;
-    by -= v.y;
+    cxFloat ax = a.x - v.x;
+    cxFloat ay = a.y - v.y;
+    cxFloat bx = b.x - v.x;
+    cxFloat by = b.y - v.y;
     cxInt nRet = ax * by - ay * bx;
-    if (nRet == 0)
-        return 0;
-    else if (nRet > 0)
+    if (nRet > 0){
         return 1;
-    else if (nRet < 0)
+    }
+    if (nRet < 0){
         return -1;
+    }
     return 0;
 }
 

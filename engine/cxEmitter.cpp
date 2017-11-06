@@ -469,7 +469,7 @@ void cxEmitter::OnBoxRender(cxEmitterUnit *unit,cxBoxRender &box)
     CX_ASSERT(ptex != nullptr, "atlas texture null");
     const cxStr *key = tkeys->At(idx)->To<cxStr>();
     cxTexCoord *coord = ptex->At(key);
-    CX_ASSERT(coord != nullptr, "texuture key %s miss",key->ToString());
+    CX_ASSERT(coord != nullptr, "texuture key %s miss",key->ToChars());
     unit->idx = idx;
     if(!coord->TrimmedCoord(Pixel(), FlipX(), FlipY())){
         return;
@@ -664,7 +664,7 @@ void cxEmitterXml::parseTexture()
         CX_ERROR("emitter data zlib uncompress failed");
         return;
     }
-    cxTexture *ctex = cxTexture::Create()->From(textureFileName->ToString(), data);
+    cxTexture *ctex = cxTexture::Create()->From(textureFileName->ToChars(), data);
     if(ctex == nullptr || !ctex->IsSuccess()){
         CX_ERROR("create emitter texture failed");
         return;
@@ -724,7 +724,7 @@ cxEmitter *cxEmitterXml::Emitter()
 void cxEmitterXml::OnElementEnd(cchars name)
 {
     if(cxStr::IsEqu(name, "key")){
-        skey->Append(svalue->ToString());
+        skey->Append(svalue->ToChars());
     }else if(skey->Size() > 0){
         OnKeyValue(skey, name, svalue);
         skey->Clear();

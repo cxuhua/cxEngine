@@ -88,7 +88,7 @@ const cxStr *cxLocalized::Content(cchars key,...)
     cxStr *ret = cxStr::Create();
     va_list ap;
     va_start(ap, key);
-    ret->AppFmt(fs->ToString(), ap);
+    ret->AppFmt(fs->ToChars(), ap);
     va_end(ap);
     return ret;
 }
@@ -96,9 +96,9 @@ const cxStr *cxLocalized::Content(cchars key,...)
 const cxStr *cxLocalized::Text(cchars key)
 {
     cxLocalized *instance = Instance();
-    cxObject *tobj = instance->texts->Get(GetLang()->ToString());
+    cxObject *tobj = instance->texts->Get(GetLang()->ToChars());
     if(tobj == nullptr){
-        tobj = instance->texts->Get(GetDefault()->ToString());
+        tobj = instance->texts->Get(GetDefault()->ToChars());
     }
     if(tobj == nullptr){
         return cxStr::Create()->Init(key);
@@ -129,9 +129,9 @@ void cxLocalized::Load(cchars file)
             if(!cxStr::IsOK(key)){
                 continue;
             }
-            lngtxt->Set(key->ToString(), csv->At(i, j));
+            lngtxt->Set(key->ToChars(), csv->At(i, j));
         }
-        local->texts->Set(text->ToString(), lngtxt);
+        local->texts->Set(text->ToChars(), lngtxt);
         lngtxt->Release();
     }
 }

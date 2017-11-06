@@ -120,7 +120,7 @@ cxBoxRender &cxSprite::BoxRender()
 
 cxSprite *cxSprite::SetTexKey(const cxStr *v)
 {
-    return SetTexKey(v->ToString());
+    return SetTexKey(v->ToChars());
 }
 
 cxSprite *cxSprite::SetTexKey(cchars fmt,...)
@@ -179,7 +179,7 @@ void cxSprite::SetTexture(const cxTexture *ptex)
 cxSprite *cxSprite::SetTexture(const cxStr *tkey)
 {
     CX_ASSERT(cxStr::IsOK(tkey), "tkey args error");
-    return SetTexture(tkey->ToString());
+    return SetTexture(tkey->ToChars());
 }
 
 cxSprite *cxSprite::SetTexture(cchars key)

@@ -47,7 +47,7 @@ void cxActionGroup::Load(cxHash *values,cchars file)
             cxObject::swap(&name, cn);
             nrow = i;
             attr = cxActionGroup::Alloc();
-            values->Set(name->ToString(), attr);
+            values->Set(name->ToChars(), attr);
             attr->Release();
         }
         cchars aname = nullptr;
@@ -64,7 +64,7 @@ void cxActionGroup::Load(cxHash *values,cchars file)
                 continue;
             }
             if(ktype->IsCaseEqu("Action")){
-                aname = value->ToString();//动作名称
+                aname = value->ToChars();//动作名称
             }else if(ktype->IsCaseEqu("Repeat")){
                 av.SetRepeat(value);//播放次数 =0表示循环播放
             }else if(ktype->IsCaseEqu("Speed")){

@@ -52,7 +52,7 @@ void cxFrames::Load(cxHash *values,cchars file,std::function<cxTexture *(cchars 
                 continue;
             }
             if(ktype->IsCaseEqu("Texture")){
-                cxTexture *ptex = loadTexture(value->ToString());
+                cxTexture *ptex = loadTexture(value->ToChars());
                 CX_ASSERT(ptex != nullptr, "frames load texture error");
                 attr->SetTexture(ptex);
                 continue;
@@ -95,7 +95,7 @@ void cxFrames::Load(cxHash *values,cchars file,std::function<cxTexture *(cchars 
             }
         }
         if(attr->Init()){
-            values->Set(cxHashKey::Format("%s_%d",name->ToString(),level), attr);
+            values->Set(cxHashKey::Format("%s_%d",name->ToChars(),level), attr);
         }
     }
     cxObject::release(&name);
@@ -177,7 +177,7 @@ void cxFrames::SetMaps(const cxStr *str)
     if(!cxStr::IsOK(str)){
         return;
     }
-    SetMaps(str->ToString());
+    SetMaps(str->ToChars());
 }
 
 cxPoint2F cxFrames::parseMapItemOff(cchars buf){
@@ -259,7 +259,7 @@ void cxFrames::SetRepeats(const cxStr *str)
     if(!cxStr::IsOK(str)){
         return;
     }
-    SetRepeats(str->ToString());
+    SetRepeats(str->ToChars());
 }
 
 void cxFrames::SetRepeats(cchars str)
@@ -369,7 +369,7 @@ cxFrames *cxFrames::SetBlend(const BlendFunc &func)
 
 cxFrames *cxFrames::SetBlend(const cxStr *name)
 {
-    blend = BlendFunc::To(name->ToString());
+    blend = BlendFunc::To(name->ToChars());
     return this;
 }
 

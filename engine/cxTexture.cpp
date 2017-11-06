@@ -336,7 +336,7 @@ cxTexCoord *cxTexture::At(cchars key) const
 
 cxTexCoord *cxTexture::At(const cxStr *key) const
 {
-    return At(key->ToString());
+    return At(key->ToChars());
 }
 
 cxTexture *cxTexture::From(cchars file,const cxStr *data)

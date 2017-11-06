@@ -63,7 +63,7 @@ cxStr *cxStr::Localized(cchars key,...)
     const cxStr *fmt = cxLocalized::Text(key);
     va_list ap;
     va_start(ap, key);
-    cxStr *ret = cxStr::Create()->AppFmt(fmt->ToString(), ap);
+    cxStr *ret = cxStr::Create()->AppFmt(fmt->ToChars(), ap);
     va_end(ap);
     return ret;
 }
@@ -105,12 +105,12 @@ cxBool cxStr::ToBool() const
 
 cxInt64 cxStr::ToInt64() const
 {
-    return atoll(ToString());
+    return atoll(ToChars());
 }
 
 cxInt cxStr::ToInt() const
 {
-    return atoi(ToString());
+    return atoi(ToChars());
 }
 
 static cxBool ccharsHasChar(cchars cs,cxByte c)
@@ -157,18 +157,18 @@ cxArray *cxStr::Split(cchars data, cchars cs)
 
 cxArray *cxStr::Split(cchars cs) const
 {
-    return cxStr::Split(ToString(), cs);
+    return cxStr::Split(ToChars(), cs);
 }
 
 cxArray *cxStr::Split(cxInt c) const
 {
     char cs[1]={static_cast<char>(c & 0xFF)};
-    return cxStr::Split(ToString(), cs);
+    return cxStr::Split(ToChars(), cs);
 }
 
 cxBool cxStr::IsInt() const
 {
-    return cxStr::IsInt(ToString());
+    return cxStr::IsInt(ToChars());
 }
 
 cxBool cxStr::IsInt(cchars cs)
@@ -211,7 +211,7 @@ cxBool cxStr::IsNumber(cchars cs)
 
 cxBool cxStr::IsNumber() const
 {
-    return cxStr::IsNumber(ToString());
+    return cxStr::IsNumber(ToChars());
 }
 
 cxSize2F cxStr::ToSize2F() const
@@ -276,12 +276,12 @@ cxPoint3F cxStr::ToPoint3F() const
 
 cxColor4F cxStr::ToColor4F() const
 {
-    return cxColor4F(ToString());
+    return cxColor4F(ToChars());
 }
 
 cxFloat cxStr::ToFloat() const
 {
-    return atof(ToString());
+    return atof(ToChars());
 }
 
 cxStr *cxStr::Clone() const
@@ -309,14 +309,14 @@ cxStr *cxStr::ToUpper()
     return ret;
 }
 
-cchars cxStr::ToString() const
+cchars cxStr::ToChars() const
 {
     return Data();
 }
 
 cxObject *cxStr::ToObject()
 {
-    return cxObject::create(ToString());
+    return cxObject::create(ToChars());
 }
 
 cxStr *cxStr::Init(cxInt size,char c)

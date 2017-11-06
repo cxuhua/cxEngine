@@ -73,7 +73,7 @@ public:
     cxSize2F ToSize2F() const;
     cxPoint3F ToPoint3F() const;
     cxColor4F ToColor4F() const;
-    cchars ToString() const;
+    cchars ToChars() const;
     
     cxObject *ToObject();
     

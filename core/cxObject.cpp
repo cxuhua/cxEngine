@@ -188,7 +188,7 @@ void cxObject::UnBind()
 
 cxJson *cxObject::Serialize()
 {
-    return nullptr;
+    return cxJson::CreateObject();
 }
 
 cxLong cxObject::Tag() const
@@ -258,7 +258,7 @@ cxObject *cxObject::alloc(cchars name)
 
 cxObject *cxObject::create(const cxStr *name)
 {
-    return create(name->ToString());
+    return create(name->ToChars());
 }
 
 cxObject *cxObject::fromJson(const cxJson *json)
@@ -272,7 +272,7 @@ cxObject *cxObject::fromJson(const cxJson *json)
         CX_ERROR("cxType node miss");
         return nullptr;
     }
-    cxObject *pobj = cxObject::create(cxtype->ToString());
+    cxObject *pobj = cxObject::create(cxtype->ToChars());
     if(pobj == nullptr){
         CX_ERROR("create object error");
         return nullptr;

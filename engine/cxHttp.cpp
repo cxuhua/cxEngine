@@ -167,7 +167,7 @@ cxBool cxHttp::ConnectURL(cchars url)
     }else{
         cxObject::swap(&path, cxStr::Create("/"));
     }
-    Connect(host->ToString(), port);
+    Connect(host->ToChars(), port);
     return  true;
 }
 

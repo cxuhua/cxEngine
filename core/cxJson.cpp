@@ -209,7 +209,7 @@ cchars cxJson::Get(cchars key,cchars value) const
     if(j == nullptr){
         return value;
     }
-    return j->ToString();
+    return j->ToChars();
 }
 
 const cxStr *cxJson::Get(cchars key) const
@@ -263,7 +263,7 @@ cchars cxJson::Get(cxInt idx,cchars value) const
     if(j == nullptr){
         return value;
     }
-    return j->ToString();
+    return j->ToChars();
 }
 
 const cxStr *cxJson::Get(cxInt idx) const
@@ -605,7 +605,7 @@ cxFloat cxJson::ToFloat() const
     return json_real_value(json);
 }
 
-cchars cxJson::ToString() const
+cchars cxJson::ToChars() const
 {
     CX_ASSERT(IsString(), "json not string");
     return json_string_value(json);
@@ -613,7 +613,7 @@ cchars cxJson::ToString() const
 
 const cxStr *cxJson::ToStr() const
 {
-    cchars str = ToString();
+    cchars str = ToChars();
     return cxStr::Create()->Init(str);
 }
 

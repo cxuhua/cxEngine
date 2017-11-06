@@ -71,7 +71,7 @@ cxLabel *cxLabel::Localized(cchars key,...)
     cxLabel *rv = cxLabel::Create();
     va_list ap;
     va_start(ap, key);
-    rv->SetText(cxStr::Create()->AppFmt(fmt->ToString(), ap));
+    rv->SetText(cxStr::Create()->AppFmt(fmt->ToChars(), ap));
     va_end(ap);
     return rv;
 }
@@ -171,7 +171,7 @@ cxLabel *cxLabel::SetLocalized(cchars key,...)
     const cxStr *fmt = cxLocalized::Text(key);
     va_list ap;
     va_start(ap, key);
-    SetText(cxStr::Create()->AppFmt(fmt->ToString(), ap));
+    SetText(cxStr::Create()->AppFmt(fmt->ToChars(), ap));
     va_end(ap);
     return this;
 }

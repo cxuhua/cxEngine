@@ -105,7 +105,7 @@ public:
     cxInt ToInt() const;
     cxInt64 ToInt64() const;
     cxFloat ToFloat() const;
-    cchars ToString() const;
+    cchars ToChars() const;
     const cxStr *ToStr() const;
     json_t *ToJson() const;
 

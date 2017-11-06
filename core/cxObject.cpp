@@ -26,7 +26,6 @@ cxObject::cxObject():refcount(1),tag(0)
     
 }
 
-
 const cxInt cxObject::BindesSize() const
 {
     return (cxInt)bindes.size();

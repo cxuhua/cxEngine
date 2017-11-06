@@ -239,7 +239,7 @@ protected:
     void OnElementEnd(cchars name);
     void OnCharacter(cchars data,cxInt len);
 public:
-    cxEmitter *Emitter();
+    cxEmitter *CreateEmitter();
 public:
     // open {{name}}.xml file
     // file ext must .xml

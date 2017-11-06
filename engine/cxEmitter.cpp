@@ -672,7 +672,7 @@ void cxEmitterXml::parseTexture()
     cxObject::swap(&ptex, ctex);
 }
 
-cxEmitter *cxEmitterXml::Emitter()
+cxEmitter *cxEmitterXml::CreateEmitter()
 {
     cxEmitter *ret = cxEmitter::Create(maxParticles);
     if(ptex != nullptr){

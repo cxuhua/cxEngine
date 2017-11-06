@@ -340,17 +340,15 @@ cxBool Controller::OnSwap(const cxPoint2I &src,const cxPoint2I &dst)
     if(!HasView(src) || !HasView(dst)){
         return false;
     }
-    srcTmp = src;
-    dstTmp = dst;
     cxMultiple *m = SwapView(src, dst);
     //动画时禁止键盘
     m->onInit +=[this](cxAction *pav){
         SetEnableTouch(false);
     };
     //动画结束时检测
-    m->onExit +=[this](cxAction *pav){
+    m->onExit +=[this,src,dst](cxAction *pav){
         SetEnableTouch(true);
-        CheckSwap(srcTmp,dstTmp);
+        CheckSwap(src,dst);
     };
     //重置
     Reset();

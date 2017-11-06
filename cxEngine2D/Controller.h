@@ -75,9 +75,6 @@ private:
     cxInt row;
     cxPoint2I srcIdx;//选中的key位置
     cxPoint2I dstIdx;//目标位置
-    //临时保存的坐标，当没有可消除的块时交换显示
-    cxPoint2I srcTmp;
-    cxPoint2I dstTmp;
     cxPoint2IArray points;
 protected:
     cxBool OnDispatch(const cxengine::cxTouchable *e);

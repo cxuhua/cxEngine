@@ -18,7 +18,9 @@ int ToLQT(cchars png,cchars json,cchars out,cchars fmt)
 {
     LQT lqt={0};
     lqt.flag = CX_LQT_TAG;
-    if(strcasecmp(fmt, "rgba4444") == 0){
+    if(strcasecmp(fmt, "rgb888") == 0){
+        lqt.format = LQT::FormatRGB888;//use jpe
+    }else if(strcasecmp(fmt, "rgba4444") == 0){
         lqt.format = LQT::FormatRGBA4444;
     }else if(strcasecmp(fmt, "rgba5551") == 0){
         lqt.format = LQT::FormatRGBA5551;
@@ -67,6 +69,9 @@ int ToLQT(cchars png,cchars json,cchars out,cchars fmt)
     }else if(lqt.format == LQT::FormatRGB565){
         pixelRGBA8888ToRGB565(imagedata->Buffer(), imagedata->Size(), imagedata->Buffer());
         imagedata->KeepBytes(imagedata->Size()/2);
+    }else if(lqt.format == LQT::FormatRGB888){
+        pixelRGBA8888ToRGB565(imagedata->Buffer(), imagedata->Size(), imagedata->Buffer());
+        imagedata->KeepBytes((imagedata->Size()/4)*3);
     }
     //压缩数据
     dd = imagedata->LzmaCompress();

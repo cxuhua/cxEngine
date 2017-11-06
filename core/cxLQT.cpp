@@ -52,5 +52,17 @@ void pixelRGBA8888ToRGB565(cxAny pdata, cxInt dataLen, cxAny outData)
     }
 }
 
+// RRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA -> RRRRRRRRGGGGGGRRBBBBBBBB
+void pixelRGBA8888ToRGB888(cxAny pdata, cxInt dataLen, cxAny outData)
+{
+    cxUChar *data = (cxUChar *)pdata;
+    cxUInt8 *out8 = (cxUInt8 *)outData;
+    for(cxInt i = 0, l = dataLen - 3; i < l; i += 4){
+        *out8++ = data[i+0];                  //R
+        *out8++ = data[i+1];                  //G
+        *out8++ = data[i+2];                  //B
+    }
+}
+
 CX_CPP_END
 

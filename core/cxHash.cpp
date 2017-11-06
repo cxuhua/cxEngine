@@ -84,7 +84,8 @@ bool cxHasher::operator()(const cxHashKey &lhs, const cxHashKey &rhs) const
 
 size_t cxHasher::operator()(const cxHashKey &k) const
 {
-    return (size_t)XXH32(k.data, k.length, 0);
+    uint32_t v = XXH32(k.data, k.length, 0);
+    return (size_t)v;
 }
 
 CX_IMPLEMENT(cxHash);

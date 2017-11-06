@@ -93,13 +93,12 @@ CX_IMPLEMENT(Controller);
 
 Controller::Controller()
 {
-    items = cxHash::Alloc();
     Reset();
 }
 
 Controller::~Controller()
 {
-    items->Release();
+    
 }
 
 void Controller::Reset()
@@ -115,19 +114,19 @@ const cxSize2F Controller::ItemSize() const
 
 CardItem *Controller::DropView(const cxPoint2I &idx)
 {
-    CardItem *view = ToView(idx);
+    CardItem *view = GetView(idx);
     if(view == nullptr){
         return nullptr;
     }
-    items->Del(ToKey(idx));
+    items[idx.x][idx.y] = nullptr;
     return view;
 }
 
 cxMultiple *Controller::SwapView(const cxPoint2I &src,const cxPoint2I &dst)
 {
     cxMultiple *m = cxMultiple::Create();
-    CardItem *srcView = ToView(src);
-    CardItem *dstView = ToView(dst);
+    CardItem *srcView = GetView(src);
+    CardItem *dstView = GetView(dst);
     CX_ASSERT(srcView != nullptr && dstView != nullptr, "view miss");
     cxMoveTo *m1 = cxMoveTo::Create(ToPos(dst), 0.1f);
     m1->AttachTo(srcView);
@@ -147,7 +146,7 @@ cxBool Controller::HasSwap(const cxPoint2IArray &ps)
     cxMultiple *m = cxMultiple::Create();
     for(cxInt i=0;i<ps.Size();i++){
         const cxPoint2I &idx = ps.At(i);
-        CardItem *view = ToView(idx);
+        CardItem *view = GetView(idx);
         if(view == nullptr) {
             continue;
         }
@@ -221,7 +220,7 @@ BoxType Controller::ParseBoxType(const cxBox4I &box)
 cxInt Controller::MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I &idx)
 {
     cxInt ret = 0;
-    CardItem *view = ToView(idx);
+    CardItem *view = GetView(idx);
     CX_ASSERT(view != nullptr, "view miss");
     for(cxInt i=0; i<ps.Size();i++){
         cxPoint2I sidx = ps.At(i);
@@ -249,7 +248,7 @@ cxAction *Controller::Find(const cxPoint2I &idx)
         view->SetPosition(ToPos(nidx));
         Append(view);
     }else{
-        view = ToView(nidx);
+        view = GetView(nidx);
     }
     if(view == nullptr){
         return nullptr;
@@ -271,7 +270,7 @@ cxMultiple *Controller::ScanSwap()
     for(cxInt i = 0; i < col; i++)
     for(cxInt j = row - 1;j >= 0; j--){
         cxPoint2I idx = cxPoint2I(i, j);
-        CardItem *view = ToView(idx);
+        CardItem *view = GetView(idx);
         if(view == nullptr) {
             continue;
         }
@@ -289,7 +288,7 @@ cxMultiple *Controller::ScanSwap()
     for(cxInt i = 0; i < col; i++)
     for(cxInt j = row - 1;j >= 0; j--){
         cxPoint2I idx = cxPoint2I(i, j);
-        CardItem *view = ToView(idx);
+        CardItem *view = GetView(idx);
         if(view != nullptr) {
             continue;
         }
@@ -319,10 +318,11 @@ cxMultiple *Controller::CheckSwap(const cxPoint2I &src,const cxPoint2I &dst)
     points.Clear();
     points.Append(dst);
     points.Append(src);
-    //使用dstTmp是因为src点已经移动到dstTmp位置
+    //检测是否有消除
     if(HasSwap(points)){
         return nullptr;
     }
+    //交换位置
     cxMultiple *m = SwapView(src, dst);
     //动画时禁止键盘
     m->onInit +=[this](cxAction *pav){
@@ -406,14 +406,14 @@ cxBool Controller::OnDispatch(const cxengine::cxTouchable *e)
 
 cxBox4I Controller::Compute(const cxPoint2I &idx)
 {
-    CardItem *item = ToView(idx);
+    CardItem *item = GetView(idx);
     if(item == nullptr){
         return cxBox4I(0);
     }
     cxInt l = 0;
     for(cxInt i = idx.x-1;i >= 0;i--){
         cxPoint2I v = cxPoint2I(i, idx.y);
-        CardItem *pv = ToView(v);
+        CardItem *pv = GetView(v);
         if(pv == nullptr){
             break;
         }
@@ -425,7 +425,7 @@ cxBox4I Controller::Compute(const cxPoint2I &idx)
     cxInt r = 0;
     for(cxInt i = idx.x+1;i < col;i++){
         cxPoint2I v = cxPoint2I(i, idx.y);
-        CardItem *pv = ToView(v);
+        CardItem *pv = GetView(v);
         if(pv == nullptr){
             break;
         }
@@ -437,7 +437,7 @@ cxBox4I Controller::Compute(const cxPoint2I &idx)
     cxInt t = 0;
     for(cxInt i = idx.y+1;i < row;i++){
         cxPoint2I v = cxPoint2I(idx.x, i);
-        CardItem *pv = ToView(v);
+        CardItem *pv = GetView(v);
         if(pv == nullptr){
             break;
         }
@@ -449,7 +449,7 @@ cxBox4I Controller::Compute(const cxPoint2I &idx)
     cxInt b = 0;
     for(cxInt i = idx.y-1;i >= 0;i--){
         cxPoint2I v = cxPoint2I(idx.x, i);
-        CardItem *pv = ToView(v);
+        CardItem *pv = GetView(v);
         if(pv == nullptr){
             break;
         }
@@ -463,13 +463,15 @@ cxBox4I Controller::Compute(const cxPoint2I &idx)
 
 cxBool Controller::HasView(const cxPoint2I &idx)
 {
-    return ToView(idx) != nullptr;
+    return GetView(idx) != nullptr;
 }
 
 void Controller::SetView(const cxPoint2I &idx,CardItem *pview)
 {
+    char skey[32]={0};
+    snprintf(skey, 32, "%d-%d",idx.x,idx.y);
     pview->SetIdx(idx);
-    items->Set(ToKey(idx), pview);
+    items[idx.x][idx.y] = pview;
 }
 
 cxBool Controller::IsValidIdx(const cxPoint2I &idx)
@@ -477,9 +479,9 @@ cxBool Controller::IsValidIdx(const cxPoint2I &idx)
     return idx.x >= 0 && idx.x < col && idx.y >= 0 && idx.y < row;
 }
 
-CardItem *Controller::ToView(const cxPoint2I &idx)
+CardItem *Controller::GetView(const cxPoint2I &idx)
 {
-    return items->Get(ToKey(idx))->To<CardItem>();
+    return items[idx.x][idx.y];
 }
 
 cxPoint2F Controller::ToPos(const cxPoint2I &idx)
@@ -505,16 +507,6 @@ cxPoint2I Controller::ToIdx(cxInt key)
     return cxPoint2I(x,y);
 }
 
-cxInt Controller::ToKey(const cxPoint2I &idx)
-{
-    return idx.y * col + idx.x;
-}
-
-cxInt Controller::ToKey(const cxPoint2F &pos)
-{
-    return ToKey(ToIdx(pos));
-}
-
 void Controller::OnEnter()
 {
     cxSize2F siz = Parent()->Size();
@@ -532,12 +524,17 @@ void Controller::OnEnter()
         Append(sp);
     }
     ScanSwap();
+    
     cxView::OnEnter();
 }
 
 void Controller::Init()
 {
-    
+    assert(col < MAX_ITEM && row < MAX_ITEM);
+    for(int i=0;i<col;i++)
+    for(int j=0;j<row;j++){
+        items[i][j] = nullptr;
+    }
 }
 
 Controller *Controller::Create(cxInt c,cxInt r)

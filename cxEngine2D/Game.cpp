@@ -61,7 +61,7 @@ CX_IMPLEMENT(Game);
 
 Game::Game()
 {
-
+    SetPlanSize(cxSize2F(1536, 2048));
 }
 
 Game::~Game()
@@ -69,14 +69,13 @@ Game::~Game()
     
 }
 
-void Game::test()
-{
-    Game::Create();
-    LoadTexture("jl.lqt");
-}
-
 void Game::OnMain()
 {
+    LoadTexture("grid.png");
+    Controller *m = Controller::Create(5, 4);
+    m->SetResizeFlags(cxView::ResizeBottom);
+    Window()->Append(m);
+    return;
 //    LoadTexture("t.png");
 //    cxSprite *sp = cxSprite::Create();
 //    sp->SetTexture("t.png");

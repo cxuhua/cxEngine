@@ -15,6 +15,8 @@
 
 CX_CPP_BEGIN
 
+#define MAX_ITEM    32
+
 #define AT_LEFT(_src_,_dst_)    (_dst_.x == _src_.x-1 && _dst_.y == _src_.y)
 
 #define AT_RIGHT(_src_,_dst_)   (_dst_.x == _src_.x+1 && _dst_.y == _src_.y)
@@ -67,7 +69,7 @@ protected:
     explicit Controller();
     virtual ~Controller();
 private:
-    cxHash *items;
+    CardItem *items[MAX_ITEM][MAX_ITEM];
     cxSize2F itemSize;
     cxInt col;
     cxInt row;
@@ -104,14 +106,12 @@ public:
     //是否可以从src移动到dst
     cxBool IsMoveTo(const cxPoint2I &src,const cxPoint2I &dst);
     cxBool IsValidIdx(const cxPoint2I &idx);
-    CardItem *ToView(const cxPoint2I &idx);
+    CardItem *GetView(const cxPoint2I &idx);
     cxBool HasView(const cxPoint2I &idx);
     void SetView(const cxPoint2I &idx,CardItem *pview);
     cxPoint2F ToPos(const cxPoint2I &idx);
     cxPoint2I ToIdx(const cxPoint2F &pos);
     cxPoint2I ToIdx(cxInt key);
-    cxInt ToKey(const cxPoint2I &idx);
-    cxInt ToKey(const cxPoint2F &pos);
 public:
     const cxSize2F ItemSize() const;
     void Init();

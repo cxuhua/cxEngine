@@ -10,6 +10,7 @@
 #include <engine/cxMove.h>
 #include <engine/cxFade.h>
 #include <engine/cxEngine.h>
+#include <engine/cxPath.h>
 #include "Controller.h"
 
 CX_CPP_BEGIN
@@ -19,21 +20,36 @@ CX_IMPLEMENT(CardItem)
 CardItem::CardItem()
 {
     controller = nullptr;
-    type = cxUtil::Rand(0, 3);
+    type = cxUtil::Rand(1, 4);
+    SetType(type);
+    path = nullptr;
+}
+
+CardItem::~CardItem()
+{
+    
+}
+
+void CardItem::SetType(cxUInt typ)
+{
+    type = typ;
     if(type == 0){
         SetColor(cxColor4F::RED);
     }else if(type == 1){
         SetColor(cxColor4F::GREEN);
     }else if(type == 2){
         SetColor(cxColor4F::WHITE);
-    }else {
+    }else if(type == 3){
         SetColor(cxColor4F::BLUE);
+    }else{
+        SetColor(cxColor4F::YELLOW);
     }
 }
 
-CardItem::~CardItem()
+cxBool CardItem::IsEnableMoving()
 {
-//    CX_LOGGER("%d %d removed",idx.x,idx.y);
+    //假设红色为不可移动块
+    return type != 0;
 }
 
 cxBool CardItem::IsEqu(const CardItem *item)
@@ -57,24 +73,49 @@ void CardItem::Drop()
     Remove();
 }
 
-void CardItem::MergeMe(const cxPoint2IArray &ps)
+void CardItem::OnDrop(cxMultiple *m)
 {
-    CX_LOGGER("x=%d y=%d,merge me %d",idx.x,idx.y, ps.Size());
-    for(cxInt i=0;i<ps.Size();i++){
-        CX_LOGGER("x=%d y=%d",ps[i].x,ps[i].y);
-    }
+    cxFadeTo *fade = cxFadeTo::Create(0.0f, 0.1f);
+    fade->onExit += cxAction::Remove;
+    fade->AttachTo(this);
+    m->Append(fade);
 }
 
-cxAction *CardItem::MoveTo(const cxPoint2I &dst)
+void CardItem::OnKeepUp(BoxType bt)
 {
+    
+}
+
+cxBool CardItem::OnCompute(BoxType bt,const cxPoint2IArray &ps)
+{
+    if(bt == BoxType4){
+        return true;
+    }
+    if(bt == BoxType5){
+        return true;
+    }
+    return false;
+}
+
+void CardItem::StartMove(cxMultiple *m,const cxPoint2IArray &ps)
+{
+    //移动到新位置
     controller->DropView(idx);
-    CX_ASSERT(!controller->HasView(dst), "have view");
-    controller->SetView(dst, this);
-    cxPoint2F npos = controller->ToPos(dst);
-    cxMoveTo *a = cxMoveTo::Create(npos, 0.3f);
-    a->SetTiming(cxTiming::CubicOut);
-    a->AttachTo(this);
-    return a;
+    controller->SetView(ps.At(0), this);
+    if(path == nullptr){
+        path = cxPath::Create(350);
+        path->SetTiming(cxTiming::CubicOut);
+        path->AttachTo(this);
+        m->Append(path);
+        path->onExit+=[this](cxAction *pav){
+            path = nullptr;
+        };
+    }
+    for(cxInt i = ps.Size()-1;i >= 0;i--){
+        cxPoint2I idx = ps.At(i);
+        cxPoint2F pos = controller->ToPos(idx);
+        path->Append(pos);
+    }
 }
 
 CardItem *CardItem::Create(Controller *c,const cxPoint2I &idx)
@@ -140,27 +181,37 @@ cxMultiple *Controller::SwapView(const cxPoint2I &src,const cxPoint2I &dst)
     return m;
 }
 
+cxBool Controller::ComputeItem(cxMultiple *m,const cxPoint2I &idx)
+{
+    CardItem *view = GetView(idx);
+    if(view == nullptr) {
+        return false;
+    }
+    cxBox4I box = Compute(idx);
+    BoxType bt = ParseBoxType(box);
+    if(bt == BoxTypeNone){
+        return false;
+    }
+    cxPoint2IArray ps = ToPoints(box, idx);
+    if(!view->OnCompute(bt, ps)){
+        ps.Append(idx);
+    }else{
+        view->OnKeepUp(bt);
+    }
+    if(ps.Size() > 0){
+        MergeTo(m, ps);
+    }
+    return true;
+}
+
 //如果有消除对象启动消除动画，直到没有可消除的卡
 cxBool Controller::HasSwap(const cxPoint2IArray &ps)
 {
     cxMultiple *m = cxMultiple::Create();
     for(cxInt i=0;i<ps.Size();i++){
         const cxPoint2I &idx = ps.At(i);
-        CardItem *view = GetView(idx);
-        if(view == nullptr) {
-            continue;
-        }
-        cxBox4I box = Compute(idx);
-        BoxType bt = ParseBoxType(box);
-        if(bt == BoxTypeNone){
-            continue;
-        }
-        cxPoint2IArray ps = ToPoints(box, idx);
-        CX_ASSERT(ps.Size() > 0, "points error");
-        view->MergeMe(ps);
-        MergeTo(m, ps, idx);
+        ComputeItem(m, idx);
     }
-    //没有交换动作
     if(m->Size() == 0){
         return false;
     }
@@ -217,44 +268,78 @@ BoxType Controller::ParseBoxType(const cxBox4I &box)
     return BoxTypeNone;
 }
 
-cxInt Controller::MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I &idx)
+cxInt Controller::MergeTo(cxMultiple *m,const cxPoint2IArray &ps)
 {
     cxInt ret = 0;
-    CardItem *view = GetView(idx);
-    CX_ASSERT(view != nullptr, "view miss");
     for(cxInt i=0; i<ps.Size();i++){
-        cxPoint2I sidx = ps.At(i);
-        CardItem *sv = DropView(sidx);
+        cxPoint2I idx = ps.At(i);
+        CardItem *sv = DropView(idx);
         if(sv == nullptr){
             continue;
         }
-        cxFadeTo *fade = cxFadeTo::Create(0.0f, 0.1f);
-        fade->onExit += cxAction::Remove;
-        fade->AttachTo(sv);
-        m->Append(fade);
+        sv->OnDrop(m);
         ret ++;
     }
     return ret;
 }
 
-cxAction *Controller::Find(const cxPoint2I &idx)
+CardItem *Controller::SearchPointAndView(cxPoint2IArray &mps,const cxPoint2I &idx)
 {
-    CX_ASSERT(!HasView(idx), "find postion error");
-    cxPoint2I nidx = cxPoint2I(idx.x,idx.y - 1);
-    CardItem *view = nullptr;
-    //最底部将生成新卡
-    if(nidx.y < 0){
+    CardItem *view = GetView(idx);
+    // 有并且可移动直接返回
+    if(view != nullptr && view->IsEnableMoving()){
+        mps.Append(idx);
+        return view;
+    }
+    // 没有就向上继续查找
+    if(view == nullptr){
+        return SearchUpAndView(mps, idx);
+    }
+    // 不可移动清除返回
+    mps.Clear();
+    return view;
+}
+
+//idx 为空位置
+CardItem *Controller::SearchUpAndView(cxPoint2IArray &mps,const cxPoint2I &idx)
+{
+    mps.Append(idx);
+    cxPoint2I u = cxPoint2I(idx.x,idx.y + 1);
+    CardItem *view = GetView(u);
+    //当遇到不可移动物时
+    if(view != nullptr && !view->IsEnableMoving()){
+        cxInt v = cxUtil::Rand(1, 10);
+        cxPoint2I v1 = cxPoint2I(0);
+        cxPoint2I v2 = cxPoint2I(0);
+        if(v > 5){
+            v1 = cxPoint2I(u.x + 1,u.y);
+            v2 = cxPoint2I(u.x - 1,u.y);
+        }else{
+            v1 = cxPoint2I(u.x + 1,u.y);
+            v2 = cxPoint2I(u.x - 1,u.y);
+        }
+        if(IsValidIdx(v1)){
+            return SearchPointAndView(mps, v1);
+        }
+        if(IsValidIdx(v2)){
+            return SearchPointAndView(mps, v2);
+        }
+        mps.Clear();
+        return view;
+    }
+    //最顶部将生成新卡
+    if(view == nullptr && u.y >= row){
+        u.y += YTV[idx.x];
+        YTV[idx.x]++;
         view = CardItem::Create(this, idx);
-        view->SetPosition(ToPos(nidx));
+        view->SetPosition(ToPos(u));
         Append(view);
-    }else{
-        view = GetView(nidx);
     }
     if(view == nullptr){
-        return nullptr;
+        return SearchUpAndView(mps, u);
     }
-    //移动的空位
-    return view->MoveTo(idx);
+    mps.Append(u);
+    return view;
 }
 
 void Controller::MultipleExit(cxMultiple *m)
@@ -262,41 +347,48 @@ void Controller::MultipleExit(cxMultiple *m)
     ScanSwap();
 }
 
+cxBool Controller::Search(cxMultiple *m,cxPoint2IArray &mps,const cxPoint2I &idx)
+{
+    //idx为空位置
+    if(!IsValidIdx(idx)){
+        return false;
+    }
+    CardItem *view = GetView(idx);
+    if(view != nullptr){
+        return false;
+    }
+    //向上查寻
+    mps.Clear();
+    view = SearchUpAndView(mps,idx);
+    if(view == nullptr){
+        return false;
+    }
+    if(mps.Size() <= 1){
+        return false;
+    }
+    view->StartMove(m, mps);
+    return true;
+}
+
 //从上到下扫描所有格子
 cxMultiple *Controller::ScanSwap()
 {
-    cxMultiple *m = cxMultiple::Create();
-    //扫描可消除的行
-    for(cxInt i = 0; i < col; i++)
-    for(cxInt j = row - 1;j >= 0; j--){
-        cxPoint2I idx = cxPoint2I(i, j);
-        CardItem *view = GetView(idx);
-        if(view == nullptr) {
-            continue;
-        }
-        cxBox4I box = Compute(idx);
-        BoxType bt = ParseBoxType(box);
-        if(bt == BoxTypeNone){
-            continue;
-        }
-        cxPoint2IArray ps = ToPoints(box, idx);
-        CX_ASSERT(ps.Size() > 0, "points error");
-        view->MergeMe(ps);
-        MergeTo(m, ps, idx);
+    for(cxInt i=0;i<MAX_ITEM;i++){
+        YTV[i] = 0;
     }
-    //扫描空位置并补充新卡
-    for(cxInt i = 0; i < col; i++)
-    for(cxInt j = row - 1;j >= 0; j--){
+    cxMultiple *m = cxMultiple::Create();
+    //扫描可消除的行并消除方块
+    for(cxInt j = 0; j < row; j++)
+    for(cxInt i = 0; i < col; i++){
         cxPoint2I idx = cxPoint2I(i, j);
-        CardItem *view = GetView(idx);
-        if(view != nullptr) {
-            continue;
-        }
-        cxAction *mv = Find(idx);
-        if(mv == nullptr){
-            continue;
-        }
-        m->Append(mv);
+        ComputeItem(m, idx);
+    }
+    cxPoint2IArray mps;
+    //扫描空位置并补充新卡
+    for(cxInt j = 0; j < row; j++)
+    for(cxInt i = 0; i < col; i++){
+        cxPoint2I idx = cxPoint2I(i, j);
+        Search(m,mps,idx);
     }
     m->AttachTo(this);
     //没有数据直接返回(onInit onExit 依然执行)
@@ -322,7 +414,7 @@ cxMultiple *Controller::CheckSwap(const cxPoint2I &src,const cxPoint2I &dst)
     if(HasSwap(points)){
         return nullptr;
     }
-    //交换位置
+    //换回位置
     cxMultiple *m = SwapView(src, dst);
     //动画时禁止键盘
     m->onInit +=[this](cxAction *pav){
@@ -337,7 +429,12 @@ cxMultiple *Controller::CheckSwap(const cxPoint2I &src,const cxPoint2I &dst)
 
 cxBool Controller::OnSwap(const cxPoint2I &src,const cxPoint2I &dst)
 {
-    if(!HasView(src) || !HasView(dst)){
+    CardItem *srcview = GetView(src);
+    if(srcview == nullptr || !srcview->IsEnableMoving()){
+        return false;
+    }
+    CardItem *dstview = GetView(dst);
+    if(dstview == nullptr || !dstview->IsEnableMoving()){
         return false;
     }
     cxMultiple *m = SwapView(src, dst);
@@ -353,12 +450,6 @@ cxBool Controller::OnSwap(const cxPoint2I &src,const cxPoint2I &dst)
     //重置
     Reset();
     return true;
-}
-
-cxBool Controller::OnFight(const cxPoint2I &src)
-{
-    CX_LOGGER("%d %d go fight",src.x,src.y);
-    return false;
 }
 
 cxBool Controller::IsMoveTo(const cxPoint2I &src,const cxPoint2I &dst)
@@ -382,6 +473,18 @@ cxBool Controller::OnDispatch(const cxengine::cxTouchable *e)
     }
     const cxTouchPoint *tp = e->TouchPoint(0);
     const cxHitInfo hit = e->HitTest(this, tp->wp);
+//    //for test
+//    if(hit.hited && tp->type == cxTouchPoint::Ended){
+//        dstIdx = ToIdx(hit.point);
+//        CardItem *v = GetView(dstIdx);
+//        if(v != nullptr){
+//            v->Drop();
+//        }
+//        ScanSwap();
+//        return true;
+//    }
+//    return false;
+//
     if(hit.hited && tp->type == cxTouchPoint::Began){
         Reset();
         srcIdx = ToIdx(hit.point);
@@ -466,8 +569,7 @@ cxBool Controller::HasView(const cxPoint2I &idx)
 
 void Controller::SetView(const cxPoint2I &idx,CardItem *pview)
 {
-    char skey[32]={0};
-    snprintf(skey, 32, "%d-%d",idx.x,idx.y);
+    CX_ASSERT(IsValidIdx(idx), "idx not valid");
     pview->SetIdx(idx);
     items[idx.x][idx.y] = pview;
 }
@@ -479,6 +581,9 @@ cxBool Controller::IsValidIdx(const cxPoint2I &idx)
 
 CardItem *Controller::GetView(const cxPoint2I &idx)
 {
+    if(!IsValidIdx(idx)){
+        return nullptr;
+    }
     return items[idx.x][idx.y];
 }
 
@@ -519,10 +624,12 @@ void Controller::OnEnter()
     for(cxInt j = 0;j < row;j++){
         cxPoint2I idx = cxPoint2I(i, j);
         CardItem *sp = CardItem::Create(this, idx);
+        if(j == 5 && (i % 2) == 0){
+            sp->SetType(0);
+        }
         Append(sp);
     }
     ScanSwap();
-    
     cxView::OnEnter();
 }
 

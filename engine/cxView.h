@@ -289,6 +289,7 @@ public:
     
     cxBool HasAction(cxActionId aid) const;
     cxAction *GetAction(cxActionId aid);
+    cxInt ActionSize() const;
     cxView *StopAction(cxActionId aid=0);
     cxView *ExitAction(cxActionId aid=0);
 

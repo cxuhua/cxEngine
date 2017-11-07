@@ -12,6 +12,7 @@
 #include <engine/cxMultiple.h>
 #include <core/cxHash.h>
 #include <engine/cxAtlas.h>
+#include <engine/cxSequence.h>
 
 CX_CPP_BEGIN
 
@@ -45,7 +46,13 @@ private:
     Controller *controller;
     cxUInt type;
     cxPoint2I idx;
+    cxPath *path;
 public:
+    //是否可移动（固定物不能移动)
+    virtual cxBool IsEnableMoving();
+public:
+    //设置类型
+    void SetType(cxUInt typ);
     //丢弃
     void Drop();
     //当前所在的位置
@@ -54,9 +61,13 @@ public:
     //两个item是否相等，相等意味着可合成
     virtual cxBool IsEqu(const CardItem *item);
     //移动到新位置
-    cxAction *MoveTo(const cxPoint2I &dst);
-    //有卡合并过来
-    virtual void MergeMe(const cxPoint2IArray &ps);
+    void StartMove(cxMultiple *m,const cxPoint2IArray &ps);
+    //当移除块时
+    virtual void OnDrop(cxMultiple *m);
+    //当移动块发生消除时
+    virtual cxBool OnCompute(BoxType bt,const cxPoint2IArray &ps);
+    //块保留改变
+    virtual void OnKeepUp(BoxType bt);
 public:
     static CardItem *Create(Controller *c,const cxPoint2I &idx);
 };
@@ -70,6 +81,7 @@ protected:
     virtual ~Controller();
 private:
     CardItem *items[MAX_ITEM][MAX_ITEM];
+    cxInt YTV[MAX_ITEM];    //记录新创建的方块位置Y递增值
     cxSize2F itemSize;
     cxInt col;
     cxInt row;
@@ -80,16 +92,20 @@ protected:
     cxBool OnDispatch(const cxengine::cxTouchable *e);
     void OnEnter();
 public:
-    //把ps中的view合并到idx位置
-    cxInt MergeTo(cxMultiple *m,const cxPoint2IArray &ps,const cxPoint2I &idx);
+    //把ps中的所有view消除
+    cxInt MergeTo(cxMultiple *m,const cxPoint2IArray &ps);
     //获得类型 3x3 3x4 4x3 4x4 5x5
     BoxType ParseBoxType(const cxBox4I &box);
     //转换为坐标点集合
     cxPoint2IArray ToPoints(const cxBox4I &box,const cxPoint2I &idx);
-    //查找空位处上面的卡片
-    cxAction *Find(const cxPoint2I &idx);
+    //搜索落下的view和路径
+    CardItem *SearchUpAndView(cxPoint2IArray &mps,const cxPoint2I &idx);
+    //从指定点开始搜索
+    CardItem *SearchPointAndView(cxPoint2IArray &mps,const cxPoint2I &idx);
     //扫描所有格子,返回并发动画
     cxMultiple *ScanSwap();
+    //搜索某个点
+    cxBool Search(cxMultiple *m,cxPoint2IArray &mps,const cxPoint2I &idx);
     //动画完成
     void MultipleExit(cxMultiple *m);
     //计算idx位置处左右上下相等的元素数量，不包括idx
@@ -114,12 +130,12 @@ public:
     void Init();
     static Controller *Create(cxInt c,cxInt r);
 public:
+    //计算单个位置
+    cxBool ComputeItem(cxMultiple *m,const cxPoint2I &idx);
     //计算ps坐标内的点是否可以消除
     virtual cxBool HasSwap(const cxPoint2IArray &ps);
     //可交换
     virtual cxBool OnSwap(const cxPoint2I &src,const cxPoint2I &dst);
-    //进入战斗
-    virtual cxBool OnFight(const cxPoint2I &src);
 };
 
 CX_CPP_END

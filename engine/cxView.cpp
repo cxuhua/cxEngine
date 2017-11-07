@@ -647,6 +647,11 @@ cxBool cxView::HasAction(cxActionId aid) const
     return false;
 }
 
+cxInt cxView::ActionSize() const
+{
+    return actapps->Size() + actions->Size();
+}
+
 cxView *cxView::StopAction(cxActionId aid)
 {
     cxArray::FIter it = actapps->FBegin();

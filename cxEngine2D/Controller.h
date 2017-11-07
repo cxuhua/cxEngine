@@ -82,6 +82,7 @@ protected:
 private:
     CardItem *items[MAX_ITEM][MAX_ITEM];
     cxInt YTV[MAX_ITEM];    //记录新创建的方块位置Y递增值
+    cxInt YCV[MAX_ITEM];    //计数器偶数优先左
     cxSize2F itemSize;
     cxInt col;
     cxInt row;
@@ -100,8 +101,10 @@ public:
     cxPoint2IArray ToPoints(const cxBox4I &box,const cxPoint2I &idx);
     //搜索落下的view和路径
     CardItem *SearchUpAndView(cxPoint2IArray &mps,const cxPoint2I &idx);
+    //是否有搜索到移动路径
+    cxBool HasSearchPath(CardItem **item,const cxPoint2IArray &mps);
     //从指定点开始搜索
-    CardItem *SearchPointAndView(cxPoint2IArray &mps,const cxPoint2I &idx);
+    CardItem *SearchPointAndView(cxPoint2IArray &mps,const cxPoint2I &next,const cxPoint2I &prev);
     //扫描所有格子,返回并发动画
     cxMultiple *ScanSwap();
     //搜索某个点

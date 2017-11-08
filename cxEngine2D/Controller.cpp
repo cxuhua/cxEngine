@@ -181,20 +181,50 @@ cxMultiple *Controller::SwapView(const cxPoint2I &src,const cxPoint2I &dst)
     return m;
 }
 
+BoxType Controller::FindHighRanking(const cxPoint2IArray &ps,const cxPoint2I &idx,cxPoint2I &out,cxBox4I &abox)
+{
+    BoxType tmp = BoxTypeNone;
+    for(cxInt i=0;i<ps.Size();i++){
+        cxPoint2I v = ps.At(i);
+        if(v == idx){
+            continue;
+        }
+        cxBox4I box = Compute(v);
+        BoxType bt = ParseBoxType(box);
+        if(bt > tmp){
+            tmp = bt;
+            out = v;
+            abox = box;
+        }
+    }
+    return tmp;
+}
+
 cxBool Controller::ComputeItem(cxMultiple *m,const cxPoint2I &idx)
 {
     CardItem *view = GetView(idx);
     if(view == nullptr) {
         return false;
     }
+    cxPoint2I out = idx;
     cxBox4I box = Compute(idx);
     BoxType bt = ParseBoxType(box);
     if(bt == BoxTypeNone){
         return false;
     }
     cxPoint2IArray ps = ToPoints(box, idx);
+    //搜索另外一个更高级的方块，如果不是当前位置则使用这个更高级的方块
+    BoxType tmp = FindHighRanking(ps, idx, out, box);
+    if(tmp != BoxTypeNone){
+        bt = tmp;
+        ps = ToPoints(box, out);
+        view = GetView(out);
+    }
+    if(view == nullptr){
+        return false;
+    }
     if(!view->OnCompute(bt, ps)){
-        ps.Append(idx);
+        ps.Append(out);
     }else{
         view->OnKeepUp(bt);
     }
@@ -301,6 +331,7 @@ CardItem *Controller::SearchPointAndView(cxPoint2IArray &mps,const cxPoint2I &ne
         mps.Append(next);
         return view;
     }
+    //继续向上搜索
     return SearchUpAndView(mps, next);
 }
 
@@ -323,41 +354,36 @@ cxBool Controller::HasSearchPath(CardItem **item,const cxPoint2IArray &mps)
 CardItem *Controller::SearchUpAndView(cxPoint2IArray &mps,const cxPoint2I &idx)
 {
     mps.Append(idx);
-    cxPoint2I u = cxPoint2I(idx.x,idx.y + 1);
-    CardItem *view = GetView(u);
-    //没有物体查询上一个点
-    if(view == nullptr){
-        return SearchPointAndView(mps, u, idx);
-    }
+    cxPoint2I up = cxPoint2I(idx.x,idx.y + 1);
+    CardItem *view = GetView(up);
     //不可移动向左右查询
-    if(!view->IsEnableMoving()){
+    if(view != nullptr && !view->IsEnableMoving()){
         YCV[idx.x]++;
         cxPoint2I v1 = cxPoint2I(0);
         cxPoint2I v2 = cxPoint2I(0);
         if((YCV[idx.x] % 2) == 0){
-            v1 = cxPoint2I(u.x + 1,u.y);
-            v2 = cxPoint2I(u.x - 1,u.y);
+            v1 = cxPoint2I(up.x + 1,up.y);
+            v2 = cxPoint2I(up.x - 1,up.y);
         }else{
-            v1 = cxPoint2I(u.x - 1,u.y);
-            v2 = cxPoint2I(u.x + 1,u.y);
+            v1 = cxPoint2I(up.x - 1,up.y);
+            v2 = cxPoint2I(up.x + 1,up.y);
         }
         if(IsValidIdx(v1)){
             view = SearchPointAndView(mps, v1, idx);
-        }
-        if(HasSearchPath(&view, mps)){
-            return view;
+            if(HasSearchPath(&view, mps)){
+                return view;
+            }
         }
         if(IsValidIdx(v2)){
             view = SearchPointAndView(mps, v2, idx);
-        }
-        if(HasSearchPath(&view, mps)){
-            return view;
+            if(HasSearchPath(&view, mps)){
+                return view;
+            }
         }
         mps.Clear();
         return view;
     }
-    mps.Append(u);
-    return view;
+    return SearchPointAndView(mps, up, idx);
 }
 
 void Controller::MultipleExit(cxMultiple *m)
@@ -639,7 +665,7 @@ void Controller::OnEnter()
     for(cxInt j = 0;j < row;j++){
         cxPoint2I idx = cxPoint2I(i, j);
         CardItem *sp = CardItem::Create(this, idx);
-        if(j == 10 && (i % 2) == 0){
+        if((j == 10 || j == 12) && (i % 2) == 0){
             sp->SetType(0);
         }
         Append(sp);

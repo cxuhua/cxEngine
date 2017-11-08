@@ -133,6 +133,8 @@ public:
     void Init();
     static Controller *Create(cxInt c,cxInt r);
 public:
+    //搜索高级方块位置，如果不是当前位置返回true,并返回方块位置
+    BoxType FindHighRanking(const cxPoint2IArray &ps,const cxPoint2I &idx,cxPoint2I &out,cxBox4I &box);
     //计算单个位置
     cxBool ComputeItem(cxMultiple *m,const cxPoint2I &idx);
     //计算ps坐标内的点是否可以消除

@@ -51,6 +51,7 @@ void cxPath::OnTime(const cxTimePoint *tp)
 {
     cxInt idx = Index();
     if(idx == points.Size() - 1){
+        View()->SetPosition(points.At(idx));
         Exit(true);
         return;
     }
@@ -63,6 +64,11 @@ cxPath *cxPath::Create(cxFloat speed)
     cxPath *rv = cxPath::Create();
     rv->speed = speed;
     return rv;
+}
+
+void cxPath::SetMoveSpeed(cxFloat v)
+{
+    speed = v;
 }
 
 cxPath *cxPath::Append(const cxPoint2F &pos)

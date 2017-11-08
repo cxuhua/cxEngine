@@ -45,6 +45,7 @@ struct cxPoint2I
     const cxFloat Angle(const cxPoint2I &p) const;
     
     cxBool IsZero() const;
+    cxBool IsPlus() const;
     cxFloat Length() const;
     
     cxInt operator[](cxInt index) const;

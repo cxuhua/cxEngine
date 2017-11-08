@@ -129,6 +129,11 @@ cxBool cxPoint2I::IsZero() const
     return x ==0 && y == 0;
 }
 
+cxBool cxPoint2I::IsPlus() const
+{
+    return x >= 0 && y >= 0;
+}
+
 cxFloat cxPoint2I::Length() const
 {
     return sqrtf(x*x + y*y);

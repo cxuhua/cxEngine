@@ -13,6 +13,7 @@
 #include <core/cxHash.h>
 #include <engine/cxAtlas.h>
 #include <engine/cxSequence.h>
+#include "Move.h"
 
 CX_CPP_BEGIN
 
@@ -26,6 +27,10 @@ CX_CPP_BEGIN
 
 #define AT_BOTTOM(_src_,_dst_)  (_dst_.x == _src_.x && _dst_.y == _src_.y-1)
 
+class Controller;
+class CardItem;
+
+//方块类型
 enum BoxType{
     BoxTypeNone = 0,
     BoxType3,
@@ -33,8 +38,42 @@ enum BoxType{
     BoxType5,
 };
 
+//位置属性
+struct ItemAttr {
+    cxPoint2I Src;
+    cxPoint2I Dst;
+    cxBool Factory;
+    cxBool Static;
+    CardItem *Item;
+    ItemAttr()
+    {
+        Item = nullptr;
+        Factory = false;
+        Static = false;
+        Src = cxPoint2I(-1, -1);
+        Dst = cxPoint2I(-1, -1);
+    }
+    //是否可以进行左右搜索
+    cxBool IsSearchLR(Controller *map);
+    //是否是一个通道
+    cxBool IsPipe(Controller *map);
+    //是否搜索此点
+    cxBool IsSearch(Controller *map);
+    //是否可活动块
+    cxBool IsActiveItem(Controller *map);
+    //是否是创建点
+    cxBool IsFactory(Controller *map);
+};
 
-class Controller;
+//方块属性
+struct CardAttr {
+    CardAttr()
+    {
+        
+    }
+};
+
+
 class CardItem : public cxSprite
 {
 public:
@@ -46,7 +85,8 @@ private:
     Controller *controller;
     cxUInt type;
     cxPoint2I idx;
-    cxPath *path;
+    Move *move;
+    CardAttr attr;
 public:
     //是否可移动（固定物不能移动)
     virtual cxBool IsEnableMoving();
@@ -81,6 +121,7 @@ protected:
     virtual ~Controller();
 private:
     CardItem *items[MAX_ITEM][MAX_ITEM];
+    ItemAttr attrs[MAX_ITEM][MAX_ITEM];
     cxInt YTV[MAX_ITEM];    //记录新创建的方块位置Y递增值
     cxInt YCV[MAX_ITEM];    //计数器偶数优先左
     cxSize2F itemSize;
@@ -93,6 +134,8 @@ protected:
     cxBool OnDispatch(const cxengine::cxTouchable *e);
     void OnEnter();
 public:
+    //获取位置属性
+    ItemAttr *GetAttr(const cxPoint2I &idx);
     //把ps中的所有view消除
     cxInt MergeTo(cxMultiple *m,const cxPoint2IArray &ps);
     //获得类型 3x3 3x4 4x3 4x4 5x5
@@ -101,6 +144,8 @@ public:
     cxPoint2IArray ToPoints(const cxBox4I &box,const cxPoint2I &idx);
     //搜索落下的view和路径
     CardItem *SearchUpAndView(cxPoint2IArray &mps,const cxPoint2I &idx);
+    //idx左右搜索
+    cxBool EnableSearch(const cxPoint2I &idx);
     //是否有搜索到移动路径
     cxBool HasSearchPath(CardItem **item,const cxPoint2IArray &mps);
     //从指定点开始搜索
@@ -108,7 +153,7 @@ public:
     //扫描所有格子,返回并发动画
     cxMultiple *ScanSwap();
     //搜索某个点
-    cxBool Search(cxMultiple *m,cxPoint2IArray &mps,const cxPoint2I &idx);
+    cxBool Search(cxMultiple *m,cxPoint2IArray &mps,const cxPoint2I &next);
     //动画完成
     void MultipleExit(cxMultiple *m);
     //计算idx位置处左右上下相等的元素数量，不包括idx

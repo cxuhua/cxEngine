@@ -72,8 +72,9 @@ Game::~Game()
 void Game::OnMain()
 {
     LoadTexture("grid.png");
-    Controller *m = Controller::Create(15, 15);
-//    m->SetResizeFlags(cxView::ResizeBottom);
+    Controller *m = Controller::Create(20, 20);
+    m->SetClip(true);
+    m->SetResizeFlags(cxView::ResizeBottom);
     Window()->Append(m);
     return;
 //    LoadTexture("t.png");

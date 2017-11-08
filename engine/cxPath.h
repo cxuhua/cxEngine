@@ -29,6 +29,7 @@ private:
     cxPoint2F next;
     cxPoint2FArray points;
 public:
+    void SetMoveSpeed(cxFloat v);
     cxPath *Append(const cxPoint2F &pos);
     static cxPath *Create(cxFloat speed);
 };

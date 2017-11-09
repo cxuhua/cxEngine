@@ -18,6 +18,8 @@ CX_CPP_BEGIN
 #define ATTR_IS_KEEP (1 << 0)
 //跳跃到下点
 #define ATTR_IS_JUMP (1 << 1)
+//上个跳跃的目标点
+#define ATTR_IS_FALL (1 << 2)
 
 struct Point
 {
@@ -27,6 +29,7 @@ struct Point
     Point();
     Point(cxInt ax,cxInt ay,cxInt aa);
     Point(cxPoint2I ap,cxInt aa);
+    const cxBool IsFall() const;
     const cxBool IsJump() const;
     const cxBool IsKeep() const;
     const cxPoint2F ToFloat() const;

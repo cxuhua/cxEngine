@@ -62,6 +62,11 @@ const cxBool Point::IsJump() const
     return (a & ATTR_IS_JUMP) != 0;
 }
 
+const cxBool Point::IsFall() const
+{
+    return (a & ATTR_IS_FALL) != 0;
+}
+
 const cxBool Point::IsKeep() const
 {
     return (a & ATTR_IS_KEEP) != 0;
@@ -159,11 +164,18 @@ cxBool PointArray::HasPoint(const cxPoint2I &v)
 
 void PointArray::Append(const cxPoint2I &v,cxUInt attr)
 {
+    Point p = Point(v, attr);
+    if(HasPoint(p) && !p.IsKeep()){
+        return;
+    }
     push_back(Point(v,attr));
 }
 
 void PointArray::Append(const Point &v)
 {
+    if(HasPoint(v) && !v.IsKeep()){
+        return;
+    }
     push_back(v);
 }
 

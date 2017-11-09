@@ -430,8 +430,11 @@ Block *Controller::SearchUpAndView(PointArray &mps,const cxPoint2I &idx)
         ItemAttr *dst = GetAttr(attr->Src);
         if(dst->Dst.IsPlus() && dst->Dst == idx){
             mps.Append(idx,ATTR_IS_KEEP);
-            mps.Append(attr->SrcP, ATTR_IS_KEEP);
-            mps.Append(dst->DstP,ATTR_IS_KEEP|ATTR_IS_JUMP);
+            //如果是同一点可以忽略
+            if(attr->SrcP != dst->DstP){
+                mps.Append(attr->SrcP, ATTR_IS_KEEP|ATTR_IS_FALL);
+                mps.Append(dst->DstP,ATTR_IS_KEEP|ATTR_IS_JUMP);
+            }
             mps.Append(attr->Src,ATTR_IS_KEEP);
             return SearchPointAndView(mps, attr->Src, idx);
         }
@@ -630,12 +633,12 @@ cxBool Controller::OnDispatch(const cxengine::cxTouchable *e)
     const cxTouchPoint *tp = e->TouchPoint(0);
     const cxHitInfo hit = e->HitTest(this, tp->wp);
     //for test
-//    if(hit.hited && tp->type == cxTouchPoint::Ended){
-//        dstIdx = ToIdx(hit.point);
-//        Block *v = GetView(dstIdx);
-//        if(v != nullptr){
-//            v->Drop();
-//        }
+    if(hit.hited && tp->type == cxTouchPoint::Ended){
+        dstIdx = ToIdx(hit.point);
+        Block *v = GetView(dstIdx);
+        if(v != nullptr){
+            v->Drop();
+        }
 
 //        for(cxInt i = 0;i < col;i++)
 //        for(cxInt j = 0;j < row;j++){
@@ -646,10 +649,10 @@ cxBool Controller::OnDispatch(const cxengine::cxTouchable *e)
 //            }
 //        }
         
-//        ScanSwap();
-//        return true;
-//    }
-//    return false;
+        ScanSwap();
+        return true;
+    }
+    return false;
 
     if(hit.hited && tp->type == cxTouchPoint::Began){
         Reset();
@@ -834,14 +837,14 @@ void Controller::Init()
 //    attrs[3][3]=attr;
     //隧道,连通 a1<->a2
     ItemAttr a1;
-    a1.Src = cxPoint2I(1, 7);//设置来源坐标
+    a1.Src = cxPoint2I(1, 3);//设置来源坐标
     a1.SrcP = cxPoint2I(1, 2);//设置来源方块出现位置
     attrs[1][1] = a1;
     
     ItemAttr a2;
     a2.Dst = cxPoint2I(1, 1);//设置目标坐标
-    a2.DstP = cxPoint2I(1, 6);//设置目标方块消失位置
-    attrs[1][7] = a2;
+    a2.DstP = cxPoint2I(1, 2);//设置目标方块消失位置
+    attrs[1][3] = a2;
 }
 
 Controller *Controller::Create(cxInt col,cxInt row,const cxSize2F &size)

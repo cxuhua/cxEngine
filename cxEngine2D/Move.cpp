@@ -52,9 +52,6 @@ void Move::AppendPoints(const PointArray &ps)
 void Move::AppendPoint(const Point &p)
 {
     CX_ASSERT(map != nullptr, "map not set");
-    if(mps.HasPoint(p) && !p.IsKeep()){
-        return;
-    }
     cxPoint2I idx = p.ToPoint2I();
     cxPoint2F pos = ((Controller *)map)->ToPos(idx);
     Append(pos);
@@ -65,7 +62,7 @@ Move *Move::Create(cxAny pmap)
 {
     Move *rv = Move::Create();
     rv->map = pmap;
-    rv->SetMoveSpeed(650);
+    rv->SetMoveSpeed(600);
     return rv;
 }
 

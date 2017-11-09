@@ -43,6 +43,7 @@ cxBool Move::OnArrive()
 
 void Move::AppendPoints(const PointArray &ps)
 {
+    //反向添加
     for(cxInt i = ps.Size()-1;i >= 0;i--){
         AppendPoint(ps.At(i));
     }
@@ -64,7 +65,7 @@ Move *Move::Create(cxAny pmap)
 {
     Move *rv = Move::Create();
     rv->map = pmap;
-    rv->SetMoveSpeed(600);
+    rv->SetMoveSpeed(650);
     return rv;
 }
 

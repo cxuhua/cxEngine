@@ -20,6 +20,13 @@ CX_CPP_BEGIN
 
 #define MAX_ITEM    32
 
+enum Layer {
+    LayerBackgroud,     //背景层
+    LayerActive,        //活动层，用来放可移动的块,需要Clip
+    LayerAnimate,       //顶部动画层
+    LayerMax,           //最大层数量
+};
+
 #define AT_LEFT(_src_,_dst_)    (_dst_.x == _src_.x-1 && _dst_.y == _src_.y)
 
 #define AT_RIGHT(_src_,_dst_)   (_dst_.x == _src_.x+1 && _dst_.y == _src_.y)
@@ -29,7 +36,7 @@ CX_CPP_BEGIN
 #define AT_BOTTOM(_src_,_dst_)  (_dst_.x == _src_.x && _dst_.y == _src_.y-1)
 
 class Controller;
-class CardItem;
+class Block;
 
 //方块类型
 enum BoxType{
@@ -50,7 +57,7 @@ struct ItemAttr {
     cxBool Factory; //创建点
     cxBool Static;  //静态位置
     
-    CardItem *Item;
+    Block *Item;
     ItemAttr()
     {
         Item = nullptr;
@@ -61,6 +68,8 @@ struct ItemAttr {
         Dst = cxPoint2I(-1, -1);
         DstP = cxPoint2I(-1, -1);
     }
+    //是否是空位置
+    cxBool IsEmpty(Controller *map);
     //是否可以进行左右搜索
     cxBool IsSearchLR(Controller *map);
     //是否是一个通道
@@ -82,13 +91,13 @@ struct CardAttr {
 };
 
 
-class CardItem : public cxSprite
+class Block : public cxSprite
 {
 public:
-    CX_DECLARE(CardItem);
+    CX_DECLARE(Block);
 protected:
-    explicit CardItem();
-    virtual ~CardItem();
+    explicit Block();
+    virtual ~Block();
 private:
     Controller *controller;
     cxUInt type;
@@ -99,6 +108,8 @@ public:
     //是否可移动（固定物不能移动)
     virtual cxBool IsEnableMoving();
 public:
+    //获取所属的层
+    cxInt GetLayer();
     //设置类型
     void SetType(cxUInt typ);
     //丢弃
@@ -107,7 +118,7 @@ public:
     cxPoint2I Index() const;
     void SetIdx(const cxPoint2I &i);
     //两个item是否相等，相等意味着可合成
-    virtual cxBool IsEqu(const CardItem *item);
+    virtual cxBool IsEqu(const Block *item);
     //移动到新位置
     void StartMove(cxMultiple *m,const PointArray &ps);
     //当移除块时
@@ -116,8 +127,10 @@ public:
     virtual cxBool OnCompute(BoxType bt,const cxPoint2IArray &ps);
     //块保留改变
     virtual void OnKeepUp(BoxType bt);
+    //当移动动画完成时
+    virtual void OnMoveFinished();
 public:
-    static CardItem *Create(Controller *c,const cxPoint2I &idx);
+    static Block *Create(Controller *c,const cxPoint2I &idx);
 };
 
 class Controller : public cxView
@@ -128,7 +141,7 @@ protected:
     explicit Controller();
     virtual ~Controller();
 private:
-    CardItem *items[MAX_ITEM][MAX_ITEM];
+    Block *items[MAX_ITEM][MAX_ITEM];
     ItemAttr attrs[MAX_ITEM][MAX_ITEM];
     cxInt YTV[MAX_ITEM];    //记录新创建的方块位置Y递增值
     cxInt YCV[MAX_ITEM];    //计数器偶数优先左
@@ -138,10 +151,13 @@ private:
     cxPoint2I srcIdx;//选中的key位置
     cxPoint2I dstIdx;//目标位置
     PointArray points;
+    cxView *layers[LayerMax];
 protected:
     cxBool OnDispatch(const cxengine::cxTouchable *e);
     void OnEnter();
 public:
+    //加入块
+    void AppendBlock(Block *b);
     //获取位置属性
     ItemAttr *GetAttr(const cxPoint2I &idx);
     //把ps中的所有view消除
@@ -151,23 +167,27 @@ public:
     //转换为坐标点集合
     cxPoint2IArray ToPoints(const cxBox4I &box,const cxPoint2I &idx);
     //搜索落下的view和路径
-    CardItem *SearchUpAndView(PointArray &mps,const cxPoint2I &idx);
+    Block *SearchUpAndView(PointArray &mps,const cxPoint2I &idx);
     //idx左右搜索
     cxBool EnableSearch(const cxPoint2I &idx);
     //是否有搜索到移动路径
-    cxBool HasSearchPath(CardItem **item,const PointArray &mps);
+    cxBool HasSearchPath(Block **item,const PointArray &mps);
     //从指定点开始搜索
-    CardItem *SearchPointAndView(PointArray &mps,const cxPoint2I &next,const cxPoint2I &prev);
+    Block *SearchPointAndView(PointArray &mps,const cxPoint2I &next,const cxPoint2I &prev);
     //扫描所有格子,返回并发动画
     cxMultiple *ScanSwap();
+    void ScanSwapExit(cxMultiple *m);
+    //持续扫描路径
+    cxMultiple *ScanEmpty();
+    void ScanEmptyExit(cxMultiple *m);
     //搜索某个点
     cxBool Search(cxMultiple *m,PointArray &mps,const cxPoint2I &next);
     //动画完成
-    void MultipleExit(cxMultiple *m);
+    
     //计算idx位置处左右上下相等的元素数量，不包括idx
     cxBox4I Compute(const cxPoint2I &idx);
     //丢弃idx位置的view
-    CardItem *DropView(const cxPoint2I &idx);
+    Block *DropView(const cxPoint2I &idx);
     
     cxMultiple *CheckSwap(const cxPoint2I &src,const cxPoint2I &dst);
     cxMultiple *SwapView(const cxPoint2I &src,const cxPoint2I &dst);
@@ -175,21 +195,23 @@ public:
     //是否可以从src移动到dst
     cxBool IsMoveTo(const cxPoint2I &src,const cxPoint2I &dst);
     cxBool IsValidIdx(const cxPoint2I &idx);
-    CardItem *GetView(const cxPoint2I &idx);
+    Block *GetView(const cxPoint2I &idx);
     cxBool HasView(const cxPoint2I &idx);
-    void SetView(const cxPoint2I &idx,CardItem *pview);
+    void SetView(const cxPoint2I &idx,Block *pview);
     cxPoint2F ToPos(const cxPoint2I &idx);
     cxPoint2I ToIdx(const cxPoint2F &pos);
     cxPoint2I ToIdx(cxInt key);
 public:
+    cxView *GetLayer(cxInt layer);
     const cxSize2F ItemSize() const;
-    void Init();
-    static Controller *Create(cxInt c,cxInt r);
+    virtual void Init();
+    static Controller *Create(cxInt col,cxInt row,const cxSize2F &size);
 public:
     //搜索高级方块位置，如果不是当前位置返回true,并返回方块位置
     BoxType FindHighRanking(const cxPoint2IArray &ps,const cxPoint2I &idx,cxPoint2I &out,cxBox4I &box);
     //计算单个位置
-    cxBool ComputeItem(cxMultiple *m,const cxPoint2I &idx);
+    //advance=true将搜索高级块
+    cxBool ComputeItem(cxMultiple *m,const cxPoint2I &idx,cxBool advance);
     //计算ps坐标内的点是否可以消除
     virtual cxBool HasSwap(const PointArray &ps);
     //可交换

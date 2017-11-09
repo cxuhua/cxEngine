@@ -292,12 +292,13 @@ cxPoint2IArray cxPoint2IArray::Reverse() const
     return ret;
 }
 
+// 合并同方向连续的点
 cxPoint2IArray cxPoint2IArray::Combine(cxFloat equa) const
 {
     cxInt siz = Size();
     cxPoint2IArray ret;
     if(siz < 3){
-        return ret;
+        return *this;
     }
     cxPoint2I p1 = At(0);
     ret.Append(p1);
@@ -306,8 +307,7 @@ cxPoint2IArray cxPoint2IArray::Combine(cxFloat equa) const
         cxPoint2I p3 = At(i);
         cxFloat a1 = p1.Angle(p2);
         cxFloat a2 = p2.Angle(p3);
-        cxBool eq = floatIsEqu(a1, a2, equa);
-        if(!eq){
+        if(!cxRadiansEqu(a1, a2)){
             ret.Append(p2);
         }
         if(i == siz - 1){
@@ -322,7 +322,7 @@ cxPoint2IArray cxPoint2IArray::Combine(cxFloat equa) const
 void cxPoint2IArray::Append(cxInt n)
 {
     for(cxInt i=0;i<n;i++){
-        push_back(cxPoint2F());
+        push_back(cxPoint2I());
     }
 }
 

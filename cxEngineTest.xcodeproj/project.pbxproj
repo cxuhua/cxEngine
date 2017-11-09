@@ -30,6 +30,7 @@
 		839B8AEF1B68DC2B009E0CF7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */; };
 		839B8AF11B68DD3A009E0CF7 /* o.wav in Resources */ = {isa = PBXBuildFile; fileRef = 839B8AF01B68DD3A009E0CF7 /* o.wav */; };
 		839FD5BA1FB30FAE003C7899 /* Move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839FD5B81FB30FAE003C7899 /* Move.cpp */; };
+		839FD5BE1FB40B95003C7899 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839FD5BC1FB40B95003C7899 /* Point.cpp */; };
 		83A74F861E28CB6C00827360 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A74F851E28CB6C00827360 /* libexpat.a */; };
 		83B6E3201E2A006A00C9C6AB /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 83B6E31F1E2A006A00C9C6AB /* bg.png */; };
 		83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0D3E1BF04EC200B0CC0B /* libz.tbd */; };
@@ -97,6 +98,8 @@
 		839B8AF01B68DD3A009E0CF7 /* o.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = o.wav; sourceTree = "<group>"; };
 		839FD5B81FB30FAE003C7899 /* Move.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Move.cpp; sourceTree = "<group>"; };
 		839FD5B91FB30FAE003C7899 /* Move.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
+		839FD5BC1FB40B95003C7899 /* Point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Point.cpp; sourceTree = "<group>"; };
+		839FD5BD1FB40B95003C7899 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
 		83A74F851E28CB6C00827360 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = libs/ios/lib/libexpat.a; sourceTree = "<group>"; };
 		83B6E31F1E2A006A00C9C6AB /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		83BA0D3E1BF04EC200B0CC0B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -232,6 +235,8 @@
 				8314210E1CE99DD300C140B2 /* Controller.h */,
 				839FD5B81FB30FAE003C7899 /* Move.cpp */,
 				839FD5B91FB30FAE003C7899 /* Move.h */,
+				839FD5BC1FB40B95003C7899 /* Point.cpp */,
+				839FD5BD1FB40B95003C7899 /* Point.h */,
 				83377A5C1CEC2E6000CEB2D8 /* game.shader */,
 				83377A5E1CEC2F5800CEB2D8 /* Shader.cpp */,
 				83377A5F1CEC2F5800CEB2D8 /* Shader.h */,
@@ -375,6 +380,7 @@
 				839FD5BA1FB30FAE003C7899 /* Move.cpp in Sources */,
 				8314210F1CE99DD300C140B2 /* Controller.cpp in Sources */,
 				83BE63751B311E0A0028B6E7 /* main.m in Sources */,
+				839FD5BE1FB40B95003C7899 /* Point.cpp in Sources */,
 				83377A591CEC25A600CEB2D8 /* Map.cpp in Sources */,
 				836E30451B5E2ABF00ED8BDC /* Sea.cpp in Sources */,
 				83377A601CEC2F5800CEB2D8 /* Shader.cpp in Sources */,

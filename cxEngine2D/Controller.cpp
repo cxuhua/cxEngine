@@ -97,24 +97,24 @@ cxBool CardItem::OnCompute(BoxType bt,const cxPoint2IArray &ps)
     return false;
 }
 
-void CardItem::StartMove(cxMultiple *m,const cxPoint2IArray &ps)
+void CardItem::StartMove(cxMultiple *m,const PointArray &ps)
 {
     //移动到新位置
     controller->DropView(idx);
-    controller->SetView(ps.At(0), this);
+    controller->SetView(ps.At(0).ToPoint2I(), this);
+    PointArray cps = ps.Combine();
+    if(cps.Size() < 2){
+        return;
+    }
     if(move == nullptr){
-        move = Move::Make();
+        move = Move::Create(controller);
         move->AttachTo(this);
         m->Append(move);
         move->onExit+=[this](cxAction *pav){
             move = nullptr;
         };
     }
-    for(cxInt i = ps.Size()-1;i >= 0;i--){
-        cxPoint2I idx = ps.At(i);
-        cxPoint2F pos = controller->ToPos(idx);
-        move->Append(pos);
-    }
+    move->AppendPoints(cps);
 }
 
 CardItem *CardItem::Create(Controller *c,const cxPoint2I &idx)
@@ -127,6 +127,38 @@ CardItem *CardItem::Create(Controller *c,const cxPoint2I &idx)
     ret->SetIdx(idx);
     c->SetView(idx, ret);
     return ret;
+}
+
+
+cxBool ItemAttr::IsFactory(Controller *map)
+{
+    return Item == nullptr && Factory;
+}
+
+cxBool ItemAttr::IsActiveItem(Controller *map)
+{
+    return !Static && Item != nullptr && Item->IsEnableMoving();
+}
+
+cxBool ItemAttr::IsSearch(Controller *map)
+{
+    if(Static){
+        return false;
+    }
+    if(Item != nullptr && !Item->IsEnableMoving()){
+        return false;
+    }
+    return true;
+}
+
+cxBool ItemAttr::IsSearchLR(Controller *map)
+{
+    return Static || (Item != nullptr && !Item->IsEnableMoving());
+}
+
+cxBool ItemAttr::IsPipe(Controller *map)
+{
+    return Item == nullptr && Src.IsPlus() && SrcP.IsPlus();
 }
 
 CX_IMPLEMENT(Controller);
@@ -234,12 +266,12 @@ cxBool Controller::ComputeItem(cxMultiple *m,const cxPoint2I &idx)
 }
 
 //如果有消除对象启动消除动画，直到没有可消除的卡
-cxBool Controller::HasSwap(const cxPoint2IArray &ps)
+cxBool Controller::HasSwap(const PointArray &ps)
 {
     cxMultiple *m = cxMultiple::Create();
     for(cxInt i=0;i<ps.Size();i++){
-        const cxPoint2I &idx = ps.At(i);
-        ComputeItem(m, idx);
+        const Point &idx = ps.At(i);
+        ComputeItem(m, idx.ToPoint2I());
     }
     if(m->Size() == 0){
         return false;
@@ -312,12 +344,12 @@ cxInt Controller::MergeTo(cxMultiple *m,const cxPoint2IArray &ps)
     return ret;
 }
 
-CardItem *Controller::SearchPointAndView(cxPoint2IArray &mps,const cxPoint2I &next,const cxPoint2I &prev)
+CardItem *Controller::SearchPointAndView(PointArray &mps,const cxPoint2I &next,const cxPoint2I &prev)
 {
     ItemAttr *attr = GetAttr(next);
     //如果是正常方块
     if(attr->IsActiveItem(this)){
-        mps.Append(next);
+        mps.Append(next,0);
         return attr->Item;
     }
     //如果是制造点
@@ -327,14 +359,14 @@ CardItem *Controller::SearchPointAndView(cxPoint2IArray &mps,const cxPoint2I &ne
         attr->Item = CardItem::Create(this, prev);
         attr->Item->SetPosition(ToPos(nidx));
         Append(attr->Item);
-        mps.Append(nidx);
+        mps.Append(nidx,0);
         return attr->Item;
     }
     //继续向上搜索
     return SearchUpAndView(mps, next);
 }
 
-cxBool Controller::HasSearchPath(CardItem **item,const cxPoint2IArray &mps)
+cxBool Controller::HasSearchPath(CardItem **item,const PointArray &mps)
 {
     if(item == nullptr){
         return false;
@@ -358,50 +390,22 @@ cxBool Controller::EnableSearch(const cxPoint2I &idx)
     return attr->IsSearch(this);
 }
 
-cxBool ItemAttr::IsFactory(Controller *map)
-{
-    return Item == nullptr && Factory;
-}
-
-cxBool ItemAttr::IsActiveItem(Controller *map)
-{
-    return !Static && Item != nullptr && Item->IsEnableMoving();
-}
-
-cxBool ItemAttr::IsSearch(Controller *map)
-{
-    if(Static){
-        return false;
-    }
-    if(Item != nullptr && !Item->IsEnableMoving()){
-        return false;
-    }
-    return true;
-}
-
-cxBool ItemAttr::IsSearchLR(Controller *map)
-{
-    return Static || (Item != nullptr && !Item->IsEnableMoving());
-}
-
-cxBool ItemAttr::IsPipe(Controller *map)
-{
-    return Item == nullptr && Src.IsPlus();
-}
-
 // 未一个空位置搜索方块
-CardItem *Controller::SearchUpAndView(cxPoint2IArray &mps,const cxPoint2I &idx)
+CardItem *Controller::SearchUpAndView(PointArray &mps,const cxPoint2I &idx)
 {
     ItemAttr *attr = GetAttr(idx);
     //处理隧道
     if(attr->IsPipe(this)){
         ItemAttr *dst = GetAttr(attr->Src);
         if(dst->Dst.IsPlus() && dst->Dst == idx){
-            mps.Append(idx);
+            mps.Append(idx,ATTR_IS_KEEP);
+            mps.Append(attr->SrcP, ATTR_IS_KEEP);
+            mps.Append(dst->DstP,ATTR_IS_KEEP|ATTR_IS_JUMP);
+            mps.Append(attr->Src,ATTR_IS_KEEP);
             return SearchPointAndView(mps, attr->Src, idx);
         }
     }
-    mps.Append(idx);
+    mps.Append(idx,0);
     //设置下个搜索点
     cxPoint2I next = cxPoint2I(idx.x,idx.y + 1);
     attr = GetAttr(next);
@@ -440,7 +444,7 @@ void Controller::MultipleExit(cxMultiple *m)
     ScanSwap();
 }
 
-cxBool Controller::Search(cxMultiple *m,cxPoint2IArray &mps,const cxPoint2I &next)
+cxBool Controller::Search(cxMultiple *m,PointArray &mps,const cxPoint2I &next)
 {
     //idx为空位置
     if(!IsValidIdx(next)){
@@ -483,7 +487,7 @@ cxMultiple *Controller::ScanSwap()
             if(attr->Item != nullptr){
                 continue;
             }
-            cxPoint2IArray mps;
+            PointArray mps;
             if(Search(m, mps, idx)){
                 ret = true;
             }
@@ -508,8 +512,8 @@ cxMultiple *Controller::ScanSwap()
 cxMultiple *Controller::CheckSwap(const cxPoint2I &src,const cxPoint2I &dst)
 {
     points.Clear();
-    points.Append(dst);
-    points.Append(src);
+    points.Append(dst,0);
+    points.Append(src,0);
     //检测是否有消除
     if(HasSwap(points)){
         return nullptr;
@@ -575,20 +579,20 @@ cxBool Controller::OnDispatch(const cxengine::cxTouchable *e)
     const cxHitInfo hit = e->HitTest(this, tp->wp);
     //for test
     if(hit.hited && tp->type == cxTouchPoint::Ended){
-//        dstIdx = ToIdx(hit.point);
-//        CardItem *v = GetView(dstIdx);
-//        if(v != nullptr){
-//            v->Drop();
-//        }
-
-        for(cxInt i = 0;i < col;i++)
-        for(cxInt j = 0;j < row;j++){
-            cxPoint2I idx = cxPoint2I(i, j);
-            CardItem *v = GetView(idx);
-            if(v !=  nullptr && v->IsEnableMoving()){
-                v->Drop();
-            }
+        dstIdx = ToIdx(hit.point);
+        CardItem *v = GetView(dstIdx);
+        if(v != nullptr){
+            v->Drop();
         }
+
+//        for(cxInt i = 0;i < col;i++)
+//        for(cxInt j = 0;j < row;j++){
+//            cxPoint2I idx = cxPoint2I(i, j);
+//            CardItem *v = GetView(idx);
+//            if(v !=  nullptr && v->IsEnableMoving()){
+//                v->Drop();
+//            }
+//        }
         
         ScanSwap();
         return true;
@@ -748,7 +752,6 @@ void Controller::OnEnter()
             sp->SetType(0);
             Append(sp);
         }
-        
     }
     ScanSwap();
     cxView::OnEnter();
@@ -777,22 +780,23 @@ void Controller::Init()
     attrs[3][3]=attr;
     //隧道,连通 a1<->a2
     ItemAttr a1;
-    a1.Src = cxPoint2I(3, 7);
-    attrs[3][4] = a1;
+    a1.Src = cxPoint2I(1, 7);//设置来源坐标
+    a1.SrcP = cxPoint2I(1, 2);//设置来源方块出现位置
+    attrs[1][1] = a1;
     
     ItemAttr a2;
-    a2.Dst = cxPoint2I(3, 4);
-    a2.Src = cxPoint2I(5,7);
-    attrs[3][7] = a2;
+    a2.Dst = cxPoint2I(1, 1);//设置目标坐标
+    a2.DstP = cxPoint2I(1, 6);//设置目标方块消失位置
+    attrs[1][7] = a2;
     
-    ItemAttr a3;
-    a3.Dst = cxPoint2I(3,7);
-    a3.Src = cxPoint2I(7,0);
-    attrs[5][7] = a3;
-    
-    ItemAttr a4;
-    a3.Dst = cxPoint2I(5,7);
-    attrs[7][0] = a3;
+//    ItemAttr a3;
+//    a3.Dst = cxPoint2I(3,7);
+//    a3.Src = cxPoint2I(7,0);
+//    attrs[5][7] = a3;
+//
+//    ItemAttr a4;
+//    a3.Dst = cxPoint2I(5,7);
+//    attrs[7][0] = a3;
     
     for(int i=0;i<col;i++)
     for(int j=0;j<row;j++){

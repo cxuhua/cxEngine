@@ -1,7 +1,9 @@
 //
 //  cxPoints.h
 //  cxEngineCore
-//  points move
+//  points move,从当前位置开始按点移动，所以
+//  如果第一个点的位置和物体位置一致，第一个点默认为开始位置，不包含在ps中
+//  如要获取数据点请使用 GetIndex
 //  Created by xuhua on 26/03/2017.
 //  Copyright © 2017 xuhua. All rights reserved.
 //
@@ -24,7 +26,7 @@ protected:
 protected:
     void OnStep(cxFloat dt);
     void OnInit();
-    virtual cxBool OnArrive(const cxInt &v);
+    virtual cxBool OnArrive();
 public:
     virtual cxPoint2F At(cxInt i);
 private:
@@ -35,13 +37,17 @@ private:
     cxPoint2F np;
     cxPoint2F angle;
     cxBool nextPoint(cxInt i);
+    void updateAttr(cxInt i);
 public:
+    cxInt GetIndex();
+    void Jump(cxInt v);
     void SetMin(const cxFloat &v);
     const cxInt Index();
     const cxPoint2FArray &Points();
-    const cxFloat Speed();
+    const cxFloat MoveSpeed();
     void SetPoints(const cxPoint2FArray &v,cxBool combine=true);
-    void SetSpeed(const cxFloat &v);
+    void Append(const cxPoint2F &pos);
+    void SetMoveSpeed(const cxFloat &v);
     cxAction *Reverse();
     cxAction *Clone();
 };

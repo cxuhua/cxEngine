@@ -128,6 +128,15 @@ cxFloat cxRadiansToDegrees(cxFloat radians)
     return kmRadiansToDegrees(radians);
 }
 
+cxBool cxRadiansEqu(cxFloat a1,cxFloat a2)
+{
+    cxFloat d1 = cxRadiansToDegrees(a1) + 360.0f;
+    cxFloat d2 = cxRadiansToDegrees(a2) + 360.0f;
+    d1 = fmodf(d1, 360.0f);
+    d2 = fmodf(d2, 360.0f);
+    return cxFloatIsEqual(d1, d2);
+}
+
 cxInt cxHexCharToInt(cxUInt8 c)
 {
     cxInt v = tolower(c);

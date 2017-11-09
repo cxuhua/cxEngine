@@ -14,6 +14,7 @@
 #include <engine/cxAtlas.h>
 #include <engine/cxSequence.h>
 #include "Move.h"
+#include "Point.h"
 
 CX_CPP_BEGIN
 
@@ -40,10 +41,15 @@ enum BoxType{
 
 //位置属性
 struct ItemAttr {
-    cxPoint2I Src;
-    cxPoint2I Dst;
-    cxBool Factory;
-    cxBool Static;
+    cxPoint2I Src;  //来源坐标
+    cxPoint2I SrcP; //跳跃出现点
+    
+    cxPoint2I Dst;  //目标坐标
+    cxPoint2I DstP; //跳跃消失点
+    
+    cxBool Factory; //创建点
+    cxBool Static;  //静态位置
+    
     CardItem *Item;
     ItemAttr()
     {
@@ -51,7 +57,9 @@ struct ItemAttr {
         Factory = false;
         Static = false;
         Src = cxPoint2I(-1, -1);
+        SrcP = cxPoint2I(-1, -1);
         Dst = cxPoint2I(-1, -1);
+        DstP = cxPoint2I(-1, -1);
     }
     //是否可以进行左右搜索
     cxBool IsSearchLR(Controller *map);
@@ -101,7 +109,7 @@ public:
     //两个item是否相等，相等意味着可合成
     virtual cxBool IsEqu(const CardItem *item);
     //移动到新位置
-    void StartMove(cxMultiple *m,const cxPoint2IArray &ps);
+    void StartMove(cxMultiple *m,const PointArray &ps);
     //当移除块时
     virtual void OnDrop(cxMultiple *m);
     //当移动块发生消除时
@@ -129,7 +137,7 @@ private:
     cxInt row;
     cxPoint2I srcIdx;//选中的key位置
     cxPoint2I dstIdx;//目标位置
-    cxPoint2IArray points;
+    PointArray points;
 protected:
     cxBool OnDispatch(const cxengine::cxTouchable *e);
     void OnEnter();
@@ -143,17 +151,17 @@ public:
     //转换为坐标点集合
     cxPoint2IArray ToPoints(const cxBox4I &box,const cxPoint2I &idx);
     //搜索落下的view和路径
-    CardItem *SearchUpAndView(cxPoint2IArray &mps,const cxPoint2I &idx);
+    CardItem *SearchUpAndView(PointArray &mps,const cxPoint2I &idx);
     //idx左右搜索
     cxBool EnableSearch(const cxPoint2I &idx);
     //是否有搜索到移动路径
-    cxBool HasSearchPath(CardItem **item,const cxPoint2IArray &mps);
+    cxBool HasSearchPath(CardItem **item,const PointArray &mps);
     //从指定点开始搜索
-    CardItem *SearchPointAndView(cxPoint2IArray &mps,const cxPoint2I &next,const cxPoint2I &prev);
+    CardItem *SearchPointAndView(PointArray &mps,const cxPoint2I &next,const cxPoint2I &prev);
     //扫描所有格子,返回并发动画
     cxMultiple *ScanSwap();
     //搜索某个点
-    cxBool Search(cxMultiple *m,cxPoint2IArray &mps,const cxPoint2I &next);
+    cxBool Search(cxMultiple *m,PointArray &mps,const cxPoint2I &next);
     //动画完成
     void MultipleExit(cxMultiple *m);
     //计算idx位置处左右上下相等的元素数量，不包括idx
@@ -183,7 +191,7 @@ public:
     //计算单个位置
     cxBool ComputeItem(cxMultiple *m,const cxPoint2I &idx);
     //计算ps坐标内的点是否可以消除
-    virtual cxBool HasSwap(const cxPoint2IArray &ps);
+    virtual cxBool HasSwap(const PointArray &ps);
     //可交换
     virtual cxBool OnSwap(const cxPoint2I &src,const cxPoint2I &dst);
 };

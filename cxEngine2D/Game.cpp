@@ -72,17 +72,18 @@ Game::~Game()
 void Game::OnMain()
 {
     LoadTexture("grid.png");
-    Controller *m = Controller::Create(20, 20);
+    Controller *m = Controller::Create(8, 8);
     m->SetClip(true);
     m->SetResizeFlags(cxView::ResizeBottom);
     Window()->Append(m);
     return;
-//    LoadTexture("t.png");
-//    cxSprite *sp = cxSprite::Create();
-//    sp->SetTexture("t.png");
-//    sp->SetSize(500);
+    
+    LoadTexture("t.png");
+    cxSprite *sp = cxSprite::Create();
+    sp->SetTexture("t.png");
+    sp->SetSize(80);
 //    sp->SetEnableDir(true);
-//    Window()->Append(sp);
+    Window()->Append(sp);
 //
 //    cxForward *a = cxForward::Create();
 //    a->SetSpeed(100);
@@ -96,44 +97,45 @@ void Game::OnMain()
 //    Window()->Append(t);
 //
 ////
-////    cxPoint2FArray ps;
-////
-////    for(cxInt i=0;i<50;i++){
-////        cxFloat x = CX_RAND_11f() * 500;
-////        cxFloat y = CX_RAND_11f() * 500;
-////        ps.Append(cxPoint2F(x, y));
-////    }
-////
-//////    ps.Append(cxPoint2F(0, 0));
-//////    ps.Append(cxPoint2F(200, 0));
-//////    ps.Append(cxPoint2F(400, 0));
-//////    ps.Append(cxPoint2F(600, 0));
-//////    ps.Append(cxPoint2F(-200, 0));
-////
-////    sp->SetEnableDir(true);
-//////    sp->SetPosition(cxPoint2F(600, 0));
-////
-////    cxPoints *a = cxPoints::Create();
-////    a->SetPoints(ps);
-////    a->SetSpeed(1800.0f);
-////
-////    a->onExit +=[sp](cxAction *pav){
-////        sp->SetColor(cxColor4F::RED);
-////        sp->Append(pav->Reverse());
-////    };
-////
-////    const cxPoint2FArray &pv = a->Points();
-////    for(cxInt i=0;i<pv.Size();i++){
-////        cxPoint2F v = pv.At(i);
-////        cxSprite *sp = cxSprite::Create();
-////        sp->SetTexture("t.png");
-////        sp->SetSize(15);
-////        sp->SetPosition(v);
-////        Window()->Append(sp);
-////    }
-////
-////    sp->Append(a);
-////    return;
+    cxPoint2FArray ps;
+
+//    for(cxInt i=0;i<50;i++){
+//        cxFloat x = CX_RAND_11f() * 500;
+//        cxFloat y = CX_RAND_11f() * 500;
+//        ps.Append(cxPoint2F(x, y));
+//    }
+
+    sp->SetPosition(cxPoint2F(0, 900));
+    ps.Append(cxPoint2F(0, 900));
+    ps.Append(cxPoint2F(0, 0));
+//    ps.Append(cxPoint2F(-717,0 ));
+    
+
+
+//    sp->SetEnableDir(true);
+//    sp->SetPosition(cxPoint2F(600, 0));
+
+    cxPoints *a = cxPoints::Create();
+    a->SetPoints(ps);
+    a->SetMoveSpeed(500.0f);
+
+//    a->onExit +=[sp](cxAction *pav){
+//        sp->SetColor(cxColor4F::RED);
+//        sp->Append(pav->Reverse());
+//    };
+
+    const cxPoint2FArray &pv = a->Points();
+    for(cxInt i=0;i<pv.Size();i++){
+        cxPoint2F v = pv.At(i);
+        cxSprite *sp = cxSprite::Create();
+        sp->SetTexture("t.png");
+        sp->SetSize(15);
+        sp->SetPosition(v);
+        Window()->Append(sp);
+    }
+
+    sp->Append(a);
+    return;
     
 //    cxMusic *m = cxMusic::Create("o.wav");
 //    m->SetRepeat(3);

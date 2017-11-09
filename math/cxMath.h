@@ -79,6 +79,8 @@ cxFloat cxDegreesToRadians(cxFloat degrees);
 
 cxFloat cxRadiansToDegrees(cxFloat radians);
 
+cxBool cxRadiansEqu(cxFloat a1,cxFloat a2);
+
 cxInt cxHexCharToInt(cxUInt8 c);
 
 cxBool cxFloatIsEqual(cxFloat a, cxFloat b, cxFloat equ=cxEqualFloat);

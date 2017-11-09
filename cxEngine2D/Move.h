@@ -9,18 +9,28 @@
 #ifndef Move_hpp
 #define Move_hpp
 
-#include <engine/cxPath.h>
+#include <engine/cxPoints.h>
+#include "Point.h"
 
 CX_CPP_BEGIN
-class Move : public cxPath
+
+class Move : public cxPoints
 {
 public:
     CX_DECLARE(Move);
 protected:
     explicit Move();
     virtual ~Move();
+private:
+    cxAny map;
+    PointArray mps;
+protected:
+    cxBool OnArrive();
 public:
-    static Move *Make();
+    const Point GetPoint(cxInt idx);
+    void AppendPoint(const Point &p);
+    void AppendPoints(const PointArray &ps);
+    static Move *Create(cxAny pmap);
 };
 CX_CPP_END
 

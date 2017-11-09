@@ -424,25 +424,29 @@ cxBool Controller::EnableSearch(const cxPoint2I &idx)
 // 未一个空位置搜索方块
 Block *Controller::SearchUpAndView(PointArray &mps,const cxPoint2I &idx)
 {
-    ItemAttr *attr = GetAttr(idx);
     //处理隧道
-    if(attr->IsPipe(this)){
-        ItemAttr *dst = GetAttr(attr->Src);
-        if(dst->Dst.IsPlus() && dst->Dst == idx){
-            mps.Append(idx,ATTR_IS_KEEP);
-            //如果是同一点可以忽略
-            if(attr->SrcP != dst->DstP){
-                mps.Append(attr->SrcP, ATTR_IS_KEEP|ATTR_IS_FALL);
-                mps.Append(dst->DstP,ATTR_IS_KEEP|ATTR_IS_JUMP);
-            }
-            mps.Append(attr->Src,ATTR_IS_KEEP);
-            return SearchPointAndView(mps, attr->Src, idx);
+    ItemAttr *src = GetAttr(idx);
+    if(src->IsPipe(this)){
+        ItemAttr *dst = GetAttr(src->Src);
+        //通道数据是否正常
+        if(!dst->Dst.IsPlus() || dst->Dst != idx){
+            CX_ERROR("data pipe error");
+            mps.Clear();
+            return src->Item;
         }
+        mps.Append(idx,ATTR_IS_KEEP);
+        //如果是同一点可以忽略
+        if(src->SrcP != dst->DstP){
+            mps.Append(src->SrcP, ATTR_IS_KEEP|ATTR_IS_FALL);
+            mps.Append(dst->DstP,ATTR_IS_KEEP|ATTR_IS_JUMP);
+        }
+        mps.Append(src->Src,ATTR_IS_KEEP);
+        return SearchPointAndView(mps, src->Src, idx);
     }
-    mps.Append(idx,0);
     //设置下个搜索点
+    mps.Append(idx,0);
     cxPoint2I next = cxPoint2I(idx.x,idx.y + 1);
-    attr = GetAttr(next);
+    ItemAttr *attr = GetAttr(next);
     //是否进行两侧搜索
     if(attr->IsSearchLR(this)){
         YCV[idx.x]++;
@@ -454,6 +458,9 @@ Block *Controller::SearchUpAndView(PointArray &mps,const cxPoint2I &idx)
         }else{
             v1 = cxPoint2I(next.x - 1,next.y);
             v2 = cxPoint2I(next.x + 1,next.y);
+        }
+        if(YCV[idx.x] > 10){
+            YCV[idx.x] = 0;
         }
         if(EnableSearch(v1)){
             attr->Item = SearchPointAndView(mps, v1, idx);

@@ -18,9 +18,7 @@
 		839A52311CD856B60002BF77 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52301CD856B60002BF77 /* OpenAL.framework */; };
 		839A52331CD856BA0002BF77 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52321CD856BA0002BF77 /* GLKit.framework */; };
 		839A52351CD856C10002BF77 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52341CD856C10002BF77 /* OpenGLES.framework */; };
-		83C5BF971CD860CD00F0DA0B /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF911CD860CD00F0DA0B /* libjpeg.a */; };
 		83C5BF981CD860CD00F0DA0B /* libmpg123.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF921CD860CD00F0DA0B /* libmpg123.a */; };
-		83C5BF991CD860CD00F0DA0B /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF931CD860CD00F0DA0B /* libpcre.a */; };
 		83C5BF9A1CD860CD00F0DA0B /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF941CD860CD00F0DA0B /* libpng.a */; };
 		83C5BF9B1CD860CD00F0DA0B /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF951CD860CD00F0DA0B /* libuv.a */; };
 /* End PBXBuildFile section */
@@ -51,9 +49,7 @@
 		839A52321CD856BA0002BF77 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		839A52341CD856C10002BF77 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		839A52431CD857140002BF77 /* cxEngineCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cxEngineCore.xcodeproj; path = ../cxEngineCore.xcodeproj; sourceTree = "<group>"; };
-		83C5BF911CD860CD00F0DA0B /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../libs/ios/lib/libjpeg.a; sourceTree = "<group>"; };
 		83C5BF921CD860CD00F0DA0B /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = ../libs/ios/lib/libmpg123.a; sourceTree = "<group>"; };
-		83C5BF931CD860CD00F0DA0B /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = ../libs/ios/lib/libpcre.a; sourceTree = "<group>"; };
 		83C5BF941CD860CD00F0DA0B /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../libs/ios/lib/libpng.a; sourceTree = "<group>"; };
 		83C5BF951CD860CD00F0DA0B /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../libs/ios/lib/libuv.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,9 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83C5BF971CD860CD00F0DA0B /* libjpeg.a in Frameworks */,
 				83C5BF981CD860CD00F0DA0B /* libmpg123.a in Frameworks */,
-				83C5BF991CD860CD00F0DA0B /* libpcre.a in Frameworks */,
 				83C5BF9A1CD860CD00F0DA0B /* libpng.a in Frameworks */,
 				83C5BF9B1CD860CD00F0DA0B /* libuv.a in Frameworks */,
 				833ED2491CD857EC00046BB6 /* libz.tbd in Frameworks */,
@@ -132,9 +126,7 @@
 		839A52421CD856E60002BF77 /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				83C5BF911CD860CD00F0DA0B /* libjpeg.a */,
 				83C5BF921CD860CD00F0DA0B /* libmpg123.a */,
-				83C5BF931CD860CD00F0DA0B /* libpcre.a */,
 				83C5BF941CD860CD00F0DA0B /* libpng.a */,
 				83C5BF951CD860CD00F0DA0B /* libuv.a */,
 				833ED2481CD857EC00046BB6 /* libz.tbd */,

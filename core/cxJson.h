@@ -9,7 +9,7 @@
 #ifndef __cxEngineCore__cxJson__
 #define __cxEngineCore__cxJson__
 
-#include <jansson/jansson.h>
+#include <ext/jansson.h>
 #include "cxObject.h"
 #include "cxStr.h"
 

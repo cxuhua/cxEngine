@@ -278,11 +278,6 @@ cxPoint2IArray::~cxPoint2IArray()
     
 }
 
-cxBool floatIsEqu(cxFloat a,cxFloat b,cxFloat equa)
-{
-    return fabsf(a - b) < equa;
-}
-
 cxPoint2IArray cxPoint2IArray::Reverse() const
 {
     cxPoint2IArray ret;

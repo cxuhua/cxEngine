@@ -3,8 +3,6 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_STATIC_LIBRARIES := cpufeatures
-
 LOCAL_CFLAGS := \
 	-std=gnu99 \
 	-I$(LOCAL_PATH) \
@@ -26,6 +24,4 @@ LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/core/*.cpp)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/engine/*.cpp)
 
 include $(BUILD_STATIC_LIBRARY)
-
-$(call import-module,android/cpufeatures)
 

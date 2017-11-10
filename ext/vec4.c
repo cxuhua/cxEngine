@@ -31,7 +31,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "utility.h"
 #include "vec4.h"
 #include "mat4.h"
-#include "tools.h"
 
 
 kmVec4* kmVec4Fill(kmVec4* pOut, kmScalar x, kmScalar y, kmScalar z, kmScalar w)
@@ -137,17 +136,12 @@ kmVec4* kmVec4Div( kmVec4* pOut,const kmVec4* pV1, const kmVec4* pV2 ) {
     return pOut;
 }
 
-///** Multiplies a 4D vector by a matrix, the result is stored in pOut, and pOut is returned.*/
-//kmVec4* kmVec4MultiplyMat4(kmVec4* pOut, const kmVec4* pV, const struct kmMat4* pM) {
-//    pOut->x = pV->x * pM->mat[0] + pV->y * pM->mat[4] + pV->z * pM->mat[8] + pV->w * pM->mat[12];
-//    pOut->y = pV->x * pM->mat[1] + pV->y * pM->mat[5] + pV->z * pM->mat[9] + pV->w * pM->mat[13];
-//    pOut->z = pV->x * pM->mat[2] + pV->y * pM->mat[6] + pV->z * pM->mat[10] + pV->w * pM->mat[14];
-//    pOut->w = pV->x * pM->mat[3] + pV->y * pM->mat[7] + pV->z * pM->mat[11] + pV->w * pM->mat[15];
-//    return pOut;
-//}
-
+/** Multiplies a 4D vector by a matrix, the result is stored in pOut, and pOut is returned.*/
 kmVec4* kmVec4MultiplyMat4(kmVec4* pOut, const kmVec4* pV, const struct kmMat4* pM) {
-    Vec4_X_Mat4(pM->mat, pV->x, pV->y, pV->z, pV->w, (float *)pOut);
+    pOut->x = pV->x * pM->mat[0] + pV->y * pM->mat[4] + pV->z * pM->mat[8] + pV->w * pM->mat[12];
+    pOut->y = pV->x * pM->mat[1] + pV->y * pM->mat[5] + pV->z * pM->mat[9] + pV->w * pM->mat[13];
+    pOut->z = pV->x * pM->mat[2] + pV->y * pM->mat[6] + pV->z * pM->mat[10] + pV->w * pM->mat[14];
+    pOut->w = pV->x * pM->mat[3] + pV->y * pM->mat[7] + pV->z * pM->mat[11] + pV->w * pM->mat[15];
     return pOut;
 }
 

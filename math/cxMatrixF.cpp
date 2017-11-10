@@ -110,6 +110,16 @@ void *cxMatrixF::Data()
     return mat4.mat;
 }
 
+void cxMatrixF::InitScaling(const cxPoint2F &v)
+{
+    kmMat4Scaling(&mat4, v.x, v.y, 1.0f);
+}
+
+void cxMatrixF::InitScaling(const cxPoint3F &v)
+{
+    kmMat4Scaling(&mat4, v.x, v.y, v.z);
+}
+
 void cxMatrixF::Scaling(const cxPoint2F &v)
 {
     Scaling(v.x, v.y, 1.0f);

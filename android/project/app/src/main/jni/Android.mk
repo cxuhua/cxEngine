@@ -6,7 +6,7 @@ LOCAL_MODULE := cxEngineAndroid
 
 LOCAL_WHOLE_STATIC_LIBRARIES += cxengine
 
-LOCAL_STATIC_LIBRARIES := expat pcre jpeg png uv mpg123 openal
+LOCAL_STATIC_LIBRARIES := png uv mpg123 openal
 
 LOCAL_LDLIBS := -llog -lGLESv2 -lz -landroid -lEGL -lOpenSLES -latomic
 

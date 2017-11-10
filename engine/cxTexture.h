@@ -123,13 +123,11 @@ public:
     
     cxTexture *FromLQT(const cxStr *data);
     cxTexture *FromPNG(const cxStr *data);
-    cxTexture *FromJPG(const cxStr *data);
     cxTexture *FromPVR(const cxStr *data);
     cxTexture *FromPKM(const cxStr *data);
     
     cxTexture *FromLQT(cchars file);
     cxTexture *FromPNG(cchars file);
-    cxTexture *FromJPG(cchars file);
     cxTexture *FromPVR(cchars file);
     cxTexture *FromPKM(cchars file);
     

@@ -7,7 +7,6 @@
 //
 
 #include <libpng/png.h>
-#include <libjpeg/jpeglib.h>
 #include <core/cxUtil.h>
 #include <core/cxJson.h>
 #include <core/cxLQT.h>
@@ -355,9 +354,6 @@ cxTexture *cxTexture::From(cchars file,const cxStr *data)
     if(cxStr::IsEqu(ext, ".pkm")){
         return FromPKM(data);
     }
-    if(cxStr::IsEqu(ext, ".jpg")){
-        return FromJPG(data);
-    }
     if(cxStr::IsEqu(ext, ".lqt")){
         return FromLQT(data);
     }
@@ -379,9 +375,6 @@ cxTexture *cxTexture::From(cchars file)
     }
     if(cxStr::IsEqu(ext, ".pkm")){
         return FromPKM(file);
-    }
-    if(cxStr::IsEqu(ext, ".jpg")){
-        return FromJPG(file);
     }
     if(cxStr::IsEqu(ext, ".lqt")){
         return FromLQT(file);
@@ -448,68 +441,6 @@ cxTexture *cxTexture::parseFrames(const cxStr *data)
         
         item->Release();
     }
-    return this;
-}
-
-typedef struct {
-    struct jpeg_error_mgr pub;
-    cxBool error;
-}cxJPEGError;
-
-static void cxJPGErrorExit(j_common_ptr cinfo)
-{
-    cxJPEGError *error = (cxJPEGError *)cinfo->err;
-    error->error = true;
-}
-
-cxTexture *cxTexture::FromJPG(const cxStr *data)
-{
-    CX_ASSERT(cxStr::IsOK(data), "data error");
-    struct jpeg_decompress_struct cinfo={0};
-    cxJPEGError error;
-    cinfo.err = jpeg_std_error(&error.pub);
-    error.error = false;
-    error.pub.error_exit = cxJPGErrorExit;
-    jpeg_create_decompress(&cinfo);
-    do{
-        if(error.error){
-            CX_ERROR("jpg create decompress failed");
-            success = false;
-            break;
-        }
-        jpeg_mem_src(&cinfo, (cxByte *)data->Buffer(), data->Size());
-        jpeg_read_header(&cinfo, (boolean)true);
-        if(error.error){
-            CX_ERROR("jpg read head failed");
-            success = false;
-            break;
-        }
-        jpeg_start_decompress(&cinfo);
-        if(error.error){
-            CX_ERROR("jpg start decompress failed");
-            success = false;
-            break;
-        }
-        size = cxSize2F(cinfo.image_width, cinfo.image_height);
-        int row_stride = cinfo.output_width * cinfo.output_components;
-        char *dataptr = new char[row_stride * cinfo.output_height];
-        JSAMPARRAY buffer = (*cinfo.mem->alloc_sarray)((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
-        int line = 0;
-        while(cinfo.output_scanline < cinfo.output_height){
-            jpeg_read_scanlines(&cinfo, buffer, 1);
-            memcpy((char *)dataptr + line * row_stride, buffer[0], row_stride);
-            line++;
-        }
-        GLint unpack = 0;
-        glGetIntegerv(GL_UNPACK_ALIGNMENT, &unpack);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-        GenTexture()->Bind()->SetParams(cxTextureParams::Default);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, cinfo.image_width, cinfo.image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataptr);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, unpack);
-        delete []dataptr;
-        jpeg_finish_decompress(&cinfo);
-    }while(0);
-    jpeg_destroy_decompress(&cinfo);
     return this;
 }
 
@@ -793,22 +724,6 @@ cxTexture *cxTexture::FromPVR(cchars file)
         return this;
     }
     return FromPVR(data);
-}
-
-cxTexture *cxTexture::FromJPG(cchars file)
-{
-    if(!cxOpenGL::Instance()->support_GL_OES_rgb8_rgba8){
-        CX_ERROR("platform not support rgb8 rgba8 format");
-        success = false;
-        return this;
-    }
-    const cxStr *data = cxUtil::Assets(file);
-    if(!cxStr::IsOK(data)) {
-        CX_ERROR("texture file data miss:%s",file);
-        success = false;
-        return this;
-    }
-    return FromJPG(data);
 }
 
 cxTexture *cxTexture::FromLQT(cchars file)

@@ -33,6 +33,8 @@ struct cxMatrixF
     cxBool operator!=(const cxMatrixF &v) const;
     cxMatrixF operator*(const cxMatrixF &v) const;
     cxMatrixF &operator*=(const cxMatrixF &v);
+    void InitScaling(const cxPoint2F &v);
+    void InitScaling(const cxPoint3F &v);
     void Scaling(const cxPoint2F &v);
     void Scaling(const cxPoint3F &v);
     void Scaling(cxFloat x,cxFloat y,cxFloat z);

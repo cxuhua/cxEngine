@@ -380,7 +380,7 @@ jstring cxAndroid::Tojstring(const cxStr *str)
     if(!cxStr::IsOK(str)){
         return NULL;
     }
-    return env->NewStringUTF(str->ToString());
+    return env->NewStringUTF(str->ToChars());
 }
 
 cxStr *cxAndroid::UUID()

@@ -249,6 +249,11 @@ cxObject *cxObject::alloc(cchars name)
     return cxCore::alloc(name);
 }
 
+cxObject *cxObject::alloc(const cxStr *name)
+{
+    return cxCore::alloc(name->ToChars());
+}
+
 cxObject *cxObject::create(const cxStr *name)
 {
     return create(name->ToChars());

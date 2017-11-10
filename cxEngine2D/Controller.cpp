@@ -779,13 +779,6 @@ cxPoint2I Controller::ToIdx(const cxPoint2F &pos)
     return cxPoint2F(x, y).ToInt();
 }
 
-cxPoint2I Controller::ToIdx(cxInt key)
-{
-    cxInt x = key % col;
-    cxInt y = key / col;
-    return cxPoint2I(x,y);
-}
-
 void Controller::OnEnter()
 {
     //for test

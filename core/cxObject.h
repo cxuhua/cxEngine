@@ -74,19 +74,20 @@ public:
     //for remove global cache
     static void gcDel(cchars key);
     
+    //clear gc
     static void gcClear();
     
     //alloc or create name object
     static cxObject *alloc(cchars name);
+    static cxObject *alloc(const cxStr *name);
     static cxObject *create(cchars name);
     static cxObject *create(const cxStr *name);
     static cxObject *fromJson(const cxJson *json);
 public:
     virtual cxULong Hash() const;
-    
     cxLong Tag() const;
     void SetTag(cxLong value);
-
+public:
     template<class T> const T *To() const
     {
         return static_cast<const T *>(this);
@@ -99,18 +100,19 @@ public:
     {
         return static_cast<T *>(pobj);
     }
-    
+public:
+    //mempory ref manager
     cxInt Refcount() const;
     void Retain();
-    
     cxObject *AutoRelease();
     void Release();
-    
+public:
+    //serialize support
     virtual cxJson *Serialize();
     virtual void SetProperty(cchars key, const cxJson *json);
     virtual const cxJson *GetProperty(cchars key);
 public:
-    //bind support
+    //bind support, not thread safe
     const cxInt BindesSize() const;
     const cxInt BindedSize() const;
     //

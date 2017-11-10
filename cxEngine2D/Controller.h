@@ -23,6 +23,7 @@ CX_CPP_BEGIN
 enum Layer {
     LayerBackgroud,     //背景层
     LayerActive,        //活动层，用来放可移动的块,需要Clip
+    LayerStatic,        //静态物
     LayerAnimate,       //顶部动画层
     LayerMax,           //最大层数量
 };
@@ -200,7 +201,6 @@ public:
     void SetView(const cxPoint2I &idx,Block *pview);
     cxPoint2F ToPos(const cxPoint2I &idx);
     cxPoint2I ToIdx(const cxPoint2F &pos);
-    cxPoint2I ToIdx(cxInt key);
 public:
     cxView *GetLayer(cxInt layer);
     const cxSize2F ItemSize() const;

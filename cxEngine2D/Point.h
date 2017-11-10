@@ -14,7 +14,7 @@
 
 CX_CPP_BEGIN
 
-//如果要保留点
+//如果要保留点(合并路径时忽略)
 #define ATTR_IS_KEEP (1 << 0)
 //跳跃到下点
 #define ATTR_IS_JUMP (1 << 1)
@@ -48,6 +48,8 @@ public:
     explicit PointArray();
     virtual ~PointArray();
 public:
+    const Point& Last() const;
+    const Point& First() const;
     void Clear();
     cxBool HasPoint(const Point &v);
     cxBool HasPoint(const cxPoint2I &v);

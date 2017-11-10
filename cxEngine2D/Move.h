@@ -25,7 +25,7 @@ private:
     cxAny map;
     PointArray mps;
 protected:
-    cxBool OnArrive();
+    virtual cxBool OnArrive();
 public:
     const Point GetPoint(cxInt idx);
     void AppendPoint(const Point &p);

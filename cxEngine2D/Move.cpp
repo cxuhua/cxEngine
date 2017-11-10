@@ -62,7 +62,7 @@ Move *Move::Create(cxAny pmap)
 {
     Move *rv = Move::Create();
     rv->map = pmap;
-    rv->SetMoveSpeed(600);
+    rv->SetMoveSpeed(700);
     return rv;
 }
 

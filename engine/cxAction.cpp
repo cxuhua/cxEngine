@@ -189,10 +189,10 @@ cxBool cxAction::IsPause() const
 
 cxBool cxAction::Update(cxFloat dt)
 {
-    dt *= Speed();
     if(ispause){
         return false;
     }
+    dt *= Speed();
     if(delayvar > 0){
         delayvar -= dt;
         return false;

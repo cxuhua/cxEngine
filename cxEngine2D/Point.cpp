@@ -140,6 +140,18 @@ void PointArray::Append(const PointArray &v)
     }
 }
 
+const Point& PointArray::Last() const
+{
+    CX_ASSERT(Size() > 0, "array empty");
+    return At(Size() - 1);
+}
+
+const Point& PointArray::First() const
+{
+    CX_ASSERT(Size() > 0, "array empty");
+    return At(0);
+}
+
 cxBool PointArray::HasPoint(const Point &v)
 {
     for(cxInt i=0; i<Size(); i++){

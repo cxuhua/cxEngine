@@ -15,6 +15,7 @@
 		833043D01B424A1C00636928 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 833043CF1B424A1C00636928 /* bg.jpg */; };
 		83377A591CEC25A600CEB2D8 /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83377A571CEC25A600CEB2D8 /* Map.cpp */; };
 		83377A601CEC2F5800CEB2D8 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83377A5E1CEC2F5800CEB2D8 /* Shader.cpp */; };
+		833D43B11FB5970D00DFCF83 /* Block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833D43AF1FB5970D00DFCF83 /* Block.cpp */; };
 		834A1D001E69AEC900751690 /* jlbox.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 834A1CFF1E69AEC900751690 /* jlbox.lqt */; };
 		834A1D021E69AF3C00751690 /* jl1000.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 834A1D011E69AF3C00751690 /* jl1000.lqt */; };
 		834A1D061E69AFE800751690 /* jl.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 834A1D051E69AFE800751690 /* jl.lqt */; };
@@ -31,14 +32,11 @@
 		839B8AF11B68DD3A009E0CF7 /* o.wav in Resources */ = {isa = PBXBuildFile; fileRef = 839B8AF01B68DD3A009E0CF7 /* o.wav */; };
 		839FD5BA1FB30FAE003C7899 /* Move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839FD5B81FB30FAE003C7899 /* Move.cpp */; };
 		839FD5BE1FB40B95003C7899 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839FD5BC1FB40B95003C7899 /* Point.cpp */; };
-		83A74F861E28CB6C00827360 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A74F851E28CB6C00827360 /* libexpat.a */; };
 		83B6E3201E2A006A00C9C6AB /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 83B6E31F1E2A006A00C9C6AB /* bg.png */; };
 		83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0D3E1BF04EC200B0CC0B /* libz.tbd */; };
 		83BE63751B311E0A0028B6E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BE63741B311E0A0028B6E7 /* main.m */; };
 		83C410DA1E28B3C90027FAFC /* penhuo1_xia.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */; };
-		83C5BFA51CD8612500F0DA0B /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF9F1CD8612500F0DA0B /* libjpeg.a */; };
 		83C5BFA61CD8612500F0DA0B /* libmpg123.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA01CD8612500F0DA0B /* libmpg123.a */; };
-		83C5BFA71CD8612500F0DA0B /* libpcre.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA11CD8612500F0DA0B /* libpcre.a */; };
 		83C5BFA81CD8612500F0DA0B /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA21CD8612500F0DA0B /* libpng.a */; };
 		83C5BFA91CD8612500F0DA0B /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA31CD8612500F0DA0B /* libuv.a */; };
 		83CD01A71E2CEB60006FC20F /* penhuo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83CD01A61E2CEB60006FC20F /* penhuo.xml */; };
@@ -80,6 +78,8 @@
 		83377A5C1CEC2E6000CEB2D8 /* game.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = game.shader; sourceTree = "<group>"; };
 		83377A5E1CEC2F5800CEB2D8 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		83377A5F1CEC2F5800CEB2D8 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		833D43AF1FB5970D00DFCF83 /* Block.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Block.cpp; sourceTree = "<group>"; };
+		833D43B01FB5970D00DFCF83 /* Block.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
 		834A1CFF1E69AEC900751690 /* jlbox.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jlbox.lqt; sourceTree = "<group>"; };
 		834A1D011E69AF3C00751690 /* jl1000.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jl1000.lqt; sourceTree = "<group>"; };
 		834A1D051E69AFE800751690 /* jl.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jl.lqt; sourceTree = "<group>"; };
@@ -100,14 +100,11 @@
 		839FD5B91FB30FAE003C7899 /* Move.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
 		839FD5BC1FB40B95003C7899 /* Point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Point.cpp; sourceTree = "<group>"; };
 		839FD5BD1FB40B95003C7899 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
-		83A74F851E28CB6C00827360 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = libs/ios/lib/libexpat.a; sourceTree = "<group>"; };
 		83B6E31F1E2A006A00C9C6AB /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		83BA0D3E1BF04EC200B0CC0B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		83BE63741B311E0A0028B6E7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo1_xia.xml; sourceTree = "<group>"; wrapsLines = 1; };
-		83C5BF9F1CD8612500F0DA0B /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = libs/ios/lib/libjpeg.a; sourceTree = "<group>"; };
 		83C5BFA01CD8612500F0DA0B /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = libs/ios/lib/libmpg123.a; sourceTree = "<group>"; };
-		83C5BFA11CD8612500F0DA0B /* libpcre.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpcre.a; path = libs/ios/lib/libpcre.a; sourceTree = "<group>"; };
 		83C5BFA21CD8612500F0DA0B /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libs/ios/lib/libpng.a; sourceTree = "<group>"; };
 		83C5BFA31CD8612500F0DA0B /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = libs/ios/lib/libuv.a; sourceTree = "<group>"; };
 		83CD01A61E2CEB60006FC20F /* penhuo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo.xml; sourceTree = "<group>"; };
@@ -134,11 +131,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83A74F861E28CB6C00827360 /* libexpat.a in Frameworks */,
 				839836BF1B109793002B7C20 /* libcxEngineCore.a in Frameworks */,
-				83C5BFA51CD8612500F0DA0B /* libjpeg.a in Frameworks */,
 				83C5BFA61CD8612500F0DA0B /* libmpg123.a in Frameworks */,
-				83C5BFA71CD8612500F0DA0B /* libpcre.a in Frameworks */,
 				83C5BFA81CD8612500F0DA0B /* libpng.a in Frameworks */,
 				83C5BFA91CD8612500F0DA0B /* libuv.a in Frameworks */,
 				83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */,
@@ -162,11 +156,8 @@
 		839836CB1B10B021002B7C20 /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				83C5BF9F1CD8612500F0DA0B /* libjpeg.a */,
 				83C5BFA01CD8612500F0DA0B /* libmpg123.a */,
-				83C5BFA11CD8612500F0DA0B /* libpcre.a */,
 				83C5BFA21CD8612500F0DA0B /* libpng.a */,
-				83A74F851E28CB6C00827360 /* libexpat.a */,
 				83C5BFA31CD8612500F0DA0B /* libuv.a */,
 				839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */,
 				83BA0D3E1BF04EC200B0CC0B /* libz.tbd */,
@@ -233,6 +224,8 @@
 				83546A461B3127F700FFE1E7 /* Game.h */,
 				8314210D1CE99DD300C140B2 /* Controller.cpp */,
 				8314210E1CE99DD300C140B2 /* Controller.h */,
+				833D43AF1FB5970D00DFCF83 /* Block.cpp */,
+				833D43B01FB5970D00DFCF83 /* Block.h */,
 				839FD5B81FB30FAE003C7899 /* Move.cpp */,
 				839FD5B91FB30FAE003C7899 /* Move.h */,
 				839FD5BC1FB40B95003C7899 /* Point.cpp */,
@@ -386,6 +379,7 @@
 				83377A601CEC2F5800CEB2D8 /* Shader.cpp in Sources */,
 				83546A471B3127F700FFE1E7 /* Game.cpp in Sources */,
 				83E6F64D1B0C97B5006839C8 /* App.mm in Sources */,
+				833D43B11FB5970D00DFCF83 /* Block.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

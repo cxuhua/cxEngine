@@ -15,124 +15,11 @@
 #include <engine/cxSequence.h>
 #include "Move.h"
 #include "Point.h"
+#include "Block.h"
 
 CX_CPP_BEGIN
 
 #define MAX_ITEM    32
-
-enum Layer {
-    LayerBackgroud,     //背景层
-    LayerActive,        //活动层，用来放可移动的块,需要Clip
-    LayerStatic,        //静态物
-    LayerAnimate,       //顶部动画层
-    LayerMax,           //最大层数量
-};
-
-#define AT_LEFT(_src_,_dst_)    (_dst_.x == _src_.x-1 && _dst_.y == _src_.y)
-
-#define AT_RIGHT(_src_,_dst_)   (_dst_.x == _src_.x+1 && _dst_.y == _src_.y)
-
-#define AT_TOP(_src_,_dst_)     (_dst_.x == _src_.x && _dst_.y == _src_.y+1)
-
-#define AT_BOTTOM(_src_,_dst_)  (_dst_.x == _src_.x && _dst_.y == _src_.y-1)
-
-class Controller;
-class Block;
-
-//方块类型
-enum BoxType{
-    BoxTypeNone = 0,
-    BoxType3,
-    BoxType4,
-    BoxType5,
-};
-
-//位置属性
-struct ItemAttr {
-    cxPoint2I Src;  //来源坐标
-    cxPoint2I SrcP; //跳跃出现点
-    
-    cxPoint2I Dst;  //目标坐标
-    cxPoint2I DstP; //跳跃消失点
-    
-    cxBool Factory; //创建点
-    cxBool Static;  //静态位置
-    
-    Block *Item;
-    ItemAttr()
-    {
-        Item = nullptr;
-        Factory = false;
-        Static = false;
-        Src = cxPoint2I(-1, -1);
-        SrcP = cxPoint2I(-1, -1);
-        Dst = cxPoint2I(-1, -1);
-        DstP = cxPoint2I(-1, -1);
-    }
-    //是否是空位置
-    cxBool IsEmpty(Controller *map);
-    //是否可以进行左右搜索
-    cxBool IsSearchLR(Controller *map);
-    //是否是一个通道
-    cxBool IsPipe(Controller *map);
-    //是否搜索此点
-    cxBool IsSearch(Controller *map);
-    //是否可活动块
-    cxBool IsActiveItem(Controller *map);
-    //是否是创建点
-    cxBool IsFactory(Controller *map);
-};
-
-//方块属性
-struct CardAttr {
-    CardAttr()
-    {
-        
-    }
-};
-
-
-class Block : public cxSprite
-{
-public:
-    CX_DECLARE(Block);
-protected:
-    explicit Block();
-    virtual ~Block();
-private:
-    Controller *controller;
-    cxUInt type;
-    cxPoint2I idx;
-    Move *move;
-    CardAttr attr;
-public:
-    //是否可移动（固定物不能移动)
-    virtual cxBool IsEnableMoving();
-public:
-    //获取所属的层
-    cxInt GetLayer();
-    //设置类型
-    void SetType(cxUInt typ);
-    //丢弃
-    void Drop();
-    //当前所在的位置
-    cxPoint2I Index() const;
-    void SetIdx(const cxPoint2I &i);
-    //两个item是否相等，相等意味着可合成
-    virtual cxBool IsEqu(const Block *item);
-    //移动到新位置
-    void StartMove(cxMultiple *m,const PointArray &ps);
-    //当移除块时
-    virtual void OnDrop(cxMultiple *m);
-    //当移动块发生消除时
-    virtual cxBool OnCompute(BoxType bt,const cxPoint2IArray &ps);
-    //块保留改变
-    virtual void OnKeepUp(BoxType bt);
-    //当移动动画完成时
-    virtual void OnMoveFinished();
-public:
-    static Block *Create(Controller *c,const cxPoint2I &idx);
-};
 
 class Controller : public cxView
 {
@@ -153,6 +40,7 @@ private:
     cxPoint2I dstIdx;//目标位置
     PointArray points;
     cxView *layers[LayerMax];
+    cxInt combo;
 protected:
     cxBool OnDispatch(const cxengine::cxTouchable *e);
     void OnEnter();
@@ -190,6 +78,7 @@ public:
     //丢弃idx位置的view
     Block *DropView(const cxPoint2I &idx);
     
+    //检测是否有移动消除
     cxMultiple *CheckSwap(const cxPoint2I &src,const cxPoint2I &dst);
     cxMultiple *SwapView(const cxPoint2I &src,const cxPoint2I &dst);
     void Reset();
@@ -204,14 +93,21 @@ public:
 public:
     cxView *GetLayer(cxInt layer);
     const cxSize2F ItemSize() const;
-    virtual void Init();
     static Controller *Create(cxInt col,cxInt row,const cxSize2F &size);
-public:
     //搜索高级方块位置，如果不是当前位置返回true,并返回方块位置
     BoxType FindHighRanking(const cxPoint2IArray &ps,const cxPoint2I &idx,cxPoint2I &out,cxBox4I &box);
     //计算单个位置
     //advance=true将搜索高级块
-    cxBool ComputeItem(cxMultiple *m,const cxPoint2I &idx,cxBool advance);
+    cxBool ComputeBox(cxMultiple *m,const cxPoint2I &idx,cxBool advance);
+protected:
+    //如果有指定的特殊移动
+    virtual cxBool HasSpecialSwap(Block *src,Block *dst);
+    //初始化
+    virtual void OnInit();
+    //动画结束
+    virtual void OnOneFinished();
+    //产生连击
+    virtual void OnOneCombo();
     //计算ps坐标内的点是否可以消除
     virtual cxBool HasSwap(const PointArray &ps);
     //可交换

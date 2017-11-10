@@ -71,8 +71,9 @@ Game::~Game()
 
 void Game::OnMain()
 {
+    cxSize2F siz = WinSize();
     LoadTexture("grid.png");
-    Controller *m = Controller::Create(8, 8, cxSize2F(1536, 1536));
+    Controller *m = Controller::Create(8, 8, cxSize2F(siz.w, siz.w));
     m->SetResizeFlags(cxView::ResizeBottom);
     Window()->Append(m);
     return;

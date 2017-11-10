@@ -10,179 +10,9 @@
 #include <engine/cxMove.h>
 #include <engine/cxScale.h>
 #include <engine/cxEngine.h>
-#include <engine/cxPath.h>
 #include "Controller.h"
 
 CX_CPP_BEGIN
-
-CX_IMPLEMENT(Block)
-
-Block::Block()
-{
-    controller = nullptr;
-    type = cxUtil::Rand(1, 4);
-    SetType(type);
-    move = nullptr;
-}
-
-Block::~Block()
-{
-    
-}
-
-cxInt Block::GetLayer()
-{
-    return LayerActive;
-}
-
-void Block::SetType(cxUInt typ)
-{
-    type = typ;
-    if(type == 0){
-        SetColor(cxColor4F::RED);
-    }else if(type == 1){
-        SetColor(cxColor4F::GREEN);
-    }else if(type == 2){
-        SetColor(cxColor4F::WHITE);
-    }else if(type == 3){
-        SetColor(cxColor4F::BLUE);
-    }else{
-        SetColor(cxColor4F::YELLOW);
-    }
-}
-
-cxBool Block::IsEnableMoving()
-{
-    //假设红色为不可移动块
-    return type != 0;
-}
-
-cxBool Block::IsEqu(const Block *item)
-{
-    return type == item->type;
-}
-
-void Block::SetIdx(const cxPoint2I &i)
-{
-    idx = i;
-}
-
-cxPoint2I Block::Index() const
-{
-    return idx;
-}
-
-//强制移除一个块
-void Block::Drop()
-{
-    controller->DropView(idx);
-    Remove();
-}
-
-//当块被移除时
-void Block::OnDrop(cxMultiple *m)
-{
-    cxScaleTo *scale = cxScaleTo::Create(0.0f, 0.15f);
-    scale->onExit += cxAction::Remove;
-    scale->AttachTo(this);
-    m->Append(scale);
-}
-
-void Block::OnKeepUp(BoxType bt)
-{
-    
-}
-
-//方块成型，返回true表示保留此方块OnKeepUp将被触发
-cxBool Block::OnCompute(BoxType bt,const cxPoint2IArray &ps)
-{
-    if(bt == BoxType4){
-        return true;
-    }
-    if(bt == BoxType5){
-        return true;
-    }
-    return false;
-}
-
-void Block::OnMoveFinished()
-{
-    move = nullptr;
-}
-
-void Block::StartMove(cxMultiple *m,const PointArray &ps)
-{
-    controller->DropView(idx);
-    controller->SetView(ps.At(0).ToPoint2I(), this);
-    PointArray cps = ps.Combine();
-    if(cps.Size() < 2){
-        return;
-    }
-    if(move == nullptr){
-        move = Move::Create(controller);
-        move->AttachTo(this);
-        m->Append(move);
-        move->onExit+=[this](cxAction *pav){
-            OnMoveFinished();
-        };
-    }
-    move->AppendPoints(cps);
-}
-
-Block *Block::Create(Controller *c,const cxPoint2I &idx)
-{
-    Block *ret = Block::Create();
-    ret->controller = c;
-    ret->SetSize(c->ItemSize());
-    ret->SetTexture("grid.png");
-    ret->SetPosition(c->ToPos(idx));
-    ret->SetIdx(idx);
-    c->SetView(idx, ret);
-    return ret;
-}
-
-
-cxBool ItemAttr::IsFactory(Controller *map)
-{
-    return Item == nullptr && Factory;
-}
-
-cxBool ItemAttr::IsActiveItem(Controller *map)
-{
-    return !Static && Item != nullptr && Item->IsEnableMoving();
-}
-
-cxBool ItemAttr::IsEmpty(Controller *map)
-{
-    if(Static){
-        return false;
-    }
-    if(Item != nullptr){
-        return false;
-    }
-    return true;
-}
-
-cxBool ItemAttr::IsSearch(Controller *map)
-{
-    if(Static){
-        return false;
-    }
-    if(Item != nullptr && !Item->IsEnableMoving()){
-        return false;
-    }
-    return true;
-}
-
-cxBool ItemAttr::IsSearchLR(Controller *map)
-{
-    return Static || (Item != nullptr && !Item->IsEnableMoving());
-}
-
-cxBool ItemAttr::IsPipe(Controller *map)
-{
-    return Item == nullptr && Src.IsPlus() && SrcP.IsPlus();
-}
 
 CX_IMPLEMENT(Controller);
 
@@ -259,7 +89,7 @@ BoxType Controller::FindHighRanking(const cxPoint2IArray &ps,const cxPoint2I &id
     return tmp;
 }
 
-cxBool Controller::ComputeItem(cxMultiple *m,const cxPoint2I &idx,cxBool advance)
+cxBool Controller::ComputeBox(cxMultiple *m,const cxPoint2I &idx,cxBool advance)
 {
     Block *view = GetView(idx);
     if(view == nullptr) {
@@ -273,7 +103,7 @@ cxBool Controller::ComputeItem(cxMultiple *m,const cxPoint2I &idx,cxBool advance
     }
     cxPoint2IArray ps = ToPoints(box, idx);
     BoxType tmp = BoxTypeNone;
-    //搜索另外一个更高级的方块，如果不是当前位置则使用这个更高级的方块
+    //是否搜索另外一个更高级的方块，如果不是当前位置则使用这个更高级的方块
     if(advance){
         tmp = FindHighRanking(ps, idx, out, box);
     }
@@ -288,7 +118,7 @@ cxBool Controller::ComputeItem(cxMultiple *m,const cxPoint2I &idx,cxBool advance
     if(!view->OnCompute(bt, ps)){
         ps.Append(out);
     }else{
-        view->OnKeepUp(bt);
+        view->OnKeep(bt);
     }
     if(ps.Size() > 0){
         MergeTo(m, ps);
@@ -302,11 +132,13 @@ cxBool Controller::HasSwap(const PointArray &ps)
     cxMultiple *m = cxMultiple::Create();
     for(cxInt i=0;i<ps.Size();i++){
         const Point &idx = ps.At(i);
-        ComputeItem(m, idx.ToPoint2I(),false);
+        ComputeBox(m, idx.ToPoint2I(),false);
     }
     if(m->Size() == 0){
         return false;
     }
+    combo++;
+    OnOneCombo();
     m->onInit +=[this](cxAction *pav){
         SetEnableTouch(false);
     };
@@ -345,17 +177,17 @@ BoxType Controller::ParseBoxType(const cxBox4I &box)
 {
     cxInt x = box.l + box.r + 1;
     cxInt y = box.t + box.b + 1;
-    if(x == 5 || y == 5){
-        return BoxType5;
-    }
-    if(x > 3 || y > 3){
-        return BoxType4;
+    if(x >= 5 || y >= 5){
+        return BoxType1x5;
     }
     if(x >=3 && y >= 3){
-        return BoxType4;
+        return BoxType3x3;
+    }
+    if(x >= 4 || y >= 4){
+        return BoxType1x4;
     }
     if(x >=3 || y >= 3){
-        return BoxType3;
+        return BoxType1x3;
     }
     return BoxTypeNone;
 }
@@ -528,8 +360,9 @@ cxMultiple *Controller::ScanEmpty()
         }
     }
     if(ret)goto scan;
-    m->AttachTo(this);
     if(m->Size() == 0){
+        OnOneFinished();
+        combo = 0;
         return m;
     }
     m->onInit +=[this](cxAction *pav){
@@ -539,13 +372,24 @@ cxMultiple *Controller::ScanEmpty()
         SetEnableTouch(true);
         ScanEmptyExit(pav->To<cxMultiple>());
     };
+    m->AttachTo(this);
     return m;
+}
+
+void Controller::OnOneCombo()
+{
+    CX_LOGGER("OnOneCombo,combo=%d",combo);
+}
+
+void Controller::OnOneFinished()
+{
+    CX_LOGGER("OnOneFinished,combo=%d",combo);
 }
 
 //从上到下扫描所有格子
 cxMultiple *Controller::ScanSwap()
 {
-    for(cxInt i=0;i<MAX_ITEM;i++){
+    for(cxInt i=0;i<col;i++){
         YTV[i] = 0;
     }
     cxMultiple *m = cxMultiple::Create();
@@ -553,14 +397,15 @@ cxMultiple *Controller::ScanSwap()
     for(cxInt j = 0; j < row; j++)
     for(cxInt i = 0; i < col; i++){
         cxPoint2I idx = cxPoint2I(i, j);
-        ComputeItem(m, idx, true);
+        ComputeBox(m, idx, true);
     }
-    m->AttachTo(this);
     //如果没有消除可进行一次空位置扫描
     if(m->Size() == 0){
         ScanEmpty();
         return m;
     }
+    combo++;
+    OnOneCombo();
     m->onInit +=[this](cxAction *pav){
         SetEnableTouch(false);
     };
@@ -568,7 +413,13 @@ cxMultiple *Controller::ScanSwap()
         SetEnableTouch(true);
         ScanSwapExit(pav->To<cxMultiple>());
     };
+    m->AttachTo(this);
     return m;
+}
+
+cxBool Controller::HasSpecialSwap(Block *src,Block *dst)
+{
+    return false;
 }
 
 cxMultiple *Controller::CheckSwap(const cxPoint2I &src,const cxPoint2I &dst)
@@ -609,9 +460,11 @@ cxBool Controller::OnSwap(const cxPoint2I &src,const cxPoint2I &dst)
         SetEnableTouch(false);
     };
     //动画结束时检测
-    m->onExit +=[this,src,dst](cxAction *pav){
+    m->onExit +=[this,src,dst,srcview,dstview](cxAction *pav){
         SetEnableTouch(true);
-        CheckSwap(src,dst);
+        if(!HasSpecialSwap(srcview,dstview)){
+            CheckSwap(src,dst);
+        }
     };
     //重置
     Reset();
@@ -640,26 +493,26 @@ cxBool Controller::OnDispatch(const cxengine::cxTouchable *e)
     const cxTouchPoint *tp = e->TouchPoint(0);
     const cxHitInfo hit = e->HitTest(this, tp->wp);
     //for test
-    if(hit.hited && tp->type == cxTouchPoint::Ended){
-        dstIdx = ToIdx(hit.point);
-        Block *v = GetView(dstIdx);
-        if(v != nullptr){
-            v->Drop();
-        }
-
-//        for(cxInt i = 0;i < col;i++)
-//        for(cxInt j = 0;j < row;j++){
-//            cxPoint2I idx = cxPoint2I(i, j);
-//            Block *v = GetView(idx);
-//            if(v !=  nullptr && v->IsEnableMoving()){
-//                v->Drop();
-//            }
+//    if(hit.hited && tp->type == cxTouchPoint::Ended){
+//        dstIdx = ToIdx(hit.point);
+//        Block *v = GetView(dstIdx);
+//        if(v != nullptr){
+//            v->Drop();
 //        }
-        
-        ScanSwap();
-        return true;
-    }
-    return false;
+//
+////        for(cxInt i = 0;i < col;i++)
+////        for(cxInt j = 0;j < row;j++){
+////            cxPoint2I idx = cxPoint2I(i, j);
+////            Block *v = GetView(idx);
+////            if(v !=  nullptr && v->IsEnableMoving()){
+////                v->Drop();
+////            }
+////        }
+//
+//        ScanSwap();
+//        return true;
+//    }
+//    return false;
 
     if(hit.hited && tp->type == cxTouchPoint::Began){
         Reset();
@@ -822,9 +675,10 @@ void Controller::AppendBlock(Block *b)
     layers[layer]->Append(b);
 }
 
-void Controller::Init()
+void Controller::OnInit()
 {
     assert(col < MAX_ITEM && row < MAX_ITEM);
+    combo = 0;
     //创建点
     for(int i=0;i<col;i++){
         ItemAttr attr;
@@ -874,7 +728,7 @@ Controller *Controller::Create(cxInt col,cxInt row,const cxSize2F &size)
     for(cxInt i=0;i<MAX_ITEM;i++){
         ret->YCV[i]=0;
     }
-    ret->Init();
+    ret->OnInit();
     return ret;
 }
 

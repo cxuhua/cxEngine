@@ -710,7 +710,7 @@ void Controller::AppendBlock(Block *b)
 
 void Controller::OnInit(cxInt acol,cxInt arow,const cxSize2F &size)
 {
-    assert(acol < MAX_ITEM && arow < MAX_ITEM);
+    assert(acol > 0 && acol < MAX_ITEM && arow > 0 && arow < MAX_ITEM);
     col = acol;
     row = arow;
     SetSize(size);

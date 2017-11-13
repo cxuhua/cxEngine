@@ -432,11 +432,9 @@ void TDrawBuffer::DrawTriangles(cxUInt mode,const cxRenderFArray &renders)
     glEnableVertexAttribArray(cxVertexAttribPosition);
     GLvoid *poff = (GLvoid *)(start + offsetof(cxRenderF, vertices));
     glVertexAttribPointer(cxVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), poff);
-    
     glEnableVertexAttribArray(cxVertexAttribColor);
     GLvoid *coff = (GLvoid *)(start + offsetof(cxRenderF, colors));
     glVertexAttribPointer(cxVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), coff);
-    
     glEnableVertexAttribArray(cxVertexAttribTexcoord);
     GLvoid *toff = (GLvoid *)(start + offsetof(cxRenderF, coords));
     glVertexAttribPointer(cxVertexAttribTexcoord, 2, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), toff);
@@ -451,29 +449,22 @@ void TDrawBuffer::InitTrianglesVBO(const cxRenderFArray &renders,const cxIndices
         glBindVertexArray(vaoid);
         glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
         glBufferData(GL_ARRAY_BUFFER, renders.BufferBytes(), renders.Buffer(), GL_DYNAMIC_DRAW);
-        //vertices
         glEnableVertexAttribArray(cxVertexAttribPosition);
         glVertexAttribPointer(cxVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, vertices));
-        //colors
         glEnableVertexAttribArray(cxVertexAttribColor);
         glVertexAttribPointer(cxVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, colors));
-        //tex coords
         glEnableVertexAttribArray(cxVertexAttribTexcoord);
         glVertexAttribPointer(cxVertexAttribTexcoord, 2, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, coords));
-        //
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.BufferBytes(), indices.Buffer(), GL_DYNAMIC_DRAW);
-        
         glBindVertexArray(0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }else{
         glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
         glBufferData(GL_ARRAY_BUFFER, renders.BufferBytes(), renders.Buffer(), GL_DYNAMIC_DRAW);
-        
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.BufferBytes(), indices.Buffer(), GL_DYNAMIC_DRAW);
-        
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
@@ -488,28 +479,21 @@ void TDrawBuffer::DrawTrianglesVBO(const cxRenderFArray &renders,const cxIndices
     if(renders.Size() == 0){
         return;
     }
-    //
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.DataBytes(), indices.Buffer(), GL_DYNAMIC_DRAW);
-    //
     glBindBuffer(GL_ARRAY_BUFFER, vboid[0]);
     glBufferData(GL_ARRAY_BUFFER, renders.DataBytes(), renders.Buffer(), GL_DYNAMIC_DRAW);
-    //
     if(gl->support_GL_OES_vertex_array_object){
         glBindVertexArray(vaoid);
         glDrawElements(GL_TRIANGLES, indices.Size(), GL_UNSIGNED_SHORT, NULL);
         glBindVertexArray(0);
     }else{
-        //vertices
         glEnableVertexAttribArray(cxVertexAttribPosition);
         glVertexAttribPointer(cxVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, vertices));
-        //colors
         glEnableVertexAttribArray(cxVertexAttribColor);
         glVertexAttribPointer(cxVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, colors));
-        //tex coords
         glEnableVertexAttribArray(cxVertexAttribTexcoord);
         glVertexAttribPointer(cxVertexAttribTexcoord, 2, GL_FLOAT, GL_FALSE, sizeof(cxRenderF), (GLvoid*)offsetof(cxRenderF, coords));
-        //
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboid[1]);
         glDrawElements(GL_TRIANGLES, indices.Size(), GL_UNSIGNED_SHORT, NULL);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

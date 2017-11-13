@@ -14,6 +14,7 @@
 
 CX_CPP_BEGIN
 
+#define ATTR_IS_NULL 0
 //如果要保留点(合并路径时忽略)
 #define ATTR_IS_KEEP (1 << 0)
 //跳跃到下点

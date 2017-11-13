@@ -52,8 +52,7 @@ void Block::SetType(cxUInt typ)
 
 cxBool Block::IsEnableMoving()
 {
-    //假设红色为不可移动块
-    return type != 0;
+    return true;
 }
 
 cxBool Block::IsEqu(const Block *item)
@@ -150,12 +149,6 @@ Block *Block::Create(Controller *pmap,const cxPoint2I &idx)
 {
     Block *ret = Block::Create();
     ret->OnInit(pmap, idx);
-    
-    cxSprite *sp = cxSprite::Create();
-    sp->SetResizeFlags(ResizeFill);
-    sp->SetTexture("grid.png");
-    ret->Append(sp);
-    
     return ret;
 }
 

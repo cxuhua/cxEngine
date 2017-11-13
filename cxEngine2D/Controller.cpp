@@ -207,22 +207,48 @@ cxInt Controller::MergeTo(cxMultiple *m,const cxPoint2IArray &ps)
     return ret;
 }
 
+//idx 最终位置
+//pos 显示位置
+Block *Controller::OnFactory(const cxPoint2I &idx,const cxPoint2I &pos)
+{
+    cxInt t = cxUtil::Rand(1, 4);
+    Block *item = Block::Create(this, idx);
+    item->SetType(t);
+    item->SetPosition(ToPos(pos));
+
+    cxSprite *sp = cxSprite::Create();
+    sp->SetResizeFlags(ResizeFill);
+    sp->SetTexture("grid.png");
+    item->Append(sp);
+    if(t == 1){
+        sp->SetColor(cxColor4F::RED);
+    }else if(t == 2){
+        sp->SetColor(cxColor4F::GREEN);
+    }else if(t == 3){
+        sp->SetColor(cxColor4F::BLUE);
+    }else if(t == 4){
+        sp->SetColor(cxColor4F::YELLOW);
+    }
+    
+    return item;
+}
+
 Block *Controller::SearchPointAndView(PointArray &mps,const cxPoint2I &next,const cxPoint2I &prev)
 {
     ItemAttr *attr = GetAttr(next);
     //如果是正常方块
     if(attr->IsActiveItem(this)){
-        mps.Append(next,0);
+        mps.Append(next, ATTR_IS_NULL);
         return attr->Item;
     }
     //如果是制造点
     if(attr->IsFactory(this)){
         cxPoint2I nidx = cxPoint2I(next.x, next.y + YTV[prev.x]);
         YTV[prev.x]++;
-        attr->Item = Block::Create(this, prev);
-        attr->Item->SetPosition(ToPos(nidx));
+        attr->Item = OnFactory(prev, nidx);
+        CX_ASSERT(attr->Item != nullptr, "OnFactory return null");
         AppendBlock(attr->Item);
-        mps.Append(nidx,0);
+        mps.Append(nidx, ATTR_IS_NULL);
         return attr->Item;
     }
     //继续向上搜索
@@ -256,23 +282,17 @@ cxBool Controller::EnableSearch(const cxPoint2I &idx)
 // 未一个空位置搜索方块
 Block *Controller::SearchUpAndView(PointArray &mps,const cxPoint2I &idx)
 {
-    if(idx.x >= MAX_ITEM || idx.y <= MAX_ITEM){
+    if(idx.x >= MAX_ITEM || idx.y >= MAX_ITEM){
         mps.Clear();
         return nullptr;
     }
     //处理隧道
     ItemAttr *src = GetAttr(idx);
     if(src->IsPipe(this)){
-        //源位置不能和当前位置一致
-        if(idx != src->Src){
-            CX_ERROR("pipe data settting error");
-            mps.Clear();
-            return src->Item;
-        }
         ItemAttr *dst = GetAttr(src->Src);
         //通道数据是否正常
         if(!dst->Dst.IsPlus() || dst->Dst != idx){
-            CX_ERROR("pipe data settting error");
+            CX_ERROR("pipe data settting error 2");
             mps.Clear();
             return src->Item;
         }
@@ -288,9 +308,9 @@ Block *Controller::SearchUpAndView(PointArray &mps,const cxPoint2I &idx)
         return SearchPointAndView(mps, src->Src, idx);
     }
     //设置下个搜索点
-    mps.Append(idx,0);
+    mps.Append(idx, ATTR_IS_NULL);
     cxPoint2I next = cxPoint2I(idx.x,idx.y + 1);
-    if(next.x >= MAX_ITEM || next.y <= MAX_ITEM){
+    if(next.x >= MAX_ITEM || next.y >= MAX_ITEM){
         mps.Clear();
         return nullptr;
     }
@@ -651,25 +671,22 @@ cxPoint2I Controller::ToIdx(const cxPoint2F &pos)
 void Controller::OnEnter()
 {
     //for test
-    for(cxInt i = 0;i < col;i++)
-    for(cxInt j = 0;j < row;j++){
-        cxPoint2I idx = cxPoint2I(i, j);
-        ItemAttr *attr = GetAttr(idx);
-        if(attr->Static){
-            continue;
-        }
-        
-        if(j == 3 && (i % 2) == 0){
-            Block *sp = Block::Create(this, idx);
-            sp->SetType(0);
-            AppendBlock(sp);
-        }
-        if(i == 3 && (j == 5 || j== 6)){
-            Block *sp = Block::Create(this, idx);
-            sp->SetType(0);
-            AppendBlock(sp);
-        }
+    //创建点
+    for(int i=0;i<col;i++){
+        ItemAttr attr;
+        attr.Factory = true;
+        attrs[i][row] = attr;
     }
+    ItemAttr a1;
+    a1.Src = cxPoint2I(1, 3);//设置来源坐标
+    a1.SrcP = cxPoint2I(1, 2);//设置来源方块出现位置
+    attrs[1][1] = a1;
+
+    ItemAttr a2;
+    a2.Dst = cxPoint2I(1, 1);//设置目标坐标
+    a2.DstP = cxPoint2I(1, 2);//设置目标方块消失位置
+    attrs[1][3] = a2;
+    
     ScanSwap();
     
     cxView::OnEnter();
@@ -719,23 +736,6 @@ void Controller::OnInit(cxInt acol,cxInt arow,const cxSize2F &size)
         YCV[i]=0;
     }
     combo = 0;
-//
-//    //
-//    //创建点
-//    for(int i=0;i<col;i++){
-//        ItemAttr attr;
-//        attr.Factory = true;
-//        attrs[i][row] = attr;
-//    }
-//    ItemAttr a1;
-//    a1.Src = cxPoint2I(1, 3);//设置来源坐标
-//    a1.SrcP = cxPoint2I(1, 2);//设置来源方块出现位置
-//    attrs[1][1] = a1;
-//
-//    ItemAttr a2;
-//    a2.Dst = cxPoint2I(1, 1);//设置目标坐标
-//    a2.DstP = cxPoint2I(1, 2);//设置目标方块消失位置
-//    attrs[1][3] = a2;
 }
 
 Controller *Controller::Create(cxInt col,cxInt row,const cxSize2F &size)

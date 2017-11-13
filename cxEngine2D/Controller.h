@@ -107,13 +107,17 @@ public:
     //advance=true将搜索高级块
     cxBool ComputeBox(cxMultiple *m,const cxPoint2I &idx,cxBool advance);
 protected:
+    //当需要创建一个方块时
+    //idx 最终位置
+    //pos 显示位置
+    virtual Block *OnFactory(const cxPoint2I &idx,const cxPoint2I &pos);
     //如果有指定的特殊移动
     virtual cxBool HasSpecialSwap(Block *src,Block *dst);
     //初始化
     virtual void OnInit(cxInt col,cxInt row,const cxSize2F &size);
-    //动画结束
+    //一次消除结束
     virtual void OnOneFinished();
-    //产生连击
+    //产生一次连击
     virtual void OnOneCombo();
     //计算ps坐标内的点是否可以消除
     virtual cxBool HasSwap(const PointArray &ps);

@@ -72,6 +72,11 @@ const cxBool Point::IsKeep() const
     return (a & ATTR_IS_KEEP) != 0;
 }
 
+const cxBool Point::IsGone() const
+{
+    return (a & ATTR_IS_GONE) != 0;
+}
+
 const cxPoint2F Point::ToFloat() const
 {
     return cxPoint2F(x,y);

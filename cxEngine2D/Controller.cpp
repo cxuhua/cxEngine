@@ -580,7 +580,7 @@ cxBox4I Controller::Compute(const cxPoint2I &idx)
     for(cxInt i = idx.x-1;i >= 0;i--){
         cxPoint2I v = cxPoint2I(i, idx.y);
         Block *pv = GetView(v);
-        if(pv == nullptr){
+        if(pv == nullptr || !pv->IsEnableCompute()){
             break;
         }
         if(!item->IsEqu(pv)){
@@ -592,7 +592,7 @@ cxBox4I Controller::Compute(const cxPoint2I &idx)
     for(cxInt i = idx.x+1;i < col;i++){
         cxPoint2I v = cxPoint2I(i, idx.y);
         Block *pv = GetView(v);
-        if(pv == nullptr){
+        if(pv == nullptr || !pv->IsEnableCompute()){
             break;
         }
         if(!item->IsEqu(pv)){
@@ -604,7 +604,7 @@ cxBox4I Controller::Compute(const cxPoint2I &idx)
     for(cxInt i = idx.y+1;i < row;i++){
         cxPoint2I v = cxPoint2I(idx.x, i);
         Block *pv = GetView(v);
-        if(pv == nullptr){
+        if(pv == nullptr || !pv->IsEnableCompute()){
             break;
         }
         if(!item->IsEqu(pv)){
@@ -616,7 +616,7 @@ cxBox4I Controller::Compute(const cxPoint2I &idx)
     for(cxInt i = idx.y-1;i >= 0;i--){
         cxPoint2I v = cxPoint2I(idx.x, i);
         Block *pv = GetView(v);
-        if(pv == nullptr){
+        if(pv == nullptr || !pv->IsEnableCompute()){
             break;
         }
         if(!item->IsEqu(pv)){

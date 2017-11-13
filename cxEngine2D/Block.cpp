@@ -55,6 +55,11 @@ cxBool Block::IsEnableMoving()
     return true;
 }
 
+cxBool Block::IsEnableCompute()
+{
+    return true;
+}
+
 cxBool Block::IsEqu(const Block *item)
 {
     return type == item->type;
@@ -179,7 +184,13 @@ cxBool ItemAttr::IsSearch(Controller *map)
     if(Static){
         return false;
     }
-    if(Item != nullptr && !Item->IsEnableMoving()){
+    if(Item == nullptr){
+        return true;
+    }
+    if(!Item->IsEnableMoving()){
+        return false;
+    }
+    if(!Item->IsEnableCompute()){
         return false;
     }
     return true;
@@ -187,7 +198,13 @@ cxBool ItemAttr::IsSearch(Controller *map)
 
 cxBool ItemAttr::IsSearchLR(Controller *map)
 {
-    return Static || (Item != nullptr && !Item->IsEnableMoving());
+    if(Static){
+        return true;
+    }
+    if(Item != nullptr && !Item->IsEnableMoving()){
+        return true;
+    }
+    return false;
 }
 
 cxBool ItemAttr::IsPipe(Controller *map)

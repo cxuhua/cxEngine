@@ -110,6 +110,8 @@ public:
     virtual void OnInit(Controller *pmap,const cxPoint2I &idx);
     //是否可移动（固定物不能移动)
     virtual cxBool IsEnableMoving();
+    //是否允许搜索和计算类型
+    virtual cxBool IsEnableCompute();
     //类型改变
     virtual void OnTypeChanged(cxUInt typ);
 public:

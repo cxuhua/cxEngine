@@ -21,6 +21,8 @@ CX_CPP_BEGIN
 #define ATTR_IS_JUMP (1 << 1)
 //上个跳跃的目标点
 #define ATTR_IS_FALL (1 << 2)
+//消失点，部分方块类型可用，落入此点自动消除记分
+#define ATTR_IS_GONE (1 << 3)
 
 struct Point
 {
@@ -33,6 +35,7 @@ struct Point
     const cxBool IsFall() const;
     const cxBool IsJump() const;
     const cxBool IsKeep() const;
+    const cxBool IsGone() const;
     const cxPoint2F ToFloat() const;
     const cxPoint2F ToFloat(const cxFloat &add) const;
     const cxFloat Angle() const;

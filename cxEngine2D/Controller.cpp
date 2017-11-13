@@ -256,28 +256,44 @@ cxBool Controller::EnableSearch(const cxPoint2I &idx)
 // 未一个空位置搜索方块
 Block *Controller::SearchUpAndView(PointArray &mps,const cxPoint2I &idx)
 {
+    if(idx.x >= MAX_ITEM || idx.y <= MAX_ITEM){
+        mps.Clear();
+        return nullptr;
+    }
     //处理隧道
     ItemAttr *src = GetAttr(idx);
     if(src->IsPipe(this)){
-        ItemAttr *dst = GetAttr(src->Src);
-        //通道数据是否正常
-        if(!dst->Dst.IsPlus() || dst->Dst != idx){
-            CX_ERROR("data pipe error");
+        //源位置不能和当前位置一致
+        if(idx != src->Src){
+            CX_ERROR("pipe data settting error");
             mps.Clear();
             return src->Item;
         }
-        mps.Append(idx,ATTR_IS_KEEP);
+        ItemAttr *dst = GetAttr(src->Src);
+        //通道数据是否正常
+        if(!dst->Dst.IsPlus() || dst->Dst != idx){
+            CX_ERROR("pipe data settting error");
+            mps.Clear();
+            return src->Item;
+        }
+        //加入面目标位置
+        mps.Append(idx, ATTR_IS_KEEP);
         //如果是同一点可以忽略
         if(src->SrcP != dst->DstP){
             mps.Append(src->SrcP, ATTR_IS_KEEP|ATTR_IS_FALL);
-            mps.Append(dst->DstP,ATTR_IS_KEEP|ATTR_IS_JUMP);
+            mps.Append(dst->DstP, ATTR_IS_KEEP|ATTR_IS_JUMP);
         }
-        mps.Append(src->Src,ATTR_IS_KEEP);
+        //加入起始位置
+        mps.Append(src->Src, ATTR_IS_KEEP);
         return SearchPointAndView(mps, src->Src, idx);
     }
     //设置下个搜索点
     mps.Append(idx,0);
     cxPoint2I next = cxPoint2I(idx.x,idx.y + 1);
+    if(next.x >= MAX_ITEM || next.y <= MAX_ITEM){
+        mps.Clear();
+        return nullptr;
+    }
     ItemAttr *attr = GetAttr(next);
     //是否进行两侧搜索
     if(attr->IsSearchLR(this)){
@@ -675,60 +691,57 @@ void Controller::AppendBlock(Block *b)
     layers[layer]->Append(b);
 }
 
-void Controller::OnInit()
+void Controller::OnInit(cxInt acol,cxInt arow,const cxSize2F &size)
 {
-    assert(col < MAX_ITEM && row < MAX_ITEM);
-    combo = 0;
-    //创建点
-    for(int i=0;i<col;i++){
-        ItemAttr attr;
-        attr.Factory = true;
-        attrs[i][row] = attr;
+    assert(acol < MAX_ITEM && arow < MAX_ITEM);
+    col = acol;
+    row = arow;
+    SetSize(size);
+    cxSize2F siz = Size();
+    itemSize.w = siz.w/col;
+    itemSize.h = siz.h/row;
+    //初始化动态数据
+    for(int i=0;i<col;i++)
+    for(int j=0;j<row;j++){
+        items[i][j] = nullptr;
     }
-    //静态位置
-//    ItemAttr attr;
-//    attr.Static = true;
-//    attrs[3][3]=attr;
-    //隧道,连通 a1<->a2
-    ItemAttr a1;
-    a1.Src = cxPoint2I(1, 3);//设置来源坐标
-    a1.SrcP = cxPoint2I(1, 2);//设置来源方块出现位置
-    attrs[1][1] = a1;
-    
-    ItemAttr a2;
-    a2.Dst = cxPoint2I(1, 1);//设置目标坐标
-    a2.DstP = cxPoint2I(1, 2);//设置目标方块消失位置
-    attrs[1][3] = a2;
+    //初始化层
+    for(int i=0;i<LayerMax;i++){
+        layers[i] = cxView::Create();
+        if(i == LayerActive){
+            layers[i]->SetClip(true);
+        }
+        layers[i]->SetEnableTouch(false);
+        layers[i]->SetResizeFlags(ResizeFill);
+        Append(layers[i]);
+    }
+    for(cxInt i=0;i<MAX_ITEM;i++){
+        YCV[i]=0;
+    }
+    combo = 0;
+//
+//    //
+//    //创建点
+//    for(int i=0;i<col;i++){
+//        ItemAttr attr;
+//        attr.Factory = true;
+//        attrs[i][row] = attr;
+//    }
+//    ItemAttr a1;
+//    a1.Src = cxPoint2I(1, 3);//设置来源坐标
+//    a1.SrcP = cxPoint2I(1, 2);//设置来源方块出现位置
+//    attrs[1][1] = a1;
+//
+//    ItemAttr a2;
+//    a2.Dst = cxPoint2I(1, 1);//设置目标坐标
+//    a2.DstP = cxPoint2I(1, 2);//设置目标方块消失位置
+//    attrs[1][3] = a2;
 }
 
 Controller *Controller::Create(cxInt col,cxInt row,const cxSize2F &size)
 {
     Controller *ret = Controller::Create();
-    ret->col = col;
-    ret->row = row;
-    ret->SetSize(size);
-    cxSize2F siz = ret->Size();
-    ret->itemSize.w = siz.w/ret->col;
-    ret->itemSize.h = siz.h/ret->row;
-    //初始化动态数据
-    for(int i=0;i<ret->col;i++)
-    for(int j=0;j<ret->row;j++){
-        ret->items[i][j] = nullptr;
-    }
-    //初始化层
-    for(int i=0;i<LayerMax;i++){
-        ret->layers[i] = cxView::Create();
-        if(i == LayerActive){
-            ret->layers[i]->SetClip(true);
-        }
-        ret->layers[i]->SetEnableTouch(false);
-        ret->layers[i]->SetResizeFlags(ResizeFill);
-        ret->Append(ret->layers[i]);
-    }
-    for(cxInt i=0;i<MAX_ITEM;i++){
-        ret->YCV[i]=0;
-    }
-    ret->OnInit();
+    ret->OnInit(col,row,size);
     return ret;
 }
 

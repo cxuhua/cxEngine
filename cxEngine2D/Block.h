@@ -91,7 +91,7 @@ struct CardAttr {
 };
 
 
-class Block : public cxSprite
+class Block : public cxView
 {
 public:
     CX_DECLARE(Block);
@@ -106,8 +106,12 @@ private:
     CardAttr attr;
     BoxType box;
 public:
+    //初始化
+    virtual void OnInit(Controller *pmap,const cxPoint2I &idx);
     //是否可移动（固定物不能移动)
     virtual cxBool IsEnableMoving();
+    //类型改变
+    virtual void OnTypeChanged(cxUInt typ);
 public:
     //获取特殊类型
     BoxType GetBoxType();

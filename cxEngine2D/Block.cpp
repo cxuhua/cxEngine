@@ -21,8 +21,7 @@ CX_IMPLEMENT(Block)
 Block::Block()
 {
     map = nullptr;
-    type = cxUtil::Rand(1, 4);
-    SetType(type);
+    type = 0;
     move = nullptr;
     box = BoxTypeNone;
 }
@@ -37,20 +36,18 @@ cxInt Block::GetLayer()
     return LayerActive;
 }
 
+void Block::OnTypeChanged(cxUInt typ)
+{
+    
+}
+
 void Block::SetType(cxUInt typ)
 {
-    type = typ;
-    if(type == 0){
-        SetColor(cxColor4F::RED);
-    }else if(type == 1){
-        SetColor(cxColor4F::GREEN);
-    }else if(type == 2){
-        SetColor(cxColor4F::WHITE);
-    }else if(type == 3){
-        SetColor(cxColor4F::BLUE);
-    }else{
-        SetColor(cxColor4F::YELLOW);
+    if(type == typ){
+        return;
     }
+    type = typ;
+    OnTypeChanged(type);
 }
 
 cxBool Block::IsEnableMoving()
@@ -140,15 +137,25 @@ void Block::StartMove(cxMultiple *m,const PointArray &ps)
     move->AppendPoints(cps);
 }
 
+void Block::OnInit(Controller *pmap,const cxPoint2I &idx)
+{
+    map = pmap;
+    SetSize(map->ItemSize());
+    SetPosition(map->ToPos(idx));
+    SetIdx(idx);
+    map->SetView(idx, this);
+}
+
 Block *Block::Create(Controller *pmap,const cxPoint2I &idx)
 {
     Block *ret = Block::Create();
-    ret->map = pmap;
-    ret->SetSize(pmap->ItemSize());
-    ret->SetTexture("grid.png");
-    ret->SetPosition(pmap->ToPos(idx));
-    ret->SetIdx(idx);
-    pmap->SetView(idx, ret);
+    ret->OnInit(pmap, idx);
+    
+    cxSprite *sp = cxSprite::Create();
+    sp->SetResizeFlags(ResizeFill);
+    sp->SetTexture("grid.png");
+    ret->Append(sp);
+    
     return ret;
 }
 

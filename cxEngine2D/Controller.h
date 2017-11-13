@@ -42,8 +42,8 @@ private:
     cxView *layers[LayerMax];
     cxInt combo;
 protected:
-    cxBool OnDispatch(const cxengine::cxTouchable *e);
-    void OnEnter();
+    virtual cxBool OnDispatch(const cxengine::cxTouchable *e);
+    virtual void OnEnter();
 public:
     //加入块
     void AppendBlock(Block *b);
@@ -71,28 +71,35 @@ public:
     void ScanEmptyExit(cxMultiple *m);
     //搜索某个点
     cxBool Search(cxMultiple *m,PointArray &mps,const cxPoint2I &next);
-    //动画完成
-    
     //计算idx位置处左右上下相等的元素数量，不包括idx
     cxBox4I Compute(const cxPoint2I &idx);
     //丢弃idx位置的view
     Block *DropView(const cxPoint2I &idx);
-    
     //检测是否有移动消除
     cxMultiple *CheckSwap(const cxPoint2I &src,const cxPoint2I &dst);
+    //开始交换选中方块
     cxMultiple *SwapView(const cxPoint2I &src,const cxPoint2I &dst);
     void Reset();
     //是否可以从src移动到dst
     cxBool IsMoveTo(const cxPoint2I &src,const cxPoint2I &dst);
+    //是否是有效的坐标
     cxBool IsValidIdx(const cxPoint2I &idx);
+    //获取坐标上的方块
     Block *GetView(const cxPoint2I &idx);
+    //是否有方块
     cxBool HasView(const cxPoint2I &idx);
+    //设置方块在坐标点上
     void SetView(const cxPoint2I &idx,Block *pview);
+    //坐标点转为显示位置
     cxPoint2F ToPos(const cxPoint2I &idx);
+    //反转
     cxPoint2I ToIdx(const cxPoint2F &pos);
 public:
+    //获取绘制层
     cxView *GetLayer(cxInt layer);
+    //获取方块大小
     const cxSize2F ItemSize() const;
+    //创建地图场景
     static Controller *Create(cxInt col,cxInt row,const cxSize2F &size);
     //搜索高级方块位置，如果不是当前位置返回true,并返回方块位置
     BoxType FindHighRanking(const cxPoint2IArray &ps,const cxPoint2I &idx,cxPoint2I &out,cxBox4I &box);
@@ -103,7 +110,7 @@ protected:
     //如果有指定的特殊移动
     virtual cxBool HasSpecialSwap(Block *src,Block *dst);
     //初始化
-    virtual void OnInit();
+    virtual void OnInit(cxInt col,cxInt row,const cxSize2F &size);
     //动画结束
     virtual void OnOneFinished();
     //产生连击

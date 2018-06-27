@@ -16,6 +16,13 @@ using namespace cxengine;
 
 @implementation IOSGLView
 
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    [super initWithFrame:frame];
+    self.contentScaleFactor = [UIScreen mainScreen].scale;
+    return self;
+}
+
 -(void)postTouchesEvent:(NSSet *)touches
 {
     for (UITouch *touch in touches) {
@@ -106,14 +113,14 @@ using namespace cxengine;
     [app OnLoad];
 }
 
-- (void)viewDidUnload
+-(void)dealloc
 {
     cxEngine::Destroy();
     [EAGLContext setCurrentContext:nil];
     glDeleteFramebuffers(1, &frameBuffer);
     glDeleteRenderbuffers(1, &renderBuffer);
     [context release];
-    [super viewDidUnload];
+    [super dealloc];
 }
 
 -(EAGLContext *)GLContext
@@ -144,11 +151,4 @@ using namespace cxengine;
 {
     return YES;
 }
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
-
 @end

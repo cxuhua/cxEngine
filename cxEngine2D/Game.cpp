@@ -61,7 +61,7 @@ CX_IMPLEMENT(Game);
 
 Game::Game()
 {
-    SetPlanSize(cxSize2F(1536, 2048));
+    SetPlanSize(cxSize2F(1080, 1920));
 }
 
 Game::~Game()

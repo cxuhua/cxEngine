@@ -61,22 +61,38 @@ CX_IMPLEMENT(Game);
 
 Game::Game()
 {
-    SetPlanSize(cxSize2F(1080, 1920));
+    //设置设计图分辨率
+    SetPlanSize(cxSize2F(1242, 2208));
 }
 
 Game::~Game()
 {
     
 }
+cxFloat x=0,y=0;
 
 void Game::OnMain()
 {
-    cxSize2F siz = WinSize();
-    LoadTexture("grid.png");
-    Controller *m = Controller::Create(8, 8, cxSize2F(siz.w, siz.w));
-    m->SetResizeFlags(cxView::ResizeBottom);
+    
+    
+    cxMusic *m = cxMusic::Create("finch.wav");
+    m->onStep+=[](cxAction *pav,cxFloat step){
+        pav->To<cxMusic>()->GetSource()->SetPosition(cxPoint2F(x, y));
+        x-=1;
+        y-=1;
+    };
+//    m->GetSource()->SetPosition(cxPoint2F(100,0));
+    m->SetRepeat(1000);
     Window()->Append(m);
+    
     return;
+    
+//    cxSize2F siz = WinSize();
+//    LoadTexture("grid.png");
+//    Controller *m = Controller::Create(8, 8, cxSize2F(siz.w, siz.w));
+//    m->SetResizeFlags(cxView::ResizeBottom);
+//    Window()->Append(m);
+//    return;
     
     LoadTexture("t.png");
     cxSprite *sp = cxSprite::Create();

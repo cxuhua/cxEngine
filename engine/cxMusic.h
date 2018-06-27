@@ -29,6 +29,8 @@ protected:
 private:
     cxALSource *source;
 public:
+    cxALSource *GetSource();
+public:
     static cxMusic *Create(cchars file,cchars key=nullptr);
     static cxMusic *Create(const cxStr *data,cxALBuffer::DataType type);
 };

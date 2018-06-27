@@ -485,14 +485,24 @@ void cxALSource::Update(cxFloat dt)
 
 void cxALSource::SetPosition(const cxPoint3F &v)
 {
-    alSourcei(handle, AL_SOURCE_RELATIVE, AL_FALSE);
+    //alSourcei(handle, AL_SOURCE_RELATIVE, AL_FALSE);
     alSource3f(handle, AL_POSITION, v.x, v.y, v.z);
 }
 
 void cxALSource::SetPosition(const cxPoint2F &v)
 {
-    alSourcei(handle, AL_SOURCE_RELATIVE, AL_TRUE);
+    //alSourcei(handle, AL_SOURCE_RELATIVE, AL_TRUE);
     alSource3f(handle, AL_POSITION, v.x, v.y, 0.0f);
+}
+
+void cxALSource::SetVelocity(const cxPoint3F &v)
+{
+    alSource3f(handle, AL_VELOCITY, v.x, v.y, v.z);
+}
+
+void cxALSource::SetVelocity(const cxPoint2F &v)
+{
+    alSource3f(handle, AL_VELOCITY, v.x, v.y, 0.0f);
 }
 
 cxALBuffer *cxALSource::Buffer()

@@ -102,6 +102,8 @@ public:
     void SetPitch(cxFloat v);
     void SetPosition(const cxPoint3F &v);
     void SetPosition(const cxPoint2F &v);
+    void SetVelocity(const cxPoint3F &v);
+    void SetVelocity(const cxPoint2F &v);
     cxALBuffer *Buffer();
     virtual void Update(cxFloat dt);
     static cxALSource *Create(const cxStr *data,cxALBuffer::DataType type);

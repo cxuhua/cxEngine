@@ -49,6 +49,11 @@ void cxMusic::OnStep(cxFloat dt)
     cxAction::OnStep(dt);
 }
 
+cxALSource *cxMusic::GetSource()
+{
+    return source;
+}
+
 cxMusic *cxMusic::Create(const cxStr *data,cxALBuffer::DataType type)
 {
     cxMusic *ret = cxMusic::Create();

@@ -185,7 +185,7 @@ cxBool cxUtil::FileExists(const cxStr *path,cxInt *length)
 cxStr *cxUtil::UUID()
 {
     char buf[64]={0};
-    snprintf(buf, 64, "%llu", uv_hrtime());
+    snprintf(buf, 64, "%llu", (unsigned long long)uv_hrtime());
     return cxStr::Create(buf);
 }
 

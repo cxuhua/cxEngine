@@ -17,3 +17,4 @@
 
 ##Android build setting
 * ANDROID=1
+fix NDK/build/core/build_binary.mk,remove -warn-shared-textrel

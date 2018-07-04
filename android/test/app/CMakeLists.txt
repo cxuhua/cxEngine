@@ -38,7 +38,7 @@ set_target_properties(openal PROPERTIES IMPORTED_LOCATION ${LIBS_DIR}/${ANDROID_
 # Gradle automatically packages shared libraries with your APK.
 
 add_library( # Sets the name of the library.
-             cxengine
+             game
 
              # Sets the library as a shared library.
              SHARED
@@ -188,7 +188,7 @@ add_library( # Sets the name of the library.
 
 
 target_link_libraries( # Specifies the target library.
-                       cxengine
+                       game
                        uv
                        mpg123
                        png

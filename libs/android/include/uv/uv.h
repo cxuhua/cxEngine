@@ -45,21 +45,21 @@ extern "C" {
 # define UV_EXTERN /* nothing */
 #endif
 
-#include "uv/errno.h"
-#include "uv/version.h"
+#include "errno.h"
+#include "version.h"
 #include <stddef.h>
 #include <stdio.h>
 
 #if defined(_MSC_VER) && _MSC_VER < 1600
-# include "uv/stdint-msvc2008.h"
+# include "stdint-msvc2008.h"
 #else
 # include <stdint.h>
 #endif
 
 #if defined(_WIN32)
-# include "uv/win.h"
+# include "win.h"
 #else
-# include "uv/unix.h"
+# include "unix.h"
 #endif
 
 /* Expand this list if necessary. */

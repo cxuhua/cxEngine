@@ -75,14 +75,14 @@ void Game::OnMain()
 {
     
     
-    cxMusic *m = cxMusic::Create("finch.wav");
+    cxMusic *m = cxMusic::Create("test.mp3");
     m->onStep+=[](cxAction *pav,cxFloat step){
         pav->To<cxMusic>()->GetSource()->SetPosition(cxPoint2F(x, y));
         x-=1;
-        y-=1;
+        CX_LOGGER("%f",x);
     };
 //    m->GetSource()->SetPosition(cxPoint2F(100,0));
-    m->SetRepeat(1000);
+//    m->SetRepeat(1000);
     Window()->Append(m);
     
     return;

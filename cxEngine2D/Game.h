@@ -22,6 +22,7 @@ protected:
     explicit Game();
     virtual ~Game();
 public:
+    void OnDispatch(const cxTouchable *e);
     void OnMain();
 };
 

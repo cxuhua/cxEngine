@@ -131,10 +131,10 @@ void cxMP3Buffer::mp3Clear()
 
 cxBool cxMP3Buffer::newformat()
 {
-    long rate;
-    int channgles;
-    int encoding;
-    if(mpg123_getformat(mp3hand, &rate, &channgles, &encoding) != MPG123_OK){
+    long rate = 0;
+    int channels = 0;
+    int encoding = 0;
+    if(mpg123_getformat(mp3hand, &rate, &channels, &encoding) != MPG123_OK){
         CX_ERROR("mpg123 get format error");
         return false;
     }
@@ -143,10 +143,13 @@ cxBool cxMP3Buffer::newformat()
         return false;
     }
     cxBool mb8 = (encoding & MPG123_ENC_8);
-    if(channgles == MPG123_MONO){
+    if(channels == MPG123_MONO){
         format = mb8?AL_FORMAT_MONO8:AL_FORMAT_MONO16;
-    }else if(channgles == MPG123_STEREO){
+    }else if(channels == MPG123_STEREO){
         format = mb8?AL_FORMAT_STEREO8:AL_FORMAT_STEREO16;
+    }else {
+        CX_ERROR("not support channels %d",channels);
+        return false;
     }
     samplerate = (cxUInt)rate;
     off_t len = mpg123_length(mp3hand);
@@ -221,8 +224,8 @@ cxBool cxMP3Buffer::NextALBuffer(ALuint idx)
     if(ret != MPG123_OK){
         return false;
     }
-    alClearError();
     if(bytes > 0){
+        alClearError();
         alBufferData(idx, format, buf, (ALsizei)bytes, samplerate);
     }
     return alGetError() == AL_NO_ERROR;
@@ -284,19 +287,17 @@ void cxMP3Source::Stop()
 
 cxBool cxMP3Source::Init(cxALBuffer *ab)
 {
-    cxObject::swap(&buffer, ab);
-    alClearError();
-    alGenSources(1, &handle);
-    if(alGetError() != AL_NO_ERROR){
-        CX_ERROR("al gen source error");
-        return false;
-    }
     alClearError();
     alGenBuffers(MAX_BUFFER, albuf);
     if(alGetError() != AL_NO_ERROR){
         CX_ERROR("al gen buffer error");
         return false;
     }
+    if(!cxALSource::Init(ab)){
+        CX_ERROR("mp3 source init error");
+        return false;
+    }
+    alSourcef(handle, AL_SOURCE_TYPE, AL_STREAMING);
     return true;
 }
 
@@ -310,6 +311,7 @@ void cxMP3Source::Update(cxFloat dt)
     alGetSourceiv(handle, AL_BUFFERS_PROCESSED, &processed);
     alClearError();
     while(processed > 0){
+        alClearError();
         ALuint b = 0;
         alSourceUnqueueBuffers(handle, 1, &b);
         if(alGetError() != AL_NO_ERROR){
@@ -320,7 +322,6 @@ void cxMP3Source::Update(cxFloat dt)
         }
         if(mb->NextALBuffer(b)){
             alSourceQueueBuffers(handle, 1, &b);
-            alClearError();
         }
         processed--;
     }
@@ -475,6 +476,10 @@ cxBool cxALSource::Init(cxALBuffer *ab)
         CX_ERROR("al source set buffer error");
         return false;
     }
+    alSourcef(handle, AL_SOURCE_TYPE, AL_STATIC);
+    ALfloat zeros[] = {0,0,0};
+    alListenerfv(AL_POSITION, zeros);
+    alListenerfv(AL_VELOCITY, zeros);
     return true;
 }
 
@@ -485,13 +490,11 @@ void cxALSource::Update(cxFloat dt)
 
 void cxALSource::SetPosition(const cxPoint3F &v)
 {
-    //alSourcei(handle, AL_SOURCE_RELATIVE, AL_FALSE);
     alSource3f(handle, AL_POSITION, v.x, v.y, v.z);
 }
 
 void cxALSource::SetPosition(const cxPoint2F &v)
 {
-    //alSourcei(handle, AL_SOURCE_RELATIVE, AL_TRUE);
     alSource3f(handle, AL_POSITION, v.x, v.y, 0.0f);
 }
 

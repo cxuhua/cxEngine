@@ -70,19 +70,30 @@ Game::~Game()
     
 }
 cxFloat x=0,y=0;
+cxMusic *m = NULL;
+
+void Game::OnDispatch(const cxTouchable *e)
+{
+    cxEngine::OnDispatch(e);
+    if(e->TouchCount() > 0 && m !=  NULL){
+        cxSize2F size = WinSize();
+        const cxTouchPoint *tp = e->TouchPoint(0);
+        CX_LOGGER("%f %f",tp->wp.x/size.w,tp->wp.y/size.h);
+        m->GetSource()->SetPosition(cxPoint2F(tp->wp.x/size.w,tp->wp.y/size.h));
+    }
+}
 
 void Game::OnMain()
 {
-    
-    
-    cxMusic *m = cxMusic::Create("test.mp3");
-    m->onStep+=[](cxAction *pav,cxFloat step){
-        pav->To<cxMusic>()->GetSource()->SetPosition(cxPoint2F(x, y));
-        x-=1;
-        CX_LOGGER("%f",x);
-    };
+    m = cxMusic::Create("test.mp3");
+//    m->GetSource()->SetVelocity(cxPoint2F(100, 100));
+//    m->onStep+=[](cxAction *pav,cxFloat step){
+//        pav->To<cxMusic>()->GetSource()->SetPosition(cxPoint2F(x, y));
+//        x-=1;
+//        CX_LOGGER("%f",x);
+//    };
 //    m->GetSource()->SetPosition(cxPoint2F(100,0));
-//    m->SetRepeat(1000);
+    m->SetRepeat(1000);
     Window()->Append(m);
     
     return;

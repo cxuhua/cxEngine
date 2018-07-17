@@ -297,7 +297,6 @@ cxBool cxMP3Source::Init(cxALBuffer *ab)
         CX_ERROR("mp3 source init error");
         return false;
     }
-    alSourcef(handle, AL_SOURCE_TYPE, AL_STREAMING);
     return true;
 }
 
@@ -476,7 +475,6 @@ cxBool cxALSource::Init(cxALBuffer *ab)
         CX_ERROR("al source set buffer error");
         return false;
     }
-    alSourcef(handle, AL_SOURCE_TYPE, AL_STATIC);
     ALfloat zeros[] = {0,0,0};
     alListenerfv(AL_POSITION, zeros);
     alListenerfv(AL_VELOCITY, zeros);

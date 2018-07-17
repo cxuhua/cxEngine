@@ -1,5 +1,0 @@
-ID,名字ID,动作,播放次数,播放速度,组编码,开始帧,结束帧,关键帧
-Name,TID,Action,Repeat,Speed,Group,From,To,Key
-String,String,String,Int,Float,Int,Int,Int,Int
-Mage,精灵,move,0,1,0,0,7,
-,,attack,,1,,8,15,"9,13"

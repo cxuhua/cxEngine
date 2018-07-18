@@ -267,7 +267,7 @@ void cxMP3Source::Play()
         alSourceQueueBuffers(handle, 1, &albuf[i]);
     }
     if(num > 0){
-        alSourcePlay(handle);
+        cxALSource::Play();
         isstop = false;
     }
 }
@@ -429,6 +429,7 @@ cxALSource::cxALSource()
     gain = 1.0f;
     pitch = 1.0f;
     buffer = nullptr;
+    handle = 0;
 }
 
 cxALSource::~cxALSource()
@@ -500,19 +501,38 @@ cxALBuffer *cxALSource::Buffer()
 
 void cxALSource::Play()
 {
-    alSourcePlay(handle);
+    if(handle > 0){
+        alSourcePlay(handle);
+    }
 }
+
+void cxALSource::OnPause()
+{
+    if(handle > 0 && IsPlaying()){
+        alSourceStop(handle);
+    }
+}
+
+void cxALSource::OnResume()
+{
+    if(handle > 0 && !IsPlaying()){
+        alSourcePlay(handle);
+    }
+}
+
 
 void cxALSource::Reset()
 {
-    if(IsPlaying()){
+    if(handle > 0 && IsPlaying()){
         Stop();
     }
 }
 
 void cxALSource::Stop()
 {
-    alSourceStop(handle);
+    if(handle > 0){
+        alSourceStop(handle);
+    }
 }
 
 void cxALSource::SetGain(cxFloat v)
@@ -586,6 +606,22 @@ cxALSource *cxOpenAL::Source(cchars key)
 cxALSource *cxOpenAL::Source(const cxStr *data,cxALBuffer::DataType type)
 {
     return cxALSource::Create(data, type);
+}
+
+void cxOpenAL::OnPause()
+{
+    for(cxHash::Iter it = sources->Begin();it != sources->End();it++){
+        cxALSource *source = it->second->To<cxALSource>();
+        source->OnPause();
+    }
+}
+
+void cxOpenAL::OnResume()
+{
+    for(cxHash::Iter it = sources->Begin();it != sources->End();it++){
+        cxALSource *source = it->second->To<cxALSource>();
+        source->OnResume();
+    }
 }
 
 cxALSource *cxOpenAL::Source(cchars file,cchars key)

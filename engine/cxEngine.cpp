@@ -11,6 +11,7 @@
 #include <core/cxAutoPool.h>
 #include <math/cxMatrixF.h>
 #include <core/cxNotice.h>
+#include "cxOpenAL.h"
 #include "cxEngine.h"
 #include "cxOpenGL.h"
 #include "cxShader.h"
@@ -424,12 +425,12 @@ void cxEngine::OnPause()
 
 void cxEngine::OnResume()
 {
-    
+    cxOpenAL::Instance()->OnResume();
 }
 
 void cxEngine::OnWarning()
 {
-    
+    cxOpenAL::Instance()->OnPause();
 }
 
 CX_CPP_END

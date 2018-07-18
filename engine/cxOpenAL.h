@@ -98,6 +98,8 @@ public:
     virtual void Play();
     virtual void Stop();
     virtual void Reset();
+    virtual void OnPause();
+    virtual void OnResume();
     void SetGain(cxFloat v);
     void SetPitch(cxFloat v);
     void SetPosition(const cxPoint3F &v);
@@ -145,6 +147,10 @@ public:
     cxALSource *Source(cchars file,cchars key);
     cxALSource *Source(cchars key);
     cxALSource *Source(const cxStr *data,cxALBuffer::DataType type);
+
+public:
+    void OnPause();
+    void OnResume();
 };
 
 CX_CPP_END

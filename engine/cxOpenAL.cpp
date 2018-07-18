@@ -238,11 +238,13 @@ cxMP3Source::cxMP3Source()
     memset(albuf, 0, sizeof(ALuint) * MAX_BUFFER);
     isstop = true;
     ispause = false;
+    alGenBuffers(MAX_BUFFER, albuf);
 }
 
 cxMP3Source::~cxMP3Source()
 {
     Stop();
+    alSourceUnqueueBuffers(handle,MAX_BUFFER,albuf);
     alDeleteBuffers(MAX_BUFFER, albuf);
 }
 
@@ -257,7 +259,7 @@ void cxMP3Source::Play()
         return;
     }
     cxInt num = 0;
-    for(cxInt i=0; i<MAX_BUFFER;i++){
+    for(cxInt i=0;i<MAX_BUFFER;i++){
         if(!mb->NextALBuffer(albuf[i])){
             break;
         }
@@ -283,21 +285,6 @@ void cxMP3Source::Stop()
     mb->Close();
     alSourceStop(handle);
     isstop = true;
-}
-
-cxBool cxMP3Source::Init(cxALBuffer *ab)
-{
-    alClearError();
-    alGenBuffers(MAX_BUFFER, albuf);
-    if(alGetError() != AL_NO_ERROR){
-        CX_ERROR("al gen buffer error");
-        return false;
-    }
-    if(!cxALSource::Init(ab)){
-        CX_ERROR("mp3 source init error");
-        return false;
-    }
-    return true;
 }
 
 void cxMP3Source::Update(cxFloat dt)
@@ -449,9 +436,9 @@ cxALSource::~cxALSource()
     if(IsPlaying()){
         Stop();
     }
+    cxObject::release(&buffer);
     alSourcei(handle, AL_BUFFER, 0);
     alDeleteSources(1, &handle);
-    cxObject::release(&buffer);
 }
 
 cxBool cxALSource::IsPlaying()
@@ -573,9 +560,9 @@ cxOpenAL::cxOpenAL()
     CX_ASSERT(context != nullptr, "alc create context error");
     alcMakeContextCurrent(context);
     sources = cxHash::Alloc();
-    if(mpg123_init() != MPG123_OK){
-        CX_ERROR("mpg123 Init failed");
-    }
+    int ret = mpg123_init();
+    CX_ASSERT(ret == MPG123_OK,"mpg123 init error");
+    (void)ret;
 }
 
 cxOpenAL::~cxOpenAL()
@@ -583,6 +570,7 @@ cxOpenAL::~cxOpenAL()
     mpg123_exit();
     sources->Release();
     alcMakeContextCurrent(nullptr);
+    alcDestroyContext(context);
     alcCloseDevice(device);
 }
 

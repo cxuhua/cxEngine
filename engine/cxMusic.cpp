@@ -21,7 +21,7 @@ cxMusic::cxMusic()
 
 cxMusic::~cxMusic()
 {
-    cxObject::release(&source);
+    source = nullptr;
 }
 
 void cxMusic::OnInit()
@@ -76,7 +76,7 @@ cxMusic *cxMusic::Create(cchars file,cchars key)
     if(source == nullptr){
         return ret;
     }
-    cxObject::swap(&ret->source, source);
+    ret->source = source;
     ret->SetTime(source->Buffer()->Duration());
     return ret;
 }

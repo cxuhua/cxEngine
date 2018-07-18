@@ -17,7 +17,7 @@
 
 CX_CPP_BEGIN
 
-#define MAX_BUFFER  64
+#define MAX_BUFFER  32
 
 class cxALBuffer : public cxObject
 {
@@ -121,7 +121,6 @@ private:
     cxBool isstop;
     cxBool ispause;
 public:
-    cxBool Init(cxALBuffer *ab);
     void Play();
     void Stop();
     void Reset();

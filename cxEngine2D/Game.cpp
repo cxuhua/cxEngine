@@ -52,6 +52,7 @@
 #include "Controller.h"
 #include "Map.h"
 #include "Shader.h"
+#include <lua/src/lua.hpp>
 
 
 CX_CPP_BEGIN
@@ -83,9 +84,35 @@ void Game::OnDispatch(const cxTouchable *e)
     }
 }
 
+int32 Game::OnProcUserPkt(GMPKT_DATA *ptagPktData){
+    CX_LOGGER("%s",ptagPktData->pPktData);
+    return 0;
+}
+
 void Game::OnMain()
 {
-    m = cxMusic::Create("test.mp3");
+    tcp = cxTcp::Create("47.104.96.88", 8899);
+    Window()->Append(tcp);
+    
+    tcp->onConnected+=[](cxTcp *ptcp){
+        CX_LOGGER("connect ok");
+    };
+    
+    cxTimer *timer = cxTimer::Forever(1);
+    timer->onArrive+=[this](cxTimer *pav){
+        CGmPacket p;
+//        p.PktPing(100, "test");
+        p.PktReqToken("1211");
+        cxStr *data = cxStr::Create((cxAny)p.GetPktData(), p.GetPktLength());
+        tcp->Write(data);
+    };
+    Window()->Append(timer);
+    
+    tcp->onData += [this](cxTcp *ptcp,cchars data,cxInt size){
+        AppendData(data, size);
+    };
+    
+    //m = cxMusic::Create("test.mp3");
 //    m->GetSource()->SetVelocity(cxPoint2F(100, 100));
 //    m->onStep+=[](cxAction *pav,cxFloat step){
 //        pav->To<cxMusic>()->GetSource()->SetPosition(cxPoint2F(x, y));
@@ -93,8 +120,8 @@ void Game::OnMain()
 //        CX_LOGGER("%f",x);
 //    };
 //    m->GetSource()->SetPosition(cxPoint2F(100,0));
-    m->SetRepeat(1000);
-    Window()->Append(m);
+    //m->SetRepeat(1000);
+    //Window()->Append(m);
     
     return;
     

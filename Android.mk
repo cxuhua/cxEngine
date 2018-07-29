@@ -18,6 +18,7 @@ LOCAL_CPPFLAGS := \
 LOCAL_MODULE := cxengine
 
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/ext/*.c)
+LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/lua/src/*.c)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/math/*.cpp)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/android/*.cpp)
 LOCAL_SRC_FILES += $(wildcard $(LOCAL_PATH)/core/*.cpp)

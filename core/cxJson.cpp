@@ -666,6 +666,21 @@ cxJson *cxJson::From(const cxJson *json)
     return cxJson::Create()->From(json->ToStr());
 }
 
+cxJson *cxJson::From(cchars buf,cxInt size)
+{
+    if(buf == NULL || size == 0){
+        return nullptr;
+    }
+    json_decref(json);
+    json_error_t error = {0};
+    json = json_loadb(buf,size,JSON_DECODE_ANY, &error);
+    if(json == nullptr){
+        CX_ERROR("cxJson load error (%d:%d) %s:%s",error.line,error.column,error.source,error.text);
+        return nullptr;
+    }
+    return this;
+}
+
 cxJson *cxJson::From(cchars str)
 {
     if(!cxStr::IsOK(str)){

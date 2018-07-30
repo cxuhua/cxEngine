@@ -115,6 +115,7 @@ public:
     cxJson *From(cxFloat value);
     cxJson *From(cxBool value);
     cxJson *From(cchars str);
+    cxJson *From(cchars buf,cxInt size);
     cxJson *From(json_t *js);
     cxJson *From(const cxStr *str);
     cxJson *From(const cxJson *json);

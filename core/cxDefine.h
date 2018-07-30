@@ -187,7 +187,6 @@ do{                                                             \
 #define CX_CPP_BEGIN                    namespace cxengine {
 #define CX_CPP_END                      }
 
-
 #define CX_DECLARE(T)                                               \
 template <typename... Args>                                         \
 static CX_INLINE T *AllocWithArgs(Args... args)                     \
@@ -216,8 +215,6 @@ static CX_INLINE T *__Alloc__()                                     \
 }                                                                   \
 public:                                                             \
 virtual const cxHelper &GetHelper() const;
-
-
 
 #define CX_IMPLEMENT(T)                                             \
 cxHelper T::__helper__=cxHelper(#T,(cxCore::AllocFunc)T::__Alloc__);\

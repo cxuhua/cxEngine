@@ -137,7 +137,7 @@ void cxHttp::OnConnected()
     if(!Write(header)){
         CX_ERROR("http write data error");
     }
-    if(method == HTTP_POST && cxStr::IsOK(post)){
+    if(method != HTTP_GET && cxStr::IsOK(post)){
         Write(post);
     }
     header->Release();

@@ -33,7 +33,7 @@ protected:
     void OnDirty();
     void OnRender(cxRender *render,const cxMatrixF &model);
 public:
-    void SetCoords(const cxArray *acoords,const cxFrameMap *map);
+    cxSprite *SetCoords(const cxArray *acoords,const cxFrameMap *map);
     cxTexCoord *TexCoord() const;
 public:
     

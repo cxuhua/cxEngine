@@ -162,18 +162,29 @@ cxBool cxSprite::OnCoord(cxInt idx, cxTexCoord *coord)
     return true;
 }
 
-void cxSprite::SetCoords(const cxArray *acoords,const cxFrameMap *map)
+cxSprite *cxSprite::SetCoords(const cxArray *acoords,const cxFrameMap *map)
 {
     CX_ASSERT(false, "cxSprite not imp SetCoords");
+    return this;
 }
 
-void cxSprite::SetTexture(const cxTexture *ptex)
+cxSprite *cxSprite::SetTexture(const cxTexture *ptex)
 {
     CX_ASSERT(ptex != nullptr, "ptex args error");
     if(texture != ptex){
         cxObject::swap(&texture, ptex);
         SetDirty(DirtyModeTexture);
     }
+    return this;
+}
+
+cxSprite *cxSprite::RepeatFill(cxInt w,cxInt h)
+{
+    CX_ASSERT(texture != nullptr, "ptex args error");
+    texture->SetParams(cxTextureParams::Repeat);
+    coord->coord.SetWH(cxSize2F(w, h));
+    SetDirty(DirtyModeTexture);
+    return this;
 }
 
 cxSprite *cxSprite::SetTexture(const cxStr *tkey)

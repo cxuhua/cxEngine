@@ -34,8 +34,8 @@ protected:
     void OnDirty();
     void OnRender(cxRender *render,const cxMatrixF &model);
 public:
-    virtual void SetTexture(const cxTexture *ptex);
-    virtual void SetCoords(const cxArray *acoords,const cxFrameMap *map);
+    virtual cxSprite *SetTexture(const cxTexture *ptex);
+    virtual cxSprite *SetCoords(const cxArray *acoords,const cxFrameMap *map);
     virtual cxTexCoord *TexCoord() const;
     virtual cxBool OnCoord(cxInt idx, cxTexCoord *coord);
 public:
@@ -43,6 +43,8 @@ public:
     static cxSprite *Create(cchars fkey,...);
 
     cxSprite *UseTextureSize();
+    
+    cxSprite *RepeatFill(cxInt w,cxInt h);
     
     cxBoxRender &BoxRender();
     

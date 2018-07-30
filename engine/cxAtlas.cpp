@@ -36,7 +36,7 @@ cxAtlas *cxAtlas::Create(const cxFrames *frames)
     return rv;
 }
 
-void cxAtlas::SetCoords(const cxArray *acoords,const cxFrameMap *map)
+cxSprite *cxAtlas::SetCoords(const cxArray *acoords,const cxFrameMap *map)
 {
     CX_ASSERT(acoords != nullptr && map != nullptr, "coords or map args error");
     CX_ASSERT(!Size().IsZero(), "size not set");
@@ -68,6 +68,7 @@ void cxAtlas::SetCoords(const cxArray *acoords,const cxFrameMap *map)
         render.SetCoords(coord->coord);
         coords->Append(coord);
     }
+    return this;
 }
 
 const cxFrames *cxAtlas::Frames()

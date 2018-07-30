@@ -66,7 +66,7 @@ cxTriangles *cxTriangles::SetFrames(const cxFrames *frames,cxInt idx)
     return this;
 }
 
-void cxTriangles::SetCoords(const cxArray *acoords,const cxFrameMap *map)
+cxSprite *cxTriangles::SetCoords(const cxArray *acoords,const cxFrameMap *map)
 {
     CX_ASSERT(acoords != nullptr && map != nullptr, "coords or map args error");
     CX_ASSERT(!Size().IsZero(), "size not set");
@@ -94,6 +94,7 @@ void cxTriangles::SetCoords(const cxArray *acoords,const cxFrameMap *map)
         is.Append(coord->ats,is.Size());
         coords->Append(coord);
     }
+    return this;
 }
 
 

@@ -8,6 +8,8 @@
 
 
 #include "cxBoxCoord2F.h"
+#include "cxSize2F.h"
+#include "cxBox4F.h"
 
 CX_CPP_BEGIN
 
@@ -60,10 +62,20 @@ cxBoxCoord2F::cxBoxCoord2F(const cxBoxCoord2F &v)
 
 cxBoxCoord2F::cxBoxCoord2F(cxFloat l,cxFloat r,cxFloat t,cxFloat b)
 {
-    lt = cxCoord2F(l,t);
-    lb = cxCoord2F(l,b);
-    rt = cxCoord2F(r,t);
-    rb = cxCoord2F(r,b);
+    SetBox(cxBox4F(l, r, t, b));
+}
+
+void cxBoxCoord2F::SetBox(const cxBox4F &box)
+{
+    lt = cxCoord2F(box.l,box.t);
+    lb = cxCoord2F(box.l,box.b);
+    rt = cxCoord2F(box.r,box.t);
+    rb = cxCoord2F(box.r,box.b);
+}
+
+void cxBoxCoord2F::SetWH(const cxSize2F &size)
+{
+    SetBox(cxBox4F(0, size.w, 0, size.h));
 }
 
 cxBoxCoord2F::cxBoxCoord2F()

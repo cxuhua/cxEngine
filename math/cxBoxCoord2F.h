@@ -22,6 +22,7 @@ struct cxCoord2F
     cxCoord2F(cxFloat au,cxFloat av);
 };
 
+struct cxBox4F;
 struct cxBoxCoord2F
 {
     cxCoord2F lt;
@@ -33,6 +34,8 @@ struct cxBoxCoord2F
     cxBoxCoord2F(const cxBoxCoord2F &v);
     cxBoxCoord2F(const cxCoord2F &alt,const cxCoord2F &alb,const cxCoord2F &art,const cxCoord2F &arb);
     cxBoxCoord2F(cxFloat l,cxFloat r,cxFloat t,cxFloat b);
+    void SetWH(const cxSize2F &size);
+    void SetBox(const cxBox4F &box);
     const cxFloat X() const;
     const cxFloat Y() const;
     const cxFloat W() const;

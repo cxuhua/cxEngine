@@ -126,6 +126,30 @@ cxBool cxContainer::scale(const cxengine::cxTouchable *e)
     return false;
 }
 
+void cxContainer::OnSwipe(SwipeType type,cxFloat speed)
+{
+    if(type == DirectionDown){
+        CX_LOGGER("DirectionDown=%f",speed);
+        return;
+    }
+    if(type == DirectionUp){
+        CX_LOGGER("DirectionUp=%f",speed);
+        return;
+    }
+    if(type == DirectionLeft){
+        CX_LOGGER("DirectionLeft=%f",speed);
+        return;
+    }
+    if(type == DirectionRight){
+        CX_LOGGER("DirectionRight=%f",speed);
+        return;
+    }
+    if(type == DirectionNone){
+        CX_LOGGER("DirectionNone=%f",speed);
+        return;
+    }
+}
+
 cxBool cxContainer::OnDispatch(const cxTouchable *e)
 {
     if(e->TouchCount() == 2 && isscaling){
@@ -159,6 +183,23 @@ cxBool cxContainer::OnDispatch(const cxTouchable *e)
         cxPoint2F sp = ep->Speed();
         if(sp.Length() < 1000){
             return false;
+        }
+        if(fabs(sp.x) > fabs(sp.y)){
+            if(sp.x > 0){
+                OnSwipe(DirectionRight,sp.Length());
+            }else if(sp.x < 0){
+                OnSwipe(DirectionLeft,sp.Length());
+            }else {
+                OnSwipe(DirectionNone,sp.Length());
+            }
+        }else if(fabs(sp.x) < fabs(sp.y)){
+            if(sp.y > 0){
+                OnSwipe(DirectionUp,sp.Length());
+            }else if(sp.y < 0){
+                OnSwipe(DirectionDown,sp.Length());
+            }
+        }else{
+            OnSwipe(DirectionNone,sp.Length());
         }
         cxPoint2F pos = Body()->Position();
         if(slidingtype & Horizontal){

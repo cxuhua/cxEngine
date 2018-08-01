@@ -33,6 +33,12 @@ cxContainer *cxContainer::EnableSliding(cxBool v)
     return this;
 }
 
+cxContainer *cxContainer::EnableSwipe(cxBool v)
+{
+    useswipe = v;
+    return this;
+}
+
 cxContainer *cxContainer::SetSlidingType(SlidingType v)
 {
     slidingtype = v;
@@ -51,6 +57,12 @@ cxContainer *cxContainer::SetSlidingTime(cxFloat v)
     return this;
 }
 
+cxContainer *cxContainer::SetSwipeTime(cxFloat v)
+{
+    swipetime = v;
+    return this;
+}
+
 cxContainer::cxContainer()
 {
     bodyidx = 0;
@@ -62,6 +74,8 @@ cxContainer::cxContainer()
     slidingtype = Horizontal|Vertical;
     slidingtime = 1.0f;
     slidingspeed = 0.1f;
+    swipetime = 0.15;
+    useswipe = false;
 }
 
 cxContainer::~cxContainer()
@@ -126,28 +140,49 @@ cxBool cxContainer::scale(const cxengine::cxTouchable *e)
     return false;
 }
 
-void cxContainer::OnSwipe(SwipeType type,cxFloat speed)
+cxBool cxContainer::OnSwipe(SwipeType type,cxFloat speed)
 {
     if(type == DirectionDown){
         CX_LOGGER("DirectionDown=%f",speed);
-        return;
+        return true;
     }
     if(type == DirectionUp){
         CX_LOGGER("DirectionUp=%f",speed);
-        return;
+        return true;
     }
     if(type == DirectionLeft){
         CX_LOGGER("DirectionLeft=%f",speed);
-        return;
+        return true;
     }
     if(type == DirectionRight){
         CX_LOGGER("DirectionRight=%f",speed);
-        return;
+        return true;
     }
-    if(type == DirectionNone){
-        CX_LOGGER("DirectionNone=%f",speed);
-        return;
+    return false;
+}
+
+cxBool cxContainer::checkSwipe(const cxTouchPoint *ep)
+{
+    cxPoint2F sp = ep->Speed();
+    if(sp.Length() < 1000){
+        return false;
     }
+    if(fabs(sp.x) > fabs(sp.y)){
+        if(sp.x > 0){
+            return OnSwipe(DirectionRight,sp.Length());
+        }
+        if(sp.x < 0){
+            return OnSwipe(DirectionLeft,sp.Length());
+        }
+    }else if(fabs(sp.x) < fabs(sp.y)){
+        if(sp.y > 0){
+            return OnSwipe(DirectionUp,sp.Length());
+        }
+        if(sp.y < 0){
+            return OnSwipe(DirectionDown,sp.Length());
+        }
+    }
+    return OnSwipe(DirectionNone,sp.Length());
 }
 
 cxBool cxContainer::OnDispatch(const cxTouchable *e)
@@ -180,26 +215,12 @@ cxBool cxContainer::OnDispatch(const cxTouchable *e)
         return true;
     }
     if(ep->IsEnded() && !ep->IsTap()){
+        if(useswipe && checkSwipe(ep)){
+            return true;
+        }
         cxPoint2F sp = ep->Speed();
         if(sp.Length() < 1000){
             return false;
-        }
-        if(fabs(sp.x) > fabs(sp.y)){
-            if(sp.x > 0){
-                OnSwipe(DirectionRight,sp.Length());
-            }else if(sp.x < 0){
-                OnSwipe(DirectionLeft,sp.Length());
-            }else {
-                OnSwipe(DirectionNone,sp.Length());
-            }
-        }else if(fabs(sp.x) < fabs(sp.y)){
-            if(sp.y > 0){
-                OnSwipe(DirectionUp,sp.Length());
-            }else if(sp.y < 0){
-                OnSwipe(DirectionDown,sp.Length());
-            }
-        }else{
-            OnSwipe(DirectionNone,sp.Length());
         }
         cxPoint2F pos = Body()->Position();
         if(slidingtype & Horizontal){

@@ -36,8 +36,9 @@ protected:
     virtual ~cxContainer();
 protected:
     cxBool OnDispatch(const cxTouchable *e);
-    virtual void OnSwipe(SwipeType type,cxFloat speed);
+    virtual cxBool OnSwipe(SwipeType type,cxFloat speed);
 private:
+    cxBool useswipe;
     cxInt bodyidx;
     SlidingType slidingtype;
     cxPoint2F fixPosition(const cxPoint2F &pos);
@@ -50,6 +51,8 @@ private:
     cxBool issliding;
     cxFloat slidingspeed;
     cxFloat slidingtime;
+    cxFloat swipetime;
+    cxBool checkSwipe(const cxTouchPoint *ep);
 protected:
     virtual cxView *Body();
     cxContainer *FixPosition();
@@ -58,9 +61,11 @@ public:
     cxContainer *SetScaleRange(const cxRange2F &v);
     cxContainer *EnableScale(cxBool v);
     cxContainer *EnableSliding(cxBool v);
+    cxContainer *EnableSwipe(cxBool v);
     cxContainer *SetSlidingType(SlidingType v);
     cxContainer *SetSlidingSpeed(cxFloat v);
     cxContainer *SetSlidingTime(cxFloat v);
+    cxContainer *SetSwipeTime(cxFloat v);
 };
 CX_CPP_END
 

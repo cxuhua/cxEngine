@@ -12,22 +12,7 @@
 
 using namespace cxengine;
 
-@implementation IOSApplication
-
--(void)sendEvent:(UIEvent *)event
-{
-    [super sendEvent:event];
-}
-
-@end
-
-@interface IOSDelegate ()
-{
-    
-}
-@end
-
-@implementation IOSDelegate
+@implementation AppDelegate
 
 -(void)cxDisableDocumentBackup
 {
@@ -45,21 +30,6 @@ using namespace cxengine;
     }
 }
 
--(void)OnLoad
-{
-    
-}
-
-- (BOOL) shouldAutorotate
-{
-    return YES;
-}
-
--(UIInterfaceOrientationMask)SupportOrientation
-{
-    return UIInterfaceOrientationMaskAll;
-}
-
 -(EAGLContext *)GLContext
 {
     IOSViewController *root = (IOSViewController *)self.window.rootViewController;
@@ -68,6 +38,8 @@ using namespace cxengine;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    cxengine::cxEngine::Startup(false);
+    
     [self cxDisableDocumentBackup];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];

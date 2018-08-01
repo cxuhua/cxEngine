@@ -9,11 +9,8 @@
 /* Begin PBXBuildFile section */
 		833ED2471CD857C700046BB6 /* libcxEngineCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52481CD857140002BF77 /* libcxEngineCore.a */; };
 		833ED2491CD857EC00046BB6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 833ED2481CD857EC00046BB6 /* libz.tbd */; };
-		833ED24C1CD85A5500046BB6 /* grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 833ED24B1CD85A5500046BB6 /* grid.png */; };
-		839A52151CD854D30002BF77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 839A52141CD854D30002BF77 /* main.m */; };
 		839A52201CD854D30002BF77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 839A521F1CD854D30002BF77 /* Assets.xcassets */; };
 		839A52231CD854D30002BF77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 839A52211CD854D30002BF77 /* LaunchScreen.storyboard */; };
-		839A522E1CD855620002BF77 /* App.mm in Sources */ = {isa = PBXBuildFile; fileRef = 839A522B1CD855620002BF77 /* App.mm */; };
 		839A522F1CD855620002BF77 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839A522C1CD855620002BF77 /* Game.cpp */; };
 		839A52311CD856B60002BF77 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52301CD856B60002BF77 /* OpenAL.framework */; };
 		839A52331CD856BA0002BF77 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52321CD856BA0002BF77 /* GLKit.framework */; };
@@ -35,14 +32,10 @@
 
 /* Begin PBXFileReference section */
 		833ED2481CD857EC00046BB6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		833ED24B1CD85A5500046BB6 /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
 		839A52101CD854D30002BF77 /* template.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = template.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		839A52141CD854D30002BF77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		839A521F1CD854D30002BF77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		839A52221CD854D30002BF77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		839A52241CD854D30002BF77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		839A522A1CD855620002BF77 /* App.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
-		839A522B1CD855620002BF77 /* App.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = App.mm; sourceTree = "<group>"; };
 		839A522C1CD855620002BF77 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		839A522D1CD855620002BF77 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		839A52301CD856B60002BF77 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -73,14 +66,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		833ED24A1CD85A5500046BB6 /* asserts */ = {
-			isa = PBXGroup;
-			children = (
-				833ED24B1CD85A5500046BB6 /* grid.png */,
-			);
-			path = asserts;
-			sourceTree = "<group>";
-		};
 		839A52071CD854D30002BF77 = {
 			isa = PBXGroup;
 			children = (
@@ -102,8 +87,6 @@
 		839A52121CD854D30002BF77 /* template */ = {
 			isa = PBXGroup;
 			children = (
-				839A522A1CD855620002BF77 /* App.h */,
-				839A522B1CD855620002BF77 /* App.mm */,
 				839A522C1CD855620002BF77 /* Game.cpp */,
 				839A522D1CD855620002BF77 /* Game.h */,
 				839A521F1CD854D30002BF77 /* Assets.xcassets */,
@@ -117,8 +100,6 @@
 		839A52131CD854D30002BF77 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				833ED24A1CD85A5500046BB6 /* asserts */,
-				839A52141CD854D30002BF77 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -221,7 +202,6 @@
 			files = (
 				839A52231CD854D30002BF77 /* LaunchScreen.storyboard in Resources */,
 				839A52201CD854D30002BF77 /* Assets.xcassets in Resources */,
-				833ED24C1CD85A5500046BB6 /* grid.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,8 +213,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				839A522F1CD855620002BF77 /* Game.cpp in Sources */,
-				839A52151CD854D30002BF77 /* main.m in Sources */,
-				839A522E1CD855620002BF77 /* App.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

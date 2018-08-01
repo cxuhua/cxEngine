@@ -108,9 +108,6 @@ using namespace cxengine;
     glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderBuffer);
-    
-    IOSDelegate *app = (IOSDelegate *)[[UIApplication sharedApplication] delegate];
-    [app OnLoad];
 }
 
 -(void)dealloc
@@ -137,14 +134,12 @@ using namespace cxengine;
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    IOSDelegate *app = (IOSDelegate *)[[UIApplication sharedApplication] delegate];
-    return [app SupportOrientation];
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (BOOL) shouldAutorotate
 {
-    IOSDelegate *app = (IOSDelegate *)[[UIApplication sharedApplication] delegate];
-    return [app shouldAutorotate];
+    return YES;
 }
 
 - (BOOL)prefersStatusBarHidden

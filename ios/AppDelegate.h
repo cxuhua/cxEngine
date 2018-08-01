@@ -9,22 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "cxGLView.h"
 
-@interface IOSApplication : UIApplication
-{
-    
-}
-@end
 
-@interface IOSDelegate : UIResponder <UIApplicationDelegate>
-
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property(retain,nonatomic)UIWindow *window;
-
--(void)OnLoad;
-
 -(EAGLContext *)GLContext;
-
--(UIInterfaceOrientationMask)SupportOrientation;
-
-- (BOOL)shouldAutorotate;
 @end
 

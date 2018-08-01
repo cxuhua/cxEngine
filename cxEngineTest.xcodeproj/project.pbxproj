@@ -34,7 +34,6 @@
 		839FD5BE1FB40B95003C7899 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839FD5BC1FB40B95003C7899 /* Point.cpp */; };
 		83B6E3201E2A006A00C9C6AB /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 83B6E31F1E2A006A00C9C6AB /* bg.png */; };
 		83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0D3E1BF04EC200B0CC0B /* libz.tbd */; };
-		83BE63751B311E0A0028B6E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BE63741B311E0A0028B6E7 /* main.m */; };
 		83C410DA1E28B3C90027FAFC /* penhuo1_xia.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */; };
 		83C5BFA61CD8612500F0DA0B /* libmpg123.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA01CD8612500F0DA0B /* libmpg123.a */; };
 		83C5BFA81CD8612500F0DA0B /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA21CD8612500F0DA0B /* libpng.a */; };
@@ -87,7 +86,6 @@
 		83D8C3571B69E46400155990 /* battle_lost_02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83D8C3561B69E46400155990 /* battle_lost_02.mp3 */; };
 		83D92D281B315E7200F061D6 /* animate.json in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D261B315E7200F061D6 /* animate.json */; };
 		83D92D291B315E7200F061D6 /* animate.png in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D271B315E7200F061D6 /* animate.png */; };
-		83E6F64D1B0C97B5006839C8 /* App.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83E6F64C1B0C97B5006839C8 /* App.mm */; };
 		83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E6F6561B0C97B5006839C8 /* LaunchScreen.xib */; };
 		83E6F66F1B0C97F7006839C8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66D1B0C97F7006839C8 /* GLKit.framework */; };
 		83E6F6701B0C97F7006839C8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */; };
@@ -146,7 +144,6 @@
 		839FD5BD1FB40B95003C7899 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
 		83B6E31F1E2A006A00C9C6AB /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		83BA0D3E1BF04EC200B0CC0B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		83BE63741B311E0A0028B6E7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo1_xia.xml; sourceTree = "<group>"; wrapsLines = 1; };
 		83C5BFA01CD8612500F0DA0B /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = libs/ios/lib/libmpg123.a; sourceTree = "<group>"; };
 		83C5BFA21CD8612500F0DA0B /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libs/ios/lib/libpng.a; sourceTree = "<group>"; };
@@ -236,8 +233,6 @@
 		83D92D271B315E7200F061D6 /* animate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = animate.png; sourceTree = "<group>"; };
 		83E6F6441B0C97B5006839C8 /* cxEngineTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cxEngineTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E6F6481B0C97B5006839C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		83E6F64B1B0C97B5006839C8 /* App.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
-		83E6F64C1B0C97B5006839C8 /* App.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = App.mm; sourceTree = "<group>"; };
 		83E6F6571B0C97B5006839C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		83E6F66D1B0C97F7006839C8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -453,9 +448,6 @@
 				836E304A1B5E2B4C00ED8BDC /* water.png */,
 				836E304B1B5E2B4C00ED8BDC /* water.vsh */,
 				8302A5841B535EC500C7209C /* grid.png */,
-				83BE63741B311E0A0028B6E7 /* main.m */,
-				83E6F64B1B0C97B5006839C8 /* App.h */,
-				83E6F64C1B0C97B5006839C8 /* App.mm */,
 				83E6F6471B0C97B5006839C8 /* Supporting Files */,
 				83546A451B3127F700FFE1E7 /* Game.cpp */,
 				83546A461B3127F700FFE1E7 /* Game.h */,
@@ -628,7 +620,6 @@
 				83CC5966210D7A69007F196A /* lparser.c in Sources */,
 				83CC58DF210C21AF007F196A /* wtcommon.cpp in Sources */,
 				8314210F1CE99DD300C140B2 /* Controller.cpp in Sources */,
-				83BE63751B311E0A0028B6E7 /* main.m in Sources */,
 				83CC58E1210C21AF007F196A /* cpcmd5.cpp in Sources */,
 				83CC594D210D7A69007F196A /* lvm.c in Sources */,
 				83CC594F210D7A69007F196A /* lstrlib.c in Sources */,
@@ -657,7 +648,6 @@
 				83CC5956210D7A69007F196A /* luac.c in Sources */,
 				83CC5965210D7A69007F196A /* ldebug.c in Sources */,
 				83CC5962210D7A69007F196A /* lbitlib.c in Sources */,
-				83E6F64D1B0C97B5006839C8 /* App.mm in Sources */,
 				83CC5968210D7A69007F196A /* ltm.c in Sources */,
 				83CC58E0210C21AF007F196A /* gmunpacket.cpp in Sources */,
 				833D43B11FB5970D00DFCF83 /* Block.cpp in Sources */,

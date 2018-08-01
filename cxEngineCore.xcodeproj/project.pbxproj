@@ -44,7 +44,6 @@
 		833B40711B31B89600920A06 /* cxBoxPoint3F.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 833B406F1B31B89600920A06 /* cxBoxPoint3F.cpp */; };
 		8345E15F1B370E6F00A46A47 /* cxQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8345E15D1B370E6F00A46A47 /* cxQueue.cpp */; };
 		8345E1621B37138200A46A47 /* cxList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8345E1601B37138200A46A47 /* cxList.cpp */; };
-		8346501A1CD754460046BC55 /* cxScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 834650181CD754460046BC55 /* cxScript.cpp */; };
 		8354C3071B3C620C00AC9F3C /* cxTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8354C3051B3C620C00AC9F3C /* cxTouch.cpp */; };
 		8357CB951B11FDC80085E600 /* cxJson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8357CB931B11FDC80085E600 /* cxJson.cpp */; };
 		8357CB981B12079D0085E600 /* cxStr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8357CB961B12079D0085E600 /* cxStr.cpp */; };
@@ -234,8 +233,6 @@
 		8345E15E1B370E6F00A46A47 /* cxQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxQueue.h; sourceTree = "<group>"; };
 		8345E1601B37138200A46A47 /* cxList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxList.cpp; sourceTree = "<group>"; };
 		8345E1611B37138200A46A47 /* cxList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxList.h; sourceTree = "<group>"; };
-		834650181CD754460046BC55 /* cxScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxScript.cpp; sourceTree = "<group>"; };
-		834650191CD754460046BC55 /* cxScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxScript.h; sourceTree = "<group>"; };
 		8354C3051B3C620C00AC9F3C /* cxTouch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxTouch.cpp; sourceTree = "<group>"; };
 		8354C3061B3C620C00AC9F3C /* cxTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTouch.h; sourceTree = "<group>"; };
 		8357CB931B11FDC80085E600 /* cxJson.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxJson.cpp; sourceTree = "<group>"; };
@@ -513,8 +510,6 @@
 				833043C31B41109600636928 /* cxRotate.h */,
 				833043C51B41149000636928 /* cxScale.cpp */,
 				833043C61B41149000636928 /* cxScale.h */,
-				834650181CD754460046BC55 /* cxScript.cpp */,
-				834650191CD754460046BC55 /* cxScript.h */,
 				83C9D1251B48CC1E00EC244C /* cxSequence.cpp */,
 				83C9D1261B48CC1E00EC244C /* cxSequence.h */,
 				837BD88C1CEAE64B006DBF84 /* cxMultiple.cpp */,
@@ -883,7 +878,6 @@
 				83A60B821FAF4CA300649616 /* mat3.c in Sources */,
 				836F3F061B1B70FA00E3E82C /* md5.c in Sources */,
 				831B93F41B4A970600511A63 /* cxCSV.cpp in Sources */,
-				8346501A1CD754460046BC55 /* cxScript.cpp in Sources */,
 				83D5D31E1B6763B70051D99D /* cxLQT.cpp in Sources */,
 				831189D91B2D72F100C930B5 /* cxMatrixF.cpp in Sources */,
 				83D92D361B317C2000F061D6 /* cxBoxPoint2F.cpp in Sources */,

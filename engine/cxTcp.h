@@ -36,17 +36,12 @@ private:
     
     char *buffer;
     cxInt bufsiz;
-    
-    cxBool shutdown;
     cxBool connected;
     
-    static void shutdown_cb(uv_shutdown_t* req, int status);
     static void close_cb(uv_handle_t* handle);
     static void alloc_cb(uv_handle_t* handle,size_t suggested,uv_buf_t* buf);
     static void read_cb(uv_stream_t* tcp, ssize_t nread, const uv_buf_t* buf);
-    
     static void connect_cb(uv_connect_t* req, int status);
-    
     static void resolved_cb(uv_getaddrinfo_t *resolver, int status, struct addrinfo *res);
     static void write_cb(uv_write_t* req, int status);
 protected:

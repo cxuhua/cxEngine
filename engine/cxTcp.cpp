@@ -17,7 +17,6 @@ CX_IMPLEMENT(cxTcp);
 cxTcp::cxTcp()
 {
     uv_loop_init(&looper);
-    shutdown = false;
     connected = false;
     uv_tcp_init(&looper, &handle);
     handle.data = this;
@@ -40,7 +39,6 @@ cxTcp *cxTcp::Create(cchars host,cxInt port)
 {
     cxTcp *rv = cxTcp::Create();
     rv->Connect(host, port);
-    rv->Forever();
     return rv;
 }
 
@@ -68,12 +66,6 @@ void cxTcp::OnConnected()
 void cxTcp::OnIpAddr(cchars ip)
 {
     onIpAddr.Fire(this, ip);
-}
-
-void cxTcp::shutdown_cb(uv_shutdown_t* req, int status)
-{
-    cxTcp *tcp = static_cast<cxTcp *>(req->data);
-    tcp->shutdown = true;
 }
 
 void cxTcp::close_cb(uv_handle_t* handle)

@@ -57,7 +57,7 @@ using namespace cxengine;
 
 -(UIInterfaceOrientationMask)SupportOrientation
 {
-    return UIInterfaceOrientationMaskPortrait;
+    return UIInterfaceOrientationMaskAll;
 }
 
 -(EAGLContext *)GLContext

@@ -50,7 +50,7 @@ const cxFloat cxBoxCoord2F::H() const
     return lb.v - lt.v;
 }
 
-cxBoxCoord2F cxBoxCoord2F::Default = cxBoxCoord2F(cxCoord2F(0.0f,0.0f),cxCoord2F(0.0f,1.0f),cxCoord2F(1.0f,0.0f),cxCoord2F(1.0f,1.0f));
+cxBoxCoord2F cxBoxCoord2F::Default = cxBoxCoord2F();
 
 cxBoxCoord2F::cxBoxCoord2F(const cxBoxCoord2F &v)
 {

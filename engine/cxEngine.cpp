@@ -63,7 +63,6 @@ void cxEngine::Destroy()
 {
     cxCore::Instance()->Clear();
     cxObject::release(&instance);
-    instance = nullptr;
 }
 
 cxEngine *cxEngine::Instance()

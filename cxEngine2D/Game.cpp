@@ -42,7 +42,6 @@
 #include "Game.h"
 #include <core/cxKDTree.h>
 #include "Sea.h"
-#include <engine/cxScript.h>
 
 #include <engine/cxFrames.h>
 #include <engine/cxActionGroup.h>
@@ -84,44 +83,24 @@ void Game::OnDispatch(const cxTouchable *e)
     }
 }
 
-int32 Game::OnProcUserPkt(GMPKT_DATA *ptagPktData){
-    CX_LOGGER("%s",ptagPktData->pPktData);
-    return 0;
-}
-
 void Game::OnMain()
 {
-    tcp = cxTcp::Create("47.104.96.88", 8899);
-    Window()->Append(tcp);
-    
-    tcp->onConnected+=[](cxTcp *ptcp){
-        CX_LOGGER("connect ok");
-    };
-    
-    cxTimer *timer = cxTimer::Forever(1);
-    timer->onArrive+=[this](cxTimer *pav){
-        CGmPacket p;
-//        p.PktPing(100, "test");
-        p.PktReqToken("1211");
-        cxStr *data = cxStr::Create((cxAny)p.GetPktData(), p.GetPktLength());
-        tcp->Write(data);
-    };
-    Window()->Append(timer);
-    
-    tcp->onData += [this](cxTcp *ptcp,cchars data,cxInt size){
-        AppendData(data, size);
-    };
-    
-    //m = cxMusic::Create("test.mp3");
-//    m->GetSource()->SetVelocity(cxPoint2F(100, 100));
-//    m->onStep+=[](cxAction *pav,cxFloat step){
-//        pav->To<cxMusic>()->GetSource()->SetPosition(cxPoint2F(x, y));
-//        x-=1;
-//        CX_LOGGER("%f",x);
+//    tcp = cxTcp::Create("47.104.96.88", 8899);
+//    Window()->Append(tcp);
+//
+//    tcp->onConnected+=[](cxTcp *ptcp){
+//        CX_LOGGER("connect ok");
 //    };
-//    m->GetSource()->SetPosition(cxPoint2F(100,0));
-    //m->SetRepeat(1000);
-    //Window()->Append(m);
+    
+    
+    m = cxMusic::Create("test.mp3");
+    m->GetSource()->SetVelocity(cxPoint2F(100, 100));
+    m->onStep+=[](cxAction *pav,cxFloat step){
+        //
+    };
+    m->GetSource()->SetPosition(cxPoint2F(100,0));
+    m->SetRepeat(1);
+    Window()->Append(m);
     
     return;
     

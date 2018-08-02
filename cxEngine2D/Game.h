@@ -11,13 +11,11 @@
 
 #include <engine/cxEngine.h>
 #include <engine/cxTcp.h>
-#include <gmunpacket.h>
-#include <gmpacket.h>
 
 CX_CPP_BEGIN
 
 class cxButton;
-class Game : public cxEngine,public CGmUnPacketEx
+class Game : public cxEngine
 {
 public:
     CX_DECLARE(Game);
@@ -29,7 +27,6 @@ private:
 public:
     void OnDispatch(const cxTouchable *e);
     void OnMain();
-    int32 OnProcUserPkt(GMPKT_DATA *ptagPktData);
 };
 
 CX_CPP_END

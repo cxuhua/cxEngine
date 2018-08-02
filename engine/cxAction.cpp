@@ -136,6 +136,11 @@ void cxAction::Stop()
     repeat = 0;
 }
 
+void cxAction::Expire()
+{
+    elapsed = time;
+}
+
 void cxAction::Pause()
 {
     ispause = true;

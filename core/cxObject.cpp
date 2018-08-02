@@ -19,11 +19,12 @@ CX_IMPLEMENT(cxObject);
 cxObject::~cxObject()
 {
     UnBind();
+    onFree.Fire(this);
 }
 
 cxObject::cxObject():refcount(1),tag(0)
 {
-    
+    onInit.Fire(this);
 }
 
 const cxInt cxObject::BindesSize() const

@@ -131,6 +131,9 @@ public:
     void Bind(cxObject *pobj,cxLong tag=0);
     void UnBind(cxObject *pobj);
     void UnBind();
+public:
+    cxEvent<cxObject> onFree;
+    cxEvent<cxObject> onInit;
 };
 
 template<class T>

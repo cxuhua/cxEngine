@@ -7,9 +7,13 @@
 //
 #include <core/cxHash.h>
 #include <core/cxUtil.h>
+#define MINIMP3_IMPLEMENTATION
+#include <ext/minimp3.h>
 #include "cxOpenAL.h"
 
 CX_CPP_BEGIN
+
+#define alClearError() alGetError()
 
 /// WAV File-header
 struct WAVFileHdr
@@ -54,7 +58,34 @@ struct WAVChunkHdr
 };
 
 
-#define alClearError() alGetError()
+class cxMP3Buffer : public cxALBuffer
+{
+public:
+    CX_DECLARE(cxMP3Buffer);
+protected:
+    explicit cxMP3Buffer();
+    virtual ~cxMP3Buffer();
+private:
+    short pcm[MINIMP3_MAX_SAMPLES_PER_FRAME];
+    mp3dec_t mp3d;
+    mp3dec_frame_info_t info;
+    cxInt mp3position;
+    cxStr *mp3data;
+    cxBool haspcm;
+    cxInt sample;
+    cxBool readNextFrame();
+
+    cxBool isopen;
+    cxBool isfinished;
+public:
+    cxBool IsOpen();
+    cxBool Open();
+    void Reset();
+    void Close();
+    cxBool NextALBuffer(ALuint b);
+    cxBool Init(const cxStr *data);
+    cxBool IsFinished();
+};
 
 CX_IMPLEMENT(cxMP3Buffer)
 
@@ -62,139 +93,60 @@ cxMP3Buffer::cxMP3Buffer()
 {
     isfinished = false;
     isopen = false;
-    duration = INT_MAX;
     mp3data = nullptr;
     mp3position = 0;
+    haspcm = false;
 }
 
 cxMP3Buffer::~cxMP3Buffer()
 {
-    if(mp3hand != nullptr){
-        Close();
-        mpg123_delete(mp3hand);
-        mp3hand = nullptr;
-    }
     cxObject::release(&mp3data);
 }
 
-ssize_t cxMP3Buffer::mp3read(void *ud, void *buffer, size_t size)
+cxBool cxMP3Buffer::readNextFrame()
 {
-    cxMP3Buffer *ab = static_cast<cxMP3Buffer *>(ud);
-    return (ssize_t)ab->mp3Read(buffer, (cxInt)size);;
-}
-
-off_t cxMP3Buffer::mp3seek(void *ud, off_t seek, int where)
-{
-    cxMP3Buffer *ab = static_cast<cxMP3Buffer *>(ud);
-    return (off_t)ab->mp3Seek((cxInt)seek, where);
-}
-
-void cxMP3Buffer::mp3cleanup(void*ud)
-{
-    cxMP3Buffer *ab = static_cast<cxMP3Buffer *>(ud);
-    ab->mp3Clear();
-}
-
-cxInt cxMP3Buffer::mp3Read(cxAny buf,cxInt size)
-{
-    cxInt bytes = size;
-    cxInt remain = mp3data->Size() - mp3position;
-    if(remain <= 0){
-        return 0;
-    }
-    if(remain < size){
-        bytes = remain;
-    }
-    memcpy(buf, mp3data->Buffer() + mp3position, bytes);
-    mp3position += bytes;
-    return size;
-}
-
-cxInt cxMP3Buffer::mp3Seek(cxInt off,cxInt where)
-{
-    if(where == SEEK_CUR){
-        mp3position += off;
-    }else if(where == SEEK_END){
-        CX_ASSERT(off <= 0, "off error");
-        mp3position = mp3data->Size() + off;
-    }else if(where == SEEK_SET){
-        mp3position = off;
-    }
-    return mp3position;
-}
-
-void cxMP3Buffer::mp3Clear()
-{
-    isfinished = false;
-    mp3position = 0;
-}
-
-cxBool cxMP3Buffer::newformat()
-{
-    long rate = 0;
-    int channels = 0;
-    int encoding = 0;
-    if(mpg123_getformat(mp3hand, &rate, &channels, &encoding) != MPG123_OK){
-        CX_ERROR("mpg123 get format error");
+    haspcm = false;
+    sample = mp3dec_decode_frame(&mp3d, (const uint8_t *)mp3data->Buffer() + mp3position, mp3data->Size() - mp3position, pcm, &info);
+    if(sample == 0){
+        isfinished = true;
         return false;
     }
-    if(!((encoding & MPG123_ENC_16) && (encoding && MPG123_ENC_8))){
-        CX_ERROR("support 8 or 16 bit");
-        return false;
-    }
-    cxBool mb8 = (encoding & MPG123_ENC_8);
-    if(channels == MPG123_MONO){
-        format = mb8?AL_FORMAT_MONO8:AL_FORMAT_MONO16;
-    }else if(channels == MPG123_STEREO){
-        format = mb8?AL_FORMAT_STEREO8:AL_FORMAT_STEREO16;
-    }else {
-        CX_ERROR("not support channels %d",channels);
-        return false;
-    }
-    samplerate = (cxUInt)rate;
-    off_t len = mpg123_length(mp3hand);
-    int spf = mpg123_spf(mp3hand);
-    duration = (len/spf) * mpg123_tpf(mp3hand);
-    return true;
+    format = info.channels == 2?AL_FORMAT_STEREO16:AL_FORMAT_MONO16;
+    samplerate = info.hz;
+    mp3position += info.frame_bytes;
+    haspcm = true;
+    return haspcm;
 }
 
 cxBool cxMP3Buffer::Open()
 {
-    mp3Clear();
-    mp3hand = mpg123_new(nullptr, nullptr);
-    CX_ASSERT(mp3hand != nullptr, "mpg123 new error");
-    mpg123_replace_reader_handle(mp3hand, mp3read, mp3seek, mp3cleanup);
-    isopen =(mpg123_open_handle(mp3hand, this) == MPG123_OK);
-    if(!IsOpen()){
-        return false;
-    }
-    size_t bytes = 0;
-    unsigned char *buf = nullptr;
-    off_t framenum = 0;
-    int ret = mpg123_decode_frame(mp3hand, &framenum, (unsigned char **)&buf, (size_t *)&bytes);
-    if(ret == MPG123_NEW_FORMAT){
-        newformat();
-        return true;
-    }
-    CX_ERROR("mp3 buffer open error");
-    return false;
+    isopen = readNextFrame();
+    return isopen;
 }
 
 cxBool cxMP3Buffer::Init(const cxStr *data)
 {
     CX_ASSERT(cxStr::IsOK(data), "mp3 data error");
+    mp3position = 0;
     cxObject::swap(&mp3data, data);
-    return Open();
+    mp3dec_init(&mp3d);
+    return true;
 }
 
 void cxMP3Buffer::Reset()
 {
-    mpg123_seek_frame(mp3hand, 0, SEEK_SET);
+    mp3dec_init(&mp3d);
+    mp3position = 0;
+    isfinished = false;
+    isopen = false;
+    sample = 0;
+    haspcm = false;
 }
 
 void cxMP3Buffer::Close()
 {
-    mpg123_close(mp3hand);
+    mp3position = 0;
+    isfinished = true;
     isopen = false;
 }
 
@@ -210,26 +162,33 @@ cxBool cxMP3Buffer::IsFinished()
 
 cxBool cxMP3Buffer::NextALBuffer(ALuint idx)
 {
-    size_t bytes = 0;
-    unsigned char *buf = nullptr;
-    off_t framenum = 0;
-    int ret = mpg123_decode_frame(mp3hand, &framenum, (unsigned char **)&buf, (size_t *)&bytes);
-    if(ret == MPG123_NEW_FORMAT){
-        newformat();
-        ret = mpg123_decode_frame(mp3hand, &framenum, (unsigned char **)&buf, (size_t *)&bytes);
-    }
-    if(ret == MPG123_DONE){
-        isfinished = true;
-    }
-    if(ret != MPG123_OK){
+    if(isfinished){
         return false;
     }
-    if(bytes > 0){
-        alClearError();
-        alBufferData(idx, format, buf, (ALsizei)bytes, samplerate);
+    if(haspcm){
+        cxInt pcmsize = info.channels * 2 * sample;
+        alBufferData(idx, format, pcm, (ALsizei)pcmsize, samplerate);
     }
-    return alGetError() == AL_NO_ERROR;
+    return readNextFrame();
 }
+
+class cxMP3Source : public cxALSource
+{
+public:
+    CX_DECLARE(cxMP3Source);
+protected:
+    explicit cxMP3Source();
+    virtual ~cxMP3Source();
+private:
+    ALuint albuf[MAX_BUFFER];
+    cxBool isstop;
+    cxBool ispause;
+public:
+    void Play();
+    void Stop();
+    void Reset();
+    cxBool Update(cxFloat dt);
+};
 
 CX_IMPLEMENT(cxMP3Source)
 
@@ -258,6 +217,7 @@ void cxMP3Source::Play()
         CX_ERROR("can't open buffer");
         return;
     }
+    //alSourceUnqueueBuffers(handle,MAX_BUFFER,albuf);
     cxInt num = 0;
     for(cxInt i=0;i<MAX_BUFFER;i++){
         if(!mb->NextALBuffer(albuf[i])){
@@ -277,6 +237,12 @@ void cxMP3Source::Reset()
     cxMP3Buffer *mb = Buffer()->To<cxMP3Buffer>();
     mb->Reset();
     alSourceStop(handle);
+    alSourceUnqueueBuffers(handle,MAX_BUFFER,albuf);
+    alDeleteBuffers(MAX_BUFFER, albuf);
+    memset(albuf, 0, sizeof(ALuint) * MAX_BUFFER);
+    isstop = true;
+    ispause = false;
+    alGenBuffers(MAX_BUFFER, albuf);
 }
 
 void cxMP3Source::Stop()
@@ -287,10 +253,10 @@ void cxMP3Source::Stop()
     isstop = true;
 }
 
-void cxMP3Source::Update(cxFloat dt)
+cxBool cxMP3Source::Update(cxFloat dt)
 {
     if(isstop){
-        return;
+        return true;
     }
     cxMP3Buffer *mb = Buffer()->To<cxMP3Buffer>();
     ALint processed = 0;
@@ -311,6 +277,9 @@ void cxMP3Source::Update(cxFloat dt)
         }
         processed--;
     }
+    ALint queued = 0;
+    alGetSourceiv(handle, AL_BUFFERS_QUEUED, &queued);
+    return mb->IsFinished() && queued == 0;
 }
 
 CX_IMPLEMENT(cxALBuffer);
@@ -320,9 +289,6 @@ cxALBuffer::cxALBuffer()
     format = 0;
     handle = 0;
     samplerate = 0;
-    numberOfSamples = 0;
-    bytesPerSample = 0;
-    duration = 0;
 }
 
 cxALBuffer::~cxALBuffer()
@@ -366,15 +332,12 @@ cxBool cxALBuffer::Init(const cxStr *data)
         CX_ERROR("wave data miss");
         return false;
     }
-    bytesPerSample = fmt.bitsPerSample/8;
     if(fmt.channels == 1){
         format = fmt.bitsPerSample==8?AL_FORMAT_MONO8:AL_FORMAT_MONO16;
     }else{
         format = fmt.bitsPerSample==8?AL_FORMAT_STEREO8:AL_FORMAT_STEREO16;
     }
     samplerate = fmt.samplesPerSec;
-    numberOfSamples = size/bytesPerSample;
-    duration = (cxFloat)numberOfSamples/(cxFloat)samplerate;
     alClearError();
     alGenBuffers(1, &handle);
     if(alGetError() != AL_NO_ERROR){
@@ -388,11 +351,6 @@ cxBool cxALBuffer::Init(const cxStr *data)
         return false;
     }
     return true;
-}
-
-cxFloat cxALBuffer::Duration()
-{
-    return duration;
 }
 
 ALuint cxALBuffer::Handle()
@@ -469,9 +427,11 @@ cxBool cxALSource::Init(cxALBuffer *ab)
     return true;
 }
 
-void cxALSource::Update(cxFloat dt)
+cxBool cxALSource::Update(cxFloat dt)
 {
-    
+    ALint state;
+    alGetSourcei(handle, AL_SOURCE_STATE, &state);
+    return state == AL_STOPPED;
 }
 
 void cxALSource::SetPosition(const cxPoint3F &v)
@@ -580,14 +540,10 @@ cxOpenAL::cxOpenAL()
     CX_ASSERT(context != nullptr, "alc create context error");
     alcMakeContextCurrent(context);
     sources = cxHash::Alloc();
-    int ret = mpg123_init();
-    CX_ASSERT(ret == MPG123_OK,"mpg123 init error");
-    (void)ret;
 }
 
 cxOpenAL::~cxOpenAL()
 {
-    mpg123_exit();
     sources->Release();
     alcMakeContextCurrent(nullptr);
     alcDestroyContext(context);

@@ -99,6 +99,7 @@ public:
     virtual void Reset();
     virtual void Pause();
     virtual void Resume();
+    virtual void Expire();
     //invoke stop
     virtual void Stop();
     cxAction *AttachTo(cxView *pview);

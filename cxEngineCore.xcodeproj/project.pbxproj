@@ -428,6 +428,7 @@
 		83F7BAD91B42D9E900C644B9 /* cxLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxLabel.cpp; sourceTree = "<group>"; };
 		83FB15A61B293C1000E5ECFE /* cxOpenGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxOpenGL.cpp; sourceTree = "<group>"; };
 		83FB15A71B293C1000E5ECFE /* cxOpenGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxOpenGL.h; sourceTree = "<group>"; };
+		83FC764321130FCE00DB904D /* minimp3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = minimp3.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -610,6 +611,7 @@
 		83B23B4C1B17E0E9000D770A /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				83FC764321130FCE00DB904D /* minimp3.h */,
 				83A60B5A1FAF4C9E00649616 /* aabb2.c */,
 				83A60B741FAF4CA200649616 /* aabb2.h */,
 				83A60B681FAF4CA000649616 /* aabb3.c */,

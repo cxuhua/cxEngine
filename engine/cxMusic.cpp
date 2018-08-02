@@ -17,6 +17,7 @@ CX_IMPLEMENT(cxMusic);
 cxMusic::cxMusic()
 {
     source = nullptr;
+    Forever();
 }
 
 cxMusic::~cxMusic()
@@ -45,7 +46,9 @@ void cxMusic::OnExit()
 
 void cxMusic::OnStep(cxFloat dt)
 {
-    source->Update(dt);
+    if(source->Update(dt)){
+        Expire();
+    }
     cxAction::OnStep(dt);
 }
 
@@ -62,7 +65,6 @@ cxMusic *cxMusic::Create(const cxStr *data,cxALBuffer::DataType type)
         return ret;
     }
     cxObject::swap(&ret->source, source);
-    ret->SetTime(source->Buffer()->Duration());
     return ret;
 }
 
@@ -77,7 +79,6 @@ cxMusic *cxMusic::Create(cchars file,cchars key)
         return ret;
     }
     ret->source = source;
-    ret->SetTime(source->Buffer()->Duration());
     return ret;
 }
 

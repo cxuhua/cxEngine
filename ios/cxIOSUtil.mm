@@ -55,6 +55,13 @@ cxStr *cxIOSUtil::DocumentPath(cchars file)
     return rv;
 }
 
+cxInt cxIOSUtil::GetVersion()
+{
+    NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+    NSString *build = [info objectForKey:@"CFBundleVersion"];
+    return [build integerValue];
+}
+
 cxStr *cxIOSUtil::UUID()
 {
     uuid_t uuid;

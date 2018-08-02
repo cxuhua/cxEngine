@@ -66,6 +66,16 @@ jobject JNIMethodInfo::CallObjectMethod(cxAndroid *app,...)
     return ret;
 }
 
+jint JNIMethodInfo::CallIntMethod(cxAndroid *app,...)
+{
+    va_list ap;
+    va_start(ap, app);
+    jint ret = env->CallIntMethodV(object, methodID, ap);
+    va_end(ap);
+    return ret;
+}
+
+
 void JNIMethodInfo::CallVoidMethod(cxAndroid *app,...)
 {
     va_list ap;
@@ -397,6 +407,13 @@ cxStr *cxAndroid::GetLang()
     AConfiguration_getLanguage(config, (char *)Language);
     return cxStr::Create()->Init(Language);
 }
+
+cxInt cxAndroid::GetVersion()
+{
+    JNIMethodInfo m = JNIMethod("getVersion", "()I");
+    return m.CallIntMethod(this);
+}
+
 
 cxStr *cxAndroid::GetCountry()
 {

@@ -64,6 +64,7 @@ struct JNIMethodInfo
     JNIMethodInfo();
     virtual ~JNIMethodInfo();
     jobject CallObjectMethod(cxAndroid *app,...);
+    jint CallIntMethod(cxAndroid *app,...);
     void CallVoidMethod(cxAndroid *app,...);
 };
 
@@ -181,6 +182,7 @@ public:
 public:
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
     cxStr *GetLang();
+    cxInt GetVersion();
     cxStr *GetCountry();
     cxStr *DocumentPath(cchars file);
     cxStr *AssetsData(cchars file);

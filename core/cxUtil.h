@@ -42,6 +42,8 @@ public:
     static cxStr *Assets(cchars file);
     static cxStr *Document(cchars file);
     static cxStr *Content(cchars file);//优先从document目录获取数据
+    //获取当前app版本号
+    virtual cxInt GetVersion();
     //获取语言代码
     virtual cxStr *GetLang();       //zh en
     //获取国家代码

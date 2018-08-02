@@ -27,6 +27,7 @@ public:
     cxStr *GetLang();
     cxStr *GetCountry();
     cxStr *DocumentPath(cchars file);
+    cxInt GetVersion();
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
     cxStr *AssetsData(cchars file);
     cxStr *UUID();

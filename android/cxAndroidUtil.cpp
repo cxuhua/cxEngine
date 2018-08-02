@@ -24,6 +24,12 @@ cxAndroidUtil::~cxAndroidUtil()
     
 }
 
+cxInt cxAndroidUtil::GetVersion()
+{
+    return cxAndroid::Instance()->GetVersion();
+}
+
+
 cxStr *cxAndroidUtil::UUID()
 {
     return cxAndroid::Instance()->UUID();

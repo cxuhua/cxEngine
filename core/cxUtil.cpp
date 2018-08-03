@@ -59,10 +59,16 @@ cxFloat cxUtil::ScaleFactor()
     return 1.0f;
 }
 
-cxInt cxUtil::GetVersion()
+cxInt cxUtil::GetVersionCode()
 {
     return 0;
 }
+
+cxStr *cxUtil::GetVersionName()
+{
+    return nullptr;
+}
+
 
 cxStr *cxUtil::GetLang()
 {

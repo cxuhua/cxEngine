@@ -408,11 +408,21 @@ cxStr *cxAndroid::GetLang()
     return cxStr::Create()->Init(Language);
 }
 
-cxInt cxAndroid::GetVersion()
+cxInt cxAndroid::GetVersionCode()
 {
-    JNIMethodInfo m = JNIMethod("getVersion", "()I");
+    JNIMethodInfo m = JNIMethod("getVersionCode", "()I");
     return m.CallIntMethod(this);
 }
+
+cxStr *cxAndroid::GetVersionName()
+{
+    JNIMethodInfo m = JNIMethod("getVersionName", "()Ljava/lang/String;");
+    jstring uuid = (jstring)m.CallObjectMethod(this);
+    cxStr *ret = TocxStr(uuid);
+    env->DeleteLocalRef(uuid);
+    return ret;
+}
+
 
 
 cxStr *cxAndroid::GetCountry()

@@ -182,7 +182,8 @@ public:
 public:
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
     cxStr *GetLang();
-    cxInt GetVersion();
+    cxInt GetVersionCode();
+    cxStr *GetVersionName();
     cxStr *GetCountry();
     cxStr *DocumentPath(cchars file);
     cxStr *AssetsData(cchars file);

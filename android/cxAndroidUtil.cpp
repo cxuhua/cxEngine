@@ -24,9 +24,14 @@ cxAndroidUtil::~cxAndroidUtil()
     
 }
 
-cxInt cxAndroidUtil::GetVersion()
+cxInt cxAndroidUtil::GetVersionCode()
 {
-    return cxAndroid::Instance()->GetVersion();
+    return cxAndroid::Instance()->GetVersionCode();
+}
+
+cxStr *cxAndroidUtil::GetVersionName()
+{
+    return cxAndroid::Instance()->GetVersionName();
 }
 
 

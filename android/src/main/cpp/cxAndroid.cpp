@@ -75,6 +75,15 @@ jint JNIMethodInfo::CallIntMethod(cxAndroid *app,...)
     return ret;
 }
 
+jstring JNIMethodInfo::CallStringMethod(cxAndroid *app,...)
+{
+    va_list ap;
+    va_start(ap, app);
+    jstring ret = (jstring)env->CallObjectMethod(object, methodID, ap);
+    va_end(ap);
+    return ret;
+}
+
 
 void JNIMethodInfo::CallVoidMethod(cxAndroid *app,...)
 {

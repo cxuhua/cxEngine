@@ -66,6 +66,7 @@ struct JNIMethodInfo
     jobject CallObjectMethod(cxAndroid *app,...);
     jint CallIntMethod(cxAndroid *app,...);
     void CallVoidMethod(cxAndroid *app,...);
+    jstring CallStringMethod(cxAndroid *app,...);
 };
 
 struct AndroidPollSource

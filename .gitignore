@@ -3,6 +3,7 @@
 *.so
 .externalNativeBuild
 android/build
+android/libs
 mgame-ios
 mgame-android
 mgame-server

@@ -19,7 +19,7 @@ cxengine::cxUtil *cxengine::cxUtil::Instance()
     return cxCore::One<cxIOSUtil>(&instance);
 }
 #elif CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID
-#include <android/cxAndroidUtil.h>
+#include <cxAndroidUtil.h>
 cxengine::cxUtil *cxengine::cxUtil::Instance()
 {
     return cxCore::One<cxAndroidUtil>(&instance);

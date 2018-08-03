@@ -28,22 +28,22 @@
 		836E304F1B5E2B4C00ED8BDC /* water.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 836E304B1B5E2B4C00ED8BDC /* water.vsh */; };
 		839836BF1B109793002B7C20 /* libcxEngineCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839836BC1B10978B002B7C20 /* libcxEngineCore.a */; };
 		839B8AEB1B68D6EF009E0CF7 /* finch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 839B8AEA1B68D6EF009E0CF7 /* finch.wav */; };
-		839B8AEF1B68DC2B009E0CF7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */; };
 		839B8AF11B68DD3A009E0CF7 /* o.wav in Resources */ = {isa = PBXBuildFile; fileRef = 839B8AF01B68DD3A009E0CF7 /* o.wav */; };
 		839FD5BA1FB30FAE003C7899 /* Move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839FD5B81FB30FAE003C7899 /* Move.cpp */; };
 		839FD5BE1FB40B95003C7899 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839FD5BC1FB40B95003C7899 /* Point.cpp */; };
+		83AFD45D211450680061E924 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD45B211450680061E924 /* OpenAL.framework */; };
+		83AFD45E211450680061E924 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD45C211450680061E924 /* OpenGLES.framework */; };
+		83AFD4602114506C0061E924 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD45F2114506C0061E924 /* GLKit.framework */; };
+		83AFD462211450710061E924 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD461211450710061E924 /* libz.tbd */; };
+		83AFD4652114507B0061E924 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD4632114507B0061E924 /* libpng.a */; };
+		83AFD4662114507B0061E924 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD4642114507B0061E924 /* libuv.a */; };
 		83B6E3201E2A006A00C9C6AB /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 83B6E31F1E2A006A00C9C6AB /* bg.png */; };
-		83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83BA0D3E1BF04EC200B0CC0B /* libz.tbd */; };
 		83C410DA1E28B3C90027FAFC /* penhuo1_xia.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */; };
-		83C5BFA81CD8612500F0DA0B /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA21CD8612500F0DA0B /* libpng.a */; };
-		83C5BFA91CD8612500F0DA0B /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BFA31CD8612500F0DA0B /* libuv.a */; };
 		83CD01A71E2CEB60006FC20F /* penhuo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83CD01A61E2CEB60006FC20F /* penhuo.xml */; };
 		83D8C3571B69E46400155990 /* battle_lost_02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83D8C3561B69E46400155990 /* battle_lost_02.mp3 */; };
 		83D92D281B315E7200F061D6 /* animate.json in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D261B315E7200F061D6 /* animate.json */; };
 		83D92D291B315E7200F061D6 /* animate.png in Resources */ = {isa = PBXBuildFile; fileRef = 83D92D271B315E7200F061D6 /* animate.png */; };
 		83E6F6581B0C97B5006839C8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E6F6561B0C97B5006839C8 /* LaunchScreen.xib */; };
-		83E6F66F1B0C97F7006839C8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66D1B0C97F7006839C8 /* GLKit.framework */; };
-		83E6F6701B0C97F7006839C8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */; };
 		83E886DC1B68F970001C0727 /* test.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 83E886DB1B68F970001C0727 /* test.mp3 */; };
 		83F45E8A1E2CECB20083C886 /* penhuo1_1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83F45E891E2CECB20083C886 /* penhuo1_1.xml */; };
 		83F5D0B51CE570A600690B86 /* actions.csv in Resources */ = {isa = PBXBuildFile; fileRef = 83F5D0B21CE570A600690B86 /* actions.csv */; };
@@ -91,17 +91,19 @@
 		836E304B1B5E2B4C00ED8BDC /* water.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = water.vsh; sourceTree = "<group>"; };
 		839836B61B10978A002B7C20 /* cxEngineCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = cxEngineCore.xcodeproj; sourceTree = "<group>"; };
 		839B8AEA1B68D6EF009E0CF7 /* finch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = finch.wav; sourceTree = "<group>"; };
-		839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		839B8AF01B68DD3A009E0CF7 /* o.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = o.wav; sourceTree = "<group>"; };
 		839FD5B81FB30FAE003C7899 /* Move.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Move.cpp; sourceTree = "<group>"; };
 		839FD5B91FB30FAE003C7899 /* Move.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
 		839FD5BC1FB40B95003C7899 /* Point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Point.cpp; sourceTree = "<group>"; };
 		839FD5BD1FB40B95003C7899 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
+		83AFD45B211450680061E924 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		83AFD45C211450680061E924 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		83AFD45F2114506C0061E924 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		83AFD461211450710061E924 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		83AFD4632114507B0061E924 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ios/lib/libpng.a; sourceTree = "<group>"; };
+		83AFD4642114507B0061E924 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ios/lib/libuv.a; sourceTree = "<group>"; };
 		83B6E31F1E2A006A00C9C6AB /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
-		83BA0D3E1BF04EC200B0CC0B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo1_xia.xml; sourceTree = "<group>"; wrapsLines = 1; };
-		83C5BFA21CD8612500F0DA0B /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = libs/ios/lib/libpng.a; sourceTree = "<group>"; };
-		83C5BFA31CD8612500F0DA0B /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = libs/ios/lib/libuv.a; sourceTree = "<group>"; };
 		83CD01A61E2CEB60006FC20F /* penhuo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo.xml; sourceTree = "<group>"; };
 		83D8C3561B69E46400155990 /* battle_lost_02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = battle_lost_02.mp3; sourceTree = "<group>"; };
 		83D92D261B315E7200F061D6 /* animate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animate.json; sourceTree = "<group>"; };
@@ -109,8 +111,6 @@
 		83E6F6441B0C97B5006839C8 /* cxEngineTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cxEngineTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E6F6481B0C97B5006839C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83E6F6571B0C97B5006839C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		83E6F66D1B0C97F7006839C8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		83E886DB1B68F970001C0727 /* test.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = test.mp3; sourceTree = "<group>"; };
 		83F45E891E2CECB20083C886 /* penhuo1_1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo1_1.xml; sourceTree = "<group>"; };
 		83F5D0B21CE570A600690B86 /* actions.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = actions.csv; sourceTree = "<group>"; };
@@ -124,13 +124,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83AFD4652114507B0061E924 /* libpng.a in Frameworks */,
+				83AFD4662114507B0061E924 /* libuv.a in Frameworks */,
+				83AFD462211450710061E924 /* libz.tbd in Frameworks */,
+				83AFD4602114506C0061E924 /* GLKit.framework in Frameworks */,
+				83AFD45D211450680061E924 /* OpenAL.framework in Frameworks */,
+				83AFD45E211450680061E924 /* OpenGLES.framework in Frameworks */,
 				839836BF1B109793002B7C20 /* libcxEngineCore.a in Frameworks */,
-				83C5BFA81CD8612500F0DA0B /* libpng.a in Frameworks */,
-				83C5BFA91CD8612500F0DA0B /* libuv.a in Frameworks */,
-				83BA0D3F1BF04EC200B0CC0B /* libz.tbd in Frameworks */,
-				839B8AEF1B68DC2B009E0CF7 /* OpenAL.framework in Frameworks */,
-				83E6F66F1B0C97F7006839C8 /* GLKit.framework in Frameworks */,
-				83E6F6701B0C97F7006839C8 /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,22 +145,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		839836CB1B10B021002B7C20 /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				83C5BFA21CD8612500F0DA0B /* libpng.a */,
-				83C5BFA31CD8612500F0DA0B /* libuv.a */,
-				839B8AEE1B68DC2B009E0CF7 /* OpenAL.framework */,
-				83BA0D3E1BF04EC200B0CC0B /* libz.tbd */,
-				83E6F66D1B0C97F7006839C8 /* GLKit.framework */,
-				83E6F66E1B0C97F7006839C8 /* OpenGLES.framework */,
-			);
-			name = libs;
-			sourceTree = "<group>";
-		};
 		83A74F841E28CB6C00827360 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83AFD4632114507B0061E924 /* libpng.a */,
+				83AFD4642114507B0061E924 /* libuv.a */,
+				83AFD461211450710061E924 /* libz.tbd */,
+				83AFD45F2114506C0061E924 /* GLKit.framework */,
+				83AFD45B211450680061E924 /* OpenAL.framework */,
+				83AFD45C211450680061E924 /* OpenGLES.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -169,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				839836B61B10978A002B7C20 /* cxEngineCore.xcodeproj */,
-				839836CB1B10B021002B7C20 /* libs */,
 				83E6F6461B0C97B5006839C8 /* cxEngineTest */,
 				83E6F6451B0C97B5006839C8 /* Products */,
 				83A74F841E28CB6C00827360 /* Frameworks */,
@@ -507,8 +499,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/libs/ios/include",
-					"$(SRCROOT)/ext",
+					"$(SRCROOT)/ios/include",
 					/Users/xuhua/gameserver/testgmpkt/include,
 					/Users/xuhua/gameserver/testgmpkt/include/wtlinux,
 				);
@@ -516,8 +507,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/libs/ios/lib",
-					"$(PROJECT_DIR)/libs/ios/lib",
+					"$(SRCROOT)/ios/lib",
+					"$(PROJECT_DIR)/ios/lib",
 				);
 				PLIST_FILE_OUTPUT_FORMAT = binary;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.debug;
@@ -547,8 +538,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)",
-					"$(SRCROOT)/libs/ios/include",
-					"$(SRCROOT)/ext",
+					"$(SRCROOT)/ios/include",
 					/Users/xuhua/gameserver/testgmpkt/include,
 					/Users/xuhua/gameserver/testgmpkt/include/wtlinux,
 				);
@@ -556,8 +546,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/libs/ios/lib",
-					"$(PROJECT_DIR)/libs/ios/lib",
+					"$(SRCROOT)/ios/lib",
+					"$(PROJECT_DIR)/ios/lib",
 				);
 				PLIST_FILE_OUTPUT_FORMAT = binary;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.debug;

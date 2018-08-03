@@ -1,15 +1,8 @@
 .DS_Store
 *.o
 *.so
-android/libs
-android/project/app/build
-godcity
-runner
-card
-godwar
-godwar-client
-godwar-server
-xginx
+.externalNativeBuild
+android/build
 mgame-ios
 mgame-android
 mgame-server

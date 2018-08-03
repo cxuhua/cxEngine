@@ -7,17 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		833ED2471CD857C700046BB6 /* libcxEngineCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52481CD857140002BF77 /* libcxEngineCore.a */; };
-		833ED2491CD857EC00046BB6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 833ED2481CD857EC00046BB6 /* libz.tbd */; };
 		839A52201CD854D30002BF77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 839A521F1CD854D30002BF77 /* Assets.xcassets */; };
 		839A52231CD854D30002BF77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 839A52211CD854D30002BF77 /* LaunchScreen.storyboard */; };
 		839A522F1CD855620002BF77 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 839A522C1CD855620002BF77 /* Game.cpp */; };
-		839A52311CD856B60002BF77 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52301CD856B60002BF77 /* OpenAL.framework */; };
-		839A52331CD856BA0002BF77 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52321CD856BA0002BF77 /* GLKit.framework */; };
-		839A52351CD856C10002BF77 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52341CD856C10002BF77 /* OpenGLES.framework */; };
-		83C5BF981CD860CD00F0DA0B /* libmpg123.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF921CD860CD00F0DA0B /* libmpg123.a */; };
-		83C5BF9A1CD860CD00F0DA0B /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF941CD860CD00F0DA0B /* libpng.a */; };
-		83C5BF9B1CD860CD00F0DA0B /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C5BF951CD860CD00F0DA0B /* libuv.a */; };
+		83AFD45221144FF00061E924 /* libcxEngineCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 839A52481CD857140002BF77 /* libcxEngineCore.a */; };
+		83AFD45321144FF50061E924 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD45021144FD70061E924 /* OpenAL.framework */; };
+		83AFD45421144FF50061E924 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD44F21144FD70061E924 /* OpenGLES.framework */; };
+		83AFD45521144FFB0061E924 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD44D21144FD70061E924 /* GLKit.framework */; };
+		83AFD456211450050061E924 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD44921144FC80061E924 /* libpng.a */; };
+		83AFD457211450050061E924 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD44A21144FC80061E924 /* libuv.a */; };
+		83AFD4582114500D0061E924 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD44E21144FD70061E924 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,20 +30,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		833ED2481CD857EC00046BB6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		839A52101CD854D30002BF77 /* template.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = template.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		839A521F1CD854D30002BF77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		839A52221CD854D30002BF77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		839A52241CD854D30002BF77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		839A522C1CD855620002BF77 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		839A522D1CD855620002BF77 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
-		839A52301CD856B60002BF77 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
-		839A52321CD856BA0002BF77 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		839A52341CD856C10002BF77 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		839A52431CD857140002BF77 /* cxEngineCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cxEngineCore.xcodeproj; path = ../cxEngineCore.xcodeproj; sourceTree = "<group>"; };
-		83C5BF921CD860CD00F0DA0B /* libmpg123.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmpg123.a; path = ../libs/ios/lib/libmpg123.a; sourceTree = "<group>"; };
-		83C5BF941CD860CD00F0DA0B /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../libs/ios/lib/libpng.a; sourceTree = "<group>"; };
-		83C5BF951CD860CD00F0DA0B /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../libs/ios/lib/libuv.a; sourceTree = "<group>"; };
+		83AFD44921144FC80061E924 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../ios/lib/libpng.a; sourceTree = "<group>"; };
+		83AFD44A21144FC80061E924 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ../ios/lib/libuv.a; sourceTree = "<group>"; };
+		83AFD44D21144FD70061E924 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		83AFD44E21144FD70061E924 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		83AFD44F21144FD70061E924 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		83AFD45021144FD70061E924 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,14 +50,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83C5BF981CD860CD00F0DA0B /* libmpg123.a in Frameworks */,
-				83C5BF9A1CD860CD00F0DA0B /* libpng.a in Frameworks */,
-				83C5BF9B1CD860CD00F0DA0B /* libuv.a in Frameworks */,
-				833ED2491CD857EC00046BB6 /* libz.tbd in Frameworks */,
-				833ED2471CD857C700046BB6 /* libcxEngineCore.a in Frameworks */,
-				839A52351CD856C10002BF77 /* OpenGLES.framework in Frameworks */,
-				839A52331CD856BA0002BF77 /* GLKit.framework in Frameworks */,
-				839A52311CD856B60002BF77 /* OpenAL.framework in Frameworks */,
+				83AFD4582114500D0061E924 /* libz.tbd in Frameworks */,
+				83AFD456211450050061E924 /* libpng.a in Frameworks */,
+				83AFD457211450050061E924 /* libuv.a in Frameworks */,
+				83AFD45521144FFB0061E924 /* GLKit.framework in Frameworks */,
+				83AFD45321144FF50061E924 /* OpenAL.framework in Frameworks */,
+				83AFD45421144FF50061E924 /* OpenGLES.framework in Frameworks */,
+				83AFD45221144FF00061E924 /* libcxEngineCore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,9 +67,9 @@
 			isa = PBXGroup;
 			children = (
 				839A52431CD857140002BF77 /* cxEngineCore.xcodeproj */,
-				839A52421CD856E60002BF77 /* libs */,
 				839A52121CD854D30002BF77 /* template */,
 				839A52111CD854D30002BF77 /* Products */,
+				83AFD44821144FC80061E924 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,26 +101,25 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		839A52421CD856E60002BF77 /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				83C5BF921CD860CD00F0DA0B /* libmpg123.a */,
-				83C5BF941CD860CD00F0DA0B /* libpng.a */,
-				83C5BF951CD860CD00F0DA0B /* libuv.a */,
-				833ED2481CD857EC00046BB6 /* libz.tbd */,
-				839A52341CD856C10002BF77 /* OpenGLES.framework */,
-				839A52321CD856BA0002BF77 /* GLKit.framework */,
-				839A52301CD856B60002BF77 /* OpenAL.framework */,
-			);
-			name = libs;
-			sourceTree = "<group>";
-		};
 		839A52441CD857140002BF77 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				839A52481CD857140002BF77 /* libcxEngineCore.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		83AFD44821144FC80061E924 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				83AFD44E21144FD70061E924 /* libz.tbd */,
+				83AFD44F21144FD70061E924 /* OpenGLES.framework */,
+				83AFD44D21144FD70061E924 /* GLKit.framework */,
+				83AFD45021144FD70061E924 /* OpenAL.framework */,
+				83AFD44921144FC80061E924 /* libpng.a */,
+				83AFD44A21144FC80061E924 /* libuv.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,13 +344,12 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../",
-					"$(SRCROOT)/../ext",
-					"$(SRCROOT)/../libs/ios/include",
+					"$(SRCROOT)/../ios/include",
 				);
 				INFOPLIST_FILE = template/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../libs/ios/lib";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../ios/lib";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.template;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -376,13 +371,12 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../",
-					"$(SRCROOT)/../ext",
-					"$(SRCROOT)/../libs/ios/include",
+					"$(SRCROOT)/../ios/include",
 				);
 				INFOPLIST_FILE = template/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../libs/ios/lib";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../ios/lib";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.rockygame.template;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

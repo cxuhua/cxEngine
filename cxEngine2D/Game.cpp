@@ -52,6 +52,7 @@
 #include "Map.h"
 #include "Shader.h"
 #include <lua/src/lua.hpp>
+#include <engine/cxGesture.h>
 
 
 CX_CPP_BEGIN
@@ -85,6 +86,10 @@ void Game::OnDispatch(const cxTouchable *e)
 
 void Game::OnMain()
 {
+    cxGesture *v = cxGesture::Create();
+    v->SetSize(WinSize());
+    Window()->Append(v);
+    return;
 //    tcp = cxTcp::Create("47.104.96.88", 8899);
 //    Window()->Append(tcp);
 //

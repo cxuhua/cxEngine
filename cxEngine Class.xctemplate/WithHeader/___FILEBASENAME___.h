@@ -1,15 +1,12 @@
-//
-//  ___FILENAME___
-//  ___PROJECTNAME___
-//
+//  ___FILEBASENAME___.h
 //  Created by ___FULLUSERNAME___ on ___DATE___.
-//___COPYRIGHT___
+//  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
-#ifndef ___PROJECTNAME_______FILEBASENAME____h
-#define ___PROJECTNAME_______FILEBASENAME____h
+#ifndef cxEngine____FILEBASENAME____h
+#define cxEngine____FILEBASENAME____h
 
-#include "cxObject.h"
+#include <core/cxObject.h>
 
 CX_CPP_BEGIN
 
@@ -20,12 +17,8 @@ public:
 protected:
     explicit ___FILEBASENAME___();
     virtual ~___FILEBASENAME___();
-private:
-public:
 };
 
 CX_CPP_END
 
 #endif
-
-

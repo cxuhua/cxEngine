@@ -1,0 +1,20 @@
+//___FILEHEADER___
+
+#include "___FILEBASENAME___.h"
+
+CX_CPP_BEGIN
+
+CX_IMPLEMENT(___FILEBASENAME___);
+
+___FILEBASENAME___::___FILEBASENAME___()
+{
+    
+}
+
+___FILEBASENAME___::~___FILEBASENAME___()
+{
+    
+}
+
+CX_CPP_END
+

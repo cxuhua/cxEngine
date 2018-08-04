@@ -30,6 +30,11 @@ struct cxHitInfo
 
 struct cxTouchPoint
 {
+public:
+    typedef cxUInt FlagsGestureType;
+    static const FlagsGestureType FlagsGestureTypeNone    = 0;
+    static const FlagsGestureType FlagsGestureTypeSwipe   = 1 << 0;
+public:
     cxTouchId key;
     cxTouchType type;
     cxPoint2F wp;
@@ -38,6 +43,7 @@ struct cxTouchPoint
     cxFloat length;
     cxPoint2F delta;
     cxDouble time;
+    FlagsGestureType flags;
     
     static const cxTouchType None   = 0;
     static const cxTouchType Began  = 1;
@@ -46,6 +52,8 @@ struct cxTouchPoint
     
     cxTouchPoint();
     
+    FlagsGestureType *Flags() const;
+
     cxFloat Length() const;
     cxPoint2F Speed() const;
     cxBool IsBegan() const;

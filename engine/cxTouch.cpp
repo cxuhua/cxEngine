@@ -20,7 +20,7 @@ cxHitInfo::cxHitInfo()
 
 cxTouchPoint::cxTouchPoint()
 {
-    
+    flags = FlagsGestureTypeNone;
 }
 
 cxPoint2F cxTouchPoint::Speed() const
@@ -56,6 +56,11 @@ cxBool cxTouchPoint::IsTap() const
     return time < 0.3f && length < 6.0f;
 }
 
+cxTouchPoint::FlagsGestureType *cxTouchPoint::Flags() const
+{
+    return (FlagsGestureType *)&flags;
+}
+
 cxTouchable::cxTouchable()
 {
     
@@ -70,32 +75,32 @@ void cxTouchable::updateEvent(const cxTouchPoint &e)
 {
     std::map<cxTouchId,cxTouchPoint>::iterator it = events.find(e.key);
     cxDouble now = cxUtil::Timestamp();
-    cxTouchPoint newEvent = e;
-    cxTouchPoint *event = nullptr;
+    cxTouchPoint newtp = e;
+    cxTouchPoint *tp = nullptr;
     cxBool add = false;
     if(it != events.end()){
-        event = &it->second;
-        event->type = e.type;
-        event->wp = e.wp;
+        tp = &it->second;
+        tp->type = e.type;
+        tp->wp = e.wp;
     }else{
-        event = &newEvent;
+        tp = &newtp;
         add = true;
     }
     if(e.type == cxTouchPoint::Began){
-        event->movement = 0.0f;
-        event->time = now;
-        event->prev = e.wp;
-        event->length = 0;
+        tp->movement = 0.0f;
+        tp->time = now;
+        tp->prev = e.wp;
+        tp->length = 0;
     }else if(e.type == cxTouchPoint::Moved){
-        event->delta = e.wp - event->prev;
-        event->prev = e.wp;
-        event->movement += event->delta;
-        event->length += event->delta.Length();
+        tp->delta = e.wp - tp->prev;
+        tp->prev = e.wp;
+        tp->movement += tp->delta;
+        tp->length += tp->delta.Length();
     }else{
-        event->time = now - event->time;
+        tp->time = now - tp->time;
     }
     if(add){
-        events.emplace(e.key,newEvent);
+        events.emplace(e.key,newtp);
     }
 }
 
@@ -146,9 +151,7 @@ void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxFloat x,cxFloat y)
     cxTouchPoint e;
     e.key  = key;
     e.type = type;
-    //convert to window coord
     e.wp = cxPoint2F(x * scale - winsiz.w, winsiz.h - y * scale);
-    //
     if(e.type != cxTouchPoint::None){
         updateEvent(e);
     }
@@ -156,12 +159,10 @@ void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxFloat x,cxFloat y)
     for(std::map<cxTouchId,cxTouchPoint>::iterator it=events.begin();it!=events.end();it++){
         items.push_back(&it->second);
     }
-    //
     if(cxEngine::Instance()->IsTouch()){
         cxEngine::Instance()->OnDispatch(this);
         cxEngine::Instance()->Window()->Dispatch(this);
     }
-    //
     if(e.type == cxTouchPoint::Ended){
         removeEvent(e);
     }

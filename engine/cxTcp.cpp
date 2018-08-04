@@ -16,6 +16,7 @@ CX_IMPLEMENT(cxTcp);
 
 cxTcp::cxTcp()
 {
+    error = 0;
     uv_loop_init(&looper);
     connected = false;
     uv_tcp_init(&looper, &handle);
@@ -33,6 +34,11 @@ cxTcp::~cxTcp()
 {
     uv_loop_close(&looper);
     free(buffer);
+}
+
+cxInt cxTcp::Error()
+{
+    return error;
 }
 
 cxTcp *cxTcp::Create(cchars host,cxInt port)

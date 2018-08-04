@@ -18,3 +18,5 @@
 ##Android build setting
 * ANDROID=1
 fix NDK/build/core/build_binary.mk,remove -warn-shared-textrel
+
+xcode 模版位置:/Applications/Xcode.app/Contents/Developer/Library/Xcode/Templates/File Templates/Source

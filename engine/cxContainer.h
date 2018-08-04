@@ -25,20 +25,12 @@ public:
     static const SlidingType Horizontal  = 1 << 0;
     static const SlidingType Vertical    = 1 << 1;
     static const SlidingType FreeSliding = Horizontal|Vertical;
-    typedef cxUInt SwipeType;
-    static const SwipeType DirectionNone    = 0;
-    static const SwipeType DirectionLeft    = 1 << 0;
-    static const SwipeType DirectionRight   = 1 << 1;
-    static const SwipeType DirectionUp      = 1 << 2;
-    static const SwipeType DirectionDown    = 1 << 3;
 protected:
     explicit cxContainer();
     virtual ~cxContainer();
 protected:
     cxBool OnDispatch(const cxTouchable *e);
-    virtual cxBool OnSwipe(SwipeType type,cxFloat speed);
 private:
-    cxBool useswipe;
     cxInt bodyidx;
     SlidingType slidingtype;
     cxPoint2F fixPosition(const cxPoint2F &pos);
@@ -51,8 +43,6 @@ private:
     cxBool issliding;
     cxFloat slidingspeed;
     cxFloat slidingtime;
-    cxFloat swipetime;
-    cxBool checkSwipe(const cxTouchPoint *ep);
 protected:
     virtual cxView *Body();
     cxContainer *FixPosition();
@@ -61,7 +51,6 @@ public:
     cxContainer *SetScaleRange(const cxRange2F &v);
     cxContainer *EnableScale(cxBool v);
     cxContainer *EnableSliding(cxBool v);
-    cxContainer *EnableSwipe(cxBool v);
     cxContainer *SetSlidingType(SlidingType v);
     cxContainer *SetSlidingSpeed(cxFloat v);
     cxContainer *SetSlidingTime(cxFloat v);

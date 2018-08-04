@@ -56,6 +56,7 @@ protected:
     
     virtual void OnStep(cxFloat dt);
 public:
+    cxInt Error();
     cxBool Connect(cchars host,cxInt port);
     void Close(cxInt err);
     cxBool Write(cxStr *data);

@@ -1,10 +1,13 @@
-//  ___FILEBASENAME___.h
-//  Created by ___FULLUSERNAME___ on ___DATE___.
-//  Copyright (c) 2015 xuhua. All rights reserved.
+//
+// ___FILENAME___
+// ___PROJECTNAME___
+//
+// Created by ___FULLUSERNAME___ on ___DATE___.
+//___COPYRIGHT___
 //
 
-#ifndef cxEngine____FILEBASENAME____h
-#define cxEngine____FILEBASENAME____h
+#ifndef ___FILEBASENAMEASIDENTIFIER____h
+#define ___FILEBASENAMEASIDENTIFIER____h
 
 #include <core/cxObject.h>
 

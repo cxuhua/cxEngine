@@ -51,6 +51,7 @@ public:
     cxSprite *SetTexKey(const cxStr *v);
     cxSprite *SetTexKey(cchars fmt,...);
     cxSprite *SetTexCoord(const cxTexCoord *v);
+    cxSprite *UpdateColor(const cxColor4F &v);
     
     const cxBool FlipX() const;
     const cxBool FlipY() const;

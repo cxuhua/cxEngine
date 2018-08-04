@@ -33,6 +33,15 @@ void cxBoxRender::SetColor(const cxBoxColor4F &v)
     rb.colors = v.rb;
 }
 
+void cxBoxRender::AddColor(const cxBoxColor4F &v)
+{
+    
+    lt.colors += v.lt;
+    lb.colors += v.lb;
+    rt.colors += v.rt;
+    rb.colors += v.rb;
+}
+
 void cxBoxRender::MulColor(const cxBoxColor4F &v)
 {
     lt.colors *= v.lt;

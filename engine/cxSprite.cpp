@@ -113,6 +113,13 @@ cxSprite *cxSprite::SetTexCoord(const cxTexCoord *v)
     return this;
 }
 
+cxSprite *cxSprite::UpdateColor(const cxColor4F &v)
+{
+    box.SetColor(v);
+    SetDirty(DirtyModeColor);
+    return this;
+}
+
 cxBoxRender &cxSprite::BoxRender()
 {
     return box;

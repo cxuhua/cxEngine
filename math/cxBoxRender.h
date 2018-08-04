@@ -27,6 +27,7 @@ struct cxBoxRender
     cxBoxRender(const cxBoxRender &v);
     void SetColor(const cxBoxColor4F &v);
     void MulColor(const cxBoxColor4F &v);
+    void AddColor(const cxBoxColor4F &v);
     void SetColor(const cxColor4F &v);
     void MulColor(const cxColor4F &v);
     void SetVertices(const cxBoxPoint3F &v);

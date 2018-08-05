@@ -123,6 +123,8 @@ private:
     cxBool hideTop;
     cxBool isremoved;
     cxBool isclip;
+    cxBool isclear;
+    void clearViews();
     
     cxShader *shader;
     cxBool istouch;

@@ -11,9 +11,11 @@
 
 #include <ext/http_parser.h>
 #include <core/cxHash.h>
+#include <core/cxJson.h>
 #include "cxTcp.h"
 
 CX_CPP_BEGIN
+
 
 typedef enum http_method cxHttpMethod;
 
@@ -62,6 +64,7 @@ public:
     cxHash *ResHeads();
     const cxInt Status() const;
     const cxStr *Body() const;
+    const cxJson *Json() const;
     const cxBool Success() const;
 public:
     static cxHttp *Post(cchars url,const cxStr *post);

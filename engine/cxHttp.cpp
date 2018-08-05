@@ -210,6 +210,11 @@ const cxStr *cxHttp::Body() const
     return body;
 }
 
+const cxJson *cxHttp::Json() const
+{
+    return cxJson::Create()->From(body);
+}
+
 cxHash *cxHttp::ReqHeads()
 {
     return reqHeads;

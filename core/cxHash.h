@@ -77,6 +77,8 @@ public:
     cxObject *Get(const cxHashKey &key);
     template<class T>
     T *At(const cxHashKey &key);
+    template<class T>
+    T *At(cxInt idx);
     cxArray *Values();
 };
 
@@ -84,6 +86,20 @@ template<class T>
 CX_INLINE T *cxHash::At(const cxHashKey &key)
 {
     return static_cast<T *>(Get(key));
+}
+
+template<class T>
+CX_INLINE T *cxHash::At(cxInt idx)
+{
+    CX_ASSERT(idx >= 0 && idx < Size(), "idx error");
+    cxInt index = 0;
+    for(cxHash::Iter it = Begin();it != End();it++){
+        if(idx == index){
+            return static_cast<T *>(it->second);
+        }
+        index++;
+    }
+    return nullptr;
 }
 
 CX_CPP_END

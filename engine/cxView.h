@@ -275,7 +275,6 @@ protected:
 public:
     cxEvent<cxView, cxView *> onAppend;
     cxEvent<cxView, cxView *> onRemove;
-    cxEvent<cxView> onFree;
 public:
     void ResetIdx();
     const cxBox4F ParentBox() const;

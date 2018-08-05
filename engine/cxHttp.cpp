@@ -71,9 +71,10 @@ void cxHttp::OnData(char *buffer,cxInt size)
 
 cxHttp::cxHttp()
 {
+    http_parser_init(&parser, HTTP_RESPONSE);
+    http_parser_settings_init(&settings);
     success = false;
     parser.data = this;
-    http_parser_init(&parser, HTTP_RESPONSE);
     settings.on_body = onBodyFunc;
     settings.on_header_field = onHeadField;
     settings.on_header_value = onHeadValue;
@@ -180,7 +181,6 @@ cxHttp *cxHttp::Post(cchars url,const cxStr *post)
     if(!rv->ConnectURL(url)){
         CX_ERROR("http url error");
     }
-    rv->Forever();
     return rv;
 }
 
@@ -191,7 +191,6 @@ cxHttp *cxHttp::Get(cchars url)
     if(!rv->ConnectURL(url)){
         CX_ERROR("http url error");
     }
-    rv->Forever();
     return rv;
 }
 

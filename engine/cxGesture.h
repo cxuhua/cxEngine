@@ -17,6 +17,9 @@ public:
 protected:
     explicit cxGesture();
     virtual ~cxGesture();
+private:
+    cxDouble tapTime[2];
+    cxInt tapCount;
 public:
     typedef cxUInt SwipeType;
     static const SwipeType SwipeTypeDirectionNone    = 0;
@@ -32,10 +35,12 @@ public:
     cxGesture *SetFlags(cxUInt v);
     cxGesture *DelFlags(cxUInt v);
 public:
+    cxEvent<cxGesture> onDoubleTap;
     cxEvent<cxGesture, SwipeType,cxFloat> onSwipe;
 protected:
     cxBool OnDispatch(const cxTouchable *e);
     virtual void OnSwipe(SwipeType type,cxFloat speed);
+    virtual void OnDoubleTap();
 };
 
 CX_CPP_END

@@ -62,6 +62,7 @@ cxMusic *cxMusic::Create(const cxStr *data,cxALBuffer::DataType type)
     cxMusic *ret = cxMusic::Create();
     cxALSource *source = cxOpenAL::Instance()->Source(data, type);
     if(source == nullptr){
+        CX_ERROR("create music action error for data len=%d",data->Size());
         return ret;
     }
     cxObject::swap(&ret->source, source);
@@ -76,6 +77,7 @@ cxMusic *cxMusic::Create(cchars file,cchars key)
     cxMusic *ret = cxMusic::Create();
     cxALSource *source = cxOpenAL::Instance()->Source(file, key);
     if(source == nullptr){
+        CX_ERROR("create music action error for file=%s",file);
         return ret;
     }
     ret->source = source;

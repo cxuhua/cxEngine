@@ -68,7 +68,6 @@ cxView::cxView()
 
 cxView::~cxView()
 {
-    onFree.Fire(this);
     cxObject::release(&shader);
     actapps->Release();
     viewapps->Release();
@@ -767,8 +766,6 @@ void cxView::runRemoves(cxFloat dt)
         cxView *view = (*it)->To<cxView>();
         if(!view->IsRemoved()){
             view->Update(dt);
-        }
-        if(!view->IsRemoved()){
             it++;
             continue;
         }
@@ -810,14 +807,17 @@ cxBool cxView::OnDispatch(const cxKey &key)
 
 cxBool cxView::Dispatch(const cxTouchable *e)
 {
+    if(IsRemoved()){
+        return false;
+    }
     if(!EnableTouch()){
         return false;
     }
     if(!EnableVisible()){
         return false;
     }
-    for(cxArray::RIter it=subviews->RBegin();it!=subviews->REnd();it++){
-        cxView *view = (*it)->To<cxView>();
+    for(cxInt i=subviews->Size() - 1;i >= 0;i--){
+        cxView *view = subviews->At(i)->To<cxView>();
         if(view->Dispatch(e))return true;
     }
     return OnDispatch(e);
@@ -825,14 +825,17 @@ cxBool cxView::Dispatch(const cxTouchable *e)
 
 cxBool cxView::Dispatch(const cxKey &key)
 {
+    if(IsRemoved()){
+        return false;
+    }
     if(!EnableTouch()){
         return false;
     }
     if(!EnableVisible()){
         return false;
     }
-    for(cxArray::RIter it=subviews->RBegin();it!=subviews->REnd();it++){
-        cxView *view = (*it)->To<cxView>();
+    for(cxInt i=subviews->Size() - 1;i >= 0;i--){
+        cxView *view = subviews->At(i)->To<cxView>();
         if(view->Dispatch(key))return true;
     }
     return OnDispatch(key);
@@ -1046,8 +1049,8 @@ const cxBox4F cxView::ParentBox() const
 
 void cxView::RenderSubviews(cxRender *render,const cxMatrixF &mv)
 {
-    for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
-        cxView *view = (*it)->To<cxView>();
+    for(cxInt i=0; i < subviews->Size();i++){
+        cxView *view = subviews->At(i)->To<cxView>();
         view->Render(render,mv);
     }
 }
@@ -1055,10 +1058,10 @@ void cxView::RenderSubviews(cxRender *render,const cxMatrixF &mv)
 void cxView::clearViews()
 {
     issort = false;
-    for(cxArray::FIter it = subviews->FBegin();it != subviews->FEnd();it++){
-        cxView *pview = (*it)->To<cxView>();
-        pview->OnLeave();
-        OnRemove(pview);
+    for(cxInt i=0; i < subviews->Size();i++){
+        cxView *view = subviews->At(i)->To<cxView>();
+        view->OnLeave();
+        OnRemove(view);
     }
     subviews->Clear();
     viewapps->Clear();
@@ -1215,8 +1218,8 @@ void cxView::OnLayout()
 
 void cxView::Each(std::function<void(cxView *pview)> func)
 {
-    for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();it++){
-        cxView *pv = (*it)->To<cxView>();
+    for(cxInt i=0; i < subviews->Size();i++){
+        cxView *pv = subviews->At(i)->To<cxView>();
         if(pv->IsRemoved()){
             continue;
         }

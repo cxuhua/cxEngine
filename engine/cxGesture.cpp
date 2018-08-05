@@ -6,6 +6,7 @@
 //  Copyright © 2018 xuhua. All rights reserved.
 //
 
+#include <core/cxUtil.h>
 #include "cxGesture.h"
 
 CX_CPP_BEGIN
@@ -14,6 +15,9 @@ CX_IMPLEMENT(cxGesture);
 
 cxGesture::cxGesture()
 {
+    tapTime[0] = 0;
+    tapTime[1] = 0;
+    tapCount = 0;
     flags = cxTouchPoint::FlagsGestureTypeSwipe;
     touchIsPass = false;
 }
@@ -74,8 +78,27 @@ cxBool cxGesture::checkSwipe(const cxTouchPoint *ep)
     return !touchIsPass;
 }
 
+void cxGesture::OnDoubleTap()
+{
+    onDoubleTap.Fire(this);
+}
+
 cxBool cxGesture::OnDispatch(const cxTouchable *e)
 {
+    if(e->TouchCount() == 1){
+        const cxTouchPoint *ep = e->TouchPoint(0);
+        cxHitInfo hit = HitTest(ep->wp);
+        if(hit.hited && ep->IsEnded() && ep->IsTap()){
+            tapTime[tapCount] = cxUtil::Timestamp();
+            tapCount++;
+            if(tapCount == 2){
+                if(tapTime[1] - tapTime[0] < 0.3){
+                    OnDoubleTap();
+                }
+                tapCount = 0;
+            }
+        }
+    }
     if(e->TouchCount() == 1 && (flags & cxTouchPoint::FlagsGestureTypeSwipe)){
         const cxTouchPoint *ep = e->TouchPoint(0);
         if(checkSwipe(ep)){
@@ -88,7 +111,6 @@ cxBool cxGesture::OnDispatch(const cxTouchable *e)
 void cxGesture::OnSwipe(SwipeType type,cxFloat speed)
 {
     onSwipe.Fire(this, type, speed);
-    CX_LOGGER("%d",type);
 }
 CX_CPP_END
 

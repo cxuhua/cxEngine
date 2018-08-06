@@ -100,8 +100,8 @@ private:
 
     cxView *parent;
     DirtyMode dirtymode;
-    cxArray *viewapps;
-    cxArray *subviews;
+    cxArray *vapps;
+    cxArray *views;
     cxMatrixF modelview;
     cxMatrixF normalMatrix;
     cxMatrixF anchorMatrix;
@@ -256,7 +256,7 @@ public:
     cxBool EnableTouch() const;
     cxView *SetEnableTouch(cxBool v);
     
-    cxArray *Subviews() const;
+    const cxArray *Subviews() const;
     cxView *At(cxInt idx);
 protected:
     virtual void OnRender(cxRender *render,const cxMatrixF &model);
@@ -278,7 +278,6 @@ public:
 public:
     void ResetIdx();
     const cxBox4F ParentBox() const;
-    const cxStr *ViewPath();
     cxView *Select(cchars path);
     
     cxView *AttachTo(cxView *pview);

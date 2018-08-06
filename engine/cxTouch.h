@@ -32,8 +32,9 @@ struct cxTouchPoint
 {
 public:
     typedef cxUInt FlagsGestureType;
-    static const FlagsGestureType FlagsGestureTypeNone    = 0;
-    static const FlagsGestureType FlagsGestureTypeSwipe   = 1 << 0;
+    static const FlagsGestureType FlagsGestureTypeNone      = 0;
+    static const FlagsGestureType FlagsGestureTypeSwipe     = 1 << 0;
+    static const FlagsGestureType FlagsGestureTypeDoubleTap = 1 << 1;
 public:
     cxTouchId key;
     cxTouchType type;
@@ -190,7 +191,6 @@ enum {
     CX_KEYCODE_BUTTON_SELECT   = 109,
     CX_KEYCODE_BUTTON_MODE     = 110,
 };
-
 
 class cxTouchable
 {

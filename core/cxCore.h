@@ -33,29 +33,12 @@ public:
     typedef cxObject *(*AllocFunc)();
 private:
     static cxCore *gCore;
-    struct cxCoreHasher
-    {
-        size_t operator()(const std::string &k) const;
-        bool operator()(const std::string &lhs, const std::string &rhs) const;
-    };
-    typedef std::unordered_map<std::string,cxHelper&,cxCoreHasher,cxCoreHasher> cxTypes;
-    cxTypes classes;
     cxHash *caches;
     uv_key_t autoKey;
     std::vector<cxAny> ones;
 public:
     template<class T>
-    static T *One(cxAny gv)
-    {
-        T **ptr = (T **)gv;
-        if(*ptr == nullptr){
-            *ptr = T::Alloc();
-            gCore->ones.push_back(gv);
-        }
-        return *ptr;
-    }
-    static cxObject *alloc(cchars name);
-    static void registerType(cchars name,cxHelper &helper);
+    static T *One(cxAny gv);
     static cxCore *Instance();
     static void Destroy();
     cxStack *GetAutoPool();
@@ -66,18 +49,16 @@ public:
     cxObject *Pull(cchars key);
 };
 
-class cxHelper
+template<class T>
+T *cxCore::One(cxAny gv)
 {
-private:
-    std::string name;
-    cxCore::AllocFunc func;
-public:
-    cxObject *Alloc();
-    explicit cxHelper(cchars aname,cxCore::AllocFunc f);
-    virtual ~cxHelper();
-    cchars Name() const;
-};
-
+    T **ptr = (T **)gv;
+    if(*ptr == nullptr){
+        *ptr = T::Alloc();
+        cxCore::Instance()->ones.push_back(gv);
+    }
+    return *ptr;
+}
 CX_CPP_END
 
 #endif /* defined(__cxEngineCore__cxCore__) */

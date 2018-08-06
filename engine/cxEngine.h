@@ -82,6 +82,8 @@ private:
     cxRWLock mutex;
     void runEvents();
     std::queue<cxAsyncEvent> events;
+    //
+    void runInputs();
     //帧序列和帧动画
     cxHash *frames;
     cxHash *actions;
@@ -131,7 +133,7 @@ public:
     
     static void Destroy();
     static cxEngine *Instance();
-    static void Startup(cxBool layout,cchars clasz="Game");
+    static void Startup(cxBool layout);
     
     //need platform imp
     const cxStr *TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size);
@@ -166,6 +168,9 @@ public:
     cxInt Iter() const;
     void SetIter(cxInt aiter);
 };
+
+//需要外部定义此方法创建
+extern cxEngine *NewEngine();
 
 CX_CPP_END
 

@@ -76,13 +76,7 @@ public:
     
     //clear gc
     static void gcClear();
-    
-    //alloc or create name object
-    static cxObject *alloc(cchars name);
-    static cxObject *alloc(const cxStr *name);
-    static cxObject *create(cchars name);
-    static cxObject *create(const cxStr *name);
-    static cxObject *fromJson(const cxJson *json);
+
 public:
     virtual cxULong Hash() const;
     cxLong Tag() const;

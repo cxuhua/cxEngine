@@ -7,6 +7,7 @@
 //
 
 #include <core/cxNotice.h>
+#include <core/cxAutoPool.h>
 #include "cxEngine.h"
 #include "cxOpenGL.h"
 #include "cxView.h"
@@ -60,8 +61,8 @@ cxView::cxView()
     axis = cxPoint3F::AxisZ;
     dirtymode = DirtyModeAll;
     cc = cxColor4F::WHITE;
-    subviews = cxArray::Alloc();
-    viewapps = cxArray::Alloc();
+    views = cxArray::Alloc();
+    vapps = cxArray::Alloc();
     actions  = cxArray::Alloc();
     actapps  = cxArray::Alloc();
 }
@@ -70,9 +71,9 @@ cxView::~cxView()
 {
     cxObject::release(&shader);
     actapps->Release();
-    viewapps->Release();
+    vapps->Release();
     actions->Release();
-    subviews->Release();
+    views->Release();
 }
 
 cxView *cxView::SetSortFunc(cxCmpFunc func)
@@ -174,12 +175,12 @@ cxView *cxView::SetParent(cxView *v)
 
 cxView *cxView::At(cxInt i)
 {
-    return subviews->At(i)->To<cxView>();
+    return  views->At(i)->To<cxView>();
 }
 
-cxArray *cxView::Subviews() const
+const cxArray *cxView::Subviews() const
 {
-    return subviews;
+    return views;
 }
 
 cxView *cxView::Parent() const
@@ -536,9 +537,9 @@ cxView *cxView::Append(cxView *view)
     view->SetParent(this);
     view->isremoved = false;
     //set default z
-    view->z = subviews->Size();
-    viewapps->Append(view);
-    subviews->Append(view);
+    view->z = views->Size();
+    vapps->Append(view);
+    views->Append(view);
     return this;
 }
 
@@ -752,26 +753,34 @@ void cxView::OnLeave()
 
 void cxView::runAppends(cxFloat dt)
 {
-    for(cxArray::FIter it=viewapps->FBegin();it!=viewapps->FEnd();it++){
+    for(cxArray::FIter it=vapps->FBegin();it!=vapps->FEnd();it++){
         cxView *view = (*it)->To<cxView>();
+        if(view->IsRemoved()){
+            continue;
+        }
         OnAppend(view);
         view->OnEnter();
     }
-    viewapps->Clear();
+    vapps->Clear();
 }
 
 void cxView::runRemoves(cxFloat dt)
 {
-    for(cxArray::FIter it=subviews->FBegin();it!=subviews->FEnd();){
-        cxView *view = (*it)->To<cxView>();
+    cxInt mvc = 0;
+    cxInt cnt = views->Size();
+    cxInt mvs[128]={0};
+    for(cxInt i = 0; i < cnt; i++){
+        cxView *view = views->At(i)->To<cxView>();
         if(!view->IsRemoved()){
             view->Update(dt);
-            it++;
-            continue;
+        }else if(mvc < 128){
+            view->OnLeave();
+            OnRemove(view);
+            mvs[mvc++] = i;
         }
-        view->OnLeave();
-        OnRemove(view);
-        it = subviews->Remove(it);
+    }
+    for(cxInt i = 0;i < mvc; i++){
+        views->Remove(mvs[i]);
     }
 }
 
@@ -816,8 +825,9 @@ cxBool cxView::Dispatch(const cxTouchable *e)
     if(!EnableVisible()){
         return false;
     }
-    for(cxInt i=subviews->Size() - 1;i >= 0;i--){
-        cxView *view = subviews->At(i)->To<cxView>();
+    cxInt cnt = views->Size();
+    for(cxInt i = cnt - 1;i >= 0; i--){
+        cxView *view = views->At(i)->To<cxView>();
         if(view->Dispatch(e))return true;
     }
     return OnDispatch(e);
@@ -834,8 +844,9 @@ cxBool cxView::Dispatch(const cxKey &key)
     if(!EnableVisible()){
         return false;
     }
-    for(cxInt i=subviews->Size() - 1;i >= 0;i--){
-        cxView *view = subviews->At(i)->To<cxView>();
+    cxInt cnt = views->Size();
+    for(cxInt i = cnt - 1;i >= 0; i--){
+        cxView *view = views->At(i)->To<cxView>();
         if(view->Dispatch(key))return true;
     }
     return OnDispatch(key);
@@ -885,13 +896,13 @@ void cxView::Update(cxFloat dt)
     if(!actions->IsEmpty() || !actapps->IsEmpty()){
         updateActions(dt);
     }
-    if(!viewapps->IsEmpty()){
+    if(!vapps->IsEmpty()){
         runAppends(dt);
     }
     if(dirtymode != DirtyModeNone){
         transform();
     }
-    if(!subviews->IsEmpty()){
+    if(!views->IsEmpty()){
         runRemoves(dt);
     }
     OnIndex(idx++);
@@ -950,7 +961,7 @@ void cxView::Layout()
 
 cxBool cxView::IsEmpty() const
 {
-    return subviews->IsEmpty();
+    return views->IsEmpty();
 }
 
 cxRenderState &cxView::State()
@@ -959,25 +970,6 @@ cxRenderState &cxView::State()
     state.Set(this);
     return state;
 }
-
-const cxStr *cxView::ViewPath()
-{
-    cxStr *ret = cxStr::Create();
-    cxInt vc = 0;
-    cxView *vs[64]={NULL};
-    cxView *cp = this;
-    while (cp != NULL) {
-        vs[vc++] = cp;
-        cp = cp->Parent();
-    }
-    for(cxInt i = vc - 1; i >=0; i--){
-        cp = vs[i];
-        ret->AppFmt("%s.",cp->GetHelper().Name());
-    }
-    ret->KeepBytes(-1);
-    return ret;
-}
-
 //this.0.0
 cxView *cxView::Select(cchars path)
 {
@@ -1049,8 +1041,8 @@ const cxBox4F cxView::ParentBox() const
 
 void cxView::RenderSubviews(cxRender *render,const cxMatrixF &mv)
 {
-    for(cxInt i=0; i < subviews->Size();i++){
-        cxView *view = subviews->At(i)->To<cxView>();
+    for(cxArray::FIter it=views->FBegin();it!=views->FEnd();it++){
+        cxView *view = (*it)->To<cxView>();
         view->Render(render,mv);
     }
 }
@@ -1058,13 +1050,14 @@ void cxView::RenderSubviews(cxRender *render,const cxMatrixF &mv)
 void cxView::clearViews()
 {
     issort = false;
-    for(cxInt i=0; i < subviews->Size();i++){
-        cxView *view = subviews->At(i)->To<cxView>();
+    cxInt cnt = views->Size();
+    for(cxInt i=0;i<cnt;i++){
+        cxView *view = views->At(i)->To<cxView>();
         view->OnLeave();
         OnRemove(view);
     }
-    subviews->Clear();
-    viewapps->Clear();
+    views->Clear();
+    vapps->Clear();
 }
 
 void cxView::Render(cxRender *render,const cxMatrixF &mv)
@@ -1095,10 +1088,10 @@ void cxView::Render(cxRender *render,const cxMatrixF &mv)
         isclear = false;
     }
     if(issort){
-        subviews->Sort(cxView::sortFunc);
+        //subviews->Sort(cxView::sortFunc);
         issort = false;
     }
-    if(!subviews->IsEmpty()){
+    if(!views->IsEmpty()){
         RenderSubviews(render, modelview);
     }
     if(isclip){
@@ -1218,8 +1211,9 @@ void cxView::OnLayout()
 
 void cxView::Each(std::function<void(cxView *pview)> func)
 {
-    for(cxInt i=0; i < subviews->Size();i++){
-        cxView *pv = subviews->At(i)->To<cxView>();
+    cxInt cnt = views->Size();
+    for(cxInt i=0;i<cnt;i++){
+        cxView *pv = views->At(i)->To<cxView>();
         if(pv->IsRemoved()){
             continue;
         }

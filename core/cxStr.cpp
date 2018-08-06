@@ -314,11 +314,6 @@ cchars cxStr::ToChars() const
     return Data();
 }
 
-cxObject *cxStr::ToObject()
-{
-    return cxObject::create(ToChars());
-}
-
 cxStr *cxStr::Init(cxInt size,char c)
 {
     s = s.assign(size,c);

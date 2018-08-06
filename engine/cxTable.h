@@ -35,6 +35,8 @@ private:
     cxInt rownum;
     cxBox4F padding;
     cxBox4F margin;
+protected:
+    void OnLayout();
 public:
     cxTable *SetFlags(cxUInt v);
     cxTable *SetIgnore(cxLong tag);

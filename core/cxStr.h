@@ -75,8 +75,6 @@ public:
     cxColor4F ToColor4F() const;
     cchars ToChars() const;
     
-    cxObject *ToObject();
-    
     cxStr *ToLower();
     cxStr *ToUpper();
     

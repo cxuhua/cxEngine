@@ -71,14 +71,14 @@ cxEngine *cxEngine::Instance()
     return instance;
 }
 
-void cxEngine::Startup(cxBool layout,cchars clasz)
+void cxEngine::Startup(cxBool layout)
 {
     cxSize2F winsiz = 0.0f;
     if(instance != nullptr){
         winsiz = instance->WinSize();
         cxEngine::Destroy();
     }
-    instance = cxObject::alloc(clasz)->To<cxEngine>();
+    instance = NewEngine();
     if(layout && !winsiz.IsZero()){
         instance->Layout(winsiz.w, winsiz.h);
     }

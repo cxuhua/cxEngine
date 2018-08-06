@@ -31,13 +31,10 @@ private:
     uv_connect_t connreq;
     uv_shutdown_t shutreq;
     uv_getaddrinfo_t resolver;
-    
     struct addrinfo hints;
-    
     char *buffer;
     cxInt bufsiz;
     cxBool connected;
-    
     static void close_cb(uv_handle_t* handle);
     static void alloc_cb(uv_handle_t* handle,size_t suggested,uv_buf_t* buf);
     static void read_cb(uv_stream_t* tcp, ssize_t nread, const uv_buf_t* buf);

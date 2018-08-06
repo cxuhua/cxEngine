@@ -18,7 +18,7 @@ cxGesture::cxGesture()
     tapTime[0] = 0;
     tapTime[1] = 0;
     tapCount = 0;
-    flags = cxTouchPoint::FlagsGestureTypeSwipe;
+    flags = cxTouchPoint::FlagsGestureTypeSwipe|cxTouchPoint::FlagsGestureTypeDoubleTap;
     touchIsPass = false;
 }
 
@@ -85,16 +85,16 @@ void cxGesture::OnDoubleTap()
 
 cxBool cxGesture::OnDispatch(const cxTouchable *e)
 {
-    if(e->TouchCount() == 1){
+    if(e->TouchCount() == 1 && (flags & cxTouchPoint::FlagsGestureTypeDoubleTap)){
         const cxTouchPoint *ep = e->TouchPoint(0);
         cxHitInfo hit = HitTest(ep->wp);
         if(hit.hited && ep->IsEnded() && ep->IsTap()){
             tapTime[tapCount] = cxUtil::Timestamp();
             tapCount++;
-            if(tapCount == 2){
-                if(tapTime[1] - tapTime[0] < 0.3){
-                    OnDoubleTap();
-                }
+            if(tapCount >= 2 && tapTime[1] - tapTime[0] < 0.3){
+                OnDoubleTap();
+            }
+            if(tapCount >= 2){
                 tapCount = 0;
             }
         }

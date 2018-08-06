@@ -108,14 +108,9 @@ void cxOpenGL::SetViewport(const cxRect4F &rect)
 
 cxBool cxOpenGL::BindTexture(cxTextureId texId,cxInt idx)
 {
-    GLenum error = GL_NO_ERROR;
-    if(currTexId[idx] != texId){
-        glActiveTexture(GL_TEXTURE0 + idx);
-        glBindTexture(GL_TEXTURE_2D, texId);
-        error = glGetError();
-        currTexId[idx] = texId;
-    }
-    return error == GL_NO_ERROR;
+    glActiveTexture(GL_TEXTURE0 + idx);
+    glBindTexture(GL_TEXTURE_2D, texId);
+    return glGetError() == GL_NO_ERROR;
 }
 
 void cxOpenGL::UseProgram(glUint program)
@@ -200,9 +195,6 @@ cxOpenGL::cxOpenGL()
 {
     shaders = cxHash::Alloc();
     kmGLSetCurrentContext();
-    for(cxInt i=0;i<MAX_TEXTURES;i++){
-        currTexId[i] = -1;
-    }
     currProg = -1;
 }
 

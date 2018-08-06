@@ -178,6 +178,9 @@ cxSprite *cxSprite::SetCoords(const cxArray *acoords,const cxFrameMap *map)
 cxSprite *cxSprite::SetTexture(const cxTexture *ptex)
 {
     CX_ASSERT(ptex != nullptr, "ptex args error");
+    if(Tag() == 10010){
+        CX_LOGGER("aa");
+    }
     if(texture != ptex){
         cxObject::swap(&texture, ptex);
         SetDirty(DirtyModeTexture);

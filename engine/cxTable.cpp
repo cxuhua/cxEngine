@@ -80,19 +80,25 @@ cxTable *cxTable::SetNumPreRow(cxInt v)
     return this;
 }
 
+void cxTable::OnLayout()
+{
+    cxSprite::OnLayout();
+    UpdateViews();
+}
+
 cxTable *cxTable::UpdateViews()
 {
     
     if(IsEmpty()){
         return this;
     }
-    cxArray *vs = Subviews();
+    const cxArray *vs = Subviews();
     cxInt num = 0;
     cxFloat maxw = 0;
     cxFloat maxh = 0;
     cxFloat w = 0;
     cxFloat h = 0;
-    for(cxArray::FIter it=vs->FBegin();it!=vs->FEnd();it++){
+    for(cxArray::CFIter it=vs->FBegin();it!=vs->FEnd();it++){
         cxView *pv = (*it)->To<cxView>();
         if(!pv->EnableVisible()){
             continue;
@@ -138,7 +144,7 @@ cxTable *cxTable::UpdateViews()
         offy = maxh/2.0f - padding.t;
     }
     maxh = 0;
-    for(cxArray::FIter it=vs->FBegin();it!=vs->FEnd();it++){
+    for(cxArray::CFIter it=vs->FBegin();it!=vs->FEnd();it++){
         cxView *pv = (*it)->To<cxView>();
         if(!pv->EnableVisible()){
             continue;

@@ -245,45 +245,6 @@ const cxJson *cxObject::GetProperty(cchars key)
     return nullptr;
 }
 
-cxObject *cxObject::alloc(cchars name)
-{
-    return cxCore::alloc(name);
-}
-
-cxObject *cxObject::alloc(const cxStr *name)
-{
-    return cxCore::alloc(name->ToChars());
-}
-
-cxObject *cxObject::create(const cxStr *name)
-{
-    return create(name->ToChars());
-}
-
-cxObject *cxObject::fromJson(const cxJson *json)
-{
-    if(json == nullptr){
-        CX_ERROR("json data error");
-        return nullptr;
-    }
-    const cxJson *cxtype = json->At("cxType");
-    if(cxtype == nullptr || !cxtype->IsString()){
-        CX_ERROR("cxType node miss");
-        return nullptr;
-    }
-    cxObject *pobj = cxObject::create(cxtype->ToChars());
-    if(pobj == nullptr){
-        CX_ERROR("create object error");
-        return nullptr;
-    }
-    return pobj->initFromJson(json);
-}
-
-cxObject *cxObject::create(cchars name)
-{
-    return alloc(name)->AutoRelease();
-}
-
 void cxObject::Release()
 {
     CX_ASSERT(refcount > 0, "error,retain count must > 0");

@@ -690,6 +690,7 @@ cxTexture *cxTexture::FromTXT(const cxStr *txt,const cxTextAttr &attr,cxUInt64 *
     }
     type = TXT;
     GenTexture()->Bind()->SetParams(cxTextureParams::Default);
+    GenTexture()->Bind()->SetParams(cxTextureParams::Default);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.w, size.h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data->Buffer());
     return this;
 }

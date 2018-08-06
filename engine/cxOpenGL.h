@@ -27,8 +27,6 @@
 
 CX_CPP_BEGIN
 
-#define MAX_TEXTURES    32
-
 #define STRINGIFY(A)  #A
 
 typedef uint32_t glUint;
@@ -57,8 +55,6 @@ struct BlendFunc
     cxBool operator==(const BlendFunc &v) const;
     void Using();
 };
-
-
 
 class cxView;
 class cxShader;
@@ -89,7 +85,6 @@ public:
     cxBool support_GLES3;
 private:
     static cxOpenGL *instance;
-    cxTextureId currTexId[MAX_TEXTURES];
     glUint currProg;
     cxHash *shaders;
     cxMatrixF modelproject;

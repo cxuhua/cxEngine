@@ -207,21 +207,9 @@ static CX_INLINE T *CreateWithArgs(Args... args)                    \
     T *ptr = new T(args...);                                        \
     return static_cast<T *>(ptr->AutoRelease());                    \
 }                                                                   \
-private:                                                            \
-static cxHelper __helper__;                                         \
-static CX_INLINE T *__Alloc__()                                     \
-{                                                                   \
-    return T::Alloc();                                              \
-}                                                                   \
-public:                                                             \
-virtual const cxHelper &GetHelper() const;
+private:
 
-#define CX_IMPLEMENT(T)                                             \
-cxHelper T::__helper__=cxHelper(#T,(cxCore::AllocFunc)T::__Alloc__);\
-const cxHelper &T::GetHelper() const                                \
-{                                                                   \
-    return T::__helper__;                                           \
-}
+#define CX_IMPLEMENT(T)
 
 #endif /* defined(__cxEngineCore__cxDefine__) */
 

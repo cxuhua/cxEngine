@@ -48,36 +48,6 @@ void cxUtilAssert(cchars  file,int line,cchars  format, ...)
     va_end(ap);
 }
 
-size_t cxCore::cxCoreHasher::operator()(const std::string &k) const
-{
-    return (size_t)XXH32(k.data(), (int)k.size(), 0);
-}
-
-bool cxCore::cxCoreHasher::operator()(const std::string &lhs, const std::string &rhs) const
-{
-    return lhs == rhs;
-}
-
-cxObject *cxHelper::Alloc()
-{
-    return func();
-}
-
-cchars cxHelper::Name() const
-{
-    return name.data();
-}
-
-cxHelper::cxHelper(cchars aname,cxCore::AllocFunc f)
-{
-    name.assign(aname);
-    func = f;
-    cxCore::registerType(aname, *this);
-}
-cxHelper::~cxHelper()
-{
-    
-}
 
 cxCore *cxCore::gCore = nullptr;
 
@@ -88,20 +58,6 @@ cxCore *cxCore::Instance()
         atexit(cxCore::Destroy);
     }
     return cxCore::gCore;
-}
-
-void cxCore::registerType(cchars name,cxHelper &helper)
-{
-    CX_ASSERT(cxStr::IsOK(name), "name or func error");
-    cxCore::Instance()->classes.emplace(name,helper);
-}
-
-cxObject *cxCore::alloc(cchars name)
-{
-    CX_ASSERT(cxStr::IsOK(name), "name error");
-    cxTypes::iterator it = cxCore::Instance()->classes.find(name);
-    CX_ASSERT(it != cxCore::Instance()->classes.end(), "class %s not register",name);
-    return it->second.Alloc();
 }
 
 void cxCore::Destroy()
@@ -123,7 +79,6 @@ cxCore::~cxCore()
     Clear();
     caches->Release();
     uv_key_delete(&autoKey);
-    classes.clear();
 }
 
 void cxCore::Clear()

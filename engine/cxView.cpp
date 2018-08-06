@@ -62,16 +62,15 @@ cxView::cxView()
     dirtymode = DirtyModeAll;
     cc = cxColor4F::WHITE;
     views = cxArray::Alloc();
-    vapps = cxArray::Alloc();
     actions  = cxArray::Alloc();
     actapps  = cxArray::Alloc();
+    isnewadd = false;
 }
 
 cxView::~cxView()
 {
     cxObject::release(&shader);
     actapps->Release();
-    vapps->Release();
     actions->Release();
     views->Release();
 }
@@ -538,7 +537,7 @@ cxView *cxView::Append(cxView *view)
     view->isremoved = false;
     //set default z
     view->z = views->Size();
-    vapps->Append(view);
+    view->isnewadd = true;
     views->Append(view);
     return this;
 }
@@ -753,15 +752,18 @@ void cxView::OnLeave()
 
 void cxView::runAppends(cxFloat dt)
 {
-    for(cxArray::FIter it=vapps->FBegin();it!=vapps->FEnd();it++){
+    for(cxArray::FIter it=views->FBegin();it!=views->FEnd();it++){
         cxView *view = (*it)->To<cxView>();
         if(view->IsRemoved()){
             continue;
         }
+        if(!view->isnewadd){
+            continue;
+        }
+        view->isnewadd = false;
         OnAppend(view);
         view->OnEnter();
     }
-    vapps->Clear();
 }
 
 void cxView::runRemoves(cxFloat dt)
@@ -896,7 +898,7 @@ void cxView::Update(cxFloat dt)
     if(!actions->IsEmpty() || !actapps->IsEmpty()){
         updateActions(dt);
     }
-    if(!vapps->IsEmpty()){
+    if(!views->IsEmpty()){
         runAppends(dt);
     }
     if(dirtymode != DirtyModeNone){
@@ -1057,7 +1059,6 @@ void cxView::clearViews()
         OnRemove(view);
     }
     views->Clear();
-    vapps->Clear();
 }
 
 void cxView::Render(cxRender *render,const cxMatrixF &mv)

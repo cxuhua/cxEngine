@@ -100,7 +100,7 @@ private:
 
     cxView *parent;
     DirtyMode dirtymode;
-    cxArray *vapps;
+    cxBool isnewadd;
     cxArray *views;
     cxMatrixF modelview;
     cxMatrixF normalMatrix;

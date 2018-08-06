@@ -43,10 +43,10 @@ private:
     cxBool issliding;
     cxFloat slidingspeed;
     cxFloat slidingtime;
-protected:
-    virtual cxView *Body();
-    cxContainer *FixPosition();
 public:
+    cxContainer *FixPosition();
+    virtual cxView *Body();
+    cxContainer *Follow(const cxPoint2F &pos);
     cxContainer *SetBodyIdx(cxInt idx);
     cxContainer *SetScaleRange(const cxRange2F &v);
     cxContainer *EnableScale(cxBool v);

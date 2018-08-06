@@ -77,6 +77,13 @@ cxContainer *cxContainer::FixPosition()
     return this;
 }
 
+cxContainer *cxContainer::Follow(const cxPoint2F &pos)
+{
+    cxPoint2F npos = fixPosition(pos);
+    Body()->SetPosition(npos);
+    return this;
+}
+
 cxBool cxContainer::scale(const cxengine::cxTouchable *e)
 {
     const cxTouchPoint *ep0 = e->TouchPoint(0);

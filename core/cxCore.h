@@ -11,6 +11,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include <unordered_map>
 #include "cxDefine.h"
 
@@ -29,13 +30,17 @@ class cxCore
 protected:
     explicit cxCore();
     virtual ~cxCore();
-public:
-    typedef cxObject *(*AllocFunc)();
 private:
+    typedef cxObject *(*AllocFunc)();
+    typedef std::map<std::string, AllocFunc> TypesMap;
     static cxCore *gCore;
     cxHash *caches;
     uv_key_t autoKey;
     std::vector<cxAny> ones;
+    TypesMap classes;
+public:
+    static cxObject *Create(cchars name);
+    static cxObject *Alloc(cchars name);
 public:
     template<class T>
     static T *One(cxAny gv);
@@ -47,6 +52,8 @@ public:
     void Remove(cchars key);
     void Push(cchars key,cxObject *pobj);
     cxObject *Pull(cchars key);
+public:
+    static cxLong _RegClass_(cchars name,AllocFunc func);
 };
 
 template<class T>

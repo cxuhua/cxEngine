@@ -207,9 +207,16 @@ static CX_INLINE T *CreateWithArgs(Args... args)                    \
     T *ptr = new T(args...);                                        \
     return static_cast<T *>(ptr->AutoRelease());                    \
 }                                                                   \
-private:
+private:                                                            \
+static cxLong T##Name;                                              \
+static cxObject *T##Alloc();
 
-#define CX_IMPLEMENT(T)
+#define CX_IMPLEMENT(T)                                             \
+cxObject *T::T##Alloc()                                             \
+{                                                                   \
+    return T::Alloc();                                              \
+}                                                                   \
+cxLong T::T##Name = cxCore::_RegClass_(#T, T##Alloc);
 
 #endif /* defined(__cxEngineCore__cxDefine__) */
 

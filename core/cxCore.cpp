@@ -68,6 +68,27 @@ void cxCore::Destroy()
     }
 }
 
+cxObject *cxCore::Create(cchars name)
+{
+    return cxCore::Alloc(name)->AutoRelease();
+}
+
+cxObject *cxCore::Alloc(cchars name)
+{
+    cxCore *core = cxCore::Instance();
+    TypesMap::iterator it = core->classes.find(name);
+    if(it == core->classes.end()){
+        return nullptr;
+    }
+    return it->second();
+}
+
+cxLong cxCore::_RegClass_(cchars name,AllocFunc func)
+{
+    cxCore::Instance()->classes.emplace(name,func);
+    return (cxLong)name;
+}
+
 cxCore::cxCore()
 {
     caches = cxHash::Alloc();

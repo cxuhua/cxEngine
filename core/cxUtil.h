@@ -42,6 +42,10 @@ public:
     static cxStr *Assets(cchars file);
     static cxStr *Document(cchars file);
     static cxStr *Content(cchars file);//优先从document目录获取数据
+    // >0 成功并返回文件长度
+    static cxInt64 ValidFile(cchars file,cchars md5);
+    //获取文件大小
+    cxInt64 GetFileSize(cchars file);
     //获取当前app版本号
     virtual cxInt GetVersionCode();
     //获取版本名称

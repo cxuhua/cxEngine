@@ -8,6 +8,7 @@
 
 #include <sys/stat.h>
 #include <sys/time.h>
+#include <ext/md5.h>
 #include <unistd.h>
 #include <fstream>
 #include "cxUtil.h"
@@ -91,6 +92,34 @@ cxStr *cxUtil::Assets(cchars file)
     return Instance()->AssetsData(file);
 }
 
+cxInt64 cxUtil::ValidFile(cchars file,cchars md5)
+{
+    FILE *fd = fopen(file, "rb");
+    if(fd == NULL){
+        return 0;
+    }
+    cxInt64 l = 0;
+    mongo_md5_byte_t digest[16];
+    mongo_md5_state_t state;
+    mongo_md5_init(&state);
+    char buf[4096]={0};
+    while (fd != NULL) {
+        int ret = fread(buf, 1, 4096, fd);
+        if(ret <= 0){
+            break;
+        }
+        l += ret;
+        mongo_md5_append(&state, (const mongo_md5_byte_t *)buf, ret);
+    }
+    fclose(fd);
+    mongo_md5_finish(&state, digest);
+    cxStr *str = cxStr::Create(digest, 16);
+    if(!str->HexEncode()->IsCaseEqu(md5)){
+        l = 0;
+    }
+    return l;
+}
+
 cxStr *cxUtil::Document(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "args error");
@@ -144,6 +173,15 @@ cxInt cxUtil::Rand(cxInt min,cxInt max)
 {
     cxInt x = rand();
     return (min + x % (max + 1 - min));
+}
+
+cxInt64 cxUtil::GetFileSize(cchars file)
+{
+    struct stat s={0};
+    if(stat(file, &s) != 0){
+        return -1;
+    }
+    return s.st_size;
 }
 
 cxBool cxUtil::WriteFileData(const cxStr *path,const cxStr *data,cxBool replace)

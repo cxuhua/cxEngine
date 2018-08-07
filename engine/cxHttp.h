@@ -30,10 +30,21 @@ protected:
     virtual void OnCompleted();
     virtual void OnHeader();
     virtual void OnStart();
+    virtual void OnBody(cchars data,cxInt len);
+    virtual void OnFile(const cxStr *path,cxInt64 size);
     void OnConnected();
     void OnData(char *buffer,cxInt size);
     void OnClose();
 private:
+    //保存路径
+    cxStr *spath;
+    cxStr *smd5;
+    FILE *fd;
+    cxBool initFile();
+    void closeFile();
+    void writeFile(cchars data,cxInt size);    
+    
+    cxUInt64 contentLength;
     cxUInt16 status;
     cxBool success;
     cxHttpMethod method;
@@ -44,11 +55,11 @@ private:
     cxStr *post;
     cxHash *reqHeads;
     cxHash *resHeads;
-    cxStr *data;
     cxStr *field;
-    cxInt offset;
     cxStr *host;
     cxInt port;
+    static int onChunkHeader(http_parser *parser);
+    static int onChunkComplete(http_parser *parser);
     static int onBodyFunc(http_parser *parser, const char *at, size_t length);
     static int onHeadField(http_parser *parser, const char *at, size_t length);
     static int onHeadValue(http_parser *parser, const char *at, size_t length);
@@ -58,7 +69,9 @@ private:
 public:
     cxEvent<cxHttp> onSuccess;
     cxEvent<cxHttp> onError;
+    cxEvent<cxHttp, const cxStr *, cxInt64> onFile;
 public:
+    cxHttp *SetFileInfo(const cxStr *path,const cxStr *md5=nullptr);
     cxBool ConnectURL(cchars url);
     cxHash *ReqHeads();
     cxHash *ResHeads();
@@ -69,6 +82,8 @@ public:
 public:
     static cxHttp *Post(cchars url,const cxStr *post);
     static cxHttp *Get(cchars url);
+    //支持断点续传 成功下载时只需OnFile
+    static cxHttp *LoadFile(cchars url,const cxStr *path,const cxStr *md5);
 };
 
 CX_CPP_END

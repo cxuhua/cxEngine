@@ -92,11 +92,10 @@ private:
     Resize resizeflags;
     cxBox4F resizebox;
     
-    cxArray *actapps;
     cxArray *actions;
     
     void runAppends(cxFloat dt);
-    void runRemoves(cxFloat dt);
+    void runUpadtes(cxFloat dt);
 
     cxView *parent;
     DirtyMode dirtymode;
@@ -133,7 +132,7 @@ private:
     cxBoxPoint3F bp;    //transform before
     cxBoxColor4F cc;    //box color
     
-    void updateActions(cxFloat dt);
+    void runActions(cxFloat dt);
     
     static cxInt defaultSortFunc(const void *lp,const void *rp);
     cxCmpFunc sortFunc;

@@ -424,14 +424,18 @@ const cxJson *cxJson::Select(cchars sel) const
     }
     json_t *pv = json;
     for(cxInt i=0; i < num;i ++){
-        cchars ckey = ckeys[i];
-        if(jsonKeyIsNumber(ckey, &index)){
-            rv = json_array_get(pv, index);
-        }else{
-            rv = json_object_get(pv, ckey);
+        if(pv == nullptr){
+            return nullptr;
         }
-        if(rv == NULL){
-            break;
+        cchars ckey = ckeys[i];
+        if(json_is_array(pv)){
+            cxBool isint = jsonKeyIsNumber(ckey, &index);
+            CX_ASSERT(isint, "key type error");(void)isint;
+            rv = json_array_get(pv, index);
+        }else if(json_is_object(pv)){
+            rv = json_object_get(pv, ckey);
+        }else {
+            return nullptr;
         }
         pv = rv;
     }

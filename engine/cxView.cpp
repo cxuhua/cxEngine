@@ -63,14 +63,12 @@ cxView::cxView()
     cc = cxColor4F::WHITE;
     views = cxArray::Alloc();
     actions  = cxArray::Alloc();
-    actapps  = cxArray::Alloc();
     isnewadd = false;
 }
 
 cxView::~cxView()
 {
     cxObject::release(&shader);
-    actapps->Release();
     actions->Release();
     views->Release();
 }
@@ -551,7 +549,7 @@ cxView *cxView::Append(cxAction *action)
     }
     ExitAction(action->ID());
     action->SetView(this);
-    actapps->Append(action);
+    actions->Append(action);
     return this;
 }
 
@@ -592,15 +590,7 @@ const cxMatrixF &cxView::ModelView() const
 
 cxAction *cxView::GetAction(cxActionId aid)
 {
-    cxArray::FIter it = actapps->FBegin();
-    while(it != actapps->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid){
-            return action;
-        }
-        it++;
-    }
-    it = actions->FBegin();
+    cxArray::FIter it = actions->FBegin();
     while(it != actions->FEnd()){
         cxAction *action = (*it)->To<cxAction>();
         if(action->ID() == aid){
@@ -613,15 +603,7 @@ cxAction *cxView::GetAction(cxActionId aid)
 
 cxBool cxView::HasAction(cxActionId aid) const
 {
-    cxArray::FIter it = actapps->FBegin();
-    while(it != actapps->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid){
-            return true;
-        }
-        it++;
-    }
-    it = actions->FBegin();
+    cxArray::FIter it = actions->FBegin();
     while(it != actions->FEnd()){
         cxAction *action = (*it)->To<cxAction>();
         if(action->ID() == aid){
@@ -634,21 +616,12 @@ cxBool cxView::HasAction(cxActionId aid) const
 
 cxInt cxView::ActionSize() const
 {
-    return actapps->Size() + actions->Size();
+    return actions->Size();
 }
 
 cxView *cxView::StopAction(cxActionId aid)
 {
-    cxArray::FIter it = actapps->FBegin();
-    while(it != actapps->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid || aid == 0){
-            it = actapps->Remove(it);
-        }else{
-            it++;
-        }
-    }
-    it = actions->FBegin();
+    cxArray::FIter it = actions->FBegin();
     while(it != actions->FEnd()){
         cxAction *action = (*it)->To<cxAction>();
         if(action->ID() == aid || aid == 0){
@@ -661,16 +634,7 @@ cxView *cxView::StopAction(cxActionId aid)
 
 cxView *cxView::ExitAction(cxActionId aid)
 {
-    cxArray::FIter it = actapps->FBegin();
-    while(it != actapps->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid || aid == 0){
-            it = actapps->Remove(it);
-        }else{
-            it++;
-        }
-    }
-    it = actions->FBegin();
+    cxArray::FIter it = actions->FBegin();
     while(it != actions->FEnd()){
         cxAction *action = (*it)->To<cxAction>();
         if(action->ID() == aid || aid == 0){
@@ -681,14 +645,8 @@ cxView *cxView::ExitAction(cxActionId aid)
     return this;
 }
 
-void cxView::updateActions(cxFloat dt)
+void cxView::runActions(cxFloat dt)
 {
-    for(cxArray::FIter it=actapps->FBegin();it!=actapps->FEnd();it++){
-        cxAction *action = (*it)->To<cxAction>();
-        actions->Append(action);
-    }
-    actapps->Clear();
-
     cxArray::FIter it = actions->FBegin();
     while(it != actions->FEnd()){
         cxAction *action = (*it)->To<cxAction>();
@@ -766,16 +724,16 @@ void cxView::runAppends(cxFloat dt)
     }
 }
 
-void cxView::runRemoves(cxFloat dt)
+void cxView::runUpadtes(cxFloat dt)
 {
     cxInt mvc = 0;
     cxInt cnt = views->Size();
-    cxInt mvs[128]={0};
+    cxInt mvs[64]={0};
     for(cxInt i = 0; i < cnt; i++){
         cxView *view = views->At(i)->To<cxView>();
         if(!view->IsRemoved()){
             view->Update(dt);
-        }else if(mvc < 128){
+        }else if(mvc < 64){
             view->OnLeave();
             OnRemove(view);
             mvs[mvc++] = i;
@@ -895,8 +853,8 @@ void cxView::Update(cxFloat dt)
         return;
     }
     OnUpdate(dt);
-    if(!actions->IsEmpty() || !actapps->IsEmpty()){
-        updateActions(dt);
+    if(!actions->IsEmpty()){
+        runActions(dt);
     }
     if(!views->IsEmpty()){
         runAppends(dt);
@@ -905,7 +863,7 @@ void cxView::Update(cxFloat dt)
         transform();
     }
     if(!views->IsEmpty()){
-        runRemoves(dt);
+        runUpadtes(dt);
     }
     OnIndex(idx++);
 }

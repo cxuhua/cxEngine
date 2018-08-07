@@ -32,6 +32,7 @@ protected:
     virtual void OnStart();
     virtual void OnBody(cchars data,cxInt len);
     virtual void OnFile(const cxStr *path,cxInt64 size);
+    virtual void OnProgress(cxInt64 len,cxInt64 cur);
     void OnConnected();
     void OnData(char *buffer,cxInt size);
     void OnClose();
@@ -40,6 +41,8 @@ private:
     cxStr *spath;
     cxStr *smd5;
     FILE *fd;
+    cxInt64 filesize;
+    cxInt64 downsize;
     cxBool initFile();
     void closeFile();
     void writeFile(cchars data,cxInt size);    
@@ -70,6 +73,7 @@ public:
     cxEvent<cxHttp> onSuccess;
     cxEvent<cxHttp> onError;
     cxEvent<cxHttp, const cxStr *, cxInt64> onFile;
+    cxEvent<cxHttp, cxInt64,cxInt64> onProgress;
 public:
     cxHttp *SetFileInfo(const cxStr *path,const cxStr *md5=nullptr);
     cxBool ConnectURL(cchars url);
@@ -77,7 +81,6 @@ public:
     cxHash *ResHeads();
     const cxInt Status() const;
     const cxStr *Body() const;
-    const cxJson *Json() const;
     const cxBool Success() const;
 public:
     static cxHttp *Post(cchars url,const cxStr *post);

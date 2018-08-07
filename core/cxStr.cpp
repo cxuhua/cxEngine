@@ -18,6 +18,7 @@
 #include "cxUtil.h"
 #include "cxArray.h"
 #include "cxLocalized.h"
+#include "cxJson.h"
 
 CX_CPP_BEGIN
 
@@ -312,6 +313,11 @@ cxStr *cxStr::ToUpper()
 cchars cxStr::ToChars() const
 {
     return Data();
+}
+
+const cxJson *cxStr::ToJson() const
+{
+    return cxJson::Create()->From(this);
 }
 
 cxStr *cxStr::Init(cxInt size,char c)

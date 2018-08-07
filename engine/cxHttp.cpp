@@ -17,11 +17,13 @@ CX_IMPLEMENT(cxHttp);
 
 void cxHttp::OnBody(cchars data,cxInt len)
 {
+    downsize += len;
     if(fd != NULL){
         writeFile(data, len);
     }else{
         body->Append(data, len);
     }
+    OnProgress(contentLength + filesize,downsize + filesize);
 }
 
 int cxHttp::onBodyFunc(http_parser *parser, const char *at, size_t length)
@@ -51,6 +53,7 @@ int cxHttp::onHeadValue(http_parser *parser, const char *at, size_t length)
 int cxHttp::messageBegin(http_parser *parser)
 {
     cxHttp *http = static_cast<cxHttp *>(parser->data);
+    http->downsize = 0;
     http->OnStart();
     return 0;
 }
@@ -114,6 +117,8 @@ cxHttp::cxHttp()
     fd = NULL;
     smd5 = nullptr;
     contentLength = 0;
+    downsize = 0;
+    filesize = 0;
     
     body = cxStr::Alloc();
     reqHeads = cxHash::Alloc();
@@ -152,6 +157,11 @@ void cxHttp::OnFile(const cxStr *path,cxInt64 size)
     onFile.Fire(this, path, size);
 }
 
+void cxHttp::OnProgress(cxInt64 len,cxInt64 cur)
+{
+    onProgress.Fire(this, len, cur);
+}
+
 void cxHttp::closeFile()
 {
     if(fd == NULL){
@@ -179,6 +189,10 @@ void cxHttp::writeFile(cchars data,cxInt size)
 
 cxBool cxHttp::initFile()
 {
+    //未设置文件下载
+    if(!cxStr::IsOK(spath) || !cxStr::IsOK(smd5)){
+        return true;
+    }
     //检测原文件是否成功
     cxInt64 fsiz = cxUtil::ValidFile(spath->ToChars(), smd5->ToChars());
     if(fsiz > 0){
@@ -198,9 +212,11 @@ cxBool cxHttp::initFile()
     }
     //继续下载
     if(fsiz >= 0){
+        filesize = fsiz;
         fd = fopen(file, "ab+");
         reqHeads->Set("Range", cxStr::UTF8("bytes=%lld-",fsiz));
     }else{
+        filesize = 0;
         fd = fopen(file, "wb+");
     }
     if(fd == NULL){
@@ -220,6 +236,10 @@ void cxHttp::OnClose()
 
 void cxHttp::OnConnected()
 {
+    if(!initFile()){
+        Close(0);
+        return;
+    }
     reqHeads->Set("Host", host);
     cxStr *header = cxStr::Alloc();
     if(method == HTTP_GET){
@@ -300,9 +320,6 @@ cxHttp *cxHttp::LoadFile(cchars url,const cxStr *path,const cxStr *md5)
     CX_ASSERT(cxStr::IsOK(md5), "md5 args error");
     cxHttp *rv = cxHttp::Create();
     rv->SetFileInfo(path,md5);
-    if(!rv->initFile()){
-        return rv;
-    }
     if(!rv->ConnectURL(url)){
         CX_ERROR("http url error");
     }
@@ -322,11 +339,6 @@ const cxInt cxHttp::Status() const
 const cxStr *cxHttp::Body() const
 {
     return body;
-}
-
-const cxJson *cxHttp::Json() const
-{
-    return cxJson::Create()->From(body);
 }
 
 cxHash *cxHttp::ReqHeads()

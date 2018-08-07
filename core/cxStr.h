@@ -20,6 +20,7 @@ CX_CPP_BEGIN
 
 #define AES_KEY_LENGTH  16
 
+class cxJson;
 class cxStr : public cxObject
 {
 public:
@@ -52,6 +53,8 @@ public:
     
     cxULong Hash() const;
     
+    
+    
     cxBool IsEmpty() const;
     cxInt UTF8Size() const;
     cxInt Size() const;
@@ -74,6 +77,7 @@ public:
     cxPoint3F ToPoint3F() const;
     cxColor4F ToColor4F() const;
     cchars ToChars() const;
+    const cxJson *ToJson() const;
     
     cxStr *ToLower();
     cxStr *ToUpper();

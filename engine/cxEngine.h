@@ -169,9 +169,6 @@ public:
     void SetIter(cxInt aiter);
 };
 
-//需要外部定义此方法创建
-extern cxEngine *NewEngine();
-
 CX_CPP_END
 
 #endif

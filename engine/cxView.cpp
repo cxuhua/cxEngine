@@ -645,19 +645,6 @@ cxView *cxView::ExitAction(cxActionId aid)
     return this;
 }
 
-void cxView::runActions(cxFloat dt)
-{
-    cxArray::FIter it = actions->FBegin();
-    while(it != actions->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->Update(dt)){
-            it = actions->Remove(it);
-        }else{
-            it++;
-        }
-    }
-}
-
 cxBoxColor4F &cxView::BoxColor()
 {
     return cc;
@@ -710,9 +697,13 @@ void cxView::OnLeave()
 
 void cxView::runAppends(cxFloat dt)
 {
-    for(cxArray::FIter it=views->FBegin();it!=views->FEnd();it++){
-        cxView *view = (*it)->To<cxView>();
+    cxInt mvc = 0;
+    cxInt cnt = views->Size();
+    cxObject *mvs[64]={0};
+    for(cxInt i = 0; i < cnt; i++){
+        cxView *view = views->At(i)->To<cxView>();
         if(view->IsRemoved()){
+            mvs[mvc++] = view;
             continue;
         }
         if(!view->isnewadd){
@@ -722,13 +713,35 @@ void cxView::runAppends(cxFloat dt)
         OnAppend(view);
         view->OnEnter();
     }
+    for(cxInt i = 0;i < mvc; i++){
+        views->Remove(mvs[i]);
+    }
+}
+
+void cxView::runActions(cxFloat dt)
+{
+    cxInt mvc = 0;
+    cxInt cnt = actions->Size();
+    cxObject *mvs[64]={0};
+    for(cxInt i = 0; i < cnt; i++){
+        cxAction *action = actions->At(i)->To<cxAction>();
+        if(!action->Update(dt)){
+            continue;
+        }
+        if(mvc < 64){
+            mvs[mvc++] = action;
+        }
+    }
+    for(cxInt i = 0;i < mvc; i++){
+        actions->Remove(mvs[i]);
+    }
 }
 
 void cxView::runUpadtes(cxFloat dt)
 {
     cxInt mvc = 0;
     cxInt cnt = views->Size();
-    cxInt mvs[64]={0};
+    cxObject *mvs[64]={0};
     for(cxInt i = 0; i < cnt; i++){
         cxView *view = views->At(i)->To<cxView>();
         if(!view->IsRemoved()){
@@ -736,7 +749,7 @@ void cxView::runUpadtes(cxFloat dt)
         }else if(mvc < 64){
             view->OnLeave();
             OnRemove(view);
-            mvs[mvc++] = i;
+            mvs[mvc++] = view;
         }
     }
     for(cxInt i = 0;i < mvc; i++){

@@ -585,34 +585,91 @@ json_t *cxJson::ToJson() const
 
 cxBool cxJson::ToBool() const
 {
-    CX_ASSERT(IsBool(), "json not cxBool");
-    return json_is_true(json);
+    if(json_is_boolean(json)){
+        return json_is_true(json);
+    }
+    if(json_is_real(json)){
+        return json_real_value(json) != 0;
+    }
+    if(json_is_integer(json)){
+        return json_integer_value(json) != 0;
+    }
+    if(json_is_string(json)){
+        return strcasecmp(json_string_value(json), "true") == 0;
+    }
+    return false;
 }
 
 cxInt cxJson::ToInt() const
 {
-    CX_ASSERT(IsInt(), "json not cxInt");
-    return (cxInt)json_integer_value(json);
+    if(json_is_integer(json)){
+        return json_integer_value(json);
+    }
+    if(json_is_real(json)){
+        return json_real_value(json);
+    }
+    if(json_is_boolean(json)){
+        return json_is_true(json)?1:0;
+    }
+    if(json_is_string(json)){
+        return atoll(json_string_value(json));
+    }
+    return 0;
 }
 
 cxInt64 cxJson::ToInt64() const
 {
-    CX_ASSERT(IsInt(), "json not cxInt");
-    return (cxInt64)json_integer_value(json);
+    if(json_is_integer(json)){
+        return json_integer_value(json);
+    }
+    if(json_is_real(json)){
+        return json_real_value(json);
+    }
+    if(json_is_boolean(json)){
+        return json_is_true(json)?1:0;
+    }
+    if(json_is_string(json)){
+        return atoll(json_string_value(json));
+    }
+    return 0;
 }
 
 cxFloat cxJson::ToFloat() const
 {
-    if(IsInt()){
-        return (cxFloat)ToInt();
+    if(json_is_real(json)){
+        return json_real_value(json);
     }
-    return json_real_value(json);
+    if(json_is_integer(json)){
+        return json_integer_value(json);
+    }
+    if(json_is_boolean(json)){
+        return json_is_true(json)?1:0;
+    }
+    if(json_is_string(json)){
+        return atof(json_string_value(json));
+    }
+    return 0;
 }
 
 cchars cxJson::ToChars() const
 {
-    CX_ASSERT(IsString(), "json not string");
-    return json_string_value(json);
+    static char buf[32]={0};
+    if(json_is_string(json)){
+        return json_string_value(json);
+    }
+    if(json_is_real(json)){
+        snprintf(buf, 32, "%f",json_real_value(json));
+        return buf;
+    }
+    if(json_is_integer(json)){
+        snprintf(buf, 32, "%lld",json_integer_value(json));
+        return buf;
+    }
+    if(json_is_boolean(json)){
+        snprintf(buf, 32, "%d",json_is_true(json)?1:0);
+        return buf;
+    }
+    return buf;
 }
 
 const cxStr *cxJson::ToStr() const

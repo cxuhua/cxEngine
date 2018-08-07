@@ -19,6 +19,7 @@
 
 CX_CPP_BEGIN
 
+
 cxAsyncEvent::cxAsyncEvent(cxLong akey,cchars adata,cxInt length)
 {
     key = akey;
@@ -78,7 +79,7 @@ void cxEngine::Startup(cxBool layout)
         winsiz = instance->WinSize();
         cxEngine::Destroy();
     }
-    instance = NewEngine();
+    instance = cxObject::Alloc<cxEngine>("Game");
     if(layout && !winsiz.IsZero()){
         instance->Layout(winsiz.w, winsiz.h);
     }

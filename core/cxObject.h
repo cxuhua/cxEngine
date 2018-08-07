@@ -47,6 +47,16 @@ private:
     cxLong tag;
     cxObject *initFromJson(const cxJson *json);
 public:
+    template<class T>
+    static T *Create(cchars name)
+    {
+        return cxCore::Create(name)->To<T>();
+    }
+    template<class T>
+    static T *Alloc(cchars name)
+    {
+        return cxCore::Alloc(name)->To<T>();
+    }
     //swap object,src release,dst retain
     template<class T1,class T2>
     static void swap(T1 **ptr,T2 *dst);

@@ -182,6 +182,7 @@ cxBool cxHttp::initFile()
     //检测原文件是否成功
     cxInt64 fsiz = cxUtil::ValidFile(spath->ToChars(), smd5->ToChars());
     if(fsiz > 0){
+        success = true;
         OnFile(spath,fsiz);
         return false;
     }
@@ -191,6 +192,7 @@ cxBool cxHttp::initFile()
     fsiz = cxUtil::Instance()->GetFileSize(file);
     if(fsiz >= 0 && cxUtil::ValidFile(file, smd5->ToChars())){
         rename(file, spath->ToChars());
+        success = true;
         OnFile(spath,fsiz);
         return false;
     }
@@ -200,6 +202,9 @@ cxBool cxHttp::initFile()
         reqHeads->Set("Range", cxStr::UTF8("bytes=%lld-",fsiz));
     }else{
         fd = fopen(file, "wb+");
+    }
+    if(fd == NULL){
+        CX_ERROR("open file failed %s - %d",file,errno);
     }
     return fd != NULL;
 }

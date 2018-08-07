@@ -34,6 +34,10 @@ public class EngineActivity extends NativeActivity {
 	//推送消息到gl线程
 	public native void PushEvent(long key,String s);
 
+	public void OpenURL(int type,String url){
+        installApp(url);
+    }
+
 	//安装更新文件
     public void installApp(final String file){
         runOnUiThread(new Runnable() {
@@ -80,6 +84,8 @@ public class EngineActivity extends NativeActivity {
             }
         });
     }
+
+
 
     private HashMap<String, Typeface> sTypefaceCache = new HashMap<String, Typeface>();
 

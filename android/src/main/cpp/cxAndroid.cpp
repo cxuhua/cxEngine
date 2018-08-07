@@ -102,13 +102,21 @@ void JNIMethodInfo::CallVoidMethod(cxAndroid *app,...)
     va_end(ap);
 }
 
+void cxEngine::OpenURL(cxInt type,const cxStr *url)
+{
+    cxAndroid *app = cxAndroid::Instance();
+    JNIMethodInfo m = app->JNIMethod("OpenURL","(ILjava/lang/String;)V");
+    jstring urlrText = app->Tojstring(url);
+    m.CallVoidMethod(app,(jint)type,urlrText);
+    if(urlrText != NULL){
+        m.env->DeleteLocalRef(urlrText);
+    }
+}
+
 //invoke java methpd engineTerminate
 void cxEngine::Exit()
 {
     cxAndroid *app = cxAndroid::Instance();
-    if(app == nullptr){
-        return;
-    }
     JNIMethodInfo m = app->JNIMethod("EngineTerminate", "()V");
     m.CallVoidMethod(app);
 }

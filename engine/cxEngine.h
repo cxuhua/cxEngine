@@ -142,6 +142,8 @@ public:
     void Exit();
     
     void Reset();
+    
+    void OpenURL(cxInt type,const cxStr *url);
 
     cxWindow *Window() const;
     

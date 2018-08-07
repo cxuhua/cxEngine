@@ -52,6 +52,8 @@ public:
     virtual cxStr *GetCountry();    //CN TW
     //国家语言代码
     virtual cxStr *LocalizedKey();
+    //扩展卡路径
+    virtual cxStr *ExtPath(cchars file);
     //获取资源目录
     virtual cxStr *AssetsPath(cchars file);
     //获取资源文件数据

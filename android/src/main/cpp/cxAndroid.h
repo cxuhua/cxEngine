@@ -187,6 +187,7 @@ public:
     cxStr *GetVersionName();
     cxStr *GetCountry();
     cxStr *DocumentPath(cchars file);
+    cxStr *ExtPath(cchars file);
     cxStr *AssetsData(cchars file);
     cxStr *UUID();
 };

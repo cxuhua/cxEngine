@@ -34,6 +34,10 @@ cxStr *cxAndroidUtil::GetVersionName()
     return cxAndroid::Instance()->GetVersionName();
 }
 
+cxStr *cxAndroidUtil::ExtPath(cchars file)
+{
+    return cxAndroid::Instance()->ExtPath(file);
+}
 
 cxStr *cxAndroidUtil::UUID()
 {

@@ -220,6 +220,11 @@ cxStr *cxUtil::DocumentPath(cchars file)
     return cxStr::UTF8(file);
 }
 
+cxStr *cxUtil::ExtPath(cchars file)
+{
+    return cxStr::UTF8(file);
+}
+
 cxBool cxUtil::DeleteDocument(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "path or data error");

@@ -26,6 +26,7 @@ public:
     
     cxStr *DocumentPath(cchars file);
     cxStr *AssetsPath(cchars file);
+    cxStr *ExtPath(cchars file);
     
     cxInt GetVersionCode();
     cxStr *GetVersionName();

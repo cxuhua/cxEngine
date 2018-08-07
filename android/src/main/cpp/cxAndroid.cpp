@@ -455,6 +455,17 @@ cxStr *cxAndroid::DocumentPath(cchars file)
     return cxStr::Create()->AppFmt("%s/%s",activity->internalDataPath,file);
 }
 
+cxStr *cxAndroid::ExtPath(cchars file)
+{
+    JNIMethodInfo m = JNIMethod("ExtPath","()Ljava/lang/String;");
+    jstring uuid = (jstring)m.CallObjectMethod(this);
+    cxStr *ret = TocxStr(uuid);
+    ret->AppFmt("/%s",file);
+    env->DeleteLocalRef(uuid);
+    return ret;
+}
+
+
 cxStr *cxAndroid::AssetsData(cchars file)
 {
     AAsset *asset = AAssetManager_open(activity->assetManager, file, AASSET_MODE_UNKNOWN);

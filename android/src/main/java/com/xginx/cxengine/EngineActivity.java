@@ -12,6 +12,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -81,6 +82,12 @@ public class EngineActivity extends NativeActivity {
     }
 
     private HashMap<String, Typeface> sTypefaceCache = new HashMap<String, Typeface>();
+
+    //获取扩展卡路径
+	public String ExtPath()
+	{
+		return Environment.getExternalStorageDirectory().toString();
+	}
 
 	//获取UUID
 	public String NewUUID() {

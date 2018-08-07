@@ -68,6 +68,28 @@ void cxCore::Destroy()
     }
 }
 
+cxBool cxCore::IsIOS()
+{
+    return(CX_TARGET_PLATFORM == CX_PLATFORM_IOS);
+}
+
+cxBool cxCore::IsAndroid()
+{
+    return(CX_TARGET_PLATFORM == CX_PLATFORM_ANDROID);
+}
+
+cxBool cxCore::IsMac()
+{
+    return(CX_TARGET_PLATFORM == CX_PLATFORM_MAC);
+}
+
+cxBool cxCore::HasType(cchars name)
+{
+    cxCore *core = cxCore::Instance();
+    TypesMap::iterator it = core->classes.find(name);
+    return it != core->classes.end();
+}
+
 cxObject *cxCore::Create(cchars name)
 {
     return cxCore::Alloc(name)->AutoRelease();

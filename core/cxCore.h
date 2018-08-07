@@ -41,6 +41,10 @@ private:
 public:
     static cxObject *Create(cchars name);
     static cxObject *Alloc(cchars name);
+    static cxBool HasType(cchars name);
+    static cxBool IsIOS();
+    static cxBool IsAndroid();
+    static cxBool IsMac();
 public:
     template<class T>
     static T *One(cxAny gv);

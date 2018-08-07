@@ -42,6 +42,11 @@ void cxIOSUtil::Logger(const char* type,const char*file,int line,const char* for
     free(buffer);
 }
 
+cxStr *cxIOSUtil::ExtPath(cchars file)
+{
+    return DocumentPath(file);
+}
+
 cxStr *cxIOSUtil::DocumentPath(cchars file)
 {
     cxStr *rv = cxStr::Create();

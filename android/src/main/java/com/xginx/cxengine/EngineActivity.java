@@ -29,6 +29,10 @@ public class EngineActivity extends NativeActivity {
 	static {
 		System.loadLibrary("cxengine");
 	}
+
+	//推送消息到gl线程
+	public native void PushEvent(long key,String s);
+
 	//安装更新文件
     public void installApp(final String file){
         runOnUiThread(new Runnable() {

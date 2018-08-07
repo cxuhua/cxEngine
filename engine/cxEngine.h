@@ -34,6 +34,8 @@ public:
     cxAsyncEvent(cxLong akey,cchars adata,cxInt length);
     cxLong Key();
     cchars Data();
+    cxLong ToLong();
+    cxDouble ToDouble();
     const cxJson *Json();
 };
 

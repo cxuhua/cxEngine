@@ -40,6 +40,15 @@ const EGLint context_attribs[] = {
 
 CX_CPP_BEGIN
 
+extern "C" JNIEXPORT void JNICALL Java_com_xginx_cxengine_EngineActivity_PushEvent(JNIEnv *env, jobject instance, jlong key, jstring jstr) {
+    jboolean copy = JNI_FALSE;
+    cchars chars = env->GetStringUTFChars(jstr,&copy);
+    cxStr *txt = cxStr::Alloc()->Init(chars);
+    env->ReleaseStringUTFChars(jstr,chars);
+    cxEngine::Instance()->PushEvent(key,txt);
+    txt->Release();
+}
+
 JNIMethodInfo::JNIMethodInfo()
 {
     env  = nullptr;

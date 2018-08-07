@@ -43,6 +43,24 @@ cchars cxAsyncEvent::Data()
     return data.data();
 }
 
+cxLong cxAsyncEvent::ToLong()
+{
+    cchars str = Data();
+    if(str == nullptr){
+        return 0;
+    }
+    return atoll(str);
+}
+
+cxDouble cxAsyncEvent::ToDouble()
+{
+    cchars str = Data();
+    if(str == nullptr){
+        return 0;
+    }
+    return atof(str);
+}
+
 const cxJson *cxAsyncEvent::Json()
 {
     if(data.length() == 0){

@@ -44,6 +44,11 @@ cxStr *cxAndroidUtil::UUID()
     return cxAndroid::Instance()->UUID();
 }
 
+cxInt64 cxAndroidUtil::AssetsSize(cchars file)
+{
+    return cxAndroid::Instance()->AssetsSize(file);
+}
+
 cxStr *cxAndroidUtil::AssetsData(cchars file)
 {
     return cxAndroid::Instance()->AssetsData(file);

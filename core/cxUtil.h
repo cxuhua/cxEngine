@@ -45,6 +45,8 @@ public:
     static cxStr *Document(cchars file);
     //优先从document目录获取数据
     static cxStr *Content(cchars file);
+    //本地内容文件大小，优先文档路径
+    static cxInt64 ContentSize(cchars file);
     //校验文件md5 >0 成功并返回文件长度
     static cxInt64 ValidFile(cchars file,cchars md5);
     //获取文件大小
@@ -67,6 +69,10 @@ public:
     virtual cxStr *AssetsData(cchars file);
     //获取文档路径
     virtual cxStr *DocumentPath(cchars file);
+    //获取资源文件大小
+    virtual cxInt64 AssetsSize(cchars file);
+    //获取文档文件大小
+    virtual cxInt64 DocumentSize(cchars file);
     //向文档目录写文件
     virtual cxBool WriteDocument(cchars file,const cxStr *data,cxBool replace);
     //获取目录文件数据

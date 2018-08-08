@@ -33,6 +33,7 @@ public:
     void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
     cxStr *AssetsData(cchars file);
     cxStr *UUID();
+    cxInt64 AssetsSize(cchars file);
 };
 
 CX_CPP_END

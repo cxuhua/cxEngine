@@ -473,6 +473,16 @@ cxStr *cxAndroid::ExtPath(cchars file)
     return ret;
 }
 
+cxInt64 cxAndroid::AssetsSize(cchars file)
+{
+    AAsset *asset = AAssetManager_open(activity->assetManager, file, AASSET_MODE_UNKNOWN);
+    if(asset == nullptr){
+        return 9;
+    }
+    cxInt64 l = (cxInt64)AAsset_getLength(asset);
+    AAsset_close(asset);
+    return l;
+}
 
 cxStr *cxAndroid::AssetsData(cchars file)
 {

@@ -1,5 +1,6 @@
 package com.xginx.cxengine;
 
+import android.Manifest;
 import android.app.NativeActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,12 +13,19 @@ import android.graphics.Paint.Style;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.util.Log;
 import android.view.View;
 
+import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
@@ -31,26 +39,35 @@ public class EngineActivity extends NativeActivity {
 		System.loadLibrary("cxengine");
 	}
 
+	//当申请到权限时
+    @Override
+    public void onRequestPermissionsResult(int code, String permissions[], @NonNull int[] grant) {
+        Log.d(EngineActivity.class.getName(),"onRequestPermissionsResult code="+code + " permissions=" + permissions+" grant="+grant);
+    }
+
+	//动态申请权限
+	private void requestPermissions(){
+        int hasw = ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(hasw == PackageManager.PERMISSION_GRANTED){
+            return;
+        }
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.REQUEST_INSTALL_PACKAGES}, 10000);
+    }
+
+	@Override
+	protected void onCreate(Bundle state) {
+		super.onCreate(state);
+        requestPermissions();
+	}
+
 	//推送消息到gl线程
 	public native void PushEvent(long key,String s);
 
 	public void OpenURL(int type,String url){
-        installApp(url);
+
+
     }
 
-	//安装更新文件
-    public void installApp(final String file){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.parse(file), "application/vnd.android.package-archive");
-                getApplicationContext().startActivity(intent);
-            }
-        });
-    }
 	//显示虚拟按键
 	public void showVirtualKey(){
         runOnUiThread(new Runnable() {

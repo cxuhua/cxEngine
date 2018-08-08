@@ -189,6 +189,7 @@ public:
     cxStr *DocumentPath(cchars file);
     cxStr *ExtPath(cchars file);
     cxStr *AssetsData(cchars file);
+    cxInt64 AssetsSize(cchars file);
     cxStr *UUID();
 };
 

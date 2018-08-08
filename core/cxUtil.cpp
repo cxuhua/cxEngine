@@ -126,6 +126,15 @@ cxStr *cxUtil::Document(cchars file)
     return Instance()->DocumentData(file);
 }
 
+cxInt64 cxUtil::ContentSize(cchars file)
+{
+    cxInt64 ret = cxUtil::Instance()->DocumentSize(file);
+    if(ret > 0){
+        return ret;
+    }
+    return cxUtil::Instance()->AssetsSize(file);
+}
+
 cxStr *cxUtil::Content(cchars file)
 {
     CX_ASSERT(cxStr::IsOK(file), "args error");
@@ -251,6 +260,18 @@ cxStr *cxUtil::AssetsData(cchars file)
         return nullptr;
     }
     return ReadFileData(path);
+}
+
+cxInt64 cxUtil::AssetsSize(cchars file)
+{
+    const cxStr *path = AssetsPath(file);
+    return GetFileSize(path->ToChars());
+}
+
+cxInt64 cxUtil::DocumentSize(cchars file)
+{
+    const cxStr *path = DocumentPath(file);
+    return GetFileSize(path->ToChars());
 }
 
 cxStr *cxUtil::DocumentPath(cchars file)

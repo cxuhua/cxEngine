@@ -133,7 +133,7 @@ const cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2
     jstring strText = app->Tojstring(txt);
     jstring fontName = NULL;
     
-    jint size = attr.size;
+    jint size = (jint)attr.size;
     jint align = attr.align;
     jint fmt = attr.format;
     //fixwidth
@@ -154,7 +154,7 @@ const cxStr *cxEngine::TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2
     jfloat sx = attr.strokeOffset.x;
     jfloat sy = attr.strokeOffset.y;
     //bold
-    jboolean bold = attr.boldFont;
+    jboolean bold = (jboolean)attr.boldFont;
     jsize length = 0;
     jbyteArray bytes=(jbyteArray)m.CallObjectMethod(app,strText,fontName,bold,size,align,fmt,fw,tr,tg,tb,ta,sw,sr,sg,sb,sa,sx,sy);
     if(bytes == nullptr){
@@ -695,6 +695,9 @@ int32_t cxAndroid::HandleMotionInput(AInputEvent* event)
             }
             break;
         }
+        default:{
+            break;
+        }
     }
     return 0;
 }
@@ -727,10 +730,9 @@ int32_t cxAndroid::HandleInput(AInputEvent* event)
 
 cxBool cxAndroid::ProcessInput()
 {
-    int ident = 0;
     int events = 0;
     struct AndroidPollSource *source = NULL;
-    while((ident = ALooper_pollAll(animating?0:-1, NULL, &events,(void**)&source)) >= 0){
+    while(ALooper_pollAll(animating?0:-1, NULL, &events,(void**)&source) >= 0){
         if(source != NULL){
             source->process(this,source);
         }
@@ -959,7 +961,9 @@ void cxAndroid::Init(ANativeActivity *a,void *d, size_t l)
     activity->callbacks->onNativeWindowDestroyed = cxAndroid::onNativeWindowDestroyed;
     activity->callbacks->onInputQueueCreated = cxAndroid::onInputQueueCreated;
     activity->callbacks->onInputQueueDestroyed = cxAndroid::onInputQueueDestroyed;
-    uv_thread_create(&thread, cxAndroid::AndroidEntry, this);
+    if(uv_thread_create(&thread, cxAndroid::AndroidEntry, this) != 0){
+        CX_ERROR("ANativeActivity uv_thread_create failed");
+    }
     mutex.Lock();
     while (!running) {
         cond.Wait(mutex);

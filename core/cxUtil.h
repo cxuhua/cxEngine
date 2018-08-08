@@ -35,17 +35,20 @@ public:
     static cxInt Rand(cxInt min,cxInt max);
     //当前时间
     static cxDouble Timestamp();
+    //获取当前时间戳
     static cxUInt64 Now();
     //获取工具类实例
     static cxUtil *Instance();
     //获取assets数据
     static cxStr *Assets(cchars file);
+    //获取文档目录数据
     static cxStr *Document(cchars file);
-    static cxStr *Content(cchars file);//优先从document目录获取数据
-    // >0 成功并返回文件长度
+    //优先从document目录获取数据
+    static cxStr *Content(cchars file);
+    //校验文件md5 >0 成功并返回文件长度
     static cxInt64 ValidFile(cchars file,cchars md5);
     //获取文件大小
-    cxInt64 GetFileSize(cchars file);
+    static cxInt64 GetFileSize(cchars file);
     //获取当前app版本号
     virtual cxInt GetVersionCode();
     //获取版本名称

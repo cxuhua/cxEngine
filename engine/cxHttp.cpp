@@ -203,7 +203,7 @@ cxBool cxHttp::initFile()
     //检测临时文件是否成功
     char file[PATH_MAX]={0};
     snprintf(file, PATH_MAX, "%s.tmp",spath->ToChars());
-    fsiz = cxUtil::Instance()->GetFileSize(file);
+    fsiz = cxUtil::GetFileSize(file);
     if(fsiz >= 0 && cxUtil::ValidFile(file, smd5->ToChars())){
         rename(file, spath->ToChars());
         success = true;

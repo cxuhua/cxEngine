@@ -82,6 +82,8 @@ public:
     const cxInt Status() const;
     const cxStr *Body() const;
     const cxBool Success() const;
+    const cxStr *FileMD5() const;
+    const cxStr *FilePath() const;
 public:
     static cxHttp *Post(cchars url,const cxStr *post);
     static cxHttp *Get(cchars url);

@@ -341,6 +341,16 @@ const cxStr *cxHttp::Body() const
     return body;
 }
 
+const cxStr *cxHttp::FileMD5() const
+{
+    return smd5;
+}
+
+const cxStr *cxHttp::FilePath() const
+{
+    return spath;
+}
+
 cxHash *cxHttp::ReqHeads()
 {
     return reqHeads;

@@ -103,7 +103,6 @@ public class EngineActivity extends NativeActivity {
     }
 
 
-
     private HashMap<String, Typeface> sTypefaceCache = new HashMap<String, Typeface>();
 
     //获取扩展卡路径

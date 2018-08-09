@@ -115,7 +115,6 @@ cxBool cxGesture::checkSwipe(const cxTouchPoint *ep)
         p.time = cxUtil::Timestamp();
         p.pos = hit.point;
         swipePoints.push_back(p);
-        RemoveSubviews();
         return true;
     }
     if(!(*ep->Flags() & cxTouchPoint::FlagsGestureTypeSwipe)){

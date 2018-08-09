@@ -20,15 +20,26 @@ protected:
 private:
     cxDouble tapTime[2];
     cxInt tapCount;
+private:
+    struct swipePoint {
+        cxPoint2F pos;
+        cxDouble time;
+    };
+    cxBool swipeischeck;
+    std::vector<swipePoint> swipePoints;
+    cxBool checkSwipe(const cxTouchPoint *ep);
+    cxBool computeSwipe();
+    std::vector<cxFloat> speeds;
+    std::vector<cxFloat> angles;
 public:
     typedef cxUInt SwipeType;
     static const SwipeType SwipeTypeDirectionNone    = 0;
-    static const SwipeType SwipeTypeDirectionLeft    = 1 << 0;
-    static const SwipeType SwipeTypeDirectionRight   = 1 << 1;
-    static const SwipeType SwipeTypeDirectionUp      = 1 << 2;
+    static const SwipeType SwipeTypeDirectionRight   = 1 << 0;
+    static const SwipeType SwipeTypeDirectionUp      = 1 << 1;
+    static const SwipeType SwipeTypeDirectionLeft    = 1 << 2;
     static const SwipeType SwipeTypeDirectionDown    = 1 << 3;
 private:
-    cxBool checkSwipe(const cxTouchPoint *ep);
+    
     cxUInt flags;
     cxBool touchIsPass;
 public:

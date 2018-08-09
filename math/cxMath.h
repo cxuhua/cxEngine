@@ -79,6 +79,8 @@ cxFloat cxDegreesToRadians(cxFloat degrees);
 
 cxFloat cxRadiansToDegrees(cxFloat radians);
 
+cxFloat cxModDegrees(cxFloat v);
+
 cxBool cxRadiansEqu(cxFloat a1,cxFloat a2);
 
 cxInt cxHexCharToInt(cxUInt8 c);

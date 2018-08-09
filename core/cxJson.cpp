@@ -643,7 +643,7 @@ cxFloat cxJson::ToFloat() const
         return json_integer_value(json);
     }
     if(json_is_boolean(json)){
-        return json_is_true(json)?1:0;
+        return json_is_true(json)?1.0f:0.0f;
     }
     if(json_is_string(json)){
         return atof(json_string_value(json));

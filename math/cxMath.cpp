@@ -128,6 +128,11 @@ cxFloat cxRadiansToDegrees(cxFloat radians)
     return kmRadiansToDegrees(radians);
 }
 
+cxFloat cxModDegrees(cxFloat v)
+{
+    return fmod(v + 360, 360);
+}
+
 cxBool cxRadiansEqu(cxFloat a1,cxFloat a2)
 {
     cxFloat d1 = cxRadiansToDegrees(a1) + 360.0f;

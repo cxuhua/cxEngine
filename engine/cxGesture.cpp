@@ -8,6 +8,7 @@
 
 #include <core/cxUtil.h>
 #include "cxGesture.h"
+#include "cxSprite.h"
 
 CX_CPP_BEGIN
 
@@ -20,6 +21,7 @@ cxGesture::cxGesture()
     tapCount = 0;
     flags = cxTouchPoint::FlagsGestureTypeSwipe|cxTouchPoint::FlagsGestureTypeDoubleTap;
     touchIsPass = false;
+    swipeischeck = false;
 }
 
 cxGesture::~cxGesture()
@@ -39,6 +41,63 @@ cxGesture *cxGesture::DelFlags(cxUInt v)
     return this;
 }
 
+cxBool cxGesture::computeSwipe()
+{
+    cxInt size = swipePoints.size();
+    if(size < 5){
+        return !touchIsPass;;
+    }
+    //速度集合
+    speeds.clear();
+    angles.clear();
+    swipePoint pb = swipePoints.at(0);
+    swipePoint p0 = pb;
+    for(cxInt i= 1;i < size;i++){
+        const swipePoint &tmp = swipePoints.at(i);
+        cxFloat time = tmp.time - pb.time;
+        //时间太小取下一点
+        if(time < 0.01f){
+            continue;
+        }
+        cxFloat dis = tmp.pos.Distance(pb.pos);
+        //距离太小取下一点
+        if(dis < 3){
+            continue;
+        }
+        cxFloat angle = p0.pos.Angle(tmp.pos);
+        angle = cxModDegrees(cxRadiansToDegrees(angle));
+        angle = cxModDegrees(angle + 45.0f);
+        angles.push_back(angle);
+        //保存速度和角度
+        cxFloat speed = dis / time;
+        speeds.push_back(speed);
+        pb = tmp;
+    }
+    //采样到3个点以上
+    if(speeds.size() < 3){
+        return !touchIsPass;
+    }
+    //计算平均速度和角度
+    cxFloat v = 0;
+    cxFloat a = 0;
+    for(cxInt i=0;i<speeds.size();i++){
+        v += speeds.at(i);
+        a += angles.at(i);
+    }
+    cxFloat sp = v / (cxFloat)speeds.size();
+    cxFloat ap = a / (cxFloat)speeds.size();
+    //平均速度限制
+    if(sp < 2800){
+        return !touchIsPass;
+    }
+    //获取4个方向
+    cxInt type = ap / 90.0f;
+    OnSwipe(1 << type,sp);
+    swipePoints.clear();
+    swipeischeck = false;
+    return !touchIsPass;
+}
+
 cxBool cxGesture::checkSwipe(const cxTouchPoint *ep)
 {
     if(ep->IsTap()){
@@ -50,30 +109,28 @@ cxBool cxGesture::checkSwipe(const cxTouchPoint *ep)
     }
     if(ep->IsBegan()){
         *ep->Flags() |= cxTouchPoint::FlagsGestureTypeSwipe;
+        swipePoints.clear();
+        swipeischeck = true;
+        swipePoint p;
+        p.time = cxUtil::Timestamp();
+        p.pos = hit.point;
+        swipePoints.push_back(p);
+        RemoveSubviews();
         return true;
     }
     if(!(*ep->Flags() & cxTouchPoint::FlagsGestureTypeSwipe)){
         return false;
     }
-    if(ep->IsMoved()){
-        return !touchIsPass;
+    if(ep->IsMoved() && swipeischeck){
+        swipePoint p;
+        p.time = cxUtil::Timestamp();
+        p.pos = hit.point;
+        swipePoints.push_back(p);
+        return computeSwipe();
     }
-    cxPoint2F sp = ep->Speed();
-    if(sp.Length() < 1000){
-        return !touchIsPass;
-    }
-    if(fabs(sp.x) > fabs(sp.y)){
-        if(sp.x > 0){
-            OnSwipe(SwipeTypeDirectionRight,sp.Length());
-        }else if(sp.x < 0){
-            OnSwipe(SwipeTypeDirectionLeft,sp.Length());
-        }
-    }else if(fabs(sp.x) < fabs(sp.y)){
-        if(sp.y > 0){
-            OnSwipe(SwipeTypeDirectionUp,sp.Length());
-        }else if(sp.y < 0){
-            OnSwipe(SwipeTypeDirectionDown,sp.Length());
-        }
+    if(ep->IsEnded()){
+        swipeischeck = false;
+        swipePoints.clear();
     }
     return !touchIsPass;
 }
@@ -91,7 +148,7 @@ cxBool cxGesture::OnDispatch(const cxTouchable *e)
         if(hit.hited && ep->IsEnded() && ep->IsTap()){
             tapTime[tapCount] = cxUtil::Timestamp();
             tapCount++;
-            if(tapCount >= 2 && tapTime[1] - tapTime[0] < 0.3){
+            if(tapCount >= 2 && tapTime[1] - tapTime[0] < 0.5){
                 OnDoubleTap();
             }
             if(tapCount >= 2){

@@ -13,9 +13,9 @@
 
 CX_CPP_BEGIN
 
-void cxEngine::OpenURL(cxInt type,const cxStr *url)
+void cxEngine::OpenURL(cxInt type,const cxStr *txt)
 {
-    NSURL *nsurl = [NSURL URLWithString:[NSString stringWithUTF8String:url->ToChars()]];
+    NSURL *nsurl = [NSURL URLWithString:[NSString stringWithUTF8String:txt->ToChars()]];
     [[UIApplication sharedApplication] openURL:nsurl];
 }
 

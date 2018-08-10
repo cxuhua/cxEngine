@@ -143,7 +143,7 @@ public:
     
     void Reset();
     
-    void OpenURL(cxInt type,const cxStr *url);
+    virtual void OpenURL(cxInt type,const cxStr *txt);
 
     cxWindow *Window() const;
     

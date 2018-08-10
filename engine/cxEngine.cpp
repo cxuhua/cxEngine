@@ -103,6 +103,11 @@ void cxEngine::Startup(cxBool layout)
     }
 }
 
+void cxEngine::OpenURL(cxInt type,const cxStr *txt)
+{
+    CX_LOGGER("open url type = %d,txt = %s",type, txt->ToChars());
+}
+
 cxBool cxEngine::IsTouch() const
 {
     return istouch;

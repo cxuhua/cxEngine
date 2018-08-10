@@ -13,12 +13,6 @@
 
 CX_CPP_BEGIN
 
-void cxEngine::OpenURL(cxInt type,const cxStr *txt)
-{
-    NSURL *nsurl = [NSURL URLWithString:[NSString stringWithUTF8String:txt->ToChars()]];
-    [[UIApplication sharedApplication] openURL:nsurl];
-}
-
 #define ToUIColor(c) [UIColor colorWithRed:(c).r green:(c).g blue:(c).b alpha:(c).a]
 
 static CTFrameRef frameRefCreate(NSString *str,UIFont *font,const cxTextAttr &attr,CGSize *size)

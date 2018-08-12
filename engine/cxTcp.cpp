@@ -16,6 +16,8 @@ CX_IMPLEMENT(cxTcp);
 
 cxTcp::cxTcp()
 {
+    memset(&resolver,0, sizeof(uv_getaddrinfo_t));
+    memset(&hints,0, sizeof(struct addrinfo));
     error = 0;
     uv_loop_init(&looper);
     connected = false;
@@ -174,6 +176,7 @@ void cxTcp::resolved_cb(uv_getaddrinfo_t *resolver, int status, struct addrinfo 
         flags=(uv_tcp_connect(&tcp->connreq, &tcp->handle, (struct sockaddr *)res->ai_addr, connect_cb) == 0);
     }
     if(!flags){
+        CX_ERROR("resolved_cb failed=%s errno=%s",hstrerror(status),strerror(errno));
         tcp->Close(status);
     }
     uv_freeaddrinfo(res);

@@ -410,8 +410,10 @@ TDrawBuffer::TDrawBuffer()
 
 TDrawBuffer::~TDrawBuffer()
 {
-    glDeleteBuffers(2, &vboid[0]);
-    glDeleteVertexArrays(1, &vaoid);
+    if(isinit) {
+        glDeleteBuffers(2, &vboid[0]);
+        glDeleteVertexArrays(1, &vaoid);
+    }
 }
 
 void TDrawBuffer::DrawTriangles(cxUInt mode,const cxRenderFArray &renders)

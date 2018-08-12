@@ -87,7 +87,7 @@ cxBool cxGesture::computeSwipe()
     cxFloat sp = v / (cxFloat)speeds.size();
     cxFloat ap = a / (cxFloat)speeds.size();
     //平均速度限制
-    if(sp < 2800){
+    if(sp < 2500){
         return !touchIsPass;
     }
     //获取4个方向

@@ -115,6 +115,7 @@ cxHttp::cxHttp()
     post = nullptr;
     host = nullptr;
     fd = NULL;
+    status = 0;
     smd5 = nullptr;
     contentLength = 0;
     downsize = 0;

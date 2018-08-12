@@ -3,7 +3,6 @@ package com.xginx.cxengine;
 import android.Manifest;
 import android.app.NativeActivity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -11,21 +10,18 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.Log;
 import android.view.View;
 
-import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
@@ -63,6 +59,8 @@ public class EngineActivity extends NativeActivity {
 	//推送消息到gl线程
 	public native void PushEvent(long key,String s);
 
+
+	//当收到打开地址时
 	public void OpenURL(int type,String url){
 
 
@@ -148,7 +146,7 @@ public class EngineActivity extends NativeActivity {
 			}
 		});
 	}
-	//
+	//包装纹理大小
 	private byte[] packInt(int v) {
 		byte[] wb = new byte[4];
 		wb[0] = (byte) (v & 0xFF);
@@ -157,7 +155,7 @@ public class EngineActivity extends NativeActivity {
 		wb[3] = (byte) ((v >> 24) & 0xFF);
 		return wb;
 	}
-
+    //获取纹理数据
 	private byte[] getPixels(Bitmap pBitmap) {
 		int width = pBitmap.getWidth();
 		int height = pBitmap.getHeight();
@@ -172,7 +170,7 @@ public class EngineActivity extends NativeActivity {
 		System.arraycopy(hb, 0, pixels, size + 4, 4);
 		return pixels;
 	}
-
+    //获取字体类型
 	public synchronized Typeface getTypeface(String pAssetName) {
 		if (!sTypefaceCache.containsKey(pAssetName)) {
 			Typeface typeface = null;
@@ -185,7 +183,7 @@ public class EngineActivity extends NativeActivity {
 		}
 		return sTypefaceCache.get(pAssetName);
 	}
-
+    //新建画板
 	private TextPaint newPaint(String fontName, int fontSize, boolean bold) {
 		TextPaint paint = new TextPaint();
 		paint.setTextSize(fontSize);

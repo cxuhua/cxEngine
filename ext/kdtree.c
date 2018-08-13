@@ -50,7 +50,7 @@ struct kdtree *kd_create(int k)
 {
     struct kdtree *tree = (struct kdtree *)malloc(sizeof(struct kdtree));
     if(tree == NULL) {
-        return 0;
+        return NULL;
     }
     tree->dim = k;
     tree->root = 0;
@@ -148,9 +148,7 @@ static int find_nearest(struct kdnode *node, const KDTREE_SCALE *pos, KDTREE_SCA
 {
     KDTREE_SCALE dist_sq, dx;
     int i, ret, added_res = 0;
-
     if(!node) return 0;
-
     dist_sq = 0;
     for(i=0; i<dim; i++) {
         dist_sq += SQ(node->pos[i] - pos[i]);
@@ -161,9 +159,7 @@ static int find_nearest(struct kdnode *node, const KDTREE_SCALE *pos, KDTREE_SCA
         }
         added_res = 1;
     }
-
     dx = pos[node->dir] - node->pos[node->dir];
-
     ret = find_nearest(dx <= 0.0 ? node->left : node->right, pos, range, list, ordered, dim);
     if(ret >= 0 && fabs(dx) < range) {
         added_res += ret;
@@ -173,7 +169,6 @@ static int find_nearest(struct kdnode *node, const KDTREE_SCALE *pos, KDTREE_SCA
         return -1;
     }
     added_res += ret;
-
     return added_res;
 }
 
@@ -213,8 +208,6 @@ static int find_nearest_n(struct kdnode *node, const KDTREE_SCALE *pos, KDTREE_S
             added_res = 1;
         }
     }
-
-
     /* find signed distance from the splitting plane */
     dx = pos[node->dir] - node->pos[node->dir];
 
@@ -223,7 +216,6 @@ static int find_nearest_n(struct kdnode *node, const KDTREE_SCALE *pos, KDTREE_S
         added_res += ret;
         ret = find_nearest_n(dx <= 0.0 ? node->right : node->left, pos, range, num, heap, dim);
     }
-
 }
 #endif
 

@@ -30,8 +30,10 @@ OF SUCH DAMAGE.
 #ifdef __cplusplus
 extern "C" {
 #endif
-    
+
+#ifndef KDTREE_SCALE
 #define KDTREE_SCALE float
+#endif
 
 struct kdhyperrect {
     int dim;

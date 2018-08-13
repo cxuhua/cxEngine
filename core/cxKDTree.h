@@ -33,9 +33,13 @@ struct KDTreeNode
         vs[0] = p.x;
         vs[1] = p.y;
     }
-    const cxFloat *getPtr() const
+    const cxFloat *GetPtr() const
     {
         return vs;
+    }
+    const cxPoint2F GetPoint() const
+    {
+        return cxPoint2F(vs[0],vs[1]);
     }
     const cxFloat operator[](std::size_t idx) const
     {

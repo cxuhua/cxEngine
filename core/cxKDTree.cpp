@@ -13,50 +13,45 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxKDTree);
 
-cxKDTree::cxKDTree() : tree(nodes)
+cxKDTree::cxKDTree()
 {
-    
+    tree = kd_create(2);
 }
 
 cxKDTree::~cxKDTree()
 {
-    
-}
-
-const cxKDTree::Results &cxKDTree::GetResults()
-{
-    return results;
-}
-
-const KDTreeNode &cxKDTree::GetTreeNode(cxKDTree::Results::const_iterator it)
-{
-    return nodes[it->first];
+    kd_free(tree);
 }
 
 cxInt cxKDTree::Nearst(const cxPoint2F &cp,cxFloat max)
 {
-    results.clear();
-    if(nodes.empty()){
+    const KDTREE_SCALE ps[]={cp.x,cp.y};
+    nodes.clear();
+    struct kdres *set = kd_nearest_range(tree, ps, max);
+    if(set == NULL){
         return 0;
     }
-    return (cxInt)tree.findPointsWithinRadius(KDTreeNode(cp, 0), max, results, cxEqualFloat, true);
-}
-
-cxKDTree *cxKDTree::Build()
-{
-    tree.buildIndex();
-    return this;
+    KDTREE_SCALE pos[2];
+    while( !kd_res_end( set ) ) {
+        void *data = kd_res_item(set, pos );
+        cxTreeNode node(pos[0],pos[1],data);
+        nodes.push_back(node);
+        kd_res_next( set );
+    }
+    kd_res_free(set);
+    return nodes.size();
 }
 
 cxKDTree *cxKDTree::Clear()
 {
-    nodes.clear();
+    kd_clear(tree);
     return this;
 }
 
-cxKDTree *cxKDTree::Append(const cxPoint2F &p,void *ref)
+cxKDTree *cxKDTree::Append(const cxPoint2F &p,void *data)
 {
-    nodes.push_back(KDTreeNode(p, ref));
+    const KDTREE_SCALE ps[]={p.x,p.y};
+    kd_insert(tree, ps, data);
     return this;
 }
 

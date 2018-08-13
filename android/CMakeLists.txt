@@ -72,6 +72,7 @@ add_library( # Sets the name of the library.
              ${CX_ENGINE_PATH}/ext/vec2.c
              ${CX_ENGINE_PATH}/ext/vec3.c
              ${CX_ENGINE_PATH}/ext/vec4.c
+             ${CX_ENGINE_PATH}/ext/kdtree.c
              ${CX_ENGINE_PATH}/ext/xxhash.c
              ${CX_ENGINE_PATH}/ext/xxtea.c
 

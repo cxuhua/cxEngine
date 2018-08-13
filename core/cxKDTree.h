@@ -11,39 +11,24 @@
 
 #include <vector>
 #include <math/cxPoint2F.h>
-#include <ext/KDTree.h>
+#define KDTREE_SCALE float
+#include <ext/kdtree.h>
 #include "cxArray.h"
 
 CX_CPP_BEGIN
 
-struct KDTreeNode
+struct cxTreeNode
 {
-    static const cxInt DIM = 2;
-    void *ref;
-    cxFloat vs[2];
-    KDTreeNode()
+    void *data;
+    cxPoint2F pt;
+    cxTreeNode()
     {
-        ref = nullptr;
-        vs[0] = 0;
-        vs[1] = 0;
+        data = NULL;
     }
-    KDTreeNode(const cxPoint2F &p,void *aref)
+    cxTreeNode(const cxFloat x,cxFloat y,void *ptr)
     {
-        ref = aref;
-        vs[0] = p.x;
-        vs[1] = p.y;
-    }
-    const cxFloat *GetPtr() const
-    {
-        return vs;
-    }
-    const cxPoint2F GetPoint() const
-    {
-        return cxPoint2F(vs[0],vs[1]);
-    }
-    const cxFloat operator[](std::size_t idx) const
-    {
-        return vs[idx];
+        data = ptr;
+        pt = cxPoint2F(x, y);
     }
 };
 
@@ -54,21 +39,13 @@ public:
 protected:
     explicit cxKDTree();
     virtual ~cxKDTree();
-public:
-    typedef ofx::KDTree<KDTreeNode> KDTree;
-    typedef ofx::KDTree<KDTreeNode>::SearchResults Results;
-    typedef cxKDTree::Results::const_iterator Iter;
 private:
-    std::vector<KDTreeNode> nodes;
-    KDTree tree;
-    Results results;
+    std::vector<cxTreeNode> nodes;
+    struct kdtree *tree;
 public:
     cxKDTree *Clear();
     cxKDTree *Append(const cxPoint2F &p,void *ref);
-    cxKDTree *Build();
     cxInt Nearst(const cxPoint2F &cp,cxFloat max);
-    const Results &GetResults();
-    const KDTreeNode &GetTreeNode(cxKDTree::Results::const_iterator it);
 };
 
 CX_CPP_END

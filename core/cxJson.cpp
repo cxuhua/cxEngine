@@ -356,7 +356,10 @@ cxJson *cxJson::Set(cchars key,const cxJson *value)
 
 const cxJson *cxJson::At(cxInt idx) const
 {
-    CX_ASSERT(IsArray(), "json not array");
+    if(!IsArray()){
+        CX_WARN("Use At for array not is object");
+        return nullptr;
+    }
     if(idx < 0 || idx >= json_array_size(json)){
         return nullptr;
     }
@@ -371,7 +374,10 @@ const cxJson *cxJson::At(const cxStr *key) const
 
 const cxJson *cxJson::At(cchars key) const
 {
-    CX_ASSERT(IsObject(), "json not object");
+    if(!IsObject()){
+        CX_WARN("Use At for object not is object");
+        return nullptr;
+    }
     json_t *rv = json_object_get(json, key);
     return (rv != nullptr)?cxJson::Create()->From(rv):nullptr;
 }

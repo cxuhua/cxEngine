@@ -11,7 +11,7 @@
 
 #include <vector>
 #include <math/cxPoint2F.h>
-#include <ext/KDTree.h>
+#include <ext/kdtree.h>
 #include "cxArray.h"
 
 CX_CPP_BEGIN
@@ -51,20 +51,14 @@ protected:
     explicit cxKDTree();
     virtual ~cxKDTree();
 public:
-    typedef ofx::KDTree<KDTreeNode> KDTree;
-    typedef ofx::KDTree<KDTreeNode>::SearchResults Results;
-    typedef cxKDTree::Results::const_iterator Iter;
+    
 private:
-    std::vector<KDTreeNode> nodes;
-    KDTree tree;
-    Results results;
+    
 public:
     cxKDTree *Clear();
     cxKDTree *Append(const cxPoint2F &p,void *ref);
     cxKDTree *Build();
     cxInt Nearst(const cxPoint2F &cp,cxFloat max);
-    const Results &GetResults();
-    const KDTreeNode &GetTreeNode(cxKDTree::Results::const_iterator it);
 };
 
 CX_CPP_END

@@ -24,8 +24,9 @@ public:
     CX_DECLARE(cxALBuffer);
 public:
     typedef cxUInt DataType;
-    static const DataType DataTypeWAV = 1;
-    static const DataType DataTypeMP3 = 2;
+    static const DataType DataTypeNone  = 0;
+    static const DataType DataTypeWAV   = 1;
+    static const DataType DataTypeMP3   = 2;
 protected:
     explicit cxALBuffer();
     virtual ~cxALBuffer();
@@ -87,6 +88,7 @@ private:
     cxHash *sources;
 public:
     static cxOpenAL *Instance();
+    void Remove(cchars key);
     cxALSource *Source(cchars file,cchars key);
     cxALSource *Source(cchars key);
     cxALSource *Source(const cxStr *data,cxALBuffer::DataType type);

@@ -580,6 +580,16 @@ void cxOpenAL::OnResume()
     }
 }
 
+void cxOpenAL::Remove(cchars key)
+{
+    cxObject *obj = sources->Get(key);
+    if(obj == nullptr){
+        return;
+    }
+    obj->To<cxALSource>()->Stop();
+    sources->Del(key);
+}
+
 cxALSource *cxOpenAL::Source(cchars file,cchars key)
 {
     cxALSource *s = Source(key);
@@ -612,4 +622,5 @@ cxOpenAL *cxOpenAL::Instance()
 }
 
 CX_CPP_END
+
 

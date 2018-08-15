@@ -466,7 +466,7 @@ cxInt64 cxAndroid::AssetsSize(cchars file)
 {
     AAsset *asset = AAssetManager_open(activity->assetManager, file, AASSET_MODE_UNKNOWN);
     if(asset == nullptr){
-        return 9;
+        return 0;
     }
     cxInt64 l = (cxInt64)AAsset_getLength(asset);
     AAsset_close(asset);

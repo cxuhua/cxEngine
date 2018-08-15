@@ -30,6 +30,8 @@ private:
     cxALSource *source;
 public:
     cxALSource *GetSource();
+    cxBool Init(cchars file,cchars key=nullptr);
+    cxBool Init(const cxStr *data,cxALBuffer::DataType type);
 public:
     static cxMusic *Create(cchars file,cchars key=nullptr);
     static cxMusic *Create(const cxStr *data,cxALBuffer::DataType type);

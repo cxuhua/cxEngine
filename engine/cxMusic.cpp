@@ -22,7 +22,7 @@ cxMusic::cxMusic()
 
 cxMusic::~cxMusic()
 {
-    source = nullptr;
+    cxObject::release(&source);
 }
 
 void cxMusic::OnInit()
@@ -57,30 +57,42 @@ cxALSource *cxMusic::GetSource()
     return source;
 }
 
+cxBool cxMusic::Init(cchars file,cchars key)
+{
+    if(key == nullptr){
+        key = file;
+    }
+    cxALSource *src = cxOpenAL::Instance()->Source(file, key);
+    if(src == nullptr){
+        CX_ERROR("create music action error for file=%s",file);
+        return false;
+    }
+    cxObject::swap(&source, src);
+    return true;
+}
+
+cxBool cxMusic::Init(const cxStr *data,cxALBuffer::DataType type)
+{
+    cxALSource *src = cxOpenAL::Instance()->Source(data, type);
+    if(src == nullptr){
+        CX_ERROR("create music action error for data len=%d",data->Size());
+        return false;
+    }
+    cxObject::swap(&source, src);
+    return true;
+}
+
 cxMusic *cxMusic::Create(const cxStr *data,cxALBuffer::DataType type)
 {
     cxMusic *ret = cxMusic::Create();
-    cxALSource *source = cxOpenAL::Instance()->Source(data, type);
-    if(source == nullptr){
-        CX_ERROR("create music action error for data len=%d",data->Size());
-        return ret;
-    }
-    cxObject::swap(&ret->source, source);
+    ret->Init(data, type);
     return ret;
 }
 
 cxMusic *cxMusic::Create(cchars file,cchars key)
 {
-    if(key == nullptr){
-        key = file;
-    }
     cxMusic *ret = cxMusic::Create();
-    cxALSource *source = cxOpenAL::Instance()->Source(file, key);
-    if(source == nullptr){
-        CX_ERROR("create music action error for file=%s",file);
-        return ret;
-    }
-    ret->source = source;
+    ret->Init(file,key);
     return ret;
 }
 

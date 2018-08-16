@@ -50,6 +50,10 @@ cxPoint2F cxTile::ToIdx(const cxPoint2F &pos)
 
 cxBool HasPrefix(cxInt v,cxInt p)
 {
+    CX_ASSERT(v >=0 && p >= 0, "must > 0");
+    if(p == v){
+        return true;
+    }
     cxInt a = log10f(v);
     cxInt b = log10f(p);
     cxInt c = powf(10,a - b);
@@ -58,6 +62,10 @@ cxBool HasPrefix(cxInt v,cxInt p)
 
 cxBool HasSuffix(cxInt v,cxInt p)
 {
+    CX_ASSERT(v >=0 && p >= 0, "must > 0");
+    if(p == v){
+        return true;
+    }
     cxInt b = log10f(p);
     cxInt c = v/powf(10, b + 1);
     cxInt a = c * powf(10, b + 1);

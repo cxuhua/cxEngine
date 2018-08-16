@@ -67,6 +67,10 @@ struct cxFloatRange
     const cxFloat ToRadians() const;
 };
 
+cxBool HasPrefix(cxInt v,cxInt p);
+
+cxBool HasSuffix(cxInt v,cxInt p);
+
 cxPoint2F cxTileIdxToPos(const cxPoint2F &idx,const cxSize2F &size);
 
 cxPoint2F cxTilePosToIdx(const cxPoint2F &pos,const cxSize2F &size);

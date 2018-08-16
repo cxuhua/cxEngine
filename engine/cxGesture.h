@@ -26,6 +26,7 @@ private:
         cxDouble time;
     };
     cxBool swipeischeck;
+    cxBool swipetrigger;
     std::vector<swipePoint> swipePoints;
     cxBool checkSwipe(const cxTouchPoint *ep);
     cxBool computeSwipe();
@@ -39,15 +40,22 @@ public:
     static const SwipeType SwipeTypeDirectionLeft    = 1 << 2;
     static const SwipeType SwipeTypeDirectionDown    = 1 << 3;
 private:
-    
+    cxFloat swipesampletime;//采样时间
+    cxFloat swipesampledistance;//采样距离
+    cxFloat swipesamplesize;//采样数量
+    cxFloat swipeminspeed;//最小速度
     cxUInt flags;
     cxBool touchIsPass;
+public:
+    cxGesture *SetSwipeAttr(cxFloat stime,cxFloat sdis,cxFloat snum,cxFloat mspeed);
 public:
     cxGesture *SetFlags(cxUInt v);
     cxGesture *DelFlags(cxUInt v);
 public:
+    cxEvent<cxGesture> onSwipeBegin;
+    cxEvent<cxGesture> onSwipeEnd;
     cxEvent<cxGesture> onDoubleTap;
-    cxEvent<cxGesture, SwipeType,cxFloat> onSwipe;
+    cxEvent<cxGesture, SwipeType, cxFloat> onSwipe;
 protected:
     cxBool OnDispatch(const cxTouchable *e);
     virtual void OnSwipe(SwipeType type,cxFloat speed);

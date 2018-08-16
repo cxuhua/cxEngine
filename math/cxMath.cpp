@@ -48,6 +48,22 @@ cxPoint2F cxTile::ToIdx(const cxPoint2F &pos)
     return cxPoint2F(dx/m, dy/m);
 }
 
+cxBool HasPrefix(cxInt v,cxInt p)
+{
+    cxInt a = log10f(v);
+    cxInt b = log10f(p);
+    cxInt c = powf(10,a - b);
+    return (v/c) == p;
+}
+
+cxBool HasSuffix(cxInt v,cxInt p)
+{
+    cxInt b = log10f(p);
+    cxInt c = v/powf(10, b + 1);
+    cxInt a = c * powf(10, b + 1);
+    return (v - a) == p;
+}
+
 cxPoint2F cxBezier2(cxPoint2F a, cxPoint2F b, cxPoint2F c, cxFloat t)
 {
     cxFloat x = cxBezier2(a.x, b.x, c.x, t);

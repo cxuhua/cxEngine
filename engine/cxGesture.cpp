@@ -22,11 +22,25 @@ cxGesture::cxGesture()
     flags = cxTouchPoint::FlagsGestureTypeSwipe|cxTouchPoint::FlagsGestureTypeDoubleTap;
     touchIsPass = false;
     swipeischeck = false;
+    swipetrigger = false;
+    swipesampletime = 0.01f;
+    swipesampledistance = 3.0f;
+    swipesamplesize = 3.0f;
+    swipeminspeed = 2100;
 }
 
 cxGesture::~cxGesture()
 {
     
+}
+
+cxGesture *cxGesture::SetSwipeAttr(cxFloat stime,cxFloat sdis,cxFloat snum,cxFloat mspeed)
+{
+    swipesampletime = stime;
+    swipesampledistance = sdis;
+    swipesamplesize = snum;
+    swipeminspeed = mspeed;
+    return this;
 }
 
 cxGesture *cxGesture::SetFlags(cxUInt v)
@@ -56,12 +70,12 @@ cxBool cxGesture::computeSwipe()
         const swipePoint &tmp = swipePoints.at(i);
         cxFloat time = tmp.time - pb.time;
         //时间太小取下一点
-        if(time < 0.01f){
+        if(time < swipesampletime){
             continue;
         }
         cxFloat dis = tmp.pos.Distance(pb.pos);
         //距离太小取下一点
-        if(dis < 3){
+        if(dis < swipesampledistance){
             continue;
         }
         cxFloat angle = p0.pos.Angle(tmp.pos);
@@ -74,7 +88,7 @@ cxBool cxGesture::computeSwipe()
         pb = tmp;
     }
     //采样到3个点以上
-    if(speeds.size() < 3){
+    if(speeds.size() < swipesamplesize){
         return !touchIsPass;
     }
     //计算平均速度和角度
@@ -87,14 +101,16 @@ cxBool cxGesture::computeSwipe()
     cxFloat sp = v / (cxFloat)speeds.size();
     cxFloat ap = a / (cxFloat)speeds.size();
     //平均速度限制
-    if(sp < 2500){
+    if(sp < swipeminspeed){
         return !touchIsPass;
     }
+    //清楚并禁止继续采样
+    swipePoints.clear();
+    swipeischeck = false;
+    swipetrigger = true;
     //获取4个方向
     cxInt type = ap / 90.0f;
     OnSwipe(1 << type,sp);
-    swipePoints.clear();
-    swipeischeck = false;
     return !touchIsPass;
 }
 
@@ -111,10 +127,12 @@ cxBool cxGesture::checkSwipe(const cxTouchPoint *ep)
         *ep->Flags() |= cxTouchPoint::FlagsGestureTypeSwipe;
         swipePoints.clear();
         swipeischeck = true;
+        swipetrigger = false;
         swipePoint p;
         p.time = cxUtil::Timestamp();
         p.pos = hit.point;
         swipePoints.push_back(p);
+        onSwipeBegin.Fire(this);
         return true;
     }
     if(!(*ep->Flags() & cxTouchPoint::FlagsGestureTypeSwipe)){
@@ -127,7 +145,12 @@ cxBool cxGesture::checkSwipe(const cxTouchPoint *ep)
         swipePoints.push_back(p);
         return computeSwipe();
     }
+    //如果触发过并且结束
+    if(ep->IsEnded() && swipetrigger && swipeischeck){
+        onSwipeEnd.Fire(this);
+    }
     if(ep->IsEnded()){
+        swipetrigger = false;
         swipeischeck = false;
         swipePoints.clear();
     }

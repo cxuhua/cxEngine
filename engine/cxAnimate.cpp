@@ -39,7 +39,7 @@ void cxActionAttr::SetRepeat(const cxStr *value)
 {
     CX_ASSERT(cxStr::IsOK(value), "value nullptr");
     cxInt v = value->ToInt();
-    repeat = (v <= 0) ? INT_MAX : v;
+    repeat = (v <= 0) ? cxAction::MAX_REPEAT : v;
 }
 
 void cxActionAttr::SetSpeed(const cxStr *value)

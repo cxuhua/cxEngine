@@ -41,7 +41,7 @@ void cxTimer::OnStop()
 cxTimer *cxTimer::Forever(cxFloat time)
 {
     cxTimer *rv = cxTimer::Create();
-    rv->SetRepeat(INT_MAX);
+    rv->SetRepeat(cxAction::MAX_REPEAT);
     rv->SetTime(time);
     return rv;
 }

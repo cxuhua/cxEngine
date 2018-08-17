@@ -388,7 +388,7 @@ const cxInt cxFrames::Repeat() const
 {
     //forever loop play
     if(repeat == 0){
-        return INT_MAX;
+        return cxAction::MAX_REPEAT;
     }
     return repeat;
 }

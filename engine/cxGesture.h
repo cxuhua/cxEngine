@@ -60,6 +60,8 @@ protected:
     cxBool OnDispatch(const cxTouchable *e);
     virtual void OnSwipe(SwipeType type,cxFloat speed);
     virtual void OnDoubleTap();
+    virtual void OnSwipeBegin();
+    virtual void OnSwipeEnd();
 };
 
 CX_CPP_END

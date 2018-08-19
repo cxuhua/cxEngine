@@ -132,7 +132,7 @@ cxBool cxGesture::checkSwipe(const cxTouchPoint *ep)
         p.time = cxUtil::Timestamp();
         p.pos = hit.point;
         swipePoints.push_back(p);
-        onSwipeBegin.Fire(this);
+        OnSwipeBegin();
         return true;
     }
     if(!(*ep->Flags() & cxTouchPoint::FlagsGestureTypeSwipe)){
@@ -146,8 +146,8 @@ cxBool cxGesture::checkSwipe(const cxTouchPoint *ep)
         return computeSwipe();
     }
     //如果触发过并且结束
-    if(ep->IsEnded() && swipetrigger && swipeischeck){
-        onSwipeEnd.Fire(this);
+    if(ep->IsEnded() && swipetrigger && !swipeischeck){
+        OnSwipeEnd();
     }
     if(ep->IsEnded()){
         swipetrigger = false;
@@ -162,6 +162,16 @@ void cxGesture::OnDoubleTap()
     onDoubleTap.Fire(this);
 }
 
+void cxGesture::OnSwipeBegin()
+{
+    onSwipeBegin.Fire(this);
+}
+
+void cxGesture::OnSwipeEnd()
+{
+    onSwipeEnd.Fire(this);
+}
+
 cxBool cxGesture::OnDispatch(const cxTouchable *e)
 {
     if(e->TouchCount() == 1 && (flags & cxTouchPoint::FlagsGestureTypeDoubleTap)){
@@ -170,7 +180,7 @@ cxBool cxGesture::OnDispatch(const cxTouchable *e)
         if(hit.hited && ep->IsEnded() && ep->IsTap()){
             tapTime[tapCount] = cxUtil::Timestamp();
             tapCount++;
-            if(tapCount >= 2 && tapTime[1] - tapTime[0] < 0.5){
+            if(tapCount >= 2 && tapTime[1] - tapTime[0] < 0.6){
                 OnDoubleTap();
             }
             if(tapCount >= 2){

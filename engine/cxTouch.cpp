@@ -53,7 +53,7 @@ cxBool cxTouchPoint::IsEnded() const
 
 cxBool cxTouchPoint::IsTap() const
 {
-    return time < 0.3f && length < 10.0f;
+    return time < 0.3f && length < 15.0f;
 }
 
 cxTouchPoint::FlagsGestureType *cxTouchPoint::Flags() const

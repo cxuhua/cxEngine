@@ -16,6 +16,7 @@ CX_IMPLEMENT(cxMusic);
 
 cxMusic::cxMusic()
 {
+    isfollow = false;
     source = nullptr;
     Forever();
 }
@@ -23,6 +24,13 @@ cxMusic::cxMusic()
 cxMusic::~cxMusic()
 {
     cxObject::release(&source);
+}
+
+cxMusic *cxMusic::BindFollow(cxView *pview)
+{
+    isfollow = true;
+    Bind(pview);
+    return this;
 }
 
 void cxMusic::OnInit()
@@ -44,8 +52,20 @@ void cxMusic::OnExit()
     cxAction::OnExit();
 }
 
+void cxMusic::updateForFollowView()
+{
+    cxView *pv = FirstBindes()->To<cxView>();
+    if(pv == nullptr){
+        return;
+    }
+    onFollow.Fire(this, pv);
+}
+
 void cxMusic::OnStep(cxFloat dt)
 {
+    if(isfollow){
+        updateForFollowView();
+    }
     if(source->Update(dt)){
         Expire();
     }

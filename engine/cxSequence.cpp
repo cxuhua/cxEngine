@@ -25,6 +25,14 @@ cxSequence::~cxSequence()
     actions->Release();
 }
 
+void cxSequence::OnExit()
+{
+    for(cxInt i=0;i<actions->Size();i++){
+        actions->At(i)->To<cxAction>()->Exit(true);
+    }
+    cxAction::OnExit();
+}
+
 void cxSequence::OnInit()
 {
     cxAction::OnInit();

@@ -23,6 +23,7 @@ protected:
     virtual ~cxMultiple();
 protected:
     void OnInit();
+    void OnExit();
 private:
     cxInt index;
     cxArray *actions;

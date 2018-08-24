@@ -27,8 +27,13 @@ protected:
     void OnStep(cxFloat dt);
     void OnReset();
 private:
+    cxBool isfollow;
+    void updateForFollowView();
     cxALSource *source;
 public:
+    cxEvent<cxMusic, cxView *> onFollow;
+public:
+    cxMusic *BindFollow(cxView *pview);
     cxALSource *GetSource();
     cxBool Init(cchars file,cchars key=nullptr);
     cxBool Init(const cxStr *data,cxALBuffer::DataType type);

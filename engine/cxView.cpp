@@ -606,7 +606,7 @@ cxBool cxView::HasAction(cxActionId aid) const
     cxArray::FIter it = actions->FBegin();
     while(it != actions->FEnd()){
         cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid){
+        if(action->ID() == aid && !action->IsExit()){
             return true;
         }
         it++;

@@ -34,6 +34,14 @@ void cxMultiple::OnInit()
     }
 }
 
+void cxMultiple::OnExit()
+{
+    for(cxInt i=0;i<actions->Size();i++){
+        actions->At(i)->To<cxAction>()->Exit(true);
+    }
+    cxAction::OnExit();
+}
+
 void cxMultiple::Stop()
 {
     for(cxInt i=0;i<actions->Size();i++){

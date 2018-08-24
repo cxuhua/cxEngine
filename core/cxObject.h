@@ -123,10 +123,12 @@ public:
     cxInt EachBindes(std::function<cxBool(cxObject *pobj)> func);
     const cxArray *GetBindes();
     cxObject *GetBindes(cxLong tag);
+    cxObject *FirstBindes();
     //
     cxInt EachBinded(std::function<cxBool(cxObject *pobj)> func);
     const cxArray *GetBinded();
     cxObject *GetBinded(cxLong tag);
+    cxObject *FirstBinded();
     //if this bind obj
     const cxBool HasBindes(cxObject *pobj) const;
     //if this binded obj

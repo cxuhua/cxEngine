@@ -92,6 +92,18 @@ const cxArray *cxObject::GetBindes()
     return objects;
 }
 
+cxObject *cxObject::FirstBindes()
+{
+    if(bindes.empty()){
+        return nullptr;
+    }
+    BindMap::iterator it = bindes.begin();
+    if(it != bindes.end()){
+        return (cxObject *)it->first;
+    }
+    return nullptr;
+}
+
 cxObject *cxObject::GetBindes(cxLong tag)
 {
     if(bindes.empty()){
@@ -136,6 +148,18 @@ const cxArray *cxObject::GetBinded()
         it++;
     }
     return objects;
+}
+
+cxObject *cxObject::FirstBinded()
+{
+    if(binded.empty()){
+        return nullptr;
+    }
+    BindMap::iterator it = binded.begin();
+    if(it != binded.end()){
+        return (cxObject *)it->first;
+    }
+    return nullptr;
 }
 
 cxObject *cxObject::GetBinded(cxLong tag)

@@ -18,7 +18,7 @@ protected:
     explicit cxGesture();
     virtual ~cxGesture();
 private:
-    cxDouble tapTime[2];
+    cxDouble tapTime[8];
     cxInt tapCount;
 private:
     struct swipePoint {

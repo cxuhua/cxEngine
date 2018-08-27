@@ -1399,6 +1399,8 @@ static int lua_cjson_safe_new(lua_State *l)
     return 1;
 }
 
+#define ENABLE_CJSON_GLOBAL 1
+
 int luaopen_cjson(lua_State *l)
 {
     lua_cjson_new(l);

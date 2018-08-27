@@ -176,9 +176,12 @@ void cxHttp::closeFile()
         return;
     }
     cxInt64 size = cxUtil::ValidFile(file, smd5->ToChars());
+    //校验失败，删除文件
     if(size <= 0){
+        remove(file);
         return;
     }
+    //成功重命名成需要的名称
     rename(file, spath->ToChars());
     OnFile(spath,size);
 }

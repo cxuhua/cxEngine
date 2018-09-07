@@ -176,6 +176,7 @@ cxBool cxGesture::OnDispatch(const cxTouchable *e)
         const cxTouchPoint *ep = e->TouchPoint(0);
         cxHitInfo hit = HitTest(ep->wp);
         if(hit.hited && ep->IsEnded() && ep->IsTap()){
+            onTap.Fire(this);
             tapTime[tapCount] = cxUtil::Timestamp();
             tapCount++;
             if(tapCount >= 2 && tapTime[tapCount-1] - tapTime[tapCount-2] < 0.6){

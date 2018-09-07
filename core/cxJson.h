@@ -126,6 +126,7 @@ public:
     cxBool IsString() const;
     cxBool IsFloat() const;
     cxBool IsInt() const;
+    cxBool IsNumber() const;
     cxBool IsNull() const;
 };
 

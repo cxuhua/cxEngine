@@ -533,6 +533,11 @@ cxBool cxJson::IsFloat() const
     return json_is_real(json);
 }
 
+cxBool cxJson::IsNumber() const
+{
+    return json_is_integer(json) || json_is_real(json);
+}
+
 cxBool cxJson::IsInt() const
 {
     return json_is_integer(json);

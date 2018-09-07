@@ -55,6 +55,7 @@ public:
     cxEvent<cxGesture> onSwipeBegin;
     cxEvent<cxGesture> onSwipeEnd;
     cxEvent<cxGesture> onDoubleTap;
+    cxEvent<cxGesture> onTap;
     cxEvent<cxGesture, SwipeType, cxFloat> onSwipe;
 protected:
     cxBool OnDispatch(const cxTouchable *e);

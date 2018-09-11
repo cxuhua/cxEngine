@@ -38,6 +38,9 @@ cxObject *cxList::At(cxInt idx)
 
 void cxList::Elements(std::function<void(cxObject *)> func)
 {
+    if(Size() == 0){
+        return;
+    }
     for(FIter it=FBegin();it!=FEnd();it++){
         func(*it);
     }

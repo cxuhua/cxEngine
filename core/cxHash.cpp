@@ -130,6 +130,9 @@ cxArray *cxHash::Values()
 
 void cxHash::Elements(std::function<void(const cxHashKey &,cxObject *)> func)
 {
+    if(Size() == 0){
+        return;
+    }
     for(Iter it=Begin();it!=End();it++){
         func(it->first,it->second);
     }

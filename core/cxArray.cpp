@@ -94,6 +94,9 @@ cxArray *cxArray::AppendArray(const cxArray *vs)
 
 void cxArray::Elements(std::function<void(cxObject *)> func)
 {
+    if(Size() == 0){
+        return;
+    }
     for(cxArray::CFIter it=FBegin();it!=FEnd();it++){
         func(*it);
     }

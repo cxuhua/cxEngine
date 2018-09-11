@@ -59,6 +59,8 @@ public:
     
     const cxStr *Dumps(cxInt flags=0) const;
     
+    void Elements(std::function<void(cxJson *)> func) const;
+    
     cxJson *Append(cxBool value);
     cxJson *Append(cxInt value);
     cxJson *Append(cxInt64 value);

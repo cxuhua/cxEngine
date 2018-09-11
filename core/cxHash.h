@@ -80,6 +80,7 @@ public:
     template<class T>
     T *At(cxInt idx);
     cxArray *Values();
+    void Elements(std::function<void(const cxHashKey &,cxObject *)> func);
 };
 
 template<class T>

@@ -128,6 +128,13 @@ cxArray *cxHash::Values()
     return rv;
 }
 
+void cxHash::Elements(std::function<void(const cxHashKey &,cxObject *)> func)
+{
+    for(Iter it=Begin();it!=End();it++){
+        func(it->first,it->second);
+    }
+}
+
 void cxHash::Move(const cxHashKey &key,cxHash *src,cxHash *dst)
 {
     CX_ASSERT(src != nullptr && dst != nullptr, "src or dst error");

@@ -92,6 +92,13 @@ cxArray *cxArray::AppendArray(const cxArray *vs)
     return this;
 }
 
+void cxArray::Elements(std::function<void(cxObject *)> func)
+{
+    for(cxArray::CFIter it=FBegin();it!=FEnd();it++){
+        func(*it);
+    }
+}
+
 cxObject **cxArray::Buffer()
 {
     return (cxObject **)mv.data();

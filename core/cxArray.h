@@ -55,6 +55,7 @@ public:
     RIter Remove(RIter &iter);
     CRIter Remove(CRIter &iter);
 public:
+    void Elements(std::function<void(cxObject *)> func);
     cxObject **Buffer();
     cxObject *Back() const;
     cxObject *Front() const;

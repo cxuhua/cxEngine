@@ -36,6 +36,13 @@ cxObject *cxList::At(cxInt idx)
     return nullptr;
 }
 
+void cxList::Elements(std::function<void(cxObject *)> func)
+{
+    for(FIter it=FBegin();it!=FEnd();it++){
+        func(*it);
+    }
+}
+
 cxBool cxList::IsOK(const cxList *v)
 {
     return v != nullptr && !v->IsEmpty();

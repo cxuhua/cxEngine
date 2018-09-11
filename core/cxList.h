@@ -49,6 +49,7 @@ public:
 private:
     std::list<cxObject *> ml;
 public:
+    void Elements(std::function<void(cxObject *)> func);
     cxObject *At(cxInt idx);
     cxList *Clear();
     cxBool IsEmpty() const;

@@ -74,35 +74,21 @@ public:
     void Del(const cxHashKey &key);
     cxHash *Set(const cxHashKey &key,cxObject *obj);
     cxBool Has(const cxHashKey &key);
-    cxObject *Get(const cxHashKey &key);
     template<class T>
-    T *At(const cxHashKey &key);
-    template<class T>
-    T *At(cxInt idx);
-    cxArray *Values();
-    void Elements(std::function<void(const cxHashKey &,cxObject *)> func);
-};
-
-template<class T>
-CX_INLINE T *cxHash::At(const cxHashKey &key)
-{
-    return static_cast<T *>(Get(key));
-}
-
-template<class T>
-CX_INLINE T *cxHash::At(cxInt idx)
-{
-    CX_ASSERT(idx >= 0 && idx < Size(), "idx error");
-    cxInt index = 0;
-    for(cxHash::Iter it = Begin();it != End();it++){
-        if(idx == index){
-            return static_cast<T *>(it->second);
-        }
-        index++;
+    T *Get(const cxHashKey &key)
+    {
+        return Get(key)->To<T>();
     }
-    return nullptr;
-}
-
+    cxObject *Get(const cxHashKey &key);
+    cxArray *Values();
+    template<class T>
+    void Elements(std::function<void(const cxHashKey &,T *)> func)
+    {
+        for(Iter it=Begin();it!=End();it++){
+            func(it->first,it->second->To<T>());
+        }
+    }
+};
 CX_CPP_END
 
 #endif

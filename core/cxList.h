@@ -49,7 +49,13 @@ public:
 private:
     std::list<cxObject *> ml;
 public:
-    void Elements(std::function<void(cxObject *)> func);
+    template<class T>
+    void Elements(std::function<void(T *)> func)
+    {
+        for(FIter it=FBegin();it!=FEnd();it++){
+            func((*it)->To<T>());
+        }
+    }
     cxObject *At(cxInt idx);
     cxList *Clear();
     cxBool IsEmpty() const;

@@ -55,7 +55,13 @@ public:
     RIter Remove(RIter &iter);
     CRIter Remove(CRIter &iter);
 public:
-    void Elements(std::function<void(cxObject *)> func);
+    template<class T>
+    void Elements(std::function<void(T *)> func)
+    {
+        for(cxArray::CFIter it=FBegin();it!=FEnd();it++){
+            func((*it)->To<T>());
+        }
+    }
     cxObject **Buffer();
     cxObject *Back() const;
     cxObject *Front() const;

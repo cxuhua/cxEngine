@@ -53,6 +53,13 @@ cxGesture *cxGesture::DelFlags(cxUInt v)
     return this;
 }
 
+void cxGesture::resetSwipe()
+{
+    swipetrigger = false;
+    swipeischeck = false;
+    swipePoints.clear();
+}
+
 cxBool cxGesture::computeSwipe()
 {
     cxInt size = swipePoints.size();
@@ -148,9 +155,7 @@ cxBool cxGesture::checkSwipe(const cxTouchPoint *ep)
         OnSwipeEnd();
     }
     if(ep->IsEnded()){
-        swipetrigger = false;
-        swipeischeck = false;
-        swipePoints.clear();
+        resetSwipe();
     }
     return !touchIsPass;
 }
@@ -176,15 +181,21 @@ cxBool cxGesture::OnDispatch(const cxTouchable *e)
         const cxTouchPoint *ep = e->TouchPoint(0);
         cxHitInfo hit = HitTest(ep->wp);
         if(hit.hited && ep->IsEnded() && ep->IsTap()){
+            cxBool ret = false;
             onTap.Fire(this);
             tapTime[tapCount] = cxUtil::Timestamp();
             tapCount++;
-            if(tapCount >= 2 && tapTime[tapCount-1] - tapTime[tapCount-2] < 0.6){
+            if(tapCount >= 2 && tapTime[tapCount-1] - tapTime[tapCount-2] < 0.8){
                 OnDoubleTap();
                 tapCount = 0;
+                ret = true;
             }
             if(tapCount >= sizeof(tapTime)/sizeof(cxDouble)){
                 tapCount = 0;
+            }
+            if(ret){
+                resetSwipe();
+                return true;
             }
         }
     }

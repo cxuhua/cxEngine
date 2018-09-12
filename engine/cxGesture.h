@@ -29,6 +29,7 @@ private:
     cxBool swipetrigger;
     std::vector<swipePoint> swipePoints;
     cxBool checkSwipe(const cxTouchPoint *ep);
+    void resetSwipe();
     cxBool computeSwipe();
     std::vector<cxFloat> speeds;
     std::vector<cxFloat> angles;

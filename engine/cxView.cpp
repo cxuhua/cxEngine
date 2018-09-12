@@ -204,7 +204,7 @@ cxBool cxView::IsDirtyMode(DirtyMode v) const
 
 void cxView::ClearDirty()
 {
-    dirtymode = 0;
+    dirtymode = DirtyModeNone;
 }
 
 const cxPoint2F &cxView::Offset() const
@@ -697,24 +697,15 @@ void cxView::OnLeave()
 
 void cxView::runAppends(cxFloat dt)
 {
-    cxInt mvc = 0;
     cxInt cnt = views->Size();
-    cxObject *mvs[64]={0};
     for(cxInt i = 0; i < cnt; i++){
         cxView *view = views->At(i)->To<cxView>();
-        if(view->IsRemoved()){
-            mvs[mvc++] = view;
-            continue;
-        }
         if(!view->isnewadd){
             continue;
         }
         view->isnewadd = false;
         OnAppend(view);
         view->OnEnter();
-    }
-    for(cxInt i = 0;i < mvc; i++){
-        views->Remove(mvs[i]);
     }
 }
 
@@ -741,12 +732,12 @@ void cxView::runUpadtes(cxFloat dt)
 {
     cxInt mvc = 0;
     cxInt cnt = views->Size();
-    cxObject *mvs[64]={0};
+    cxObject *mvs[128]={0};
     for(cxInt i = 0; i < cnt; i++){
         cxView *view = views->At(i)->To<cxView>();
         if(!view->IsRemoved()){
             view->Update(dt);
-        }else if(mvc < 64){
+        }else if(mvc < 128){
             view->OnLeave();
             OnRemove(view);
             mvs[mvc++] = view;

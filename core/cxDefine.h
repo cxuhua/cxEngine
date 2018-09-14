@@ -188,11 +188,6 @@ do{                                                             \
 #define CX_CPP_END                      }
 
 #define CX_DECLARE(T)                                               \
-template <typename... Args>                                         \
-static CX_INLINE T *AllocWithArgs(Args... args)                     \
-{                                                                   \
-    return new T(args...);                                          \
-}                                                                   \
 static CX_INLINE T *Alloc()                                         \
 {                                                                   \
     return new T();                                                 \
@@ -201,11 +196,10 @@ static CX_INLINE T *Create()                                        \
 {                                                                   \
     return static_cast<T *>(T::Alloc()->AutoRelease());             \
 }                                                                   \
-template <typename... Args>                                         \
-static CX_INLINE T *CreateWithArgs(Args... args)                    \
+public:                                                             \
+static CX_INLINE cchars TypeName()                                  \
 {                                                                   \
-    T *ptr = new T(args...);                                        \
-    return static_cast<T *>(ptr->AutoRelease());                    \
+    return (cchars)T::T##Name;                                      \
 }                                                                   \
 private:                                                            \
 static cxLong T##Name;                                              \

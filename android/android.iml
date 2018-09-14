@@ -131,6 +131,12 @@
     <content url="file://$MODULE_DIR$/../ext">
       <sourceFolder url="file://$MODULE_DIR$/../ext" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../lua/cjson">
+      <sourceFolder url="file://$MODULE_DIR$/../lua/cjson" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../lua/src">
+      <sourceFolder url="file://$MODULE_DIR$/../lua/src" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../math">
       <sourceFolder url="file://$MODULE_DIR$/../math" isTestSource="false" />
     </content>

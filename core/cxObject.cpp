@@ -34,6 +34,7 @@ cxInt cxObject::__LuaIndex(lua_State *l)
     lua_remove(l, 1);
     return (*ext)->LuaIndex(l);
 }
+
 cxInt cxObject::__LuaNewIndex(lua_State *l)
 {
     cxObject **ext = (cxObject **)lua_touserdata(l, 1);
@@ -41,6 +42,7 @@ cxInt cxObject::__LuaNewIndex(lua_State *l)
     lua_remove(l, 1);
     return (*ext)->LuaNewIndex(l);
 }
+
 cxInt cxObject::__LuaCall(lua_State *l)
 {
     cxObject **ext = (cxObject **)lua_touserdata(l, 1);
@@ -48,10 +50,84 @@ cxInt cxObject::__LuaCall(lua_State *l)
     lua_remove(l, 1);
     return (*ext)->LuaCall(l);
 }
+
+cxInt cxObject::__LuaLT(lua_State *l)
+{
+    cxObject **ext = (cxObject **)lua_touserdata(l, 1);
+    //remove this args
+    lua_remove(l, 1);
+    return (*ext)->LuaLT(l);
+}
+
 cxInt cxObject::__LuaGC(lua_State *l)
 {
     cxObject **obj = (cxObject **)lua_touserdata(l, 1);
     (*obj)->Release();
+    return 0;
+}
+
+cxInt cxObject::LuaToInt(lua_State *l,cxInt idx,cxInt dv)
+{
+    if(lua_gettop(l) < idx){
+        return dv;
+    }
+    if(lua_type(l, idx) != LUA_TNUMBER){
+        return dv;
+    }
+    return (cxInt)lua_tointeger(l, idx);
+}
+
+cxLong cxObject::LuaToLong(lua_State *l,cxInt idx,cxLong dv)
+{
+    if(lua_gettop(l) < idx){
+        return dv;
+    }
+    if(lua_type(l, idx) != LUA_TNUMBER){
+        return dv;
+    }
+    return (cxLong)lua_tointeger(l, idx);
+}
+
+const cxStr *cxObject::LuaToStr(lua_State *l,cxInt idx)
+{
+    if(lua_gettop(l) < idx){
+        return nullptr;
+    }
+    if(lua_type(l, idx) != LUA_TSTRING){
+        return nullptr;
+    }
+    cchars txt = lua_tostring(l, idx);
+    if(!cxStr::IsOK(txt)){
+        return nullptr;
+    }
+    return cxStr::Create()->Init(txt);
+}
+
+cxFloat cxObject::LuaToFloat(lua_State *l,cxInt idx,cxFloat dv)
+{
+    if(lua_gettop(l) < idx){
+        return dv;
+    }
+    if(lua_type(l, idx) != LUA_TNUMBER){
+        return dv;
+    }
+    return (cxFloat)lua_tonumber(l, idx);
+}
+
+cxBool cxObject::LuaToBool(lua_State *l,cxInt idx,cxBool dv)
+{
+    if(lua_gettop(l) < idx){
+        return dv;
+    }
+    if(lua_type(l, idx) != LUA_TBOOLEAN){
+        return dv;
+    }
+    return (cxBool)lua_toboolean(l, idx);
+}
+
+cxInt cxObject::LuaLT(lua_State *l)
+{
+    CX_LOGGER("LuaLT");
     return 0;
 }
 
@@ -95,6 +171,10 @@ void cxObject::NewType(lua_State *l,cchars type)
     
     lua_pushstring(l, "__call" );
     lua_pushcfunction(l, cxObject::__LuaCall);
+    lua_rawset(l, -3 );
+    
+    lua_pushstring(l, "__lt" );
+    lua_pushcfunction(l, cxObject::__LuaLT);
     lua_rawset(l, -3 );
     
     lua_pushstring(l, "__gc" );

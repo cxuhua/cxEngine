@@ -58,6 +58,7 @@
 		83177F5C214B939D009A4FC6 /* llex.c in Sources */ = {isa = PBXBuildFile; fileRef = 83177F31214B939C009A4FC6 /* llex.c */; };
 		83177F5D214B939D009A4FC6 /* ltm.c in Sources */ = {isa = PBXBuildFile; fileRef = 83177F33214B939C009A4FC6 /* ltm.c */; };
 		83177F5E214B939D009A4FC6 /* ldo.c in Sources */ = {isa = PBXBuildFile; fileRef = 83177F35214B939C009A4FC6 /* ldo.c */; };
+		83177F62214BAD9D009A4FC6 /* cxScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83177F61214BAD9D009A4FC6 /* cxScript.cpp */; };
 		8318C8BD1C32BC28002A85CF /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 8318C8BB1C32BC28002A85CF /* base64.c */; };
 		831B93EF1B4A923200511A63 /* csv.c in Sources */ = {isa = PBXBuildFile; fileRef = 831B93ED1B4A923200511A63 /* csv.c */; };
 		831B93F41B4A970600511A63 /* cxCSV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 831B93F21B4A970600511A63 /* cxCSV.cpp */; };
@@ -288,6 +289,8 @@
 		83177F34214B939C009A4FC6 /* lctype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lctype.h; sourceTree = "<group>"; };
 		83177F35214B939C009A4FC6 /* ldo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldo.c; sourceTree = "<group>"; };
 		83177F36214B939C009A4FC6 /* lundump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lundump.h; sourceTree = "<group>"; };
+		83177F60214BAD9C009A4FC6 /* cxScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxScript.h; sourceTree = "<group>"; };
+		83177F61214BAD9D009A4FC6 /* cxScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxScript.cpp; sourceTree = "<group>"; };
 		8318C8BB1C32BC28002A85CF /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
 		8318C8BC1C32BC28002A85CF /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		831B93ED1B4A923200511A63 /* csv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = csv.c; sourceTree = "<group>"; };
@@ -1007,6 +1010,8 @@
 				8302A3741B51078500C7209C /* cxLocalized.h */,
 				838345691B5A45B300921BE8 /* cxKDTree.cpp */,
 				8383456A1B5A45B300921BE8 /* cxKDTree.h */,
+				83177F61214BAD9D009A4FC6 /* cxScript.cpp */,
+				83177F60214BAD9C009A4FC6 /* cxScript.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1091,6 +1096,7 @@
 				83C9D1151B47DA8000EC244C /* cxBezier.cpp in Sources */,
 				8357CB951B11FDC80085E600 /* cxJson.cpp in Sources */,
 				83A60B4B1FAF46E300649616 /* pack_unpack.c in Sources */,
+				83177F62214BAD9D009A4FC6 /* cxScript.cpp in Sources */,
 				8338FD7D1B4695F300C84032 /* cxSpline.cpp in Sources */,
 				83177F37214B939D009A4FC6 /* fpconv.c in Sources */,
 				833B406E1B31B71400920A06 /* cxBoxRender.cpp in Sources */,

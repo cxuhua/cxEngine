@@ -524,6 +524,11 @@ void cxScript::SetGlobal(cchars name,cxBool v)
     SetGlobal(name);
 }
 
+void cxScript::OnError(cchars error)
+{
+    onError.Fire(this, error);
+}
+
 cxInt cxScript::Top()
 {
     return lua_gettop(L);
@@ -540,7 +545,7 @@ cxBool cxScript::Call(cxInt anum,cxInt rnum)
     if(ret != LUA_OK){
         cchars err = lua_tostring(L, -1);
         CX_LOGGER("call lua script error %d-%s",ret,err);
-        onError.Fire(this, err);
+        OnError(err);
         Pop(1);
     }
     return ret == LUA_OK;
@@ -553,7 +558,7 @@ cxBool cxScript::Load(const cxStr *script,cxBool run)
     if(ret != LUA_OK){
         cchars err = lua_tostring(L, -1);
         CX_ERROR("load lua string error %d-%s",ret,err);
-        onError.Fire(this, err);
+        OnError(err);
         Pop(1);
         return false;
     }

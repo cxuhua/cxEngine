@@ -23,6 +23,7 @@ protected:
     virtual ~cxScript();
 protected:
     lua_State *L;
+    void OnError(cchars error);
 public:
     cxInt Top();
     void Pop(cxInt n);

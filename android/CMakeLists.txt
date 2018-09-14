@@ -135,6 +135,7 @@ add_library( # Sets the name of the library.
             ${CX_ENGINE_PATH}/core/cxStr.cpp
             ${CX_ENGINE_PATH}/core/cxSync.cpp
             ${CX_ENGINE_PATH}/core/cxUtil.cpp
+            ${CX_ENGINE_PATH}/core/cxScript.cpp
 
             ${CX_ENGINE_PATH}/math/cxBox4F.cpp
             ${CX_ENGINE_PATH}/math/cxBoxColor4F.cpp

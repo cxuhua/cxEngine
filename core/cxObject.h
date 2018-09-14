@@ -156,6 +156,7 @@ protected:
     cxLong LuaToLong(lua_State *l,cxInt idx,cxLong dv);
     cxInt LuaToInt(lua_State *l,cxInt idx,cxInt dv);
     const cxStr *LuaToStr(lua_State *l,cxInt idx);
+    cchars LuaToChars(lua_State *l,cxInt idx);
     cxFloat LuaToFloat(lua_State *l,cxInt idx,cxFloat dv);
     cxBool LuaToBool(lua_State *l,cxInt idx,cxBool dv);
 public:

@@ -197,20 +197,21 @@ static CX_INLINE T *Create()                                        \
     return static_cast<T *>(T::Alloc()->AutoRelease());             \
 }                                                                   \
 public:                                                             \
-static CX_INLINE cchars TypeName()                                  \
-{                                                                   \
-    return (cchars)T::T##Name;                                      \
-}                                                                   \
+virtual cchars ClassName();                                         \
 private:                                                            \
-static cxLong T##Name;                                              \
+static cchars T##Name;                                              \
 static cxObject *T##Alloc();
 
 #define CX_IMPLEMENT(T)                                             \
+cchars T::ClassName()                                               \
+{                                                                   \
+    return T::T##Name;                                              \
+}                                                                   \
 cxObject *T::T##Alloc()                                             \
 {                                                                   \
     return T::Alloc();                                              \
 }                                                                   \
-cxLong T::T##Name = cxCore::_RegClass_(#T, T##Alloc);
+cchars T::T##Name = cxCore::_RegClass_(#T, T##Alloc);
 
 #endif /* defined(__cxEngineCore__cxDefine__) */
 

@@ -103,6 +103,17 @@ const cxStr *cxObject::LuaToStr(lua_State *l,cxInt idx)
     return cxStr::Create()->Init(txt);
 }
 
+cchars cxObject::LuaToChars(lua_State *l,cxInt idx)
+{
+    if(lua_gettop(l) < idx){
+        return nullptr;
+    }
+    if(lua_type(l, idx) != LUA_TSTRING){
+        return nullptr;
+    }
+    return lua_tostring(l, idx);
+}
+
 cxFloat cxObject::LuaToFloat(lua_State *l,cxInt idx,cxFloat dv)
 {
     if(lua_gettop(l) < idx){
@@ -189,7 +200,6 @@ void cxObject::NewValue(lua_State *l,cchars type,cxObject *v)
     //create object ptr save
     cxObject **obj = (cxObject **)lua_newuserdata(l, sizeof(cxObject **));
     *obj = v;(*obj)->Retain();
-    //类型不存在就新创建一个
     if(luaL_getmetatable(l,buf) != LUA_TTABLE){
         //pop nil
         lua_pop(l, 1);

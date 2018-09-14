@@ -105,10 +105,10 @@ cxObject *cxCore::Alloc(cchars name)
     return it->second();
 }
 
-cxLong cxCore::_RegClass_(cchars name,AllocFunc func)
+cchars cxCore::_RegClass_(cchars name,AllocFunc func)
 {
     cxCore::Instance()->classes.emplace(name,func);
-    return (cxLong)name;
+    return name;
 }
 
 cxCore::cxCore()

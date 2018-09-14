@@ -30,17 +30,17 @@ cxScript::~cxScript()
     lua_close(L);
 }
 
-void cxScript::NewValue(cchars type,cxObject *v)
+void cxScript::NewValue(cxObject *v)
 {
-    cxObject::NewValue(L, type, v);
+    cxObject::NewValue(L, v->ClassName(), v);
 }
 
-void cxScript::NewGlobal(cchars type,cchars name,cxObject *v)
+void cxScript::NewGlobal(cchars name,cxObject *v)
 {
     if(v == nullptr){
         PushNULL();
     }else{
-        NewValue(type,v);
+        NewValue(v);
     }
     SetGlobal(name);
 }

@@ -58,7 +58,7 @@ public:
     void Push(cchars key,cxObject *pobj);
     cxObject *Pull(cchars key);
 public:
-    static cxLong _RegClass_(cchars name,AllocFunc func);
+    static cchars _RegClass_(cchars name,AllocFunc func);
 };
 
 template<class T>

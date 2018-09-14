@@ -53,8 +53,8 @@ public:
     void GCFull();
     void GCStep(cxInt data=0);
 public:
-    void NewValue(cchars type,cxObject *v);
-    void NewGlobal(cchars type,cchars name,cxObject *v);
+    void NewValue(cxObject *v);
+    void NewGlobal(cchars name,cxObject *v);
 public:
     void PushNULL();
     void PushPtr(void *ptr);

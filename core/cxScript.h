@@ -10,6 +10,7 @@
 #define cxScript_h
 
 #include "cxJson.h"
+#include "cxHash.h"
 
 CX_CPP_BEGIN
 
@@ -28,8 +29,13 @@ public:
     cxBool Load(const cxStr *script,cxBool run=true);
     cxBool Call(cxInt anum,cxInt rnum);
     cxInt GetGlobal(cchars name);
+    void DelGlobal(cchars name);
     void SetGlobal(cchars name);
     void SetGlobal(cchars name,cxInt v);
+    void SetGlobal(cchars name,cchars v);
+    void SetGlobal(cchars name,const cxStr *v);
+    void SetGlobal(cchars name,cxFloat v);
+    void SetGlobal(cchars name,cxBool v);
     cxInt GetField(cxInt idx,cchars key);
     void SetField(cxInt idx,cchars key);
 private:

@@ -88,6 +88,19 @@ public:
             func(it->first,it->second->To<T>());
         }
     }
+    void ElementsKey(std::function<void(const cxHashKey &)> func)
+    {
+        for(Iter it=Begin();it!=End();it++){
+            func(it->first);
+        }
+    }
+    template<class T>
+    void ElementsValue(std::function<void(T *)> func)
+    {
+        for(Iter it=Begin();it!=End();it++){
+            func(it->second->To<T>());
+        }
+    }
 };
 CX_CPP_END
 

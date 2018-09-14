@@ -33,10 +33,11 @@ protected:
 private:
     typedef cxObject *(*AllocFunc)();
     typedef std::map<std::string, AllocFunc> TypesMap;
+    typedef std::vector<cxAny> AnyArray;
     static cxCore *gCore;
     cxHash *caches;
     uv_key_t autoKey;
-    std::vector<cxAny> ones;
+    AnyArray ones;
     TypesMap classes;
 public:
     static cxObject *Create(cchars name);

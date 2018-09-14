@@ -127,7 +127,7 @@ cxCore::~cxCore()
 void cxCore::Clear()
 {
     //one object
-    for(std::vector<cxAny>::iterator it=ones.begin();it!=ones.end();it++){
+    for(AnyArray::iterator it=ones.begin();it!=ones.end();it++){
         cxObject::release((cxObject **)*it);
     }
     ones.clear();

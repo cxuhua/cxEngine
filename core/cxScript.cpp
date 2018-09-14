@@ -483,6 +483,12 @@ void cxScript::SetField(cxInt idx,cchars key)
     lua_setfield(L, idx, key);
 }
 
+void cxScript::DelGlobal(cchars name)
+{
+    PushNULL();
+    SetGlobal(name);
+}
+
 void cxScript::SetGlobal(cchars name)
 {
     lua_setglobal(L, name);
@@ -491,6 +497,30 @@ void cxScript::SetGlobal(cchars name)
 void cxScript::SetGlobal(cchars name,cxInt v)
 {
     PushInt(v);
+    SetGlobal(name);
+}
+
+void cxScript::SetGlobal(cchars name,cchars v)
+{
+    PushString(v);
+    SetGlobal(name);
+}
+
+void cxScript::SetGlobal(cchars name,const cxStr *v)
+{
+    PushString(v);
+    SetGlobal(name);
+}
+
+void cxScript::SetGlobal(cchars name,cxFloat v)
+{
+    PushFloat(v);
+    SetGlobal(name);
+}
+
+void cxScript::SetGlobal(cchars name,cxBool v)
+{
+    PushBool(v);
     SetGlobal(name);
 }
 

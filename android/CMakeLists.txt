@@ -204,7 +204,6 @@ add_library( # Sets the name of the library.
             ${CX_ENGINE_PATH}/engine/cxTouch.cpp
             ${CX_ENGINE_PATH}/engine/cxTriangles.cpp
             ${CX_ENGINE_PATH}/engine/cxView.cpp
-            ${CX_ENGINE_PATH}/engine/cxScript.cpp
             ${CX_ENGINE_PATH}/engine/cxGesture.cpp
             ${CX_ENGINE_PATH}/engine/cxWindow.cpp
 

@@ -15,6 +15,7 @@
 #include <math.h>
 #include <atomic>
 #include <float.h>
+#include <lua/src/lua.hpp>
 #include "cxCore.h"
 #include "cxEvent.h"
 
@@ -140,6 +141,20 @@ public:
 public:
     cxEvent<cxObject> onFree;
     cxEvent<cxObject> onInit;
+private:
+    static cxInt __LuaIndex(lua_State *l);
+    static cxInt __LuaNewIndex(lua_State *l);
+    static cxInt __LuaCall(lua_State *l);
+    static cxInt __LuaGC(lua_State *l);
+protected:
+    virtual cxInt LuaCall(lua_State *l);
+    virtual cxInt LuaIndex(lua_State *l);
+    virtual cxInt LuaNewIndex(lua_State *l);
+public:
+    static void PrintStack(lua_State *l);
+    static void NewType(lua_State *l,cchars type);
+    static void NewValue(lua_State *l,cchars type,cxObject *v);
+    static void NewGlobal(lua_State *l,cchars type,cchars var,cxObject *v);
 };
 
 template<class T>

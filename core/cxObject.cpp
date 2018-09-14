@@ -27,6 +27,104 @@ cxObject::cxObject():refcount(1),tag(0)
     onInit.Fire(this);
 }
 
+cxInt cxObject::__LuaIndex(lua_State *l)
+{
+    cxObject **ext = (cxObject **)lua_touserdata(l, 1);
+    //remove this args
+    lua_remove(l, 1);
+    return (*ext)->LuaIndex(l);
+}
+cxInt cxObject::__LuaNewIndex(lua_State *l)
+{
+    cxObject **ext = (cxObject **)lua_touserdata(l, 1);
+    //remove this args
+    lua_remove(l, 1);
+    return (*ext)->LuaNewIndex(l);
+}
+cxInt cxObject::__LuaCall(lua_State *l)
+{
+    cxObject **ext = (cxObject **)lua_touserdata(l, 1);
+    //remove this args
+    lua_remove(l, 1);
+    return (*ext)->LuaCall(l);
+}
+cxInt cxObject::__LuaGC(lua_State *l)
+{
+    cxObject **obj = (cxObject **)lua_touserdata(l, 1);
+    (*obj)->Release();
+    return 0;
+}
+
+cxInt cxObject::LuaCall(lua_State *l)
+{
+    CX_LOGGER("LuaCall");
+    return 0;
+}
+
+cxInt cxObject::LuaIndex(lua_State *l)
+{
+    CX_LOGGER("LuaIndex");
+    return 0;
+}
+
+cxInt cxObject::LuaNewIndex(lua_State *l)
+{
+    CX_LOGGER("LuaNewIndex");
+    return 0;
+}
+
+void cxObject::PrintStack(lua_State *l)
+{
+    cxInt top = lua_gettop(l);
+    for(cxInt i=1;i<=top;i++){
+        CX_LOGGER("%d - %s",i,lua_typename(l, lua_type(l, i)));
+    }
+}
+
+void cxObject::NewType(lua_State *l,cchars type)
+{
+    luaL_newmetatable(l,type);
+    
+    lua_pushstring(l,"__index" );
+    lua_pushcfunction(l, cxObject::__LuaIndex);
+    lua_rawset(l, -3 );
+    
+    lua_pushstring(l, "__newindex" );
+    lua_pushcfunction(l, cxObject::__LuaNewIndex);
+    lua_rawset(l, -3 );
+    
+    lua_pushstring(l, "__call" );
+    lua_pushcfunction(l, cxObject::__LuaCall);
+    lua_rawset(l, -3 );
+    
+    lua_pushstring(l, "__gc" );
+    lua_pushcfunction(l, cxObject::__LuaGC);
+    lua_rawset(l, -3 );
+}
+
+void cxObject::NewValue(lua_State *l,cchars type,cxObject *v)
+{
+    char buf[64]={0};
+    snprintf(buf, 64, "__lua__%s__",type);
+    //create object ptr save
+    cxObject **obj = (cxObject **)lua_newuserdata(l, sizeof(cxObject **));
+    *obj = v;(*obj)->Retain();
+    //类型不存在就新创建一个
+    if(luaL_getmetatable(l,buf) != LUA_TTABLE){
+        //pop nil
+        lua_pop(l, 1);
+        //push meta table
+        cxObject::NewType(l,buf);
+    }
+    lua_setmetatable(l, -2);
+}
+
+void cxObject::NewGlobal(lua_State *l,cchars type,cchars var,cxObject *v)
+{
+    NewValue(l,type,v);
+    lua_setglobal(l, var);
+}
+
 const cxInt cxObject::BindesSize() const
 {
     return (cxInt)bindes.size();

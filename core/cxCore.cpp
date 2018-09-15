@@ -126,9 +126,10 @@ cxCore::~cxCore()
 
 void cxCore::Clear()
 {
-    //one object
+    //one object,不要在稀构函数中调用单例模式
     for(AnyArray::iterator it=ones.begin();it!=ones.end();it++){
-        cxObject::release((cxObject **)*it);
+        cxObject **obj = (cxObject **)(*it);
+        cxObject::release(obj);
     }
     ones.clear();
     //cache clear

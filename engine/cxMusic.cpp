@@ -18,12 +18,19 @@ cxMusic::cxMusic()
 {
     isfollow = false;
     source = nullptr;
+    isfree = false;
     Forever();
 }
 
 cxMusic::~cxMusic()
 {
     cxObject::release(&source);
+}
+
+cxMusic *cxMusic::ExitFree(cxBool v)
+{
+    isfree = v;
+    return this;
 }
 
 cxMusic *cxMusic::BindFollow(cxView *pview)
@@ -49,6 +56,9 @@ void cxMusic::OnReset()
 void cxMusic::OnExit()
 {
     source->Stop();
+    if(isfree){
+        cxOpenAL::Instance()->Remove(source->GetKey());
+    }
     cxAction::OnExit();
 }
 

@@ -19,12 +19,11 @@ CX_IMPLEMENT(cxObject);
 cxObject::~cxObject()
 {
     UnBind();
-    onFree.Fire(this);
 }
 
 cxObject::cxObject():refcount(1),tag(0)
 {
-    onInit.Fire(this);
+    OnInit();
 }
 
 cxInt cxObject::__LuaIndex(lua_State *l)
@@ -62,6 +61,8 @@ cxInt cxObject::__LuaLT(lua_State *l)
 cxInt cxObject::__LuaGC(lua_State *l)
 {
     cxObject **obj = (cxObject **)lua_touserdata(l, 1);
+    lua_remove(l, 1);
+    (*obj)->LuaGC(l);
     (*obj)->Release();
     return 0;
 }
@@ -139,6 +140,11 @@ cxBool cxObject::LuaToBool(lua_State *l,cxInt idx,cxBool dv)
 cxInt cxObject::LuaLT(lua_State *l)
 {
     CX_LOGGER("LuaLT");
+    return 0;
+}
+
+cxInt cxObject::LuaGC(lua_State *l)
+{
     return 0;
 }
 
@@ -457,10 +463,21 @@ const cxJson *cxObject::GetProperty(cchars key)
     return nullptr;
 }
 
+void cxObject::OnFree()
+{
+    onFree.Fire(this);
+}
+
+void cxObject::OnInit()
+{
+    onInit.Fire(this);
+}
+
 void cxObject::Release()
 {
     CX_ASSERT(refcount > 0, "error,retain count must > 0");
     if(refcount.fetch_sub(1) == 1){
+        OnFree();
         delete this;
     }
 }

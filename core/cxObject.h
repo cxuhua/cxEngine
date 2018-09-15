@@ -141,6 +141,9 @@ public:
 public:
     cxEvent<cxObject> onFree;
     cxEvent<cxObject> onInit;
+protected:
+    virtual void OnFree();//delete this before
+    virtual void OnInit();//create object before
 private:
     static cxInt __LuaIndex(lua_State *l);
     static cxInt __LuaNewIndex(lua_State *l);
@@ -152,6 +155,7 @@ protected:
     virtual cxInt LuaIndex(lua_State *l);
     virtual cxInt LuaNewIndex(lua_State *l);
     virtual cxInt LuaLT(lua_State *l);
+    virtual cxInt LuaGC(lua_State *l);
 protected:
     cxLong LuaToLong(lua_State *l,cxInt idx,cxLong dv);
     cxInt LuaToInt(lua_State *l,cxInt idx,cxInt dv);

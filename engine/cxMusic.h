@@ -27,12 +27,14 @@ protected:
     void OnStep(cxFloat dt);
     void OnReset();
 private:
+    cxBool isfree;
     cxBool isfollow;
     void updateForFollowView();
     cxALSource *source;
 public:
     cxEvent<cxMusic, cxView *> onFollow;
 public:
+    cxMusic *ExitFree(cxBool v);
     cxMusic *BindFollow(cxView *pview);
     cxALSource *GetSource();
     cxBool Init(cchars file,cchars key=nullptr);

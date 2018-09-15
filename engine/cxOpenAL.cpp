@@ -495,6 +495,16 @@ void cxALSource::Stop()
     }
 }
 
+void cxALSource::SetKey(cchars key)
+{
+    skey = key;
+}
+
+cchars cxALSource::GetKey()
+{
+    return skey.c_str();
+}
+
 void cxALSource::SetGain(cxFloat v)
 {
     alSourcef(handle, AL_GAIN,v);
@@ -590,6 +600,11 @@ void cxOpenAL::Remove(cchars key)
     sources->Del(key);
 }
 
+void cxOpenAL::Remove(cxALSource *source)
+{
+    Remove(source->GetKey());
+}
+
 cxALSource *cxOpenAL::Source(cchars file,cchars key)
 {
     cxALSource *s = Source(key);
@@ -613,6 +628,7 @@ cxALSource *cxOpenAL::Source(cchars file,cchars key)
         return nullptr;
     }
     sources->Set(key, s);
+    s->SetKey(key);
     return s;
 }
 

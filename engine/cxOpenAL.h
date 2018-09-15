@@ -49,12 +49,16 @@ public:
 protected:
     explicit cxALSource();
     virtual ~cxALSource();
+private:
+    std::string skey;
 protected:
     cxALBuffer *buffer;
     ALuint handle;
     cxFloat gain;
     cxFloat pitch;
 public:
+    void SetKey(cchars key);
+    cchars GetKey();
     cxBool IsPlaying();
     virtual cxBool Init(cxALBuffer *ab);
     virtual void Play();
@@ -89,6 +93,7 @@ private:
 public:
     static cxOpenAL *Instance();
     void Remove(cchars key);
+    void Remove(cxALSource *source);
     cxALSource *Source(cchars file,cchars key);
     cxALSource *Source(cchars key);
     cxALSource *Source(const cxStr *data,cxALBuffer::DataType type);

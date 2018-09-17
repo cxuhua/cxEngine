@@ -32,16 +32,16 @@ cxScript::~cxScript()
 
 void cxScript::NewValue(cxObject *v)
 {
-    cxObject::NewValue(L, v->ClassName(), v);
+    if(v == nullptr){
+        PushNULL();
+    }else{
+        cxObject::NewValue(L, v->ClassName(), v);
+    }
 }
 
 void cxScript::NewGlobal(cchars name,cxObject *v)
 {
-    if(v == nullptr){
-        PushNULL();
-    }else{
-        NewValue(v);
-    }
+    NewValue(v);
     SetGlobal(name);
 }
 

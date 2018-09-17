@@ -69,6 +69,7 @@ public:
     cxLabel *SetLocalized(cchars key,...);
 public:
     static cxLabel *FromUTF8(cchars fmt,...);
+    static cxLabel *Create(const cxStr *txt);
     static cxLabel *Localized(cchars key,...);
 };
 

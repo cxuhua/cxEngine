@@ -106,6 +106,7 @@ public:
         return static_cast<T *>(pobj);
     }
 public:
+    cxBool IsType(cchars type);
     //mempory ref manager
     cxInt Refcount() const;
     void Retain();

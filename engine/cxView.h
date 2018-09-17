@@ -272,7 +272,9 @@ protected:
     virtual void OnEnter();
     virtual void OnLeave();
 public:
+    //when add subview
     cxEvent<cxView, cxView *> onAppend;
+    //when remove subview
     cxEvent<cxView, cxView *> onRemove;
 public:
     void ResetIdx();
@@ -301,7 +303,9 @@ public:
     cxBool Dispatch(const cxTouchable *e);
     cxBool Dispatch(const cxKey &key);
 
+    //when add to view
     cxEvent<cxView> onEnter;
+    //when remove from view
     cxEvent<cxView> onLeave;
 
     //ratio height

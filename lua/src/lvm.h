@@ -12,6 +12,7 @@
 #include "lobject.h"
 #include "ltm.h"
 
+#define LUA_NOCVTN2S 1
 
 #if !defined(LUA_NOCVTN2S)
 #define cvt2str(o)	ttisnumber(o)

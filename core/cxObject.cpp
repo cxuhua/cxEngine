@@ -72,10 +72,13 @@ cxInt cxObject::LuaToInt(lua_State *l,cxInt idx,cxInt dv)
     if(lua_gettop(l) < idx){
         return dv;
     }
-    if(lua_type(l, idx) != LUA_TNUMBER){
-        return dv;
+    if(lua_type(l, idx) == LUA_TNUMBER){
+        return (cxInt)lua_tointeger(l, idx);
     }
-    return (cxInt)lua_tointeger(l, idx);
+    if(lua_type(l, idx) == LUA_TSTRING){
+        return atoi(lua_tostring(l, idx));
+    }
+    return dv;
 }
 
 cxLong cxObject::LuaToLong(lua_State *l,cxInt idx,cxLong dv)
@@ -83,10 +86,13 @@ cxLong cxObject::LuaToLong(lua_State *l,cxInt idx,cxLong dv)
     if(lua_gettop(l) < idx){
         return dv;
     }
-    if(lua_type(l, idx) != LUA_TNUMBER){
-        return dv;
+    if(lua_type(l, idx) == LUA_TNUMBER){
+        return (cxLong)lua_tointeger(l, idx);
     }
-    return (cxLong)lua_tointeger(l, idx);
+    if(lua_type(l, idx) == LUA_TSTRING){
+        return atol(lua_tostring(l, idx));
+    }
+    return dv;
 }
 
 const cxStr *cxObject::LuaToStr(lua_State *l,cxInt idx)
@@ -94,14 +100,21 @@ const cxStr *cxObject::LuaToStr(lua_State *l,cxInt idx)
     if(lua_gettop(l) < idx){
         return nullptr;
     }
-    if(lua_type(l, idx) != LUA_TSTRING){
-        return nullptr;
+    if(lua_type(l, idx) == LUA_TNUMBER){
+        if(lua_isinteger(l, idx)){
+            return cxStr::UTF8("%d",(cxInt)lua_tointeger(l, idx));
+        }
+        if(lua_isnumber(l, idx)){
+            return cxStr::UTF8("%f",lua_tonumber(l, idx));
+        }
+    }else if(lua_type(l, idx) == LUA_TSTRING){
+        cchars txt = lua_tostring(l, idx);
+        if(!cxStr::IsOK(txt)){
+            return nullptr;
+        }
+        return cxStr::Create()->Init(txt);
     }
-    cchars txt = lua_tostring(l, idx);
-    if(!cxStr::IsOK(txt)){
-        return nullptr;
-    }
-    return cxStr::Create()->Init(txt);
+    return nullptr;
 }
 
 cchars cxObject::LuaToChars(lua_State *l,cxInt idx)
@@ -120,10 +133,13 @@ cxFloat cxObject::LuaToFloat(lua_State *l,cxInt idx,cxFloat dv)
     if(lua_gettop(l) < idx){
         return dv;
     }
-    if(lua_type(l, idx) != LUA_TNUMBER){
-        return dv;
+    if(lua_type(l, idx) == LUA_TNUMBER){
+        return (cxFloat)lua_tonumber(l, idx);
     }
-    return (cxFloat)lua_tonumber(l, idx);
+    if(lua_type(l, idx) == LUA_TSTRING){
+        return (cxFloat)atof(lua_tostring(l, idx));
+    }
+    return dv;
 }
 
 cxBool cxObject::LuaToBool(lua_State *l,cxInt idx,cxBool dv)
@@ -131,15 +147,20 @@ cxBool cxObject::LuaToBool(lua_State *l,cxInt idx,cxBool dv)
     if(lua_gettop(l) < idx){
         return dv;
     }
-    if(lua_type(l, idx) != LUA_TBOOLEAN){
-        return dv;
+    if(lua_type(l, idx) == LUA_TBOOLEAN){
+        return (cxBool)lua_toboolean(l, idx);
     }
-    return (cxBool)lua_toboolean(l, idx);
+    if(lua_type(l, idx) == LUA_TNUMBER){
+        return lua_tonumber(l, idx) != 0;
+    }
+    if(lua_type(l, idx) == LUA_TSTRING){
+        return strcmp(lua_tostring(l, idx), "true");
+    }
+    return dv;
 }
 
 cxInt cxObject::LuaLT(lua_State *l)
 {
-    CX_LOGGER("LuaLT");
     return 0;
 }
 
@@ -150,19 +171,26 @@ cxInt cxObject::LuaGC(lua_State *l)
 
 cxInt cxObject::LuaCall(lua_State *l)
 {
-    CX_LOGGER("LuaCall");
     return 0;
 }
 
 cxInt cxObject::LuaIndex(lua_State *l)
 {
-    CX_LOGGER("LuaIndex");
+    cchars key = lua_tostring(l, 1);
+    if(cxStr::IsEqu(key, "tag")){
+        lua_pushinteger(l, Tag());
+        return 1;
+    }
     return 0;
 }
 
 cxInt cxObject::LuaNewIndex(lua_State *l)
 {
-    CX_LOGGER("LuaNewIndex");
+    cchars key = lua_tostring(l, 1);
+    if(cxStr::IsEqu(key, "tag")){
+        SetTag(LuaToLong(l, 2, 0));
+        return 0;
+    }
     return 0;
 }
 
@@ -235,8 +263,8 @@ void cxObject::Bind(cxObject *pobj,cxLong tag)
 {
     CX_ASSERT(pobj != nullptr, "pobj args error");
     CX_ASSERT(pobj != this, "self can't bind self");
-    if(this->bindes.find(pobj) == this->bindes.end()){
-        this->bindes.emplace(pobj,tag);
+    if(bindes.find(pobj) == bindes.end()){
+        bindes.emplace(pobj,tag);
     }
     if(pobj->binded.find(this) == pobj->binded.end()){
         pobj->binded.emplace(this,tag);
@@ -427,6 +455,11 @@ void cxObject::Retain()
 cxInt cxObject::Refcount() const
 {
     return refcount;
+}
+
+cxBool cxObject::IsType(cchars type)
+{
+    return cxStr::IsEqu(ClassName(), type);
 }
 
 cxObject *cxObject::AutoRelease()

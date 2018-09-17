@@ -198,8 +198,8 @@ static CX_INLINE T *Create()                                        \
 }                                                                   \
 public:                                                             \
 virtual cchars ClassName();                                         \
-private:                                                            \
 static cchars T##Name;                                              \
+private:                                                            \
 static cxObject *T##Alloc();
 
 #define CX_IMPLEMENT(T)                                             \

@@ -86,6 +86,13 @@ cxLabel *cxLabel::FromUTF8(cchars fmt,...)
     return rv;
 }
 
+cxLabel *cxLabel::Create(const cxStr *txt)
+{
+    cxLabel *rv = cxLabel::Create();
+    rv->SetText(txt);
+    return rv;
+}
+
 void cxLabel::OnDirty()
 {
     if(!cxStr::IsOK(txt)){

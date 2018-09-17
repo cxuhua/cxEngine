@@ -26,15 +26,17 @@ protected:
     void OnExit();
     void OnStep(cxFloat dt);
     void OnReset();
+protected:
+    cxInt LuaNewIndex(lua_State *l);
 private:
-    cxBool isfree;
+    cxBool isfreesource;
     cxBool isfollow;
     void updateForFollowView();
     cxALSource *source;
 public:
     cxEvent<cxMusic, cxView *> onFollow;
 public:
-    cxMusic *ExitFree(cxBool v);
+    cxMusic *FreeSource(cxBool v);
     cxMusic *BindFollow(cxView *pview);
     cxALSource *GetSource();
     cxBool Init(cchars file,cchars key=nullptr);

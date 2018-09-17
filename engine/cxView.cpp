@@ -533,7 +533,6 @@ cxView *cxView::Append(cxView *view)
     CX_ASSERT(view->parent == nullptr, "view repeat append");
     view->SetParent(this);
     view->isremoved = false;
-    //set default z
     view->z = views->Size();
     view->isnewadd = true;
     views->Append(view);

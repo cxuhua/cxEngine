@@ -18,7 +18,7 @@ cxMusic::cxMusic()
 {
     isfollow = false;
     source = nullptr;
-    isfree = false;
+    isfreesource = false;
     Forever();
 }
 
@@ -27,9 +27,21 @@ cxMusic::~cxMusic()
     cxObject::release(&source);
 }
 
-cxMusic *cxMusic::ExitFree(cxBool v)
+cxInt cxMusic::LuaNewIndex(lua_State *l)
 {
-    isfree = v;
+    cchars key = lua_tostring(l, 1);
+    //this.freeSource = false
+    //如果播完后释放设置为true
+    if(cxStr::IsEqu(key, "freeSource")){
+        FreeSource(LuaToBool(l, 2, false));
+        return 0;
+    }
+    return cxAction::LuaNewIndex(l);
+}
+
+cxMusic *cxMusic::FreeSource(cxBool v)
+{
+    isfreesource = v;
     return this;
 }
 
@@ -56,7 +68,7 @@ void cxMusic::OnReset()
 void cxMusic::OnExit()
 {
     source->Stop();
-    if(isfree){
+    if(isfreesource){
         cxOpenAL::Instance()->Remove(source->GetKey());
     }
     cxAction::OnExit();

@@ -107,7 +107,7 @@ cxObject *cxCore::Alloc(cchars name)
 
 cchars cxCore::_RegClass_(cchars name,AllocFunc func)
 {
-    cxCore::Instance()->classes.emplace(name,func);
+    cxCore::Instance()->classes[name] = func;
     return name;
 }
 

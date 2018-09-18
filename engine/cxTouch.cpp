@@ -100,7 +100,7 @@ void cxTouchable::updateEvent(const cxTouchPoint &e)
         tp->time = now - tp->time;
     }
     if(add){
-        events.emplace(e.key,newtp);
+        events[e.key]= newtp;
     }
 }
 

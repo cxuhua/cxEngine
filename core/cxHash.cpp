@@ -210,7 +210,7 @@ cxHash *cxHash::Set(const cxHashKey &key,cxObject *nobj)
     if(oobj != nullptr){
         oobj->Release();
     }
-    mh.emplace(key,nobj);
+    mh[key] = nobj;
     nobj->Retain();
     return this;
 }

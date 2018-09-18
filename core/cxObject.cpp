@@ -264,10 +264,10 @@ void cxObject::Bind(cxObject *pobj,cxLong tag)
     CX_ASSERT(pobj != nullptr, "pobj args error");
     CX_ASSERT(pobj != this, "self can't bind self");
     if(bindes.find(pobj) == bindes.end()){
-        bindes.emplace(pobj,tag);
+        bindes[pobj] = tag;
     }
     if(pobj->binded.find(this) == pobj->binded.end()){
-        pobj->binded.emplace(this,tag);
+        pobj->binded[this] = tag;
     }
 }
 

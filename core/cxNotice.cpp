@@ -77,7 +77,7 @@ void cxNotice::Append(cxLong key,cxAny dst,NoticeFunc func)
     }
     Notices notices;
     notices.push_back(notice);
-    instance.keys.emplace(key,notices);
+    instance.keys[key] = notices;
 }
 
 cxNotice::cxNotice()

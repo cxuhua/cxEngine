@@ -85,7 +85,7 @@ void cxActionGroup::Load(cxHash *values,cchars file)
             CX_ERROR("cxActionAttr name miss");
             continue;
         }
-        attr->actions.emplace(aname,av);
+        attr->actions[aname] = av;
     }
     cxObject::release(&name);
 }

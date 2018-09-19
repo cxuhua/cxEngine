@@ -31,6 +31,8 @@ protected:
 private:
     std::string s;
 public:
+    static cxStr *empty;
+    static const cxStr *Empty();
     static cxStr *NewObjectId();
     static cxStr *Localized(cchars key,...);
     static cxStr *UTF8(cchars fmt,...);
@@ -38,7 +40,7 @@ public:
     static cxBool IsOK(cchars str);
     static cxBool IsEqu(cchars s1,cchars s2);
     static cxBool IsCaseEqu(cchars s1,cchars s2);
-    
+public:
     cxStr *Init(cxInt size,char c=0);
     cxStr *Init(cchars str);
     cxStr *Init(cxAny data,cxInt size);

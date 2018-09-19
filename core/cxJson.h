@@ -51,12 +51,12 @@ private:
     static cxInt jsonDumpFunc(cchars buffer, size_t size, void *data);
     json_t *json;
 public:
-    
+    static cxJson *Document(cchars file);
+    static cxJson *Assert(cchars file);
     static cxBool IsOK(const cxJson *json);
-    
     static cxJson *CreateObject();
     static cxJson *CreateArray();
-    
+public:
     const cxStr *Dumps(cxInt flags=0) const;
     
     void Elements(std::function<void(const cxJson *)> func) const;

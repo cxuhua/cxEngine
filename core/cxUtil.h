@@ -28,6 +28,8 @@ private:
     cxBool WriteFileData(const cxStr *path,const cxStr *data,cxBool replace);
     cxStr *ReadFileData(const cxStr *path);
 public:
+    //write file
+    static cxBool WriteFile(const cxStr *path,const cxStr *data,cxBool replace);
     static void SetRandSeed();
     //-1 <---> +1 随机数
     static cxFloat Rand();

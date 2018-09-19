@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
+#include "cxUtil.h"
 #include "cxJson.h"
 
 CX_CPP_BEGIN
@@ -571,6 +572,24 @@ cxJson *cxJson::Object()
     json_decref(json);
     json = json_object();
     return this;
+}
+
+cxJson *cxJson::Document(cchars file)
+{
+    const cxStr *data = cxUtil::Document(file);
+    if(!cxStr::IsOK(data)){
+        return nullptr;
+    }
+    return cxJson::Create()->From(data);
+}
+
+cxJson *cxJson::Assert(cchars file)
+{
+    const cxStr *data = cxUtil::Assets(file);
+    if(!cxStr::IsOK(data)){
+        return nullptr;
+    }
+    return cxJson::Create()->From(data);
 }
 
 cxJson *cxJson::CreateObject()

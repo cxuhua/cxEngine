@@ -24,6 +24,13 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxStr);
 
+cxStr *cxStr::empty = cxStr::Alloc()->Init("");
+
+const cxStr *cxStr::Empty()
+{
+    return empty;
+}
+
 cxBool cxStr::IsOK(const cxStr *str)
 {
     return str!=nullptr && str->Size() > 0;

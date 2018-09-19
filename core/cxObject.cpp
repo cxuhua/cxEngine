@@ -67,6 +67,21 @@ cxInt cxObject::__LuaGC(lua_State *l)
     return 0;
 }
 
+cxInt cxObject::LuaNewRef(lua_State *l)
+{
+    return luaL_ref(l, LUA_REGISTRYINDEX);
+}
+
+void cxObject::LuaGetRef(lua_State *l,cxInt ref)
+{
+    lua_rawgeti(l,LUA_REGISTRYINDEX,ref);
+}
+
+void cxObject::LuaDelRef(lua_State *l,cxInt ref)
+{
+    luaL_unref(l, LUA_REGISTRYINDEX, ref);
+}
+
 cxInt cxObject::LuaToInt(lua_State *l,cxInt idx,cxInt dv)
 {
     if(lua_gettop(l) < idx){

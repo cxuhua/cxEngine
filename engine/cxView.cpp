@@ -152,7 +152,7 @@ cxView *cxView::SetShader(cxShader *ps,cxBool deep)
 {
     CX_ASSERT(ps != nullptr, "shader null");
     cxObject::swap(&shader, ps);
-    Each([ps](cxView *pview){
+    Elements([ps](cxView *pview){
         pview->SetShader(ps);
     });
     return this;
@@ -791,6 +791,9 @@ cxBool cxView::Dispatch(const cxTouchable *e)
     cxInt cnt = views->Size();
     for(cxInt i = cnt - 1;i >= 0; i--){
         cxView *view = views->At(i)->To<cxView>();
+        if(view->IsRemoved()){
+            continue;
+        }
         if(view->Dispatch(e))return true;
     }
     return OnDispatch(e);
@@ -810,6 +813,9 @@ cxBool cxView::Dispatch(const cxKey &key)
     cxInt cnt = views->Size();
     for(cxInt i = cnt - 1;i >= 0; i--){
         cxView *view = views->At(i)->To<cxView>();
+        if(view->IsRemoved()){
+            continue;
+        }
         if(view->Dispatch(key))return true;
     }
     return OnDispatch(key);
@@ -917,7 +923,7 @@ cxView *cxView::SetClip(cxBool v)
 void cxView::Layout()
 {
     SetDirty(DirtyModeLayout);
-    Each([](cxView *pview){
+    Elements([](cxView *pview){
         pview->SetDirty(DirtyModeLayout);
     });
 }
@@ -1016,6 +1022,9 @@ void cxView::clearViews()
     cxInt cnt = views->Size();
     for(cxInt i=0;i<cnt;i++){
         cxView *view = views->At(i)->To<cxView>();
+        if(view->IsRemoved()){
+            continue;
+        }
         view->OnLeave();
         OnRemove(view);
     }
@@ -1171,7 +1180,7 @@ void cxView::OnLayout()
     SetPosition(vpos);
 }
 
-void cxView::Each(std::function<void(cxView *pview)> func)
+void cxView::Elements(std::function<void(cxView *pview)> func)
 {
     cxInt cnt = views->Size();
     for(cxInt i=0;i<cnt;i++){

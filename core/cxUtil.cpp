@@ -193,6 +193,11 @@ cxInt64 cxUtil::GetFileSize(cchars file)
     return s.st_size;
 }
 
+cxBool cxUtil::WriteFile(const cxStr *path,const cxStr *data,cxBool replace)
+{
+    return Instance()->WriteDocument(path->ToChars(), data, replace);
+}
+
 cxBool cxUtil::WriteFileData(const cxStr *path,const cxStr *data,cxBool replace)
 {
     CX_ASSERT(cxStr::IsOK(path) && cxStr::IsOK(data), "path or data error");

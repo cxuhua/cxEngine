@@ -158,6 +158,9 @@ protected:
     virtual cxInt LuaLT(lua_State *l);
     virtual cxInt LuaGC(lua_State *l);
 protected:
+    cxInt LuaNewRef(lua_State *l);
+    void LuaGetRef(lua_State *l,cxInt ref);
+    void LuaDelRef(lua_State *l,cxInt ref);
     cxLong LuaToLong(lua_State *l,cxInt idx,cxLong dv);
     cxInt LuaToInt(lua_State *l,cxInt idx,cxInt dv);
     const cxStr *LuaToStr(lua_State *l,cxInt idx);

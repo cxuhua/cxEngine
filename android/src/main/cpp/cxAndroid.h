@@ -65,6 +65,7 @@ struct JNIMethodInfo
     virtual ~JNIMethodInfo();
     jobject CallObjectMethod(cxAndroid *app,...);
     jint CallIntMethod(cxAndroid *app,...);
+    jfloat CallFloatMethod(cxAndroid *app,...);
     void CallVoidMethod(cxAndroid *app,...);
     jstring CallStringMethod(cxAndroid *app,...);
 };
@@ -191,6 +192,7 @@ public:
     cxStr *AssetsData(cchars file);
     cxInt64 AssetsSize(cchars file);
     cxStr *UUID();
+    cxFloat GetDPI();
 };
 
 CX_CPP_END

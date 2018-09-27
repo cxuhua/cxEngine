@@ -63,7 +63,7 @@ void cxGesture::resetSwipe()
 cxBool cxGesture::computeSwipe()
 {
     cxInt size = swipePoints.size();
-    if(size < 5){
+    if(size < swipesamplesize){
         return !touchIsPass;;
     }
     //速度集合

@@ -109,6 +109,11 @@ public class EngineActivity extends NativeActivity {
 		return Environment.getExternalStorageDirectory().toString();
 	}
 
+	//获系统dpi
+	public float getDPI(){
+		return getApplicationContext().getResources().getDisplayMetrics().densityDpi;
+	}
+
 	//获取UUID
 	public String NewUUID() {
 		UUID uuid = UUID.randomUUID();

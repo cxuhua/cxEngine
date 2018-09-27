@@ -24,6 +24,12 @@ cxAndroidUtil::~cxAndroidUtil()
     
 }
 
+cxFloat cxAndroidUtil::GetDPI()
+{
+    return cxAndroid::Instance()->GetDPI();
+}
+
+
 cxInt cxAndroidUtil::GetVersionCode()
 {
     return cxAndroid::Instance()->GetVersionCode();

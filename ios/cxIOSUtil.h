@@ -19,6 +19,7 @@ public:
     CX_DECLARE(cxIOSUtil);
 public:
     cxFloat ScaleFactor();
+    cxFloat GetDPI();
     cxStr *UUID();
     
     cxStr *GetLang();

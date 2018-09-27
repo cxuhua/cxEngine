@@ -84,6 +84,16 @@ jint JNIMethodInfo::CallIntMethod(cxAndroid *app,...)
     return ret;
 }
 
+jfloat JNIMethodInfo::CallFloatMethod(cxAndroid *app,...)
+{
+    va_list ap;
+    va_start(ap, app);
+    jfloat ret = env->CallFloatMethodV(object, methodID, ap);
+    va_end(ap);
+    return ret;
+}
+
+
 jstring JNIMethodInfo::CallStringMethod(cxAndroid *app,...)
 {
     va_list ap;
@@ -438,6 +448,11 @@ cxStr *cxAndroid::GetVersionName()
     return ret;
 }
 
+cxFloat cxAndroid::GetDPI()
+{
+    JNIMethodInfo m = JNIMethod("getDPI", "()F");
+    return  (cxFloat)m.CallFloatMethod(this);
+}
 
 
 cxStr *cxAndroid::GetCountry()
@@ -548,6 +563,9 @@ void cxAndroid::cxAndroidPreExec(cxAndroid *app, int8_t cmd)
             app->destroyReq = true;
             break;
         }
+        default:{
+            break;
+        }
     }
 }
 
@@ -559,6 +577,9 @@ void cxAndroid::cxAndroidPostExec(cxAndroid *app, int8_t cmd)
             app->window = NULL;
             app->cond.Broadcast();
             app->mutex.Unlock();
+            break;
+        }
+        default:{
             break;
         }
     }
@@ -650,26 +671,26 @@ int32_t cxAndroid::HandleMotionInput(AInputEvent* event)
     switch (atype) {
         case AMOTION_EVENT_ACTION_POINTER_DOWN:{
             cxInt idx = action >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
-            cxTouchId id = AMotionEvent_getPointerId(event, idx);
-            cxFloat x = AMotionEvent_getX(event, idx);
-            cxFloat y = AMotionEvent_getY(event, idx);
+            cxTouchId id = (cxTouchId)AMotionEvent_getPointerId(event, (size_t)idx);
+            cxFloat x = AMotionEvent_getX(event, (size_t)idx);
+            cxFloat y = AMotionEvent_getY(event, (size_t)idx);
             cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, x, y);
             break;
         }
         case AMOTION_EVENT_ACTION_POINTER_UP:{
             cxInt idx = action >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
-            cxTouchId id = AMotionEvent_getPointerId(event, idx);
-            cxFloat x = AMotionEvent_getX(event, idx);
-            cxFloat y = AMotionEvent_getY(event, idx);
+            cxTouchId id = (cxTouchId)AMotionEvent_getPointerId(event, (size_t)idx);
+            cxFloat x = AMotionEvent_getX(event, (size_t)idx);
+            cxFloat y = AMotionEvent_getY(event, (size_t)idx);
             cxEngine::Instance()->Dispatch(id, cxTouchPoint::Ended, x, y);
             break;
         }
         case AMOTION_EVENT_ACTION_MOVE:{
             cxInt count = (cxInt)AMotionEvent_getPointerCount(event);
             for(cxInt i=0; i < count; i++){
-                cxTouchId id = AMotionEvent_getPointerId(event, i);
-                cxFloat x = AMotionEvent_getX(event, i);
-                cxFloat y =AMotionEvent_getY(event, i);
+                cxTouchId id = (cxTouchId)AMotionEvent_getPointerId(event, (size_t)i);
+                cxFloat x = AMotionEvent_getX(event, (size_t)i);
+                cxFloat y =AMotionEvent_getY(event, (size_t)i);
                 cxEngine::Instance()->Dispatch(id, cxTouchPoint::Moved, x, y);
             }
             break;
@@ -677,9 +698,9 @@ int32_t cxAndroid::HandleMotionInput(AInputEvent* event)
         case AMOTION_EVENT_ACTION_DOWN:{
             cxInt count = (cxInt)AMotionEvent_getPointerCount(event);
             for(cxInt i=0; i < count; i++){
-                cxTouchId id = AMotionEvent_getPointerId(event, i);
-                cxFloat x = AMotionEvent_getX(event, i);
-                cxFloat y =AMotionEvent_getY(event, i);
+                cxTouchId id = (cxTouchId)AMotionEvent_getPointerId(event, (size_t)i);
+                cxFloat x = AMotionEvent_getX(event, (size_t)i);
+                cxFloat y =AMotionEvent_getY(event, (size_t)i);
                 cxEngine::Instance()->Dispatch(id, cxTouchPoint::Began, x, y);
             }
             break;
@@ -687,9 +708,9 @@ int32_t cxAndroid::HandleMotionInput(AInputEvent* event)
         case AMOTION_EVENT_ACTION_UP:{
             cxInt count = (cxInt)AMotionEvent_getPointerCount(event);
             for(cxInt i=0; i < count; i++){
-                cxTouchId id = AMotionEvent_getPointerId(event, i);
-                cxFloat x = AMotionEvent_getX(event, i);
-                cxFloat y =AMotionEvent_getY(event, i);
+                cxTouchId id = (cxTouchId)AMotionEvent_getPointerId(event, (size_t)i);
+                cxFloat x = AMotionEvent_getX(event, (size_t)i);
+                cxFloat y =AMotionEvent_getY(event, (size_t)i);
                 cxEngine::Instance()->Dispatch(id, cxTouchPoint::Ended, x, y);
             }
             break;

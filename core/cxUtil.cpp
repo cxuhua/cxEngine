@@ -44,6 +44,7 @@ CX_CPP_BEGIN
 CX_IMPLEMENT(cxUtil);
 
 cxUtil *cxUtil::instance = nullptr;
+cxFloat cxUtil::dpi = 0;
 
 cxUtil::cxUtil()
 {
@@ -58,6 +59,11 @@ cxUtil::~cxUtil()
 cxFloat cxUtil::ScaleFactor()
 {
     return 1.0f;
+}
+
+cxFloat cxUtil::GetDPI()
+{
+    return 0.0f;
 }
 
 cxInt cxUtil::GetVersionCode()
@@ -171,6 +177,14 @@ cxUInt64 cxUtil::Now()
 void cxUtil::SetRandSeed()
 {
     srandom((unsigned int)time(nullptr));
+}
+
+cxFloat cxUtil::DPI()
+{
+    if(dpi == 0){
+        dpi = Instance()->GetDPI();
+    }
+    return dpi;
 }
 
 cxFloat cxUtil::Rand()

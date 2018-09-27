@@ -24,6 +24,7 @@ protected:
     virtual ~cxAndroidUtil();
 private:
 public:
+    cxFloat GetDPI();
     cxStr *GetLang();
     cxStr *GetCountry();
     cxStr *DocumentPath(cchars file);

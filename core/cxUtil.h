@@ -24,10 +24,12 @@ protected:
     virtual ~cxUtil();
     cxBool FileExists(const cxStr *path,cxInt *length);
 private:
+    static cxFloat dpi;
     static cxUtil *instance;
     cxBool WriteFileData(const cxStr *path,const cxStr *data,cxBool replace);
     cxStr *ReadFileData(const cxStr *path);
 public:
+    static cxFloat DPI();
     //write file
     static cxBool WriteFile(const cxStr *path,const cxStr *data,cxBool replace);
     static void SetRandSeed();
@@ -85,6 +87,8 @@ public:
     virtual void Logger(const char* type,const char*file,int line,const char* format,va_list ap);
     //内容缩放
     virtual cxFloat ScaleFactor();
+    //DPI
+    virtual cxFloat GetDPI();
     //UUID
     virtual cxStr *UUID();
 };

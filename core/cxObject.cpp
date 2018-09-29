@@ -192,6 +192,7 @@ cxInt cxObject::LuaCall(lua_State *l)
 cxInt cxObject::LuaIndex(lua_State *l)
 {
     cchars key = lua_tostring(l, 1);
+    //return obj.tag
     if(cxStr::IsEqu(key, "tag")){
         lua_pushinteger(l, Tag());
         return 1;
@@ -202,6 +203,7 @@ cxInt cxObject::LuaIndex(lua_State *l)
 cxInt cxObject::LuaNewIndex(lua_State *l)
 {
     cchars key = lua_tostring(l, 1);
+    //obj.tag = v
     if(cxStr::IsEqu(key, "tag")){
         SetTag(LuaToLong(l, 2, 0));
         return 0;

@@ -20,6 +20,10 @@
 		834A1D021E69AF3C00751690 /* jl1000.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 834A1D011E69AF3C00751690 /* jl1000.lqt */; };
 		834A1D061E69AFE800751690 /* jl.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 834A1D051E69AFE800751690 /* jl.lqt */; };
 		83546A471B3127F700FFE1E7 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83546A451B3127F700FFE1E7 /* Game.cpp */; };
+		83651249215F565D000D29CB /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83651247215F565D000D29CB /* main.mm */; };
+		83651250215F56E6000D29CB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8365124F215F56E6000D29CB /* UIKit.framework */; };
+		83651252215F5700000D29CB /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8365124D215F56DD000D29CB /* CoreText.framework */; };
+		83651253215F5706000D29CB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8365124A215F56C5000D29CB /* CoreGraphics.framework */; };
 		836DD1211B2C26CE0094F5EF /* shader in Resources */ = {isa = PBXBuildFile; fileRef = 836DD1201B2C26CE0094F5EF /* shader */; };
 		836E30451B5E2ABF00ED8BDC /* Sea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836E30431B5E2ABF00ED8BDC /* Sea.cpp */; };
 		836E304C1B5E2B4C00ED8BDC /* foam.png in Resources */ = {isa = PBXBuildFile; fileRef = 836E30481B5E2B4C00ED8BDC /* foam.png */; };
@@ -82,6 +86,10 @@
 		834A1D051E69AFE800751690 /* jl.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jl.lqt; sourceTree = "<group>"; };
 		83546A451B3127F700FFE1E7 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		83546A461B3127F700FFE1E7 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		83651247215F565D000D29CB /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		8365124A215F56C5000D29CB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8365124D215F56DD000D29CB /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		8365124F215F56E6000D29CB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		836DD1201B2C26CE0094F5EF /* shader */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shader; sourceTree = "<group>"; };
 		836E30431B5E2ABF00ED8BDC /* Sea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sea.cpp; sourceTree = "<group>"; };
 		836E30441B5E2ABF00ED8BDC /* Sea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sea.h; sourceTree = "<group>"; };
@@ -124,6 +132,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83651253215F5706000D29CB /* CoreGraphics.framework in Frameworks */,
+				83651252215F5700000D29CB /* CoreText.framework in Frameworks */,
+				83651250215F56E6000D29CB /* UIKit.framework in Frameworks */,
 				83AFD4652114507B0061E924 /* libpng.a in Frameworks */,
 				83AFD4662114507B0061E924 /* libuv.a in Frameworks */,
 				83AFD462211450710061E924 /* libz.tbd in Frameworks */,
@@ -148,6 +159,9 @@
 		83A74F841E28CB6C00827360 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8365124F215F56E6000D29CB /* UIKit.framework */,
+				8365124D215F56DD000D29CB /* CoreText.framework */,
+				8365124A215F56C5000D29CB /* CoreGraphics.framework */,
 				83AFD4632114507B0061E924 /* libpng.a */,
 				83AFD4642114507B0061E924 /* libuv.a */,
 				83AFD461211450710061E924 /* libz.tbd */,
@@ -180,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				83F45E891E2CECB20083C886 /* penhuo1_1.xml */,
+				83651247215F565D000D29CB /* main.mm */,
 				83CD01A61E2CEB60006FC20F /* penhuo.xml */,
 				83B6E31F1E2A006A00C9C6AB /* bg.png */,
 				83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */,
@@ -356,6 +371,7 @@
 				83377A591CEC25A600CEB2D8 /* Map.cpp in Sources */,
 				836E30451B5E2ABF00ED8BDC /* Sea.cpp in Sources */,
 				83377A601CEC2F5800CEB2D8 /* Shader.cpp in Sources */,
+				83651249215F565D000D29CB /* main.mm in Sources */,
 				83546A471B3127F700FFE1E7 /* Game.cpp in Sources */,
 				833D43B11FB5970D00DFCF83 /* Block.cpp in Sources */,
 			);

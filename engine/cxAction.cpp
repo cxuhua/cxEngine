@@ -38,11 +38,107 @@ cxAction::cxAction()
     time = 0;
     isinit = false;
     isexit = false;
+    actions = cxArray::Alloc();
 }
 
 cxAction::~cxAction()
 {
+    actions->Release();
     onFree.Fire(this);
+}
+
+cxBool cxAction::HasAction(cxActionId aid) const
+{
+    cxArray::FIter it = actions->FBegin();
+    while(it != actions->FEnd()){
+        cxAction *action = (*it)->To<cxAction>();
+        if(action->ID() == aid && !action->IsExit()){
+            return true;
+        }
+        it++;
+    }
+    return false;
+}
+
+cxInt cxAction::ActionSize() const
+{
+    return actions->Size();
+}
+
+cxAction *cxAction::GetAction(cxActionId aid)
+{
+    cxArray::FIter it = actions->FBegin();
+    while(it != actions->FEnd()){
+        cxAction *action = (*it)->To<cxAction>();
+        if(action->ID() == aid){
+            return action;
+        }
+        it++;
+    }
+    return nullptr;
+}
+
+cxAction *cxAction::StopAction(cxActionId aid)
+{
+    cxArray::FIter it = actions->FBegin();
+    while(it != actions->FEnd()){
+        cxAction *action = (*it)->To<cxAction>();
+        if(action->ID() == aid || aid == 0){
+            action->Stop();
+        }
+        it++;
+    }
+    return this;
+}
+
+cxAction *cxAction::ExitAction(cxActionId aid)
+{
+    cxArray::FIter it = actions->FBegin();
+    while(it != actions->FEnd()){
+        cxAction *action = (*it)->To<cxAction>();
+        if(action->ID() == aid || aid == 0){
+            action->Exit(true);
+        }
+        it++;
+    }
+    return this;
+}
+
+
+cxAction *cxAction::Append(cxAction *action)
+{
+    CX_ASSERT(action != nullptr, "args error");
+    CX_ASSERT(action->View() == nullptr, "action repeat append");
+    ExitAction(action->ID());
+    action->SetView(View());
+    actions->Append(action);
+    return this;
+}
+
+void cxAction::OnAppend(cxView *pview)
+{
+    actions->Elements<cxAction>([pview](cxAction *pav){
+        pav->SetView(pview);
+    });
+}
+
+void cxAction::runActions(cxFloat dt)
+{
+    cxInt mvc = 0;
+    cxInt cnt = actions->Size();
+    cxObject *mvs[64]={0};
+    for(cxInt i = 0; i < cnt; i++){
+        cxAction *action = actions->At(i)->To<cxAction>();
+        if(!action->Update(dt)){
+            continue;
+        }
+        if(mvc < 64){
+            mvs[mvc++] = action;
+        }
+    }
+    for(cxInt i = 0;i < mvc; i++){
+        actions->Remove(mvs[i]);
+    }
 }
 
 const cxInt cxAction::Repeat() const
@@ -123,6 +219,9 @@ void cxAction::OnStep(cxFloat dt)
 void cxAction::OnExit()
 {
     onExit.Fire(this);
+    actions->Elements<cxAction>([](cxAction *pav){
+        pav->OnExit();
+    });
 }
 
 void cxAction::OnStop()
@@ -196,6 +295,9 @@ cxBool cxAction::Update(cxFloat dt)
 {
     if(ispause){
         return false;
+    }
+    if(actions->Size() > 0){
+        runActions(dt);
     }
     dt *= Speed();
     if(delayvar > 0){

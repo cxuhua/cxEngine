@@ -35,7 +35,9 @@ protected:
     virtual void OnStop();
     virtual void OnReset();
     virtual void OnStep(cxFloat dt);
+    virtual void OnAppend(cxView *pview);
 private:
+    cxArray *actions;//sub action
     cxFloat delay;
     cxFloat delayvar;
     cxULong actionId;
@@ -53,6 +55,14 @@ private:
     cxBool isexit;
     cxFloat deltaTimeFix(cxFloat dt);
     cxInt repeat;
+    void runActions(cxFloat dt);
+public:
+    cxAction *Append(cxAction *action);
+    cxBool HasAction(cxActionId aid) const;
+    cxInt ActionSize() const;
+    cxAction *StopAction(cxActionId aid);
+    cxAction *ExitAction(cxActionId aid);
+    cxAction *GetAction(cxActionId aid);
 public:
     cxBool IsExit() const;
     

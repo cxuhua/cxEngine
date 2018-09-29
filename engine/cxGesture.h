@@ -43,12 +43,12 @@ public:
 private:
     cxFloat swipesampletime;//采样时间
     cxFloat swipesampledistance;//采样距离
-    cxFloat swipesamplesize;//采样数量
+    cxInt swipesamplesize;//采样数量
     cxFloat swipeminspeed;//最小速度
     cxUInt flags;
     cxBool touchIsPass;
 public:
-    cxGesture *SetSwipeAttr(cxFloat stime,cxFloat sdis,cxFloat snum,cxFloat mspeed);
+    cxGesture *SetSwipeAttr(cxFloat stime,cxFloat sdis,cxInt snum,cxFloat mspeed);
 public:
     cxGesture *SetFlags(cxUInt v);
     cxGesture *DelFlags(cxUInt v);

@@ -70,44 +70,36 @@ Game::~Game()
 {
     
 }
-cxFloat x=0,y=0;
-cxMusic *m = NULL;
 
 void Game::OnDispatch(const cxTouchable *e)
 {
     cxEngine::OnDispatch(e);
-    if(e->TouchCount() > 0 && m !=  NULL){
-        cxSize2F size = WinSize();
-        const cxTouchPoint *tp = e->TouchPoint(0);
-        CX_LOGGER("%f %f",tp->wp.x/size.w,tp->wp.y/size.h);
-        m->GetSource()->SetPosition(cxPoint2F(tp->wp.x/size.w,tp->wp.y/size.h));
-    }
 }
 
 void Game::OnMain()
 {
-    cxGesture *v = cxGesture::Create();
-    v->SetSize(WinSize());
-    Window()->Append(v);
-    return;
+//    cxGesture *v = cxGesture::Create();
+//    v->SetSize(WinSize());
+//    Window()->Append(v);
+//    return;
 //    tcp = cxTcp::Create("47.104.96.88", 8899);
 //    Window()->Append(tcp);
 //
 //    tcp->onConnected+=[](cxTcp *ptcp){
 //        CX_LOGGER("connect ok");
 //    };
-    
-    
-    m = cxMusic::Create("test.mp3");
-    m->GetSource()->SetVelocity(cxPoint2F(100, 100));
-    m->onStep+=[](cxAction *pav,cxFloat step){
-        //
-    };
-    m->GetSource()->SetPosition(cxPoint2F(100,0));
-    m->SetRepeat(1);
-    Window()->Append(m);
-    
-    return;
+//
+//
+//    m = cxMusic::Create("test.mp3");
+//    m->GetSource()->SetVelocity(cxPoint2F(100, 100));
+//    m->onStep+=[](cxAction *pav,cxFloat step){
+//        //
+//    };
+//    m->GetSource()->SetPosition(cxPoint2F(100,0));
+//    m->SetRepeat(1);
+//    Window()->Append(m);
+//
+//    return;
     
 //    cxSize2F siz = WinSize();
 //    LoadTexture("grid.png");
@@ -120,8 +112,19 @@ void Game::OnMain()
     cxSprite *sp = cxSprite::Create();
     sp->SetTexture("t.png");
     sp->SetSize(80);
-//    sp->SetEnableDir(true);
     Window()->Append(sp);
+    
+    cxRotateTo *to = cxRotateTo::Create(3.14*10, 3);
+    
+    cxMoveTo *mto = cxMoveTo::Create(cxPoint2F(500, 0), 10);
+    mto->onExit +=[](cxAction *pav){
+        CX_LOGGER("ext");
+    };
+    
+    
+    sp->Append(to);
+    
+    to->Append(mto);
 //
 //    cxForward *a = cxForward::Create();
 //    a->SetSpeed(100);
@@ -135,7 +138,7 @@ void Game::OnMain()
 //    Window()->Append(t);
 //
 ////
-    cxPoint2FArray ps;
+//    cxPoint2FArray ps;
 
 //    for(cxInt i=0;i<50;i++){
 //        cxFloat x = CX_RAND_11f() * 500;
@@ -143,9 +146,9 @@ void Game::OnMain()
 //        ps.Append(cxPoint2F(x, y));
 //    }
 
-    sp->SetPosition(cxPoint2F(0, 900));
-    ps.Append(cxPoint2F(0, 900));
-    ps.Append(cxPoint2F(0, 0));
+//    sp->SetPosition(cxPoint2F(0, 900));
+//    ps.Append(cxPoint2F(0, 900));
+//    ps.Append(cxPoint2F(0, 0));
 //    ps.Append(cxPoint2F(-717,0 ));
     
 
@@ -153,26 +156,26 @@ void Game::OnMain()
 //    sp->SetEnableDir(true);
 //    sp->SetPosition(cxPoint2F(600, 0));
 
-    cxPoints *a = cxPoints::Create();
-    a->SetPoints(ps);
-    a->SetMoveSpeed(500.0f);
+//    cxPoints *a = cxPoints::Create();
+//    a->SetPoints(ps);
+//    a->SetMoveSpeed(500.0f);
 
 //    a->onExit +=[sp](cxAction *pav){
 //        sp->SetColor(cxColor4F::RED);
 //        sp->Append(pav->Reverse());
 //    };
 
-    const cxPoint2FArray &pv = a->Points();
-    for(cxInt i=0;i<pv.Size();i++){
-        cxPoint2F v = pv.At(i);
-        cxSprite *sp = cxSprite::Create();
-        sp->SetTexture("t.png");
-        sp->SetSize(15);
-        sp->SetPosition(v);
-        Window()->Append(sp);
-    }
-
-    sp->Append(a);
+//    const cxPoint2FArray &pv = a->Points();
+//    for(cxInt i=0;i<pv.Size();i++){
+//        cxPoint2F v = pv.At(i);
+//        cxSprite *sp = cxSprite::Create();
+//        sp->SetTexture("t.png");
+//        sp->SetSize(15);
+//        sp->SetPosition(v);
+//        Window()->Append(sp);
+//    }
+//
+//    sp->Append(a);
     return;
     
 //    cxMusic *m = cxMusic::Create("o.wav");

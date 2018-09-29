@@ -485,16 +485,6 @@
 		83A943AD1B44E57600F70FBA /* utf8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf8.h; sourceTree = "<group>"; };
 		83AABB261B45910F0035A9F0 /* cxTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cxTimer.cpp; sourceTree = "<group>"; };
 		83AABB271B45910F0035A9F0 /* cxTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxTimer.h; sourceTree = "<group>"; };
-		83AFD43C21144EA80061E924 /* png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
-		83AFD43D21144EA80061E924 /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pnglibconf.h; sourceTree = "<group>"; };
-		83AFD43E21144EA80061E924 /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pngconf.h; sourceTree = "<group>"; };
-		83AFD44021144EA80061E924 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
-		83AFD44121144EA80061E924 /* threadpool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = threadpool.h; sourceTree = "<group>"; };
-		83AFD44221144EA80061E924 /* uv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uv.h; sourceTree = "<group>"; };
-		83AFD44321144EA80061E924 /* errno.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = errno.h; sourceTree = "<group>"; };
-		83AFD44421144EA80061E924 /* darwin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = darwin.h; sourceTree = "<group>"; };
-		83AFD44521144EA80061E924 /* unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unix.h; sourceTree = "<group>"; };
-		83AFD44621144EA80061E924 /* pthread-barrier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "pthread-barrier.h"; sourceTree = "<group>"; };
 		83B23B4D1B17E0E9000D770A /* xxhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxhash.c; sourceTree = "<group>"; };
 		83B23B4E1B17E0E9000D770A /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
 		83BBF3D81B109452003CB004 /* libcxEngineCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcxEngineCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -768,7 +758,6 @@
 		836A2F621B19F636009B427B /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				83AFD43A21144EA80061E924 /* include */,
 				83BE636A1B3117270028B6E7 /* AppDelegate.h */,
 				83BE636B1B3117270028B6E7 /* AppDelegate.mm */,
 				83BE636C1B3117270028B6E7 /* cxGLView.h */,
@@ -817,39 +806,6 @@
 				831B9EBC1B291F2700B7A06B /* cxSize2F.h */,
 			);
 			path = math;
-			sourceTree = "<group>";
-		};
-		83AFD43A21144EA80061E924 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				83AFD43B21144EA80061E924 /* libpng */,
-				83AFD43F21144EA80061E924 /* uv */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		83AFD43B21144EA80061E924 /* libpng */ = {
-			isa = PBXGroup;
-			children = (
-				83AFD43C21144EA80061E924 /* png.h */,
-				83AFD43D21144EA80061E924 /* pnglibconf.h */,
-				83AFD43E21144EA80061E924 /* pngconf.h */,
-			);
-			path = libpng;
-			sourceTree = "<group>";
-		};
-		83AFD43F21144EA80061E924 /* uv */ = {
-			isa = PBXGroup;
-			children = (
-				83AFD44021144EA80061E924 /* version.h */,
-				83AFD44121144EA80061E924 /* threadpool.h */,
-				83AFD44221144EA80061E924 /* uv.h */,
-				83AFD44321144EA80061E924 /* errno.h */,
-				83AFD44421144EA80061E924 /* darwin.h */,
-				83AFD44521144EA80061E924 /* unix.h */,
-				83AFD44621144EA80061E924 /* pthread-barrier.h */,
-			);
-			path = uv;
 			sourceTree = "<group>";
 		};
 		83B23B4C1B17E0E9000D770A /* ext */ = {

@@ -44,7 +44,7 @@ CX_CPP_BEGIN
 CX_IMPLEMENT(cxUtil);
 
 cxUtil *cxUtil::instance = nullptr;
-cxFloat cxUtil::dpi = 0;
+cxFloat cxUtil::dpi = -1.0f;
 
 cxUtil::cxUtil()
 {
@@ -181,7 +181,7 @@ void cxUtil::SetRandSeed()
 
 cxFloat cxUtil::DPI()
 {
-    if(dpi == 0){
+    if(dpi < 0){
         dpi = Instance()->GetDPI();
     }
     return dpi;

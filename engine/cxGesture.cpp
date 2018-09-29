@@ -23,7 +23,7 @@ cxGesture::cxGesture()
     swipetrigger = false;
     swipesampletime = 0.01f;
     swipesampledistance = 3.0f;
-    swipesamplesize = 3.0f;
+    swipesamplesize = 3;
     swipeminspeed = 2100;
 }
 
@@ -32,7 +32,7 @@ cxGesture::~cxGesture()
     
 }
 
-cxGesture *cxGesture::SetSwipeAttr(cxFloat stime,cxFloat sdis,cxFloat snum,cxFloat mspeed)
+cxGesture *cxGesture::SetSwipeAttr(cxFloat stime,cxFloat sdis,cxInt snum,cxFloat mspeed)
 {
     swipesampletime = stime;
     swipesampledistance = sdis;
@@ -64,7 +64,7 @@ cxBool cxGesture::computeSwipe()
 {
     cxInt size = swipePoints.size();
     if(size < swipesamplesize){
-        return !touchIsPass;;
+        return !touchIsPass;
     }
     //速度集合
     speeds.clear();

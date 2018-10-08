@@ -40,6 +40,7 @@ public:
     static const SwipeType SwipeTypeDirectionUp      = 1 << 1;
     static const SwipeType SwipeTypeDirectionLeft    = 1 << 2;
     static const SwipeType SwipeTypeDirectionDown    = 1 << 3;
+    static const SwipeType SwipeTypeMax              = 1 << 4;
 private:
     cxFloat swipesampletime;//采样时间
     cxFloat swipesampledistance;//采样距离

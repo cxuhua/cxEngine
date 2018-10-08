@@ -83,11 +83,12 @@ cxBool cxGesture::computeSwipe()
         if(dis < swipesampledistance){
             continue;
         }
+        //转换为0-359f的角度+45是为了判断方向
         cxFloat angle = p0.pos.Angle(tmp.pos);
         angle = cxModDegrees(cxRadiansToDegrees(angle));
         angle = cxModDegrees(angle + 45.0f);
-        angles.push_back(angle);
         //保存速度和角度
+        angles.push_back(angle);
         cxFloat speed = dis / time;
         speeds.push_back(speed);
         pb = tmp;
@@ -96,26 +97,34 @@ cxBool cxGesture::computeSwipe()
     if(speeds.size() < swipesamplesize){
         return !touchIsPass;
     }
-    //计算平均速度和角度
+    //统计方向次数最多的方向
+    SwipeType types[SwipeTypeMax]={0};
+    //计算平均速度
     cxFloat v = 0;
-    cxFloat a = 0;
     for(cxInt i=0;i<speeds.size();i++){
         v += speeds.at(i);
-        a += angles.at(i);
+        cxInt type = angles.at(i)/90.0f;
+        types[1 << type] ++;
     }
     cxFloat sp = v / (cxFloat)speeds.size();
-    cxFloat ap = a / (cxFloat)speeds.size();
     //平均速度限制
     if(sp < swipeminspeed){
         return !touchIsPass;
+    }
+    //搜索最大命中次数
+    SwipeType type = SwipeTypeDirectionNone;
+    cxInt actmp = 0;
+    for(cxInt i=0;i<SwipeTypeMax;i++){
+        if(types[i] > actmp){
+            type = i;
+            actmp = types[i];
+        }
     }
     //清楚并禁止继续采样
     swipePoints.clear();
     swipeischeck = false;
     swipetrigger = true;
-    //获取4个方向
-    cxInt type = ap / 90.0f;
-    OnSwipe(1 << type,sp);
+    OnSwipe(type,sp);
     return !touchIsPass;
 }
 

@@ -106,7 +106,7 @@ cxInt64 cxUtil::ValidFile(cchars file,cchars md5)
     }
     cxInt64 l = 0;
     mongo_md5_byte_t digest[16];
-    mongo_md5_state_t state;
+    mongo_md5_state_t state={0};
     mongo_md5_init(&state);
     char buf[4096]={0};
     while (fd != NULL) {

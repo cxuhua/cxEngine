@@ -34,6 +34,11 @@ void cxShader::SetModelProject(const cxMatrixF &value) const
     SetUniform(ump, value);
 }
 
+void cxShader::SetUColor(const cxColor4F &v)
+{
+    SetUniform(ucolor, v);
+}
+
 void cxShader::SetModelView(const cxMatrixF &value) const
 {
     SetUniform(umv, value);
@@ -62,6 +67,7 @@ cxShader::~cxShader()
 
 cxBool cxShader::InitUniform()
 {
+    SetUColor(cxColor4F::WHITE);
     return true;
 }
 

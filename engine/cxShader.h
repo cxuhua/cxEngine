@@ -28,6 +28,7 @@ enum {
 #define CX_ATTR_TEXCOORD    "aTexcoord"
 #define CX_UNIFORM_UMP      "uMP"
 #define CX_UNIFORM_UMV      "uMV"
+#define CX_UNIFORM_COLOR    "uColor"
 
 class cxStr;
 struct cxMatrixF;
@@ -54,6 +55,7 @@ protected:
     glUint fsh;
     glUint ump;
     glUint umv;
+    glUint ucolor;
 private:
     glUint CompileVSHShader(cchars source);
     glUint CompileFSHShader(cchars source);
@@ -82,6 +84,7 @@ public:
     cxShader *Init(cchars vsf,cchars fsf);
     
     virtual void Using(cxView *pview) const;
+    void SetUColor(const cxColor4F &v);
 };
 //
 class cxColorShader : public cxShader

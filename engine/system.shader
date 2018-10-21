@@ -18,9 +18,10 @@ precision highp float;
 varying mediump vec4 vFragmentColor;
 varying mediump vec2 vTexCoord;
 uniform sampler2D uTexture0;
+uniform vec4 uColor;
 void main() {
     vec4 color = texture2D(uTexture0, vTexCoord);
-    gl_FragColor = vFragmentColor * color;
+    gl_FragColor = vFragmentColor * color * uColor;
 });
 ////////////gray shader///////////////////////////
 static cchars GrayVSH = STRINGIFY(
@@ -42,11 +43,12 @@ varying mediump vec4 vFragmentColor;
 varying mediump vec2 vTexCoord;
 uniform sampler2D uTexture0;
 const vec3 grayValue = vec3(0.299, 0.587, 0.114);
+uniform vec4 uColor;
 void main() {
     vec4 color = texture2D(uTexture0, vTexCoord);
     float vscale = dot(color.rgb, grayValue);
     vec4 gray = vec4(vscale, vscale, vscale, color.a);
-    gl_FragColor = vFragmentColor * mix(color, gray, vFragmentColor.a);
+    gl_FragColor = uColor * vFragmentColor * mix(color, gray, vFragmentColor.a);
 });
 ////////////color shader///////////////////////////
 static cchars ColorVSH = STRINGIFY(
@@ -64,7 +66,8 @@ void main() {
 static cchars ColorFSH = STRINGIFY(
 precision highp float;
 varying mediump vec4 vColor;
+uniform vec4 uColor;
 void main() {
-    gl_FragColor = vColor;
+    gl_FragColor = vColor * uColor;
 });
 

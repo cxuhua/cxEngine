@@ -395,6 +395,7 @@ cxShader *cxShader::Init(cchars avs,cchars afs)
     glUseProgram(program);
     ump = GetUniform(CX_UNIFORM_UMP);
     umv = GetUniform(CX_UNIFORM_UMV);
+    ucolor = GetUniform(CX_UNIFORM_COLOR);
     if(!InitUniform()){
         CX_ERROR("init uniform attrib error");
         return this;

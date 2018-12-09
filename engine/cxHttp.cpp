@@ -15,14 +15,183 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxHttp);
 
+cxBool cxHttp::IsWebSocket() const
+{
+    return schema != nullptr && (schema->IsEqu("ws") || schema->IsEqu("wss"));
+}
+
+//返回消耗的字节数
+cxInt cxHttp::parseWebsocket()
+{
+    if(body->Size() < 2){
+        return 0;
+    }
+    cxUInt8 *data = (cxUInt8 *)body->Data();
+    WSHeaderType ws;
+    ws.fin = (data[0] & 0x80) == 0x80;
+    ws.opcode = (WSHeaderType::OPCodeType)(data[0] & 0x0f);
+    ws.mask = (data[1] & 0x80) == 0x80;
+    ws.N0 = (data[1] & 0x7f);
+    ws.header_size = 2 + (ws.N0 == 126? 2 : 0) + (ws.N0 == 127? 8 : 0) + (ws.mask? 4 : 0);
+    if(body->Size() < ws.header_size){
+        return 0;
+    }
+    int i = 0;
+    if (ws.N0 < 126) {
+        ws.N = ws.N0;
+        i = 2;
+    }else if (ws.N0 == 126) {
+        ws.N = 0;
+        ws.N |= ((uint64_t) data[2]) << 8;
+        ws.N |= ((uint64_t) data[3]) << 0;
+        i = 4;
+    }else if (ws.N0 == 127) {
+        ws.N = 0;
+        ws.N |= ((uint64_t) data[2]) << 56;
+        ws.N |= ((uint64_t) data[3]) << 48;
+        ws.N |= ((uint64_t) data[4]) << 40;
+        ws.N |= ((uint64_t) data[5]) << 32;
+        ws.N |= ((uint64_t) data[6]) << 24;
+        ws.N |= ((uint64_t) data[7]) << 16;
+        ws.N |= ((uint64_t) data[8]) << 8;
+        ws.N |= ((uint64_t) data[9]) << 0;
+        i = 10;
+    }
+    if (ws.mask) {
+        ws.masking_key[0] = ((uint8_t) data[i+0]) << 0;
+        ws.masking_key[1] = ((uint8_t) data[i+1]) << 0;
+        ws.masking_key[2] = ((uint8_t) data[i+2]) << 0;
+        ws.masking_key[3] = ((uint8_t) data[i+3]) << 0;
+    }else {
+        ws.masking_key[0] = 0;
+        ws.masking_key[1] = 0;
+        ws.masking_key[2] = 0;
+        ws.masking_key[3] = 0;
+    }
+    cxInt flen = ws.header_size + ws.N;
+    if(body->Size() < flen) {
+        return 0;
+    }
+    if (ws.opcode != WSHeaderType::CLOSE){
+        if(ws.mask){
+            for(size_t i = 0; i < ws.N; i++){
+                data[i+ws.header_size] ^= ws.masking_key[i & 0x3];
+            }
+        }
+        if(ws.fin){
+            OnFrame(ws.opcode, (cchars)&data[ws.header_size], ws.N);
+        }
+    }else {
+        Close(0);
+    }
+    return flen;
+}
+
+cxBool cxHttp::WriteFrame(const cxJson *jv)
+{
+    const cxStr *jtxt = jv->Dumps();
+    if(!cxStr::IsOK(jtxt)){
+        return false;
+    }
+    return WriteFrame(WSHeaderType::TEXT_FRAME, jtxt);
+}
+
+cxBool cxHttp::WriteFrame(WSHeaderType::OPCodeType type,const cxStr *data)
+{
+    if(data->IsEmpty()){
+        return true;
+    }
+    const cxByte masking_key[4] = { 0x12, 0x34, 0x56, 0x78 };
+    cxStr *d = cxStr::Create();
+    d->Append((cxByte)(0x80|type));
+    cxInt64 msiz = data->Size();
+    if(msiz < 126){
+        cxByte h1 = (msiz & 0xff) | (useMask ? 0x80 : 0);
+        d->Append(h1);
+    }else if(msiz < 65536){
+        cxByte h1 = 126 | (useMask ? 0x80 : 0);
+        d->Append(h1);
+        cxByte h2 = (msiz >> 8) & 0xff;
+        d->Append(h2);
+        cxByte h3 = (msiz >> 0) & 0xff;
+        d->Append(h3);
+    }else {
+        cxByte h1 = 127 | (useMask ? 0x80 : 0);
+        d->Append(h1);
+        cxByte h2 = (msiz >> 56) & 0xff;
+        d->Append(h2);
+        cxByte h3 = (msiz >> 48) & 0xff;
+        d->Append(h3);
+        cxByte h4 = (msiz >> 40) & 0xff;
+        d->Append(h4);
+        cxByte h5 = (msiz >> 32) & 0xff;
+        d->Append(h5);
+        cxByte h6 = (msiz >> 24) & 0xff;
+        d->Append(h6);
+        cxByte h7 = (msiz >> 16) & 0xff;
+        d->Append(h7);
+        cxByte h8 = (msiz >>  8) & 0xff;
+        d->Append(h8);
+        cxByte h9 = (msiz >>  0) & 0xff;
+        d->Append(h9);
+    }
+    if(useMask){
+        d->Append(masking_key[0]);
+        d->Append(masking_key[1]);
+        d->Append(masking_key[2]);
+        d->Append(masking_key[3]);
+    }
+    d->Append(data);
+    if(useMask){
+        cxInt off = d->Size() - data->Size();
+        cxUInt8 *ptr = (cxUInt8 *)d->Data() + off;
+        for(cxInt i=0;i < data->Size();i++){
+            ptr[i] ^= masking_key[i & 0x3];
+        }
+    }
+    return Write(d);
+}
+
+void cxHttp::SetUseMask(cxBool v)
+{
+    useMask = v;
+}
+
+void cxHttp::OnFrame(WSHeaderType::OPCodeType type,cchars data,cxInt len)
+{
+    onFrame.Fire(this, type, data, len);
+}
+
+void cxHttp::OnWillClose()
+{
+    if(IsWebSocket()){
+        uint8_t closeFrame[6] = {0x88, 0x80, 0x00, 0x00, 0x00, 0x00};
+        cxStr *d = cxStr::Create();
+        d->Append(closeFrame, 6);
+        Write(d);
+    }
+}
+
 void cxHttp::OnBody(cchars data,cxInt len)
 {
-    downsize += len;
-    if(fd != NULL){
+    if(len == 0){
+        return;
+    }
+    if(IsWebSocket()){
+        //web socket
+        body->Append(data, len);
+        int ret = parseWebsocket();
+        if(ret > 0){
+            body->Erase(0, ret);
+        }
+    }else if(fd != NULL){
+        //download file
         writeFile(data, len);
     }else{
+        //get all body
         body->Append(data, len);
     }
+    downsize += len;
     OnProgress(contentLength + filesize,downsize + filesize);
 }
 
@@ -69,9 +238,15 @@ int cxHttp::messageCompleted(http_parser *parser)
 {
     cxHttp *http = static_cast<cxHttp *>(parser->data);
     http->status = parser->status_code;
-    http->success = (http->status >= 200 && http->status < 300);
-    http->closeFile();
-    http->OnCompleted();
+    if(http->status == 101){
+        http->ishttpproto = false;
+        http->success = true;
+        http->OnSwitchProto();
+    }else{
+        http->success = (http->status >= 200 && http->status < 300);
+        http->closeFile();
+        http->OnCompleted();
+    }
     return 0;
 }
 
@@ -89,8 +264,11 @@ void cxHttp::OnData(char *buffer,cxInt size)
 {
     cxInt len = size;
     cxInt off = 0;
-    while(off < len){
+    while(off < len && ishttpproto){
         off += http_parser_execute(&parser, &settings, buffer + off, len - off);
+    }
+    if(len > off){
+        OnBody(buffer + off, len - off);
     }
 }
 
@@ -109,11 +287,14 @@ cxHttp::cxHttp()
     settings.on_chunk_header = onChunkHeader;
     settings.on_chunk_complete = onChunkComplete;
     
+    useMask = true;
+    ishttpproto = true;
     method = HTTP_GET;
     spath = nullptr;
     path = nullptr;
     post = nullptr;
     host = nullptr;
+    schema = nullptr;
     fd = NULL;
     status = 0;
     smd5 = nullptr;
@@ -125,14 +306,12 @@ cxHttp::cxHttp()
     reqHeads = cxHash::Alloc();
     resHeads = cxHash::Alloc();
     field = cxStr::Alloc();
-
-    reqHeads->Set("User-Agent", cxStr::UTF8("Mozilla/4.0(compatible;MSIE6.0;Windows NT 5.0)"));
-    reqHeads->Set("Connection", cxStr::UTF8("close"));
 }
 
 cxHttp::~cxHttp()
 {
     closeFile();
+    cxObject::release(&schema);
     cxObject::release(&smd5);
     cxObject::release(&spath);
     cxObject::release(&host);
@@ -244,12 +423,16 @@ void cxHttp::OnConnected()
         Close(0);
         return;
     }
-    reqHeads->Set("Host", host);
     cxStr *header = cxStr::Alloc();
-    if(method == HTTP_GET){
-        header->AppFmt("GET %s HTTP/1.1\r\n",path->Data());
-    }else if(method == HTTP_POST){
+    if(method == HTTP_POST){
         header->AppFmt("POST %s HTTP/1.1\r\n",path->Data());
+    }else{
+        header->AppFmt("GET %s HTTP/1.1\r\n",path->Data());
+    }
+    if(port == 80){
+        header->AppFmt("Host: %s\r\n", host->ToChars());
+    }else{
+        header->AppFmt("Host: %s:%d\r\n", host->ToChars(),port);
     }
     if(method == HTTP_POST && cxStr::IsOK(post)){
         reqHeads->Set("Content-Length", cxStr::Create()->AppFmt("%d", post->Size()));
@@ -279,6 +462,11 @@ cxBool cxHttp::ConnectURL(cchars url)
     }else{
         port = 80;
     }
+    if(data.field_set & (1 << UF_SCHEMA)){
+        cxStr *tmp = cxStr::Create();
+        tmp->Init((cxAny)(url+data.field_data[UF_SCHEMA].off), data.field_data[UF_SCHEMA].len);
+        cxObject::swap(&schema, tmp);
+    }
     if(data.field_set & (1 << UF_HOST)){
         cxStr *tmp = cxStr::Create();
         tmp->Init((cxAny)(url+data.field_data[UF_HOST].off), data.field_data[UF_HOST].len);
@@ -299,8 +487,25 @@ cxHttp *cxHttp::Post(cchars url,const cxStr *post)
 {
     CX_ASSERT(cxStr::IsOK(url), "args error");
     cxHttp *rv = cxHttp::Create();
+    rv->reqHeads->Set("User-Agent", cxStr::UTF8("Mozilla/4.0(compatible;MSIE6.0;Windows NT 5.0)"));
+    rv->reqHeads->Set("Connection", cxStr::UTF8("close"));
     CX_SWAP(rv->post,post);
     rv->method = HTTP_POST;
+    if(!rv->ConnectURL(url)){
+        CX_ERROR("http url error");
+    }
+    return rv;
+}
+
+cxHttp *cxHttp::WebSocket(cchars url)
+{
+    CX_ASSERT(cxStr::IsOK(url), "args error");
+    cxHttp *rv = cxHttp::Create();
+    rv->reqHeads->Set("Upgrade",cxStr::UTF8("websocket"));
+    rv->reqHeads->Set("Connection",cxStr::UTF8("Upgrade"));
+    rv->reqHeads->Set("Sec-WebSocket-Key",cxStr::UTF8("x3JJHMbDL1EzLkh9GBhXDw=="));
+    rv->reqHeads->Set("Sec-WebSocket-Version",cxStr::UTF8("13"));
+    rv->reqHeads->Set("Sec-WebSocket-Protocol",cxStr::UTF8("chat, superchat"));
     if(!rv->ConnectURL(url)){
         CX_ERROR("http url error");
     }
@@ -311,6 +516,8 @@ cxHttp *cxHttp::Get(cchars url)
 {
     CX_ASSERT(cxStr::IsOK(url), "args error");
     cxHttp *rv = cxHttp::Create();
+    rv->reqHeads->Set("User-Agent", cxStr::UTF8("Mozilla/4.0(compatible;MSIE6.0;Windows NT 5.0)"));
+    rv->reqHeads->Set("Connection", cxStr::UTF8("close"));
     if(!rv->ConnectURL(url)){
         CX_ERROR("http url error");
     }
@@ -363,6 +570,11 @@ cxHash *cxHttp::ReqHeads()
 cxHash *cxHttp::ResHeads()
 {
     return resHeads;
+}
+
+void cxHttp::OnSwitchProto()
+{
+    
 }
 
 void cxHttp::OnCompleted()

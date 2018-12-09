@@ -16,26 +16,54 @@
 
 CX_CPP_BEGIN
 
-
 typedef enum http_method cxHttpMethod;
 
 class cxHttp : public cxTcp
 {
 public:
     CX_DECLARE(cxHttp);
+public:
+    struct WSHeaderType {
+        unsigned header_size;
+        bool fin;
+        bool mask;
+        enum OPCodeType {
+            CONTINUATION = 0x0,
+            TEXT_FRAME = 0x1,
+            BINARY_FRAME = 0x2,
+            CLOSE = 0x8,
+            PING = 0x9,
+            PONG = 0xa,
+        } opcode;
+        int N0;
+        uint64_t N;
+        uint8_t masking_key[4];
+    };
 protected:
     explicit cxHttp();
     virtual ~cxHttp();
 protected:
+    //for websocket
+    virtual void OnFrame(WSHeaderType::OPCodeType type,cchars data,cxInt len);
+    //
+    virtual void OnSwitchProto();
     virtual void OnCompleted();
     virtual void OnHeader();
     virtual void OnStart();
     virtual void OnBody(cchars data,cxInt len);
     virtual void OnFile(const cxStr *path,cxInt64 size);
     virtual void OnProgress(cxInt64 len,cxInt64 cur);
-    void OnConnected();
-    void OnData(char *buffer,cxInt size);
-    void OnClose();
+    virtual void OnConnected();
+    virtual void OnData(char *buffer,cxInt size);
+    virtual void OnClose();
+    virtual void OnWillClose();
+private:
+    cxBool useMask;
+    cxInt parseWebsocket();
+public:
+    void SetUseMask(cxBool v);
+    cxBool WriteFrame(WSHeaderType::OPCodeType type,const cxStr *data);
+    cxBool WriteFrame(const cxJson *jv);
 private:
     //保存路径
     cxStr *spath;
@@ -47,6 +75,7 @@ private:
     void closeFile();
     void writeFile(cchars data,cxInt size);    
     
+    cxBool ishttpproto;
     cxUInt64 contentLength;
     cxUInt16 status;
     cxBool success;
@@ -54,6 +83,7 @@ private:
     http_parser parser;
     http_parser_settings settings;
     cxStr *path;
+    cxStr *schema;
     cxStr *body;
     cxStr *post;
     cxHash *reqHeads;
@@ -75,6 +105,9 @@ public:
     cxEvent<cxHttp, const cxStr *, cxInt64> onFile;
     cxEvent<cxHttp, cxInt64,cxInt64> onProgress;
 public:
+    cxEvent<cxHttp, WSHeaderType::OPCodeType,cchars,cxInt> onFrame;
+public:
+    cxBool IsWebSocket() const;
     cxHttp *SetFileInfo(const cxStr *path,const cxStr *md5=nullptr);
     cxBool ConnectURL(cchars url);
     cxHash *ReqHeads();
@@ -87,6 +120,7 @@ public:
 public:
     static cxHttp *Post(cchars url,const cxStr *post);
     static cxHttp *Get(cchars url);
+    static cxHttp *WebSocket(cchars url);
     //支持断点续传 成功下载时只需OnFile
     static cxHttp *LoadFile(cchars url,const cxStr *path,const cxStr *md5);
 };

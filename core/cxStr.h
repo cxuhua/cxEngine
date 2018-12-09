@@ -132,6 +132,7 @@ public:
     cxStr *Append(cchars data,cxInt n);
     cxStr *Append(cxAny data,cxInt n);
     cxStr *Append(const cxStr *str);
+    cxStr *Append(cxByte v);
     
     cxStr *InsFmt(cxInt pos,cchars fmt,va_list ap);
     cxStr *InsFmt(cxInt pos,cchars fmt,...);

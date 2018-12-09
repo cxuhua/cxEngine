@@ -49,6 +49,8 @@ protected:
     
     virtual void OnClose();
     
+    virtual void OnWillClose();
+    
     virtual void OnIpAddr(cchars ip);
     
     virtual void OnStep(cxFloat dt);

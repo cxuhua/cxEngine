@@ -106,6 +106,7 @@ void cxLabel::OnDirty()
         CX_ASSERT(ptex->IsSuccess(), "cxLabel create texture failed");
         SetTexture(ptex);
         SetSize(ptex->Size());
+        SetDirty(DirtyModeLayout);
     }
     cxSprite::OnDirty();
 }

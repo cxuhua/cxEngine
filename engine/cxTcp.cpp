@@ -61,6 +61,11 @@ void cxTcp::OnClose()
     onClose.Fire(this);
 }
 
+void cxTcp::OnWillClose()
+{
+    
+}
+
 void cxTcp::OnData(char *buffer,cxInt size)
 {
     onData.Fire(this, buffer, size);
@@ -100,6 +105,7 @@ void cxTcp::Close(cxInt err)
     if(!uv_is_closing((uv_handle_t *)&handle)){
         uv_close((uv_handle_t *)&handle, close_cb);
     }
+    connected = false;
 }
 
 void cxTcp::read_cb(uv_stream_t* handle, ssize_t nread, const uv_buf_t* buf)

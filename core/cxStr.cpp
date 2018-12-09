@@ -799,6 +799,11 @@ void cxStr::WriteByte(cxByte v)
     Append((cchars)&v,sizeof(cxByte));
 }
 
+cxStr *cxStr::Append(cxByte v)
+{
+    return Append((cchars)&v,sizeof(cxByte));
+}
+
 cxStr *cxStr::HexEncode() const
 {
     cchars data = Data();

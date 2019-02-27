@@ -39,7 +39,6 @@ using namespace cxengine;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     cxengine::cxEngine::Startup(false);
-    
     [self cxDisableDocumentBackup];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];

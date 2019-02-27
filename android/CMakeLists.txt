@@ -12,6 +12,8 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 
 include_directories(${CX_ENGINE_PATH} src/main/cpp include)
 
+add_library(cpufeatures STATIC ${ANDROID_NDK}/sources/android/cpufeatures/cpu-features.c)
+
 add_library(uv STATIC IMPORTED)
 set_target_properties(uv PROPERTIES IMPORTED_LOCATION ${LIBS_DIR}/libuv.a)
 
@@ -20,6 +22,9 @@ set_target_properties(png PROPERTIES IMPORTED_LOCATION ${LIBS_DIR}/libpng.a)
 
 add_library(openal STATIC IMPORTED)
 set_target_properties(openal PROPERTIES IMPORTED_LOCATION ${LIBS_DIR}/libopenal.a)
+
+add_library(ck STATIC IMPORTED)
+set_target_properties(ck PROPERTIES IMPORTED_LOCATION ${LIBS_DIR}/libck.a)
 
 
 add_library( # Sets the name of the library.
@@ -220,11 +225,13 @@ target_link_libraries( # Specifies the target library.
                        cxengine
                        uv
                        png
+                       ck
                        openal
                        log
                        GLESv2
                        z
                        android
+                       cpufeatures
                        EGL
                        OpenSLES
                        atomic)

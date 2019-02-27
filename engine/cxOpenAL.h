@@ -68,10 +68,12 @@ public:
     virtual void OnResume();
     void SetGain(cxFloat v);
     void SetPitch(cxFloat v);
+    void SetLoop(cxBool v);
     void SetPosition(const cxPoint3F &v);
     void SetPosition(const cxPoint2F &v);
     void SetVelocity(const cxPoint3F &v);
     void SetVelocity(const cxPoint2F &v);
+    void SetMaxDistance(cxFloat v);
     cxALBuffer *Buffer();
     virtual cxBool Update(cxFloat dt);
     static cxALSource *Create(const cxStr *data,cxALBuffer::DataType type);
@@ -91,13 +93,19 @@ private:
     static cxOpenAL *instance;
     cxHash *sources;
 public:
+    ALCcontext *GetContext();
     static cxOpenAL *Instance();
     void Remove(cchars key);
     void Remove(cxALSource *source);
     cxALSource *Source(cchars file,cchars key);
     cxALSource *Source(cchars key);
     cxALSource *Source(const cxStr *data,cxALBuffer::DataType type);
-
+    void SetPosition(const cxPoint3F &v);
+    void SetPosition(const cxPoint2F &v);
+    void SetOrientation(const cxPoint3F &v1,const cxPoint3F &v2);
+    void SetVelocity(const cxPoint3F &v);
+    void SetVelocity(const cxPoint2F &v);
+    void SetDistanceModel(ALenum v);
 public:
     void OnPause();
     void OnResume();

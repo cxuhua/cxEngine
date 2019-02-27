@@ -23,6 +23,7 @@
 #include <android/configuration.h>
 #include <engine/cxEngine.h>
 #include <core/cxSync.h>
+#include <ck/ck.h>
 
 CX_CPP_BEGIN
 

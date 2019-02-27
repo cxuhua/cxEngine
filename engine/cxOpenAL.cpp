@@ -441,7 +441,7 @@ void cxALSource::SetPosition(const cxPoint3F &v)
 
 void cxALSource::SetPosition(const cxPoint2F &v)
 {
-    alSource3f(handle, AL_POSITION, v.x, v.y, 0.0f);
+    alSource3f(handle, AL_POSITION, v.x, 0.0f, v.y);
 }
 
 void cxALSource::SetVelocity(const cxPoint3F &v)
@@ -451,7 +451,12 @@ void cxALSource::SetVelocity(const cxPoint3F &v)
 
 void cxALSource::SetVelocity(const cxPoint2F &v)
 {
-    alSource3f(handle, AL_VELOCITY, v.x, v.y, 0.0f);
+    alSource3f(handle, AL_VELOCITY, v.x, 0.0f, v.y);
+}
+
+void cxALSource::SetMaxDistance(cxFloat v)
+{
+    alSourcef(handle, AL_MAX_DISTANCE, v);
 }
 
 cxALBuffer *cxALSource::Buffer()
@@ -517,6 +522,11 @@ void cxALSource::SetPitch(cxFloat v)
     pitch = v;
 }
 
+void cxALSource::SetLoop(cxBool v)
+{
+    alSourcei(handle, AL_LOOPING, v);
+}
+
 cxALSource *cxALSource::Create(const cxStr *data, cxALBuffer::DataType type)
 {
     CX_ASSERT(cxStr::IsOK(data), "args error");
@@ -550,6 +560,9 @@ cxOpenAL::cxOpenAL()
     CX_ASSERT(context != nullptr, "alc create context error");
     alcMakeContextCurrent(context);
     sources = cxHash::Alloc();
+    SetPosition(cxPoint2F(0, 0));
+    SetOrientation(cxPoint3F(0, 0, -1), cxPoint3F(0, 1, 0));
+    SetDistanceModel(AL_LINEAR_DISTANCE);
 }
 
 cxOpenAL::~cxOpenAL()
@@ -590,6 +603,31 @@ void cxOpenAL::OnResume()
     }
 }
 
+void cxOpenAL::SetPosition(const cxPoint3F &v)
+{
+    alListener3f(AL_POSITION, v.x, v.y, v.z);
+}
+void cxOpenAL::SetOrientation(const cxPoint3F &v1,const cxPoint3F &v2)
+{
+    ALfloat vs[6]={v1.x,v1.y,v1.z,v2.x,v2.y,v2.z};
+    alListenerfv(AL_ORIENTATION,vs);
+}
+void cxOpenAL::SetPosition(const cxPoint2F &v)
+{
+    alListener3f(AL_POSITION, v.x, 0.0f, v.y);
+}
+void cxOpenAL::SetVelocity(const cxPoint3F &v)
+{
+    alListener3f(AL_VELOCITY, v.x, v.y, v.z);
+}
+void cxOpenAL::SetVelocity(const cxPoint2F &v)
+{
+    alListener3f(AL_VELOCITY, v.x, 0.0f, v.y);
+}
+void cxOpenAL::SetDistanceModel(ALenum v)
+{
+    alDistanceModel(v);
+}
 void cxOpenAL::Remove(cchars key)
 {
     cxObject *obj = sources->Get(key);
@@ -630,6 +668,11 @@ cxALSource *cxOpenAL::Source(cchars file,cchars key)
     sources->Set(key, s);
     s->SetKey(key);
     return s;
+}
+
+ALCcontext *cxOpenAL::GetContext()
+{
+    return alcGetCurrentContext();
 }
 
 cxOpenAL *cxOpenAL::Instance()

@@ -26,8 +26,6 @@ protected:
     void OnExit();
     void OnStep(cxFloat dt);
     void OnReset();
-protected:
-    cxInt LuaNewIndex(lua_State *l);
 private:
     cxBool isfreesource;
     cxBool isfollow;

@@ -41,6 +41,7 @@
 		83AFD462211450710061E924 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD461211450710061E924 /* libz.tbd */; };
 		83AFD4652114507B0061E924 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD4632114507B0061E924 /* libpng.a */; };
 		83AFD4662114507B0061E924 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD4642114507B0061E924 /* libuv.a */; };
+		83B3B9EE21E9C2EF0044CFB0 /* dsptouch.ckb in Resources */ = {isa = PBXBuildFile; fileRef = 83B3B9ED21E9C2EF0044CFB0 /* dsptouch.ckb */; };
 		83B6E3201E2A006A00C9C6AB /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 83B6E31F1E2A006A00C9C6AB /* bg.png */; };
 		83C410DA1E28B3C90027FAFC /* penhuo1_xia.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */; };
 		83CD01A71E2CEB60006FC20F /* penhuo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83CD01A61E2CEB60006FC20F /* penhuo.xml */; };
@@ -110,6 +111,11 @@
 		83AFD461211450710061E924 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		83AFD4632114507B0061E924 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ios/lib/libpng.a; sourceTree = "<group>"; };
 		83AFD4642114507B0061E924 /* libuv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuv.a; path = ios/lib/libuv.a; sourceTree = "<group>"; };
+		83B3B9E521E9C21D0044CFB0 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		83B3B9E721E9C22A0044CFB0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		83B3B9E921E9C2340044CFB0 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		83B3B9EB21E9C2430044CFB0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		83B3B9ED21E9C2EF0044CFB0 /* dsptouch.ckb */ = {isa = PBXFileReference; lastKnownFileType = file; path = dsptouch.ckb; sourceTree = "<group>"; };
 		83B6E31F1E2A006A00C9C6AB /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo1_xia.xml; sourceTree = "<group>"; wrapsLines = 1; };
 		83CD01A61E2CEB60006FC20F /* penhuo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo.xml; sourceTree = "<group>"; };
@@ -159,6 +165,10 @@
 		83A74F841E28CB6C00827360 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83B3B9EB21E9C2430044CFB0 /* AVFoundation.framework */,
+				83B3B9E921E9C2340044CFB0 /* MediaPlayer.framework */,
+				83B3B9E721E9C22A0044CFB0 /* AudioToolbox.framework */,
+				83B3B9E521E9C21D0044CFB0 /* CoreMedia.framework */,
 				8365124F215F56E6000D29CB /* UIKit.framework */,
 				8365124D215F56DD000D29CB /* CoreText.framework */,
 				8365124A215F56C5000D29CB /* CoreGraphics.framework */,
@@ -193,6 +203,7 @@
 		83E6F6461B0C97B5006839C8 /* cxEngineTest */ = {
 			isa = PBXGroup;
 			children = (
+				83B3B9ED21E9C2EF0044CFB0 /* dsptouch.ckb */,
 				83F45E891E2CECB20083C886 /* penhuo1_1.xml */,
 				83651247215F565D000D29CB /* main.mm */,
 				83CD01A61E2CEB60006FC20F /* penhuo.xml */,
@@ -327,6 +338,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B3B9EE21E9C2EF0044CFB0 /* dsptouch.ckb in Resources */,
 				834A1D021E69AF3C00751690 /* jl1000.lqt in Resources */,
 				830157E21B3BD27C00ED46A8 /* t.png in Resources */,
 				8302A5851B535EC500C7209C /* grid.png in Resources */,

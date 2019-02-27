@@ -71,13 +71,55 @@ Game::~Game()
     
 }
 
+cxMusic *m = nullptr;
+cxSprite *sp = nullptr;
+cxLabel *l = nullptr;
+
 void Game::OnDispatch(const cxTouchable *e)
 {
     cxEngine::OnDispatch(e);
+    
+    if(e->TouchCount() != 1){
+        return;
+    }
+    const cxTouchPoint *ep = e->TouchPoint(0);
+    cxHitInfo hit = Window()->HitTest(ep->wp);
+    if(!hit.hited){
+        return;
+    }
+    if(m == nullptr){
+        return;
+    }
+    sp->SetPosition(ep->wp);
+    m->GetSource()->SetPosition(ep->wp);
+    cxFloat fv = ep->wp.Angle();
+    fv = cxRadiansToDegrees(fv) + 360;
+    fv = fmodf(fv, 360.0f);
+    l->SetText("a=%.2f",fv);
 }
 
 void Game::OnMain()
 {
+    LoadTexture("t.png");
+    
+    l = cxLabel::Create(cxStr::UTF8("a=0"));
+    l->SetPosition(cxPoint2F(500, 300));
+    Window()->Append(l);
+    
+    cxSprite *cp = cxSprite::Create();
+    cp->SetTexture("t.png");
+    cp->SetSize(40);
+    Window()->Append(cp);
+    
+    sp = cxSprite::Create();
+    sp->SetTexture("t.png");
+    sp->SetSize(80);
+    Window()->Append(sp);
+    
+    
+    m = cxMusic::Create("finch.wav");
+    m->SetRepeat(cxAction::MAX_REPEAT);
+    Window()->Append(m);
 //    cxGesture *v = cxGesture::Create();
 //    v->SetSize(WinSize());
 //    Window()->Append(v);
@@ -108,23 +150,23 @@ void Game::OnMain()
 //    Window()->Append(m);
 //    return;
     
-    LoadTexture("t.png");
-    cxSprite *sp = cxSprite::Create();
-    sp->SetTexture("t.png");
-    sp->SetSize(80);
-    Window()->Append(sp);
-    
-    cxRotateTo *to = cxRotateTo::Create(3.14*10, 3);
-    
-    cxMoveTo *mto = cxMoveTo::Create(cxPoint2F(500, 0), 10);
-    mto->onExit +=[](cxAction *pav){
-        CX_LOGGER("ext");
-    };
-    
-    
-    sp->Append(to);
-    
-    to->Append(mto);
+//    LoadTexture("t.png");
+//    cxSprite *sp = cxSprite::Create();
+//    sp->SetTexture("t.png");
+//    sp->SetSize(80);
+//    Window()->Append(sp);
+//
+//    cxRotateTo *to = cxRotateTo::Create(3.14*10, 3);
+//
+//    cxMoveTo *mto = cxMoveTo::Create(cxPoint2F(500, 0), 10);
+//    mto->onExit +=[](cxAction *pav){
+//        CX_LOGGER("ext");
+//    };
+//
+//
+//    sp->Append(to);
+//
+//    to->Append(mto);
 //
 //    cxForward *a = cxForward::Create();
 //    a->SetSpeed(100);
@@ -176,43 +218,43 @@ void Game::OnMain()
 //    }
 //
 //    sp->Append(a);
-    return;
+//    return;
     
 //    cxMusic *m = cxMusic::Create("o.wav");
 //    m->SetRepeat(3);
 //    Window()->Append(m);
     //加载纹理
-    LoadTexture("jl.lqt");
-//    LoadTexture("jlbox.lqt");
-//    LoadTexture("jl1000.lqt");
-    //加载帧序列
-    LoadFrames("frames.csv");
-    //加载动作组
-    LoadActions("actions.csv");
-    //获取法师帧序列
-    const cxFrames *fs = GetFrames("Mage");
-    //获取法师的动作列表
-    const cxActionGroup *ag = GetActions("Mage");
-    {
-        //获得move动作
-        const cxActionAttr *attack = ag->Action("attack");
-        //创建动画
-        cxAnimate *animate = fs->Animate();
-        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
-            
-        };
-        animate->onKey+=[](cxAnimate *pav,cxInt key){
-            CX_LOGGER("%d",key);
-        };
-        animate->SetAction(attack, 1);
-        //创建载体
-//        cxAtlas *atlas = cxAtlas::Create();
-        cxTriangles *atlas = cxTriangles::Create();
-        atlas->SetFlipX(true);
-        atlas->SetSize(100);
-        atlas->Append(animate);//加入动画
-        Window()->Append(atlas);
-    }
+//    LoadTexture("jl.lqt");
+////    LoadTexture("jlbox.lqt");
+////    LoadTexture("jl1000.lqt");
+//    //加载帧序列
+//    LoadFrames("frames.csv");
+//    //加载动作组
+//    LoadActions("actions.csv");
+//    //获取法师帧序列
+//    const cxFrames *fs = GetFrames("Mage");
+//    //获取法师的动作列表
+//    const cxActionGroup *ag = GetActions("Mage");
+//    {
+//        //获得move动作
+//        const cxActionAttr *attack = ag->Action("attack");
+//        //创建动画
+//        cxAnimate *animate = fs->Animate();
+//        animate->onFrame+=[](cxAnimate *pav,cxInt frame){
+//
+//        };
+//        animate->onKey+=[](cxAnimate *pav,cxInt key){
+//            CX_LOGGER("%d",key);
+//        };
+//        animate->SetAction(attack, 1);
+//        //创建载体
+////        cxAtlas *atlas = cxAtlas::Create();
+//        cxTriangles *atlas = cxTriangles::Create();
+//        atlas->SetFlipX(true);
+//        atlas->SetSize(100);
+//        atlas->Append(animate);//加入动画
+//        Window()->Append(atlas);
+//    }
 }
 
 CX_CPP_END

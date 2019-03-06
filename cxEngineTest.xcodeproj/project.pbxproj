@@ -62,6 +62,8 @@
 		8342299222276BBF00E45202 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8342296122276BBF00E45202 /* b2BroadPhase.cpp */; };
 		8342299322276BBF00E45202 /* b2CollideEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8342296422276BBF00E45202 /* b2CollideEdge.cpp */; };
 		8342299422276BBF00E45202 /* b2Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8342296522276BBF00E45202 /* b2Collision.cpp */; };
+		8342299722276E3B00E45202 /* cxBoxWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8342299622276E3B00E45202 /* cxBoxWorld.cpp */; };
+		8342299A22276EF600E45202 /* cxBoxBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8342299922276EF600E45202 /* cxBoxBody.cpp */; };
 		834A1D001E69AEC900751690 /* jlbox.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 834A1CFF1E69AEC900751690 /* jlbox.lqt */; };
 		834A1D021E69AF3C00751690 /* jl1000.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 834A1D011E69AF3C00751690 /* jl1000.lqt */; };
 		834A1D061E69AFE800751690 /* jl.lqt in Resources */ = {isa = PBXBuildFile; fileRef = 834A1D051E69AFE800751690 /* jl.lqt */; };
@@ -87,7 +89,6 @@
 		83AFD462211450710061E924 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD461211450710061E924 /* libz.tbd */; };
 		83AFD4652114507B0061E924 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD4632114507B0061E924 /* libpng.a */; };
 		83AFD4662114507B0061E924 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD4642114507B0061E924 /* libuv.a */; };
-		83B3B9EE21E9C2EF0044CFB0 /* dsptouch.ckb in Resources */ = {isa = PBXBuildFile; fileRef = 83B3B9ED21E9C2EF0044CFB0 /* dsptouch.ckb */; };
 		83B6E3201E2A006A00C9C6AB /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 83B6E31F1E2A006A00C9C6AB /* bg.png */; };
 		83C410DA1E28B3C90027FAFC /* penhuo1_xia.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */; };
 		83CD01A71E2CEB60006FC20F /* penhuo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83CD01A61E2CEB60006FC20F /* penhuo.xml */; };
@@ -221,6 +222,10 @@
 		8342296322276BBF00E45202 /* b2Distance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2Distance.h; sourceTree = "<group>"; };
 		8342296422276BBF00E45202 /* b2CollideEdge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2CollideEdge.cpp; sourceTree = "<group>"; };
 		8342296522276BBF00E45202 /* b2Collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Collision.cpp; sourceTree = "<group>"; };
+		8342299522276E3B00E45202 /* cxBoxWorld.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cxBoxWorld.h; sourceTree = "<group>"; };
+		8342299622276E3B00E45202 /* cxBoxWorld.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxWorld.cpp; sourceTree = "<group>"; };
+		8342299822276EF600E45202 /* cxBoxBody.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cxBoxBody.h; sourceTree = "<group>"; };
+		8342299922276EF600E45202 /* cxBoxBody.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cxBoxBody.cpp; sourceTree = "<group>"; };
 		834A1CFF1E69AEC900751690 /* jlbox.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jlbox.lqt; sourceTree = "<group>"; };
 		834A1D011E69AF3C00751690 /* jl1000.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jl1000.lqt; sourceTree = "<group>"; };
 		834A1D051E69AFE800751690 /* jl.lqt */ = {isa = PBXFileReference; lastKnownFileType = file; path = jl.lqt; sourceTree = "<group>"; };
@@ -254,7 +259,6 @@
 		83B3B9E721E9C22A0044CFB0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		83B3B9E921E9C2340044CFB0 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		83B3B9EB21E9C2430044CFB0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		83B3B9ED21E9C2EF0044CFB0 /* dsptouch.ckb */ = {isa = PBXFileReference; lastKnownFileType = file; path = dsptouch.ckb; sourceTree = "<group>"; };
 		83B6E31F1E2A006A00C9C6AB /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		83C410D91E28B3C90027FAFC /* penhuo1_xia.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo1_xia.xml; sourceTree = "<group>"; wrapsLines = 1; };
 		83CD01A61E2CEB60006FC20F /* penhuo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = penhuo.xml; sourceTree = "<group>"; };
@@ -301,6 +305,10 @@
 				8342293D22276BBF00E45202 /* Rope */,
 				8342294022276BBF00E45202 /* Common */,
 				8342294E22276BBF00E45202 /* Collision */,
+				8342299522276E3B00E45202 /* cxBoxWorld.h */,
+				8342299622276E3B00E45202 /* cxBoxWorld.cpp */,
+				8342299822276EF600E45202 /* cxBoxBody.h */,
+				8342299922276EF600E45202 /* cxBoxBody.cpp */,
 			);
 			path = Box2D;
 			sourceTree = SOURCE_ROOT;
@@ -499,7 +507,6 @@
 			isa = PBXGroup;
 			children = (
 				8342290122276BBF00E45202 /* Box2D */,
-				83B3B9ED21E9C2EF0044CFB0 /* dsptouch.ckb */,
 				83F45E891E2CECB20083C886 /* penhuo1_1.xml */,
 				83651247215F565D000D29CB /* main.mm */,
 				83CD01A61E2CEB60006FC20F /* penhuo.xml */,
@@ -634,7 +641,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83B3B9EE21E9C2EF0044CFB0 /* dsptouch.ckb in Resources */,
 				834A1D021E69AF3C00751690 /* jl1000.lqt in Resources */,
 				830157E21B3BD27C00ED46A8 /* t.png in Resources */,
 				8302A5851B535EC500C7209C /* grid.png in Resources */,
@@ -704,6 +710,7 @@
 				8342297A22276BBF00E45202 /* b2RevoluteJoint.cpp in Sources */,
 				8342297222276BBF00E45202 /* b2Contact.cpp in Sources */,
 				8342298E22276BBF00E45202 /* b2EdgeShape.cpp in Sources */,
+				8342299722276E3B00E45202 /* cxBoxWorld.cpp in Sources */,
 				8342297C22276BBF00E45202 /* b2Joint.cpp in Sources */,
 				83377A601CEC2F5800CEB2D8 /* Shader.cpp in Sources */,
 				83651249215F565D000D29CB /* main.mm in Sources */,
@@ -726,6 +733,7 @@
 				8342298F22276BBF00E45202 /* b2CircleShape.cpp in Sources */,
 				8342297022276BBF00E45202 /* b2CircleContact.cpp in Sources */,
 				8342297922276BBF00E45202 /* b2MotorJoint.cpp in Sources */,
+				8342299A22276EF600E45202 /* cxBoxBody.cpp in Sources */,
 				8342297322276BBF00E45202 /* b2WorldCallbacks.cpp in Sources */,
 				8342298B22276BBF00E45202 /* b2CollidePolygon.cpp in Sources */,
 			);

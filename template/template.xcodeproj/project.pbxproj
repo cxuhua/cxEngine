@@ -17,6 +17,10 @@
 		83AFD456211450050061E924 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD44921144FC80061E924 /* libpng.a */; };
 		83AFD457211450050061E924 /* libuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD44A21144FC80061E924 /* libuv.a */; };
 		83AFD4582114500D0061E924 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AFD44E21144FD70061E924 /* libz.tbd */; };
+		83E94DF3222F66B000CFF41F /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83E94DF1222F66B000CFF41F /* main.mm */; };
+		83E94DFE222F673700CFF41F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E94DFD222F673700CFF41F /* UIKit.framework */; };
+		83E94DFF222F674C00CFF41F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E94DF7222F670E00CFF41F /* CoreGraphics.framework */; };
+		83E94E00222F675500CFF41F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E94DF5222F66EC00CFF41F /* CoreText.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +47,12 @@
 		83AFD44E21144FD70061E924 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		83AFD44F21144FD70061E924 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		83AFD45021144FD70061E924 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		83E94DF1222F66B000CFF41F /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		83E94DF5222F66EC00CFF41F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		83E94DF7222F670E00CFF41F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		83E94DF9222F671E00CFF41F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		83E94DFB222F672A00CFF41F /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		83E94DFD222F673700CFF41F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +60,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83E94E00222F675500CFF41F /* CoreText.framework in Frameworks */,
+				83E94DFF222F674C00CFF41F /* CoreGraphics.framework in Frameworks */,
+				83E94DFE222F673700CFF41F /* UIKit.framework in Frameworks */,
 				83AFD4582114500D0061E924 /* libz.tbd in Frameworks */,
 				83AFD456211450050061E924 /* libpng.a in Frameworks */,
 				83AFD457211450050061E924 /* libuv.a in Frameworks */,
@@ -84,6 +97,7 @@
 		839A52121CD854D30002BF77 /* template */ = {
 			isa = PBXGroup;
 			children = (
+				83E94DF1222F66B000CFF41F /* main.mm */,
 				839A522C1CD855620002BF77 /* Game.cpp */,
 				839A522D1CD855620002BF77 /* Game.h */,
 				839A521F1CD854D30002BF77 /* Assets.xcassets */,
@@ -112,6 +126,11 @@
 		83AFD44821144FC80061E924 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83E94DFD222F673700CFF41F /* UIKit.framework */,
+				83E94DFB222F672A00CFF41F /* CoreMedia.framework */,
+				83E94DF9222F671E00CFF41F /* AVFoundation.framework */,
+				83E94DF7222F670E00CFF41F /* CoreGraphics.framework */,
+				83E94DF5222F66EC00CFF41F /* CoreText.framework */,
 				83AFD44E21144FD70061E924 /* libz.tbd */,
 				83AFD44F21144FD70061E924 /* OpenGLES.framework */,
 				83AFD44D21144FD70061E924 /* GLKit.framework */,
@@ -208,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83E94DF3222F66B000CFF41F /* main.mm in Sources */,
 				839A522F1CD855620002BF77 /* Game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

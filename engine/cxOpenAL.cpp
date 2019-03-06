@@ -66,7 +66,7 @@ protected:
     explicit cxMP3Buffer();
     virtual ~cxMP3Buffer();
 private:
-    short pcm[MINIMP3_MAX_SAMPLES_PER_FRAME];
+    mp3d_sample_t pcm[MINIMP3_MAX_SAMPLES_PER_FRAME];
     mp3dec_t mp3d;
     mp3dec_frame_info_t info;
     cxInt mp3position;
@@ -74,7 +74,6 @@ private:
     cxBool haspcm;
     cxInt sample;
     cxBool readNextFrame();
-
     cxBool isopen;
     cxBool isfinished;
 public:
@@ -263,16 +262,9 @@ cxBool cxMP3Source::Update(cxFloat dt)
     alGetSourceiv(handle, AL_BUFFERS_PROCESSED, &processed);
     alClearError();
     while(processed > 0){
-        alClearError();
         ALuint b = 0;
         alSourceUnqueueBuffers(handle, 1, &b);
-        if(alGetError() != AL_NO_ERROR){
-            continue;
-        }
-        if(b == 0){
-            continue;
-        }
-        if(mb->NextALBuffer(b)){
+        if(b > 0 && mb->NextALBuffer(b)){
             alSourceQueueBuffers(handle, 1, &b);
         }
         processed--;

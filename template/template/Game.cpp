@@ -26,15 +26,7 @@ Game::~Game()
 
 void Game::OnMain()
 {
-    SetPlanSize(cxSize2F(2048, 1536));
     
-    cxSprite *sp = cxSprite::Create();
-    sp->SetSize(cxSize2F(250, 250));
-    sp->SetTexture(cxTexture::Create()->From("grid.png"));
-    Window()->Append(sp);
-    
-    cxRotateBy *by = cxRotateBy::Create(1.0f, 1000.0f);
-    sp->Append(by);
 }
 
 CX_CPP_END

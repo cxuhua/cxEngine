@@ -53,6 +53,7 @@
 #include "Shader.h"
 #include <lua/src/lua.hpp>
 #include <engine/cxGesture.h>
+#include <Box2D/Box2D.h>
 
 
 CX_CPP_BEGIN

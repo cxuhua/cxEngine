@@ -14,6 +14,8 @@
 
 CX_CPP_BEGIN
 
+#define PTM_RATIO 32.0f
+
 class cxBoxWorld : public cxView
 {
 public:
@@ -22,10 +24,8 @@ protected:
     explicit cxBoxWorld();
     virtual ~cxBoxWorld();
 private:
-    cxFloat pscale;
     b2World *world;
 protected:
-    virtual cxFloat PixelScale();
     void OnUpdate(cxFloat dt);
 public:
     b2World *GetWorld();

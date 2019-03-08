@@ -15,7 +15,6 @@ CX_IMPLEMENT(cxBoxWorld);
 
 cxBoxWorld::cxBoxWorld()
 {
-    pscale = PixelScale();
     world = new b2World(b2Vec2(0, 0));
 }
 
@@ -37,19 +36,12 @@ b2World *cxBoxWorld::GetWorld()
 
 cxPoint2F cxBoxWorld::ToPixel(const b2Vec2 &v)
 {
-    cxPoint2F pos(v.x,v.y);
-    return pos * pscale;
+    return cxPoint2F(v.x,v.y) * PTM_RATIO;
 }
 
 b2Vec2 cxBoxWorld::ToMeters(const cxPoint2F &v)
 {
-    cxPoint2F pos = v/pscale;
-    return b2Vec2(pos.x,pos.y);
-}
-
-cxFloat cxBoxWorld::PixelScale()
-{
-    return 32;
+    return b2Vec2(v.x/PTM_RATIO,v.y/PTM_RATIO);
 }
 
 cxBoxBody *cxBoxWorld::CreateBox(const cxPoint2F &v,b2BodyType type)
@@ -65,7 +57,7 @@ cxBoxBody *cxBoxWorld::CreateBox(const cxPoint2F &v,b2BodyType type)
     b2FixtureDef fixdef;
     fixdef.shape = &shape;
     fixdef.density = 1.0f;
-    fixdef.friction = 1.0f;
+    fixdef.friction = 0.0f;
     fixdef.restitution = 0.0f;
     body->fixture = body->body->CreateFixture(&fixdef);
     return body;

@@ -96,7 +96,7 @@ void Game::OnDispatch(const cxTouchable *e)
     
     cxFloat size = 100;
     cxBoxBody *body = w->CreateBox(cxPoint2F(size, size), b2_dynamicBody);
-    body->GetFixture()->SetRestitution(0.5f);
+    body->GetFixture()->SetRestitution(1.0f);
     
     cxSprite *cp = cxSprite::Create();
     cp->SetTexture("t.png");

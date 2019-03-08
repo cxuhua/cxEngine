@@ -11,10 +11,18 @@
 #include "cxEngine.h"
 #include "cxOpenGL.h"
 #include "cxView.h"
+#include "cxViewExt.h"
 
 CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxView);
+
+void cxView::SetExt(cxViewExt *v)
+{
+    CX_ASSERT(v != nullptr, "v args null");
+    CX_SWAP(ext, v);
+    ext->OnAttchView(this);
+}
 
 cxInt cxView::defaultSortFunc(const void *lp,const void *rp)
 {
@@ -31,6 +39,7 @@ cxInt cxView::defaultSortFunc(const void *lp,const void *rp)
 
 cxView::cxView()
 {
+    ext = nullptr;
     idx = 0;
     sortFunc = defaultSortFunc;
     relative = RelativeNone;
@@ -68,6 +77,7 @@ cxView::cxView()
 
 cxView::~cxView()
 {
+    cxObject::release(&ext);
     cxObject::release(&shader);
     actions->Release();
     views->Release();
@@ -293,8 +303,11 @@ cxBool cxView::SetPosition(const cxPoint2F &np,const cxPoint2F &wp,const cxFloat
     return false;
 }
 
-cxView *cxView::SetPosition(const cxPoint2F &v)
+cxView *cxView::SetPosition(const cxPoint2F &v,cxBool isext)
 {
+    if(isext && ext != nullptr && ext->SetPosition(v)){
+        return this;
+    }
     if(position == v){
         return this;
     }
@@ -424,8 +437,11 @@ const cxFloat cxView::Angle() const
     return angle;
 }
 
-cxView *cxView::SetAngle(const cxFloat &v)
+cxView *cxView::SetAngle(const cxFloat &v,cxBool isext)
 {
+    if(isext && ext != nullptr && ext->SetAngle(v)){
+        return this;
+    }
     if(!cxFloatIsOK(v)){
         return this;
     }
@@ -689,6 +705,9 @@ void cxView::OnEnter()
 
 void cxView::OnLeave()
 {
+    if(ext != nullptr){
+        ext->OnLeave();
+    }
     onLeave.Fire(this);
 }
 
@@ -859,7 +878,9 @@ void cxView::Update(cxFloat dt)
     if(IsRemoved() || EnableSleep()){
         return;
     }
-    OnUpdate(dt);
+    if(true){
+        OnUpdate(dt);
+    }
     if(!actions->IsEmpty()){
         runActions(dt);
     }
@@ -1192,6 +1213,7 @@ void cxView::Elements(std::function<void(cxView *pview)> func)
 
 void cxView::OnUpdate(cxFloat dt)
 {
+    if(ext != nullptr)ext->OnUpdate(dt);
     onUpdate.Fire(this, dt);
 }
 

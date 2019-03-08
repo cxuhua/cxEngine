@@ -9,17 +9,35 @@
 #ifndef cxBoxBody_h
 #define cxBoxBody_h
 
-#include <engine/cxView.h>
+#include <Box2D/Box2D.h>
+#include <engine/cxViewExt.h>
 
 CX_CPP_BEGIN
 
-class cxBoxBody : public cxView
+#define cxPoint2FToVec2(v)  b2Vec2((v).x,(v).y)
+
+class cxBoxWorld;
+class cxBoxBody : public cxViewExt
 {
 public:
     CX_DECLARE(cxBoxBody);
-protected:
+public:
+    friend cxBoxWorld;
     explicit cxBoxBody();
     virtual ~cxBoxBody();
+public:
+    void OnAttchView(cxView *pv);
+    void OnUpdate(const cxFloat &dt);
+    bool SetPosition(const cxPoint2F &v);
+    bool SetAngle(const cxFloat &v);
+    void OnLeave();
+private:
+    cxBoxWorld *world;
+    b2Body *body;
+    b2Fixture *fixture;
+public:
+    b2Fixture *GetFixture();
+    b2Body *GetBody();
 };
 
 CX_CPP_END

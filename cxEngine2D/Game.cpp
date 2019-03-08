@@ -53,7 +53,7 @@
 #include "Shader.h"
 #include <lua/src/lua.hpp>
 #include <engine/cxGesture.h>
-#include <Box2D/Box2D.h>
+#include <Box2D/cxBoxWorld.h>
 
 
 CX_CPP_BEGIN
@@ -76,6 +76,8 @@ cxMusic *m = nullptr;
 cxSprite *sp = nullptr;
 cxLabel *l = nullptr;
 
+cxBoxWorld *w = nullptr;
+
 void Game::OnDispatch(const cxTouchable *e)
 {
     cxEngine::OnDispatch(e);
@@ -88,39 +90,104 @@ void Game::OnDispatch(const cxTouchable *e)
     if(!hit.hited){
         return;
     }
-    if(m == nullptr){
+    if(w == nullptr){
         return;
     }
-    sp->SetPosition(ep->wp);
-    m->GetSource()->SetPosition(ep->wp);
-    cxFloat fv = ep->wp.Angle();
-    fv = cxRadiansToDegrees(fv) + 360;
-    fv = fmodf(fv, 360.0f);
-    l->SetText("a=%.2f",fv);
+    
+    cxFloat size = 100;
+    cxBoxBody *body = w->CreateBox(cxPoint2F(size, size), b2_dynamicBody);
+    body->GetFixture()->SetRestitution(0.5f);
+    
+    cxSprite *cp = cxSprite::Create();
+    cp->SetTexture("t.png");
+    cp->SetSize(size);
+    cp->SetPosition(ep->wp);
+    cp->SetAngle(cxDegreesToRadians(cxUtil::Instance()->Rand(0, 360)));
+    w->AppendViewExt(cp,body);
+//    
+//    cxTimer *pt =  cxTimer::Create(1, 5);
+//    pt->onArrive +=[cp](cxTimer *pav){
+//        cp->Remove();
+//    };
+//    pt->AttachTo(cp);
+
 }
 
 void Game::OnMain()
 {
     LoadTexture("t.png");
     
-    l = cxLabel::Create(cxStr::UTF8("a=0"));
-    l->SetPosition(cxPoint2F(500, 300));
-    Window()->Append(l);
+//    l = cxLabel::Create(cxStr::UTF8("a=0"));
+//    l->SetPosition(cxPoint2F(500, 300));
+//    Window()->Append(l);
     
-    cxSprite *cp = cxSprite::Create();
-    cp->SetTexture("t.png");
-    cp->SetSize(40);
-    Window()->Append(cp);
-    
-    sp = cxSprite::Create();
-    sp->SetTexture("t.png");
-    sp->SetSize(80);
-    Window()->Append(sp);
+    w = cxBoxWorld::Create();
+    w->SetResizeFlags(cxView::ResizeFill);
+    w->SetGravity(cxPoint2F(0, -10));
     
     
-    m = cxMusic::Create("finch.wav");
-    m->SetRepeat(cxAction::MAX_REPEAT);
-    Window()->Append(m);
+    {
+        cxFloat h = 50;
+        cxSize2F s = WinSize();
+        cxBoxBody *sb = w->CreateBox(cxPoint2F(s.w, h), b2_staticBody);
+        cxSprite *cp2 = cxSprite::Create();
+        cp2->SetTexture("t.png");
+        cp2->SetSize(cxSize2F(s.w, h));
+        cp2->SetPosition(cxPoint2F(0, -s.h/2));
+        w->AppendViewExt(cp2,sb);
+    }
+    
+    {
+        cxFloat h = 50;
+        cxSize2F s = WinSize();
+        cxBoxBody *sb = w->CreateBox(cxPoint2F(s.w, h), b2_staticBody);
+        cxSprite *cp2 = cxSprite::Create();
+        cp2->SetTexture("t.png");
+        cp2->SetSize(cxSize2F(s.w, h));
+        cp2->SetPosition(cxPoint2F(0, s.h/2));
+        w->AppendViewExt(cp2,sb);
+    }
+    
+    {
+        cxFloat sw = 50;
+        cxSize2F s = WinSize();
+        cxBoxBody *sb = w->CreateBox(cxPoint2F(sw, s.h), b2_staticBody);
+        cxSprite *cp2 = cxSprite::Create();
+        cp2->SetTexture("t.png");
+        cp2->SetSize(cxSize2F(sw, s.h));
+        cp2->SetPosition(cxPoint2F(-s.w/2, 0));
+        w->AppendViewExt(cp2,sb);
+    }
+    
+    {
+        cxFloat sw = 50;
+        cxSize2F s = WinSize();
+        cxBoxBody *sb = w->CreateBox(cxPoint2F(sw, s.h), b2_staticBody);
+        cxSprite *cp2 = cxSprite::Create();
+        cp2->SetTexture("t.png");
+        cp2->SetSize(cxSize2F(sw, s.h));
+        cp2->SetPosition(cxPoint2F(s.w/2, 0));
+        w->AppendViewExt(cp2,sb);
+    }
+    
+    
+    
+    
+    Window()->Append(w);
+    
+//    Window()->Append(cp);
+    
+//    cxRotateTo::Create(30, 10)->AttachTo(cp);
+//
+//    sp = cxSprite::Create();
+//    sp->SetTexture("t.png");
+//    sp->SetSize(80);
+//    Window()->Append(sp);
+//
+//
+//    m = cxMusic::Create("finch.wav");
+//    m->SetRepeat(cxAction::MAX_REPEAT);
+//    Window()->Append(m);
 //    cxGesture *v = cxGesture::Create();
 //    v->SetSize(WinSize());
 //    Window()->Append(v);

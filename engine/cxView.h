@@ -34,6 +34,7 @@
 CX_CPP_BEGIN
 
 class cxEngine;
+class cxViewExt;
 class cxView : public cxObject,public TDrawable
 {
 public:
@@ -226,14 +227,14 @@ public:
     cxView *SetAxis(const cxPoint3F &v);
     
     const cxFloat Angle() const;
-    virtual cxView *SetAngle(const cxFloat &v);
+    cxView *SetAngle(const cxFloat &v,cxBool isext=true);
     
     const cxPoint2F &Offset() const;
     cxView *SetOffset(const cxPoint2F &v);
     
     const cxPoint2F &Position() const;
     cxView *AddPosition(const cxPoint2F &v);
-    virtual cxView *SetPosition(const cxPoint2F &v);
+    cxView *SetPosition(const cxPoint2F &v,cxBool isext=true);
     cxBool SetPosition(const cxPoint2F &np,const cxPoint2F &wp,const cxFloat min=cxEqualFloat);
     cxView *SetX(cxFloat x);
     cxView *SetY(cxFloat y);
@@ -328,6 +329,10 @@ public:
     void Invoke(cxFloat delay,cxInt repeat,std::function<void(cxView *pview)>func);
 public:
     cxEvent<cxView, cxFloat> onUpdate;
+private:
+    cxViewExt *ext;
+public:
+    void SetExt(cxViewExt *v);
 };
 
 CX_CPP_END

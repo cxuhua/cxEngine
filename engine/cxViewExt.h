@@ -16,18 +16,22 @@ CX_CPP_BEGIN
 class cxViewExt : public cxObject
 {
 public:
+    friend cxView;
     CX_DECLARE(cxViewExt);
 protected:
     explicit cxViewExt();
     virtual ~cxViewExt();
-public:
+protected:
     virtual void OnLeave();
     virtual void OnAttchView(cxView *pv);
     virtual void OnUpdate(const cxFloat &dt);
+    //return true will skip position set
     virtual bool SetPosition(const cxPoint2F &v);
     virtual bool SetAngle(const cxFloat &v);
 protected:
     cxView *pview;
+public:
+    void Attach(cxView *pv);
 };
 
 CX_CPP_END

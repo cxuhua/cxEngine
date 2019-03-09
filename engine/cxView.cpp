@@ -17,11 +17,21 @@ CX_CPP_BEGIN
 
 CX_IMPLEMENT(cxView);
 
-void cxView::SetExt(cxViewExt *v)
+void cxView::SetExt(cxViewExt *ext)
 {
-    CX_ASSERT(v != nullptr, "v args null");
-    CX_SWAP(ext, v);
+    CX_ASSERT(ext != nullptr, "v args null");
+    exts->Append(ext);
     ext->OnAttchView(this);
+}
+
+cxBool cxView::HasExt()
+{
+    return !exts->IsEmpty();
+}
+
+cxViewExt *cxView::Ext(cxInt idx)
+{
+    return exts->At(idx)->To<cxViewExt>();
 }
 
 cxInt cxView::defaultSortFunc(const void *lp,const void *rp)
@@ -39,7 +49,6 @@ cxInt cxView::defaultSortFunc(const void *lp,const void *rp)
 
 cxView::cxView()
 {
-    ext = nullptr;
     idx = 0;
     sortFunc = defaultSortFunc;
     relative = RelativeNone;
@@ -72,12 +81,13 @@ cxView::cxView()
     cc = cxColor4F::WHITE;
     views = cxArray::Alloc();
     actions  = cxArray::Alloc();
+    exts = cxArray::Alloc();
     isnewadd = false;
 }
 
 cxView::~cxView()
 {
-    cxObject::release(&ext);
+    exts->Release();
     cxObject::release(&shader);
     actions->Release();
     views->Release();
@@ -305,8 +315,16 @@ cxBool cxView::SetPosition(const cxPoint2F &np,const cxPoint2F &wp,const cxFloat
 
 cxView *cxView::SetPosition(const cxPoint2F &v,cxBool isext)
 {
-    if(isext && ext != nullptr && ext->SetPosition(v)){
-        return this;
+    if(isext && HasExt()){
+        cxBool ret = false;
+        exts->Elements<cxViewExt>([&ret,v](cxViewExt *ext){
+            if(ext->SetPosition(v)){
+                ret = true;
+            }
+        });
+        if(ret){
+            return this;
+        }
     }
     if(position == v){
         return this;
@@ -439,8 +457,16 @@ const cxFloat cxView::Angle() const
 
 cxView *cxView::SetAngle(const cxFloat &v,cxBool isext)
 {
-    if(isext && ext != nullptr && ext->SetAngle(v)){
-        return this;
+    if(isext && HasExt()){
+        cxBool ret = false;
+        exts->Elements<cxViewExt>([&ret,v](cxViewExt *ext){
+            if(ext->SetAngle(v)){
+                ret = true;
+            }
+        });
+        if(ret){
+            return this;
+        }
     }
     if(!cxFloatIsOK(v)){
         return this;
@@ -705,9 +731,9 @@ void cxView::OnEnter()
 
 void cxView::OnLeave()
 {
-    if(ext != nullptr){
+    exts->Elements<cxViewExt>([](cxViewExt *ext){
         ext->OnLeave();
-    }
+    });
     onLeave.Fire(this);
 }
 
@@ -1213,7 +1239,9 @@ void cxView::Elements(std::function<void(cxView *pview)> func)
 
 void cxView::OnUpdate(cxFloat dt)
 {
-    if(ext != nullptr)ext->OnUpdate(dt);
+    exts->Elements<cxViewExt>([&dt](cxViewExt *ext){
+        ext->OnUpdate(dt);
+    });
     onUpdate.Fire(this, dt);
 }
 

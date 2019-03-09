@@ -31,7 +31,7 @@ cxBoxBody::~cxBoxBody()
 
 b2Fixture *cxBoxBody::GetFixture()
 {
-    CX_ASSERT(body != nullptr, "body not init");
+    CX_ASSERT(fixture != nullptr, "body not init");
     return fixture;
 }
 

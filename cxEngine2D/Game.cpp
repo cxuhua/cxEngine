@@ -54,6 +54,7 @@
 #include <lua/src/lua.hpp>
 #include <engine/cxGesture.h>
 #include <Box2D/cxBoxWorld.h>
+#include <uvudp/cxWorker.h>
 
 
 CX_CPP_BEGIN
@@ -95,15 +96,15 @@ void Game::OnDispatch(const cxTouchable *e)
     }
     
     cxFloat size = 100;
-    cxBoxBody *body = w->CreateBox(cxPoint2F(size, size), b2_dynamicBody);
+    cxBoxBody *body = w->CreateCircle(100, b2_dynamicBody);// w->CreateBox(cxPoint2F(size, size), b2_dynamicBody);
     body->GetFixture()->SetRestitution(1.0f);
     
     cxSprite *cp = cxSprite::Create();
-    cp->SetTexture("t.png");
+    cp->SetTexture("circle.png");
     cp->SetSize(size);
     cp->SetPosition(ep->wp);
     cp->SetAngle(cxDegreesToRadians(cxUtil::Instance()->Rand(0, 360)));
-    w->AppendViewExt(cp,body);
+    w->Append(cp,body);
 //    
 //    cxTimer *pt =  cxTimer::Create(1, 5);
 //    pt->onArrive +=[cp](cxTimer *pav){
@@ -115,7 +116,14 @@ void Game::OnDispatch(const cxTouchable *e)
 
 void Game::OnMain()
 {
+    cxWorker *udp = cxWorker::Create();
+    udp->SetID(10010);
+    udp->Connect(100, "192.168.31.198", 9010);
+    udp->Init();
+    Window()->SetExt(udp);
+    
     LoadTexture("t.png");
+    LoadTexture("circle.png");
     
 //    l = cxLabel::Create(cxStr::UTF8("a=0"));
 //    l->SetPosition(cxPoint2F(500, 300));
@@ -125,7 +133,6 @@ void Game::OnMain()
     w->SetResizeFlags(cxView::ResizeFill);
     w->SetGravity(cxPoint2F(0, -10));
     
-    
     {
         cxFloat h = 50;
         cxSize2F s = WinSize();
@@ -134,7 +141,7 @@ void Game::OnMain()
         cp2->SetTexture("t.png");
         cp2->SetSize(cxSize2F(s.w, h));
         cp2->SetPosition(cxPoint2F(0, -s.h/2));
-        w->AppendViewExt(cp2,sb);
+        w->Append(cp2,sb);
     }
     
     {
@@ -145,7 +152,7 @@ void Game::OnMain()
         cp2->SetTexture("t.png");
         cp2->SetSize(cxSize2F(s.w, h));
         cp2->SetPosition(cxPoint2F(0, s.h/2));
-        w->AppendViewExt(cp2,sb);
+        w->Append(cp2,sb);
     }
     
     {
@@ -156,7 +163,7 @@ void Game::OnMain()
         cp2->SetTexture("t.png");
         cp2->SetSize(cxSize2F(sw, s.h));
         cp2->SetPosition(cxPoint2F(-s.w/2, 0));
-        w->AppendViewExt(cp2,sb);
+        w->Append(cp2,sb);
     }
     
     {
@@ -167,7 +174,7 @@ void Game::OnMain()
         cp2->SetTexture("t.png");
         cp2->SetSize(cxSize2F(sw, s.h));
         cp2->SetPosition(cxPoint2F(s.w/2, 0));
-        w->AppendViewExt(cp2,sb);
+        w->Append(cp2,sb);
     }
     
     

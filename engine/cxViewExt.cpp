@@ -27,6 +27,12 @@ void cxViewExt::OnAttchView(cxView *pv)
     pview = pv;
 }
 
+void cxViewExt::Attach(cxView *pv)
+{
+    CX_ASSERT(pv != nullptr, "pv args error");
+    pv->SetExt(this);
+}
+
 void cxViewExt::OnUpdate(const cxFloat &dt)
 {
     

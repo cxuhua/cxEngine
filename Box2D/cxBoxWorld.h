@@ -29,12 +29,15 @@ protected:
     void OnUpdate(cxFloat dt);
 public:
     b2World *GetWorld();
-    void AppendViewExt(cxView *pv,cxViewExt *ext);
+    void Append(cxView *pv,cxViewExt *ext);
     void SetGravity(const cxPoint2F &v);
     cxBoxBody *CreateBox(const cxPoint2F &v,b2BodyType type);
+    cxBoxBody *CreateCircle(const cxFloat &r,b2BodyType type);
 public:
     cxPoint2F ToPixel(const b2Vec2 &v);
     b2Vec2 ToMeters(const cxPoint2F &v);
+    cxFloat ToPixel(const cxFloat &v);
+    cxFloat ToMeters(const cxFloat &v);
 };
 
 CX_CPP_END

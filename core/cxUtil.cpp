@@ -31,6 +31,12 @@ cxengine::cxUtil *cxengine::cxUtil::Instance()
 {
     return cxCore::One<cxMACUtil>(&instance);
 }
+#elif CX_TARGET_PLATFORM == CX_PLATFORM_LINUX
+#include <linux/cxLinuxUtil.h>
+cxengine::cxUtil *cxengine::cxUtil::Instance()
+{
+    return cxCore::One<cxLinuxUtil>(&instance);
+}
 #else
 cxengine::cxUtil *cxengine::cxUtil::Instance()
 {
@@ -110,7 +116,7 @@ cxInt64 cxUtil::ValidFile(cchars file,cchars md5)
     mongo_md5_init(&state);
     char buf[4096]={0};
     while (fd != NULL) {
-        int ret = fread(buf, 1, 4096, fd);
+        int ret = (int)fread(buf, 1, 4096, fd);
         if(ret <= 0){
             break;
         }

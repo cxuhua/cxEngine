@@ -39,7 +39,7 @@ cxInt cxKDTree::Nearst(const cxPoint2F &cp,cxFloat max)
         kd_res_next( set );
     }
     kd_res_free(set);
-    return nodes.size();
+    return (cxInt)nodes.size();
 }
 
 cxKDTree *cxKDTree::Clear()

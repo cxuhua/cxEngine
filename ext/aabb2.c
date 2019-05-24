@@ -172,7 +172,6 @@ kmVec2* kmAABB2Centre(const kmAABB2* aabb, kmVec2* pOut) {
  * @param pOut - The resulting AABB
  * @param pIn - The original AABB
  * @param other - Another AABB that you want pIn expanded to contain
- * @return
  */
 kmAABB2* kmAABB2ExpandToContain(kmAABB2* pOut, const kmAABB2* pIn, const kmAABB2* other) {
     kmAABB2 result;

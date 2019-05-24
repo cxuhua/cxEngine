@@ -239,7 +239,7 @@ bool hasUTF16ByteOrderMark(const char* SrcBytes, size_t len);
 /**
  * Converts a stream of raw bytes assumed to be UTF16 into a UTF8 std::string.
  *
- * \param [in] SrcBytes A buffer of what is assumed to be UTF-16 encoded text.
+ * \param [in] utf16 A buffer of what is assumed to be UTF-16 encoded text.
  * \param [out] Out Converted UTF-8 is stored here on success.
  * \returns true on success
  */

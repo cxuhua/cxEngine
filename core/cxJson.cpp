@@ -644,7 +644,7 @@ cxBool cxJson::ToBool() const
 cxInt cxJson::ToInt() const
 {
     if(json_is_integer(json)){
-        return json_integer_value(json);
+        return (cxInt)json_integer_value(json);
     }
     if(json_is_real(json)){
         return json_real_value(json);
@@ -653,7 +653,7 @@ cxInt cxJson::ToInt() const
         return json_is_true(json)?1:0;
     }
     if(json_is_string(json)){
-        return atoll(json_string_value(json));
+        return (cxInt)atoll(json_string_value(json));
     }
     return 0;
 }

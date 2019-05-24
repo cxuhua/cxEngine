@@ -40,12 +40,14 @@
         #define CX_TARGET_PLATFORM      CX_PLATFORM_IOS
         #define IOS_SIMULATOR           0
     #elif TARGET_OS_MAC
-        #define CX_TARGET_PLATFORM      CX_PLATFORM_OSX
+        #define CX_TARGET_PLATFORM      CX_PLATFORM_MAC
     #else
         #error "Unknown Apple platform"
     #endif
 #elif __ANDROID__
     #define CX_TARGET_PLATFORM          CX_PLATFORM_ANDROID
+#elif __linux__
+    #define CX_TARGET_PLATFORM          CX_PLATFORM_LINUX
 #else
     #error "Unknown platform"
 #endif

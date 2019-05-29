@@ -19,25 +19,16 @@
  * IN THE SOFTWARE.
  */
 
-#ifndef UV_VERSION_H
-#define UV_VERSION_H
+#ifndef UV_BSD_H
+#define UV_BSD_H
 
- /*
- * Versions with the same major number are ABI stable. API is allowed to
- * evolve between minor releases, but only in a backwards compatible way.
- * Make sure you update the -soname directives in configure.ac
- * and uv.gyp whenever you bump UV_VERSION_MAJOR or UV_VERSION_MINOR (but
- * not UV_VERSION_PATCH.)
- */
+#define UV_PLATFORM_FS_EVENT_FIELDS                                           \
+  uv__io_t event_watcher;                                                     \
 
-#define UV_VERSION_MAJOR 1
-#define UV_VERSION_MINOR 29
-#define UV_VERSION_PATCH 1
-#define UV_VERSION_IS_RELEASE 1
-#define UV_VERSION_SUFFIX ""
+#define UV_IO_PRIVATE_PLATFORM_FIELDS                                         \
+  int rcount;                                                                 \
+  int wcount;                                                                 \
 
-#define UV_VERSION_HEX  ((UV_VERSION_MAJOR << 16) | \
-                         (UV_VERSION_MINOR <<  8) | \
-                         (UV_VERSION_PATCH))
+#define UV_HAVE_KQUEUE 1
 
-#endif /* UV_VERSION_H */
+#endif /* UV_BSD_H */

@@ -9,7 +9,7 @@
 #ifndef cxEngineCore_cxTcp_h
 #define cxEngineCore_cxTcp_h
 
-#include <uv/uv.h>
+#include <uv.h>
 #include <core/cxStr.h>
 #include "cxAction.h"
 

@@ -19,25 +19,26 @@
  * IN THE SOFTWARE.
  */
 
-#ifndef UV_VERSION_H
-#define UV_VERSION_H
+#ifndef UV_SUNOS_H
+#define UV_SUNOS_H
 
- /*
- * Versions with the same major number are ABI stable. API is allowed to
- * evolve between minor releases, but only in a backwards compatible way.
- * Make sure you update the -soname directives in configure.ac
- * and uv.gyp whenever you bump UV_VERSION_MAJOR or UV_VERSION_MINOR (but
- * not UV_VERSION_PATCH.)
+#include <sys/port.h>
+#include <port.h>
+
+/* For the sake of convenience and reduced #ifdef-ery in src/unix/sunos.c,
+ * add the fs_event fields even when this version of SunOS doesn't support
+ * file watching.
  */
+#define UV_PLATFORM_LOOP_FIELDS                                               \
+  uv__io_t fs_event_watcher;                                                  \
+  int fs_fd;                                                                  \
 
-#define UV_VERSION_MAJOR 1
-#define UV_VERSION_MINOR 29
-#define UV_VERSION_PATCH 1
-#define UV_VERSION_IS_RELEASE 1
-#define UV_VERSION_SUFFIX ""
+#if defined(PORT_SOURCE_FILE)
 
-#define UV_VERSION_HEX  ((UV_VERSION_MAJOR << 16) | \
-                         (UV_VERSION_MINOR <<  8) | \
-                         (UV_VERSION_PATCH))
+# define UV_PLATFORM_FS_EVENT_FIELDS                                          \
+  file_obj_t fo;                                                              \
+  int fd;                                                                     \
 
-#endif /* UV_VERSION_H */
+#endif /* defined(PORT_SOURCE_FILE) */
+
+#endif /* UV_SUNOS_H */

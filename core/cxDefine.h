@@ -77,7 +77,7 @@
 #include <sys/types.h>
 #include <stddef.h>
 #include <ctype.h>
-#include <uv/uv.h>
+#include <uv.h>
 
 typedef void *          cxAny;
 typedef const char *    cchars;

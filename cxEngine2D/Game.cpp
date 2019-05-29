@@ -117,9 +117,9 @@ void Game::OnDispatch(const cxTouchable *e)
 void Game::OnMain()
 {
     cxWorker *udp = cxWorker::Create();
-    udp->SetID(10010);
-    udp->Connect(100, "192.168.31.198", 9010);
-    udp->Init();
+    udp->SetWorkerID(10010);
+    NetAddr *addr = udp->NewNetAddr(100, "192.168.31.198", 9010);
+    udp->Connect(addr);
     Window()->SetExt(udp);
     
     LoadTexture("t.png");

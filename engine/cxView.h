@@ -324,9 +324,9 @@ public:
     cxView *RemoveSubviews();
     cxView *Remove();
 public:
-    void Invoke(std::function<void(cxView *pview)>func);
-    void Invoke(cxFloat delay,std::function<void(cxView *pview)>func);
-    void Invoke(cxFloat delay,cxInt repeat,std::function<void(cxView *pview)>func);
+    cxAction *Invoke(std::function<void(cxView *pview)>func);
+    cxAction *Invoke(cxFloat delay,std::function<void(cxView *pview)>func);
+    cxAction *Invoke(cxFloat delay,cxInt repeat,std::function<void(cxView *pview)>func);
 public:
     cxEvent<cxView, cxFloat> onUpdate;
 private:

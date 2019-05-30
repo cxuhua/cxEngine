@@ -293,11 +293,17 @@ cxBool cxAction::IsPause() const
 
 cxBool cxAction::Update(cxFloat dt)
 {
+    if(isexit){
+        goto exit;
+    }
     if(ispause){
         return false;
     }
     if(actions->Size() > 0){
         runActions(dt);
+    }
+    if(isexit){
+        goto exit;
     }
     dt *= Speed();
     if(delayvar > 0){

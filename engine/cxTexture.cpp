@@ -422,9 +422,7 @@ cxTexture *cxTexture::parseFrames(const cxStr *data)
         success = false;
         return this;
     }
-    for(cxJson::Iter it=frames->Begin();it != frames->End();it++){
-        cxJson *item = it.Alloc();
-        
+    frames->Elements([this](const cxJson *item){
         cxTexCoord *coord = cxTexCoord::Alloc();
         cchars key = item->Get("filename", nullptr);
         CX_ASSERT(key != nullptr, "filename node miss");
@@ -438,9 +436,7 @@ cxTexture *cxTexture::parseFrames(const cxStr *data)
         coord->ParseTriangles(item);
         coords->Set(key, coord);
         coord->Release();
-        
-        item->Release();
-    }
+    });
     return this;
 }
 

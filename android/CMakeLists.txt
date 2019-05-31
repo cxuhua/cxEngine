@@ -23,9 +23,6 @@ set_target_properties(png PROPERTIES IMPORTED_LOCATION ${LIBS_DIR}/libpng.a)
 add_library(openal STATIC IMPORTED)
 set_target_properties(openal PROPERTIES IMPORTED_LOCATION ${LIBS_DIR}/libopenal.a)
 
-add_library(ck STATIC IMPORTED)
-set_target_properties(ck PROPERTIES IMPORTED_LOCATION ${LIBS_DIR}/libck.a)
-
 
 add_library( # Sets the name of the library.
             cxengine
@@ -81,46 +78,6 @@ add_library( # Sets the name of the library.
             ${CX_ENGINE_PATH}/ext/xxhash.c
             ${CX_ENGINE_PATH}/ext/xxtea.c
 
-            ${CX_ENGINE_PATH}/lua/src/lapi.c
-            ${CX_ENGINE_PATH}/lua/src/lauxlib.c
-            ${CX_ENGINE_PATH}/lua/src/lbaselib.c
-            ${CX_ENGINE_PATH}/lua/src/lbitlib.c
-            ${CX_ENGINE_PATH}/lua/src/lcode.c
-            ${CX_ENGINE_PATH}/lua/src/lcorolib.c
-            ${CX_ENGINE_PATH}/lua/src/lctype.c
-            ${CX_ENGINE_PATH}/lua/src/ldblib.c
-            ${CX_ENGINE_PATH}/lua/src/ldebug.c
-            ${CX_ENGINE_PATH}/lua/src/ldo.c
-            ${CX_ENGINE_PATH}/lua/src/ldump.c
-            ${CX_ENGINE_PATH}/lua/src/lfunc.c
-            ${CX_ENGINE_PATH}/lua/src/lgc.c
-            ${CX_ENGINE_PATH}/lua/src/linit.c
-            ${CX_ENGINE_PATH}/lua/src/liolib.c
-            ${CX_ENGINE_PATH}/lua/src/llex.c
-            ${CX_ENGINE_PATH}/lua/src/lmathlib.c
-            ${CX_ENGINE_PATH}/lua/src/lmem.c
-            ${CX_ENGINE_PATH}/lua/src/loadlib.c
-            ${CX_ENGINE_PATH}/lua/src/lobject.c
-            ${CX_ENGINE_PATH}/lua/src/lopcodes.c
-            ${CX_ENGINE_PATH}/lua/src/loslib.c
-            ${CX_ENGINE_PATH}/lua/src/lparser.c
-            ${CX_ENGINE_PATH}/lua/src/lstate.c
-            ${CX_ENGINE_PATH}/lua/src/lstring.c
-            ${CX_ENGINE_PATH}/lua/src/lstrlib.c
-            ${CX_ENGINE_PATH}/lua/src/ltable.c
-            ${CX_ENGINE_PATH}/lua/src/ltablib.c
-            ${CX_ENGINE_PATH}/lua/src/ltm.c
-            ${CX_ENGINE_PATH}/lua/src/lua.c
-            ${CX_ENGINE_PATH}/lua/src/luac.c
-            ${CX_ENGINE_PATH}/lua/src/lundump.c
-            ${CX_ENGINE_PATH}/lua/src/lutf8lib.c
-            ${CX_ENGINE_PATH}/lua/src/lvm.c
-            ${CX_ENGINE_PATH}/lua/src/lzio.c
-
-            ${CX_ENGINE_PATH}/lua/cjson/strbuf.c
-            ${CX_ENGINE_PATH}/lua/cjson/lua_cjson.c
-            ${CX_ENGINE_PATH}/lua/cjson/fpconv.c
-
             ${CX_ENGINE_PATH}/core/cxArray.cpp
             ${CX_ENGINE_PATH}/core/cxAutoPool.cpp
             ${CX_ENGINE_PATH}/core/cxCore.cpp
@@ -140,7 +97,6 @@ add_library( # Sets the name of the library.
             ${CX_ENGINE_PATH}/core/cxStr.cpp
             ${CX_ENGINE_PATH}/core/cxSync.cpp
             ${CX_ENGINE_PATH}/core/cxUtil.cpp
-            ${CX_ENGINE_PATH}/core/cxScript.cpp
 
             ${CX_ENGINE_PATH}/math/cxBox4F.cpp
             ${CX_ENGINE_PATH}/math/cxBoxColor4F.cpp
@@ -225,7 +181,6 @@ target_link_libraries( # Specifies the target library.
                        cxengine
                        uv
                        png
-                       ck
                        openal
                        log
                        GLESv2

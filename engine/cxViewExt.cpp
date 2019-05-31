@@ -43,6 +43,11 @@ void cxViewExt::OnLeave()
     
 }
 
+void cxViewExt::OnEnter()
+{
+    
+}
+
 //return true view will skip setangle
 bool cxViewExt::SetAngle(const cxFloat &v)
 {

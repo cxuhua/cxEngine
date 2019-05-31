@@ -316,15 +316,11 @@ cxBool cxView::SetPosition(const cxPoint2F &np,const cxPoint2F &wp,const cxFloat
 cxView *cxView::SetPosition(const cxPoint2F &v,cxBool isext)
 {
     if(isext && HasExt()){
-        cxBool ret = false;
-        exts->Elements<cxViewExt>([&ret,v](cxViewExt *ext){
-            if(ext->SetPosition(v)){
-                ret = true;
-            }
+        cxBool skip = false;
+        exts->Elements<cxViewExt>([&skip,v](cxViewExt *pve){
+            if(pve->SetPosition(v))skip = true;
         });
-        if(ret){
-            return this;
-        }
+        if(skip)return this;
     }
     if(position == v){
         return this;
@@ -458,15 +454,11 @@ const cxFloat cxView::Angle() const
 cxView *cxView::SetAngle(const cxFloat &v,cxBool isext)
 {
     if(isext && HasExt()){
-        cxBool ret = false;
-        exts->Elements<cxViewExt>([&ret,v](cxViewExt *ext){
-            if(ext->SetAngle(v)){
-                ret = true;
-            }
+        cxBool skip = false;
+        exts->Elements<cxViewExt>([&skip, v](cxViewExt *pve){
+            if(pve->SetAngle(v))skip = true;
         });
-        if(ret){
-            return this;
-        }
+        if(skip)return this;
     }
     if(!cxFloatIsOK(v)){
         return this;
@@ -726,13 +718,16 @@ cxView *cxView::SetFrame(cxFloat x,cxFloat y,cxFloat w,cxFloat h)
 
 void cxView::OnEnter()
 {
+    exts->Elements<cxViewExt>([](cxViewExt *pve){
+        pve->OnEnter();
+    });
     onEnter.Fire(this);
 }
 
 void cxView::OnLeave()
 {
-    exts->Elements<cxViewExt>([](cxViewExt *ext){
-        ext->OnLeave();
+    exts->Elements<cxViewExt>([](cxViewExt *pve){
+        pve->OnLeave();
     });
     onLeave.Fire(this);
 }
@@ -1239,8 +1234,8 @@ void cxView::Elements(std::function<void(cxView *pview)> func)
 
 void cxView::OnUpdate(cxFloat dt)
 {
-    exts->Elements<cxViewExt>([&dt](cxViewExt *ext){
-        ext->OnUpdate(dt);
+    exts->Elements<cxViewExt>([&dt](cxViewExt *pve){
+        pve->OnUpdate(dt);
     });
     onUpdate.Fire(this, dt);
 }

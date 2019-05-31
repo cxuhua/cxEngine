@@ -23,6 +23,7 @@ protected:
     virtual ~cxViewExt();
 protected:
     virtual void OnLeave();
+    virtual void OnEnter();
     virtual void OnAttchView(cxView *pv);
     virtual void OnUpdate(const cxFloat &dt);
     //return true will skip position set

@@ -116,18 +116,18 @@ km_mat4_stack_context *lazyInitializeCurrentContext()
 
 void kmGLMatrixMode(kmGLEnum mode)
 {
-	km_mat4_stack_context *current_context = lazyInitializeCurrentContext();
+	km_mat4_stack_context *ctx = lazyInitializeCurrentContext();
 
 	switch(mode)
 	{
 		case KM_GL_MODELVIEW:
-			current_context->current_stack = &current_context->modelview_matrix_stack;
+			ctx->current_stack = &ctx->modelview_matrix_stack;
 		break;
 		case KM_GL_PROJECTION:
-			current_context->current_stack = &current_context->projection_matrix_stack;
+			ctx->current_stack = &ctx->projection_matrix_stack;
 		break;
 		case KM_GL_TEXTURE:
-			current_context->current_stack = &current_context->texture_matrix_stack;
+			ctx->current_stack = &ctx->texture_matrix_stack;
 		break;
 		default:
 			assert(0 && "Invalid matrix mode specified"); /*TODO: Proper error handling*/
@@ -139,11 +139,11 @@ void kmGLPushMatrix(void)
 {
 	kmMat4 top;
 
-	km_mat4_stack_context *current_context = lazyInitializeCurrentContext();
+	km_mat4_stack_context *ctx = lazyInitializeCurrentContext();
 
 	/*Duplicate the top of the stack (i.e the current matrix)	*/
-	kmMat4Assign(&top, current_context->current_stack->top);
-	km_mat4_stack_push(current_context->current_stack, &top);
+	kmMat4Assign(&top, ctx->current_stack->top);
+	km_mat4_stack_push(ctx->current_stack, &top);
 }
 
 void kmGLPopMatrix(void)
@@ -155,36 +155,36 @@ void kmGLPopMatrix(void)
 
 void kmGLLoadIdentity()
 {
-	km_mat4_stack_context *current_context = lazyInitializeCurrentContext();
-	kmMat4Identity(current_context->current_stack->top); /*Replace the top matrix with the identity matrix*/
+	km_mat4_stack_context *ctx = lazyInitializeCurrentContext();
+	kmMat4Identity(ctx->current_stack->top); /*Replace the top matrix with the identity matrix*/
 }
 
 void kmGLMultMatrix(const kmMat4* pIn)
 {
-	km_mat4_stack_context *current_context = lazyInitializeCurrentContext();
-	kmMat4Multiply(current_context->current_stack->top, current_context->current_stack->top, pIn);
+	km_mat4_stack_context *ctx = lazyInitializeCurrentContext();
+	kmMat4Multiply(ctx->current_stack->top, current_context->current_stack->top, pIn);
 }
 
 void kmGLLoadMatrix(const kmMat4* pIn)
 {
-	km_mat4_stack_context *current_context = lazyInitializeCurrentContext();
-	kmMat4Assign(current_context->current_stack->top, pIn);
+	km_mat4_stack_context *ctx = lazyInitializeCurrentContext();
+	kmMat4Assign(ctx->current_stack->top, pIn);
 }
 
 void kmGLGetMatrix(kmGLEnum mode, kmMat4* pOut)
 {
-	km_mat4_stack_context *current_context = lazyInitializeCurrentContext();
+	km_mat4_stack_context *ctx = lazyInitializeCurrentContext();
 
 	switch(mode)
 	{
 		case KM_GL_MODELVIEW:
-			kmMat4Assign(pOut, current_context->modelview_matrix_stack.top);
+			kmMat4Assign(pOut, ctx->modelview_matrix_stack.top);
 		break;
 		case KM_GL_PROJECTION:
-			kmMat4Assign(pOut, current_context->projection_matrix_stack.top);
+			kmMat4Assign(pOut, ctx->projection_matrix_stack.top);
 		break;
 		case KM_GL_TEXTURE:
-			kmMat4Assign(pOut, current_context->texture_matrix_stack.top);
+			kmMat4Assign(pOut, ctx->texture_matrix_stack.top);
 		break;
 		default:
 			assert(1 && "Invalid matrix mode specified"); /*TODO: Proper error handling*/

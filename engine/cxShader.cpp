@@ -39,11 +39,6 @@ void cxShader::SetUColor(const cxColor4F &v)
     SetUniform(ucolor, v);
 }
 
-void cxShader::SetModelView(const cxMatrixF &value) const
-{
-    SetUniform(umv, value);
-}
-
 void cxShader::Using(cxView *pview) const
 {
     cxOpenGL *gl = cxOpenGL::Instance();
@@ -57,7 +52,6 @@ cxShader::cxShader()
     vsh = 0;
     fsh = 0;
     ump = 0;
-    umv = 0;
 }
 
 cxShader::~cxShader()
@@ -97,7 +91,6 @@ void cxColorShader::Using(cxView *pview) const
     cxOpenGL *gl = cxOpenGL::Instance();
     gl->UseProgram(program);
     SetModelProject(gl->ModelProject());
-    SetModelView(gl->ModelView());
 }
 
 cxBool cxColorShader::InitAttrib()

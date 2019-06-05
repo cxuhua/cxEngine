@@ -470,10 +470,10 @@ cxStr *cxAndroid::DocumentPath(cchars file)
 cxStr *cxAndroid::ExtPath(cchars file)
 {
     JNIMethodInfo m = JNIMethod("ExtPath","()Ljava/lang/String;");
-    jstring uuid = (jstring)m.CallObjectMethod(this);
-    cxStr *ret = TocxStr(uuid);
+    jstring path = (jstring)m.CallObjectMethod(this);
+    cxStr *ret = TocxStr(path);
     ret->AppFmt("/%s",file);
-    env->DeleteLocalRef(uuid);
+    env->DeleteLocalRef(path);
     return ret;
 }
 

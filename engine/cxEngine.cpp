@@ -144,6 +144,7 @@ cxEngine::~cxEngine()
     configs->Release();
     render->Release();
     window->Release();
+    CX_LOGGER("cxEngine Release");
 }
 
 void cxEngine::SetWindow(cxWindow *win)

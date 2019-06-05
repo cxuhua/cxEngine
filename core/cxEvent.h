@@ -67,9 +67,9 @@ public:
     }
     void Fire(T *sender,A...args)
     {
-        if(IsEmpty())return;
-        typename Events::iterator it = es.begin();
-        while(it!=es.end()){(*it)(sender,args...);it++;}
+        for(auto v : es){
+            v(sender, args...);
+        }
     }
 };
 

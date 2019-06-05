@@ -1094,12 +1094,12 @@ void cxView::Render(cxRender *render,const cxMatrixF &mv)
     }
     //start render
     OnRender(render, modelview);
-    if(isclear){
+    if(isclear && !views->IsEmpty()){
         clearViews();
         isclear = false;
     }
-    if(issort){
-        //subviews->Sort(cxView::sortFunc);
+    if(issort && !views->IsEmpty()){
+        views->Sort(cxView::sortFunc);
         issort = false;
     }
     if(!views->IsEmpty()){

@@ -27,7 +27,6 @@ enum {
 #define CX_ATTR_POSITION    "aPosition"
 #define CX_ATTR_TEXCOORD    "aTexcoord"
 #define CX_UNIFORM_UMP      "uMP"
-#define CX_UNIFORM_UMV      "uMV"
 #define CX_UNIFORM_COLOR    "uColor"
 
 class cxStr;

@@ -541,10 +541,6 @@ void cxAndroid::cxAndroidPreExec(cxAndroid *app, int8_t cmd)
             app->mutex.Unlock();
             break;
         }
-        case APP_CMD_TERM_WINDOW:{
-            app->cond.Broadcast();
-            break;
-        }
         case APP_CMD_RESUME:
         case APP_CMD_START:
         case APP_CMD_PAUSE:

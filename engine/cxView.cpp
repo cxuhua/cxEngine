@@ -1240,23 +1240,23 @@ void cxView::OnUpdate(cxFloat dt)
     onUpdate.Fire(this, dt);
 }
 
-cxAction *cxView::Invoke(std::function<void(cxView *pview)>func)
+cxAction *cxView::Invoke(ICB cb)
 {
-    return Invoke(0.001f, 1, func);
+    return Invoke(1.0f/60.0f, 1, cb);
 }
 
-cxAction *cxView::Invoke(cxFloat delay,std::function<void(cxView *pview)>func)
+cxAction *cxView::Invoke(cxFloat delay,ICB cb)
 {
-    return Invoke(delay, 1, func);
+    return Invoke(delay, 1, cb);
 }
 
-cxAction *cxView::Invoke(cxFloat delay,cxInt repeat,std::function<void(cxView *pview)>func)
+cxAction *cxView::Invoke(cxFloat delay,cxInt repeat,ICB cb)
 {
     CX_ASSERT(delay > 0 , "delay args error");
     cxAction *dact = cxAction::Create();
     dact->SetTime(delay);
     dact->SetRepeat(repeat);
-    dact->onStop+=[this,func](cxAction *pav){func(this);};
+    dact->onStop+=[cb](cxAction *pav){cb(pav);};
     return dact->AttachTo(this);
 }
 

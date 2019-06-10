@@ -57,10 +57,8 @@ attribute highp vec3 aPosition;
 attribute mediump vec4 aColor;
 varying mediump vec4 vColor;
 uniform highp mat4 uMP;
-uniform highp mat4 uMV;
 void main() {
-    mat4 mvp = uMP * uMV;
-    gl_Position = mvp * vec4(aPosition,1.0);
+    gl_Position = uMP * vec4(aPosition,1.0);
     vColor = aColor;
 });
 static cchars ColorFSH = STRINGIFY(

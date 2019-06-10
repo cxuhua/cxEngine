@@ -100,6 +100,7 @@ void Game::OnDispatch(const cxTouchable *e)
     body->GetFixture()->SetRestitution(1.0f);
     
     cxSprite *cp = cxSprite::Create();
+    cp->SetEnableDir(true);
     cp->SetTexture("circle.png");
     cp->SetSize(size);
     cp->SetPosition(ep->wp);

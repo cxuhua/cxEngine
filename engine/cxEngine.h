@@ -22,7 +22,6 @@
 #include "cxFrames.h"
 #include "cxActionGroup.h"
 
-
 CX_CPP_BEGIN
 
 class cxAsyncEvent
@@ -92,61 +91,49 @@ private:
 public:
     // 加载语言文件
     void LoadLocalized(cchars file);
-    
     // 加载纹理文件
     cxTexture *LoadTexture(cchars file,cchars key=nullptr);
-    
+    //加载多个纹理,必须以NULL结尾表示结束，请使用LoadTextures宏
+#define LoadTextures(f,...) __LoadTextures__(f, ##__VA_ARGS__,NULL)
+    void __LoadTextures__(cchars file,...);
     // 加载帧序列
     void LoadFrames(cchars csv);
     const cxFrames *GetFrames(cchars name,cxInt level=1);
-    
     // 加载动作序列
     void LoadActions(cchars csv);
     const cxActionGroup *GetActions(cchars fmt,...);
 public:
-    
     // 设置底层窗口
     void SetWindow(cxWindow *win);
-    
     // 推送一个事件
     void PushEvent(cxLong key);
     void PushEvent(cxLong key,const cxStr *data);
     void PushEvent(cxLong key,cchars data,cxInt length);
-    
     // 是否响应屏幕
     void SetIsTouch(cxBool v);
     cxBool IsTouch() const;
-    
     // 加载配置文件
     void LoadConfig(cchars file);
     const cxStr *Config(cchars key) const;
-    
     // 等屏幕比例缩放
     cxPoint2F FixScaleW();
     cxPoint2F FixScaleH();
-    
     // 设计图大小
     cxFloat PlanWidth();
     cxFloat PlanHeight();
     const cxSize2F PlanSize();
-    
     // 从启动开始流逝的时间
     const cxFloat Time() const;
-    
+    //
     static void Destroy();
     static cxEngine *Instance();
     static void Startup(cxBool layout);
-    
     //need platform imp
     const cxStr *TextImage(const cxStr *txt,const cxTextAttr &attr,cxSize2F &size);
     void Exit();
-    
     void Reset();
-    
     virtual void OpenURL(cxInt type,const cxStr *txt);
-
     cxWindow *Window() const;
-    
     // 帧率和每帧时间
     cxInt FPS() const;
     cxFloat Delta() const;

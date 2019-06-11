@@ -163,6 +163,18 @@ void cxEngine::LoadLocalized(cchars file)
     cxLocalized::Load(file);
 }
 
+void cxEngine::__LoadTextures__(cchars file,...)
+{
+    va_list ap;
+    va_start(ap,file);
+    cchars fk = file;
+    while(fk != NULL){
+        LoadTexture(fk, NULL);
+        fk = va_arg(ap,cchars);
+    }
+    va_end(ap);
+}
+
 cxTexture *cxEngine::LoadTexture(cchars file,cchars key)
 {
     if(key == nullptr){

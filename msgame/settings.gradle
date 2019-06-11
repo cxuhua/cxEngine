@@ -1,0 +1,2 @@
+include ':app',':android'
+project(':android').projectDir = new File("../android")

@@ -107,6 +107,8 @@ public:
     void SetWindow(cxWindow *win);
     // 推送一个事件
     void PushEvent(cxLong key);
+    void PushEvent(cxLong key,cxLong data);
+    void PushEvent(cxLong key,cxDouble data);
     void PushEvent(cxLong key,const cxStr *data);
     void PushEvent(cxLong key,cchars data,cxInt length);
     // 是否响应屏幕

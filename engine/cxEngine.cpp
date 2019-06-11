@@ -45,20 +45,20 @@ cchars cxAsyncEvent::Data()
 
 cxLong cxAsyncEvent::ToLong()
 {
-    cchars str = Data();
-    if(str == nullptr){
+    cxLong *ptr = (cxLong *)Data();
+    if(ptr == nullptr){
         return 0;
     }
-    return atoll(str);
+    return *ptr;
 }
 
 cxDouble cxAsyncEvent::ToDouble()
 {
-    cchars str = Data();
-    if(str == nullptr){
+    cxDouble *ptr = (cxDouble *)Data();
+    if(ptr == nullptr){
         return 0;
     }
-    return atof(str);
+    return *ptr;
 }
 
 const cxJson *cxAsyncEvent::Json()
@@ -338,6 +338,16 @@ void cxEngine::runEvents()
         events.pop();
     }
     mutex.WUnlock();
+}
+
+void cxEngine::PushEvent(cxLong key,cxLong data)
+{
+    PushEvent(key, (cchars)&data, sizeof(cxLong));
+}
+
+void cxEngine::PushEvent(cxLong key,cxDouble data)
+{
+    PushEvent(key, (cchars)&data, sizeof(cxDouble));
 }
 
 void cxEngine::PushEvent(cxLong key)

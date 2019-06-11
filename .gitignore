@@ -1,5 +1,5 @@
 .DS_Store
-android/android.iml
+android/*.iml
 *.o
 *.so
 .externalNativeBuild

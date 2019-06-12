@@ -35,25 +35,14 @@ public class EngineActivity extends NativeActivity {
 		System.loadLibrary("cxengine");
 	}
 
-	//当申请到权限时
-    @Override
-    public void onRequestPermissionsResult(int code, String permissions[], @NonNull int[] grant) {
-        Log.d(EngineActivity.class.getName(),"onRequestPermissionsResult code="+code + " permissions=" + permissions+" grant="+grant);
-    }
-
-	//动态申请权限
-	private void requestPermissions(){
-        int hasw = ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(hasw == PackageManager.PERMISSION_GRANTED){
-            return;
-        }
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.REQUEST_INSTALL_PACKAGES}, 10000);
+    //返回需要申请的权限
+    protected String[] needPermissions(){
+	    return new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.REQUEST_INSTALL_PACKAGES};
     }
 
 	@Override
 	protected void onCreate(Bundle state) {
 		super.onCreate(state);
-        requestPermissions();
 	}
 
 	//推送消息到gl线程

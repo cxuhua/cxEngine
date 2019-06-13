@@ -49,15 +49,15 @@ cxAction::~cxAction()
 
 cxBool cxAction::HasAction(cxActionId aid) const
 {
-    cxArray::FIter it = actions->FBegin();
-    while(it != actions->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid && !action->IsExit()){
+    cxBool has = false;
+    actions->Elements<cxAction>([&aid,&has](cxAction *pav) -> cxBool{
+        if(pav->ID() == aid && !pav->IsExit()){
+            has = true;
             return true;
         }
-        it++;
-    }
-    return false;
+        return false;
+    });
+    return has;
 }
 
 cxInt cxAction::ActionSize() const
@@ -67,40 +67,36 @@ cxInt cxAction::ActionSize() const
 
 cxAction *cxAction::GetAction(cxActionId aid)
 {
-    cxArray::FIter it = actions->FBegin();
-    while(it != actions->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid){
-            return action;
+    cxAction *ptr = nullptr;
+    actions->Elements<cxAction>([&aid,&ptr](cxAction *pav) -> cxBool{
+        if(pav->ID() == aid && !pav->IsExit()){
+            ptr = pav;
+            return true;
         }
-        it++;
-    }
-    return nullptr;
+        return false;
+    });
+    return ptr;
 }
 
 cxAction *cxAction::StopAction(cxActionId aid)
 {
-    cxArray::FIter it = actions->FBegin();
-    while(it != actions->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid || aid == 0){
-            action->Stop();
+    actions->Elements<cxAction>([&aid](cxAction *pav) -> cxBool{
+        if(pav->ID() == aid || aid == 0){
+            pav->Stop();
         }
-        it++;
-    }
+        return false;
+    });
     return this;
 }
 
 cxAction *cxAction::ExitAction(cxActionId aid)
 {
-    cxArray::FIter it = actions->FBegin();
-    while(it != actions->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid || aid == 0){
-            action->Exit(true);
+    actions->Elements<cxAction>([&aid](cxAction *pav) -> cxBool{
+        if(pav->ID() == aid || aid == 0){
+            pav->Exit(true);
         }
-        it++;
-    }
+        return false;
+    });
     return this;
 }
 

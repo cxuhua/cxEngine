@@ -5,6 +5,7 @@ import android.app.NativeActivity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -40,7 +41,7 @@ public class EngineActivity extends NativeActivity {
 	    return new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.REQUEST_INSTALL_PACKAGES};
     }
 
-	@Override
+    @Override
 	protected void onCreate(Bundle state) {
 		super.onCreate(state);
 	}

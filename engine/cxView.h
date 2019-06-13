@@ -325,9 +325,9 @@ public:
     cxView *Remove();
 public:
     typedef std::function<void(cxAction *pav)> ICB;
-    cxAction *Invoke(ICB cb);
-    cxAction *Invoke(cxFloat delay,ICB cb);
-    cxAction *Invoke(cxFloat delay,cxInt repeat,ICB cb);
+    cxAction *Invoke(cxActionId id,ICB cb);
+    cxAction *Invoke(cxActionId id,cxFloat delay,ICB cb);
+    cxAction *Invoke(cxActionId id,cxFloat delay,cxInt repeat,ICB cb);
 public:
     cxEvent<cxView, cxFloat> onUpdate;
 private:

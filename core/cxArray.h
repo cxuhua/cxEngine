@@ -56,10 +56,10 @@ public:
     CRIter Remove(CRIter &iter);
 public:
     template<class T>
-    void Elements(std::function<void(T *)> func)
+    void Elements(std::function<cxBool(T *)> func)
     {
         for(cxArray::CFIter it=FBegin();it!=FEnd();it++){
-            func((*it)->To<T>());
+            if(func((*it)->To<T>()))break;
         }
     }
     cxObject **Buffer();

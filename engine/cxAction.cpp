@@ -117,8 +117,9 @@ cxAction *cxAction::Append(cxAction *action)
 
 void cxAction::OnAppend(cxView *pview)
 {
-    actions->Elements<cxAction>([pview](cxAction *pav){
+    actions->Elements<cxAction>([pview](cxAction *pav) -> cxBool {
         pav->SetView(pview);
+        return false;
     });
 }
 
@@ -219,8 +220,9 @@ void cxAction::OnStep(cxFloat dt)
 void cxAction::OnExit()
 {
     onExit.Fire(this);
-    actions->Elements<cxAction>([](cxAction *pav){
+    actions->Elements<cxAction>([](cxAction *pav) -> cxBool {
         pav->OnExit();
+        return false;
     });
 }
 

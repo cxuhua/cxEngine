@@ -317,8 +317,9 @@ cxView *cxView::SetPosition(const cxPoint2F &v,cxBool isext)
 {
     if(isext && HasExt()){
         cxBool skip = false;
-        exts->Elements<cxViewExt>([&skip,v](cxViewExt *pve){
+        exts->Elements<cxViewExt>([&skip,v](cxViewExt *pve) -> cxBool {
             if(pve->SetPosition(v))skip = true;
+            return false;
         });
         if(skip)return this;
     }
@@ -455,8 +456,9 @@ cxView *cxView::SetAngle(const cxFloat &v,cxBool isext)
 {
     if(isext && HasExt()){
         cxBool skip = false;
-        exts->Elements<cxViewExt>([&skip, v](cxViewExt *pve){
+        exts->Elements<cxViewExt>([&skip, v](cxViewExt *pve) -> cxBool {
             if(pve->SetAngle(v))skip = true;
+            return false;
         });
         if(skip)return this;
     }
@@ -621,28 +623,28 @@ const cxMatrixF &cxView::ModelView() const
 
 cxAction *cxView::GetAction(cxActionId aid)
 {
-    cxArray::FIter it = actions->FBegin();
-    while(it != actions->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid){
-            return action;
+    cxAction *ptr = nullptr;
+    actions->Elements<cxAction>([&aid,&ptr](cxAction *pav) -> cxBool{
+        if(pav->ID() == aid && !pav->IsExit()){
+            ptr = pav;
+            return true;
         }
-        it++;
-    }
-    return nullptr;
+        return false;
+    });
+    return ptr;
 }
 
 cxBool cxView::HasAction(cxActionId aid) const
 {
-    cxArray::FIter it = actions->FBegin();
-    while(it != actions->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid && !action->IsExit()){
+    cxBool has = false;
+    actions->Elements<cxAction>([&aid,&has](cxAction *pav) -> cxBool{
+        if(pav->ID() == aid && !pav->IsExit()){
+            has = true;
             return true;
         }
-        it++;
-    }
-    return false;
+        return false;
+    });
+    return has;
 }
 
 cxInt cxView::ActionSize() const
@@ -652,27 +654,23 @@ cxInt cxView::ActionSize() const
 
 cxView *cxView::StopAction(cxActionId aid)
 {
-    cxArray::FIter it = actions->FBegin();
-    while(it != actions->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid || aid == 0){
-            action->Stop();
+    actions->Elements<cxAction>([&aid](cxAction *pav) -> cxBool{
+        if(pav->ID() == aid || aid == 0){
+            pav->Stop();
         }
-        it++;
-    }
+        return false;
+    });
     return this;
 }
 
 cxView *cxView::ExitAction(cxActionId aid)
 {
-    cxArray::FIter it = actions->FBegin();
-    while(it != actions->FEnd()){
-        cxAction *action = (*it)->To<cxAction>();
-        if(action->ID() == aid || aid == 0){
-            action->Exit(true);
+    actions->Elements<cxAction>([&aid](cxAction *pav) -> cxBool{
+        if(pav->ID() == aid || aid == 0){
+            pav->Exit(true);
         }
-        it++;
-    }
+        return false;
+    });
     return this;
 }
 
@@ -718,16 +716,18 @@ cxView *cxView::SetFrame(cxFloat x,cxFloat y,cxFloat w,cxFloat h)
 
 void cxView::OnEnter()
 {
-    exts->Elements<cxViewExt>([](cxViewExt *pve){
+    exts->Elements<cxViewExt>([](cxViewExt *pve) -> cxBool{
         pve->OnEnter();
+        return false;
     });
     onEnter.Fire(this);
 }
 
 void cxView::OnLeave()
 {
-    exts->Elements<cxViewExt>([](cxViewExt *pve){
+    exts->Elements<cxViewExt>([](cxViewExt *pve) -> cxBool{
         pve->OnLeave();
+        return false;
     });
     onLeave.Fire(this);
 }
@@ -1234,27 +1234,29 @@ void cxView::Elements(std::function<void(cxView *pview)> func)
 
 void cxView::OnUpdate(cxFloat dt)
 {
-    exts->Elements<cxViewExt>([&dt](cxViewExt *pve){
+    exts->Elements<cxViewExt>([&dt](cxViewExt *pve) -> cxBool{
         pve->OnUpdate(dt);
+        return false;
     });
     onUpdate.Fire(this, dt);
 }
 
-cxAction *cxView::Invoke(ICB cb)
+cxAction *cxView::Invoke(cxActionId id,ICB cb)
 {
-    return Invoke(1.0f/60.0f, 1, cb);
+    return Invoke(id,1.0f/60.0f, 1, cb);
 }
 
-cxAction *cxView::Invoke(cxFloat delay,ICB cb)
+cxAction *cxView::Invoke(cxActionId id,cxFloat delay,ICB cb)
 {
-    return Invoke(delay, 1, cb);
+    return Invoke(id,delay, 1, cb);
 }
 
-cxAction *cxView::Invoke(cxFloat delay,cxInt repeat,ICB cb)
+cxAction *cxView::Invoke(cxActionId id,cxFloat delay,cxInt repeat,ICB cb)
 {
     CX_ASSERT(delay > 0 , "delay args error");
     cxAction *dact = cxAction::Create();
     dact->SetTime(delay);
+    dact->SetID(id);
     dact->SetRepeat(repeat);
     dact->onStop+=[cb](cxAction *pav){cb(pav);};
     return dact->AttachTo(this);

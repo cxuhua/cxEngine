@@ -82,23 +82,23 @@ public:
     cxObject *Get(const cxHashKey &key);
     cxArray *Values();
     template<class T>
-    void Elements(std::function<void(const cxHashKey &,T *)> func)
+    void Elements(std::function<cxBool(const cxHashKey &,T *)> func)
     {
         for(Iter it=Begin();it!=End();it++){
-            func(it->first,it->second->To<T>());
+            if(func(it->first,it->second->To<T>()))break;
         }
     }
-    void ElementsKey(std::function<void(const cxHashKey &)> func)
+    void ElementsKey(std::function<cxBool(const cxHashKey &)> func)
     {
         for(Iter it=Begin();it!=End();it++){
-            func(it->first);
+            if(func(it->first))break;
         }
     }
     template<class T>
-    void ElementsValue(std::function<void(T *)> func)
+    void ElementsValue(std::function<cxBool(T *)> func)
     {
         for(Iter it=Begin();it!=End();it++){
-            func(it->second->To<T>());
+            if(func(it->second->To<T>()))break;
         }
     }
 };

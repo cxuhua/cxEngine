@@ -79,7 +79,7 @@ add_library( # Sets the name of the library.
             ${CX_ENGINE_PATH}/ext/xxtea.c
 
             ${CX_ENGINE_PATH}/core/cxArray.cpp
-            ${CX_ENGINE_PATH}/core/cxAutoPool.cpp
+            ${CX_ENGINE_PATH}/core/cxLooper.cpp
             ${CX_ENGINE_PATH}/core/cxCore.cpp
             ${CX_ENGINE_PATH}/core/cxCSV.cpp
             ${CX_ENGINE_PATH}/core/cxEvent.cpp

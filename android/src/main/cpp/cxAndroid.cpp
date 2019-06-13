@@ -231,6 +231,10 @@ void cxAndroid::Destroy()
 
 cxAndroid::cxAndroid()
 {
+    rect.bottom = 0;
+    rect.top = 0;
+    rect.left = 0;
+    rect.right = 0;
     config = AConfiguration_new();
     state = nullptr;
     size = 0;
@@ -822,6 +826,15 @@ void cxAndroid::SetWindow(ANativeWindow* window)
     mutex.Unlock();
 }
 
+void cxAndroid::SetRect(const ARect *prect)
+{
+    mutex.Lock();
+    rect = *prect;
+    writecmd(APP_CMD_CONTENT_RECT_CHANGED);
+    mutex.Unlock();
+}
+
+
 void cxAndroid::SetInput(AInputQueue* inputQueue)
 {
     mutex.Lock();
@@ -934,7 +947,7 @@ void cxAndroid::onNativeWindowResized(ANativeActivity* activity, ANativeWindow* 
 void cxAndroid::onContentRectChanged(ANativeActivity* activity, const ARect* rect)
 {
     cxAndroid *app = (cxAndroid *)activity->instance;
-    app->writecmd(APP_CMD_CONTENT_RECT_CHANGED);
+    app->SetRect(rect);
 }
 
 void cxAndroid::onNativeWindowDestroyed(ANativeActivity* activity, ANativeWindow* window)

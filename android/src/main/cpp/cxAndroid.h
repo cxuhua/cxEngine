@@ -121,6 +121,9 @@ private:
     AInputQueue *inputQueue;
     AInputQueue* pendingInputQueue;
     void SetInput(AInputQueue* inputQueue);
+
+    ARect rect;
+    void SetRect(const ARect *prect);
     
     int8_t activityState;
     void SetActivityState(int8_t cmd);

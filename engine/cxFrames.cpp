@@ -7,7 +7,6 @@
 //
 
 #include <core/cxUtil.h>
-#include <core/cxAutoPool.h>
 #include <core/cxCSV.h>
 #include "cxAnimate.h"
 #include "cxFrames.h"

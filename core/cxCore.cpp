@@ -8,11 +8,11 @@
 
 #include <ext/xxhash.h>
 #include "cxHash.h"
-#include "cxAutoPool.h"
 #include "cxCore.h"
 #include "cxUtil.h"
 #include "cxNotice.h"
 #include "cxLocalized.h"
+#include "cxLooper.h"
 
 CX_CPP_BEGIN
 
@@ -114,14 +114,14 @@ cchars cxCore::_RegClass_(cchars name,AllocFunc func)
 cxCore::cxCore()
 {
     caches = cxHash::Alloc();
-    uv_key_create(&autoKey);
+    uv_key_create(&looperKey);
 }
 
 cxCore::~cxCore()
 {
     Clear();
     caches->Release();
-    uv_key_delete(&autoKey);
+    uv_key_delete(&looperKey);
 }
 
 void cxCore::Clear()
@@ -135,7 +135,7 @@ void cxCore::Clear()
     //cache clear
     caches->Clear();
     //clean main thread auto release pool
-    cxAutoPool::Clear();
+    cxLooper::Looper()->Clear();
 }
 
 void cxCore::Push(cchars key,cxObject *pobj)
@@ -154,14 +154,14 @@ cxObject *cxCore::Pull(cchars key)
     return caches->Get(key);
 }
 
-cxStack *cxCore::GetAutoPool()
+void *cxCore::GetLooper()
 {
-    return (cxStack *)uv_key_get(&autoKey);
+    return uv_key_get(&looperKey);
 }
 
-void cxCore::SetAutoPool(cxStack *pool)
+void cxCore::SetLooper(void *ptr)
 {
-    uv_key_set(&autoKey, pool);
+    uv_key_set(&looperKey, ptr);
 }
 
 CX_CPP_END

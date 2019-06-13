@@ -7,7 +7,6 @@
 //
 
 #include <core/cxUtil.h>
-#include <core/cxAutoPool.h>
 #include "cxCSV.h"
 #include "cxLocalized.h"
 

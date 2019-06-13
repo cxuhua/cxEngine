@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 xuhua. All rights reserved.
 //
 
-#include <core/cxAutoPool.h>
+#include <core/cxLooper.h>
 #include "cxLoading.h"
 
 CX_CPP_BEGIN
@@ -66,9 +66,9 @@ void cxLoading::Run(std::function<void(cxLoading *pview)> func)
 {
     cxAsync *async = cxAsync::Create();
     async->onStep += [this,func](cxAction *pav,cxFloat dt){
-        cxAutoPool::Push();
+        cxLooper::Looper()->Push();
         func(this);
-        cxAutoPool::Pop();
+        cxLooper::Looper()->Pop();
         pav->To<cxAsync>()->SetFinished(true);
     };
     async->AttachTo(this);

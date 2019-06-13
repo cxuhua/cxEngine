@@ -9,8 +9,8 @@
 #include "cxStr.h"
 #include "cxJson.h"
 #include "cxObject.h"
-#include "cxAutoPool.h"
 #include "cxNotice.h"
+#include "cxLooper.h"
 
 CX_CPP_BEGIN
 
@@ -241,21 +241,18 @@ cxBool cxObject::IsType(cchars type)
 
 cxObject *cxObject::AutoRelease()
 {
-    return cxAutoPool::Append(this);
+    cxLooper *looper = cxLooper::Looper();
+    CX_ASSERT(looper != nullptr, "looper error");
+    return looper->Append(this);
 }
 
-cxObject *cxObject::initFromJson(const cxJson *json)
+void cxObject::Init(const cxJson *json)
 {
-    cxJson::Iter it = json->Begin();
-    while(it != json->End()){
-        cxJson *value = cxJson::Alloc();
-        if(it.Value(value)){
-            SetProperty(it.Key(), value);
-        }
-        value->Release();
-        it++;
-    }
-    return this;
+    CX_ASSERT(cxJson::IsOK(json) && json->IsObject(),"json args must object");
+    json->Elements([this](cchars key, const cxJson *value) -> cxBool {
+        SetProperty(key, value);
+        return false;
+    });
 }
 
 void cxObject::SetProperty(cchars key,const cxJson *json)

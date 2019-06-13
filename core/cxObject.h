@@ -43,9 +43,8 @@ private:
     typedef std::map<void *,cxLong> BindMap;
     BindMap bindes;
     BindMap binded;
-    std::atomic_int refcount;
+    std::atomic<int> refcount;
     cxLong tag;
-    cxObject *initFromJson(const cxJson *json);
 public:
     template<class T>
     static T *Create(cchars name)
@@ -113,6 +112,7 @@ public:
     void Release();
 public:
     //serialize support
+    void Init(const cxJson *json);
     virtual cxJson *Serialize();
     virtual void SetProperty(cchars key, const cxJson *json);
     virtual const cxJson *GetProperty(cchars key);

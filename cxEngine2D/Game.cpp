@@ -95,6 +95,7 @@ void Game::OnDispatch(const cxTouchable *e)
         return;
     }
     
+    
     cxFloat size = 100;
     cxBoxBody *body = w->CreateCircle(100, b2_dynamicBody);// w->CreateBox(cxPoint2F(size, size), b2_dynamicBody);
     body->GetFixture()->SetRestitution(1.0f);

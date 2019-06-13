@@ -36,7 +36,7 @@ private:
     typedef std::vector<cxAny> AnyArray;
     static cxCore *gCore;
     cxHash *caches;
-    uv_key_t autoKey;
+    uv_key_t looperKey;
     AnyArray ones;
     TypesMap classes;
 public:
@@ -51,8 +51,8 @@ public:
     static T *One(cxAny gv);
     static cxCore *Instance();
     static void Destroy();
-    cxStack *GetAutoPool();
-    void SetAutoPool(cxStack *pool);
+    void *GetLooper();
+    void SetLooper(void *ptr);
     void Clear();
     void Remove(cchars key);
     void Push(cchars key,cxObject *pobj);

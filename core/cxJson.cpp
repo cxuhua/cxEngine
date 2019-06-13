@@ -449,6 +449,19 @@ const cxJson *cxJson::Select(cchars sel) const
     return cxJson::Create()->From(rv);
 }
 
+void cxJson::Elements(std::function<cxBool(cchars key, const cxJson *)> func) const
+{
+    for(cxJson::Iter it = Begin();it != End();it++){
+        cxJson *v = cxJson::Alloc();
+        cxBool ret = false;
+        if(it.Value(v)){
+            ret = func(it.Key(), v);
+        }
+        v->Release();
+        if(ret)break;
+    }
+}
+
 void cxJson::Elements(std::function<cxBool(const cxJson *)> func) const
 {
     for(cxJson::Iter it = Begin();it != End();it++){

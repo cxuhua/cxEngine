@@ -7,7 +7,6 @@
 //
 
 #include <core/cxNotice.h>
-#include <core/cxAutoPool.h>
 #include "cxEngine.h"
 #include "cxOpenGL.h"
 #include "cxView.h"

@@ -11,6 +11,7 @@
 
 #include <queue>
 #include <core/cxHash.h>
+#include <core/cxLooper.h>
 #include <math/cxMath.h>
 #include <math/cxSize2F.h>
 #include <math/cxBox4F.h>
@@ -61,6 +62,7 @@ protected:
     
     virtual void OnEvent(cxAsyncEvent *e);
 private:
+    cxLooper *looper;
     cxFloat timevar;
     cxRender *render;
     cxBool layout;
@@ -89,6 +91,7 @@ private:
     cxHash *frames;
     cxHash *actions;
 public:
+    cxLooper *Looper();
     // 加载语言文件
     void LoadLocalized(cchars file);
     // 加载纹理文件

@@ -8,7 +8,7 @@
 
 #include <core/cxCSV.h>
 #include <core/cxUtil.h>
-#include <core/cxAutoPool.h>
+#include <core/cxLooper.h>
 #include <math/cxMatrixF.h>
 #include <core/cxNotice.h>
 #include "cxOpenAL.h"
@@ -120,6 +120,7 @@ void cxEngine::SetIsTouch(cxBool v)
 
 cxEngine::cxEngine()
 {
+    looper = nullptr;
     isreset = false;
     timevar = 0;
     istouch = true;
@@ -367,9 +368,16 @@ void cxEngine::PushEvent(cxLong key,cchars data,cxInt length)
     mutex.WUnlock();
 }
 
+cxLooper *cxEngine::Looper()
+{
+    CX_ASSERT(looper != nullptr, "main looper error");
+    return looper;
+}
+
 void cxEngine::Run()
 {
-    cxAutoPool::Start();
+    looper = cxLooper::Looper();
+    looper->Run(false);
     if(layout){
         CX_LOGGER("window size:W=%f H=%f",winsize.w,winsize.h);
         cxOpenGL::Instance()->Set3DProject(winsize);
@@ -413,7 +421,7 @@ void cxEngine::Run()
         render->Draw();
         break;
     };
-    cxAutoPool::Update();
+    looper->Update();
     if(isreset){
         cxEngine::Startup(true);
     }

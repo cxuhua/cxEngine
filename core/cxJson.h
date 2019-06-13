@@ -60,6 +60,7 @@ public:
     const cxStr *Dumps(cxInt flags=0) const;
     
     void Elements(std::function<cxBool(const cxJson *)> func) const;
+    void Elements(std::function<cxBool(cchars key, const cxJson *)> func) const;
     
     cxJson *Append(cxBool value);
     cxJson *Append(cxInt value);

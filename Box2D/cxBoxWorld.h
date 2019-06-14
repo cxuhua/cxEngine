@@ -16,7 +16,7 @@ CX_CPP_BEGIN
 
 #define PTM_RATIO 32.0f
 
-class cxBoxWorld : public cxView
+class cxBoxWorld : public cxView,public b2ContactListener,public b2ContactFilter
 {
 public:
     CX_DECLARE(cxBoxWorld);
@@ -38,6 +38,11 @@ public:
     b2Vec2 ToMeters(const cxPoint2F &v);
     cxFloat ToPixel(const cxFloat &v);
     cxFloat ToMeters(const cxFloat &v);
+protected:
+    virtual void BeginContact(b2Contact* contact);
+    virtual void EndContact(b2Contact* contact);
+    virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
+    virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);
 };
 
 CX_CPP_END

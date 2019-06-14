@@ -81,8 +81,13 @@ cxAction *cxAction::GetAction(cxActionId aid)
 cxAction *cxAction::StopAction(cxActionId aid)
 {
     actions->Elements<cxAction>([&aid](cxAction *pav) -> cxBool{
-        if(pav->ID() == aid || aid == 0){
+        if(aid == 0){
             pav->Stop();
+            return false;
+        }
+        if(pav->ID() == aid){
+            pav->Stop();
+            return true;
         }
         return false;
     });
@@ -92,8 +97,13 @@ cxAction *cxAction::StopAction(cxActionId aid)
 cxAction *cxAction::ExitAction(cxActionId aid)
 {
     actions->Elements<cxAction>([&aid](cxAction *pav) -> cxBool{
-        if(pav->ID() == aid || aid == 0){
+        if(aid == 0){
             pav->Exit(true);
+            return false;
+        }
+        if(pav->ID() == aid){
+            pav->Exit(true);
+            return true;
         }
         return false;
     });
@@ -129,7 +139,7 @@ void cxAction::runActions(cxFloat dt)
         if(!action->Update(dt)){
             continue;
         }
-        if(mvc < 64){
+        if(mvc < sizeof(mvs)/sizeof(mvs[0])){
             mvs[mvc++] = action;
         }
     }

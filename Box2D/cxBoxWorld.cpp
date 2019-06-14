@@ -16,11 +16,31 @@ CX_IMPLEMENT(cxBoxWorld);
 cxBoxWorld::cxBoxWorld()
 {
     world = new b2World(b2Vec2(0, 0));
+    world->SetContactListener(this);
+    world->SetContactFilter(this);
 }
 
 cxBoxWorld::~cxBoxWorld()
 {
     delete world;
+}
+
+void cxBoxWorld::BeginContact(b2Contact* contact)
+{
+    
+}
+
+void cxBoxWorld::EndContact(b2Contact* contact)
+{
+    
+}
+void cxBoxWorld::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
+{
+    
+}
+void cxBoxWorld::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
+{
+    
 }
 
 void cxBoxWorld::Append(cxView *pv,cxViewExt *ext)

@@ -73,7 +73,7 @@ cxTouchable::~cxTouchable()
 
 void cxTouchable::updateEvent(const cxTouchPoint &e)
 {
-    std::map<cxTouchId,cxTouchPoint>::iterator it = events.find(e.key);
+    Events::iterator it = events.find(e.key);
     cxDouble now = cxUtil::Timestamp();
     cxTouchPoint newtp = e;
     cxTouchPoint *tp = nullptr;
@@ -128,15 +128,23 @@ const cxHitInfo cxTouchable::HitTest(cxView *view,const cxPoint2F &wp) const
     return info;
 }
 
+cxBool cxTouchable::OnDispatch(const cxKey &key)
+{
+    return false;
+}
+
 cxBool cxTouchable::Dispatch(cxKeyType type,cxInt code)
 {
+    cxEngine *ep = cxEngine::Instance();
     cxKey key;
     key.code = code;
     key.type = type;
-    if(cxEngine::Instance()->IsTouch()){
-        return cxEngine::Instance()->Window()->Dispatch(key);
+    cxBool ret = false;
+    if(ep->IsTouch()){
+        ret = ep->OnDispatch(key);
+        ret = (!ret) && ep->Window()->Dispatch(key);
     }
-    return false;
+    return ret;
 }
 
 void cxTouchable::OnDispatch(const cxTouchable *e)
@@ -146,6 +154,7 @@ void cxTouchable::OnDispatch(const cxTouchable *e)
 
 void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxFloat x,cxFloat y)
 {
+    cxEngine *ep = cxEngine::Instance();
     cxSize2F winsiz = cxEngine::Instance()->WinSize() * 0.5f;
     cxFloat scale = cxEngine::Instance()->ScaleFactor();
     cxTouchPoint e;
@@ -156,12 +165,12 @@ void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxFloat x,cxFloat y)
         updateEvent(e);
     }
     items.clear();
-    for(std::map<cxTouchId,cxTouchPoint>::iterator it=events.begin();it!=events.end();it++){
-        items.push_back(&it->second);
+    for(auto v : events){
+        items.push_back(&v.second);
     }
-    if(cxEngine::Instance()->IsTouch()){
-        cxEngine::Instance()->OnDispatch(this);
-        cxEngine::Instance()->Window()->Dispatch(this);
+    if(ep->IsTouch()){
+        ep->OnDispatch(this);
+        ep->Window()->Dispatch(this);
     }
     if(e.type == cxTouchPoint::Ended){
         removeEvent(e);

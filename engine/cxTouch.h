@@ -198,8 +198,10 @@ protected:
     explicit cxTouchable();
     virtual ~cxTouchable();
 private:
-    std::map<cxTouchId,cxTouchPoint> events;
-    std::vector<cxTouchPoint *> items;
+    typedef std::map<cxTouchId,cxTouchPoint> Events;
+    typedef std::vector<cxTouchPoint *> Items;
+    Events events;
+    Items items;
     void updateEvent(const cxTouchPoint &e);
     void removeEvent(const cxTouchPoint &e);
 public:
@@ -210,6 +212,7 @@ public:
     cxBool Dispatch(cxKeyType type,cxInt code);
 public:
     virtual void OnDispatch(const cxTouchable *e);
+    virtual cxBool OnDispatch(const cxKey &key);
 };
 
 CX_CPP_END

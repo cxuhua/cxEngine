@@ -23,6 +23,11 @@ void cxView::SetExt(cxViewExt *ext)
     ext->OnAttchView(this);
 }
 
+cxViewExt *cxView::GetExt()
+{
+    return HasExt()?Ext(0):nullptr;
+}
+
 cxBool cxView::HasExt()
 {
     return !exts->IsEmpty();

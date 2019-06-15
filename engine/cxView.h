@@ -336,6 +336,7 @@ public:
     cxBool HasExt();
     cxViewExt *Ext(cxInt idx);
     void SetExt(cxViewExt *ext);
+    cxViewExt *GetExt();
 };
 
 CX_CPP_END

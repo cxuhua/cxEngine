@@ -23,9 +23,7 @@ protected:
     explicit Game();
     virtual ~Game();
 private:
-    cxTcp *tcp;
 public:
-    void OnDispatch(const cxTouchable *e);
     void OnMain();
 };
 

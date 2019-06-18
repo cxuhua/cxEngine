@@ -206,7 +206,7 @@ public class EngineActivity extends NativeActivity {
 		}
 		return str;
 	}
-
+    //
 	public byte[] CreateTextBitmap(String pString,
 								   String pFontName, boolean bold, int fontSize,
 								   int align, int format,

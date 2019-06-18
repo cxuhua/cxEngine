@@ -43,13 +43,6 @@ void cxBoxWorld::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
     
 }
 
-void cxBoxWorld::Append(cxView *pv,cxViewExt *ext)
-{
-    CX_ASSERT(pv != nullptr && ext != nullptr, "args error");
-    pv->SetExt(ext);
-    cxView::Append(pv);
-}
-
 b2World *cxBoxWorld::GetWorld()
 {
     return world;
@@ -112,7 +105,7 @@ cxBoxBody *cxBoxWorld::CreateBox(const cxPoint2F &v,b2BodyType type)
     return body;
 }
 
-void cxBoxWorld::OnUpdate(cxFloat dt)
+void cxBoxWorld::OnUpdate(const cxFloat &dt)
 {
     world->Step(dt, 6, 2);
 }

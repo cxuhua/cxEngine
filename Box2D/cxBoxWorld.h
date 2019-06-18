@@ -9,14 +9,14 @@
 #ifndef cxWorld_h
 #define cxWorld_h
 
-#include <engine/cxView.h>
+#include <engine/cxViewExt.h>
 #include "cxBoxBody.h"
 
 CX_CPP_BEGIN
 
 #define PTM_RATIO 32.0f
 
-class cxBoxWorld : public cxView,public b2ContactListener,public b2ContactFilter
+class cxBoxWorld :public cxViewExt,public b2ContactListener,public b2ContactFilter
 {
 public:
     CX_DECLARE(cxBoxWorld);
@@ -25,11 +25,9 @@ protected:
     virtual ~cxBoxWorld();
 private:
     b2World *world;
-protected:
-    void OnUpdate(cxFloat dt);
 public:
+    void OnUpdate(const cxFloat &dt);
     b2World *GetWorld();
-    void Append(cxView *pv,cxViewExt *ext);
     void SetGravity(const cxPoint2F &v);
     cxBoxBody *CreateBox(const cxPoint2F &v,b2BodyType type);
     cxBoxBody *CreateCircle(const cxFloat &r,b2BodyType type);

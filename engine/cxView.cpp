@@ -19,23 +19,18 @@ CX_IMPLEMENT(cxView);
 void cxView::SetExt(cxViewExt *ext)
 {
     CX_ASSERT(ext != nullptr, "v args null");
-    exts->Append(ext);
+    cxObject::swap(&extvp, ext);
     ext->OnAttchView(this);
 }
 
 cxViewExt *cxView::GetExt()
 {
-    return HasExt()?Ext(0):nullptr;
+    return extvp;
 }
 
 cxBool cxView::HasExt()
 {
-    return !exts->IsEmpty();
-}
-
-cxViewExt *cxView::Ext(cxInt idx)
-{
-    return exts->At(idx)->To<cxViewExt>();
+    return extvp != nullptr;
 }
 
 cxInt cxView::defaultSortFunc(const void *lp,const void *rp)
@@ -85,13 +80,13 @@ cxView::cxView()
     cc = cxColor4F::WHITE;
     views = cxArray::Alloc();
     actions  = cxArray::Alloc();
-    exts = cxArray::Alloc();
+    extvp = nullptr;
     isnewadd = false;
 }
 
 cxView::~cxView()
 {
-    exts->Release();
+    cxObject::release(&extvp);
     cxObject::release(&shader);
     actions->Release();
     views->Release();
@@ -319,13 +314,8 @@ cxBool cxView::SetPosition(const cxPoint2F &np,const cxPoint2F &wp,const cxFloat
 
 cxView *cxView::SetPosition(const cxPoint2F &v,cxBool isext)
 {
-    if(isext && HasExt()){
-        cxBool skip = false;
-        exts->Elements<cxViewExt>([&skip,v](cxViewExt *pve) -> cxBool {
-            if(pve->SetPosition(v))skip = true;
-            return false;
-        });
-        if(skip)return this;
+    if(isext && HasExt() && extvp->SetPosition(v)){
+        return this;
     }
     if(position == v){
         return this;
@@ -458,13 +448,8 @@ const cxFloat cxView::Angle() const
 
 cxView *cxView::SetAngle(const cxFloat &v,cxBool isext)
 {
-    if(isext && HasExt()){
-        cxBool skip = false;
-        exts->Elements<cxViewExt>([&skip, v](cxViewExt *pve) -> cxBool {
-            if(pve->SetAngle(v))skip = true;
-            return false;
-        });
-        if(skip)return this;
+    if(isext && HasExt() && extvp->SetAngle(v)){
+        return this;
     }
     if(!cxFloatIsOK(v)){
         return this;
@@ -720,19 +705,17 @@ cxView *cxView::SetFrame(cxFloat x,cxFloat y,cxFloat w,cxFloat h)
 
 void cxView::OnEnter()
 {
-    exts->Elements<cxViewExt>([](cxViewExt *pve) -> cxBool{
-        pve->OnEnter();
-        return false;
-    });
+    if(HasExt()){
+        extvp->OnEnter();
+    }
     onEnter.Fire(this);
 }
 
 void cxView::OnLeave()
 {
-    exts->Elements<cxViewExt>([](cxViewExt *pve) -> cxBool{
-        pve->OnLeave();
-        return false;
-    });
+    if(HasExt()){
+        extvp->OnLeave();
+    }
     onLeave.Fire(this);
 }
 
@@ -1238,10 +1221,9 @@ void cxView::Elements(std::function<void(cxView *pview)> func)
 
 void cxView::OnUpdate(cxFloat dt)
 {
-    exts->Elements<cxViewExt>([&dt](cxViewExt *pve) -> cxBool{
-        pve->OnUpdate(dt);
-        return false;
-    });
+    if(HasExt()){
+        extvp->OnUpdate(dt);
+    }
     onUpdate.Fire(this, dt);
 }
 

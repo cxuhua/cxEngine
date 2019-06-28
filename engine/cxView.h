@@ -331,10 +331,9 @@ public:
 public:
     cxEvent<cxView, cxFloat> onUpdate;
 private:
-    cxArray *exts;
+    cxViewExt *extvp;
 public:
     cxBool HasExt();
-    cxViewExt *Ext(cxInt idx);
     void SetExt(cxViewExt *ext);
     cxViewExt *GetExt();
 };

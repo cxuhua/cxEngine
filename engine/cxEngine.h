@@ -97,7 +97,7 @@ public:
     // 加载纹理文件
     cxTexture *LoadTexture(cchars file,cchars key=nullptr);
     //加载多个纹理,必须以NULL结尾表示结束，请使用LoadTextures宏
-#define LoadTextures(f,...) __LoadTextures__(f, ##__VA_ARGS__,NULL)
+    #define LoadTextures(f,...) __LoadTextures__(f, ##__VA_ARGS__,NULL)
     void __LoadTextures__(cchars file,...);
     // 加载帧序列
     void LoadFrames(cchars csv);

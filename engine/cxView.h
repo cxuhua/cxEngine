@@ -96,7 +96,7 @@ private:
     cxArray *actions;
     
     void runAppends(cxFloat dt);
-    void runUpadtes(cxFloat dt);
+    void runUpdates(cxFloat dt);
 
     cxView *parent;
     DirtyMode dirtymode;

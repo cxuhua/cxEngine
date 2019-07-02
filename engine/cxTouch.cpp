@@ -63,7 +63,9 @@ cxTouchPoint::FlagsGestureType *cxTouchPoint::Flags() const
 
 cxTouchable::cxTouchable()
 {
-    
+    for(int i=0;i<MAX_TOUCH_SIZE;i++){
+        events[i].key = -1;
+    }
 }
 
 cxTouchable::~cxTouchable()
@@ -71,20 +73,28 @@ cxTouchable::~cxTouchable()
     
 }
 
+cxTouchPoint *cxTouchable::findPoint(cxTouchId key)
+{
+    for(int i=0;i<MAX_TOUCH_SIZE;i++){
+        if(events[i].key == key){
+            return &events[i];
+        }
+    }
+    return nullptr;
+}
+
 void cxTouchable::updateEvent(const cxTouchPoint &e)
 {
-    Events::iterator it = events.find(e.key);
+    cxTouchPoint *op = findPoint(e.key);
     cxDouble now = cxUtil::Timestamp();
-    cxTouchPoint newtp = e;
     cxTouchPoint *tp = nullptr;
-    cxBool add = false;
-    if(it != events.end()){
-        tp = &it->second;
+    if(op != nullptr){
+        tp = op;
         tp->type = e.type;
         tp->wp = e.wp;
     }else{
-        tp = &newtp;
-        add = true;
+        tp = findPoint(-1);
+        *tp = e;
     }
     if(e.type == cxTouchPoint::Began){
         tp->movement = 0.0f;
@@ -99,14 +109,14 @@ void cxTouchable::updateEvent(const cxTouchPoint &e)
     }else{
         tp->time = now - tp->time;
     }
-    if(add){
-        events[e.key]= newtp;
-    }
 }
 
 void cxTouchable::removeEvent(const cxTouchPoint &e)
 {
-    events.erase(e.key);
+    cxTouchPoint *pt = findPoint(e.key);
+    if(pt != nullptr){
+        pt->key = -1;
+    }
 }
 
 const cxInt cxTouchable::TouchCount() const
@@ -139,24 +149,23 @@ cxBool cxTouchable::Dispatch(cxKeyType type,cxInt code)
     cxKey key;
     key.code = code;
     key.type = type;
-    cxBool ret = false;
     if(ep->IsTouch()){
-        ret = ep->OnDispatch(key);
-        ret = (!ret) && ep->Window()->Dispatch(key);
+        if(ep->OnDispatch(key))return true;
+        if(ep->Window()->Dispatch(key)) return true;
     }
-    return ret;
+    return false;
 }
 
-void cxTouchable::OnDispatch(const cxTouchable *e)
+cxBool cxTouchable::OnDispatch(const cxTouchable *e)
 {
-    
+    return false;
 }
 
 void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxFloat x,cxFloat y)
 {
     cxEngine *ep = cxEngine::Instance();
-    cxSize2F winsiz = cxEngine::Instance()->WinSize() * 0.5f;
-    cxFloat scale = cxEngine::Instance()->ScaleFactor();
+    cxSize2F winsiz = ep->WinSize() * 0.5f;
+    cxFloat scale = ep->ScaleFactor();
     cxTouchPoint e;
     e.key  = key;
     e.type = type;
@@ -165,11 +174,13 @@ void cxTouchable::Dispatch(cxTouchId key,cxTouchType type,cxFloat x,cxFloat y)
         updateEvent(e);
     }
     items.clear();
-    for(auto v : events){
-        items.push_back(&v.second);
+    for(int i=0; i < MAX_TOUCH_SIZE; i++){
+        cxTouchPoint *pt = &events[i];
+        if(pt->key != -1){
+            items.push_back(pt);
+        }
     }
-    if(ep->IsTouch()){
-        ep->OnDispatch(this);
+    if(ep->IsTouch() && !ep->OnDispatch(this)){
         ep->Window()->Dispatch(this);
     }
     if(e.type == cxTouchPoint::Ended){

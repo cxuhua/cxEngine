@@ -752,7 +752,7 @@ void cxView::runActions(cxFloat dt)
     }
 }
 
-void cxView::runUpadtes(cxFloat dt)
+void cxView::runUpdates(cxFloat dt)
 {
     cxInt mvc = 0;
     cxInt cnt = views->Size();
@@ -899,7 +899,7 @@ void cxView::Update(cxFloat dt)
         transform();
     }
     if(!views->IsEmpty()){
-        runUpadtes(dt);
+        runUpdates(dt);
     }
     OnIndex(idx++);
 }
@@ -1037,10 +1037,10 @@ const cxBox4F cxView::ParentBox() const
 
 void cxView::RenderSubviews(cxRender *render,const cxMatrixF &mv)
 {
-    for(cxArray::FIter it=views->FBegin();it!=views->FEnd();it++){
-        cxView *view = (*it)->To<cxView>();
-        view->Render(render,mv);
-    }
+    views->Elements<cxView>([render, &mv](cxView *pv) -> cxBool {
+        pv->Render(render,mv);
+        return false;
+    });
 }
 
 void cxView::clearViews()
@@ -1095,7 +1095,6 @@ void cxView::Render(cxRender *render,const cxMatrixF &mv)
     if(isclip){
         render->Clip(cxRenderState::ClipOff,clipbox);
     }
-finished:
     gl->Pop();
     flags = 0;
 }

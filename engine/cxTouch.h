@@ -18,6 +18,8 @@ CX_CPP_BEGIN
 
 class cxView;
 
+#define MAX_TOUCH_SIZE  10
+
 typedef cxUInt cxTouchType;
 typedef cxULong cxTouchId;
 
@@ -198,12 +200,12 @@ protected:
     explicit cxTouchable();
     virtual ~cxTouchable();
 private:
-    typedef std::map<cxTouchId,cxTouchPoint> Events;
     typedef std::vector<cxTouchPoint *> Items;
-    Events events;
+    cxTouchPoint events[MAX_TOUCH_SIZE];
     Items items;
     void updateEvent(const cxTouchPoint &e);
     void removeEvent(const cxTouchPoint &e);
+    cxTouchPoint *findPoint(cxTouchId key);
 public:
     const cxInt TouchCount() const;
     const cxTouchPoint *TouchPoint(cxInt idx) const;
@@ -211,7 +213,7 @@ public:
     void Dispatch(cxTouchId key,cxTouchType type,cxFloat x,cxFloat y);
     cxBool Dispatch(cxKeyType type,cxInt code);
 public:
-    virtual void OnDispatch(const cxTouchable *e);
+    virtual cxBool OnDispatch(const cxTouchable *e);
     virtual cxBool OnDispatch(const cxKey &key);
 };
 

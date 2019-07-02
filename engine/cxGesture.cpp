@@ -83,7 +83,7 @@ cxBool cxGesture::computeSwipe()
         if(dis < swipesampledistance){
             continue;
         }
-        //转换为0-359f的角度+45是为了判断方向
+        //转换为0-364f的角度+45是为了判断方向
         cxFloat angle = p0.pos.Angle(tmp.pos);
         angle = cxModDegrees(cxRadiansToDegrees(angle));
         angle = cxModDegrees(angle + 45.0f);

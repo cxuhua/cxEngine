@@ -162,7 +162,7 @@ cxShader *cxView::Shader()
 
 cxView *cxView::SetShader(cchars key,cxBool deep)
 {
-    cxShader *s = cxObject::gcGet<cxShader>(key);
+    cxShader *s = cxObject::GCGet<cxShader>(key);
     SetShader(s,deep);
     return this;
 }

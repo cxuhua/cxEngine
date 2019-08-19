@@ -417,7 +417,7 @@ const cxSize2F cxFrames::Scale() const
 
 cxFrames *cxFrames::SetTexture(cchars key)
 {
-    cxTexture *ptex = cxObject::gcGet<cxTexture>(key);
+    cxTexture *ptex = cxObject::GCGet<cxTexture>(key);
     CX_ASSERT(ptex != nullptr, "texture key %s miss,need LoadTexture",key);
     SetTexture(ptex);
     return this;

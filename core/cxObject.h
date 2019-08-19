@@ -74,17 +74,17 @@ public:
     
     //for global pull object
     template<class T>
-    static T *gcGet(cchars key);
+    static T *GCGet(cchars key);
     
     //for global push object
     template<class T>
-    T *gcSet(cchars key);
+    T *GCSet(cchars key);
     
     //for remove global cache
-    static void gcDel(cchars key);
+    static void GCDel(cchars key);
     
     //clear gc
-    static void gcClear();
+    static void GCClear();
 
 public:
     virtual cxULong Hash() const;
@@ -147,24 +147,24 @@ protected:
 };
 
 template<class T>
-CX_INLINE T *cxObject::gcSet(cchars key)
+CX_INLINE T *cxObject::GCSet(cchars key)
 {
     cxCore::Instance()->Push(key,this);
     return static_cast<T *>(this);
 }
 
 template<class T>
-CX_INLINE T *cxObject::gcGet(cchars key)
+CX_INLINE T *cxObject::GCGet(cchars key)
 {
     return static_cast<T *>(cxCore::Instance()->Pull(key));
 }
 
-CX_INLINE void cxObject::gcClear()
+CX_INLINE void cxObject::GCClear()
 {
     cxCore::Instance()->Clear();
 }
 
-CX_INLINE void cxObject::gcDel(cchars key)
+CX_INLINE void cxObject::GCDel(cchars key)
 {
     return cxCore::Instance()->Remove(key);
 }

@@ -181,13 +181,13 @@ cxTexture *cxEngine::LoadTexture(cchars file,cchars key)
     if(key == nullptr){
         key = file;
     }
-    cxTexture *ptex = cxObject::gcGet<cxTexture>(key);
+    cxTexture *ptex = cxObject::GCGet<cxTexture>(key);
     if(ptex != nullptr){
         return ptex;
     }
     ptex = cxTexture::Create()->From(key);
     CX_ASSERT(ptex != nullptr && ptex->IsSuccess(), "load texture failed,file=%s",file);
-    ptex->gcSet<cxTexture>(key);
+    ptex->GCSet<cxTexture>(key);
     return ptex;
 }
 

@@ -206,7 +206,7 @@ cxSprite *cxSprite::SetTexture(const cxStr *tkey)
 cxSprite *cxSprite::SetTexture(cchars key)
 {
     CX_ASSERT(cxStr::IsOK(key), "key args error");
-    cxTexture *ptex = cxObject::gcGet<cxTexture>(key);
+    cxTexture *ptex = cxObject::GCGet<cxTexture>(key);
     if(ptex == nullptr){
         CX_WARN("texture %s not exists",key);
         return this;
